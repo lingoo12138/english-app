@@ -1,0 +1,166 @@
+import { useState, useEffect } from 'react'
+import { useParams, useNavigate, Link } from 'react-router-dom'
+import { getWord, loadWords } from '../lib/words'
+import type { Word } from '../types'
+import TTSButton from '../components/TTSButton'
+import { addFavorite, removeFavorite, isFavorite, logAction, reviewWord } from '../lib/db'
+import { useStore } from '../store/useStore'
+
+export default function WordDetail() {
+  const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
+  const [word, setWord] = useState<Word | null>(null)
+  const [fav, setFav] = useState(false)
+  const [showAllExamples, setShowAllExamples] = useState(false)
+  const targetLevel = useStore(s => s.targetLevel)
+
+  useEffect(() => {
+    if (!id) return
+    getWord(id).then((w) => {
+      setWord(w || null)
+      if (w) {
+        isFavorite(w.id).then(setFav)
+        logAction(w.id, 'view')
+      }
+    })
+  }, [id])
+
+  const handleToggleFav = async () => {
+    if (!word) return
+    if (fav) {
+      await removeFavorite(word.id)
+      setFav(false)
+      logAction(word.id, 'unfavorite')
+    } else {
+      await addFavorite(word.id)
+      setFav(true)
+      logAction(word.id, 'favorite')
+    }
+  }
+
+  const handleReview = async (know: boolean) => {
+    if (!word) return
+    // SM-2: 5=完美, 0=完全不会
+    const quality = know ? 5 : 1
+    await reviewWord(word.id, quality)
+    logAction(word.id, know ? 'known' : 'unknown')
+    // 下一个词
+    const words = await loadWords()
+    const filtered = targetLevel === 'all' ? words : words.filter(w => w.level === targetLevel)
+    const others = filtered.filter(w => w.id !== word.id)
+    if (others.length > 0) {
+      const next = others[Math.floor(Math.random() * others.length)]
+      navigate(`/words/${next.id}`)
+    }
+  }
+
+  if (!word) {
+    return <div className="text-center py-12 text-stone-500">加载中...</div>
+  }
+
+  const visibleExamples = showAllExamples ? word.examples : word.examples.slice(0, 1)
+
+  return (
+    <div className="space-y-4">
+      {/* 顶部导航 */}
+      <div className="flex items-center justify-between">
+        <button onClick={() => navigate(-1)} className="btn-ghost">
+          ← 返回
+        </button>
+        <button
+          onClick={handleToggleFav}
+          className="text-2xl"
+        >
+          {fav ? '⭐' : '☆'}
+        </button>
+      </div>
+
+      {/* 主词条 */}
+      <div className="card">
+        <div className="flex items-start justify-between mb-3">
+          <div>
+            <h1 className="text-4xl font-bold mb-1">{word.word}</h1>
+            <p className="text-stone-500">{word.phonetic}</p>
+          </div>
+          <TTSButton text={word.word} size="lg" />
+        </div>
+
+        <div className="flex items-center gap-1.5 mb-3 flex-wrap">
+          {word.pos.map(p => (
+            <span key={p} className="text-xs px-2 py-0.5 bg-stone-100 dark:bg-stone-700 rounded">
+              {p}
+            </span>
+          ))}
+          {word.tags.slice(0, 3).map(t => (
+            <span key={t} className="text-xs px-2 py-0.5 bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 rounded">
+              {t}
+            </span>
+          ))}
+        </div>
+
+        <p className="text-lg text-stone-700 dark:text-stone-300 mb-4">
+          {word.translations.join(' · ')}
+        </p>
+      </div>
+
+      {/* 例句 */}
+      <div className="card">
+        <h3 className="font-semibold mb-3 flex items-center gap-2">
+          <span>💬</span>
+          <span>场景例句</span>
+          {word.examples.length > 1 && (
+            <span className="text-xs text-stone-500 ml-auto">
+              {showAllExamples ? '收起' : `展开全部 ${word.examples.length} 句`}
+            </span>
+          )}
+        </h3>
+        <div className="space-y-3">
+          {visibleExamples.map((ex, i) => (
+            <div key={i} className="border-l-2 border-brand-300 dark:border-brand-700 pl-3">
+              <div className="flex items-start gap-2">
+                <p className="flex-1 text-base">{ex.en}</p>
+                <TTSButton text={ex.en} size="sm" />
+              </div>
+              <p className="text-sm text-stone-500 mt-1">{ex.zh}</p>
+              {ex.scene && (
+                <span className="inline-block text-[10px] mt-1 px-1.5 py-0.5 bg-stone-100 dark:bg-stone-700 text-stone-500 rounded">
+                  {ex.scene}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+        {word.examples.length > 1 && (
+          <button
+            onClick={() => setShowAllExamples(!showAllExamples)}
+            className="w-full mt-3 text-sm text-brand-600 hover:underline"
+          >
+            {showAllExamples ? '收起' : '查看更多例句'}
+          </button>
+        )}
+      </div>
+
+      {/* 自评 */}
+      <div className="card">
+        <h3 className="font-semibold mb-3">认识这个单词吗?</h3>
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            onClick={() => handleReview(true)}
+            className="btn bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 hover:bg-brand-200"
+          >
+            ✓ 认识
+          </button>
+          <button
+            onClick={() => handleReview(false)}
+            className="btn bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200"
+          >
+            ✗ 不认识
+          </button>
+        </div>
+        <p className="text-xs text-stone-500 mt-3 text-center">
+          系统会按记忆曲线安排复习时间
+        </p>
+      </div>
+    </div>
+  )
+}

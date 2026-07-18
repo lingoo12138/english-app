@@ -1,0 +1,5149 @@
+[
+  {
+    "id": "w001",
+    "word": "abandon",
+    "phonetic": "/əˈbændən/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "放弃",
+      "抛弃"
+    ],
+    "examples": [
+      {
+        "en": "He had to abandon his car in the snow.",
+        "zh": "他只好把车丢在雪地里。",
+        "scene": "travel"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 5
+  },
+  {
+    "id": "w002",
+    "word": "ability",
+    "phonetic": "/əˈbɪləti/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "能力",
+      "才能"
+    ],
+    "examples": [
+      {
+        "en": "She has the ability to solve difficult problems.",
+        "zh": "她有解决难题的能力。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 5
+  },
+  {
+    "id": "w003",
+    "word": "abroad",
+    "phonetic": "/əˈbrɔːd/",
+    "pos": [
+      "adv."
+    ],
+    "translations": [
+      "在国外",
+      "到国外"
+    ],
+    "examples": [
+      {
+        "en": "He studied abroad for two years.",
+        "zh": "他在国外学习过两年。",
+        "scene": "study"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w004",
+    "word": "absent",
+    "phonetic": "/ˈæbsənt/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "缺席的",
+      "不在的"
+    ],
+    "examples": [
+      {
+        "en": "He was absent from work yesterday.",
+        "zh": "他昨天没来上班。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w005",
+    "word": "accept",
+    "phonetic": "/əkˈsept/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "接受",
+      "承认"
+    ],
+    "examples": [
+      {
+        "en": "I accept your apology.",
+        "zh": "我接受你的道歉。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w006",
+    "word": "accident",
+    "phonetic": "/ˈæksɪdənt/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "事故",
+      "意外"
+    ],
+    "examples": [
+      {
+        "en": "He was injured in a car accident.",
+        "zh": "他在车祸中受了伤。",
+        "scene": "travel"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w007",
+    "word": "achieve",
+    "phonetic": "/əˈtʃiːv/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "实现",
+      "取得"
+    ],
+    "examples": [
+      {
+        "en": "She achieved her dream of becoming a doctor.",
+        "zh": "她实现了当医生的梦想。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 5
+  },
+  {
+    "id": "w008",
+    "word": "active",
+    "phonetic": "/ˈæktɪv/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "积极的",
+      "活跃的"
+    ],
+    "examples": [
+      {
+        "en": "He's very active in class.",
+        "zh": "他在课堂上很积极。",
+        "scene": "study"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w009",
+    "word": "actually",
+    "phonetic": "/ˈæktʃuəli/",
+    "pos": [
+      "adv."
+    ],
+    "translations": [
+      "实际上",
+      "事实上"
+    ],
+    "examples": [
+      {
+        "en": "Actually, I don't think that's a good idea.",
+        "zh": "其实,我不太同意。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w010",
+    "word": "address",
+    "phonetic": "/əˈdres/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "地址",
+      "演说",
+      "致辞"
+    ],
+    "examples": [
+      {
+        "en": "Could you give me your address?",
+        "zh": "能告诉我你的地址吗?",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w011",
+    "word": "admire",
+    "phonetic": "/ədˈmaɪər/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "钦佩",
+      "欣赏"
+    ],
+    "examples": [
+      {
+        "en": "I really admire her courage.",
+        "zh": "我真佩服她的勇气。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w012",
+    "word": "admit",
+    "phonetic": "/ədˈmɪt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "承认",
+      "准许进入"
+    ],
+    "examples": [
+      {
+        "en": "I admit I was wrong.",
+        "zh": "我承认我错了。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w013",
+    "word": "adopt",
+    "phonetic": "/əˈdɑːpt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "采用",
+      "收养"
+    ],
+    "examples": [
+      {
+        "en": "They decided to adopt a child.",
+        "zh": "他们决定收养一个孩子。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w014",
+    "word": "advance",
+    "phonetic": "/ədˈvæns/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "前进",
+      "进步"
+    ],
+    "examples": [
+      {
+        "en": "Technology continues to advance rapidly.",
+        "zh": "科技持续快速发展。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w015",
+    "word": "advantage",
+    "phonetic": "/ədˈvæntɪdʒ/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "优势",
+      "有利条件"
+    ],
+    "examples": [
+      {
+        "en": "Speaking English gives you a big advantage at work.",
+        "zh": "会说英语在职场上很有优势。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w016",
+    "word": "advice",
+    "phonetic": "/ədˈvaɪs/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "建议",
+      "忠告"
+    ],
+    "examples": [
+      {
+        "en": "Can I give you some advice?",
+        "zh": "我能给你点建议吗?",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w017",
+    "word": "afford",
+    "phonetic": "/əˈfɔːrd/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "买得起",
+      "负担得起"
+    ],
+    "examples": [
+      {
+        "en": "I can't afford to buy a new car.",
+        "zh": "我买不起新车。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w018",
+    "word": "afraid",
+    "phonetic": "/əˈfreɪd/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "害怕的",
+      "担心的"
+    ],
+    "examples": [
+      {
+        "en": "Don't be afraid to ask questions.",
+        "zh": "别害怕提问。",
+        "scene": "study"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w019",
+    "word": "against",
+    "phonetic": "/əˈɡenst/",
+    "pos": [
+      "prep."
+    ],
+    "translations": [
+      "反对",
+      "逆"
+    ],
+    "examples": [
+      {
+        "en": "Are you for or against this plan?",
+        "zh": "你支持还是反对这个计划?",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w020",
+    "word": "agency",
+    "phonetic": "/ˈeɪdʒənsi/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "机构",
+      "代理"
+    ],
+    "examples": [
+      {
+        "en": "She works at a travel agency.",
+        "zh": "她在一家旅行社工作。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w021",
+    "word": "agree",
+    "phonetic": "/əˈɡriː/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "同意",
+      "赞成"
+    ],
+    "examples": [
+      {
+        "en": "I totally agree with you.",
+        "zh": "我完全同意你。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w022",
+    "word": "ahead",
+    "phonetic": "/əˈhed/",
+    "pos": [
+      "adv."
+    ],
+    "translations": [
+      "向前",
+      "提前"
+    ],
+    "examples": [
+      {
+        "en": "Go straight ahead for two blocks.",
+        "zh": "一直向前走两个街区。",
+        "scene": "travel"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w023",
+    "word": "aim",
+    "phonetic": "/eɪm/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "目标",
+      "瞄准"
+    ],
+    "examples": [
+      {
+        "en": "Our aim is to finish by Friday.",
+        "zh": "我们的目标是周五前完成。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w024",
+    "word": "alarm",
+    "phonetic": "/əˈlɑːrm/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "警报",
+      "闹钟"
+    ],
+    "examples": [
+      {
+        "en": "The fire alarm went off.",
+        "zh": "火警响了。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w025",
+    "word": "alike",
+    "phonetic": "/əˈlaɪk/",
+    "pos": [
+      "adj.",
+      "adv."
+    ],
+    "translations": [
+      "相似的",
+      "一样地"
+    ],
+    "examples": [
+      {
+        "en": "The twins look alike.",
+        "zh": "这对双胞胎长得很像。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w026",
+    "word": "alive",
+    "phonetic": "/əˈlaɪv/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "活着的",
+      "存在的"
+    ],
+    "examples": [
+      {
+        "en": "He's lucky to be alive.",
+        "zh": "他能活下来真幸运。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w027",
+    "word": "allow",
+    "phonetic": "/əˈlaʊ/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "允许",
+      "准许"
+    ],
+    "examples": [
+      {
+        "en": "Smoking is not allowed here.",
+        "zh": "这里禁止吸烟。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w028",
+    "word": "almost",
+    "phonetic": "/ˈɔːlmoʊst/",
+    "pos": [
+      "adv."
+    ],
+    "translations": [
+      "几乎",
+      "差不多"
+    ],
+    "examples": [
+      {
+        "en": "I'm almost done.",
+        "zh": "我快做完了。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w029",
+    "word": "alone",
+    "phonetic": "/əˈloʊn/",
+    "pos": [
+      "adj.",
+      "adv."
+    ],
+    "translations": [
+      "独自的",
+      "单独地"
+    ],
+    "examples": [
+      {
+        "en": "She lives alone in New York.",
+        "zh": "她独自住在纽约。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w030",
+    "word": "along",
+    "phonetic": "/əˈlɔːŋ/",
+    "pos": [
+      "prep.",
+      "adv."
+    ],
+    "translations": [
+      "沿着",
+      "向前"
+    ],
+    "examples": [
+      {
+        "en": "We walked along the beach.",
+        "zh": "我们沿着海滩走。",
+        "scene": "travel"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w031",
+    "word": "already",
+    "phonetic": "/ɔːlˈredi/",
+    "pos": [
+      "adv."
+    ],
+    "translations": [
+      "已经"
+    ],
+    "examples": [
+      {
+        "en": "I've already eaten.",
+        "zh": "我已经吃过了。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w032",
+    "word": "although",
+    "phonetic": "/ɔːlˈðoʊ/",
+    "pos": [
+      "conj."
+    ],
+    "translations": [
+      "虽然",
+      "尽管"
+    ],
+    "examples": [
+      {
+        "en": "Although it was raining, we went out.",
+        "zh": "虽然在下雨,我们还是出去了。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 5
+  },
+  {
+    "id": "w033",
+    "word": "amaze",
+    "phonetic": "/əˈmeɪz/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "使惊奇"
+    ],
+    "examples": [
+      {
+        "en": "The view amazed us.",
+        "zh": "景色让我们惊叹。",
+        "scene": "travel"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w034",
+    "word": "ambition",
+    "phonetic": "/æmˈbɪʃn/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "雄心",
+      "野心"
+    ],
+    "examples": [
+      {
+        "en": "She has big ambitions.",
+        "zh": "她雄心勃勃。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w035",
+    "word": "amount",
+    "phonetic": "/əˈmaʊnt/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "数量",
+      "总计"
+    ],
+    "examples": [
+      {
+        "en": "A large amount of money was spent.",
+        "zh": "花了一大笔钱。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w036",
+    "word": "amuse",
+    "phonetic": "/əˈmjuːz/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "使发笑",
+      "娱乐"
+    ],
+    "examples": [
+      {
+        "en": "Her jokes amused everyone.",
+        "zh": "她的笑话逗乐了大家。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w037",
+    "word": "analyze",
+    "phonetic": "/ˈænəlaɪz/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "分析"
+    ],
+    "examples": [
+      {
+        "en": "Let's analyze the data.",
+        "zh": "我们分析下数据。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w038",
+    "word": "ancient",
+    "phonetic": "/ˈeɪnʃənt/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "古代的",
+      "古老的"
+    ],
+    "examples": [
+      {
+        "en": "We visited ancient ruins in Rome.",
+        "zh": "我们在罗马参观了古迹。",
+        "scene": "travel"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w039",
+    "word": "anger",
+    "phonetic": "/ˈæŋɡər/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "愤怒"
+    ],
+    "examples": [
+      {
+        "en": "He couldn't hide his anger.",
+        "zh": "他藏不住怒火。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w040",
+    "word": "announce",
+    "phonetic": "/əˈnaʊns/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "宣布",
+      "公布"
+    ],
+    "examples": [
+      {
+        "en": "They announced their engagement.",
+        "zh": "他们宣布订婚了。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w041",
+    "word": "annoy",
+    "phonetic": "/əˈnɔɪ/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "使烦恼"
+    ],
+    "examples": [
+      {
+        "en": "His behavior annoys me.",
+        "zh": "他的行为让我烦。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w042",
+    "word": "answer",
+    "phonetic": "/ˈænsər/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "回答",
+      "答案"
+    ],
+    "examples": [
+      {
+        "en": "Can you answer my question?",
+        "zh": "你能回答我的问题吗?",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w043",
+    "word": "anxiety",
+    "phonetic": "/æŋˈzaɪəti/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "焦虑",
+      "担忧"
+    ],
+    "examples": [
+      {
+        "en": "She suffers from anxiety.",
+        "zh": "她有焦虑症。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w044",
+    "word": "apologize",
+    "phonetic": "/əˈpɑːlədʒaɪz/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "道歉"
+    ],
+    "examples": [
+      {
+        "en": "I apologize for being late.",
+        "zh": "抱歉,我迟到了。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w045",
+    "word": "appear",
+    "phonetic": "/əˈpɪr/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "出现",
+      "显得"
+    ],
+    "examples": [
+      {
+        "en": "A rainbow appeared in the sky.",
+        "zh": "彩虹出现在天空。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w046",
+    "word": "appetite",
+    "phonetic": "/ˈæpɪtaɪt/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "食欲",
+      "胃口"
+    ],
+    "examples": [
+      {
+        "en": "Exercise gives me an appetite.",
+        "zh": "运动让我有食欲。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w047",
+    "word": "apply",
+    "phonetic": "/əˈplaɪ/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "申请",
+      "应用"
+    ],
+    "examples": [
+      {
+        "en": "I want to apply for this job.",
+        "zh": "我想申请这份工作。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 5
+  },
+  {
+    "id": "w048",
+    "word": "appreciate",
+    "phonetic": "/əˈpriːʃieɪt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "感激",
+      "欣赏"
+    ],
+    "examples": [
+      {
+        "en": "I really appreciate your help.",
+        "zh": "非常感谢你的帮助。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w049",
+    "word": "approach",
+    "phonetic": "/əˈproʊtʃ/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "接近",
+      "方法"
+    ],
+    "examples": [
+      {
+        "en": "Winter is approaching.",
+        "zh": "冬天快到了。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w050",
+    "word": "appropriate",
+    "phonetic": "/əˈproʊpriət/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "合适的",
+      "恰当的"
+    ],
+    "examples": [
+      {
+        "en": "Wear appropriate clothes for the occasion.",
+        "zh": "根据场合穿合适的衣服。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w051",
+    "word": "approve",
+    "phonetic": "/əˈpruːv/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "赞成",
+      "批准"
+    ],
+    "examples": [
+      {
+        "en": "My boss approved my plan.",
+        "zh": "老板批准了我的方案。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w052",
+    "word": "area",
+    "phonetic": "/ˈeriə/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "地区",
+      "面积"
+    ],
+    "examples": [
+      {
+        "en": "This is a residential area.",
+        "zh": "这是住宅区。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w053",
+    "word": "argue",
+    "phonetic": "/ˈɑːrɡjuː/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "争论",
+      "主张"
+    ],
+    "examples": [
+      {
+        "en": "They often argue about money.",
+        "zh": "他们经常为钱吵架。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w054",
+    "word": "arise",
+    "phonetic": "/əˈraɪz/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "出现",
+      "产生"
+    ],
+    "examples": [
+      {
+        "en": "Problems arose during the project.",
+        "zh": "项目过程中出现了问题。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w055",
+    "word": "arrange",
+    "phonetic": "/əˈreɪndʒ/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "安排",
+      "整理"
+    ],
+    "examples": [
+      {
+        "en": "I need to arrange a meeting.",
+        "zh": "我需要安排个会议。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w056",
+    "word": "arrest",
+    "phonetic": "/əˈrest/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "逮捕",
+      "拘留"
+    ],
+    "examples": [
+      {
+        "en": "The thief was arrested.",
+        "zh": "小偷被逮捕了。",
+        "scene": "news"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w057",
+    "word": "arrive",
+    "phonetic": "/əˈraɪv/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "到达",
+      "抵达"
+    ],
+    "examples": [
+      {
+        "en": "What time does the train arrive?",
+        "zh": "火车几点到?",
+        "scene": "travel"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w058",
+    "word": "article",
+    "phonetic": "/ˈɑːrtɪkl/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "文章",
+      "物品"
+    ],
+    "examples": [
+      {
+        "en": "I read an interesting article today.",
+        "zh": "我今天读到一篇有趣的文章。",
+        "scene": "study"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w059",
+    "word": "artificial",
+    "phonetic": "/ˌɑːrtɪˈfɪʃl/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "人工的",
+      "人造的"
+    ],
+    "examples": [
+      {
+        "en": "Artificial intelligence is changing the world.",
+        "zh": "人工智能正在改变世界。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w060",
+    "word": "ashamed",
+    "phonetic": "/əˈʃeɪmd/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "羞愧的",
+      "惭愧的"
+    ],
+    "examples": [
+      {
+        "en": "I feel ashamed of my behavior.",
+        "zh": "我为自己的行为感到惭愧。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w061",
+    "word": "aside",
+    "phonetic": "/əˈsaɪd/",
+    "pos": [
+      "adv."
+    ],
+    "translations": [
+      "在旁边",
+      "到一边"
+    ],
+    "examples": [
+      {
+        "en": "He pulled me aside to talk.",
+        "zh": "他把我拉到一边说话。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w062",
+    "word": "aspect",
+    "phonetic": "/ˈæspekt/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "方面",
+      "外观"
+    ],
+    "examples": [
+      {
+        "en": "Consider every aspect of the problem.",
+        "zh": "考虑问题的每个方面。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w063",
+    "word": "assist",
+    "phonetic": "/əˈsɪst/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "帮助",
+      "协助"
+    ],
+    "examples": [
+      {
+        "en": "Can I assist you?",
+        "zh": "我能帮你什么吗?",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w064",
+    "word": "associate",
+    "phonetic": "/əˈsoʊsieɪt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "联想",
+      "联系"
+    ],
+    "examples": [
+      {
+        "en": "I associate summer with the beach.",
+        "zh": "夏天让我联想到海滩。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w065",
+    "word": "assume",
+    "phonetic": "/əˈsuːm/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "假定",
+      "承担"
+    ],
+    "examples": [
+      {
+        "en": "I assume you've heard the news.",
+        "zh": "我猜你已经听到消息了。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w066",
+    "word": "athlete",
+    "phonetic": "/ˈæθliːt/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "运动员"
+    ],
+    "examples": [
+      {
+        "en": "She's a top athlete.",
+        "zh": "她是一名顶级运动员。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w067",
+    "word": "atmosphere",
+    "phonetic": "/ˈætməsfɪr/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "气氛",
+      "大气"
+    ],
+    "examples": [
+      {
+        "en": "The restaurant has a great atmosphere.",
+        "zh": "这家餐厅氛围很好。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w068",
+    "word": "attach",
+    "phonetic": "/əˈtætʃ/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "附上",
+      "连接"
+    ],
+    "examples": [
+      {
+        "en": "Please attach the file to the email.",
+        "zh": "请把文件附到邮件里。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w069",
+    "word": "attack",
+    "phonetic": "/əˈtæk/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "攻击",
+      "进攻"
+    ],
+    "examples": [
+      {
+        "en": "The dog attacked the stranger.",
+        "zh": "狗袭击了陌生人。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w070",
+    "word": "attempt",
+    "phonetic": "/əˈtempt/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "尝试",
+      "企图"
+    ],
+    "examples": [
+      {
+        "en": "Don't attempt this alone.",
+        "zh": "别一个人尝试这件事。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w071",
+    "word": "attend",
+    "phonetic": "/əˈtend/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "参加",
+      "出席"
+    ],
+    "examples": [
+      {
+        "en": "I'll attend the meeting tomorrow.",
+        "zh": "我明天参加会议。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w072",
+    "word": "attention",
+    "phonetic": "/əˈtenʃn/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "注意",
+      "关心"
+    ],
+    "examples": [
+      {
+        "en": "Pay attention to the road.",
+        "zh": "注意路面。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w073",
+    "word": "attitude",
+    "phonetic": "/ˈætɪtuːd/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "态度",
+      "看法"
+    ],
+    "examples": [
+      {
+        "en": "She has a positive attitude.",
+        "zh": "她态度很积极。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w074",
+    "word": "attract",
+    "phonetic": "/əˈtrækt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "吸引"
+    ],
+    "examples": [
+      {
+        "en": "Magnets attract iron.",
+        "zh": "磁铁吸引铁。",
+        "scene": "study"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w075",
+    "word": "audience",
+    "phonetic": "/ˈɔːdiəns/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "观众",
+      "听众"
+    ],
+    "examples": [
+      {
+        "en": "The audience loved the show.",
+        "zh": "观众很喜欢这场表演。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w076",
+    "word": "available",
+    "phonetic": "/əˈveɪləbl/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "可用的",
+      "有空的"
+    ],
+    "examples": [
+      {
+        "en": "Are you available this weekend?",
+        "zh": "你这周末有空吗?",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w077",
+    "word": "avoid",
+    "phonetic": "/əˈvɔɪd/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "避免",
+      "回避"
+    ],
+    "examples": [
+      {
+        "en": "Avoid eating too much sugar.",
+        "zh": "少吃糖。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w078",
+    "word": "aware",
+    "phonetic": "/əˈwer/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "意识到的",
+      "知道的"
+    ],
+    "examples": [
+      {
+        "en": "I'm aware of the problem.",
+        "zh": "我知道这个问题。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w079",
+    "word": "background",
+    "phonetic": "/ˈbækɡraʊnd/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "背景",
+      "经历"
+    ],
+    "examples": [
+      {
+        "en": "Tell me about your background.",
+        "zh": "说下你的背景。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w080",
+    "word": "balance",
+    "phonetic": "/ˈbæləns/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "平衡",
+      "余额"
+    ],
+    "examples": [
+      {
+        "en": "Try to balance work and life.",
+        "zh": "尽量平衡工作和生活。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w081",
+    "word": "basic",
+    "phonetic": "/ˈbeɪsɪk/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "基本的"
+    ],
+    "examples": [
+      {
+        "en": "What's your basic salary?",
+        "zh": "你的基本工资是多少?",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w082",
+    "word": "beauty",
+    "phonetic": "/ˈbjuːti/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "美",
+      "美丽"
+    ],
+    "examples": [
+      {
+        "en": "The beauty of nature amazes me.",
+        "zh": "大自然的美让我惊叹。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w083",
+    "word": "behave",
+    "phonetic": "/bɪˈheɪv/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "行为",
+      "表现"
+    ],
+    "examples": [
+      {
+        "en": "Behave yourself!",
+        "zh": "规矩点!",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w084",
+    "word": "belief",
+    "phonetic": "/bɪˈliːf/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "信念",
+      "信仰"
+    ],
+    "examples": [
+      {
+        "en": "Strong belief leads to success.",
+        "zh": "坚定的信念带来成功。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w085",
+    "word": "benefit",
+    "phonetic": "/ˈbenɪfɪt/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "好处",
+      "利益"
+    ],
+    "examples": [
+      {
+        "en": "Exercise has many benefits.",
+        "zh": "运动有很多好处。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w086",
+    "word": "besides",
+    "phonetic": "/bɪˈsaɪdz/",
+    "pos": [
+      "prep.",
+      "adv."
+    ],
+    "translations": [
+      "除...之外",
+      "此外"
+    ],
+    "examples": [
+      {
+        "en": "Besides English, I also speak French.",
+        "zh": "除了英语,我还会法语。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w087",
+    "word": "blame",
+    "phonetic": "/bleɪm/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "责备",
+      "指责"
+    ],
+    "examples": [
+      {
+        "en": "Don't blame yourself.",
+        "zh": "别怪自己。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w088",
+    "word": "blank",
+    "phonetic": "/blæŋk/",
+    "pos": [
+      "adj.",
+      "n."
+    ],
+    "translations": [
+      "空白的",
+      "空白"
+    ],
+    "examples": [
+      {
+        "en": "Fill in the blank.",
+        "zh": "填空。",
+        "scene": "study"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w089",
+    "word": "boring",
+    "phonetic": "/ˈbɔːrɪŋ/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "无聊的",
+      "乏味的"
+    ],
+    "examples": [
+      {
+        "en": "The meeting was really boring.",
+        "zh": "会议真无聊。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w090",
+    "word": "borrow",
+    "phonetic": "/ˈbɑːroʊ/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "借",
+      "借用"
+    ],
+    "examples": [
+      {
+        "en": "Can I borrow your pen?",
+        "zh": "能借你笔吗?",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w091",
+    "word": "brave",
+    "phonetic": "/breɪv/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "勇敢的"
+    ],
+    "examples": [
+      {
+        "en": "It was a brave decision.",
+        "zh": "这是个勇敢的决定。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 3
+  },
+  {
+    "id": "w092",
+    "word": "brief",
+    "phonetic": "/briːf/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "简短的",
+      "简洁的"
+    ],
+    "examples": [
+      {
+        "en": "Please be brief.",
+        "zh": "请简明扼要。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w093",
+    "word": "broad",
+    "phonetic": "/brɔːd/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "宽的",
+      "广泛的"
+    ],
+    "examples": [
+      {
+        "en": "She has broad shoulders.",
+        "zh": "她肩膀很宽。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w094",
+    "word": "build",
+    "phonetic": "/bɪld/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "建造",
+      "建立"
+    ],
+    "examples": [
+      {
+        "en": "They built a new house.",
+        "zh": "他们盖了新房子。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w095",
+    "word": "business",
+    "phonetic": "/ˈbɪznəs/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "生意",
+      "商务"
+    ],
+    "examples": [
+      {
+        "en": "Business is booming.",
+        "zh": "生意兴隆。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w096",
+    "word": "cancel",
+    "phonetic": "/ˈkænsl/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "取消",
+      "撤销"
+    ],
+    "examples": [
+      {
+        "en": "I need to cancel my appointment.",
+        "zh": "我需要取消预约。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w097",
+    "word": "career",
+    "phonetic": "/kəˈrɪr/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "职业",
+      "事业"
+    ],
+    "examples": [
+      {
+        "en": "She built a successful career.",
+        "zh": "她事业很成功。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w098",
+    "word": "careful",
+    "phonetic": "/ˈkerfl/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "小心的",
+      "仔细的"
+    ],
+    "examples": [
+      {
+        "en": "Be careful with the glass.",
+        "zh": "小心玻璃。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w099",
+    "word": "carry",
+    "phonetic": "/ˈkæri/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "携带",
+      "运送"
+    ],
+    "examples": [
+      {
+        "en": "Can you carry this bag for me?",
+        "zh": "能帮我拿这个包吗?",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w100",
+    "word": "cause",
+    "phonetic": "/kɔːz/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "原因",
+      "导致"
+    ],
+    "examples": [
+      {
+        "en": "What caused the accident?",
+        "zh": "什么导致了这次事故?",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w101",
+    "word": "celebrate",
+    "phonetic": "/ˈselɪbreɪt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "庆祝"
+    ],
+    "examples": [
+      {
+        "en": "Let's celebrate your promotion!",
+        "zh": "庆祝你升职!",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w102",
+    "word": "certain",
+    "phonetic": "/ˈsɜːrtn/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "确定的",
+      "某种的"
+    ],
+    "examples": [
+      {
+        "en": "I'm certain he will come.",
+        "zh": "我确定他会来。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w103",
+    "word": "challenge",
+    "phonetic": "/ˈtʃælɪndʒ/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "挑战"
+    ],
+    "examples": [
+      {
+        "en": "Life is full of challenges.",
+        "zh": "生活充满挑战。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w104",
+    "word": "chance",
+    "phonetic": "/tʃæns/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "机会",
+      "可能性"
+    ],
+    "examples": [
+      {
+        "en": "Give me a chance.",
+        "zh": "给我一次机会。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w105",
+    "word": "character",
+    "phonetic": "/ˈkærəktər/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "性格",
+      "角色"
+    ],
+    "examples": [
+      {
+        "en": "She has a strong character.",
+        "zh": "她性格很强。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w106",
+    "word": "charge",
+    "phonetic": "/tʃɑːrdʒ/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "收费",
+      "指控"
+    ],
+    "examples": [
+      {
+        "en": "How much do you charge?",
+        "zh": "你收费多少?",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w107",
+    "word": "chat",
+    "phonetic": "/tʃæt/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "聊天",
+      "闲谈"
+    ],
+    "examples": [
+      {
+        "en": "We chatted over coffee.",
+        "zh": "我们喝着咖啡聊天。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频",
+      "日常"
+    ],
+    "level": "daily",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w108",
+    "word": "cheat",
+    "phonetic": "/tʃiːt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "欺骗",
+      "作弊"
+    ],
+    "examples": [
+      {
+        "en": "Don't cheat on the test.",
+        "zh": "考试别作弊。",
+        "scene": "study"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w109",
+    "word": "cheerful",
+    "phonetic": "/ˈtʃɪrfl/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "高兴的",
+      "愉快的"
+    ],
+    "examples": [
+      {
+        "en": "She has a cheerful smile.",
+        "zh": "她笑得很开心。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w110",
+    "word": "choice",
+    "phonetic": "/tʃɔɪs/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "选择"
+    ],
+    "examples": [
+      {
+        "en": "Make a choice and stick with it.",
+        "zh": "做出选择并坚持。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w111",
+    "word": "circumstance",
+    "phonetic": "/ˈsɜːrkəmstæns/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "情况",
+      "环境"
+    ],
+    "examples": [
+      {
+        "en": "Under the circumstances, we have to wait.",
+        "zh": "在这种情况下,我们只能等。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w112",
+    "word": "claim",
+    "phonetic": "/kleɪm/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "声称",
+      "索赔"
+    ],
+    "examples": [
+      {
+        "en": "He claims he didn't do it.",
+        "zh": "他声称没做。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w113",
+    "word": "clarify",
+    "phonetic": "/ˈklærəfaɪ/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "澄清",
+      "阐明"
+    ],
+    "examples": [
+      {
+        "en": "Could you clarify that point?",
+        "zh": "能解释下那点吗?",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w114",
+    "word": "classic",
+    "phonetic": "/ˈklæsɪk/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "经典的",
+      "古典的"
+    ],
+    "examples": [
+      {
+        "en": "This is a classic movie.",
+        "zh": "这是部经典电影。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w115",
+    "word": "client",
+    "phonetic": "/ˈklaɪənt/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "客户",
+      "委托人"
+    ],
+    "examples": [
+      {
+        "en": "The client is very demanding.",
+        "zh": "客户要求很高。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w116",
+    "word": "climate",
+    "phonetic": "/ˈklaɪmət/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "气候"
+    ],
+    "examples": [
+      {
+        "en": "The climate is changing.",
+        "zh": "气候在变化。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w117",
+    "word": "close",
+    "phonetic": "/kloʊz/",
+    "pos": [
+      "v.",
+      "adj."
+    ],
+    "translations": [
+      "关",
+      "近的"
+    ],
+    "examples": [
+      {
+        "en": "Please close the door.",
+        "zh": "请关门。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w118",
+    "word": "coach",
+    "phonetic": "/koʊtʃ/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "教练",
+      "长途汽车"
+    ],
+    "examples": [
+      {
+        "en": "Our coach is very strict.",
+        "zh": "我们教练很严格。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w119",
+    "word": "collect",
+    "phonetic": "/kəˈlekt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "收集",
+      "收取"
+    ],
+    "examples": [
+      {
+        "en": "I collect stamps.",
+        "zh": "我集邮。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w120",
+    "word": "comfort",
+    "phonetic": "/ˈkʌmfərt/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "舒适",
+      "安慰"
+    ],
+    "examples": [
+      {
+        "en": "She tried to comfort the crying child.",
+        "zh": "她试图安慰哭闹的孩子。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w121",
+    "word": "command",
+    "phonetic": "/kəˈmænd/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "命令",
+      "指挥"
+    ],
+    "examples": [
+      {
+        "en": "He commands the army.",
+        "zh": "他指挥军队。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w122",
+    "word": "comment",
+    "phonetic": "/ˈkɑːment/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "评论",
+      "意见"
+    ],
+    "examples": [
+      {
+        "en": "No comment.",
+        "zh": "无可奉告。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w123",
+    "word": "common",
+    "phonetic": "/ˈkɑːmən/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "普通的",
+      "共同的"
+    ],
+    "examples": [
+      {
+        "en": "We have a lot in common.",
+        "zh": "我们有很多共同点。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w124",
+    "word": "communicate",
+    "phonetic": "/kəˈmjuːnɪkeɪt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "交流",
+      "沟通"
+    ],
+    "examples": [
+      {
+        "en": "We communicate by email.",
+        "zh": "我们用邮件沟通。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w125",
+    "word": "community",
+    "phonetic": "/kəˈmjuːnəti/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "社区",
+      "团体"
+    ],
+    "examples": [
+      {
+        "en": "We live in a small community.",
+        "zh": "我们住在一个小社区。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w126",
+    "word": "compare",
+    "phonetic": "/kəmˈper/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "比较",
+      "对比"
+    ],
+    "examples": [
+      {
+        "en": "Don't compare yourself to others.",
+        "zh": "别拿自己和别人比。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w127",
+    "word": "compete",
+    "phonetic": "/kəmˈpiːt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "竞争",
+      "比赛"
+    ],
+    "examples": [
+      {
+        "en": "They competed for the prize.",
+        "zh": "他们争夺奖品。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w128",
+    "word": "complete",
+    "phonetic": "/kəmˈpliːt/",
+    "pos": [
+      "v.",
+      "adj."
+    ],
+    "translations": [
+      "完成",
+      "完整的"
+    ],
+    "examples": [
+      {
+        "en": "I finally completed the project.",
+        "zh": "我终于完成了项目。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w129",
+    "word": "complex",
+    "phonetic": "/ˈkɑːmpleks/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "复杂的"
+    ],
+    "examples": [
+      {
+        "en": "It's a complex problem.",
+        "zh": "这是个复杂的问题。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w130",
+    "word": "concentrate",
+    "phonetic": "/ˈkɑːnsntreɪt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "集中",
+      "专心"
+    ],
+    "examples": [
+      {
+        "en": "Concentrate on your studies.",
+        "zh": "专心学习。",
+        "scene": "study"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w131",
+    "word": "concept",
+    "phonetic": "/ˈkɑːnsept/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "概念",
+      "观念"
+    ],
+    "examples": [
+      {
+        "en": "It's a difficult concept.",
+        "zh": "这是个难懂的概念。",
+        "scene": "study"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w132",
+    "word": "concern",
+    "phonetic": "/kənˈsɜːrn/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "关心",
+      "担心"
+    ],
+    "examples": [
+      {
+        "en": "Safety is our main concern.",
+        "zh": "安全是我们最关心的。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w133",
+    "word": "conclude",
+    "phonetic": "/kənˈkluːd/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "结束",
+      "得出结论"
+    ],
+    "examples": [
+      {
+        "en": "Let me conclude the meeting.",
+        "zh": "让我来结束会议。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w134",
+    "word": "condition",
+    "phonetic": "/kənˈdɪʃn/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "条件",
+      "状况"
+    ],
+    "examples": [
+      {
+        "en": "The car is in good condition.",
+        "zh": "车况很好。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w135",
+    "word": "conduct",
+    "phonetic": "/kənˈdʌkt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "进行",
+      "指挥"
+    ],
+    "examples": [
+      {
+        "en": "They conducted a survey.",
+        "zh": "他们做了个调查。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w136",
+    "word": "confident",
+    "phonetic": "/ˈkɑːnfɪdənt/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "自信的"
+    ],
+    "examples": [
+      {
+        "en": "Be confident in yourself.",
+        "zh": "对自己要有信心。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w137",
+    "word": "confirm",
+    "phonetic": "/kənˈfɜːrm/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "确认",
+      "证实"
+    ],
+    "examples": [
+      {
+        "en": "Please confirm your booking.",
+        "zh": "请确认你的预订。",
+        "scene": "travel"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w138",
+    "word": "conflict",
+    "phonetic": "/ˈkɑːnflɪkt/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "冲突",
+      "争执"
+    ],
+    "examples": [
+      {
+        "en": "There's a scheduling conflict.",
+        "zh": "时间有冲突。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w139",
+    "word": "confuse",
+    "phonetic": "/kənˈfjuːz/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "使困惑"
+    ],
+    "examples": [
+      {
+        "en": "His words confused me.",
+        "zh": "他的话让我很困惑。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w140",
+    "word": "connect",
+    "phonetic": "/kəˈnekt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "连接",
+      "联系"
+    ],
+    "examples": [
+      {
+        "en": "Can I connect to the WiFi?",
+        "zh": "我能连 WiFi 吗?",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w141",
+    "word": "consider",
+    "phonetic": "/kənˈsɪdər/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "考虑",
+      "认为"
+    ],
+    "examples": [
+      {
+        "en": "Please consider my offer.",
+        "zh": "请考虑我的提议。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w142",
+    "word": "consist",
+    "phonetic": "/kənˈsɪst/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "组成",
+      "在于"
+    ],
+    "examples": [
+      {
+        "en": "The team consists of five people.",
+        "zh": "这个团队由五人组成。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w143",
+    "word": "contact",
+    "phonetic": "/ˈkɑːntækt/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "联系",
+      "接触"
+    ],
+    "examples": [
+      {
+        "en": "I'll contact you tomorrow.",
+        "zh": "我明天联系你。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w144",
+    "word": "contain",
+    "phonetic": "/kənˈteɪn/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "包含",
+      "容纳"
+    ],
+    "examples": [
+      {
+        "en": "This drink contains caffeine.",
+        "zh": "这个饮料含咖啡因。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w145",
+    "word": "content",
+    "phonetic": "/ˈkɑːntent/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "内容",
+      "目录"
+    ],
+    "examples": [
+      {
+        "en": "The content is interesting.",
+        "zh": "内容很有趣。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w146",
+    "word": "continue",
+    "phonetic": "/kənˈtɪnjuː/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "继续"
+    ],
+    "examples": [
+      {
+        "en": "Please continue your story.",
+        "zh": "请继续讲。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w147",
+    "word": "control",
+    "phonetic": "/kənˈtroʊl/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "控制"
+    ],
+    "examples": [
+      {
+        "en": "He's in control of the situation.",
+        "zh": "他掌控着局面。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w148",
+    "word": "convince",
+    "phonetic": "/kənˈvɪns/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "说服",
+      "使信服"
+    ],
+    "examples": [
+      {
+        "en": "She convinced me to go.",
+        "zh": "她说服我去。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w149",
+    "word": "cooperate",
+    "phonetic": "/koʊˈɑːpəreɪt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "合作"
+    ],
+    "examples": [
+      {
+        "en": "We need to cooperate.",
+        "zh": "我们需要合作。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w150",
+    "word": "courage",
+    "phonetic": "/ˈkɜːrɪdʒ/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "勇气"
+    ],
+    "examples": [
+      {
+        "en": "It takes courage to speak up.",
+        "zh": "说出来需要勇气。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w151",
+    "word": "create",
+    "phonetic": "/kriˈeɪt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "创造",
+      "创建"
+    ],
+    "examples": [
+      {
+        "en": "She created a new product.",
+        "zh": "她创造了新产品。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w152",
+    "word": "credit",
+    "phonetic": "/ˈkredɪt/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "信用",
+      "学分"
+    ],
+    "examples": [
+      {
+        "en": "I paid by credit card.",
+        "zh": "我刷信用卡。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w153",
+    "word": "criticize",
+    "phonetic": "/ˈkrɪtɪsaɪz/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "批评"
+    ],
+    "examples": [
+      {
+        "en": "Don't criticize others.",
+        "zh": "别批评别人。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w154",
+    "word": "crucial",
+    "phonetic": "/ˈkruːʃl/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "关键的",
+      "至关重要的"
+    ],
+    "examples": [
+      {
+        "en": "This is a crucial moment.",
+        "zh": "这是关键时刻。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w155",
+    "word": "culture",
+    "phonetic": "/ˈkʌltʃər/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "文化"
+    ],
+    "examples": [
+      {
+        "en": "I love Chinese culture.",
+        "zh": "我喜欢中国文化。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w156",
+    "word": "curious",
+    "phonetic": "/ˈkjʊriəs/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "好奇的"
+    ],
+    "examples": [
+      {
+        "en": "Kids are curious about everything.",
+        "zh": "小孩对什么都好奇。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w157",
+    "word": "current",
+    "phonetic": "/ˈkɜːrənt/",
+    "pos": [
+      "adj.",
+      "n."
+    ],
+    "translations": [
+      "当前的",
+      "水流"
+    ],
+    "examples": [
+      {
+        "en": "What's the current situation?",
+        "zh": "当前情况怎样?",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w158",
+    "word": "custom",
+    "phonetic": "/ˈkʌstəm/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "习惯",
+      "风俗"
+    ],
+    "examples": [
+      {
+        "en": "It's a local custom.",
+        "zh": "这是当地习俗。",
+        "scene": "travel"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w159",
+    "word": "damage",
+    "phonetic": "/ˈdæmɪdʒ/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "损害",
+      "毁坏"
+    ],
+    "examples": [
+      {
+        "en": "The storm caused heavy damage.",
+        "zh": "暴风雨造成严重损失。",
+        "scene": "news"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w160",
+    "word": "deal",
+    "phonetic": "/diːl/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "交易",
+      "处理"
+    ],
+    "examples": [
+      {
+        "en": "It's a good deal.",
+        "zh": "这买卖划算。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w161",
+    "word": "decide",
+    "phonetic": "/dɪˈsaɪd/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "决定"
+    ],
+    "examples": [
+      {
+        "en": "I decided to leave.",
+        "zh": "我决定离开。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w162",
+    "word": "declare",
+    "phonetic": "/dɪˈkler/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "宣布",
+      "声明"
+    ],
+    "examples": [
+      {
+        "en": "He declared his love.",
+        "zh": "他表白了。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w163",
+    "word": "decline",
+    "phonetic": "/dɪˈklaɪn/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "下降",
+      "婉拒"
+    ],
+    "examples": [
+      {
+        "en": "Sales declined last quarter.",
+        "zh": "上季度销售下滑。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w164",
+    "word": "decrease",
+    "phonetic": "/dɪˈkriːs/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "减少"
+    ],
+    "examples": [
+      {
+        "en": "Prices have decreased.",
+        "zh": "价格降了。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w165",
+    "word": "defeat",
+    "phonetic": "/dɪˈfiːt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "击败",
+      "战胜"
+    ],
+    "examples": [
+      {
+        "en": "We defeated the enemy.",
+        "zh": "我们打败了敌人。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w166",
+    "word": "defend",
+    "phonetic": "/dɪˈfend/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "保卫",
+      "辩护"
+    ],
+    "examples": [
+      {
+        "en": "He defended his country.",
+        "zh": "他保卫国家。",
+        "scene": "news"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w167",
+    "word": "define",
+    "phonetic": "/dɪˈfaɪn/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "定义",
+      "限定"
+    ],
+    "examples": [
+      {
+        "en": "Please define this word.",
+        "zh": "请给这个词下定义。",
+        "scene": "study"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w168",
+    "word": "delay",
+    "phonetic": "/dɪˈleɪ/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "延迟",
+      "耽搁"
+    ],
+    "examples": [
+      {
+        "en": "The flight was delayed.",
+        "zh": "航班延误了。",
+        "scene": "travel"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w169",
+    "word": "deliver",
+    "phonetic": "/dɪˈlɪvər/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "递送",
+      "发表"
+    ],
+    "examples": [
+      {
+        "en": "The mail was delivered.",
+        "zh": "邮件送到了。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w170",
+    "word": "demand",
+    "phonetic": "/dɪˈmænd/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "要求",
+      "需求"
+    ],
+    "examples": [
+      {
+        "en": "The customer demanded a refund.",
+        "zh": "顾客要求退款。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w171",
+    "word": "depend",
+    "phonetic": "/dɪˈpend/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "依赖",
+      "取决于"
+    ],
+    "examples": [
+      {
+        "en": "It depends on the weather.",
+        "zh": "这取决于天气。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w172",
+    "word": "describe",
+    "phonetic": "/dɪˈskraɪb/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "描述"
+    ],
+    "examples": [
+      {
+        "en": "Can you describe the thief?",
+        "zh": "你能描述下小偷吗?",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w173",
+    "word": "design",
+    "phonetic": "/dɪˈzaɪn/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "设计"
+    ],
+    "examples": [
+      {
+        "en": "She designed the logo.",
+        "zh": "她设计了这个 logo。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w174",
+    "word": "despite",
+    "phonetic": "/dɪˈspaɪt/",
+    "pos": [
+      "prep."
+    ],
+    "translations": [
+      "尽管",
+      "不管"
+    ],
+    "examples": [
+      {
+        "en": "Despite the rain, we went out.",
+        "zh": "尽管下雨,我们还是出去了。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w175",
+    "word": "destroy",
+    "phonetic": "/dɪˈstrɔɪ/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "破坏",
+      "毁灭"
+    ],
+    "examples": [
+      {
+        "en": "The fire destroyed the building.",
+        "zh": "火灾烧毁了大楼。",
+        "scene": "news"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w176",
+    "word": "detail",
+    "phonetic": "/ˈdiːteɪl/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "细节"
+    ],
+    "examples": [
+      {
+        "en": "Tell me the details.",
+        "zh": "告诉我细节。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w177",
+    "word": "determine",
+    "phonetic": "/dɪˈtɜːrmɪn/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "决定",
+      "确定"
+    ],
+    "examples": [
+      {
+        "en": "She determined to succeed.",
+        "zh": "她决心要成功。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w178",
+    "word": "develop",
+    "phonetic": "/dɪˈveləp/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "发展",
+      "开发"
+    ],
+    "examples": [
+      {
+        "en": "The city is developing fast.",
+        "zh": "城市发展很快。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w179",
+    "word": "differ",
+    "phonetic": "/ˈdɪfər/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "不同",
+      "相异"
+    ],
+    "examples": [
+      {
+        "en": "Our opinions differ.",
+        "zh": "我们意见不同。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w180",
+    "word": "discover",
+    "phonetic": "/dɪˈskʌvər/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "发现"
+    ],
+    "examples": [
+      {
+        "en": "Columbus discovered America.",
+        "zh": "哥伦布发现了美洲。",
+        "scene": "study"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w181",
+    "word": "discuss",
+    "phonetic": "/dɪˈskʌs/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "讨论"
+    ],
+    "examples": [
+      {
+        "en": "Let's discuss this issue.",
+        "zh": "我们讨论下这个问题。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w182",
+    "word": "dismiss",
+    "phonetic": "/dɪsˈmɪs/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "解散",
+      "解雇"
+    ],
+    "examples": [
+      {
+        "en": "The boss dismissed him.",
+        "zh": "老板解雇了他。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w183",
+    "word": "disorder",
+    "phonetic": "/dɪsˈɔːrdər/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "混乱",
+      "失调"
+    ],
+    "examples": [
+      {
+        "en": "The room is in disorder.",
+        "zh": "房间很乱。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 2
+  },
+  {
+    "id": "w184",
+    "word": "display",
+    "phonetic": "/dɪˈspleɪ/",
+    "pos": [
+      "v.",
+      "n."
+    ],
+    "translations": [
+      "展示",
+      "显示"
+    ],
+    "examples": [
+      {
+        "en": "Please display the data.",
+        "zh": "请展示这些数据。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w185",
+    "word": "distance",
+    "phonetic": "/ˈdɪstəns/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "距离"
+    ],
+    "examples": [
+      {
+        "en": "What's the distance to the airport?",
+        "zh": "到机场多远?",
+        "scene": "travel"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w186",
+    "word": "distinguish",
+    "phonetic": "/dɪˈstɪŋɡwɪʃ/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "区分",
+      "辨别"
+    ],
+    "examples": [
+      {
+        "en": "Can you distinguish them?",
+        "zh": "你能分辨他们吗?",
+        "scene": "study"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 2
+  },
+  {
+    "id": "w187",
+    "word": "disturb",
+    "phonetic": "/dɪˈstɜːrb/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "打扰",
+      "扰乱"
+    ],
+    "examples": [
+      {
+        "en": "Sorry to disturb you.",
+        "zh": "抱歉打扰了。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w188",
+    "word": "doubt",
+    "phonetic": "/daʊt/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "怀疑"
+    ],
+    "examples": [
+      {
+        "en": "I doubt it.",
+        "zh": "我怀疑。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w189",
+    "word": "due",
+    "phonetic": "/duː/",
+    "pos": [
+      "adj."
+    ],
+    "translations": [
+      "应付的",
+      "预期的"
+    ],
+    "examples": [
+      {
+        "en": "The report is due tomorrow.",
+        "zh": "报告明天截止。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w190",
+    "word": "earn",
+    "phonetic": "/ɜːrn/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "赚得",
+      "赢得"
+    ],
+    "examples": [
+      {
+        "en": "He earns a good salary.",
+        "zh": "他薪水不错。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w191",
+    "word": "ease",
+    "phonetic": "/iːz/",
+    "pos": [
+      "n.",
+      "v."
+    ],
+    "translations": [
+      "容易",
+      "减轻"
+    ],
+    "examples": [
+      {
+        "en": "She passed the test with ease.",
+        "zh": "她轻松通过了考试。",
+        "scene": "study"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w192",
+    "word": "economy",
+    "phonetic": "/ɪˈkɑːnəmi/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "经济"
+    ],
+    "examples": [
+      {
+        "en": "The economy is growing.",
+        "zh": "经济在增长。",
+        "scene": "news"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 4
+  },
+  {
+    "id": "w193",
+    "word": "effect",
+    "phonetic": "/ɪˈfekt/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "效果",
+      "影响"
+    ],
+    "examples": [
+      {
+        "en": "The effect was immediate.",
+        "zh": "效果立竿见影。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w194",
+    "word": "effort",
+    "phonetic": "/ˈefərt/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "努力"
+    ],
+    "examples": [
+      {
+        "en": "Make an effort.",
+        "zh": "要努力。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 1,
+    "frequency": 5
+  },
+  {
+    "id": "w195",
+    "word": "elect",
+    "phonetic": "/ɪˈlekt/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "选举",
+      "选择"
+    ],
+    "examples": [
+      {
+        "en": "They elected him president.",
+        "zh": "他们选他当主席。",
+        "scene": "news"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w196",
+    "word": "embarrass",
+    "phonetic": "/ɪmˈbærəs/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "使尴尬"
+    ],
+    "examples": [
+      {
+        "en": "Don't embarrass me.",
+        "zh": "别让我尴尬。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 3
+  },
+  {
+    "id": "w197",
+    "word": "emerge",
+    "phonetic": "/ɪˈmɜːrdʒ/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "出现",
+      "浮现"
+    ],
+    "examples": [
+      {
+        "en": "The truth emerged.",
+        "zh": "真相浮出水面。",
+        "scene": "news"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w198",
+    "word": "emotion",
+    "phonetic": "/ɪˈmoʊʃn/",
+    "pos": [
+      "n."
+    ],
+    "translations": [
+      "情感",
+      "情绪"
+    ],
+    "examples": [
+      {
+        "en": "She showed no emotion.",
+        "zh": "她不动声色。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  },
+  {
+    "id": "w199",
+    "word": "emphasize",
+    "phonetic": "/ˈemfəsaɪz/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "强调"
+    ],
+    "examples": [
+      {
+        "en": "I want to emphasize this point.",
+        "zh": "我想强调这一点。",
+        "scene": "work"
+      }
+    ],
+    "tags": [
+      "CET4"
+    ],
+    "level": "cet4",
+    "difficulty": 3,
+    "frequency": 3
+  },
+  {
+    "id": "w200",
+    "word": "encourage",
+    "phonetic": "/ɪnˈkɜːrɪdʒ/",
+    "pos": [
+      "v."
+    ],
+    "translations": [
+      "鼓励"
+    ],
+    "examples": [
+      {
+        "en": "She encouraged me to try.",
+        "zh": "她鼓励我试试。",
+        "scene": "life"
+      }
+    ],
+    "tags": [
+      "CET4",
+      "高频"
+    ],
+    "level": "cet4",
+    "difficulty": 2,
+    "frequency": 4
+  }
+]
