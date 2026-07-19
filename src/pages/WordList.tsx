@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
+import { useState, useEffect, useMemo, useRef, useCallback, Fragment } from 'react'
 import { loadWords, LEVELS } from '../lib/words'
 import type { Word } from '../types'
 import WordCard from '../components/WordCard'
@@ -6,6 +6,12 @@ import { addFavorite, removeFavorite, getAllFavorites } from '../lib/db'
 import { useStore } from '../store/useStore'
 
 const PAGE_SIZE = 50
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+
+function getFirstLetter(word: string): string {
+  const c = word.charAt(0).toUpperCase()
+  return /[A-Z]/.test(c) ? c : '#'
+}
 
 export default function WordList() {
   const [allWords, setAllWords] = useState<Word[]>([])
@@ -14,8 +20,10 @@ export default function WordList() {
   const [favSet, setFavSet] = useState<Set<string>>(new Set())
   const [displayCount, setDisplayCount] = useState(PAGE_SIZE)
   const [loading, setLoading] = useState(false)
+  const [activeLetter, setActiveLetter] = useState<string>('')
   const targetLevel = useStore(s => s.targetLevel)
   const sentinelRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setLoading(true)
@@ -37,6 +45,7 @@ export default function WordList() {
   // 切换学段或搜索时重置分页
   useEffect(() => {
     setDisplayCount(PAGE_SIZE)
+    setActiveLetter('')
   }, [level, query])
 
   const filtered = useMemo(() => {
@@ -54,6 +63,13 @@ export default function WordList() {
     return result
   }, [allWords, level, query])
 
+  // 词库中存在的首字母
+  const availableLetters = useMemo(() => {
+    const set = new Set<string>()
+    filtered.forEach(w => set.add(getFirstLetter(w.word)))
+    return set
+  }, [filtered])
+
   const visible = filtered.slice(0, displayCount)
   const hasMore = displayCount < filtered.length
 
@@ -68,6 +84,38 @@ export default function WordList() {
     observer.observe(sentinelRef.current)
     return () => observer.disconnect()
   }, [hasMore, filtered.length])
+
+  // 监听当前可见的首字母
+  useEffect(() => {
+    if (!containerRef.current) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // 找最靠近顶部的可见锚点
+        const visibleEntries = entries
+          .filter(e => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+        if (visibleEntries.length > 0) {
+          const letter = visibleEntries[0].target.getAttribute('data-letter-anchor')
+          if (letter) setActiveLetter(letter)
+        }
+      },
+      { rootMargin: '-80px 0px -70% 0px', threshold: 0 }
+    )
+
+    const anchors = containerRef.current.querySelectorAll('[data-letter-anchor]')
+    anchors.forEach(a => observer.observe(a))
+    return () => observer.disconnect()
+  }, [visible.length, level, query])
+
+  // 滚动到指定字母
+  const scrollToLetter = useCallback((letter: string) => {
+    if (!containerRef.current) return
+    const el = containerRef.current.querySelector(`[data-letter-anchor="${letter}"]`)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      setActiveLetter(letter)
+    }
+  }, [])
 
   const handleToggleFav = useCallback(async (word: Word) => {
     if (favSet.has(word.id)) {
@@ -118,44 +166,90 @@ export default function WordList() {
         ))}
       </div>
 
-      {/* 词条列表 */}
-      {filtered.length === 0 ? (
-        <div className="text-center py-12 text-stone-500">
-          {loading ? '加载中...' : '没有匹配的词'}
-        </div>
-      ) : (
-        <>
-          <div className="space-y-2">
-            {visible.map(word => (
-              <WordCard
-                key={word.id}
-                word={word}
-                isFavorite={favSet.has(word.id)}
-                onToggleFavorite={() => handleToggleFav(word)}
-              />
-            ))}
-          </div>
-          {/* 哨兵元素:用于触发加载更多 */}
-          {hasMore && (
-            <>
-              <div ref={sentinelRef} className="h-4" />
-              <div className="text-center py-4">
+      {/* 字母索引条 */}
+      {!query.trim() && availableLetters.size > 0 && (
+        <div className="sticky top-14 md:top-0 z-10 bg-stone-50/95 dark:bg-stone-900/95 backdrop-blur py-2 -mx-4 px-4 md:mx-0 md:px-0 border-b border-stone-200 dark:border-stone-800">
+          <div className="flex gap-1 overflow-x-auto">
+            {ALPHABET.map(letter => {
+              const has = availableLetters.has(letter)
+              const isActive = activeLetter === letter
+              return (
                 <button
-                  onClick={() => setDisplayCount(c => c + PAGE_SIZE)}
-                  className="btn-ghost text-sm"
+                  key={letter}
+                  onClick={() => has && scrollToLetter(letter)}
+                  disabled={!has}
+                  className={`w-7 h-7 flex-shrink-0 rounded text-xs font-bold transition-colors ${
+                    isActive
+                      ? 'bg-brand-600 text-white'
+                      : has
+                        ? 'bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-300 hover:bg-brand-100 dark:hover:bg-brand-900/40'
+                        : 'text-stone-300 dark:text-stone-600 cursor-not-allowed'
+                  }`}
+                  aria-label={`跳转到 ${letter}`}
                 >
-                  加载更多 ↓
+                  {letter}
                 </button>
-              </div>
-            </>
-          )}
-          {!hasMore && filtered.length > 0 && (
-            <div className="text-center text-xs text-stone-400 py-4">
-              已显示全部 {filtered.length} 个词
-            </div>
-          )}
-        </>
+              )
+            })}
+          </div>
+        </div>
       )}
+
+      {/* 词条列表 */}
+      <div ref={containerRef}>
+        {filtered.length === 0 ? (
+          <div className="text-center py-12 text-stone-500">
+            {loading ? '加载中...' : '没有匹配的词'}
+          </div>
+        ) : (
+          <>
+            <div className="space-y-2">
+              {visible.map((word, i) => {
+                const firstLetter = getFirstLetter(word.word)
+                const prevLetter = i > 0 ? getFirstLetter(visible[i - 1].word) : null
+                const showAnchor = firstLetter !== prevLetter
+                return (
+                  <Fragment key={word.id}>
+                    {showAnchor && !query.trim() && (
+                      <div
+                        data-letter-anchor={firstLetter}
+                        className="pt-2 pb-1 px-1 first:pt-0"
+                      >
+                        <div className="text-xs font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">
+                          {firstLetter}
+                        </div>
+                      </div>
+                    )}
+                    <WordCard
+                      word={word}
+                      isFavorite={favSet.has(word.id)}
+                      onToggleFavorite={() => handleToggleFav(word)}
+                    />
+                  </Fragment>
+                )
+              })}
+            </div>
+            {hasMore && (
+              <>
+                <div ref={sentinelRef} className="h-4" />
+                <div className="text-center py-4">
+                  <button
+                    onClick={() => setDisplayCount(c => c + PAGE_SIZE)}
+                    className="btn-ghost text-sm"
+                  >
+                    加载更多 ↓
+                  </button>
+                </div>
+              </>
+            )}
+            {!hasMore && filtered.length > 0 && (
+              <div className="text-center text-xs text-stone-400 py-4">
+                已显示全部 {filtered.length} 个词
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
   )
 }
