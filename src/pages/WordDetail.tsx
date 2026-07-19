@@ -194,7 +194,7 @@ export default function WordDetail() {
       </div>
 
       {/* 跟读练习 */}
-      <PronunciationPractice word={word.word} />
+      <PronunciationPractice key={word.id} word={word.word} />
 
       {/* 自评 */}
       <div className="card">

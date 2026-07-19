@@ -1,5 +1,14 @@
 // 单词跟读组件
-import { useState, useRef, useEffect } from 'react'
+// 重构要点(根据独立 code review 反馈):
+// 1. 倒计时 bug: n <= 0 时必须 setCountdown(0)
+// 2. 状态闭包: 用 ref 跟踪当前 state
+// 3. 所有 setTimeout/setInterval 必须可取消
+// 4. 5s timer 触发时要验证 recorderRef.current 是否还是同一个
+// 5. word 变化时重置所有 state(避免显示上一次结果)
+// 6. audioContext.resume() 在 user gesture 内调用
+// 7. startVolumeMonitoring 每次启动要停旧的
+// 8. 评分算法要更严格,UI 文案要诚实
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { AudioRecorder, scorePronunciation, playRecording, isRecordingSupported, type RecordingResult, type PronunciationScore } from '../lib/recorder'
 import { speak, stopSpeak } from '../lib/tts'
 
@@ -8,7 +17,7 @@ interface Props {
   onComplete?: (score: PronunciationScore) => void
 }
 
-type State = 'idle' | 'listening' | 'recording' | 'analyzing' | 'result' | 'error'
+type State = 'idle' | 'listening' | 'countdown' | 'recording' | 'analyzing' | 'result' | 'error'
 
 export default function PronunciationPractice({ word, onComplete }: Props) {
   const [state, setState] = useState<State>('idle')
@@ -16,23 +25,63 @@ export default function PronunciationPractice({ word, onComplete }: Props) {
   const [result, setResult] = useState<RecordingResult | null>(null)
   const [score, setScore] = useState<PronunciationScore | null>(null)
   const [errorMsg, setErrorMsg] = useState('')
-  const [supported] = useState(isRecordingSupported())
-  const recorderRef = useRef<AudioRecorder | null>(null)
-  const countdownRef = useRef<number | null>(null)
   const [countdown, setCountdown] = useState(0)
+  const [supported] = useState(isRecordingSupported())
 
+  // Refs(不参与渲染,但可跨生命周期)
+  const recorderRef = useRef<AudioRecorder | null>(null)
+  const countdownTimerRef = useRef<number | null>(null)
+  const listenTimerRef = useRef<number | null>(null)
+  const stopTimerRef = useRef<number | null>(null)
+  // 防止已卸载的回调更新 state
+  const mountedRef = useRef(true)
+  // 当前 state 的 ref 副本(避免闭包陷阱)
+  const stateRef = useRef<State>('idle')
+  useEffect(() => { stateRef.current = state }, [state])
+
+  // 重置所有
+  const reset = useCallback(() => {
+    // 清理所有 timer
+    if (listenTimerRef.current) { clearTimeout(listenTimerRef.current); listenTimerRef.current = null }
+    if (countdownTimerRef.current) { clearTimeout(countdownTimerRef.current); countdownTimerRef.current = null }
+    if (stopTimerRef.current) { clearTimeout(stopTimerRef.current); stopTimerRef.current = null }
+    // 清理录音
+    if (recorderRef.current) {
+      recorderRef.current.cancel()
+      recorderRef.current = null
+    }
+    stopSpeak()
+    if (mountedRef.current) {
+      setResult(null)
+      setScore(null)
+      setErrorMsg('')
+      setVolume(0)
+      setCountdown(0)
+      setState('idle')
+    }
+  }, [])
+
+  // 组件卸载时清理
   useEffect(() => {
     return () => {
-      // 清理
+      mountedRef.current = false
+      // 清理所有 timer
+      if (listenTimerRef.current) clearTimeout(listenTimerRef.current)
+      if (countdownTimerRef.current) clearTimeout(countdownTimerRef.current)
+      if (stopTimerRef.current) clearTimeout(stopTimerRef.current)
+      // 清理录音
       if (recorderRef.current) {
         recorderRef.current.cancel()
-      }
-      if (countdownRef.current) {
-        clearInterval(countdownRef.current)
+        recorderRef.current = null
       }
       stopSpeak()
     }
-  }, [word])
+  }, [])
+
+  // word 变化时重置整个状态
+  useEffect(() => {
+    reset()
+  }, [word, reset])
 
   async function startPractice() {
     if (!supported) {
@@ -40,72 +89,115 @@ export default function PronunciationPractice({ word, onComplete }: Props) {
       setState('error')
       return
     }
+    // 防御:已经在跑就不开始
+    if (stateRef.current !== 'idle' && stateRef.current !== 'result' && stateRef.current !== 'error') {
+      return
+    }
+
     setErrorMsg('')
     setResult(null)
     setScore(null)
+    setVolume(0)
+    setCountdown(0)
 
     // 步骤 1: 听原声
     setState('listening')
     speak({ text: word, rate: 0.8 })
 
-    // 等用户听完(2 秒),开始倒计时
-    setTimeout(() => {
-      if (state === 'error') return
+    // 等 2 秒,开始倒计时
+    listenTimerRef.current = window.setTimeout(() => {
+      listenTimerRef.current = null
+      // 检查组件是否还在
+      if (!mountedRef.current) return
+      // 检查是否被中断(用户在 listening 阶段可能按了别的)
+      if (stateRef.current !== 'listening') return
       startCountdown()
     }, 2000)
   }
 
   function startCountdown() {
+    setState('countdown')
     setCountdown(3)
+
     let n = 3
-    countdownRef.current = window.setInterval(() => {
+    const tick = () => {
       n -= 1
       if (n <= 0) {
-        if (countdownRef.current) clearInterval(countdownRef.current)
+        // 清空 countdown 后启动录音
+        setCountdown(0)
+        if (countdownTimerRef.current) {
+          clearTimeout(countdownTimerRef.current)
+          countdownTimerRef.current = null
+        }
+        // 启动录音
         startRecording()
       } else {
         setCountdown(n)
+        countdownTimerRef.current = window.setTimeout(tick, 1000)
       }
-    }, 1000)
+    }
+    countdownTimerRef.current = window.setTimeout(tick, 1000)
   }
 
   async function startRecording() {
+    if (!mountedRef.current) return
     setState('recording')
     setVolume(0)
+
     const recorder = new AudioRecorder()
     recorderRef.current = recorder
+
     try {
       await recorder.start()
+      // 启动音量监测(内部会停旧的)
       recorder.startVolumeMonitoring((vol) => {
-        setVolume(vol)
+        if (mountedRef.current) setVolume(vol)
       })
 
-      // 最长录 5 秒,自动停
-      setTimeout(() => {
+      // 5 秒自动停
+      stopTimerRef.current = window.setTimeout(() => {
+        stopTimerRef.current = null
+        // 关键: 只在还是当前 recorder 时才停
         if (recorderRef.current === recorder) {
           stopRecording()
         }
       }, 5000)
     } catch (e: any) {
-      setErrorMsg(e?.message || '录音启动失败,请允许麦克风权限')
-      setState('error')
+      recorderRef.current = null
+      if (mountedRef.current) {
+        setErrorMsg(e?.message || '录音启动失败,请允许麦克风权限')
+        setState('error')
+      }
     }
   }
 
   async function stopRecording() {
     const recorder = recorderRef.current
     if (!recorder) return
-    setState('analyzing')
+
+    // 取消自动停止 timer
+    if (stopTimerRef.current) {
+      clearTimeout(stopTimerRef.current)
+      stopTimerRef.current = null
+    }
+
+    if (mountedRef.current) setState('analyzing')
+
     try {
       const r = await recorder.stop()
+      recorderRef.current = null
+      if (!mountedRef.current) return
       setResult(r)
       const s = scorePronunciation(r, word)
       setScore(s)
       setState('result')
       onComplete?.(s)
     } catch (e: any) {
-      setErrorMsg(e?.message || '录音失败')
-      setState('error')
+      recorderRef.current = null
+      if (mountedRef.current) {
+        setErrorMsg(e?.message || '录音失败')
+        setState('error')
+      }
     }
   }
 
@@ -114,15 +206,6 @@ export default function PronunciationPractice({ word, onComplete }: Props) {
       playRecording(result.audioBlob).catch(console.error)
     }
   }
-
-  function reset() {
-    setResult(null)
-    setScore(null)
-    setErrorMsg('')
-    setState('idle')
-  }
-
-  // ============ UI 渲染 ============
 
   if (!supported) {
     return (
@@ -163,10 +246,20 @@ export default function PronunciationPractice({ word, onComplete }: Props) {
             <div className="text-5xl mb-3 animate-pulse">🔊</div>
             <p className="text-sm font-medium mb-1">请仔细听原声</p>
             <p className="text-xs text-stone-500">听完会自动开始倒计时...</p>
+            <button onClick={reset} className="btn-ghost w-full mt-3 text-xs">
+              取消
+            </button>
           </>
         )}
 
-        {state === 'recording' && countdown === 0 && (
+        {state === 'countdown' && (
+          <>
+            <div className="text-7xl font-bold text-brand-600 mb-2">{countdown}</div>
+            <p className="text-sm text-stone-500">准备...</p>
+          </>
+        )}
+
+        {state === 'recording' && (
           <>
             <div className="text-5xl mb-3">🎙️</div>
             <p className="text-sm font-medium mb-2">正在录音...大声读出来</p>
@@ -174,19 +267,12 @@ export default function PronunciationPractice({ word, onComplete }: Props) {
             <div className="h-3 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden mb-4">
               <div
                 className="h-full bg-gradient-to-r from-green-400 to-red-500 transition-all duration-75"
-                style={{ width: `${Math.min(100, volume * 200)}%` }}
+                style={{ width: `${Math.min(100, volume * 250)}%` }}
               />
             </div>
             <button onClick={stopRecording} className="btn-ghost w-full">
               ⏹ 停止
             </button>
-          </>
-        )}
-
-        {state === 'recording' && countdown > 0 && (
-          <>
-            <div className="text-7xl font-bold text-brand-600 mb-2">{countdown}</div>
-            <p className="text-sm text-stone-500">准备...</p>
           </>
         )}
 
@@ -254,8 +340,11 @@ function PronunciationResult({
       <div className={`text-5xl font-bold mb-2 ${colorByLevel[score.level]}`}>
         {score.total}
       </div>
-      <div className="text-sm text-stone-600 dark:text-stone-400 mb-4">
+      <div className="text-sm text-stone-600 dark:text-stone-400 mb-3">
         {score.feedback}
+      </div>
+      <div className="text-xs text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-900/20 rounded p-2 mb-4">
+        ⚠️ 本评测仅基于音量/时长,无法判断发音准确性,请结合真人老师或专业 App
       </div>
 
       {/* 波形对比 */}
