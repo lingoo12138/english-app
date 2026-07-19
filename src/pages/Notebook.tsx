@@ -4,6 +4,7 @@ import { getWord } from '../lib/words'
 import { Link } from 'react-router-dom'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
+import { exportToCSV, exportToJSON, exportFullBackup, downloadFile } from '../lib/export'
 
 export default function Notebook() {
   const [words, setWords] = useState<Word[]>([])
@@ -43,7 +44,53 @@ export default function Notebook() {
           <h1 className="text-2xl font-bold mb-1">生词本</h1>
           <p className="text-stone-500 text-sm">共 {words.length} 个词 {dueCount > 0 && `· ${dueCount} 个待复习`}</p>
         </div>
+        {words.length > 0 && (
+          <details className="relative">
+            <summary className="btn-ghost text-sm cursor-pointer list-none">
+              导出 ▾
+            </summary>
+            <div className="absolute right-0 mt-1 w-40 bg-white dark:bg-stone-800 rounded-lg shadow-lg border border-stone-200 dark:border-stone-700 z-10 overflow-hidden">
+              <button
+                onClick={async () => {
+                  const csv = await exportToCSV()
+                  downloadFile(csv, `生词本-${formatDate()}.csv`, 'text/csv')
+                }}
+                className="block w-full text-left px-4 py-2 text-sm hover:bg-stone-100 dark:hover:bg-stone-700"
+              >
+                📊 导出 CSV
+              </button>
+              <button
+                onClick={async () => {
+                  const json = await exportToJSON()
+                  downloadFile(json, `生词本-${formatDate()}.json`, 'application/json')
+                }}
+                className="block w-full text-left px-4 py-2 text-sm hover:bg-stone-100 dark:hover:bg-stone-700"
+              >
+                📋 导出 JSON
+              </button>
+              <button
+                onClick={async () => {
+                  const backup = await exportFullBackup()
+                  downloadFile(backup, `完整备份-${formatDate()}.json`, 'application/json')
+                }}
+                className="block w-full text-left px-4 py-2 text-sm hover:bg-stone-100 dark:hover:bg-stone-700 border-t border-stone-200 dark:border-stone-700"
+              >
+                💾 完整备份
+              </button>
+            </div>
+          </details>
+        )}
       </div>
+
+      {/* 错题本入口 */}
+      <Link to="/weak" className="card flex items-center gap-3 hover:shadow-md active:scale-[0.98] transition-all">
+        <div className="text-2xl">📕</div>
+        <div className="flex-1">
+          <h3 className="font-medium">错题本</h3>
+          <p className="text-xs text-stone-500">查看反复记不住的词</p>
+        </div>
+        <div className="text-stone-400">→</div>
+      </Link>
 
       {/* 复习入口 */}
       {dueCount > 0 && (
@@ -95,4 +142,9 @@ export default function Notebook() {
       )}
     </div>
   )
+}
+
+function formatDate(): string {
+  const d = new Date()
+  return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`
 }

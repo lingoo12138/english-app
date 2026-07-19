@@ -2,10 +2,15 @@ import { useEffect, useState } from 'react'
 import { useStore } from '../store/useStore'
 import { getVoices, loadVoices } from '../lib/tts'
 import { db } from '../lib/db'
+import { THEMES, FONT_SIZES, applyTheme, applyFontSize, getTheme } from '../lib/themes'
 
 export default function Settings() {
   const darkMode = useStore(s => s.darkMode)
   const toggleDark = useStore(s => s.toggleDark)
+  const themeColor = useStore(s => s.themeColor)
+  const setThemeColor = useStore(s => s.setThemeColor)
+  const fontSize = useStore(s => s.fontSize)
+  const setFontSize = useStore(s => s.setFontSize)
   const voiceName = useStore(s => s.voiceName)
   const setVoiceName = useStore(s => s.setVoiceName)
   const rate = useStore(s => s.rate)
@@ -130,7 +135,60 @@ export default function Settings() {
       {/* 外观 */}
       <section className="card">
         <h3 className="font-semibold mb-3">🎨 外观</h3>
-        <div className="flex items-center justify-between">
+
+        {/* 主题色 */}
+        <div className="mb-4">
+          <label className="text-sm text-stone-500 mb-2 block">主题色</label>
+          <div className="grid grid-cols-3 gap-2">
+            {THEMES.map(theme => (
+              <button
+                key={theme.id}
+                onClick={() => {
+                  setThemeColor(theme.id)
+                  applyTheme(getTheme(theme.id))
+                }}
+                className={`flex items-center gap-2 px-3 py-2.5 rounded-lg border-2 transition-all ${
+                  themeColor === theme.id
+                    ? 'border-brand-600 bg-brand-50 dark:bg-brand-900/20'
+                    : 'border-stone-200 dark:border-stone-700'
+                }`}
+              >
+                <div
+                  className="w-6 h-6 rounded-full shadow-inner"
+                  style={{ background: `rgb(${theme.colors[600]})` }}
+                />
+                <span className="text-sm font-medium">{theme.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* 字号 */}
+        <div className="mb-4">
+          <label className="text-sm text-stone-500 mb-2 block">字号</label>
+          <div className="grid grid-cols-4 gap-2">
+            {FONT_SIZES.map(fs => (
+              <button
+                key={fs.id}
+                onClick={() => {
+                  setFontSize(fs.id)
+                  applyFontSize(fs.id)
+                }}
+                className={`px-3 py-2 rounded-lg border-2 transition-all ${
+                  fontSize === fs.id
+                    ? 'border-brand-600 bg-brand-50 dark:bg-brand-900/20'
+                    : 'border-stone-200 dark:border-stone-700'
+                }`}
+              >
+                <div className="text-sm font-medium">{fs.name}</div>
+                <div className="text-xs text-stone-400">{fs.base}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* 暗色模式 */}
+        <div className="flex items-center justify-between pt-2 border-t border-stone-100 dark:border-stone-700">
           <div>
             <div className="font-medium">暗色模式</div>
             <div className="text-sm text-stone-500">晚上学习更护眼</div>

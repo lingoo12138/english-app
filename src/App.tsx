@@ -9,11 +9,15 @@ import Translate from './pages/Translate'
 import Notebook from './pages/Notebook'
 import Settings from './pages/Settings'
 import ReviewCenter from './pages/ReviewCenter'
+import WeakWords from './pages/WeakWords'
 import { useStore, useStats } from './store/useStore'
 import { getTodayCount, getTotalLearned, getAllFavorites } from './lib/db'
+import { getTheme, applyTheme, applyFontSize } from './lib/themes'
 
 function App() {
   const darkMode = useStore((s) => s.darkMode)
+  const themeColor = useStore((s) => s.themeColor)
+  const fontSize = useStore((s) => s.fontSize)
   const setStats = useStats((s) => s.setStats)
 
   useEffect(() => {
@@ -23,6 +27,14 @@ function App() {
       document.documentElement.classList.remove('dark')
     }
   }, [darkMode])
+
+  useEffect(() => {
+    applyTheme(getTheme(themeColor))
+  }, [themeColor])
+
+  useEffect(() => {
+    applyFontSize(fontSize)
+  }, [fontSize])
 
   // 加载统计
   useEffect(() => {
@@ -49,6 +61,7 @@ function App() {
         <Route path="daily" element={<DailyPage />} />
         <Route path="translate" element={<Translate />} />
         <Route path="notebook" element={<Notebook />} />
+        <Route path="weak" element={<WeakWords />} />
         <Route path="review" element={<ReviewCenter />} />
         <Route path="settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />

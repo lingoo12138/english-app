@@ -6,6 +6,10 @@ interface AppState {
   // 主题
   darkMode: boolean
   toggleDark: () => void
+  themeColor: string
+  setThemeColor: (id: string) => void
+  fontSize: string
+  setFontSize: (id: string) => void
 
   // TTS 设置
   voiceName: string
@@ -29,6 +33,10 @@ export const useStore = create<AppState>()(
     (set) => ({
       darkMode: false,
       toggleDark: () => set((s) => ({ darkMode: !s.darkMode })),
+      themeColor: 'green',
+      setThemeColor: (id) => set({ themeColor: id }),
+      fontSize: 'md',
+      setFontSize: (id) => set({ fontSize: id }),
 
       voiceName: '',
       setVoiceName: (name) => set({ voiceName: name }),
