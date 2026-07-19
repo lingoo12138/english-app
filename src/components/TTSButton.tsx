@@ -1,5 +1,6 @@
 // 通用 TTS 按钮组件
-import { useState } from 'react'
+// 修复: setInterval 清理(useEffect) + 卸载时 cancel
+import { useState, useEffect, useRef } from 'react'
 import { speak, speakSlow, stopSpeak } from '../lib/tts'
 
 interface Props {
@@ -11,30 +12,53 @@ interface Props {
 export default function TTSButton({ text, size = 'md', variant = 'icon' }: Props) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isSlow, setIsSlow] = useState(false)
+  const checkIntervalRef = useRef<number | null>(null)
+  const textRef = useRef(text)
+  textRef.current = text
+
+  useEffect(() => {
+    return () => {
+      // 卸载时清理所有资源
+      if (checkIntervalRef.current) {
+        clearInterval(checkIntervalRef.current)
+        checkIntervalRef.current = null
+      }
+      stopSpeak()
+    }
+  }, [])
+
+  const handleClick = () => {
+    if (isPlaying) {
+      stopSpeak()
+      setIsPlaying(false)
+      if (checkIntervalRef.current) {
+        clearInterval(checkIntervalRef.current)
+        checkIntervalRef.current = null
+      }
+      return
+    }
+    setIsPlaying(true)
+    if (isSlow) speakSlow(text)
+    else speak({ text })
+
+    // 监听朗读结束
+    if (checkIntervalRef.current) clearInterval(checkIntervalRef.current)
+    checkIntervalRef.current = window.setInterval(() => {
+      if (!window.speechSynthesis.speaking) {
+        setIsPlaying(false)
+        if (checkIntervalRef.current) {
+          clearInterval(checkIntervalRef.current)
+          checkIntervalRef.current = null
+        }
+      }
+    }, 300)
+  }
 
   const sizeClass = {
     sm: 'w-7 h-7 text-sm',
     md: 'w-9 h-9 text-base',
     lg: 'w-11 h-11 text-lg',
   }[size]
-
-  const handleClick = () => {
-    if (isPlaying) {
-      stopSpeak()
-      setIsPlaying(false)
-      return
-    }
-    setIsPlaying(true)
-    if (isSlow) speakSlow(text)
-    else speak({ text })
-    // 简易结束检测
-    const id = setInterval(() => {
-      if (!window.speechSynthesis.speaking) {
-        setIsPlaying(false)
-        clearInterval(id)
-      }
-    }, 300)
-  }
 
   if (variant === 'text') {
     return (

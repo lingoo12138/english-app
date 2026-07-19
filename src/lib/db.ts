@@ -46,12 +46,25 @@ export async function logAction(wordId: string, action: LearnRecord['action']) {
   })
 }
 
+// 判断 wordId 是否为"真实"单词 ID(过滤场景/每日一句等合成 ID)
+function isRealWordId(wordId: string): boolean {
+  // 场景课句子的 recId 格式: scene-{sceneId}-{...}
+  if (wordId.startsWith('scene-')) return false
+  // 每日一句的 recId 格式: daily-{id}
+  if (wordId.startsWith('daily-')) return false
+  return true
+}
+
 export async function getTodayCount(): Promise<number> {
   const start = new Date()
   start.setHours(0, 0, 0, 0)
   const records = await db.records.where('timestamp').above(start.getTime()).toArray()
-  // 去重: 同一词只算一次
-  const uniqueWords = new Set(records.filter(r => r.action === 'view').map(r => r.wordId))
+  // 去重: 同一词只算一次,过滤非真实单词
+  const uniqueWords = new Set(
+    records
+      .filter(r => r.action === 'view' && isRealWordId(r.wordId))
+      .map(r => r.wordId)
+  )
   return uniqueWords.size
 }
 

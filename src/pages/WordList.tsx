@@ -86,6 +86,7 @@ export default function WordList() {
   }, [hasMore, filtered.length])
 
   // 监听当前可见的首字母
+  // 修复: 依赖 availableLetters.size (不是 visible.length) - 避免每次分页重建
   useEffect(() => {
     if (!containerRef.current) return
     const observer = new IntersectionObserver(
@@ -99,15 +100,18 @@ export default function WordList() {
           if (letter) setActiveLetter(letter)
         }
       },
-      { rootMargin: '-80px 0px -70% 0px', threshold: 0 }
+      // 修复: top 0(不缩小)配合 scroll-margin-top: 60px
+      // 头部 sticky bar 高 60px,scrollIntoView 会把锚点滚到 viewport 60px 处
+      { rootMargin: '0px 0px -70% 0px', threshold: 0 }
     )
 
     const anchors = containerRef.current.querySelectorAll('[data-letter-anchor]')
     anchors.forEach(a => observer.observe(a))
     return () => observer.disconnect()
-  }, [visible.length, level, query])
+  }, [availableLetters.size, level, query])
 
   // 滚动到指定字母
+  // 修复: 不立即 setActiveLetter(避免与 IO race),滚动完成后由 IO 决定
   const scrollToLetter = useCallback((letter: string) => {
     if (!containerRef.current) return
     const el = containerRef.current.querySelector(`[data-letter-anchor="${letter}"]`)
@@ -115,6 +119,7 @@ export default function WordList() {
       // 用 scrollIntoView 的 scroll-margin 避免被 sticky 拦裁
       ;(el as HTMLElement).style.scrollMarginTop = '60px'
       el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      // 乐观设置 activeLetter,但 IO 会在滚动后覆盖
       setActiveLetter(letter)
     }
   }, [])

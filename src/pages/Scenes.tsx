@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { SCENES, type Scene, searchScenes } from '../data/scenes'
-import { logAction } from '../lib/db'
 
 export default function Scenes() {
   const [query, setQuery] = useState('')
@@ -13,32 +12,47 @@ export default function Scenes() {
     setScenes(searchScenes(query))
   }, [query])
 
-  // 加载完成的场景(用 review 状态模拟)
+  // 加载完成的场景 + 监听 SceneDetail 学完事件
   useEffect(() => {
     const loadCompleted = async () => {
       const { db } = await import('../lib/db')
-      // 检查每个场景是否所有句子都"认识"过
+      // 一次拉所有 scene- 记录,内存中计算完成度
+      const allRecords = await db.records
+        .where('wordId').startsWith('scene-')
+        .toArray()
+      // 按场景分组
+      const knownByScene = new Map<string, Set<string>>()
+      for (const r of allRecords) {
+        if (r.action !== 'known') continue
+        // recId 格式: scene-{sceneId}-{sentenceEn20}
+        const m = r.wordId.match(/^scene-([^-]+)-/)
+        if (!m) continue
+        const sceneId = m[1]
+        if (!knownByScene.has(sceneId)) knownByScene.set(sceneId, new Set())
+        knownByScene.get(sceneId)!.add(r.wordId)
+      }
+      // 判断每个场景是否所有句子都 known
       const completedSet = new Set<string>()
       for (const scene of SCENES) {
+        const knownRecIds = knownByScene.get(scene.id)
+        if (!knownRecIds) continue
         let allKnown = true
         for (const sent of scene.sentences) {
-          const id = `scene-${scene.id}-${sent.en.slice(0, 20)}`
-          const known = await db.records
-            .where('wordId').equals(id)
-            .and(r => r.action === 'known')
-            .first()
-          if (!known) {
+          const recId = `scene-${scene.id}-${sent.en.slice(0, 20)}`
+          if (!knownRecIds.has(recId)) {
             allKnown = false
             break
           }
         }
-        if (allKnown && scene.sentences.length > 0) {
-          completedSet.add(scene.id)
-        }
+        if (allKnown) completedSet.add(scene.id)
       }
       setCompleted(completedSet)
     }
     loadCompleted()
+    // 监听 SceneDetail 完成的全局事件
+    const handler = () => loadCompleted()
+    window.addEventListener('scenes:updated', handler)
+    return () => window.removeEventListener('scenes:updated', handler)
   }, [])
 
   return (
@@ -65,7 +79,6 @@ export default function Scenes() {
           <Link
             key={scene.id}
             to={`/scenes/${scene.id}`}
-            onClick={() => logAction(`scene-${scene.id}`, 'view')}
             className="card flex items-center gap-4 hover:shadow-md active:scale-[0.98] transition-all no-select"
           >
             <div className="text-4xl">{scene.emoji}</div>

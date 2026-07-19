@@ -1,5 +1,5 @@
 // 场景详情页 - 学习该场景的句子
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { SCENES, type Scene } from '../data/scenes'
 import TTSButton from '../components/TTSButton'
@@ -8,41 +8,56 @@ import { logAction, db } from '../lib/db'
 export default function SceneDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const [scene, setScene] = useState<Scene | null>(null)
   const [currentIdx, setCurrentIdx] = useState(0)
   const [knownMap, setKnownMap] = useState<Map<number, 'known' | 'unknown'>>(new Map())
+  const [isTransitioning, setIsTransitioning] = useState(false)  // 防止重复点击
   const knownMapRef = useRef(knownMap)
   knownMapRef.current = knownMap
+
+  // 同步计算 scene,避免首屏闪'场景不存在'
+  const scene = useMemo(() => SCENES.find(x => x.id === id) || null, [id])
 
   useEffect(() => {
     // 场景变化时重置所有状态
     setCurrentIdx(0)
     setKnownMap(new Map())
+    setIsTransitioning(false)
 
-    const s = SCENES.find(x => x.id === id)
-    setScene(s || null)
-    if (s) {
-      // 加载每句的已知状态
-      const loadKnown = async () => {
-        const map = new Map<number, 'known' | 'unknown'>()
-        for (let i = 0; i < s.sentences.length; i++) {
-          const sent = s.sentences[i]
-          const recId = `scene-${s.id}-${sent.en.slice(0, 20)}`
-          const last = await db.records
-            .where('wordId').equals(recId)
-            .reverse()
-            .sortBy('timestamp')
-          if (last[0]?.action === 'known') {
-            map.set(i, 'known')
-          } else if (last[0]?.action === 'unknown') {
-            map.set(i, 'unknown')
+    if (!scene) return
+
+    // 加载每句的已知状态(用 race-safe 方式)
+    let cancelled = false
+    const loadKnown = async () => {
+      try {
+        // 一次拉全表,内存中过滤(避免 40 次串行查询)
+        const allRecords = await db.records
+          .where('wordId').startsWith(`scene-${scene.id}-`)
+          .toArray()
+        if (cancelled) return
+        // 按 recId 分组,取每句最后一条
+        const lastByRecId = new Map<string, string>()
+        for (const r of allRecords) {
+          const prev = lastByRecId.get(r.wordId)
+          if (!prev) {
+            lastByRecId.set(r.wordId, r.action)
           }
         }
-        setKnownMap(map)
+        const map = new Map<number, 'known' | 'unknown'>()
+        for (let i = 0; i < scene.sentences.length; i++) {
+          const recId = `scene-${scene.id}-${scene.sentences[i].en.slice(0, 20)}`
+          const action = lastByRecId.get(recId)
+          if (action === 'known' || action === 'unknown') {
+            map.set(i, action)
+          }
+        }
+        if (!cancelled) setKnownMap(map)
+      } catch (e) {
+        console.error('加载场景学习记录失败', e)
       }
-      loadKnown()
     }
-  }, [id])
+    loadKnown()
+    return () => { cancelled = true }
+  }, [id, scene])
 
   if (!scene) {
     return (
@@ -58,20 +73,47 @@ export default function SceneDetail() {
   const currentSentence = scene.sentences[currentIdx]
   const total = scene.sentences.length
   const progress = ((currentIdx + 1) / total) * 100
-  const knownCount = knownMap.size
+  // 修复: 只数'known'状态(之前错误地把 unknown 也计入)
+  const knownCount = useMemo(
+    () => Array.from(knownMap.values()).filter(v => v === 'known').length,
+    [knownMap]
+  )
   const knownRatio = knownCount / total
+  const allKnown = knownCount === total && total > 0
+
+  // 如果全部学完,通知其他页面(Scenes 列表会更新)
+  useEffect(() => {
+    if (allKnown) {
+      // 触发全局事件让 Scenes 列表重载
+      window.dispatchEvent(new CustomEvent('scenes:updated'))
+    }
+  }, [allKnown])
 
   const handleRate = async (rate: 'known' | 'unknown') => {
+    if (isTransitioning) return  // 防止重复点击
+    setIsTransitioning(true)
     const recId = `scene-${scene.id}-${currentSentence.en.slice(0, 20)}`
-    await logAction(recId, rate)
-    setKnownMap(prev => {
-      const next = new Map(prev)
-      next.set(currentIdx, rate)
-      return next
-    })
+    try {
+      await logAction(recId, rate)
+      setKnownMap(prev => {
+        const next = new Map(prev)
+        next.set(currentIdx, rate)
+        return next
+      })
+    } catch (e) {
+      console.error('记录学习状态失败', e)
+      // 不乐观更新,让用户重试
+      setIsTransitioning(false)
+      return
+    }
     // 下一个
     if (currentIdx + 1 < total) {
-      setTimeout(() => setCurrentIdx(i => i + 1), 300)
+      setTimeout(() => {
+        setCurrentIdx(i => i + 1)
+        setIsTransitioning(false)
+      }, 300)
+    } else {
+      setIsTransitioning(false)
     }
   }
 

@@ -26,7 +26,18 @@ export function isRecordingSupported(): boolean {
   try {
     if (!navigator.mediaDevices?.getUserMedia) return false
     const Ctor = (window as any).MediaRecorder
-    return typeof Ctor === 'function'
+    if (typeof Ctor !== 'function') return false
+    // iOS Safari < 16.4 不支持 MediaRecorder
+    // 检查是否有可用的 MIME type(否则即使支持也录不了)
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+    if (isIOS) {
+      // iOS Safari 需要 audio/mp4
+      const hasMp4 = MediaRecorder.isTypeSupported('audio/mp4') ||
+                      MediaRecorder.isTypeSupported('audio/mp4;codecs=mp4a.40.2')
+      const hasWebm = MediaRecorder.isTypeSupported('audio/webm')
+      if (!hasMp4 && !hasWebm) return false
+    }
+    return true
   } catch {
     return false
   }
