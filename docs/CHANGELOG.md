@@ -4,6 +4,37 @@
 
 ---
 
+## [v0.6] - 2026-07-20
+
+### 新增
+- 跟读评测(单词级) - MediaRecorder + Web Audio API + 简单评分
+- 字母索引(词库快速跳转) - 26 字母 sticky 条 + 自动高亮
+- 场景专题课(5 个场景) - 餐厅/问路/购物/办公/自我介绍
+
+### 修复(基于独立 Verifier 审查 22 个 P0)
+- 跟读评测: 倒计时 bug、key 缺失、5s race、stale closure、AudioContext resume、评分宽松、iOS Safari 检测、重复 start 资源泄漏
+- 字母索引: sticky 遮挡、activeLetter race、IO 依赖错
+- 场景专题课: 进度条把 unknown 算成 known、统计污染、首屏闪'场景不存在'、跨页完成度不同步、串行查询、乐观更新
+- TTSButton: setInterval 永不清理
+- 全局: getTodayCount 过滤非真实单词 ID
+
+---
+
+## [v0.5] - 2026-07-20
+
+### 修复
+- 倒计时永远卡在"1"
+- PronunciationPractice 无 key,切词时状态残留
+- 5s 自动停止 race
+- setTimeout stale closure
+- 评分 100 分是白送
+- AudioContext 未 resume
+- 多次 start 资源泄漏
+- 字母索引 sticky 遮挡
+- 场景课 word 切换 state 残留
+
+---
+
 ## [v0.4] - 2026-07-20
 
 ### 新增
