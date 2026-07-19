@@ -99,9 +99,61 @@ export default function WordDetail() {
         </div>
 
         <p className="text-lg text-stone-700 dark:text-stone-300 mb-4">
-          {word.translations.join(' · ')}
+          {word.translations.slice(0, 3).join(' · ')}
+          {word.translations.length > 3 && (
+            <span className="text-sm text-stone-400 ml-1">+{word.translations.length - 3} 个义项</span>
+          )}
         </p>
       </div>
+
+      {/* 词根词缀 */}
+      {word.roots && word.roots.length > 0 && (
+        <div className="card">
+          <h3 className="font-semibold mb-3 flex items-center gap-2">
+            <span>🌱</span>
+            <span>词根词缀</span>
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {word.roots.map((r, i) => {
+              const typeColor = r.type === 'prefix' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300'
+                : r.type === 'suffix' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300'
+                : 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300'
+              const typeLabel = r.type === 'prefix' ? '前缀' : r.type === 'suffix' ? '后缀' : '词根'
+              return (
+                <div key={i} className="flex items-center gap-1.5">
+                  <span className={`text-sm font-mono px-2 py-1 rounded ${typeColor}`}>
+                    {r.root}
+                  </span>
+                  <span className="text-xs text-stone-500">{typeLabel}</span>
+                  <span className="text-sm text-stone-700 dark:text-stone-300">{r.meaning}</span>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* 短语 */}
+      {word.phrases && word.phrases.length > 0 && (
+        <div className="card">
+          <h3 className="font-semibold mb-3 flex items-center gap-2">
+            <span>🔗</span>
+            <span>常用短语</span>
+            <span className="text-xs text-stone-500 ml-auto">共 {word.phrases.length} 个</span>
+          </h3>
+          <div className="grid grid-cols-1 gap-2">
+            {word.phrases.map((p, i) => (
+              <div key={i} className="flex items-start gap-2 py-1.5 border-b border-stone-100 dark:border-stone-700 last:border-0">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium">{p.phrase}</p>
+                  <p className="text-xs text-stone-500">{p.translation}</p>
+                </div>
+                <TTSButton text={p.phrase} size="sm" />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* 例句 */}
       <div className="card">

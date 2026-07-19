@@ -47,6 +47,7 @@ export default function Settings() {
               <option value="primary">小学</option>
               <option value="junior">初中</option>
               <option value="senior">高中</option>
+              <option value="gaozhong">高考</option>
               <option value="cet4">CET-4</option>
               <option value="cet6">CET-6</option>
               <option value="kaoyan">考研</option>

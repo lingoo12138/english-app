@@ -21,10 +21,11 @@ export default function WordCard({ word, isFavorite, onToggleFavorite }: Props) 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-0.5">
           <h3 className="text-lg font-semibold truncate">{word.word}</h3>
-          <span className="text-xs text-stone-400">{word.phonetic}</span>
+          <span className="text-xs text-stone-400 truncate">{word.phonetic}</span>
         </div>
         <p className="text-sm text-stone-600 dark:text-stone-400 truncate">
-          {word.translations.slice(0, 2).join(' · ')}
+          {word.translations[0]}
+          {word.translations.length > 1 && <span className="text-stone-400"> · +{word.translations.length - 1}</span>}
         </p>
         <div className="flex items-center gap-1.5 mt-1.5">
           {level && (

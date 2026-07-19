@@ -35,6 +35,7 @@ export const LEVELS = [
   { value: 'primary', label: '小学', color: 'bg-pink-500' },
   { value: 'junior', label: '初中', color: 'bg-orange-500' },
   { value: 'senior', label: '高中', color: 'bg-amber-500' },
+  { value: 'gaozhong', label: '高考', color: 'bg-amber-600' },
   { value: 'cet4', label: 'CET-4', color: 'bg-sky-500' },
   { value: 'cet6', label: 'CET-6', color: 'bg-blue-500' },
   { value: 'kaoyan', label: '考研', color: 'bg-indigo-500' },

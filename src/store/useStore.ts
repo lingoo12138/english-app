@@ -14,7 +14,7 @@ interface AppState {
   setRate: (rate: number) => void
 
   // 学习设置
-  targetLevel: 'primary' | 'junior' | 'senior' | 'cet4' | 'cet6' | 'kaoyan' | 'daily' | 'all'
+  targetLevel: 'primary' | 'junior' | 'senior' | 'gaozhong' | 'cet4' | 'cet6' | 'kaoyan' | 'daily' | 'all'
   setTargetLevel: (level: AppState['targetLevel']) => void
   dailyGoal: number
   setDailyGoal: (n: number) => void
