@@ -8,6 +8,7 @@ import DailyPage from './pages/DailyPage'
 import Translate from './pages/Translate'
 import Notebook from './pages/Notebook'
 import Settings from './pages/Settings'
+import ReviewCenter from './pages/ReviewCenter'
 import { useStore, useStats } from './store/useStore'
 import { getTodayCount, getTotalLearned, getAllFavorites } from './lib/db'
 
@@ -48,6 +49,7 @@ function App() {
         <Route path="daily" element={<DailyPage />} />
         <Route path="translate" element={<Translate />} />
         <Route path="notebook" element={<Notebook />} />
+        <Route path="review" element={<ReviewCenter />} />
         <Route path="settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

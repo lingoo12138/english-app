@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import TTSButton from '../components/TTSButton'
+import StudyCalendar from '../components/StudyCalendar'
 import { getTodaySentence } from '../lib/daily'
 import { loadWords, LEVELS } from '../lib/words'
 import type { Word, DailySentence } from '../types'
 import { useStats, useStore } from '../store/useStore'
 import { isFavorite, addFavorite, removeFavorite } from '../lib/db'
+import { getDueReviews } from '../lib/db'
 
 export default function Home() {
   const [sentence, setSentence] = useState<DailySentence | null>(null)
   const [wordOfDay, setWordOfDay] = useState<Word | null>(null)
   const [fav, setFav] = useState(false)
+  const [dueReviewCount, setDueReviewCount] = useState(0)
   const stats = useStats()
   const targetLevel = useStore(s => s.targetLevel)
 
@@ -23,6 +26,8 @@ export default function Home() {
       const idx = Math.floor(Math.random() * candidates.length)
       setWordOfDay(candidates[idx])
     })
+    // 获取待复习数量
+    getDueReviews().then(reviews => setDueReviewCount(reviews.length))
   }, [targetLevel])
 
   useEffect(() => {
@@ -113,6 +118,28 @@ export default function Home() {
         </div>
       )}
 
+      {/* 复习提醒 */}
+      {dueReviewCount > 0 && (
+        <Link
+          to="/review"
+          className="card flex items-center gap-3 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border border-amber-200 dark:border-amber-800 hover:shadow-md active:scale-[0.98] transition-all no-select"
+        >
+          <div className="text-3xl">📝</div>
+          <div className="flex-1">
+            <h3 className="font-semibold text-amber-900 dark:text-amber-200">
+              有 {dueReviewCount} 个词该复习了
+            </h3>
+            <p className="text-xs text-amber-700 dark:text-amber-300">按记忆曲线,趁热打铁</p>
+          </div>
+          <div className="text-amber-600 dark:text-amber-400">→</div>
+        </Link>
+      )}
+
+      {/* 学习日历 */}
+      <div className="card">
+        <StudyCalendar days={84} compact />
+      </div>
+
       {/* 快捷入口 */}
       <div>
         <h3 className="text-sm font-semibold text-stone-500 mb-3">快捷入口</h3>
@@ -120,7 +147,12 @@ export default function Home() {
           <Link to="/words" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
             <div className="text-3xl mb-2">📚</div>
             <div className="font-medium">浏览词库</div>
-            <div className="text-xs text-stone-500 mt-1">200+ 高频词</div>
+            <div className="text-xs text-stone-500 mt-1">5000+ 高频词</div>
+          </Link>
+          <Link to="/review" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
+            <div className="text-3xl mb-2">📝</div>
+            <div className="font-medium">复习中心</div>
+            <div className="text-xs text-stone-500 mt-1">智能间隔重复</div>
           </Link>
           <Link to="/translate" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
             <div className="text-3xl mb-2">🔤</div>
