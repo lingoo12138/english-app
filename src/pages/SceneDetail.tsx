@@ -1,5 +1,5 @@
 // 场景详情页 - 学习该场景的句子
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { SCENES, type Scene } from '../data/scenes'
 import TTSButton from '../components/TTSButton'
@@ -11,8 +11,14 @@ export default function SceneDetail() {
   const [scene, setScene] = useState<Scene | null>(null)
   const [currentIdx, setCurrentIdx] = useState(0)
   const [knownMap, setKnownMap] = useState<Map<number, 'known' | 'unknown'>>(new Map())
+  const knownMapRef = useRef(knownMap)
+  knownMapRef.current = knownMap
 
   useEffect(() => {
+    // 场景变化时重置所有状态
+    setCurrentIdx(0)
+    setKnownMap(new Map())
+
     const s = SCENES.find(x => x.id === id)
     setScene(s || null)
     if (s) {

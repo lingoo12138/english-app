@@ -112,6 +112,8 @@ export default function WordList() {
     if (!containerRef.current) return
     const el = containerRef.current.querySelector(`[data-letter-anchor="${letter}"]`)
     if (el) {
+      // 用 scrollIntoView 的 scroll-margin 避免被 sticky 拦裁
+      ;(el as HTMLElement).style.scrollMarginTop = '60px'
       el.scrollIntoView({ behavior: 'smooth', block: 'start' })
       setActiveLetter(letter)
     }
