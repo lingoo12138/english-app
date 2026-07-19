@@ -152,4 +152,14 @@ english-app/
 
 ---
 
+## 📚 开发文档
+
+项目维护了以下文档,供查阅和验收:
+
+- **[DEV_LOG.md](./docs/DEV_LOG.md)** — 主开发日志,详细的功能清单、技术决策、验收点
+- **[ROADMAP.md](./docs/ROADMAP.md)** — 路线图,一页纸看完全部计划
+- **[CHANGELOG.md](./docs/CHANGELOG.md)** — 每次发布的变更记录
+
+---
+
 **享受学习。Make English part of your life.**
