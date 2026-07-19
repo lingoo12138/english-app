@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getWord, loadWords } from '../lib/words'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
+import PronunciationPractice from '../components/PronunciationPractice'
 import { addFavorite, removeFavorite, isFavorite, logAction, reviewWord } from '../lib/db'
 import { useStore } from '../store/useStore'
 
@@ -191,6 +192,9 @@ export default function WordDetail() {
           </button>
         )}
       </div>
+
+      {/* 跟读练习 */}
+      <PronunciationPractice word={word.word} />
 
       {/* 自评 */}
       <div className="card">
