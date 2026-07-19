@@ -1,12 +1,22 @@
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
-const navItems = [
+// 移动端底部 Tab 只显示核心 5 个,其他通过首页快捷区进
+const desktopNav = [
   { to: '/', label: '首页', icon: '🏠' },
   { to: '/words', label: '词库', icon: '📚' },
+  { to: '/scenes', label: '场景课', icon: '🎬' },
   { to: '/daily', label: '每日一句', icon: '✨' },
   { to: '/translate', label: '翻译', icon: '🔤' },
   { to: '/notebook', label: '生词本', icon: '⭐' },
   { to: '/settings', label: '设置', icon: '⚙️' },
+]
+
+const mobileNav = [
+  { to: '/', label: '首页', icon: '🏠' },
+  { to: '/words', label: '词库', icon: '📚' },
+  { to: '/scenes', label: '场景', icon: '🎬' },
+  { to: '/notebook', label: '生词', icon: '⭐' },
+  { to: '/settings', label: '我的', icon: '⚙️' },
 ]
 
 export default function Layout() {
@@ -22,7 +32,7 @@ export default function Layout() {
           <p className="text-xs text-stone-500 mt-1">即时英语学习</p>
         </div>
         <nav className="flex-1 px-3 py-4 space-y-1">
-          {navItems.map((item) => (
+          {desktopNav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
@@ -65,8 +75,8 @@ export default function Layout() {
 
       {/* 底部导航 (手机) */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 z-10">
-        <div className="grid grid-cols-6">
-          {navItems.map((item) => (
+        <div className="grid grid-cols-5">
+          {mobileNav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}

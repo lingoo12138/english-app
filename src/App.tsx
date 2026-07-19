@@ -10,6 +10,8 @@ import Notebook from './pages/Notebook'
 import Settings from './pages/Settings'
 import ReviewCenter from './pages/ReviewCenter'
 import WeakWords from './pages/WeakWords'
+import Scenes from './pages/Scenes'
+import SceneDetail from './pages/SceneDetail'
 import { useStore, useStats } from './store/useStore'
 import { getTodayCount, getTotalLearned, getAllFavorites } from './lib/db'
 import { getTheme, applyTheme, applyFontSize } from './lib/themes'
@@ -63,6 +65,8 @@ function App() {
         <Route path="notebook" element={<Notebook />} />
         <Route path="weak" element={<WeakWords />} />
         <Route path="review" element={<ReviewCenter />} />
+        <Route path="scenes" element={<Scenes />} />
+        <Route path="scenes/:id" element={<SceneDetail />} />
         <Route path="settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

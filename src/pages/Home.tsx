@@ -164,6 +164,11 @@ export default function Home() {
             <div className="font-medium">我的生词</div>
             <div className="text-xs text-stone-500 mt-1">{stats.favoriteCount} 个</div>
           </Link>
+          <Link to="/scenes" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6 col-span-2 bg-gradient-to-r from-brand-50 to-emerald-50 dark:from-brand-900/20 dark:to-emerald-900/20">
+            <div className="text-3xl mb-2">🎬</div>
+            <div className="font-medium">场景专题课</div>
+            <div className="text-xs text-stone-500 mt-1">5 个真实场景 · 真实能用</div>
+          </Link>
           <Link to="/daily" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
             <div className="text-3xl mb-2">✨</div>
             <div className="font-medium">每日一句</div>
