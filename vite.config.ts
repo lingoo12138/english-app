@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  // GitHub Pages 部署:仓库名 lingoo12138/english-app,base 必须带 /english-app/
+  base: '/english-app/',
   plugins: [
     react(),
     VitePWA({
@@ -15,17 +17,17 @@ export default defineConfig({
         theme_color: '#16a34a',
         background_color: '#ffffff',
         display: 'standalone',
-        start_url: '/',
+        start_url: '/english-app/',
         lang: 'zh-CN',
         icons: [
           {
-            src: '/pwa-192.png',
+            src: '/english-app/pwa-192.png',
             sizes: '192x192',
             type: 'image/png',
             purpose: 'any maskable',
           },
           {
-            src: '/pwa-512.png',
+            src: '/english-app/pwa-512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable',
