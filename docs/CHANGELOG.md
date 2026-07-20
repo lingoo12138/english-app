@@ -4,6 +4,24 @@
 
 ---
 
+## [v0.8] - 2026-07-20
+
+### 新增
+- **例句扩充**:每个词从 1.93 句提到 3+ 句
+  - 0 句的词:161 → 93 (改善 42%)
+  - 3+ 句的词:1663 → 3320 (翻倍)
+  - 总例句:10284 → 13234 (+2950 句)
+  - 文件大小:6.3MB → 6.6MB
+  - 算法:倒排索引 + 同词出现例句严格匹配 + 同根词 stem 补充
+
+### 修复(顺带)
+- `vite.config.ts` 加 `base: '/english-app/'` (适配 GitHub Pages)
+- `main.tsx` 加 `BrowserRouter basename` (子路径部署)
+- `lib/words.ts` fetch 改用 `import.meta.env.BASE_URL` (跟随 base path)
+- `src/vite-env.d.ts` 加 ImportMetaEnv 类型声明
+
+---
+
 ## [v0.7] - 2026-07-20
 
 ### 修复(基于独立 Verifier 第二轮审查 - 15 个 P1)
