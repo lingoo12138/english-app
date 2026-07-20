@@ -1,8 +1,10 @@
+// 设置 - v0.11 多渠道版本
 import { useEffect, useState } from 'react'
 import { useStore } from '../store/useStore'
-import { getVoices, loadVoices } from '../lib/tts'
+import { getVoices } from '../lib/tts'
 import { db } from '../lib/db'
 import { THEMES, FONT_SIZES, applyTheme, applyFontSize, getTheme } from '../lib/themes'
+import { BUILTIN_LLM_PROVIDERS } from '../lib/providers/llm'
 
 export default function Settings() {
   const darkMode = useStore(s => s.darkMode)
@@ -15,24 +17,48 @@ export default function Settings() {
   const setVoiceName = useStore(s => s.setVoiceName)
   const rate = useStore(s => s.rate)
   const setRate = useStore(s => s.setRate)
+  const ttsProviderId = useStore(s => s.ttsProviderId)
+  const setTtsProviderId = useStore(s => s.setTtsProviderId)
+  const ttsProviders = useStore(s => s.ttsProviders)
   const targetLevel = useStore(s => s.targetLevel)
   const setTargetLevel = useStore(s => s.setTargetLevel)
   const dailyGoal = useStore(s => s.dailyGoal)
   const setDailyGoal = useStore(s => s.setDailyGoal)
-  const translateProvider = useStore(s => s.translateProvider)
-  const setTranslateProvider = useStore(s => s.setTranslateProvider)
-  const llmApiKey = useStore(s => s.llmApiKey)
+
+  // LLM
+  const llmProviderId = useStore(s => s.llmProviderId)
+  const setLlmProviderId = useStore(s => s.setLlmProviderId)
+  const llmProviders = useStore(s => s.llmProviders)
+  const llmApiKeys = useStore(s => s.llmApiKeys)
   const setLlmApiKey = useStore(s => s.setLlmApiKey)
-  const llmModel = useStore(s => s.llmModel)
+  const llmModels = useStore(s => s.llmModels)
   const setLlmModel = useStore(s => s.setLlmModel)
+
+  // 翻译
+  const translateProviderId = useStore(s => s.translateProviderId)
+  const setTranslateProviderId = useStore(s => s.setTranslateProviderId)
+  const translateProviders = useStore(s => s.translateProviders)
+  const translateApiKeys = useStore(s => s.translateApiKeys)
+  const setTranslateApiKey = useStore(s => s.setTranslateApiKey)
 
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
 
   useEffect(() => {
-    loadVoices().then(setVoices)
+    setVoices(getVoices())
+    const handler = () => setVoices(getVoices())
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = handler
+    }
+    return () => {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = null
+      }
+    }
   }, [])
 
   const englishVoices = voices.filter(v => v.lang.startsWith('en'))
+  const currentLlm = llmProviders.find(p => p.id === llmProviderId)
+  const currentTranslate = translateProviders.find(p => p.id === translateProviderId)
 
   return (
     <div className="space-y-6">
@@ -64,7 +90,9 @@ export default function Settings() {
             </select>
           </div>
           <div>
-            <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">每日目标: {dailyGoal} 个词</label>
+            <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">
+              每日目标: {dailyGoal} 个词
+            </label>
             <input
               type="range"
               min="5"
@@ -78,71 +106,178 @@ export default function Settings() {
         </div>
       </section>
 
-      {/* TTS 设置 */}
-      <section className="card">
-        <h3 className="font-semibold mb-3">🔊 语音朗读</h3>
-        <div className="space-y-3">
-          <div>
-            <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">英文语音</label>
-            <select
-              value={voiceName}
-              onChange={(e) => setVoiceName(e.target.value)}
-              className="input"
-            >
-              <option value="">系统默认</option>
-              {englishVoices.map(v => (
-                <option key={v.name} value={v.name}>
-                  {v.name} ({v.lang})
-                </option>
-              ))}
-            </select>
-            {englishVoices.length === 0 && (
-              <p className="text-xs text-stone-400 dark:text-stone-300 mt-1">
-                暂未检测到英文语音,首次使用 TTS 需要联网
-              </p>
-            )}
-          </div>
+      {/* 语音朗读 (TTS) */}
+      <section className="card space-y-3">
+        <h3 className="font-semibold">🔊 语音朗读</h3>
+        <div>
+          <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">TTS 渠道</label>
+          <select
+            value={ttsProviderId}
+            onChange={(e) => setTtsProviderId(e.target.value)}
+            className="input"
+          >
+            {ttsProviders.map(p => (
+              <option key={p.id} value={p.id}>{p.name}</option>
+            ))}
+          </select>
+        </div>
+        {ttsProviderId === 'browser' && (
+          <>
+            <div>
+              <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">英文语音</label>
+              <select
+                value={voiceName}
+                onChange={(e) => setVoiceName(e.target.value)}
+                className="input"
+              >
+                <option value="">系统默认</option>
+                {englishVoices.map(v => (
+                  <option key={v.name} value={v.name}>{v.name} ({v.lang})</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">
+                语速: {rate.toFixed(1)}x
+              </label>
+              <input
+                type="range"
+                min="0.5"
+                max="2"
+                step="0.1"
+                value={rate}
+                onChange={(e) => setRate(Number(e.target.value))}
+                className="w-full"
+              />
+            </div>
+          </>
+        )}
+      </section>
+
+      {/* 翻译渠道 */}
+      <section className="card space-y-3">
+        <h3 className="font-semibold">🌐 翻译渠道</h3>
+        <p className="text-xs text-stone-500 dark:text-stone-400">
+          默认 MyMemory 免费。如需更高质量,选 LLM 翻译或百度翻译。
+        </p>
+        <div>
+          <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">渠道</label>
+          <select
+            value={translateProviderId}
+            onChange={(e) => setTranslateProviderId(e.target.value)}
+            className="input"
+          >
+            {translateProviders.map(p => (
+              <option key={p.id} value={p.id}>
+                {p.name}{p.apiKeyRequired ? ' 🔑' : ''}
+              </option>
+            ))}
+          </select>
+          {currentTranslate?.description && (
+            <p className="text-xs text-stone-500 dark:text-stone-400 mt-1.5">{currentTranslate.description}</p>
+          )}
+        </div>
+        {currentTranslate?.apiKeyRequired && currentTranslate.id !== 'llm' && (
           <div>
             <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">
-              语速: {rate.toFixed(1)}x
+              {currentTranslate.id === 'baidu' ? 'App ID|Key (用 | 分隔)' : 'API Key'}
             </label>
             <input
-              type="range"
-              min="0.5"
-              max="1.5"
-              step="0.1"
-              value={rate}
-              onChange={(e) => setRate(Number(e.target.value))}
-              className="w-full"
+              type="password"
+              value={translateApiKeys[currentTranslate.id] || ''}
+              onChange={(e) => setTranslateApiKey(currentTranslate.id, e.target.value)}
+              placeholder="填入后自动保存"
+              className="input"
             />
           </div>
-        </div>
+        )}
+        {currentTranslate?.id === 'llm' && (
+          <p className="text-xs text-amber-600 dark:text-amber-400">
+            LLM 翻译需要先在上面"AI 渠道"配置 LLM provider
+          </p>
+        )}
       </section>
 
-      {/* 翻译 API */}
-      <section className="card">
-        <h3 className="font-semibold mb-3">🔤 翻译服务</h3>
-        <select
-          value={translateProvider}
-          onChange={(e) => setTranslateProvider(e.target.value as any)}
-          className="input"
-        >
-          <option value="auto">自动(推荐)</option>
-          <option value="libre">LibreTranslate</option>
-          <option value="mymemory">MyMemory</option>
-        </select>
-        <p className="text-xs text-stone-400 dark:text-stone-300 mt-2">
-          当前使用免费公共 API,如不稳定可手动切换
+      {/* AI 渠道 (图片识别 + 对话共用) */}
+      <section className="card space-y-3">
+        <h3 className="font-semibold">🤖 AI 渠道(图片识别 + 对话)</h3>
+        <p className="text-xs text-stone-500 dark:text-stone-400">
+          支持 5 个内置渠道。可加自定义,改 baseUrl 即可。
         </p>
+        <div>
+          <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">激活渠道</label>
+          <select
+            value={llmProviderId}
+            onChange={(e) => setLlmProviderId(e.target.value)}
+            className="input"
+          >
+            {llmProviders.map(p => (
+              <option key={p.id} value={p.id}>
+                {p.name}{p.supportsVision ? ' 👁' : ''}{p.free ? ' ✓免费' : ''}
+              </option>
+            ))}
+          </select>
+          {currentLlm && (
+            <p className="text-xs text-stone-500 dark:text-stone-400 mt-1.5">
+              {currentLlm.type} 协议 · {currentLlm.supportsVision ? '支持图像' : '纯文本'} · base: {currentLlm.baseUrl}
+            </p>
+          )}
+        </div>
+
+        {currentLlm?.apiKeyRequired && (
+          <div>
+            <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">
+              {currentLlm.name} API Key
+            </label>
+            <input
+              type="password"
+              value={llmApiKeys[currentLlm.id] || ''}
+              onChange={(e) => setLlmApiKey(currentLlm.id, e.target.value)}
+              placeholder={
+                currentLlm.id === 'openrouter' ? 'sk-or-v1-...'
+                : currentLlm.id === 'openai' ? 'sk-...'
+                : currentLlm.id === 'anthropic' ? 'sk-ant-...'
+                : currentLlm.id === 'siliconflow' ? 'sk-...'
+                : 'API Key'
+              }
+              className="input"
+            />
+            <p className="text-xs text-stone-500 dark:text-stone-400 mt-1.5">
+              {currentLlm.id === 'openrouter' && <>去 <a href="https://openrouter.ai/keys" target="_blank" rel="noreferrer" className="underline">openrouter.ai/keys</a> 免费注册</>}
+              {currentLlm.id === 'openai' && <>去 <a href="https://platform.openai.com/api-keys" target="_blank" rel="noreferrer" className="underline">platform.openai.com</a></>}
+              {currentLlm.id === 'anthropic' && <>去 <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noreferrer" className="underline">console.anthropic.com</a></>}
+              {currentLlm.id === 'siliconflow' && <>去 <a href="https://cloud.siliconflow.cn/account/ak" target="_blank" rel="noreferrer" className="underline">cloud.siliconflow.cn</a> 免费注册</>}
+            </p>
+          </div>
+        )}
+
+        {currentLlm && currentLlm.models.length > 0 && (
+          <div>
+            <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">模型</label>
+            <select
+              value={llmModels[currentLlm.id] || currentLlm.defaultModel}
+              onChange={(e) => setLlmModel(currentLlm.id, e.target.value)}
+              className="input"
+            >
+              {currentLlm.models.map(m => (
+                <option key={m} value={m}>{m}</option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {currentLlm?.id === 'mock' && (
+          <p className="text-xs text-amber-600 dark:text-amber-400">
+            🧪 Mock 渠道:零成本,返回预设响应,用于测试流程
+          </p>
+        )}
       </section>
 
-      {/* 外观 */}
-      <section className="card">
-        <h3 className="font-semibold mb-3">🎨 外观</h3>
-
-        {/* 主题色 */}
-        <div className="mb-4">
-          <label className="text-sm text-stone-500 dark:text-stone-400 mb-2 block">主题色</label>
+      {/* 主题色 */}
+      <section className="card space-y-3">
+        <h3 className="font-semibold">🎨 外观</h3>
+        <div>
+          <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">主题色</label>
           <div className="grid grid-cols-3 gap-2">
             {THEMES.map(theme => (
               <button
@@ -151,25 +286,20 @@ export default function Settings() {
                   setThemeColor(theme.id)
                   applyTheme(getTheme(theme.id))
                 }}
-                className={`flex items-center gap-2 px-3 py-2.5 rounded-lg border-2 transition-all ${
+                className={`p-3 rounded-lg border-2 transition-all ${
                   themeColor === theme.id
                     ? 'border-brand-600 bg-brand-50 dark:bg-brand-900/20'
                     : 'border-stone-200 dark:border-stone-700'
                 }`}
               >
-                <div
-                  className="w-6 h-6 rounded-full shadow-inner"
-                  style={{ background: `rgb(${theme.colors[600]})` }}
-                />
-                <span className="text-sm font-medium">{theme.name}</span>
+                <div className="w-6 h-6 rounded-full mx-auto mb-1" style={{ background: `rgb(${theme.colors['500']})` }} />
+                <div className="text-xs">{theme.name}</div>
               </button>
             ))}
           </div>
         </div>
-
-        {/* 字号 */}
-        <div className="mb-4">
-          <label className="text-sm text-stone-500 dark:text-stone-400 mb-2 block">字号</label>
+        <div>
+          <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">字号</label>
           <div className="grid grid-cols-4 gap-2">
             {FONT_SIZES.map(fs => (
               <button
@@ -178,20 +308,18 @@ export default function Settings() {
                   setFontSize(fs.id)
                   applyFontSize(fs.id)
                 }}
-                className={`px-3 py-2 rounded-lg border-2 transition-all ${
+                className={`p-2 rounded-lg border-2 ${
                   fontSize === fs.id
                     ? 'border-brand-600 bg-brand-50 dark:bg-brand-900/20'
                     : 'border-stone-200 dark:border-stone-700'
                 }`}
               >
                 <div className="text-sm font-medium">{fs.name}</div>
-                <div className="text-xs text-stone-400 dark:text-stone-300">{fs.base}</div>
+                <div className="text-xs text-stone-500 dark:text-stone-400">{fs.base}</div>
               </button>
             ))}
           </div>
         </div>
-
-        {/* 暗色模式 */}
         <div className="flex items-center justify-between pt-2 border-t border-stone-100 dark:border-stone-700">
           <div>
             <div className="font-medium">暗色模式</div>
@@ -204,9 +332,10 @@ export default function Settings() {
             }`}
           >
             <div
-              className={`w-5 h-5 rounded-full bg-white transform transition-transform ${
+              className={`w-5 h-5 bg-white rounded-full shadow transition-transform ${
                 darkMode ? 'translate-x-6' : 'translate-x-1'
               }`}
+              style={{ marginTop: '4px' }}
             />
           </button>
         </div>
@@ -232,7 +361,6 @@ export default function Settings() {
         </button>
         <button
           onClick={async () => {
-            // 危险操作: 要求二次确认
             if (!confirm('⚠️ 危险:此操作会清空所有数据,包括生词本、错题本、跟读记录、场景课进度。\n\n确定要清空所有数据吗?')) return
             if (!confirm('请再次确认:此操作不可恢复。\n\n真的要清空所有数据吗?')) return
             await db.favorites.clear()
@@ -247,50 +375,12 @@ export default function Settings() {
         </button>
       </section>
 
-      {/* 图片识别 (LLM) */}
-      <section className="card space-y-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold">📷 图片识别</h2>
-        </div>
-        <p className="text-xs text-stone-500 dark:text-stone-400">
-          拍照识物,AI 返回英文单词 + 中文 + 例句
-        </p>
-        <div>
-          <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">OpenRouter API Key</label>
-          <input
-            type="password"
-            value={llmApiKey}
-            onChange={(e) => setLlmApiKey(e.target.value)}
-            placeholder="sk-or-v1-..."
-            className="input"
-          />
-          <p className="text-xs text-stone-400 dark:text-stone-300 mt-1">
-            去 <a href="https://openrouter.ai/keys" target="_blank" rel="noreferrer" className="underline text-brand-600">openrouter.ai/keys</a> 免费注册获取 · 默认模型 google/gemini-2.5-flash:free 完全免费
-          </p>
-        </div>
-        <div>
-          <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">模型</label>
-          <input
-            type="text"
-            value={llmModel}
-            onChange={(e) => setLlmModel(e.target.value)}
-            placeholder="google/gemini-2.5-flash:free"
-            className="input"
-          />
-          <p className="text-xs text-stone-400 dark:text-stone-300 mt-1">
-            可换: openai/gpt-4o-mini · anthropic/claude-3-haiku · google/gemini-2.5-flash
-          </p>
-        </div>
-      </section>
-
-      {/* 关于 */}
-      <section className="card text-center text-sm text-stone-500 dark:text-stone-400">
-        <p className="font-semibold text-stone-700 dark:text-stone-300">句刻 v0.8</p>
-        <p className="mt-1">让英语在你想用的时候就能用上</p>
-        <p className="mt-3 text-xs">
-          数据完全存储在本地,不上传任何隐私
-        </p>
-      </section>
+      {/* 底部 */}
+      <div className="text-center text-xs text-stone-500 dark:text-stone-400 py-4">
+        句刻 v0.11
+        <div className="mt-1">让英语在你用的时候就能用上</div>
+        <div className="mt-1">数据完全存在本地,不上传任何隐私</div>
+      </div>
     </div>
   )
 }

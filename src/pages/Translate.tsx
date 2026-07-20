@@ -1,17 +1,29 @@
+// 翻译页 - v0.11 多渠道版本
 import { useState } from 'react'
-import { translate } from '../lib/translate'
+import { useStore } from '../store/useStore'
+import { translate as doTranslate } from '../lib/translate'
+
+type Direction = 'auto' | 'en2zh' | 'zh2en'
 
 export default function Translate() {
+  const translateProviders = useStore(s => s.translateProviders)
+  const translateProviderId = useStore(s => s.translateProviderId)
+  const setTranslateProviderId = useStore(s => s.setTranslateProviderId)
+  const llmProviders = useStore(s => s.llmProviders)
+  const llmApiKeys = useStore(s => s.llmApiKeys)
+  const translateApiKeys = useStore(s => s.translateApiKeys)
+
   const [text, setText] = useState('')
   const [result, setResult] = useState('')
   const [source, setSource] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  type Direction = 'auto' | 'en2zh' | 'zh2en'
   const [direction, setDirection] = useState<Direction>('auto')
 
+  const provider = translateProviders.find(p => p.id === translateProviderId)
+
   const handleTranslate = async () => {
-    if (!text.trim()) return
+    if (!text.trim() || !provider) return
     setLoading(true)
     setError('')
     setResult('')
@@ -21,16 +33,22 @@ export default function Translate() {
       if (direction === 'en2zh') { from = 'en'; to = 'zh' }
       else if (direction === 'zh2en') { from = 'zh'; to = 'en' }
       else {
-        // auto: 简单判断 (中文为主则翻英, 反之翻中)
         const hasChinese = /[\u4e00-\u9fa5]/.test(text)
         from = hasChinese ? 'zh' : 'en'
         to = hasChinese ? 'en' : 'zh'
       }
-      const res = await translate(text, from, to)
-      setResult(res.translatedText)
+      const res = await doTranslate({
+        provider,
+        text,
+        from,
+        to,
+        apiKeys: { ...llmApiKeys, ...translateApiKeys },
+        llmProviders,
+      })
+      setResult(res.text)
       setSource(res.source)
     } catch (e: any) {
-      setError(e.message || '翻译失败,请检查网络')
+      setError(e.message || '翻译失败,请检查网络或 API 配置')
     } finally {
       setLoading(false)
     }
@@ -45,7 +63,36 @@ export default function Translate() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold mb-1">翻译</h1>
-        <p className="text-stone-500 dark:text-stone-400 text-sm">基于 LibreTranslate · MyMemory 公共 API</p>
+        <p className="text-stone-500 dark:text-stone-400 text-sm">多渠道翻译,选适合自己的</p>
+      </div>
+
+      {/* 渠道选择 */}
+      <div>
+        <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">翻译渠道</label>
+        <select
+          value={translateProviderId}
+          onChange={(e) => setTranslateProviderId(e.target.value)}
+          className="input"
+        >
+          {translateProviders.map(p => (
+            <option key={p.id} value={p.id}>
+              {p.name}{p.apiKeyRequired ? ' 🔑' : ''}{p.free ? ' ✓' : ''}
+            </option>
+          ))}
+        </select>
+        {provider?.description && (
+          <p className="text-xs text-stone-500 dark:text-stone-400 mt-1.5">{provider.description}</p>
+        )}
+        {provider?.apiKeyRequired && !translateApiKeys[provider.id] && provider.id !== 'llm' && (
+          <p className="text-xs text-amber-600 dark:text-amber-400 mt-1.5">
+            ⚠️ 需要在 <a href="/settings" className="underline">设置 → 翻译渠道</a> 配置 Key
+          </p>
+        )}
+        {provider?.id === 'llm' && (
+          <p className="text-xs text-amber-600 dark:text-amber-400 mt-1.5">
+            走 LLM 翻译,需要 LLM 渠道配置
+          </p>
+        )}
       </div>
 
       {/* 方向切换 */}
@@ -77,7 +124,7 @@ export default function Translate() {
 
       <button
         onClick={handleTranslate}
-        disabled={loading || !text.trim()}
+        disabled={loading || !text.trim() || !provider}
         className="btn-primary w-full disabled:opacity-50"
       >
         {loading ? '翻译中...' : '翻译'}
@@ -85,7 +132,7 @@ export default function Translate() {
 
       {error && (
         <div className="card border border-red-200 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 text-sm">
-          {error}
+          ⚠️ {error}
         </div>
       )}
 
@@ -98,16 +145,12 @@ export default function Translate() {
           <p className="text-lg leading-relaxed">{result}</p>
           <button
             onClick={() => navigator.clipboard.writeText(result)}
-            className="mt-3 text-sm text-brand-600 hover:underline"
+            className="btn-ghost text-sm mt-3"
           >
-            📋 复制结果
+            📋 复制
           </button>
         </div>
       )}
-
-      <div className="text-xs text-stone-400 dark:text-stone-300 text-center py-4">
-        翻译 API 由开源社区提供,可能偶尔不稳定
-      </div>
     </div>
   )
 }

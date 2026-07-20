@@ -13,10 +13,14 @@ import WeakWords from './pages/WeakWords'
 import Scenes from './pages/Scenes'
 import SceneDetail from './pages/SceneDetail'
 import Camera from './pages/Camera'
+import AIChat from './pages/AIChat'
 import { useStore, useStats } from './store/useStore'
 import { getTodayCount, getTotalLearned, getAllFavorites } from './lib/db'
 import { getTheme, applyTheme, applyFontSize } from './lib/themes'
 import { getPageTitle } from './lib/utils'
+import { BUILTIN_LLM_PROVIDERS } from './lib/providers/llm'
+import { BUILTIN_TRANSLATE_PROVIDERS } from './lib/translate'
+import { BUILTIN_TTS_PROVIDERS } from './lib/tts'
 
 function App() {
   const darkMode = useStore((s) => s.darkMode)
@@ -40,6 +44,16 @@ function App() {
   useEffect(() => {
     applyFontSize(fontSize)
   }, [fontSize])
+
+  // 初始化内置渠道列表(只需设一次, zustand persist 会保存选中项)
+  const setLlmProviders = useStore(s => s.setLlmProviders)
+  const setTranslateProviders = useStore(s => s.setTranslateProviders)
+  const setTtsProviders = useStore(s => s.setTtsProviders)
+  useEffect(() => {
+    setLlmProviders(BUILTIN_LLM_PROVIDERS)
+    setTranslateProviders(BUILTIN_TRANSLATE_PROVIDERS)
+    setTtsProviders(BUILTIN_TTS_PROVIDERS)
+  }, [setLlmProviders, setTranslateProviders, setTtsProviders])
 
   // 加载统计
   useEffect(() => {
@@ -82,6 +96,7 @@ function App() {
         <Route path="scenes" element={<Scenes />} />
         <Route path="scenes/:id" element={<SceneDetail />} />
         <Route path="camera" element={<Camera />} />
+        <Route path="chat" element={<AIChat />} />
         <Route path="settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

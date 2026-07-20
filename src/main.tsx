@@ -10,7 +10,7 @@ import { getTheme, applyTheme, applyFontSize } from './lib/themes'
 loadVoices()
 
 // 暗色模式 + 主题色 + 字号
-const saved = localStorage.getItem('english-app-settings')
+const saved = localStorage.getItem('english-app-settings-v2')
 let dark = false
 let themeColor = 'green'
 let fontSize = 'md'

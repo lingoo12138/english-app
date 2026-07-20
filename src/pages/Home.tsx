@@ -177,11 +177,19 @@ export default function Home() {
             </div>
             <div className="text-stone-400 dark:text-stone-300">→</div>
           </Link>
-          <Link to="/camera" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 no-select">
+          <Link to="/camera" key="camera" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 no-select">
             <div className="text-3xl">📷</div>
             <div className="flex-1">
               <div className="font-medium">拍照识物</div>
               <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">AI 识别图片,返回英文 + 例句</div>
+            </div>
+            <div className="text-stone-400 dark:text-stone-300">→</div>
+          </Link>
+          <Link to="/chat" key="chat" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 no-select">
+            <div className="text-3xl">💬</div>
+            <div className="flex-1">
+              <div className="font-medium">AI 对话陪练</div>
+              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">5 个场景 · 6 个难度 · Mock 零成本测试</div>
             </div>
             <div className="text-stone-400 dark:text-stone-300">→</div>
           </Link>

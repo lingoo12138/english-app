@@ -4,6 +4,67 @@
 
 ---
 
+## [v0.11] - 2026-07-21
+
+### 重大架构: 多渠道统一管理(v0.11)
+- 3 个 Provider 系统统一抽象: LLM(图片识别+对话共用) / TTS / Translate
+- 各 Provider 都有: 内置预置 + 自定义 baseUrl + API key 字段 + 模型选择
+
+**🤖 LLM 渠道(5 个内置)**:
+- OpenRouter(免费层 google/gemini-2.5-flash:free)
+- OpenAI(gpt-4o-mini 等)
+- Anthropic(claude-3-5-haiku 等)
+- 硅基流动(国产免费, Qwen2-VL 支持视觉)
+- **Mock 模拟**(零成本, 预设响应, 适合测试)
+
+**🔊 TTS 渠道(2 个内置, 可扩展云端)**:
+- 浏览器内置 Web Speech API(免费, 离线)
+- Mock(零成本)
+
+**🌐 翻译渠道(4 个内置)**:
+- MyMemory(免费, 默认, 5000字/天)
+- 百度翻译(需 appid+key, 200万字/月免费)
+- LLM 翻译(用 LLM 做翻译, 上下文理解强)
+- Mock(零成本)
+
+### 新增 AI 对话陪练(/chat)
+- 5 个场景(咖啡店/机场/购物/酒店/会议)
+- 6 个难度(A1-C2)
+- 走 LLM Provider 多渠道
+- 真实对话 + 错错纠正 + 难度自适应
+- TTS 朗读回复
+- Mock 渠道: 零成本测试完整流程
+
+### 新增文件
+- src/lib/providers/llm.ts — LLM 渠道抽象(支持 OpenAI + Anthropic 协议)
+- src/lib/aiChat.ts — 对话陪练业务逻辑
+- src/pages/AIChat.tsx — 对话 UI
+- 删 src/lib/llm.ts (被 providers/llm.ts 替代)
+- 装 blueimp-md5 依赖(百度翻译签名用)
+
+### 改造
+- useStore: 加 llmProviderId / llmApiKeys / llmModels / translateProviderId / translateApiKeys / ttsProviderId / chatScenario / chatLevel
+- App.tsx: 初始化 3 个 Provider 内置列表 + 路由 /chat
+- Camera.tsx: 完全重写走多渠道
+- Translate.tsx: 重写走多渠道
+- TTS: 重构支持 mock/browser
+- Settings.tsx: 全新 3 块 UI (TTS/翻译/AI 渠道)
+- Layout.tsx: 底部 tab 加 AI(替代拍照入口)
+- Home.tsx: 加 AI 对话快捷入口
+- utils.ts: 加 /chat 和 /camera 页面 title
+
+### 验证
+- scripts/verify-v11.mjs 全过
+  - 首页有 AI 对话入口 ✅
+  - /chat 场景选择 ✅
+  - /camera 当前渠道显示 ✅
+  - /translate 渠道选择器 ✅
+  - /settings 三块渠道 UI(TTS/翻译/AI) ✅
+  - AI 对话 Mock 模拟对话成功 ✅
+- 截图: v11-home / v11-chat / v11-camera / v11-translate / v11-settings / v11-mobile-home / v11-chat-mock
+
+---
+
 ## [v0.10] - 2026-07-20
 
 ### 修复(基于独立 Verifier 第三轮审查 - 4 P0 + 8 P1 + 暗色模式 P2)

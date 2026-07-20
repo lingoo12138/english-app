@@ -1,115 +1,118 @@
-// TTS: 浏览器内置 Web Speech API
-// 完全免费,无需联网,但首次使用需联网加载 voice
+// 多渠道 TTS
+// 浏览器 Web Speech API (免费, 离线) + 云端 HTTP TTS 占位(可扩展)
+
+export type TTSProviderType = 'browser' | 'mock'
+
+export interface TTSProvider {
+  id: string
+  name: string
+  type: TTSProviderType
+  builtin?: boolean
+  apiKeyRequired: boolean
+  description?: string
+}
+
+export const BUILTIN_TTS_PROVIDERS: TTSProvider[] = [
+  {
+    id: 'browser',
+    name: '浏览器内置 (Web Speech API)',
+    type: 'browser',
+    builtin: true,
+    apiKeyRequired: false,
+    description: '免费, 离线, 但不同浏览器音色不同',
+  },
+  {
+    id: 'mock',
+    name: 'Mock (零成本测试)',
+    type: 'mock',
+    builtin: true,
+    apiKeyRequired: false,
+    description: '不实际发音, 只显示文字, 用于测试',
+  },
+]
+
+// === 浏览器原生 ===
 import { useStore } from '../store/useStore'
 
-let cachedVoices: SpeechSynthesisVoice[] = []
+let currentUtter: SpeechSynthesisUtterance | null = null
 
-// 加载可用的 voice
 export function loadVoices(): Promise<SpeechSynthesisVoice[]> {
   return new Promise((resolve) => {
+    if (!('speechSynthesis' in window)) return resolve([])
     const voices = window.speechSynthesis.getVoices()
-    if (voices.length > 0) {
-      cachedVoices = voices
-      resolve(voices)
-      return
+    if (voices.length > 0) return resolve(voices)
+    const handler = () => {
+      window.speechSynthesis.onvoiceschanged = null
+      resolve(window.speechSynthesis.getVoices())
     }
-    // 某些浏览器 voice 是异步加载
-    window.speechSynthesis.onvoiceschanged = () => {
-      cachedVoices = window.speechSynthesis.getVoices()
-      resolve(cachedVoices)
-    }
-    // 兜底: 1秒后超时
-    setTimeout(() => {
-      cachedVoices = window.speechSynthesis.getVoices()
-      resolve(cachedVoices)
-    }, 1000)
+    window.speechSynthesis.onvoiceschanged = handler
+    setTimeout(() => resolve(window.speechSynthesis.getVoices()), 2000)
   })
 }
 
 export function getVoices(): SpeechSynthesisVoice[] {
-  if (cachedVoices.length === 0) {
-    cachedVoices = window.speechSynthesis.getVoices()
-  }
-  return cachedVoices
+  if (!('speechSynthesis' in window)) return []
+  return window.speechSynthesis.getVoices()
 }
 
-// 选择英文女声(优先选质量好的)
-export function pickEnglishVoice(prefer: 'us' | 'uk' = 'us'): SpeechSynthesisVoice | null {
-  const voices = getVoices()
-  const en = voices.filter(v => v.lang.startsWith('en'))
-
-  // 优先级匹配
-  const preferences = prefer === 'us'
-    ? ['en-US', 'en-GB']
-    : ['en-GB', 'en-US']
-
-  for (const lang of preferences) {
-    const match = en.find(v => v.lang === lang && /female|woman|samantha|victoria|aria|jenny/i.test(v.name))
-    if (match) return match
-  }
-  for (const lang of preferences) {
-    const match = en.find(v => v.lang === lang)
-    if (match) return match
-  }
-  return en[0] || null
-}
-
-// 朗读
-export interface SpeakOptions {
+export function speak(opts: {
   text: string
-  rate?: number                     // 0.1 - 10
-  pitch?: number                    // 0 - 2
   voice?: SpeechSynthesisVoice
-}
+  rate?: number
+  pitch?: number
+}): void {
+  const store = useStore.getState()
+  const provider = store.ttsProviderId || 'browser'
 
-export function speak({ text, rate, pitch = 1, voice }: SpeakOptions) {
-  if (!('speechSynthesis' in window)) {
-    console.warn('浏览器不支持 TTS')
+  if (provider === 'mock') {
+    // Mock: 仅控制台打印 + 触发 end 事件
+    console.log(`[TTS Mock] ${opts.text}`)
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('tts-end'))
+    }, 200)
     return
   }
-  // 取消正在播放的
-  window.speechSynthesis.cancel()
 
-  // 修复: 读设置项的 rate 和 voiceName
-  const store = useStore.getState()
-  const finalRate = rate ?? store.rate
+  // 浏览器原生
+  if (!('speechSynthesis' in window)) {
+    console.warn('当前浏览器不支持语音朗读')
+    return
+  }
 
-  const utter = new SpeechSynthesisUtterance(text)
+  if (currentUtter) {
+    window.speechSynthesis.cancel()
+    currentUtter = null
+  }
+
+  const finalRate = opts.rate ?? store.rate
+  const utter = new SpeechSynthesisUtterance(opts.text)
   utter.lang = 'en-US'
   utter.rate = finalRate
-  utter.pitch = pitch
-  if (voice) {
-    utter.voice = voice
+  utter.pitch = opts.pitch ?? 1
+
+  if (opts.voice) {
+    utter.voice = opts.voice
   } else if (store.voiceName) {
-    // 修复: 从 store 读取用户选定的 voice,找不到时 warning
     const all = getVoices()
     const v = all.find(v => v.name === store.voiceName)
     if (v) {
       utter.voice = v
     } else {
-      console.warn(`TTS: 用户选定的 voice "${store.voiceName}" 不可用,使用系统默认`)
+      console.warn(`TTS: 用户选定的 voice "${store.voiceName}" 不可用, 使用系统默认`)
     }
-  } else {
-    const v = pickEnglishVoice()
-    if (v) utter.voice = v
   }
+
+  currentUtter = utter
   window.speechSynthesis.speak(utter)
 }
 
-// 慢速(0.7 是默认,会乘以 store.rate 的相对值)
-export function speakSlow(text: string) {
-  const store = useStore.getState()
-  speak({ text, rate: 0.7 * store.rate })
+export function speakSlow(text: string): void {
+  speak({ text, rate: 0.5 })
 }
 
-// 常速
-export function speakNormal(text: string) {
-  speak({ text })
-}
-
-// 停止
-export function stopSpeak() {
+export function stopSpeak(): void {
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel()
+    currentUtter = null
   }
 }

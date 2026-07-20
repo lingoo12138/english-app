@@ -1,112 +1,84 @@
-// 图片识别: 调 LLM 提取图片中的英文单词
-// 输入: 图片(base64) + 用户可选提示("找食物" / "找动物" 等)
-// 输出: 1-3 个 {word, zh, phonetic?, scene?, examples?}
-import { chat, fileToDataURL, type ChatMessage } from './llm'
+// 图片识别业务逻辑
+// 改造: 走 LLMProvider 多渠道
+import { chatCompletionVision, LLMProvider, type LLMResponse } from './providers/llm'
 import { loadWords } from './words'
 import type { Word } from '../types'
 
-export interface RecognizedWord {
-  word: string       // 英文
-  zh: string        // 中文翻译
-  phonetic?: string // 音标(可选)
-  scene?: string    // 场景分类
-  examples?: { en: string; zh: string }[]
-  /** 在我们词库里匹配到的完整词条(如果有) */
-  matchedWord?: Word
+export interface RecognizedItem {
+  word: string
+  confidence: number
+  /** 匹配的本地词条 */
+  matched?: Word
+  /** 来自该词的 3 句例句 */
+  examples?: string[]
 }
 
-const SYSTEM_PROMPT = `你是一个英语词汇教学助手。用户会给你一张图片,你要识别图片中的 1-3 个最有学习价值的英文单词(实物/概念,而不是颜色/形状/动作)。
-
-要求:
-1. 优先选 **能直接用英语日常表达** 的具体名词(apple / chair / mountain 等),避免太抽象的概念
-2. 如果图片场景明显(餐厅/办公/旅行),可以选择 1-2 个该场景的常用表达
-3. 每个词必须返回: word (英文), zh (中文翻译), phonetic (音标), scene (场景分类)
-4. 返回 JSON,格式: {"words": [...]}
-
-注意:
-- 单词首字母小写,除非专有名词
-- 中文翻译要准确、自然
-- 如果图片里没人/物,返回空数组
-- 返回纯 JSON,不要 markdown 代码块`
-
-export interface RecognizeOptions {
-  /** 用户提示,例如 "找食物"、"找动物" */
-  hint?: string
-  /** 图片是 base64 data URL 还是 https URL */
-  imageData: string
+export interface RecognizeResult {
+  raw: LLMResponse
+  items: RecognizedItem[]
 }
 
-export async function recognizeImage({ imageData, hint }: RecognizeOptions): Promise<RecognizedWord[]> {
-  const userText = hint
-    ? `识别图片中的"${hint}"相关的英文单词。`
-    : '识别图片中最有学习价值的英文单词(1-3 个)。'
+const SYSTEM_PROMPT = `你是一个英语学习助手。用户会上传一张图片,请识别图片中能直接对应到日常英语单词的具体物体(1-3 个)。
 
-  const messages: ChatMessage[] = [
-    { role: 'system', content: SYSTEM_PROMPT },
-    {
-      role: 'user',
-      content: [
-        { type: 'text', text: userText },
-        { type: 'image_url', image_url: { url: imageData } },
-      ],
-    },
+规则:
+1. 优先识别具体名词: 物品/动物/食物/工具/家具等
+2. 避免抽象概念(情绪/关系等)
+3. 单词用最常用的小写形式
+4. confidence 是 0-1 之间的浮点数,代表识别可信度
+5. 必须以 JSON 格式输出,不要有其他内容`
+
+const USER_TEMPLATE = (hint: string) => `请识别图片中的物体,返回 JSON 格式:
+{
+  "objects": [
+    { "word": "apple", "confidence": 0.95 },
+    { "word": "tree", "confidence": 0.7 }
   ]
+}
+${hint ? `用户提示: ${hint}` : ''}`
 
-  const res = await chat(messages, {
-    temperature: 0.3,  // 低温度,识别更准
-    maxTokens: 800,
-    jsonMode: true,
+/** 图片识别主入口 */
+export async function recognizeImage(
+  imageDataUrl: string,
+  provider: LLMProvider,
+  apiKey: string,
+  model: string,
+  hint: string = '',
+): Promise<RecognizeResult> {
+  const resp = await chatCompletionVision({
+    provider,
+    apiKey,
+    model,
+    prompt: USER_TEMPLATE(hint),
+    imageDataUrl,
+    jsonMode: provider.type === 'openai' || provider.id === 'mock',
+    temperature: 0.3,
+    maxTokens: 500,
   })
 
-  // 解析 JSON
-  const parsed = parseLLMJson(res.content)
-  const rawWords = (parsed.words || []) as RecognizedWord[]
-
-  // 尝试在我们 5334 词库里匹配
-  let allWords: Word[] = []
-  try {
-    allWords = await loadWords()
-  } catch (e) {
-    console.warn('词库加载失败,跳过匹配', e)
+  // 解析 JSON 响应
+  const jsonMatch = resp.content.match(/\{[\s\S]*\}/)
+  if (!jsonMatch) {
+    throw new Error('LLM 返回的不是 JSON 格式')
   }
+  const parsed = JSON.parse(jsonMatch[0])
+  const rawItems: { word: string; confidence: number }[] = parsed.objects || []
+
+  // 在本地词库匹配
+  const allWords = await loadWords()
   const wordMap = new Map(allWords.map(w => [w.word.toLowerCase(), w]))
 
-  return rawWords.map(rw => {
-    const matched = wordMap.get(rw.word.toLowerCase())
-    return {
-      ...rw,
-      matchedWord: matched,
-    }
-  })
-}
+  const items: RecognizedItem[] = rawItems
+    .filter(it => it.word && /^[a-z]+$/.test(it.word))
+    .map(it => {
+      const matched = wordMap.get(it.word.toLowerCase())
+      return {
+        word: it.word.toLowerCase(),
+        confidence: it.confidence,
+        matched,
+        examples: matched?.examples?.slice(0, 3).map(e => e.en),
+      }
+    })
+    .sort((a, b) => b.confidence - a.confidence)
 
-/** 解析 LLM 返回的 JSON(容错: 有时 LLM 会包 markdown ```json```) */
-function parseLLMJson(text: string): any {
-  // 尝试直接 parse
-  try { return JSON.parse(text) } catch {}
-
-  // 去掉 markdown 代码块
-  const match = text.match(/```(?:json)?\s*([\s\S]+?)\s*```/)
-  if (match) {
-    try { return JSON.parse(match[1]) } catch {}
-  }
-
-  // 找 { ... } 子串
-  const objMatch = text.match(/\{[\s\S]+\}/)
-  if (objMatch) {
-    try { return JSON.parse(objMatch[0]) } catch {}
-  }
-
-  console.error('LLM JSON 解析失败:', text)
-  return { words: [] }
-}
-
-/** 用户上传图片 → 识别 */
-export async function recognizeFile(file: File, hint?: string): Promise<RecognizedWord[]> {
-  // 限制图片大小(> 4MB base64 太长)
-  if (file.size > 4 * 1024 * 1024) {
-    throw new Error('图片太大(>4MB),请用更小的图片')
-  }
-  const dataUrl = await fileToDataURL(file)
-  return recognizeImage({ imageData: dataUrl, hint })
+  return { raw: resp, items }
 }
