@@ -1,7 +1,8 @@
 # 句刻 - 开发日志
 
 > 这份文档是产品**理论层面的完整功能记录**,供用户在无时间亲自测试时查阅、验收、规划下一步。
-> 最后更新: 2026-07-20
+>
+> 最后更新: 2026-07-20(v0.7)
 
 ---
 
@@ -347,7 +348,7 @@ english-app/
 |-----|----|----|
 | 5334 高频词 | ✅ | words.json |
 | 7 学段筛选 | ✅ | WordList |
-| 字母索引 | ❌ | 未做 |
+| 字母索引 | ✅ | WordList sticky 条 |
 | 搜索(单词/中文) | ✅ | WordList |
 | 词根词缀分析 | ✅ | WordDetail |
 | 常用短语 | ✅ | WordDetail |
@@ -355,7 +356,6 @@ english-app/
 | 真人发音 | ✅ | TTSButton |
 | 慢速/常速切换 | ✅ | TTSButton |
 | 音标显示 | ✅ | WordDetail |
-| 英音/美音切换 | ❌ | 数据有但 UI 暂未做 |
 | 收藏生词 | ✅ | WordDetail / WordCard |
 | 词频排序 | ❌ | 暂时按字母 |
 
@@ -376,6 +376,8 @@ english-app/
 | 每日一词 | ✅ | Home |
 | 每日一句 | ✅ | Home + DailyPage |
 | 场景化例句 | ✅ | WordDetail |
+| 🎤 跟读评测 | ✅ | PronunciationPractice |
+| 🎬 场景专题课 | ✅ | Scenes / SceneDetail |
 
 ### 工具 & 体验
 | 功能 | 状态 | 位置 |
@@ -391,6 +393,8 @@ english-app/
 | PWA 离线 | ✅ | vite-plugin-pwa |
 | Service Worker | ✅ | 自动生成 |
 | 30 天词库缓存 | ✅ | workbox 配置 |
+| a11y skip-to-main | ✅ | Layout |
+| 路径感知 page title | ✅ | App.tsx |
 
 ### 翻译
 | 功能 | 状态 | 位置 |
@@ -399,14 +403,15 @@ english-app/
 | 自动检测方向 | ✅ | Translate |
 | 翻译源切换 | ✅ | Settings |
 | 复制结果 | ✅ | Translate |
+| 8s fetch timeout | ✅ | translate.ts |
 | 历史记录 | ❌ | 未做 |
 
 ### 个性化
 | 功能 | 状态 | 位置 |
 |-----|----|----|
 | 学段偏好 | ✅ | Settings |
-| TTS voice 切换 | ✅ | Settings |
-| TTS 语速调节 | ✅ | Settings |
+| TTS voice 切换 | ✅ | Settings(生效于 TTS) |
+| TTS 语速调节 | ✅ | Settings(生效于 TTS) |
 | 翻译源选择 | ✅ | Settings |
 | 每日学习目标 | ✅ | Settings |
 
@@ -419,14 +424,14 @@ english-app/
 | 多端数据同步 | ❌ 需要后端 |
 | 账号系统 | ❌ 需要后端 |
 
-### 高级功能(未做)
+### 高级功能
 | 功能 | 状态 |
 |-----|-----|
-| 跟读评测 | ❌ P2 |
-| 场景专题课 | ❌ P2 |
-| 图片识别 | ❌ P2 |
-| AI 对话陪练 | ❌ P3 |
-| 听力模式 | ❌ 未做 |
+| 跟读评测 | ✅ v0.5 |
+| 场景专题课 | ✅ v0.5 |
+| 图片识别 | ❌ P4 |
+| AI 对话陪练 | ❌ P5 |
+| 听力模式 | ❌ P5 |
 
 ---
 
@@ -439,12 +444,20 @@ english-app/
 5. ✅ **CSS 变量驱动主题**: 6 主题切换 0 延迟
 6. ✅ **记忆算法**: SM-2 间隔重复(Anki 同款)
 7. ✅ **翻译 API 降级**: LibreTranslate → MyMemory
+8. ✅ **跟读评测**: MediaRecorder + Web Audio API
+9. ✅ **场景课完整闭环**: 句子学习 + 跨页完成度同步
+10. ✅ **37 个 P0/P1 bug 修复**(基于独立 Verifier 审查)
+11. ✅ **a11y 基础**: skip-to-main、路径感知 title、aria-label
+12. ✅ **安全**: CSV 注入防护、IDB quota 错误处理
 
 ## 七、已知问题与限制
 
 1. ⚠️ **TTS 音色依赖浏览器**: Chrome/Edge 较好,Firefox/Safari 偶有差异
-2. ⚠️ **翻译 API 偶有超时**: 公共 API 不稳定,已加超时 fallback
+2. ⚠️ **翻译 API 偶有超时**: 公共 API 不稳定,已加 8s 超时 fallback
 3. ⚠️ **例句覆盖 96%**: 约 4% 词无例句(源数据限制)
+4. ⚠️ **跟读评分只能基于音量/时长**,无法判断发音准确性(已诚实标注)
+5. ⚠️ **iOS Safari < 16.4 不支持 MediaRecorder**(已加检测提示)
+6. ⚠️ **跨端**: 目前仅 Web,微信小程序/Android 未做(下一步 P3)
 4. ⚠️ **词根词缀覆盖 54%**: 剩余 46% 是不规则词或生僻词
 5. ⚠️ **音标格式不统一**: 部分词源数据用了 `,` 重音符号,未规范化
 6. ⚠️ **首次访问依赖网络**: TTS voice 需联网下载
