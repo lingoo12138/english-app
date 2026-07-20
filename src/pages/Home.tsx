@@ -165,13 +165,21 @@ export default function Home() {
             <div className="text-xs text-stone-500 mt-1">{stats.favoriteCount} 个</div>
           </Link>
         </div>
-        {/* 场景专题课与每日一句作为独立推荐区,不再嵌在网格里 */}
+        {/* 场景专题课 / 拍照识物 / 每日一句作为独立推荐区 */}
         <div className="mt-3 grid grid-cols-1 gap-3">
           <Link to="/scenes" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-brand-50 to-emerald-50 dark:from-brand-900/20 dark:to-emerald-900/20 no-select">
             <div className="text-3xl">🎬</div>
             <div className="flex-1">
               <div className="font-medium">场景专题课</div>
               <div className="text-xs text-stone-500 mt-0.5">5 个真实场景 · 真实能用</div>
+            </div>
+            <div className="text-stone-400">→</div>
+          </Link>
+          <Link to="/camera" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 no-select">
+            <div className="text-3xl">📷</div>
+            <div className="flex-1">
+              <div className="font-medium">拍照识物</div>
+              <div className="text-xs text-stone-500 mt-0.5">AI 识别图片,返回英文 + 例句</div>
             </div>
             <div className="text-stone-400">→</div>
           </Link>

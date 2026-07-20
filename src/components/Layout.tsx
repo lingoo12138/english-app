@@ -17,7 +17,7 @@ const mobileNav = [
   { to: '/', label: '首页', icon: '🏠' },
   { to: '/words', label: '词库', icon: '📚' },
   { to: '/scenes', label: '场景', icon: '🎬' },
-  { to: '/daily', label: '每日', icon: '✨' },
+  { to: '/camera', label: '拍照', icon: '📷' },
   { to: '/notebook', label: '生词', icon: '⭐' },
 ]
 

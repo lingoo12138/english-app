@@ -26,6 +26,12 @@ interface AppState {
   // 翻译 API
   translateProvider: 'auto' | 'libre' | 'mymemory'
   setTranslateProvider: (p: AppState['translateProvider']) => void
+
+  // LLM (图片识别) 设置
+  llmApiKey: string
+  setLlmApiKey: (key: string) => void
+  llmModel: string
+  setLlmModel: (m: string) => void
 }
 
 export const useStore = create<AppState>()(
@@ -50,6 +56,11 @@ export const useStore = create<AppState>()(
 
       translateProvider: 'auto',
       setTranslateProvider: (p) => set({ translateProvider: p }),
+
+      llmApiKey: '',
+      setLlmApiKey: (key) => set({ llmApiKey: key }),
+      llmModel: 'google/gemini-2.5-flash:free',
+      setLlmModel: (m) => set({ llmModel: m }),
     }),
     { name: 'english-app-settings' }
   )

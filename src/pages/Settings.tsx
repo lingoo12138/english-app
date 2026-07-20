@@ -21,6 +21,10 @@ export default function Settings() {
   const setDailyGoal = useStore(s => s.setDailyGoal)
   const translateProvider = useStore(s => s.translateProvider)
   const setTranslateProvider = useStore(s => s.setTranslateProvider)
+  const llmApiKey = useStore(s => s.llmApiKey)
+  const setLlmApiKey = useStore(s => s.setLlmApiKey)
+  const llmModel = useStore(s => s.llmModel)
+  const setLlmModel = useStore(s => s.setLlmModel)
 
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
 
@@ -227,9 +231,45 @@ export default function Settings() {
         </button>
       </section>
 
+      {/* 图片识别 (LLM) */}
+      <section className="card space-y-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold">📷 图片识别</h2>
+        </div>
+        <p className="text-xs text-stone-500">
+          拍照识物,AI 返回英文单词 + 中文 + 例句
+        </p>
+        <div>
+          <label className="text-sm text-stone-500 mb-1.5 block">OpenRouter API Key</label>
+          <input
+            type="password"
+            value={llmApiKey}
+            onChange={(e) => setLlmApiKey(e.target.value)}
+            placeholder="sk-or-v1-..."
+            className="input"
+          />
+          <p className="text-xs text-stone-400 mt-1">
+            去 <a href="https://openrouter.ai/keys" target="_blank" rel="noreferrer" className="underline text-brand-600">openrouter.ai/keys</a> 免费注册获取 · 默认模型 google/gemini-2.5-flash:free 完全免费
+          </p>
+        </div>
+        <div>
+          <label className="text-sm text-stone-500 mb-1.5 block">模型</label>
+          <input
+            type="text"
+            value={llmModel}
+            onChange={(e) => setLlmModel(e.target.value)}
+            placeholder="google/gemini-2.5-flash:free"
+            className="input"
+          />
+          <p className="text-xs text-stone-400 mt-1">
+            可换: openai/gpt-4o-mini · anthropic/claude-3-haiku · google/gemini-2.5-flash
+          </p>
+        </div>
+      </section>
+
       {/* 关于 */}
       <section className="card text-center text-sm text-stone-500">
-        <p className="font-semibold text-stone-700 dark:text-stone-300">句刻 v0.1</p>
+        <p className="font-semibold text-stone-700 dark:text-stone-300">句刻 v0.8</p>
         <p className="mt-1">让英语在你想用的时候就能用上</p>
         <p className="mt-3 text-xs">
           数据完全存储在本地,不上传任何隐私

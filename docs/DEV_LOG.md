@@ -570,4 +570,43 @@ npm run build
 
 ---
 
+## 十三、进阶功能调研
+
+### B. 图片识别(2026-07-20 调研)
+
+**用户需求**: 拍照识物,返回英文单词 + 发音 + 例句
+
+#### 候选方案对比
+
+| 方案 | 成本 | 视觉能力 | API 难度 | 配额 | 选 |
+|------|------|----------|----------|------|------|
+| **OpenRouter + Gemini 2.5 Flash** | 🆓 免费 | 🟢 强 | 🟢 OpenAI 兼容 | 有但够用 | ⭐ 选 |
+| Google AI Studio (Gemini 直连) | 🆓 免费 | 🟢 强 | 🟡 Google SDK | generous | |
+| OpenAI GPT-4o Vision | 💰 $5/1M tokens | 🟢 极强 | 🟢 简单 | 按量 | |
+| Claude 3.5 Sonnet Vision | 💰 $3/1M input | 🟢 强 | 🟢 简单 | 按量 | |
+| Not Diamond | 🆓 免费路由 | 🟢 多模型 | 🟡 需各家 key | 100K/月 | |
+| 传统 CV (Tesseract/PaddleOCR) | 🆓 | 🔴 仅文字 | 🟢 本地 | 无 | ✗ 不适 |
+
+#### 采用方案: OpenRouter + Gemini 2.5 Flash
+
+**理由**:
+1. **零成本** — 符合项目原则
+2. **OpenAI 兼容** — 代码可以无缝迁移到 GPT-4o(以后付费升级)
+3. **多模型可切换** — 一个 API key 调多家模型
+4. **视觉能力** — Gemini 2.5 Flash 在 MMMU-Pro 81.2% 超过所有同价位模型
+5. **可以后期优化** — 不满意就换 Sonnet/4o,不改架构
+
+#### 实施路径
+
+1. 设置页加"图片识别 API"配置(用户填 OpenRouter API key)
+2. 加 `/camera` 路由(拍照/上传图片)
+3. 前端把图转 base64 → 调 OpenRouter Chat Completions API(image_url)
+4. LLM 返回 JSON: `[{word, zh, scene, examples}]`
+5. UI 显示结果 + 加到生词本
+6. 后期可加: 复习(看图说词)、错题记录等
+
+**为什么不用 Google AI Studio 直连**: Google GenAI SDK 不像 OpenAI 那么通用,OpenRouter 同一份代码可切任何模型,更灵活。
+
+---
+
 **让英语在你想用的时候就能用上** —— 这是产品的初心,也是这份日志的初心。

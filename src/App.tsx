@@ -12,6 +12,7 @@ import ReviewCenter from './pages/ReviewCenter'
 import WeakWords from './pages/WeakWords'
 import Scenes from './pages/Scenes'
 import SceneDetail from './pages/SceneDetail'
+import Camera from './pages/Camera'
 import { useStore, useStats } from './store/useStore'
 import { getTodayCount, getTotalLearned, getAllFavorites } from './lib/db'
 import { getTheme, applyTheme, applyFontSize } from './lib/themes'
@@ -80,6 +81,7 @@ function App() {
         <Route path="review" element={<ReviewCenter />} />
         <Route path="scenes" element={<Scenes />} />
         <Route path="scenes/:id" element={<SceneDetail />} />
+        <Route path="camera" element={<Camera />} />
         <Route path="settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
