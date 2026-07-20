@@ -50,8 +50,9 @@ export default function ReviewCenter() {
 
     // SM-2: 5=完美, 1=完全不会
     const quality = know ? 5 : 1
-    await reviewWord(word.word, quality)
-    await logAction(word.word, know ? 'known' : 'unknown')
+    // 修复: 用 word.id (wordId 格式 'w-xxx') 不是 word.word
+    await reviewWord(word.id, quality)
+    await logAction(word.id, know ? 'known' : 'unknown')
 
     if (know) {
       setCorrectCount(c => c + 1)

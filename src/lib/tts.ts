@@ -81,10 +81,14 @@ export function speak({ text, rate, pitch = 1, voice }: SpeakOptions) {
   if (voice) {
     utter.voice = voice
   } else if (store.voiceName) {
-    // 修复: 从 store 读取用户选定的 voice
+    // 修复: 从 store 读取用户选定的 voice,找不到时 warning
     const all = getVoices()
     const v = all.find(v => v.name === store.voiceName)
-    if (v) utter.voice = v
+    if (v) {
+      utter.voice = v
+    } else {
+      console.warn(`TTS: 用户选定的 voice "${store.voiceName}" 不可用,使用系统默认`)
+    }
   } else {
     const v = pickEnglishVoice()
     if (v) utter.voice = v

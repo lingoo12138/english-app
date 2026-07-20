@@ -16,16 +16,16 @@ export default function Scenes() {
   useEffect(() => {
     const loadCompleted = async () => {
       const { db } = await import('../lib/db')
-      // 一次拉所有 scene- 记录,内存中计算完成度
+      // 一次拉所有 scene: 记录(getSentenceId 生成的 ID),内存中计算完成度
       const allRecords = await db.records
-        .where('wordId').startsWith('scene-')
+        .where('wordId').startsWith('scene:')
         .toArray()
       // 按场景分组
       const knownByScene = new Map<string, Set<string>>()
       for (const r of allRecords) {
         if (r.action !== 'known') continue
-        // recId 格式: scene-{sceneId}-{sentenceEn20}
-        const m = r.wordId.match(/^scene-([^-]+)-/)
+        // recId 格式: scene:{sceneId}:s{idx}
+        const m = r.wordId.match(/^scene:([^:]+):/)
         if (!m) continue
         const sceneId = m[1]
         if (!knownByScene.has(sceneId)) knownByScene.set(sceneId, new Set())

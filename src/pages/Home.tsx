@@ -20,10 +20,12 @@ export default function Home() {
   useEffect(() => {
     setSentence(getTodaySentence())
     loadWords().then((words) => {
-      // 每日一词: 选 target level 的第一个高频词
+      // 修复: 每日一词用日期 + targetLevel 确定性选择(同一天同一个词)
       const filtered = targetLevel === 'all' ? words : words.filter(w => w.level === targetLevel)
       const candidates = filtered.length > 0 ? filtered : words
-      const idx = Math.floor(Math.random() * candidates.length)
+      const today = new Date().toISOString().slice(0, 10)  // 'YYYY-MM-DD'
+      const seed = today.split('').reduce((a, c) => a + c.charCodeAt(0), 0)
+      const idx = seed % candidates.length
       setWordOfDay(candidates[idx])
     })
     // 获取待复习数量

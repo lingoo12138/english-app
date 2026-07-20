@@ -29,8 +29,9 @@ export default function SceneDetail() {
     const loadKnown = async () => {
       try {
         // 一次拉全表,内存中过滤(避免 40 次串行查询)
+        // 修复: 用冒号格式匹配 getSentenceId 生成的实际 ID
         const allRecords = await db.records
-          .where('wordId').startsWith(`scene-${scene.id}-`)
+          .where('wordId').startsWith(`scene:${scene.id}:`)
           .toArray()
         if (cancelled) return
         // 按 recId 分组,取每句最后一条(按 timestamp 最新的)
