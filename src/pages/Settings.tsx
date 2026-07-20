@@ -1,10 +1,10 @@
 // 设置 - v0.11 多渠道版本
 import { useEffect, useState } from 'react'
 import { useStore } from '../store/useStore'
-import { getVoices } from '../lib/tts'
+import { getVoices, createCustomTTSProvider } from '../lib/tts'
 import { db } from '../lib/db'
 import { THEMES, FONT_SIZES, applyTheme, applyFontSize, getTheme } from '../lib/themes'
-import { BUILTIN_LLM_PROVIDERS } from '../lib/providers/llm'
+import { BUILTIN_LLM_PROVIDERS, createCustomLLMProvider } from "../lib/providers/llm"
 
 export default function Settings() {
   const darkMode = useStore(s => s.darkMode)
@@ -20,6 +20,11 @@ export default function Settings() {
   const ttsProviderId = useStore(s => s.ttsProviderId)
   const setTtsProviderId = useStore(s => s.setTtsProviderId)
   const ttsProviders = useStore(s => s.ttsProviders)
+  const customTtsProviders = useStore(s => s.customTtsProviders)
+  const addCustomTtsProvider = useStore(s => s.addCustomTtsProvider)
+  const removeCustomTtsProvider = useStore(s => s.removeCustomTtsProvider)
+  const ttsApiKeys = useStore(s => s.ttsApiKeys)
+  const setTtsApiKey = useStore(s => s.setTtsApiKey)
   const targetLevel = useStore(s => s.targetLevel)
   const setTargetLevel = useStore(s => s.setTargetLevel)
   const dailyGoal = useStore(s => s.dailyGoal)
@@ -33,6 +38,9 @@ export default function Settings() {
   const setLlmApiKey = useStore(s => s.setLlmApiKey)
   const llmModels = useStore(s => s.llmModels)
   const setLlmModel = useStore(s => s.setLlmModel)
+  const customLlmProviders = useStore(s => s.customLlmProviders)
+  const addCustomLlmProvider = useStore(s => s.addCustomLlmProvider)
+  const removeCustomLlmProvider = useStore(s => s.removeCustomLlmProvider)
 
   // 翻译
   const translateProviderId = useStore(s => s.translateProviderId)
@@ -42,6 +50,8 @@ export default function Settings() {
   const setTranslateApiKey = useStore(s => s.setTranslateApiKey)
 
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
+  const [showAddLlm, setShowAddLlm] = useState(false)
+  const [showAddTts, setShowAddTts] = useState(false)
 
   useEffect(() => {
     setVoices(getVoices())
@@ -57,7 +67,9 @@ export default function Settings() {
   }, [])
 
   const englishVoices = voices.filter(v => v.lang.startsWith('en'))
-  const currentLlm = llmProviders.find(p => p.id === llmProviderId)
+  const allLlmProviders = [...llmProviders, ...customLlmProviders]
+  const allTtsProviders = [...ttsProviders, ...customTtsProviders]
+  const currentLlm = allLlmProviders.find(p => p.id === llmProviderId)
   const currentTranslate = translateProviders.find(p => p.id === translateProviderId)
 
   return (
@@ -116,7 +128,7 @@ export default function Settings() {
             onChange={(e) => setTtsProviderId(e.target.value)}
             className="input"
           >
-            {ttsProviders.map(p => (
+            {allTtsProviders.map(p => (
               <option key={p.id} value={p.id}>{p.name}</option>
             ))}
           </select>
@@ -151,6 +163,55 @@ export default function Settings() {
               />
             </div>
           </>
+        )}
+      </section>
+
+
+      {/* 自定义 TTS 渠道 */}
+      <section className="card space-y-3">
+        <div className="flex items-center justify-between">
+          <h3 className="font-semibold">🎤 自定义 TTS 端点</h3>
+          <button
+            onClick={() => setShowAddTts(!showAddTts)}
+            className="btn-ghost text-sm"
+          >
+            {showAddTts ? '取消' : '+ 添加'}
+          </button>
+        </div>
+        <p className="text-xs text-stone-500 dark:text-stone-400">
+          接 Edge TTS / Azure / 有道 / ElevenLabs 等, 走统一 OpenAI 风格 HTTP。
+        </p>
+
+        {showAddTts && <AddCustomTtsForm onAdd={(p) => { addCustomTtsProvider(p); setShowAddTts(false) }} />}
+
+        {customTtsProviders.length > 0 && (
+          <div className="space-y-2">
+            {customTtsProviders.map(p => (
+              <div key={p.id} className="card !p-3 bg-stone-50 dark:bg-stone-800/50">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1 text-xs">
+                    <div className="font-medium">{p.name}</div>
+                    <div className="text-stone-500 dark:text-stone-400 mt-0.5 break-all">endpoint: {p.endpoint}</div>
+                    {p.apiKeyRequired && (
+                      <input
+                        type="password"
+                        value={ttsApiKeys[p.id] || ''}
+                        onChange={e => setTtsApiKey(p.id, e.target.value)}
+                        placeholder="API Key"
+                        className="input mt-1.5 text-xs !py-1.5"
+                      />
+                    )}
+                  </div>
+                  <button
+                    onClick={() => { if (confirm(`删除自定义 TTS 渠道 "${p.name}"?`)) removeCustomTtsProvider(p.id) }}
+                    className="text-xs text-red-500 shrink-0"
+                  >
+                    🗑
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </section>
 
@@ -211,9 +272,9 @@ export default function Settings() {
             onChange={(e) => setLlmProviderId(e.target.value)}
             className="input"
           >
-            {llmProviders.map(p => (
+            {allLlmProviders.map(p => (
               <option key={p.id} value={p.id}>
-                {p.name}{p.supportsVision ? ' 👁' : ''}{p.free ? ' ✓免费' : ''}
+                {p.name}{p.supportsVision ? ' 👁' : ''}{p.free ? ' ✓免费' : ''}{!p.builtin ? ' 🛠' : ''}
               </option>
             ))}
           </select>
@@ -270,6 +331,56 @@ export default function Settings() {
           <p className="text-xs text-amber-600 dark:text-amber-400">
             🧪 Mock 渠道:零成本,返回预设响应,用于测试流程
           </p>
+        )}
+      </section>
+
+
+      {/* 自定义 LLM 渠道 */}
+      <section className="card space-y-3">
+        <div className="flex items-center justify-between">
+          <h3 className="font-semibold">🛠 自定义 LLM 端点 (OpenAI 兼容)</h3>
+          <button
+            onClick={() => setShowAddLlm(!showAddLlm)}
+            className="btn-ghost text-sm"
+          >
+            {showAddLlm ? '取消' : '+ 添加'}
+          </button>
+        </div>
+        <p className="text-xs text-stone-500 dark:text-stone-400">
+          接任何 OpenAI 兼容端点(自定义部署的 vLLM / ollama / LM Studio / 各类代理),统一用 chat/completions 协议。
+        </p>
+
+        {showAddLlm && <AddCustomLlmForm onAdd={(p) => { addCustomLlmProvider(p); setShowAddLlm(false) }} />}
+
+        {customLlmProviders.length > 0 && (
+          <div className="space-y-2">
+            {customLlmProviders.map(p => (
+              <div key={p.id} className="card !p-3 bg-stone-50 dark:bg-stone-800/50">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1 text-xs">
+                    <div className="font-medium">{p.name} {p.supportsVision ? '👁' : ''}</div>
+                    <div className="text-stone-500 dark:text-stone-400 mt-0.5 break-all">baseUrl: {p.baseUrl}</div>
+                    <div className="text-stone-500 dark:text-stone-400 break-all">model: {p.defaultModel}</div>
+                    {p.apiKeyRequired && (
+                      <input
+                        type="password"
+                        value={llmApiKeys[p.id] || ''}
+                        onChange={e => setLlmApiKey(p.id, e.target.value)}
+                        placeholder="API Key"
+                        className="input mt-1.5 text-xs !py-1.5"
+                      />
+                    )}
+                  </div>
+                  <button
+                    onClick={() => { if (confirm(`删除自定义 LLM 渠道 "${p.name}"?`)) removeCustomLlmProvider(p.id) }}
+                    className="text-xs text-red-500 shrink-0"
+                  >
+                    🗑
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </section>
 
@@ -377,10 +488,78 @@ export default function Settings() {
 
       {/* 底部 */}
       <div className="text-center text-xs text-stone-500 dark:text-stone-400 py-4">
-        句刻 v0.11
+        句刻 v0.12
         <div className="mt-1">让英语在你用的时候就能用上</div>
         <div className="mt-1">数据完全存在本地,不上传任何隐私</div>
       </div>
+    </div>
+  )
+}
+
+
+function AddCustomLlmForm({ onAdd }: { onAdd: (p: any) => void }) {
+  const [name, setName] = useState('')
+  const [baseUrl, setBaseUrl] = useState('')
+  const [defaultModel, setDefaultModel] = useState('')
+  const [vision, setVision] = useState(false)
+  const [needKey, setNeedKey] = useState(true)
+  return (
+    <div className="border border-dashed border-stone-300 dark:border-stone-600 rounded-lg p-3 space-y-2 bg-stone-50 dark:bg-stone-800/30">
+      <input value={name} onChange={e => setName(e.target.value)} placeholder="显示名 (例如 我的 vLLM)" className="input text-sm" />
+      <input value={baseUrl} onChange={e => setBaseUrl(e.target.value)} placeholder="baseUrl (https://api.example.com/v1)" className="input text-sm" />
+      <input value={defaultModel} onChange={e => setDefaultModel(e.target.value)} placeholder="默认模型名" className="input text-sm" />
+      <div className="flex gap-3 text-sm">
+        <label className="flex items-center gap-1.5">
+          <input type="checkbox" checked={vision} onChange={e => setVision(e.target.checked)} />
+          支持图像
+        </label>
+        <label className="flex items-center gap-1.5">
+          <input type="checkbox" checked={needKey} onChange={e => setNeedKey(e.target.checked)} />
+          需 API Key
+        </label>
+      </div>
+      <button
+        disabled={!name || !baseUrl || !defaultModel}
+        onClick={() => {
+          onAdd(createCustomLLMProvider({ name, baseUrl, defaultModel, supportsVision: vision, apiKeyRequired: needKey }))
+          setName(''); setBaseUrl(''); setDefaultModel('')
+        }}
+        className="btn-primary text-sm w-full disabled:opacity-50"
+      >
+        ➕ 添加
+      </button>
+    </div>
+  )
+}
+
+function AddCustomTtsForm({ onAdd }: { onAdd: (p: any) => void }) {
+  const [name, setName] = useState('')
+  const [endpoint, setEndpoint] = useState('')
+  const [voice, setVoice] = useState('')
+  const [needKey, setNeedKey] = useState(false)
+  return (
+    <div className="border border-dashed border-stone-300 dark:border-stone-600 rounded-lg p-3 space-y-2 bg-stone-50 dark:bg-stone-800/30">
+      <input value={name} onChange={e => setName(e.target.value)} placeholder="显示名 (例如 我的 Edge TTS 代理)" className="input text-sm" />
+      <input value={endpoint} onChange={e => setEndpoint(e.target.value)} placeholder="endpoint URL" className="input text-sm" />
+      <input value={voice} onChange={e => setVoice(e.target.value)} placeholder="默认 voice (可选)" className="input text-sm" />
+      <label className="flex items-center gap-1.5 text-sm">
+        <input type="checkbox" checked={needKey} onChange={e => setNeedKey(e.target.checked)} />
+        需 API Key
+      </label>
+      <p className="text-xs text-stone-500 dark:text-stone-400">协议: POST {endpoint}, body 为 text/voice/rate JSON, 返回 audio/mpeg 或 JSON.audio</p>
+      <button
+        disabled={!name || !endpoint}
+        onClick={() => {
+          onAdd(createCustomTTSProvider({
+            name, endpoint, defaultVoice: voice, apiKeyRequired: needKey,
+            bodyTemplate: JSON.stringify({ text: '{{text}}', voice: voice || '', rate: '+0%' }),
+          }))
+          setName(''); setEndpoint(''); setVoice('')
+        }}
+        className="btn-primary text-sm w-full disabled:opacity-50"
+      >
+        ➕ 添加
+      </button>
     </div>
   )
 }

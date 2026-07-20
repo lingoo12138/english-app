@@ -4,6 +4,59 @@
 
 ---
 
+## [v0.12] - 2026-07-21
+
+### 架构升级: 统一 OpenAI 数据结构 + 自定义端点
+
+**🔄 统一 LLM 数据结构(v0.12)**:
+- 所有 LLM 渠道(原 Anthropic 也是)统一发到 `POST {baseUrl}/chat/completions`
+- messages 全部 OpenAI 风格: `{ role: 'system'|'user'|'assistant', content: string | content[] }`
+- content[] 支持 vision (text + image_url)
+- 私有参数通过 `extra` 字段透传(给有特殊字段的渠道)
+- 兼容性问题记入文档,后续处理
+
+**🆕 LLM 渠道扩展(8 个内置)**:
+- OpenRouter / OpenAI / Anthropic(via OpenRouter) / 硅基流动 / DeepSeek / 智谱 GLM / 阿里云百炼 / **Mock**
+- 所有走 OpenAI 协议,一个 chat() 函数全部覆盖
+
+**🎤 TTS 自定义端点**:
+- 新增 `type: 'http'` TTS 渠道
+- 用户填 endpoint + body 模板即可接 Edge TTS / Azure / 有道 / ElevenLabs
+- 统一协议: POST {endpoint}, body: { text, voice, rate }, 返回 audio/mpeg 或 JSON.audio
+- 浏览器内置 + Mock 保留
+
+**🛠 自定义 LLM 端点**:
+- Settings 加 "+ 添加" 按钮
+- 填: 显示名 / baseUrl / 默认模型 / 是否支持 vision / 是否需 key
+- 自动调用 `createCustomLLMProvider()` 生成 ID,持久化到 zustand
+
+**🎤 自定义 TTS 端点**:
+- Settings 加 "+ 添加" 按钮
+- 填: 显示名 / endpoint / 默认 voice / 是否需 key
+- 协议: POST {endpoint}, body: text/voice/rate, 返回 audio/mpeg
+
+**📚 新增文档**:
+- `docs/AI_CHAT_ROADMAP.md` — AI 对话陪练进阶功能需求池(10 个候选,待用户决定)
+- 文档问题: 数据归属 / 隐私 / 付费 / 离线 / 多模态顺序
+
+### 新增 / 改造
+- `src/lib/providers/llm.ts` — 重写为统一 OpenAI 协议
+- `src/lib/tts.ts` — 加 http type + createCustomTTSProvider()
+- `src/store/useStore.ts` — 加 customLlmProviders / addCustomLlmProvider / customTtsProviders / addCustomTtsProvider / ttsApiKeys
+- `src/pages/Settings.tsx` — 加两个自定义端点 section + AddCustomLlmForm / AddCustomTtsForm
+- `scripts/refactor-settings.mjs` + `scripts/add-custom-ui.mjs` — 自动化重构
+
+### 验证
+- `scripts/verify-v12.mjs` 全过
+  - 自定义 TTS 端点 UI ✅
+  - 自定义 LLM 端点 UI ✅
+  - 内置 8 个 LLM 渠道 ✅
+  - 添加自定义 LLM 成功 ✅
+  - AI 对话 Mock 渠道工作 ✅
+- 截图: v12-settings / v12-settings-add-llm / v12-settings-after-add / v12-chat-mock
+
+---
+
 ## [v0.11] - 2026-07-21
 
 ### 重大架构: 多渠道统一管理(v0.11)

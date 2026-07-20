@@ -28,6 +28,14 @@ interface AppState {
   /** TTS 渠道选择缓存 (id -> 选定) */
   ttsProviders: TTSProvider[]
   setTtsProviders: (p: TTSProvider[]) => void
+  /** 用户自定义 TTS 渠道(可在 Settings 添加) */
+  customTtsProviders: TTSProvider[]
+  setCustomTtsProviders: (p: TTSProvider[]) => void
+  addCustomTtsProvider: (p: TTSProvider) => void
+  removeCustomTtsProvider: (id: string) => void
+  /** TTS 渠道 API key(用于 http 类型) */
+  ttsApiKeys: Record<string, string>
+  setTtsApiKey: (providerId: string, key: string) => void
 
   // LLM 渠道(图片识别 + AI 对话共用)
   llmProviderId: string
@@ -38,6 +46,11 @@ interface AppState {
   setLlmApiKey: (providerId: string, key: string) => void
   llmModels: Record<string, string>    // providerId -> model
   setLlmModel: (providerId: string, model: string) => void
+  /** 用户自定义 LLM 渠道(可在 Settings 添加 OpenAI 兼容端点) */
+  customLlmProviders: LLMProvider[]
+  setCustomLlmProviders: (p: LLMProvider[]) => void
+  addCustomLlmProvider: (p: LLMProvider) => void
+  removeCustomLlmProvider: (id: string) => void
 
   // 翻译渠道
   translateProviderId: string
@@ -79,6 +92,12 @@ export const useStore = create<AppState>()(
       setTtsProviderId: (id) => set({ ttsProviderId: id }),
       ttsProviders: [],
       setTtsProviders: (p) => set({ ttsProviders: p }),
+      customTtsProviders: [],
+      setCustomTtsProviders: (p) => set({ customTtsProviders: p }),
+      addCustomTtsProvider: (p) => set(s => ({ customTtsProviders: [...s.customTtsProviders, p] })),
+      removeCustomTtsProvider: (id) => set(s => ({ customTtsProviders: s.customTtsProviders.filter(p => p.id !== id) })),
+      ttsApiKeys: {},
+      setTtsApiKey: (providerId, key) => set(s => ({ ttsApiKeys: { ...s.ttsApiKeys, [providerId]: key } })),
 
       llmProviderId: 'mock',
       setLlmProviderId: (id) => set({ llmProviderId: id }),
@@ -90,6 +109,10 @@ export const useStore = create<AppState>()(
       llmModels: {},
       setLlmModel: (providerId, model) =>
         set((s) => ({ llmModels: { ...s.llmModels, [providerId]: model } })),
+      customLlmProviders: [],
+      setCustomLlmProviders: (p) => set({ customLlmProviders: p }),
+      addCustomLlmProvider: (p) => set(s => ({ customLlmProviders: [...s.customLlmProviders, p] })),
+      removeCustomLlmProvider: (id) => set(s => ({ customLlmProviders: s.customLlmProviders.filter(p => p.id !== id) })),
 
       translateProviderId: 'mymemory',
       setTranslateProviderId: (id) => set({ translateProviderId: id }),
@@ -119,7 +142,10 @@ export const useStore = create<AppState>()(
         voiceName: state.voiceName,
         rate: state.rate,
         ttsProviderId: state.ttsProviderId,
+        ttsApiKeys: state.ttsApiKeys,
+        customTtsProviders: state.customTtsProviders,
         llmProviderId: state.llmProviderId,
+        customLlmProviders: state.customLlmProviders,
         llmApiKeys: state.llmApiKeys,
         llmModels: state.llmModels,
         translateProviderId: state.translateProviderId,
