@@ -75,10 +75,10 @@ interface Stats {
   setStats: (s: Partial<Stats>) => void
 }
 
-export const useStats = create<Stats>((set) => ({
+export const useStats = create<Stats>((set: (partial: Partial<Stats> | ((s: Stats) => Partial<Stats>)) => void) => ({
   todayCount: 0,
   totalLearned: 0,
   favoriteCount: 0,
   streak: 0,
-  setStats: (s) => set((prev) => ({ ...prev, ...s })),
+  setStats: (s: Partial<Stats>) => set((prev: Stats) => ({ ...prev, ...s })),
 }))
