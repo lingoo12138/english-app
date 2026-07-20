@@ -98,8 +98,8 @@ export default function StudyCalendar({ days = 84, compact = false }: CalendarPr
         </div>
       </div>
 
-      {/* 月份标签 */}
-      <div className={`flex ${gap} mb-1 pl-${firstDayOfWeek}`}>
+      {/* 月份标签 - 修复: 动态 pl- 类不生效(Tailwind 不能在模板字符串里动态生成),用 inline style */}
+      <div className={`flex ${gap} mb-1`} style={{ paddingLeft: `${firstDayOfWeek * 14}px` }}>
         {monthLabels.map((m, i) => (
           <div
             key={i}

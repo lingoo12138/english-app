@@ -18,6 +18,8 @@ export default function WordList() {
   const [query, setQuery] = useState('')
   const [level, setLevel] = useState<string>('all')
   const [favSet, setFavSet] = useState<Set<string>>(new Set())
+  const favSetRef = useRef(favSet)
+  favSetRef.current = favSet
   const [displayCount, setDisplayCount] = useState(PAGE_SIZE)
   const [loading, setLoading] = useState(false)
   const [activeLetter, setActiveLetter] = useState<string>('')
@@ -63,12 +65,15 @@ export default function WordList() {
     return result
   }, [allWords, level, query])
 
-  // 词库中存在的首字母
+  // 词库中存在的首字母(包含 #,避免未来加中文拼音词时幽灵轴点)
   const availableLetters = useMemo(() => {
     const set = new Set<string>()
     filtered.forEach(w => set.add(getFirstLetter(w.word)))
     return set
   }, [filtered])
+
+  // 完整字母表 + # 号位
+  const allLetters = useMemo(() => [...ALPHABET, '#'], [])
 
   const visible = filtered.slice(0, displayCount)
   const hasMore = displayCount < filtered.length
@@ -125,7 +130,8 @@ export default function WordList() {
   }, [])
 
   const handleToggleFav = useCallback(async (word: Word) => {
-    if (favSet.has(word.id)) {
+    // 用 ref 读取最新值,避免 callback 重建
+    if (favSetRef.current.has(word.id)) {
       await removeFavorite(word.id)
       setFavSet(prev => {
         const next = new Set(prev)
@@ -136,7 +142,7 @@ export default function WordList() {
       await addFavorite(word.id)
       setFavSet(prev => new Set(prev).add(word.id))
     }
-  }, [favSet])
+  }, [])  // 不依赖 favSet,避免每次收藏重建 callback
 
   return (
     <div className="space-y-4">
@@ -177,7 +183,7 @@ export default function WordList() {
       {!query.trim() && availableLetters.size > 0 && (
         <div className="sticky top-14 md:top-0 z-10 bg-stone-50/95 dark:bg-stone-900/95 backdrop-blur py-2 -mx-4 px-4 md:mx-0 md:px-0 border-b border-stone-200 dark:border-stone-800">
           <div className="flex gap-1 overflow-x-auto">
-            {ALPHABET.map(letter => {
+            {allLetters.map(letter => {
               const has = availableLetters.has(letter)
               const isActive = activeLetter === letter
               return (
@@ -190,7 +196,7 @@ export default function WordList() {
                       ? 'bg-brand-600 text-white'
                       : has
                         ? 'bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-300 hover:bg-brand-100 dark:hover:bg-brand-900/40'
-                        : 'text-stone-300 dark:text-stone-600 cursor-not-allowed'
+                        : 'text-stone-300 dark:text-stone-600'
                   }`}
                   aria-label={`跳转到 ${letter}`}
                 >

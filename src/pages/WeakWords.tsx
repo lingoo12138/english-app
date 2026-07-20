@@ -32,13 +32,12 @@ export default function WeakWords() {
       if (w.wordId.startsWith('daily-')) continue
       const word = await getWord(w.wordId)
       if (word) {
-        // 获取最近一次 unknown 时间
-        const lastUnknown = await db.records
+        // 获取最近一次 unknown 时间(取时间戳最大,不用 reverse+sortBy)
+        const unknowns = await db.records
           .where('wordId').equals(w.wordId)
           .and(r => r.action === 'unknown')
-          .reverse()
-          .sortBy('timestamp')
-        const lastTime = lastUnknown[0]?.timestamp || 0
+          .toArray()
+        const lastTime = unknowns.reduce((max, r) => Math.max(max, r.timestamp), 0)
         list.push({ word, wrongCount: w.count, lastWrong: lastTime })
       }
     }

@@ -41,16 +41,23 @@ export default function WordCard({ word, isFavorite, onToggleFavorite }: Props) 
         </div>
       </div>
 
-      <div className="flex items-center gap-1" onClick={(e) => e.preventDefault()}>
+      {/* 修复: stopPropagation 阻止 Link 导航(preventDefault 在 child 上不会阻止冒泡) */}
+      <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
         {onToggleFavorite && (
           <button
-            onClick={onToggleFavorite}
+            onClick={(e) => {
+              e.stopPropagation()
+              onToggleFavorite()
+            }}
             className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-100 dark:hover:bg-stone-700"
           >
             {isFavorite ? '⭐' : '☆'}
           </button>
         )}
-        <TTSButton text={word.word} size="sm" />
+        {/* TTSButton 内部已在 useEffect cleanup 里 stopSpeak,但点击事件需要 stopPropagation */}
+        <span onClick={(e) => e.stopPropagation()}>
+          <TTSButton text={word.word} size="sm" />
+        </span>
       </div>
     </Link>
   )

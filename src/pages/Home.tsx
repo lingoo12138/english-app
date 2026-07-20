@@ -140,7 +140,7 @@ export default function Home() {
         <StudyCalendar days={84} compact />
       </div>
 
-      {/* 快捷入口 */}
+      {/* 快捷入口 - 修复: 4 个一组,场景课作为独立大卡 (避免 col-span-2 破坏网格) */}
       <div>
         <h3 className="text-sm font-semibold text-stone-500 mb-3">快捷入口</h3>
         <div className="grid grid-cols-2 gap-3">
@@ -164,15 +164,16 @@ export default function Home() {
             <div className="font-medium">我的生词</div>
             <div className="text-xs text-stone-500 mt-1">{stats.favoriteCount} 个</div>
           </Link>
-          <Link to="/scenes" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6 col-span-2 bg-gradient-to-r from-brand-50 to-emerald-50 dark:from-brand-900/20 dark:to-emerald-900/20">
-            <div className="text-3xl mb-2">🎬</div>
-            <div className="font-medium">场景专题课</div>
-            <div className="text-xs text-stone-500 mt-1">5 个真实场景 · 真实能用</div>
-          </Link>
-          <Link to="/daily" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
-            <div className="text-3xl mb-2">✨</div>
-            <div className="font-medium">每日一句</div>
-            <div className="text-xs text-stone-500 mt-1">场景化表达</div>
+        </div>
+        {/* 场景专题课与每日一句作为独立推荐区,不再嵌在网格里 */}
+        <div className="mt-3 grid grid-cols-1 gap-3">
+          <Link to="/scenes" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-brand-50 to-emerald-50 dark:from-brand-900/20 dark:to-emerald-900/20 no-select">
+            <div className="text-3xl">🎬</div>
+            <div className="flex-1">
+              <div className="font-medium">场景专题课</div>
+              <div className="text-xs text-stone-500 mt-0.5">5 个真实场景 · 真实能用</div>
+            </div>
+            <div className="text-stone-400">→</div>
           </Link>
         </div>
       </div>

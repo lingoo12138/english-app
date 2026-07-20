@@ -17,13 +17,24 @@ export default function WordDetail() {
 
   useEffect(() => {
     if (!id) return
+    // 修复: 用 ref 跟踪当前 id,避免 stale closure 导致旧词覆盖新词
+    let cancelled = false
     getWord(id).then((w) => {
+      if (cancelled) return
       setWord(w || null)
       if (w) {
-        isFavorite(w.id).then(setFav)
+        isFavorite(w.id).then(f => {
+          if (!cancelled) setFav(f)
+        })
         logAction(w.id, 'view')
       }
     })
+    return () => { cancelled = true }
+  }, [id])
+
+  // 修复: 跳词时滚到顶部
+  useEffect(() => {
+    window.scrollTo(0, 0)
   }, [id])
 
   const handleToggleFav = async () => {

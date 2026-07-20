@@ -13,15 +13,30 @@ const LIBRE_ENDPOINTS = [
   'https://lt.vern.cc/translate',
 ]
 
+// 修复: 加 fetch timeout 防止无限挂起
+function fetchWithTimeout(url: string, options: RequestInit, timeoutMs = 8000): Promise<Response> {
+  return Promise.race([
+    fetch(url, options),
+    new Promise<Response>((_, reject) =>
+      setTimeout(() => reject(new Error('请求超时')), timeoutMs)
+    ),
+  ])
+}
+
 export async function translate(
   text: string,
   from: 'auto' | 'en' | 'zh' = 'auto',
   to: 'en' | 'zh' = 'zh'
 ): Promise<TranslateResult> {
+  // 修复: 限制文本长度,防止滥用 API + 大文本超时
+  if (text.length > 1000) {
+    throw new Error('文本超过 1000 字符,请分段翻译')
+  }
+
   // 尝试 LibreTranslate
   for (const endpoint of LIBRE_ENDPOINTS) {
     try {
-      const res = await fetch(endpoint, {
+      const res = await fetchWithTimeout(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -42,7 +57,7 @@ export async function translate(
         }
       }
     } catch (e) {
-      // 继续尝试下一个
+      // 继续尝试下一个 endpoint
       continue
     }
   }
@@ -50,8 +65,9 @@ export async function translate(
   // 降级到 MyMemory
   try {
     const langPair = `${from === 'auto' ? 'en' : from}|${to}`
-    const res = await fetch(
-      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${langPair}`
+    const res = await fetchWithTimeout(
+      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${langPair}`,
+      {}
     )
     if (res.ok) {
       const data = await res.json()

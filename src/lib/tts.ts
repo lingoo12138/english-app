@@ -1,5 +1,6 @@
 // TTS: 浏览器内置 Web Speech API
 // 完全免费,无需联网,但首次使用需联网加载 voice
+import { useStore } from '../store/useStore'
 
 let cachedVoices: SpeechSynthesisVoice[] = []
 
@@ -61,7 +62,7 @@ export interface SpeakOptions {
   voice?: SpeechSynthesisVoice
 }
 
-export function speak({ text, rate = 1, pitch = 1, voice }: SpeakOptions) {
+export function speak({ text, rate, pitch = 1, voice }: SpeakOptions) {
   if (!('speechSynthesis' in window)) {
     console.warn('浏览器不支持 TTS')
     return
@@ -69,26 +70,37 @@ export function speak({ text, rate = 1, pitch = 1, voice }: SpeakOptions) {
   // 取消正在播放的
   window.speechSynthesis.cancel()
 
+  // 修复: 读设置项的 rate 和 voiceName
+  const store = useStore.getState()
+  const finalRate = rate ?? store.rate
+
   const utter = new SpeechSynthesisUtterance(text)
   utter.lang = 'en-US'
-  utter.rate = rate
+  utter.rate = finalRate
   utter.pitch = pitch
-  if (voice) utter.voice = voice
-  else {
+  if (voice) {
+    utter.voice = voice
+  } else if (store.voiceName) {
+    // 修复: 从 store 读取用户选定的 voice
+    const all = getVoices()
+    const v = all.find(v => v.name === store.voiceName)
+    if (v) utter.voice = v
+  } else {
     const v = pickEnglishVoice()
     if (v) utter.voice = v
   }
   window.speechSynthesis.speak(utter)
 }
 
-// 慢速
+// 慢速(0.7 是默认,会乘以 store.rate 的相对值)
 export function speakSlow(text: string) {
-  speak({ text, rate: 0.7 })
+  const store = useStore.getState()
+  speak({ text, rate: 0.7 * store.rate })
 }
 
 // 常速
 export function speakNormal(text: string) {
-  speak({ text, rate: 1 })
+  speak({ text })
 }
 
 // 停止

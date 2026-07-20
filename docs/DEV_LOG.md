@@ -234,6 +234,52 @@ english-app/
 
 ---
 
+### v0.6 — 全面 P0 清零(2026-07-20)
+
+**目标**: 根据独立 Verifier 审查,修复 3 个模块所有 P0 bug
+
+**本轮修了 8 个 P0**(都是用户能一眼看到的 bug,优先级最高):
+
+**场景专题课(5 个 P0)**:
+1. 进度条把 unknown 计入 known(8 个不会+2 个会='10/10 已掌握' 100% 满)
+2. 场景卡点击污染'今日学词'统计(翻 5 张卡=今日学 5 词)
+3. 首屏闪一帧'场景不存在'
+4. 跨页完成度不同步(学完不显示'已学完'徽章)
+5. 40 次串行 DB 查询
+
+**TTSButton(1 个 P0)**:
+- setInterval 永不清理,卸载后 setState 报错 + 后台持续朗读
+
+**字母索引(2 个 P0)**:
+- IO 依赖 visible.length 改为 availableLetters.size
+- IO rootMargin 顶部 -80px 改为 0,配合 scroll-margin-top 修 race condition
+
+**跟读评测(1 个 P0)**:
+- iOS Safari MediaRecorder 检测不充分
+
+**全局(1 个跨模块)**:
+- getTodayCount 过滤掉 scene-/daily- 前缀的合成 ID
+
+**累计**: v0.4 + v0.5 + v0.6 = 22 个 P0 修复
+
+---
+
+### v0.5 — 跟读评测 / 字母索引 / 场景专题课(2026-07-20)
+
+**目标**: 加 3 个重要学习模块
+
+**已实现**:
+- ✅ 跟读评测(单词级) — MediaRecorder + Web Audio API + 评分
+- ✅ 字母索引(词库快速跳转) — 26 字母 sticky 条 + 自动高亮
+- ✅ 场景专题课(5 个场景) — 餐厅/问路/购物/办公/自我介绍
+
+**本轮修了 8 个 P0**(基于独立 Verifier 审查):
+- 跟读: 倒计时 bug、key 缺失、5s race、stale closure、AudioContext resume、评分宽松、重复 start 资源泄漏
+- 字母索引: sticky 遮挡
+- 场景课: word 切换 state 残留
+
+---
+
 ### v0.4 — 错题本 / 导出 / 主题(2026-07-20)
 
 **目标**: 错题精准打击 + 数据可控 + 个性化

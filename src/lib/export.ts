@@ -28,15 +28,23 @@ export async function exportToCSV(): Promise<string> {
     ])
   }
 
-  // CSV 转义:含逗号/引号/换行的字段加双引号
+  // CSV 转义:含逗号/引号/换行/回车的字段加双引号
+  // 修复: 防 CSV 注入(以 = + - @ 开头的单元格可能触发公式注入)
+  // 修复: \r 换行也需要转义
   function escape(field: string): string {
-    if (field.includes(',') || field.includes('"') || field.includes('\n')) {
-      return '"' + field.replace(/"/g, '""') + '"'
+    let safe = field
+    // 防止 CSV 注入(Excel 打开时会公式执行)
+    if (safe.length > 0 && /^[=+\-@\t\r]/.test(safe)) {
+      safe = "'" + safe
     }
-    return field
+    if (safe.includes(',') || safe.includes('"') || safe.includes('\n') || safe.includes('\r')) {
+      return '"' + safe.replace(/"/g, '""') + '"'
+    }
+    return safe
   }
 
-  return rows.map(row => row.map(escape).join(',')).join('\n')
+  // CSV 文件头加 UTF-8 BOM,Excel 打开中文不乱码
+  return '\uFEFF' + rows.map(row => row.map(escape).join(',')).join('\r\n')
 }
 
 export async function exportToJSON(): Promise<string> {

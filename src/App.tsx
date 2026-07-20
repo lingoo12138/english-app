@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import WordList from './pages/WordList'
@@ -21,6 +21,7 @@ function App() {
   const themeColor = useStore((s) => s.themeColor)
   const fontSize = useStore((s) => s.fontSize)
   const setStats = useStats((s) => s.setStats)
+  const location = useLocation()
 
   useEffect(() => {
     if (darkMode) {
@@ -51,8 +52,34 @@ function App() {
     loadStats()
     // 每 30 秒刷新
     const id = setInterval(loadStats, 30000)
-    return () => clearInterval(id)
+    // 修复: 页面可见性变化(tab 切回)时重载,保证数据新鲜
+    const onVisible = () => { if (!document.hidden) loadStats() }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => {
+      clearInterval(id)
+      document.removeEventListener('visibilitychange', onVisible)
+    }
   }, [setStats])
+
+  // 修复: 页面 title 根据路由变化
+  useEffect(() => {
+    const path = location.pathname
+    const pageTitle = (() => {
+      if (path === '/') return '句刻 - 即时英语学习'
+      if (path.startsWith('/words/')) return '单词详情 - 句刻'
+      if (path.startsWith('/words')) return '词库 - 句刻'
+      if (path.startsWith('/scenes/')) return '场景详情 - 句刻'
+      if (path.startsWith('/scenes')) return '场景专题课 - 句刻'
+      if (path.startsWith('/daily')) return '每日一句 - 句刻'
+      if (path.startsWith('/translate')) return '中英翻译 - 句刻'
+      if (path.startsWith('/notebook')) return '生词本 - 句刻'
+      if (path.startsWith('/weak')) return '错题本 - 句刻'
+      if (path.startsWith('/review')) return '复习中心 - 句刻'
+      if (path.startsWith('/settings')) return '设置 - 句刻'
+      return '句刻'
+    })()
+    document.title = pageTitle
+  }, [location.pathname])
 
   return (
     <Routes>

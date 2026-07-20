@@ -14,11 +14,17 @@ export default function Notebook() {
   const loadFavorites = async () => {
     setLoading(true)
     const favs = await getAllFavorites()
-    // 解析每个收藏
+    // 过滤掉非单词 ID
+    const wordIds = favs
+      .filter(f => !f.wordId.startsWith('daily-') && !f.wordId.startsWith('scene:'))
+      .map(f => f.wordId)
+    // 一次拉取全词库,内存中过滤(修复 O(N*M) 慢加载)
+    const allWords = await import('../lib/words').then(m => m.loadWords())
+    const wordMap = new Map<string, Word>()
+    for (const w of allWords) wordMap.set(w.id, w)
     const list: Word[] = []
-    for (const f of favs) {
-      if (f.wordId.startsWith('daily-')) continue  // 跳过每日一句
-      const w = await getWord(f.wordId)
+    for (const id of wordIds) {
+      const w = wordMap.get(id)
       if (w) list.push(w)
     }
     setWords(list)

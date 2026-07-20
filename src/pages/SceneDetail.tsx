@@ -1,7 +1,7 @@
 // 场景详情页 - 学习该场景的句子
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { SCENES, type Scene } from '../data/scenes'
+import { SCENES, type Scene, getSentenceId } from '../data/scenes'
 import TTSButton from '../components/TTSButton'
 import { logAction, db } from '../lib/db'
 
@@ -13,6 +13,7 @@ export default function SceneDetail() {
   const [isTransitioning, setIsTransitioning] = useState(false)  // 防止重复点击
   const knownMapRef = useRef(knownMap)
   knownMapRef.current = knownMap
+  const transitionTimerRef = useRef<number | null>(null)  // 追踪 300ms 跳页 timer
 
   // 同步计算 scene,避免首屏闪'场景不存在'
   const scene = useMemo(() => SCENES.find(x => x.id === id) || null, [id])
@@ -34,17 +35,19 @@ export default function SceneDetail() {
           .where('wordId').startsWith(`scene-${scene.id}-`)
           .toArray()
         if (cancelled) return
-        // 按 recId 分组,取每句最后一条
+        // 按 recId 分组,取每句最后一条(按 timestamp 最新的)
         const lastByRecId = new Map<string, string>()
+        const tsByRecId = new Map<string, number>()
         for (const r of allRecords) {
-          const prev = lastByRecId.get(r.wordId)
-          if (!prev) {
+          const prevTs = tsByRecId.get(r.wordId) || 0
+          if (r.timestamp >= prevTs) {
+            tsByRecId.set(r.wordId, r.timestamp)
             lastByRecId.set(r.wordId, r.action)
           }
         }
         const map = new Map<number, 'known' | 'unknown'>()
         for (let i = 0; i < scene.sentences.length; i++) {
-          const recId = `scene-${scene.id}-${scene.sentences[i].en.slice(0, 20)}`
+          const recId = getSentenceId(scene.id, i)
           const action = lastByRecId.get(recId)
           if (action === 'known' || action === 'unknown') {
             map.set(i, action)
@@ -92,7 +95,7 @@ export default function SceneDetail() {
   const handleRate = async (rate: 'known' | 'unknown') => {
     if (isTransitioning) return  // 防止重复点击
     setIsTransitioning(true)
-    const recId = `scene-${scene.id}-${currentSentence.en.slice(0, 20)}`
+    const recId = getSentenceId(scene.id, currentIdx)
     try {
       await logAction(recId, rate)
       setKnownMap(prev => {
@@ -106,9 +109,10 @@ export default function SceneDetail() {
       setIsTransitioning(false)
       return
     }
-    // 下一个
+    // 下一个(用 ref 追踪,避免卸载后 setState)
     if (currentIdx + 1 < total) {
-      setTimeout(() => {
+      transitionTimerRef.current = window.setTimeout(() => {
+        transitionTimerRef.current = null
         setCurrentIdx(i => i + 1)
         setIsTransitioning(false)
       }, 300)
@@ -116,6 +120,16 @@ export default function SceneDetail() {
       setIsTransitioning(false)
     }
   }
+
+  // 卸载时清理所有 timer + 取消朗读
+  useEffect(() => {
+    return () => {
+      if (transitionTimerRef.current) {
+        clearTimeout(transitionTimerRef.current)
+        transitionTimerRef.current = null
+      }
+    }
+  }, [])
 
   return (
     <div className="space-y-4">
@@ -166,12 +180,12 @@ export default function SceneDetail() {
           </div>
         )}
 
-        {/* 英文 */}
+        {/* 英文 - 清理 [name] [host name] 等占位符,避免 TTS 朗读方括号 */}
         <div className="flex items-start gap-2 mb-3">
           <p className="flex-1 text-2xl font-medium leading-relaxed">
-            {currentSentence.en}
+            {currentSentence.en.replace(/\[[^\]]+\]/g, '___')}
           </p>
-          <TTSButton text={currentSentence.en} />
+          <TTSButton text={currentSentence.en.replace(/\[[^\]]+\]/g, '___')} />
         </div>
 
         {/* 中文翻译 */}
@@ -202,18 +216,20 @@ export default function SceneDetail() {
         )}
       </div>
 
-      {/* 操作按钮 */}
+      {/* 操作按钮 - 修复: 过渡期间 disabled,防止双跳页 */}
       <div className="grid grid-cols-2 gap-3">
         <button
           onClick={() => handleRate('unknown')}
-          className="btn bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 hover:bg-orange-200 py-4"
+          disabled={isTransitioning}
+          className="btn bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 hover:bg-orange-200 py-4 disabled:opacity-50"
         >
           <div className="text-xl mb-1">😕</div>
           <div className="text-sm font-medium">不认识</div>
         </button>
         <button
           onClick={() => handleRate('known')}
-          className="btn bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-200 py-4"
+          disabled={isTransitioning}
+          className="btn bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-200 py-4 disabled:opacity-50"
         >
           <div className="text-xl mb-1">😄</div>
           <div className="text-sm font-medium">认识</div>

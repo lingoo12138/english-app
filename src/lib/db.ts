@@ -19,9 +19,25 @@ class EnglishAppDB extends Dexie {
 
 export const db = new EnglishAppDB()
 
+/** 统一处理 IDB 写入错误(quota exceeded 等) */
+function handleDbError(e: unknown, context: string): never {
+  const err = e as any
+  if (err?.name === 'QuotaExceededError' || err?.code === 22) {
+    throw new Error(`${context}: 存储空间已满,请清理数据后再试`)
+  }
+  if (err?.message) {
+    throw new Error(`${context}: ${err.message}`)
+  }
+  throw new Error(`${context}: 写入失败`)
+}
+
 // 收藏
 export async function addFavorite(wordId: string) {
-  await db.favorites.put({ wordId, addedAt: Date.now() })
+  try {
+    await db.favorites.put({ wordId, addedAt: Date.now() })
+  } catch (e) {
+    handleDbError(e, '添加收藏')
+  }
 }
 
 export async function removeFavorite(wordId: string) {
@@ -39,16 +55,22 @@ export async function getAllFavorites(): Promise<Favorite[]> {
 
 // 学习记录
 export async function logAction(wordId: string, action: LearnRecord['action']) {
-  await db.records.add({
-    wordId,
-    action,
-    timestamp: Date.now(),
-  })
+  try {
+    await db.records.add({
+      wordId,
+      action,
+      timestamp: Date.now(),
+    })
+  } catch (e) {
+    handleDbError(e, '记录学习行为')
+  }
 }
 
 // 判断 wordId 是否为"真实"单词 ID(过滤场景/每日一句等合成 ID)
 function isRealWordId(wordId: string): boolean {
-  // 场景课句子的 recId 格式: scene-{sceneId}-{...}
+  // 场景课句子的 recId 新格式: scene:{sceneId}:s{idx}
+  if (wordId.startsWith('scene:')) return false
+  // 兼容旧格式: scene-{id}-
   if (wordId.startsWith('scene-')) return false
   // 每日一句的 recId 格式: daily-{id}
   if (wordId.startsWith('daily-')) return false

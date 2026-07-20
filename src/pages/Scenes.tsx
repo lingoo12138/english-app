@@ -1,7 +1,7 @@
 // 场景专题课列表页
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { SCENES, type Scene, searchScenes } from '../data/scenes'
+import { SCENES, type Scene, searchScenes, getSentenceId } from '../data/scenes'
 
 export default function Scenes() {
   const [query, setQuery] = useState('')
@@ -37,8 +37,8 @@ export default function Scenes() {
         const knownRecIds = knownByScene.get(scene.id)
         if (!knownRecIds) continue
         let allKnown = true
-        for (const sent of scene.sentences) {
-          const recId = `scene-${scene.id}-${sent.en.slice(0, 20)}`
+        for (let i = 0; i < scene.sentences.length; i++) {
+          const recId = getSentenceId(scene.id, i)
           if (!knownRecIds.has(recId)) {
             allKnown = false
             break

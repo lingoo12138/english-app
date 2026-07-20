@@ -33,6 +33,8 @@ export default function PronunciationPractice({ word, onComplete }: Props) {
   const countdownTimerRef = useRef<number | null>(null)
   const listenTimerRef = useRef<number | null>(null)
   const stopTimerRef = useRef<number | null>(null)
+  // 记录停止原因(自动超时/用户手动/错误),UI 可以区分提示
+  const stopReasonRef = useRef<'auto' | 'manual' | 'error' | null>(null)
   // 防止已卸载的回调更新 state
   const mountedRef = useRef(true)
   // 当前 state 的 ref 副本(避免闭包陷阱)
