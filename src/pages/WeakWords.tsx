@@ -54,8 +54,8 @@ export default function WeakWords() {
       .where('wordId').equals(wordId)
       .and(r => r.action === 'unknown')
       .delete()
-    // 刷新
-    loadData()
+    // 修复: 增量更新本地 state,避免全量重载
+    setItems(prev => prev.filter(item => item.word.id !== wordId))
   }
 
   async function markRemove(wordId: string) {

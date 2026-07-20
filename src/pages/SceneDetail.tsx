@@ -11,8 +11,6 @@ export default function SceneDetail() {
   const [currentIdx, setCurrentIdx] = useState(0)
   const [knownMap, setKnownMap] = useState<Map<number, 'known' | 'unknown'>>(new Map())
   const [isTransitioning, setIsTransitioning] = useState(false)  // 防止重复点击
-  const knownMapRef = useRef(knownMap)
-  knownMapRef.current = knownMap
   const transitionTimerRef = useRef<number | null>(null)  // 追踪 300ms 跳页 timer
 
   // 同步计算 scene,避免首屏闪'场景不存在'

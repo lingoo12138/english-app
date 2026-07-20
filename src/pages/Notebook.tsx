@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
 import { exportToCSV, exportToJSON, exportFullBackup, downloadFile } from '../lib/export'
+import { formatDate } from '../lib/utils'
 
 export default function Notebook() {
   const [words, setWords] = useState<Word[]>([])
@@ -170,9 +171,4 @@ export default function Notebook() {
       )}
     </div>
   )
-}
-
-function formatDate(): string {
-  const d = new Date()
-  return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`
 }

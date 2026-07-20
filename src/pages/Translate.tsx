@@ -7,7 +7,8 @@ export default function Translate() {
   const [source, setSource] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [direction, setDirection] = useState<'auto' | 'en2zh' | 'zh2en'>('auto')
+  type Direction = 'auto' | 'en2zh' | 'zh2en'
+  const [direction, setDirection] = useState<Direction>('auto')
 
   const handleTranslate = async () => {
     if (!text.trim()) return
@@ -51,7 +52,7 @@ export default function Translate() {
       <div className="flex items-center gap-2">
         <select
           value={direction}
-          onChange={(e) => setDirection(e.target.value as any)}
+          onChange={(e) => setDirection(e.target.value as Direction)}
           className="input flex-1"
         >
           <option value="auto">自动检测</option>

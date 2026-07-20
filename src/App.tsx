@@ -15,6 +15,7 @@ import SceneDetail from './pages/SceneDetail'
 import { useStore, useStats } from './store/useStore'
 import { getTodayCount, getTotalLearned, getAllFavorites } from './lib/db'
 import { getTheme, applyTheme, applyFontSize } from './lib/themes'
+import { getPageTitle } from './lib/utils'
 
 function App() {
   const darkMode = useStore((s) => s.darkMode)
@@ -63,22 +64,7 @@ function App() {
 
   // 修复: 页面 title 根据路由变化
   useEffect(() => {
-    const path = location.pathname
-    const pageTitle = (() => {
-      if (path === '/') return '句刻 - 即时英语学习'
-      if (path.startsWith('/words/')) return '单词详情 - 句刻'
-      if (path.startsWith('/words')) return '词库 - 句刻'
-      if (path.startsWith('/scenes/')) return '场景详情 - 句刻'
-      if (path.startsWith('/scenes')) return '场景专题课 - 句刻'
-      if (path.startsWith('/daily')) return '每日一句 - 句刻'
-      if (path.startsWith('/translate')) return '中英翻译 - 句刻'
-      if (path.startsWith('/notebook')) return '生词本 - 句刻'
-      if (path.startsWith('/weak')) return '错题本 - 句刻'
-      if (path.startsWith('/review')) return '复习中心 - 句刻'
-      if (path.startsWith('/settings')) return '设置 - 句刻'
-      return '句刻'
-    })()
-    document.title = pageTitle
+    document.title = getPageTitle(location.pathname)
   }, [location.pathname])
 
   return (

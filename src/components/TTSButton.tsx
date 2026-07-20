@@ -1,6 +1,7 @@
 // 通用 TTS 按钮组件
 // 修复: setInterval 清理(useEffect) + 卸载时 cancel
-import { useState, useEffect, useRef } from 'react'
+// 修复: A.3 提取重复的 speak / 慢速切换 逻辑
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { speak, speakSlow, stopSpeak } from '../lib/tts'
 
 interface Props {
@@ -12,9 +13,8 @@ interface Props {
 export default function TTSButton({ text, size = 'md', variant = 'icon' }: Props) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isSlow, setIsSlow] = useState(false)
+  const isSlowRef = useRef(false)  // A.8: 解决 setIsSlow 闭包陷阱
   const checkIntervalRef = useRef<number | null>(null)
-  const textRef = useRef(text)
-  textRef.current = text
 
   useEffect(() => {
     return () => {
@@ -27,6 +27,20 @@ export default function TTSButton({ text, size = 'md', variant = 'icon' }: Props
     }
   }, [])
 
+  // 提取: 实际播放(慢速 / 常速)
+  const play = useCallback(() => {
+    if (isSlowRef.current) speakSlow(text)
+    else speak({ text })
+  }, [text])
+
+  const stop = useCallback(() => {
+    if (checkIntervalRef.current) {
+      clearInterval(checkIntervalRef.current)
+      checkIntervalRef.current = null
+    }
+    stopSpeak()
+  }, [])
+
   const handleClick = () => {
     // 修复: 检测 TTS 是否可用,不支持时提示
     if (!('speechSynthesis' in window)) {
@@ -34,20 +48,14 @@ export default function TTSButton({ text, size = 'md', variant = 'icon' }: Props
       return
     }
     if (isPlaying) {
-      stopSpeak()
       setIsPlaying(false)
-      if (checkIntervalRef.current) {
-        clearInterval(checkIntervalRef.current)
-        checkIntervalRef.current = null
-      }
+      stop()
       return
     }
     setIsPlaying(true)
-    if (isSlow) speakSlow(text)
-    else speak({ text })
+    play()
 
     // 监听朗读结束
-    if (checkIntervalRef.current) clearInterval(checkIntervalRef.current)
     checkIntervalRef.current = window.setInterval(() => {
       if (!window.speechSynthesis.speaking) {
         setIsPlaying(false)
@@ -57,6 +65,17 @@ export default function TTSButton({ text, size = 'md', variant = 'icon' }: Props
         }
       }
     }, 300)
+  }
+
+  const toggleSlow = () => {
+    const next = !isSlow
+    isSlowRef.current = next  // 同步 ref
+    setIsSlow(next)
+    if (isPlaying) {
+      stop()
+      if (next) speakSlow(text)
+      else speak({ text })
+    }
   }
 
   const sizeClass = {
@@ -76,14 +95,7 @@ export default function TTSButton({ text, size = 'md', variant = 'icon' }: Props
           <span>朗读</span>
         </button>
         <button
-          onClick={() => {
-            setIsSlow(!isSlow)
-            if (isPlaying) {
-              stopSpeak()
-              if (!isSlow) speakSlow(text)
-              else speak({ text })
-            }
-          }}
+          onClick={toggleSlow}
           className={`text-xs px-2 py-1 rounded ${isSlow ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300' : 'text-stone-500'}`}
         >
           慢速

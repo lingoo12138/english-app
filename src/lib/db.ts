@@ -67,14 +67,13 @@ export async function logAction(wordId: string, action: LearnRecord['action']) {
 }
 
 // 判断 wordId 是否为"真实"单词 ID(过滤场景/每日一句等合成 ID)
+const SYNTHETIC_ID_PREFIXES = [
+  'scene:',  // 场景课句子: scene:{sceneId}:s{idx}
+  'scene-',  // 兼容旧格式
+  'daily-',  // 每日一句: daily-{id}
+]
 function isRealWordId(wordId: string): boolean {
-  // 场景课句子的 recId 新格式: scene:{sceneId}:s{idx}
-  if (wordId.startsWith('scene:')) return false
-  // 兼容旧格式: scene-{id}-
-  if (wordId.startsWith('scene-')) return false
-  // 每日一句的 recId 格式: daily-{id}
-  if (wordId.startsWith('daily-')) return false
-  return true
+  return !SYNTHETIC_ID_PREFIXES.some(p => wordId.startsWith(p))
 }
 
 export async function getTodayCount(): Promise<number> {

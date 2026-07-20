@@ -1,4 +1,5 @@
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { getPageTitle } from '../lib/utils'
 
 // 桌面端侧边栏 — 7 个全量入口
 const desktopNav = [
@@ -21,26 +22,13 @@ const mobileNav = [
 ]
 
 // 移动端顶部 Title — 路径感知
-function getPageTitle(pathname: string): string {
-  if (pathname === '/') return '句刻'
-  if (pathname.startsWith('/words/')) return '单词详情'
-  if (pathname.startsWith('/words')) return '词库'
-  if (pathname.startsWith('/scenes/')) return '场景详情'
-  if (pathname.startsWith('/scenes')) return '场景专题课'
-  if (pathname.startsWith('/daily')) return '每日一句'
-  if (pathname.startsWith('/translate')) return '中英翻译'
-  if (pathname.startsWith('/notebook')) return '生词本'
-  if (pathname.startsWith('/weak')) return '错题本'
-  if (pathname.startsWith('/review')) return '复习中心'
-  if (pathname.startsWith('/settings')) return '设置'
-  return '句刻'
-}
-
 export default function Layout() {
   const location = useLocation()
   const navigate = useNavigate()
   const isHome = location.pathname === '/'
-  const pageTitle = getPageTitle(location.pathname)
+  // utils 里的 title 形如 "词库 - 句刻",这里只取短标题
+  const fullTitle = getPageTitle(location.pathname)
+  const shortTitle = isHome ? '句刻' : fullTitle.split(' - ')[0]
 
   return (
     <div className="min-h-full flex flex-col md:flex-row">
@@ -94,7 +82,7 @@ export default function Layout() {
             </button>
           )}
           <h1 className={`text-lg font-semibold ${isHome ? 'text-brand-600' : 'text-stone-700 dark:text-stone-200'}`}>
-            {pageTitle}
+            {shortTitle}
           </h1>
           <div className="w-6" />
         </div>

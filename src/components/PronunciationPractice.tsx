@@ -193,7 +193,6 @@ export default function PronunciationPractice({ word, onComplete }: Props) {
       const s = scorePronunciation(r, word)
       setScore(s)
       setState('result')
-      onComplete?.(s)
     } catch (e: any) {
       recorderRef.current = null
       if (mountedRef.current) {
