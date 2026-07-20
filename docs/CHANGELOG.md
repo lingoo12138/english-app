@@ -4,6 +4,68 @@
 
 ---
 
+## [v0.7] - 2026-07-20
+
+### 修复(基于独立 Verifier 第二轮审查 - 15 个 P1)
+
+**Layout & a11y**:
+- 加 skip-to-main 链接(屏幕阅读器/键盘)
+- 移动端顶部 title 路径感知
+- 移动端底部 tab 加 每日一句入口
+- 移动端 back button 不渲染时占位(避免隐形可点击)
+- 页面 `<title>` 随路由变化
+
+**WordCard**:
+- stopPropagation 修复(点收藏/朗读触发 Link 跳走)
+
+**SceneDetail**:
+- sentence recId 改为稳定 ID,不再依赖 en 文本
+- lastByRecId 按 timestamp 取最大(原代码只取第一条)
+- 清理 [name] 占位符避免 TTS 朗读方括号
+- setTimeout 跳页 useRef 追踪 + 卸载清理
+
+**WordList**:
+- handleToggleFav 用 ref 避免 callback 重建
+- 字母索引加 # 位置
+
+**scenes.ts**:
+- SceneSentence 显式稳定 id 字段
+- getSentenceId() helper
+
+**TTS 引擎**:
+- speak() 读 store.voiceName/rate(原设置不生效)
+
+**translate**:
+- fetchWithTimeout 8s 限制
+- 文本长度限制 1000 字符
+
+**export CSV**:
+- 防 CSV 注入(=+-@ 加 ')
+- 转义 \r + UTF-8 BOM + \r\n 行分隔符
+
+**db**:
+- QuotaExceededError 友好错误处理
+
+**StudyCalendar**:
+- 修复动态 pl-\${n} Tailwind 类不生效(改 inline style)
+
+**WordDetail**:
+- id 变化 cancelled 标志防 race
+- 跳词时滚到顶部
+
+**Notebook**:
+- 收藏加载 O(N*M) 优化为一次查
+- 导出按钮防重
+
+**WeakWords**:
+- lastUnknown 用 reduce 取 max
+
+**App**:
+- stats 加 visibilitychange 监听
+- 路由变时更新 document.title
+
+---
+
 ## [v0.6] - 2026-07-20
 
 ### 新增

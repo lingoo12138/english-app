@@ -234,6 +234,25 @@ english-app/
 
 ---
 
+### v0.7 — 全面 P1 修复(2026-07-20)
+
+**目标**: 根 Verifier 反馈修 15 个关键 P1
+
+**已修**(本轮):
+
+| 类别 | 修复点 |
+|-----|------|
+| a11y | skip-to-main、路径感知 title、页面 document.title、aria-label、back button 占位 |
+| 稳定性 | 动态 Tailwind 类、unmount 清理、IDB quota 错误处理 |
+| 性能 | Notebook/WeakWords 批量查代替串行查、O(N*M) 优化 |
+| 正确性 | lastByRecId 取最新(原取最早)、IDB write race 防护 |
+| 安全 | CSV 注入防护、UTF-8 BOM |
+| 完整性 | TTS 引擎读 store 设置项、fetch timeout、文本长度限制 |
+
+**累计**: v0.4 + v0.5 + v0.6 = 22 P0 + 15 P1 = 37 个 bug 修复
+
+---
+
 ### v0.6 — 全面 P0 清零(2026-07-20)
 
 **目标**: 根据独立 Verifier 审查,修复 3 个模块所有 P0 bug
