@@ -15,7 +15,9 @@ export default function WordDetail() {
   const [showAllExamples, setShowAllExamples] = useState(false)
   const targetLevel = useStore(s => s.targetLevel)
 
+  // 修复: 切换单词时重置 showAllExamples + cancelled 标志
   useEffect(() => {
+    setShowAllExamples(false)
     if (!id) return
     // 修复: 用 ref 跟踪当前 id,避免 stale closure 导致旧词覆盖新词
     let cancelled = false

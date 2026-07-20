@@ -67,7 +67,10 @@ export default function Layout() {
       </aside>
 
       {/* 顶部栏(手机) - 修复: 加路径感知 title,用户在哪个页面有视觉提示 */}
-      <header className="md:hidden sticky top-0 z-10 bg-white/80 dark:bg-stone-900/80 backdrop-blur border-b border-stone-200 dark:border-stone-800">
+      <header
+        className="md:hidden sticky top-0 z-10 bg-white/80 dark:bg-stone-900/80 backdrop-blur border-b border-stone-200 dark:border-stone-800"
+        style={{ paddingTop: 'env(safe-area-inset-top)' }}
+      >
         <div className="flex items-center justify-between px-4 h-14">
           {/* 返回按钮 - 修复: 不渲染时占位,避免在 home 页出现“隐形可点击”按钮 */}
           {isHome ? (
@@ -96,7 +99,10 @@ export default function Layout() {
       </main>
 
       {/* 底部导航 (手机) - 修复: 加了 每日一句 tab(用户高频功能) */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 z-10">
+      <nav
+        className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 z-10"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      >
         <div className="grid grid-cols-5">
           {mobileNav.map((item) => (
             <NavLink

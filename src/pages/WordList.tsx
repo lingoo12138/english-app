@@ -16,6 +16,7 @@ function getFirstLetter(word: string): string {
 export default function WordList() {
   const [allWords, setAllWords] = useState<Word[]>([])
   const [query, setQuery] = useState('')
+  const [debouncedQuery, setDebouncedQuery] = useState('')  // 修复: 搜索 debounce 300ms
   const [level, setLevel] = useState<string>('all')
   const [favSet, setFavSet] = useState<Set<string>>(new Set())
   const favSetRef = useRef(favSet)
@@ -44,26 +45,32 @@ export default function WordList() {
     }
   }, [targetLevel, level])
 
+  // 修复: 搜索 debounce 300ms,避免 5000 词全表过滤
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedQuery(query), 300)
+    return () => clearTimeout(t)
+  }, [query])
+
   // 切换学段或搜索时重置分页
   useEffect(() => {
     setDisplayCount(PAGE_SIZE)
     setActiveLetter('')
-  }, [level, query])
+  }, [level, debouncedQuery])
 
   const filtered = useMemo(() => {
     let result = allWords
     if (level !== 'all') {
       result = result.filter(w => w.level === level)
     }
-    if (query.trim()) {
-      const q = query.toLowerCase()
+    if (debouncedQuery.trim()) {
+      const q = debouncedQuery.toLowerCase()
       result = result.filter(w =>
         w.word.toLowerCase().includes(q) ||
         w.translations.some(t => t.toLowerCase().includes(q))
       )
     }
     return result
-  }, [allWords, level, query])
+  }, [allWords, level, debouncedQuery])
 
   // 词库中存在的首字母(包含 #,避免未来加中文拼音词时幽灵轴点)
   const availableLetters = useMemo(() => {
@@ -113,7 +120,8 @@ export default function WordList() {
     const anchors = containerRef.current.querySelectorAll('[data-letter-anchor]')
     anchors.forEach(a => observer.observe(a))
     return () => observer.disconnect()
-  }, [availableLetters.size, level, query])
+    // 修复: 加上 visible.length,让分页加载后出现的字母锚点重新被 observe
+  }, [availableLetters.size, level, debouncedQuery, visible.length])
 
   // 滚动到指定字母
   // 修复: 不立即 setActiveLetter(避免与 IO race),滚动完成后由 IO 决定

@@ -124,6 +124,12 @@ export function applyTheme(theme: Theme) {
   Object.entries(theme.colors).forEach(([key, value]) => {
     root.style.setProperty(`--brand-${key}`, value)
   })
+  // 同步 PWA 状态栏颜色
+  const meta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null
+  if (meta && theme.colors['600']) {
+    const [r, g, b] = theme.colors['600'].split(' ').map(Number)
+    meta.content = `rgb(${r}, ${g}, ${b})`
+  }
 }
 
 export function getTheme(id: string): Theme {
