@@ -69,7 +69,7 @@ export default function WordDetail() {
   }
 
   if (!word) {
-    return <div className="text-center py-12 text-stone-500">加载中...</div>
+    return <div className="text-center py-12 text-stone-500 dark:text-stone-400">加载中...</div>
   }
 
   const visibleExamples = showAllExamples ? word.examples : word.examples.slice(0, 1)
@@ -94,7 +94,7 @@ export default function WordDetail() {
         <div className="flex items-start justify-between mb-3">
           <div>
             <h1 className="text-4xl font-bold mb-1">{word.word}</h1>
-            <p className="text-stone-500">{word.phonetic}</p>
+            <p className="text-stone-500 dark:text-stone-400">{word.phonetic}</p>
           </div>
           <TTSButton text={word.word} size="lg" />
         </div>
@@ -115,7 +115,7 @@ export default function WordDetail() {
         <p className="text-lg text-stone-700 dark:text-stone-300 mb-4">
           {word.translations.slice(0, 3).join(' · ')}
           {word.translations.length > 3 && (
-            <span className="text-sm text-stone-400 ml-1">+{word.translations.length - 3} 个义项</span>
+            <span className="text-sm text-stone-400 dark:text-stone-300 ml-1">+{word.translations.length - 3} 个义项</span>
           )}
         </p>
       </div>
@@ -138,7 +138,7 @@ export default function WordDetail() {
                   <span className={`text-sm font-mono px-2 py-1 rounded ${typeColor}`}>
                     {r.root}
                   </span>
-                  <span className="text-xs text-stone-500">{typeLabel}</span>
+                  <span className="text-xs text-stone-500 dark:text-stone-400">{typeLabel}</span>
                   <span className="text-sm text-stone-700 dark:text-stone-300">{r.meaning}</span>
                 </div>
               )
@@ -153,14 +153,14 @@ export default function WordDetail() {
           <h3 className="font-semibold mb-3 flex items-center gap-2">
             <span>🔗</span>
             <span>常用短语</span>
-            <span className="text-xs text-stone-500 ml-auto">共 {word.phrases.length} 个</span>
+            <span className="text-xs text-stone-500 dark:text-stone-400 ml-auto">共 {word.phrases.length} 个</span>
           </h3>
           <div className="grid grid-cols-1 gap-2">
             {word.phrases.map((p, i) => (
               <div key={i} className="flex items-start gap-2 py-1.5 border-b border-stone-100 dark:border-stone-700 last:border-0">
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium">{p.phrase}</p>
-                  <p className="text-xs text-stone-500">{p.translation}</p>
+                  <p className="text-xs text-stone-500 dark:text-stone-400">{p.translation}</p>
                 </div>
                 <TTSButton text={p.phrase} size="sm" />
               </div>
@@ -175,7 +175,7 @@ export default function WordDetail() {
           <span>💬</span>
           <span>场景例句</span>
           {word.examples.length > 1 && (
-            <span className="text-xs text-stone-500 ml-auto">
+            <span className="text-xs text-stone-500 dark:text-stone-400 ml-auto">
               {showAllExamples ? '收起' : `展开全部 ${word.examples.length} 句`}
             </span>
           )}
@@ -187,9 +187,9 @@ export default function WordDetail() {
                 <p className="flex-1 text-base">{ex.en}</p>
                 <TTSButton text={ex.en} size="sm" />
               </div>
-              <p className="text-sm text-stone-500 mt-1">{ex.zh}</p>
+              <p className="text-sm text-stone-500 dark:text-stone-400 mt-1">{ex.zh}</p>
               {ex.scene && (
-                <span className="inline-block text-[10px] mt-1 px-1.5 py-0.5 bg-stone-100 dark:bg-stone-700 text-stone-500 rounded">
+                <span className="inline-block text-[10px] mt-1 px-1.5 py-0.5 bg-stone-100 dark:bg-stone-700 text-stone-500 dark:text-stone-400 rounded">
                   {ex.scene}
                 </span>
               )}
@@ -226,7 +226,7 @@ export default function WordDetail() {
             ✗ 不认识
           </button>
         </div>
-        <p className="text-xs text-stone-500 mt-3 text-center">
+        <p className="text-xs text-stone-500 dark:text-stone-400 mt-3 text-center">
           系统会按记忆曲线安排复习时间
         </p>
       </div>

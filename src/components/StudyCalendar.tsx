@@ -81,7 +81,7 @@ export default function StudyCalendar({ days = 84, compact = false }: CalendarPr
   const gap = compact ? 'gap-0.5' : 'gap-1'
 
   if (loading) {
-    return <div className="text-stone-400 text-sm">加载中...</div>
+    return <div className="text-stone-400 dark:text-stone-300 text-sm">加载中...</div>
   }
 
   return (
@@ -90,11 +90,11 @@ export default function StudyCalendar({ days = 84, compact = false }: CalendarPr
       <div className="flex items-center gap-4 mb-4 flex-wrap">
         <div>
           <div className="text-2xl font-bold text-brand-600">{streak} 天</div>
-          <div className="text-xs text-stone-500">连续打卡</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400">连续打卡</div>
         </div>
         <div>
           <div className="text-2xl font-bold">{totalDays} 天</div>
-          <div className="text-xs text-stone-500">累计打卡</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400">累计打卡</div>
         </div>
       </div>
 
@@ -103,7 +103,7 @@ export default function StudyCalendar({ days = 84, compact = false }: CalendarPr
         {monthLabels.map((m, i) => (
           <div
             key={i}
-            className="text-[10px] text-stone-400"
+            className="text-[10px] text-stone-400 dark:text-stone-300"
             style={{ marginLeft: i === 0 ? 0 : 'auto' }}
           >
             {m.label}
@@ -118,7 +118,7 @@ export default function StudyCalendar({ days = 84, compact = false }: CalendarPr
           <div className="flex">
             <div className={`flex flex-col ${gap} mr-1.5 pt-0.5`}>
               {['', '一', '', '三', '', '五', ''].map((d, i) => (
-                <div key={i} className={`${cellSize} text-[10px] text-stone-400 leading-none`}>
+                <div key={i} className={`${cellSize} text-[10px] text-stone-400 dark:text-stone-300 leading-none`}>
                   {d}
                 </div>
               ))}
@@ -160,7 +160,7 @@ export default function StudyCalendar({ days = 84, compact = false }: CalendarPr
       </div>
 
       {/* 颜色图例 */}
-      <div className="flex items-center gap-2 mt-3 text-xs text-stone-500">
+      <div className="flex items-center gap-2 mt-3 text-xs text-stone-500 dark:text-stone-400">
         <span>少</span>
         <div className={`${cellSize} rounded-sm bg-stone-100 dark:bg-stone-800`} />
         <div className={`${cellSize} rounded-sm bg-brand-100 dark:bg-brand-900/40`} />

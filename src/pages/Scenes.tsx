@@ -59,7 +59,7 @@ export default function Scenes() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold mb-1">场景专题课</h1>
-        <p className="text-stone-500 text-sm">
+        <p className="text-stone-500 dark:text-stone-400 text-sm">
           5 个真实场景 · 真实能用的高频表达
         </p>
       </div>
@@ -94,7 +94,7 @@ export default function Scenes() {
               <p className="text-sm text-stone-500 dark:text-stone-400 line-clamp-2">
                 {scene.description}
               </p>
-              <div className="flex items-center gap-3 mt-2 text-xs text-stone-400">
+              <div className="flex items-center gap-3 mt-2 text-xs text-stone-400 dark:text-stone-300">
                 <span>📝 {scene.sentences.length} 句</span>
                 <span>📚 {scene.vocabulary.length} 词</span>
                 <span className="flex items-center gap-0.5">
@@ -109,13 +109,13 @@ export default function Scenes() {
                 </span>
               </div>
             </div>
-            <div className="text-stone-400">→</div>
+            <div className="text-stone-400 dark:text-stone-300">→</div>
           </Link>
         ))}
       </div>
 
       {scenes.length === 0 && (
-        <div className="text-center py-12 text-stone-500">没有匹配的场景</div>
+        <div className="text-center py-12 text-stone-500 dark:text-stone-400">没有匹配的场景</div>
       )}
 
       <div className="card bg-gradient-to-r from-brand-50 to-emerald-50 dark:from-brand-900/20 dark:to-emerald-900/20 border border-brand-200 dark:border-brand-800">

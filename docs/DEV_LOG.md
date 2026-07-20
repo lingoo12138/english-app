@@ -2,7 +2,33 @@
 
 > 这份文档是产品**理论层面的完整功能记录**,供用户在无时间亲自测试时查阅、验收、规划下一步。
 >
-> 最后更新: 2026-07-20(v0.7)
+> 最后更新: 2026-07-20(v0.10)
+
+---
+
+## v0.10 重点更新(2026-07-20)
+
+### 4 个 P0 + 8 个 P1 修复(基于独立 Verifier 第三轮审查)
+
+**4 个 P0(严重,影响所有用户)**:
+- **场景课"已学完"永远不显示** — `getSentenceId()` 用冒号但查询用连字符。修:`Scenes.tsx` + `SceneDetail.tsx` 统一查询
+- **ReviewCenter 自循环断裂** — `reviewWord(word.word)` 用字符串导致刚复习的词立即消失。修:`ReviewCenter.tsx` 改用 `word.id`
+- **"每日一词"每次刷新随机** — `Home.tsx` 用 `Math.random()`。修:用日期字符串作 seed,同一天同一个词
+- **TTS 用户选定 voice 失效静默回退** — `tts.ts` 无提示。修:加 console.warn
+
+**8 个 P1**:
+- Settings 清空数据拆两个按钮(选择性 vs 全部)
+- DailyPage 30 句全加收藏
+- Layout iOS 安全区(`env(safe-area-inset-*)`)
+- PWA theme-color 动态化(随主题色)
+- WordDetail 切词重置 `showAllExamples`
+- WordList 字母 IO 滚动后重 observe(`visible.length` 依赖)
+- WordList 搜索 debounce 300ms
+- TTSButton 防快速连点(`isStartingRef` 互斥锁 + Chrome cancel+speak 1ms 延迟 + a11y)
+
+**验证**:`scripts/verify-v10.mjs` Playwright 自动化测试全过。
+
+**累计**:57 个 P0/P1 bug 修复(22+15+8+12 之前的 P2 + v0.9 12 P2 + v0.10 8 P1)。
 
 ---
 

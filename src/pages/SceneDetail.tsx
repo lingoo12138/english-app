@@ -63,7 +63,7 @@ export default function SceneDetail() {
 
   if (!scene) {
     return (
-      <div className="text-center py-20 text-stone-500">
+      <div className="text-center py-20 text-stone-500 dark:text-stone-400">
         场景不存在
         <div className="mt-4">
           <Link to="/scenes" className="btn-primary">返回场景列表</Link>
@@ -141,7 +141,7 @@ export default function SceneDetail() {
           ← 返回场景列表
         </button>
         <div className="md:hidden" />
-        <span className="text-sm text-stone-500">
+        <span className="text-sm text-stone-500 dark:text-stone-400">
           {currentIdx + 1} / {total}
         </span>
       </div>
@@ -199,7 +199,7 @@ export default function SceneDetail() {
         {/* 关键词 */}
         {currentSentence.keywords.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mb-3">
-            <span className="text-xs text-stone-500">关键词:</span>
+            <span className="text-xs text-stone-500 dark:text-stone-400">关键词:</span>
             {currentSentence.keywords.map(kw => (
               <span
                 key={kw}

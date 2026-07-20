@@ -73,7 +73,7 @@ export default function WeakWords() {
 
   if (loading) {
     return (
-      <div className="text-center py-20 text-stone-500">
+      <div className="text-center py-20 text-stone-500 dark:text-stone-400">
         <div className="text-4xl mb-3">⏳</div>
         加载错题...
       </div>
@@ -85,7 +85,7 @@ export default function WeakWords() {
       <div className="text-center py-20">
         <div className="text-5xl mb-4">🎉</div>
         <h2 className="text-xl font-bold mb-2">没有错题</h2>
-        <p className="text-stone-500 text-sm mb-6">
+        <p className="text-stone-500 dark:text-stone-400 text-sm mb-6">
           你的所有词都掌握得很好<br />
           继续保持!
         </p>
@@ -100,7 +100,7 @@ export default function WeakWords() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold mb-1">错题本</h1>
-        <p className="text-stone-500 text-sm">
+        <p className="text-stone-500 dark:text-stone-400 text-sm">
           反复标记"不认识"的词,需要重点攻克
         </p>
       </div>
@@ -109,17 +109,17 @@ export default function WeakWords() {
       <div className="grid grid-cols-3 gap-3">
         <div className="card text-center">
           <div className="text-2xl font-bold text-orange-600">{stats.total}</div>
-          <div className="text-xs text-stone-500 mt-1">薄弱词</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">薄弱词</div>
         </div>
         <div className="card text-center">
           <div className="text-2xl font-bold text-orange-600">{stats.totalWrong}</div>
-          <div className="text-xs text-stone-500 mt-1">错题次数</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">错题次数</div>
         </div>
         <div className="card text-center">
           <div className="text-2xl font-bold text-orange-600">
             {stats.biggestOffender?.wrongCount || 0}
           </div>
-          <div className="text-xs text-stone-500 mt-1">最高错次</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">最高错次</div>
         </div>
       </div>
 
@@ -155,7 +155,7 @@ export default function WeakWords() {
             <Link to={`/words/${item.word.id}`} className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-0.5">
                 <h3 className="text-lg font-semibold">{item.word.word}</h3>
-                <span className="text-xs text-stone-400">{item.word.phonetic}</span>
+                <span className="text-xs text-stone-400 dark:text-stone-300">{item.word.phonetic}</span>
               </div>
               <p className="text-sm text-stone-600 dark:text-stone-400 truncate">
                 {item.word.translations[0]}
@@ -165,7 +165,7 @@ export default function WeakWords() {
                   错了 {item.wrongCount} 次
                 </span>
                 {item.lastWrong > 0 && (
-                  <span className="text-xs text-stone-400">
+                  <span className="text-xs text-stone-400 dark:text-stone-300">
                     最近: {formatRelativeTime(item.lastWrong)}
                   </span>
                 )}

@@ -70,7 +70,7 @@ export default function ReviewCenter() {
 
   if (loading) {
     return (
-      <div className="text-center py-20 text-stone-500">
+      <div className="text-center py-20 text-stone-500 dark:text-stone-400">
         <div className="text-4xl mb-3">⏳</div>
         正在准备复习内容...
       </div>
@@ -82,7 +82,7 @@ export default function ReviewCenter() {
       <div className="text-center py-20">
         <div className="text-5xl mb-4">🎉</div>
         <h2 className="text-xl font-bold mb-2">没有待复习的词</h2>
-        <p className="text-stone-500 text-sm mb-6">
+        <p className="text-stone-500 dark:text-stone-400 text-sm mb-6">
           标记"不认识"的词会在 1 天后再次出现<br />
           系统会按记忆曲线智能安排复习
         </p>
@@ -105,27 +105,27 @@ export default function ReviewCenter() {
       <div className="text-center py-12">
         <div className="text-6xl mb-4">{accuracy >= 80 ? '🏆' : accuracy >= 60 ? '👍' : '💪'}</div>
         <h2 className="text-2xl font-bold mb-2">复习完成!</h2>
-        <p className="text-stone-500 mb-6">
+        <p className="text-stone-500 dark:text-stone-400 mb-6">
           本次复习 {total} 个词
         </p>
 
         <div className="grid grid-cols-3 gap-3 mb-8">
           <div className="card text-center">
             <div className="text-2xl font-bold text-brand-600">{total}</div>
-            <div className="text-xs text-stone-500 mt-1">总数</div>
+            <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">总数</div>
           </div>
           <div className="card text-center">
             <div className="text-2xl font-bold text-green-600">{correctCount}</div>
-            <div className="text-xs text-stone-500 mt-1">认识</div>
+            <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">认识</div>
           </div>
           <div className="card text-center">
             <div className="text-2xl font-bold text-orange-600">{wrongCount}</div>
-            <div className="text-xs text-stone-500 mt-1">不认识</div>
+            <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">不认识</div>
           </div>
         </div>
 
         <div className="card mb-6">
-          <div className="text-sm text-stone-500 mb-1">本次正确率</div>
+          <div className="text-sm text-stone-500 dark:text-stone-400 mb-1">本次正确率</div>
           <div className="text-3xl font-bold text-brand-600">{accuracy}%</div>
           <div className="mt-3 h-2 bg-stone-100 dark:bg-stone-800 rounded-full overflow-hidden">
             <div
@@ -158,7 +158,7 @@ export default function ReviewCenter() {
           <button onClick={() => navigate(-1)} className="btn-ghost text-sm">
             ← 退出
           </button>
-          <span className="text-sm text-stone-500">
+          <span className="text-sm text-stone-500 dark:text-stone-400">
             {currentIndex + 1} / {queue.length}
           </span>
         </div>
@@ -184,7 +184,7 @@ export default function ReviewCenter() {
           {word.word}
         </h1>
 
-        <p className="text-stone-500 mb-6">{word.phonetic}</p>
+        <p className="text-stone-500 dark:text-stone-400 mb-6">{word.phonetic}</p>
 
         <TTSButton text={word.word} size="lg" />
 
@@ -196,12 +196,12 @@ export default function ReviewCenter() {
             {word.examples[0] && (
               <div className="text-left border-l-2 border-brand-300 dark:border-brand-700 pl-3 mt-4">
                 <p className="text-sm">{word.examples[0].en}</p>
-                <p className="text-xs text-stone-500 mt-1">{word.examples[0].zh}</p>
+                <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">{word.examples[0].zh}</p>
               </div>
             )}
           </div>
         ) : (
-          <div className="mt-6 text-stone-400 text-sm">
+          <div className="mt-6 text-stone-400 dark:text-stone-300 text-sm">
             在脑中回忆它的意思...
           </div>
         )}

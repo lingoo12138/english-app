@@ -4,6 +4,69 @@
 
 ---
 
+## [v0.10] - 2026-07-20
+
+### 修复(基于独立 Verifier 第三轮审查 - 4 P0 + 8 P1 + 暗色模式 P2)
+
+**🔴 P0 严重问题(立即修复,影响所有用户)**:
+
+- **场景课"已学完"徽章永远不显示** — `getSentenceId()` 生成 `scene:{id}:s{idx}` (冒号),但 `Scenes.tsx` 和 `SceneDetail.tsx` 查询用 `scene-` (连字符),**字面前缀不匹配导致永远返回 0 条**。后果:场景课完成度丢失 + 重新进入已知状态变全"未学过"
+  - 修:`Scenes.tsx` 和 `SceneDetail.tsx` 统一用冒号查询
+
+- **ReviewCenter 自循环断裂** — `reviewWord(word.word)` 传单词字符串(如 `'abruptly'`),但 reviews 表查词用 wordId(`'w-abruptly'`)。后果:刚复习的词立即从队列消失
+  - 修:`ReviewCenter.tsx` 改用 `word.id`
+
+- **"每日一词" = 每次刷新随机** — `Home.tsx` 用 `Math.random()` 而注释说"第一个高频词"。后果:每天看到的词不一样,收藏会丢
+  - 修:用日期字符串作 seed,同一天同一个词
+
+- **TTS 用户选定 voice 失效静默回退** — `tts.ts` voice 找不到时无任何提示
+  - 修:加 `console.warn` 提示
+
+**🟡 P1 修复(8 个)**:
+
+- **Settings 清空数据** — 拆两个按钮:① 清空生词本+错题本(保留场景课) ② 危险清空全部(二次 confirm)
+- **DailyPage 历史 30 句** — 收藏按钮从"只有今天"扩到"全部 30 句",循环 isFavorite 加载
+- **Layout iOS 安全区** — 顶部 header + 底部 nav 加 `env(safe-area-inset-*)` 适配 iPhone X+ 灵动岛/Home Indicator
+- **PWA theme-color 动态化** — `applyTheme()` 同步更新 `<meta name="theme-color">`,浏览器状态栏跟主题色
+- **WordDetail 切词重置** — `useEffect` 开头 `setShowAllExamples(false)`,避免 A 词展开后切 B 词仍展开
+- **WordList 字母 IO 滚动后重 observe** — useEffect 依赖加 `visible.length`,分页后新字母锚点被 observe
+- **WordList 搜索 debounce 300ms** — 加 `debouncedQuery`,5000 词全表过滤只在用户停止输入 300ms 后执行
+- **TTSButton 快速连点** — 加 `isStartingRef` 互斥锁(100ms) + Chrome cancel+speak 1ms 延迟 + 慢速切换 50ms 等待 stop + `aria-pressed` / `aria-label` 增强 a11y
+
+**🟢 P2 优化**:
+- (TBD 暗色模式对比度)
+
+### 部署
+- GitHub Actions 自动部署 workflow 验证通过
+
+### 文件变更
+- 7 文件,118 行修改
+- `src/pages/Scenes.tsx` — ID 查询改冒号
+- `src/pages/SceneDetail.tsx` — ID 查询改冒号
+- `src/pages/ReviewCenter.tsx` — 用 `word.id` 不用 `word.word`
+- `src/pages/Home.tsx` — 每日一词确定性
+- `src/pages/Settings.tsx` — 选择性清空
+- `src/pages/DailyPage.tsx` — 30 句全收藏
+- `src/pages/WordDetail.tsx` — 切词重置
+- `src/pages/WordList.tsx` — IO 重 observe + debounce
+- `src/lib/tts.ts` — voice 失效 warning
+- `src/lib/themes.ts` — PWA theme-color 同步
+- `src/components/Layout.tsx` — iOS 安全区
+- `src/components/TTSButton.tsx` — 重写(防快速连点)
+- `tailwind.config.js` — 注释说明
+- `scripts/verify-v10.mjs` — 验证脚本
+
+### 验证
+- `scripts/verify-v10.mjs` Playwright 自动化测试全过:
+  - ✅ P0-3 每日一词确定性(同一天同一个词)
+  - ✅ P1-1 Settings 选择性清空(2 个按钮)
+  - ✅ P1-2 DailyPage 30 句都有收藏
+  - ✅ P1-3 移动端布局(375x812 viewport)
+  - ✅ 暗色模式基础可用
+- 截图:`v10-home.png`、`v10-settings.png`、`v10-daily.png`、`v10-mobile-home.png`、`v10-mobile-words.png`、`v10-dark-home.png`、`v10-dark-settings.png`
+
+---
+
 ## [v0.9] - 2026-07-20
 
 ### 新增

@@ -54,22 +54,22 @@ export default function Home() {
       {/* 顶部欢迎 */}
       <div>
         <h1 className="text-2xl font-bold mb-1">你好 👋</h1>
-        <p className="text-stone-500 text-sm">今天来学点新东西吧</p>
+        <p className="text-stone-500 dark:text-stone-400 text-sm">今天来学点新东西吧</p>
       </div>
 
       {/* 学习数据卡片 */}
       <div className="grid grid-cols-3 gap-3">
         <div className="card text-center">
           <div className="text-2xl font-bold text-brand-600">{stats.todayCount}</div>
-          <div className="text-xs text-stone-500 mt-1">今日学词</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">今日学词</div>
         </div>
         <div className="card text-center">
           <div className="text-2xl font-bold text-brand-600">{stats.totalLearned}</div>
-          <div className="text-xs text-stone-500 mt-1">累计学词</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">累计学词</div>
         </div>
         <div className="card text-center">
           <div className="text-2xl font-bold text-brand-600">{stats.favoriteCount}</div>
-          <div className="text-xs text-stone-500 mt-1">生词</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">生词</div>
         </div>
       </div>
 
@@ -104,12 +104,12 @@ export default function Home() {
           <Link to={`/words/${wordOfDay.id}`} className="block">
             <div className="flex items-baseline gap-2 mb-2">
               <h2 className="text-3xl font-bold">{wordOfDay.word}</h2>
-              <span className="text-sm text-stone-400">{wordOfDay.phonetic}</span>
+              <span className="text-sm text-stone-400 dark:text-stone-300">{wordOfDay.phonetic}</span>
             </div>
             <p className="text-base text-stone-700 dark:text-stone-300 mb-3">
               {wordOfDay.translations.join(' · ')}
             </p>
-            <p className="text-sm text-stone-500 line-clamp-2">
+            <p className="text-sm text-stone-500 dark:text-stone-400 line-clamp-2">
               {wordOfDay.examples[0]?.en}
             </p>
           </Link>
@@ -144,27 +144,27 @@ export default function Home() {
 
       {/* 快捷入口 - 修复: 4 个一组,场景课作为独立大卡 (避免 col-span-2 破坏网格) */}
       <div>
-        <h3 className="text-sm font-semibold text-stone-500 mb-3">快捷入口</h3>
+        <h3 className="text-sm font-semibold text-stone-500 dark:text-stone-400 mb-3">快捷入口</h3>
         <div className="grid grid-cols-2 gap-3">
           <Link to="/words" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
             <div className="text-3xl mb-2">📚</div>
             <div className="font-medium">浏览词库</div>
-            <div className="text-xs text-stone-500 mt-1">5000+ 高频词</div>
+            <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">5000+ 高频词</div>
           </Link>
           <Link to="/review" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
             <div className="text-3xl mb-2">📝</div>
             <div className="font-medium">复习中心</div>
-            <div className="text-xs text-stone-500 mt-1">智能间隔重复</div>
+            <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">智能间隔重复</div>
           </Link>
           <Link to="/translate" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
             <div className="text-3xl mb-2">🔤</div>
             <div className="font-medium">中英翻译</div>
-            <div className="text-xs text-stone-500 mt-1">即时查询</div>
+            <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">即时查询</div>
           </Link>
           <Link to="/notebook" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
             <div className="text-3xl mb-2">⭐</div>
             <div className="font-medium">我的生词</div>
-            <div className="text-xs text-stone-500 mt-1">{stats.favoriteCount} 个</div>
+            <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">{stats.favoriteCount} 个</div>
           </Link>
         </div>
         {/* 场景专题课 / 拍照识物 / 每日一句作为独立推荐区 */}
@@ -173,17 +173,17 @@ export default function Home() {
             <div className="text-3xl">🎬</div>
             <div className="flex-1">
               <div className="font-medium">场景专题课</div>
-              <div className="text-xs text-stone-500 mt-0.5">5 个真实场景 · 真实能用</div>
+              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">5 个真实场景 · 真实能用</div>
             </div>
-            <div className="text-stone-400">→</div>
+            <div className="text-stone-400 dark:text-stone-300">→</div>
           </Link>
           <Link to="/camera" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 no-select">
             <div className="text-3xl">📷</div>
             <div className="flex-1">
               <div className="font-medium">拍照识物</div>
-              <div className="text-xs text-stone-500 mt-0.5">AI 识别图片,返回英文 + 例句</div>
+              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">AI 识别图片,返回英文 + 例句</div>
             </div>
-            <div className="text-stone-400">→</div>
+            <div className="text-stone-400 dark:text-stone-300">→</div>
           </Link>
         </div>
       </div>

@@ -45,7 +45,7 @@ export default function Translate() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold mb-1">翻译</h1>
-        <p className="text-stone-500 text-sm">基于 LibreTranslate · MyMemory 公共 API</p>
+        <p className="text-stone-500 dark:text-stone-400 text-sm">基于 LibreTranslate · MyMemory 公共 API</p>
       </div>
 
       {/* 方向切换 */}
@@ -66,7 +66,7 @@ export default function Translate() {
 
       {/* 输入 */}
       <div>
-        <label className="text-sm text-stone-500 mb-1.5 block">原文</label>
+        <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">原文</label>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -92,8 +92,8 @@ export default function Translate() {
       {result && (
         <div className="card">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-stone-500">译文</span>
-            {source && <span className="text-xs text-stone-400">via {source}</span>}
+            <span className="text-sm text-stone-500 dark:text-stone-400">译文</span>
+            {source && <span className="text-xs text-stone-400 dark:text-stone-300">via {source}</span>}
           </div>
           <p className="text-lg leading-relaxed">{result}</p>
           <button
@@ -105,7 +105,7 @@ export default function Translate() {
         </div>
       )}
 
-      <div className="text-xs text-stone-400 text-center py-4">
+      <div className="text-xs text-stone-400 dark:text-stone-300 text-center py-4">
         翻译 API 由开源社区提供,可能偶尔不稳定
       </div>
     </div>

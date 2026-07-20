@@ -103,7 +103,7 @@ export default function TTSButton({ text, size = 'md', variant = 'icon' }: Props
         </button>
         <button
           onClick={toggleSlow}
-          className={`text-xs px-2 py-1 rounded ${isSlow ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300' : 'text-stone-500'}`}
+          className={`text-xs px-2 py-1 rounded ${isSlow ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300' : 'text-stone-500 dark:text-stone-400'}`}
           aria-label={isSlow ? '关闭慢速' : '开启慢速'}
           aria-pressed={isSlow}
         >

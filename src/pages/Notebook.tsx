@@ -50,7 +50,7 @@ export default function Notebook() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold mb-1">生词本</h1>
-          <p className="text-stone-500 text-sm">共 {words.length} 个词 {dueCount > 0 && `· ${dueCount} 个待复习`}</p>
+          <p className="text-stone-500 dark:text-stone-400 text-sm">共 {words.length} 个词 {dueCount > 0 && `· ${dueCount} 个待复习`}</p>
         </div>
         {words.length > 0 && (
           <details className="relative">
@@ -116,9 +116,9 @@ export default function Notebook() {
         <div className="text-2xl">📕</div>
         <div className="flex-1">
           <h3 className="font-medium">错题本</h3>
-          <p className="text-xs text-stone-500">查看反复记不住的词</p>
+          <p className="text-xs text-stone-500 dark:text-stone-400">查看反复记不住的词</p>
         </div>
-        <div className="text-stone-400">→</div>
+        <div className="text-stone-400 dark:text-stone-300">→</div>
       </Link>
 
       {/* 复习入口 */}
@@ -128,7 +128,7 @@ export default function Notebook() {
             <div className="text-3xl">📝</div>
             <div className="flex-1">
               <h3 className="font-semibold">有 {dueCount} 个词该复习了</h3>
-              <p className="text-sm text-stone-500">按记忆曲线,科学复习记得更牢</p>
+              <p className="text-sm text-stone-500 dark:text-stone-400">按记忆曲线,科学复习记得更牢</p>
             </div>
             <Link to="/words" className="btn-primary text-sm">
               开始复习
@@ -138,11 +138,11 @@ export default function Notebook() {
       )}
 
       {loading ? (
-        <div className="text-center py-12 text-stone-500">加载中...</div>
+        <div className="text-center py-12 text-stone-500 dark:text-stone-400">加载中...</div>
       ) : words.length === 0 ? (
         <div className="text-center py-12">
           <div className="text-5xl mb-3">📭</div>
-          <p className="text-stone-500">还没有收藏单词</p>
+          <p className="text-stone-500 dark:text-stone-400">还没有收藏单词</p>
           <Link to="/words" className="text-brand-600 text-sm mt-2 inline-block">
             去浏览词库 →
           </Link>
@@ -153,7 +153,7 @@ export default function Notebook() {
             <div key={w.id} className="card flex items-center gap-3">
               <Link to={`/words/${w.id}`} className="flex-1 min-w-0">
                 <h3 className="text-lg font-semibold">{w.word}</h3>
-                <p className="text-sm text-stone-500">{w.phonetic}</p>
+                <p className="text-sm text-stone-500 dark:text-stone-400">{w.phonetic}</p>
                 <p className="text-sm text-stone-600 dark:text-stone-400 mt-0.5 truncate">
                   {w.translations.slice(0, 2).join(' · ')}
                 </p>
@@ -161,7 +161,7 @@ export default function Notebook() {
               <TTSButton text={w.word} size="sm" />
               <button
                 onClick={() => handleRemove(w.id)}
-                className="text-stone-400 hover:text-red-500 w-8 h-8 flex items-center justify-center"
+                className="text-stone-400 dark:text-stone-300 hover:text-red-500 w-8 h-8 flex items-center justify-center"
               >
                 ✕
               </button>

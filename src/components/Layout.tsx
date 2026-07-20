@@ -43,7 +43,7 @@ export default function Layout() {
       <aside className="hidden md:flex md:flex-col md:w-56 md:fixed md:inset-y-0 md:left-0 bg-white dark:bg-stone-900 border-r border-stone-200 dark:border-stone-800 z-10">
         <div className="px-6 py-6 border-b border-stone-200 dark:border-stone-800">
           <h1 className="text-2xl font-bold text-brand-600">句刻</h1>
-          <p className="text-xs text-stone-500 mt-1">即时英语学习</p>
+          <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">即时英语学习</p>
         </div>
         <nav className="flex-1 px-3 py-4 space-y-1">
           {desktopNav.map((item) => (

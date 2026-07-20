@@ -156,7 +156,7 @@ export default function WordList() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold mb-1">词库</h1>
-        <p className="text-stone-500 text-sm">
+        <p className="text-stone-500 dark:text-stone-400 text-sm">
           {loading ? '加载中...' : `共 ${allWords.length} 个词 · 已显示 ${visible.length}`}
         </p>
       </div>
@@ -204,7 +204,7 @@ export default function WordList() {
                       ? 'bg-brand-600 text-white'
                       : has
                         ? 'bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-300 hover:bg-brand-100 dark:hover:bg-brand-900/40'
-                        : 'text-stone-300 dark:text-stone-600'
+                        : 'text-stone-300 dark:text-stone-600 dark:text-stone-300'
                   }`}
                   aria-label={`跳转到 ${letter}`}
                 >
@@ -219,7 +219,7 @@ export default function WordList() {
       {/* 词条列表 */}
       <div ref={containerRef}>
         {filtered.length === 0 ? (
-          <div className="text-center py-12 text-stone-500">
+          <div className="text-center py-12 text-stone-500 dark:text-stone-400">
             {loading ? '加载中...' : '没有匹配的词'}
           </div>
         ) : (
@@ -264,7 +264,7 @@ export default function WordList() {
               </>
             )}
             {!hasMore && filtered.length > 0 && (
-              <div className="text-center text-xs text-stone-400 py-4">
+              <div className="text-center text-xs text-stone-400 dark:text-stone-300 py-4">
                 已显示全部 {filtered.length} 个词
               </div>
             )}

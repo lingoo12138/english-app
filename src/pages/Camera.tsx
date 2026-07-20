@@ -73,7 +73,7 @@ export default function Camera() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold mb-1">📷 拍照识物</h1>
-        <p className="text-stone-500 text-sm">拍照或上传图片,AI 帮你识别出英语单词</p>
+        <p className="text-stone-500 dark:text-stone-400 text-sm">拍照或上传图片,AI 帮你识别出英语单词</p>
       </div>
 
       {!llmApiKey && (
@@ -96,7 +96,7 @@ export default function Camera() {
 
       {/* 提示输入 */}
       <div>
-        <label className="text-sm text-stone-500 mb-1.5 block">提示词(可选)</label>
+        <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">提示词(可选)</label>
         <input
           type="text"
           value={hint}
@@ -116,7 +116,7 @@ export default function Camera() {
           >
             <div className="text-4xl mb-2">📷</div>
             <div className="font-medium">拍照</div>
-            <div className="text-xs text-stone-500 mt-1">或从相册选</div>
+            <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">或从相册选</div>
           </button>
           <button
             onClick={() => fileInputRef.current?.click()}
@@ -124,7 +124,7 @@ export default function Camera() {
           >
             <div className="text-4xl mb-2">🖼️</div>
             <div className="font-medium">上传图片</div>
-            <div className="text-xs text-stone-500 mt-1">JPG / PNG, 4MB 以内</div>
+            <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">JPG / PNG, 4MB 以内</div>
           </button>
         </div>
       )}
@@ -146,7 +146,7 @@ export default function Camera() {
         <div className="card">
           <img src={preview} alt="preview" className="w-full rounded-lg mb-3" />
           {status === 'loading' && (
-            <div className="text-center py-6 text-stone-500">
+            <div className="text-center py-6 text-stone-500 dark:text-stone-400">
               <div className="text-3xl mb-2">⏳</div>
               <div>AI 正在识别...(<span className="text-xs">约 5-10 秒</span>)</div>
             </div>
@@ -162,7 +162,7 @@ export default function Camera() {
 
       {/* 识别结果 */}
       {status === 'result' && results.length === 0 && (
-        <div className="card text-center text-stone-500 py-8">
+        <div className="card text-center text-stone-500 dark:text-stone-400 py-8">
           😅 没有识别到合适的英文单词
           <div className="text-xs mt-2">试试更明确的提示词,或换张图</div>
         </div>
@@ -170,7 +170,7 @@ export default function Camera() {
 
       {status === 'result' && results.length > 0 && (
         <div className="space-y-3">
-          <h2 className="text-sm font-semibold text-stone-500">
+          <h2 className="text-sm font-semibold text-stone-500 dark:text-stone-400">
             识别到 {results.length} 个单词
           </h2>
           {results.map((r, i) => (
@@ -210,7 +210,7 @@ function WordCard({ word, isFav, onToggleFav }: {
           <div className="flex items-baseline gap-2">
             <h3 className="text-2xl font-bold">{word.word}</h3>
             {word.phonetic && (
-              <span className="text-sm text-stone-400">{word.phonetic}</span>
+              <span className="text-sm text-stone-400 dark:text-stone-300">{word.phonetic}</span>
             )}
           </div>
           <p className="text-stone-600 dark:text-stone-300 mt-1">
@@ -233,7 +233,7 @@ function WordCard({ word, isFav, onToggleFav }: {
               {isFav ? '⭐' : '☆'}
             </button>
           ) : (
-            <span className="text-xs text-stone-400">未收录</span>
+            <span className="text-xs text-stone-400 dark:text-stone-300">未收录</span>
           )}
         </div>
       </div>
@@ -249,7 +249,7 @@ function WordCard({ word, isFav, onToggleFav }: {
           <p className="text-sm text-stone-700 dark:text-stone-300">
             {word.matchedWord.examples[0].en}
           </p>
-          <p className="text-xs text-stone-500 mt-1">
+          <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">
             {word.matchedWord.examples[0].zh}
           </p>
         </div>

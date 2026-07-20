@@ -38,7 +38,7 @@ export default function Settings() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold mb-1">设置</h1>
-        <p className="text-stone-500 text-sm">个性化你的学习体验</p>
+        <p className="text-stone-500 dark:text-stone-400 text-sm">个性化你的学习体验</p>
       </div>
 
       {/* 学习偏好 */}
@@ -46,7 +46,7 @@ export default function Settings() {
         <h3 className="font-semibold mb-3">🎯 学习偏好</h3>
         <div className="space-y-3">
           <div>
-            <label className="text-sm text-stone-500 mb-1.5 block">目标学段</label>
+            <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">目标学段</label>
             <select
               value={targetLevel}
               onChange={(e) => setTargetLevel(e.target.value as any)}
@@ -64,7 +64,7 @@ export default function Settings() {
             </select>
           </div>
           <div>
-            <label className="text-sm text-stone-500 mb-1.5 block">每日目标: {dailyGoal} 个词</label>
+            <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">每日目标: {dailyGoal} 个词</label>
             <input
               type="range"
               min="5"
@@ -83,7 +83,7 @@ export default function Settings() {
         <h3 className="font-semibold mb-3">🔊 语音朗读</h3>
         <div className="space-y-3">
           <div>
-            <label className="text-sm text-stone-500 mb-1.5 block">英文语音</label>
+            <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">英文语音</label>
             <select
               value={voiceName}
               onChange={(e) => setVoiceName(e.target.value)}
@@ -97,13 +97,13 @@ export default function Settings() {
               ))}
             </select>
             {englishVoices.length === 0 && (
-              <p className="text-xs text-stone-400 mt-1">
+              <p className="text-xs text-stone-400 dark:text-stone-300 mt-1">
                 暂未检测到英文语音,首次使用 TTS 需要联网
               </p>
             )}
           </div>
           <div>
-            <label className="text-sm text-stone-500 mb-1.5 block">
+            <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">
               语速: {rate.toFixed(1)}x
             </label>
             <input
@@ -131,7 +131,7 @@ export default function Settings() {
           <option value="libre">LibreTranslate</option>
           <option value="mymemory">MyMemory</option>
         </select>
-        <p className="text-xs text-stone-400 mt-2">
+        <p className="text-xs text-stone-400 dark:text-stone-300 mt-2">
           当前使用免费公共 API,如不稳定可手动切换
         </p>
       </section>
@@ -142,7 +142,7 @@ export default function Settings() {
 
         {/* 主题色 */}
         <div className="mb-4">
-          <label className="text-sm text-stone-500 mb-2 block">主题色</label>
+          <label className="text-sm text-stone-500 dark:text-stone-400 mb-2 block">主题色</label>
           <div className="grid grid-cols-3 gap-2">
             {THEMES.map(theme => (
               <button
@@ -169,7 +169,7 @@ export default function Settings() {
 
         {/* 字号 */}
         <div className="mb-4">
-          <label className="text-sm text-stone-500 mb-2 block">字号</label>
+          <label className="text-sm text-stone-500 dark:text-stone-400 mb-2 block">字号</label>
           <div className="grid grid-cols-4 gap-2">
             {FONT_SIZES.map(fs => (
               <button
@@ -185,7 +185,7 @@ export default function Settings() {
                 }`}
               >
                 <div className="text-sm font-medium">{fs.name}</div>
-                <div className="text-xs text-stone-400">{fs.base}</div>
+                <div className="text-xs text-stone-400 dark:text-stone-300">{fs.base}</div>
               </button>
             ))}
           </div>
@@ -195,7 +195,7 @@ export default function Settings() {
         <div className="flex items-center justify-between pt-2 border-t border-stone-100 dark:border-stone-700">
           <div>
             <div className="font-medium">暗色模式</div>
-            <div className="text-sm text-stone-500">晚上学习更护眼</div>
+            <div className="text-sm text-stone-500 dark:text-stone-400">晚上学习更护眼</div>
           </div>
           <button
             onClick={toggleDark}
@@ -252,11 +252,11 @@ export default function Settings() {
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold">📷 图片识别</h2>
         </div>
-        <p className="text-xs text-stone-500">
+        <p className="text-xs text-stone-500 dark:text-stone-400">
           拍照识物,AI 返回英文单词 + 中文 + 例句
         </p>
         <div>
-          <label className="text-sm text-stone-500 mb-1.5 block">OpenRouter API Key</label>
+          <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">OpenRouter API Key</label>
           <input
             type="password"
             value={llmApiKey}
@@ -264,12 +264,12 @@ export default function Settings() {
             placeholder="sk-or-v1-..."
             className="input"
           />
-          <p className="text-xs text-stone-400 mt-1">
+          <p className="text-xs text-stone-400 dark:text-stone-300 mt-1">
             去 <a href="https://openrouter.ai/keys" target="_blank" rel="noreferrer" className="underline text-brand-600">openrouter.ai/keys</a> 免费注册获取 · 默认模型 google/gemini-2.5-flash:free 完全免费
           </p>
         </div>
         <div>
-          <label className="text-sm text-stone-500 mb-1.5 block">模型</label>
+          <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">模型</label>
           <input
             type="text"
             value={llmModel}
@@ -277,14 +277,14 @@ export default function Settings() {
             placeholder="google/gemini-2.5-flash:free"
             className="input"
           />
-          <p className="text-xs text-stone-400 mt-1">
+          <p className="text-xs text-stone-400 dark:text-stone-300 mt-1">
             可换: openai/gpt-4o-mini · anthropic/claude-3-haiku · google/gemini-2.5-flash
           </p>
         </div>
       </section>
 
       {/* 关于 */}
-      <section className="card text-center text-sm text-stone-500">
+      <section className="card text-center text-sm text-stone-500 dark:text-stone-400">
         <p className="font-semibold text-stone-700 dark:text-stone-300">句刻 v0.8</p>
         <p className="mt-1">让英语在你想用的时候就能用上</p>
         <p className="mt-3 text-xs">

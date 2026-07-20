@@ -211,7 +211,7 @@ export default function PronunciationPractice({ word, onComplete }: Props) {
   if (!supported) {
     return (
       <div className="card bg-stone-50 dark:bg-stone-800/50">
-        <div className="text-center py-4 text-sm text-stone-500">
+        <div className="text-center py-4 text-sm text-stone-500 dark:text-stone-400">
           你的浏览器不支持跟读评测
           <br />
           请用 Chrome / Edge / Safari 最新版
@@ -225,7 +225,7 @@ export default function PronunciationPractice({ word, onComplete }: Props) {
       <div className="flex items-center gap-2 mb-3">
         <span className="text-lg">🎤</span>
         <h3 className="font-semibold">跟读练习</h3>
-        <span className="text-xs text-stone-500 ml-auto">本地识别,数据不上传</span>
+        <span className="text-xs text-stone-500 dark:text-stone-400 ml-auto">本地识别,数据不上传</span>
       </div>
 
       {/* 状态显示 */}
@@ -246,7 +246,7 @@ export default function PronunciationPractice({ word, onComplete }: Props) {
           <>
             <div className="text-5xl mb-3 animate-pulse">🔊</div>
             <p className="text-sm font-medium mb-1">请仔细听原声</p>
-            <p className="text-xs text-stone-500">听完会自动开始倒计时...</p>
+            <p className="text-xs text-stone-500 dark:text-stone-400">听完会自动开始倒计时...</p>
             <button onClick={reset} className="btn-ghost w-full mt-3 text-xs">
               取消
             </button>
@@ -256,7 +256,7 @@ export default function PronunciationPractice({ word, onComplete }: Props) {
         {state === 'countdown' && (
           <>
             <div className="text-7xl font-bold text-brand-600 mb-2">{countdown}</div>
-            <p className="text-sm text-stone-500">准备...</p>
+            <p className="text-sm text-stone-500 dark:text-stone-400">准备...</p>
           </>
         )}
 
@@ -351,7 +351,7 @@ function PronunciationResult({
       {/* 波形对比 */}
       {result.waveformData.length > 0 && (
         <div className="mb-4">
-          <div className="text-xs text-stone-500 mb-1">你的录音波形</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400 mb-1">你的录音波形</div>
           <div className="flex items-end gap-px h-12 bg-stone-100 dark:bg-stone-800 rounded p-1">
             {result.waveformData.map((v, i) => (
               <div
@@ -371,7 +371,7 @@ function PronunciationResult({
         <ScoreItem label="能量" value={score.energy} />
       </div>
 
-      <div className="text-xs text-stone-500 mb-3">
+      <div className="text-xs text-stone-500 dark:text-stone-400 mb-3">
         录音时长: {result.duration.toFixed(1)} 秒 · 音量: {(result.volume * 100).toFixed(0)}%
       </div>
 
@@ -393,7 +393,7 @@ function PronunciationResult({
 function ScoreItem({ label, value }: { label: string; value: number }) {
   return (
     <div className="bg-white dark:bg-stone-800 rounded-lg p-2 text-center">
-      <div className="text-xs text-stone-500 mb-0.5">{label}</div>
+      <div className="text-xs text-stone-500 dark:text-stone-400 mb-0.5">{label}</div>
       <div className="text-lg font-bold text-brand-600">{value}</div>
     </div>
   )
