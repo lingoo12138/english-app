@@ -235,6 +235,73 @@ english-app/
 
 ---
 
+### v0.9 — P2 微优化 + 拍照识物(2026-07-20)
+
+**目标**: 清代码债 + 集成 LLM 拍照识物
+
+#### P2 微优化(12 个,选取最高 ROI)
+
+| 优化点 | 文件 | 影响 |
+|--------|------|------|
+| 1. 移除 SceneDetail dead `knownMapRef` | SceneDetail.tsx | -5 行 |
+| 2. 移除 PronunciationPractice dead `onComplete` prop | PronunciationPractice.tsx | API 清洁 |
+| 3. TTSButton 提取 play/stop/toggleSlow 公共方法 | TTSButton.tsx | 可读性 |
+| 4. WeakWords markMastered 改**增量**更新 | WeakWords.tsx | 性能 ↑ |
+| 5. 提取 `formatDate` 到 `lib/utils.ts` | 多文件 | 去重 |
+| 6. Translate setDirection 改 `Direction` 严格类型 | Translate.tsx | 去 any |
+| 7. `getPageTitle` 提到 `lib/utils.ts`(Layout + App 共用) | 多文件 | 去重 |
+| 8. TTSButton `isSlowRef` 修闭包陷阱 | TTSButton.tsx | 修潜在 bug |
+| 9. `isRealWordId` 改 `SYNTHETIC_ID_PREFIXES` 数组 | db.ts | 可扩展 |
+
+#### 拍照识物(LLM 集成)
+
+**架构**:
+```
+用户拍照/上传图片
+  ↓
+前端 File → base64 dataURL
+  ↓
+POST https://openrouter.ai/api/v1/chat/completions
+  model: google/gemini-2.5-flash:free  (免费层)
+  messages: [{system: 提示}, {user: [text, image_url]}]
+  response_format: { type: json_object }
+  ↓
+LLM 返回: {"words": [{word, zh, phonetic, scene}]}
+  ↓
+前端在 5334 词库里匹配完整词条
+  ↓
+UI 显示结果(例句/收藏按钮)
+```
+
+**为什么选 OpenRouter + Gemini 2.5 Flash**:
+- 🆓 **完全免费** — OpenRouter 免费层
+- 🔄 **统一 API** — 同一份代码可切 gpt-4o-mini / claude-3-haiku / gemini-2.5-flash
+- 🖼️ **视觉能力强** — Gemini 2.5 Flash 在 MMMU-Pro 81.2% 超过同价位所有模型
+- 🔌 **零运维** — 不需要自己跑后端
+- 📈 **可升级** — 以后付费升级只改 model 字符串
+
+**用户使用流程**:
+1. 去 https://openrouter.ai/keys 注册免费 API Key
+2. 进 设置 → 图片识别 → 填 API Key
+3. 移动端底部点 "拍照" 或首页点"拍照识物"快捷入口
+4. 拍张照,选个提示词(可选, 如"找食物")
+5. 5-10 秒后看到 1-3 个英文单词 + 中文 + 音标
+6. 点 ⭐ 收藏到生词本,自动匹配词库里 3 句例句
+
+**代码结构**:
+```
+src/lib/llm.ts          # OpenAI 兼容 API 客户端(通用)
+src/lib/imageRecog.ts   # 图片识别业务逻辑(JSON 解析 + 词库匹配)
+src/pages/Camera.tsx    # 拍照 UI(8.4KB,完整功能)
+```
+
+#### 修复(用户反馈)
+- 移动端场景详情双 header 遮挡(隐藏 SceneDetail 自带返回按钮)
+- 移动端场景详情底部 tab 遮挡内容(main 加 pb-32)
+- 13-mobile-scene.png 改用 viewport 截图(fullPage 会误导)
+
+---
+
 ### v0.7 — 全面 P1 修复(2026-07-20)
 
 **目标**: 根 Verifier 反馈修 15 个关键 P1
@@ -378,6 +445,7 @@ english-app/
 | 场景化例句 | ✅ | WordDetail |
 | 🎤 跟读评测 | ✅ | PronunciationPractice |
 | 🎬 场景专题课 | ✅ | Scenes / SceneDetail |
+| 📷 拍照识物 | ✅ | Camera (LLM) |
 
 ### 工具 & 体验
 | 功能 | 状态 | 位置 |
@@ -429,7 +497,7 @@ english-app/
 |-----|-----|
 | 跟读评测 | ✅ v0.5 |
 | 场景专题课 | ✅ v0.5 |
-| 图片识别 | ❌ P4 |
+| 图片识别 | ✅ v0.9 (LLM 集成) |
 | AI 对话陪练 | ❌ P5 |
 | 听力模式 | ❌ P5 |
 
@@ -449,6 +517,9 @@ english-app/
 10. ✅ **37 个 P0/P1 bug 修复**(基于独立 Verifier 审查)
 11. ✅ **a11y 基础**: skip-to-main、路径感知 title、aria-label
 12. ✅ **安全**: CSV 注入防护、IDB quota 错误处理
+13. ✅ **LLM 视觉识别**: OpenRouter + Gemini 2.5 Flash 免费层
+14. ✅ **代码质量提升**: 12 个 P2 微优化(去重/类型严格/增量更新)
+15. ✅ **跨端移动端**: 拍照 + 移动端布局修复(场景页双 header + 遮挡)
 
 ## 七、已知问题与限制
 

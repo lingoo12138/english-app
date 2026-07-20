@@ -4,6 +4,58 @@
 
 ---
 
+## [v0.9] - 2026-07-20
+
+### 新增
+- **拍照识物**功能(`/camera`)
+  - OpenRouter + Gemini 2.5 Flash 免费层
+  - 拍照/上传图片 → LLM 识别 1-3 个英文单词
+  - 自动在 5334 词库里匹配完整词条 + 3 句例句
+  - 识别结果可一键收藏到生词本
+  - 支持提示词(找食物 / 找动物 / 找办公用品等)
+  - 模型可热切换(默认 google/gemini-2.5-flash:free)
+- 新页面:Camera(拍照)
+- 新 lib:llm.ts(OpenAI 兼容 LLM 客户端)
+- 新 lib:imageRecog.ts(图片识别业务逻辑)
+- 新增设置项:OpenRouter API Key + 模型选择
+
+### 修复 / 微优化(P2 - 12 个)
+- A.1 移除 SceneDetail dead `knownMapRef`
+- A.2 移除 PronunciationPractice dead `onComplete` prop
+- A.3 TTSButton 提取 play/stop/toggleSlow 公共方法
+- A.4 WeakWords markMastered 改增量 setItems(避免全量重载)
+- A.5 提取 `formatDate` 到 lib/utils.ts
+- A.6 Translate setDirection 改 Direction 严格类型(去 'as any')
+- A.7 `getPageTitle` 提到 lib/utils.ts(Layout + App 共用)
+- A.8 TTSButton isSlowRef 解决 setIsSlow 闭包陷阱
+- A.10 db.ts isRealWordId 改 SYNTHETIC_ID_PREFIXES 数组
+
+### 修复(用户反馈)
+- 移动端场景详情双 header 遮挡(隐藏 SceneDetail 自带返回按钮,改用 Layout 的)
+- 移动端场景详情底部 tab 遮挡内容(main 容器加 pb-32)
+- 13-mobile-scene.png 改用 viewport 截图(fullPage 会误导)
+
+### 新增文件
+- `src/lib/utils.ts` — formatDate / formatDateISO / getPageTitle
+- `src/lib/llm.ts` — OpenAI 兼容 LLM 客户端
+- `src/lib/imageRecog.ts` — 图片识别业务逻辑
+- `src/pages/Camera.tsx` — 拍照识物 UI
+- `src/vite-env.d.ts` — ImportMetaEnv 类型声明
+- `scripts/expand-examples.mjs` — 例句扩充脚本
+- `scripts/screenshot-camera.mjs` — Camera 截图
+- `scripts/screenshot-worddetail.mjs` — 单词详情截图
+- `scripts/screenshot-scene-mobile.mjs` — 场景页截图
+- `scripts/screenshot-scene-viewport.mjs` — viewport 截图
+- `screenshots/13c-mobile-scene-bottom.png` — 滚到底的样子
+- `screenshots/14-home-dark.png` — 暗色首页
+- `screenshots/15-abruptly-after.png` — 扩充后的 abruptly
+- `screenshots/16-okay-after.png` — 扩充后的 okay
+- `screenshots/17-camera-empty.png` / `18-camera-ready.png` — Camera 桌面
+- `screenshots/19-mobile-camera.png` — Camera 移动
+- `screenshots/20-settings-llm.png` — 设置页 LLM 配置
+
+---
+
 ## [v0.8] - 2026-07-20
 
 ### 新增
