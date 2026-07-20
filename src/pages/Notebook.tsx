@@ -10,6 +10,7 @@ export default function Notebook() {
   const [words, setWords] = useState<Word[]>([])
   const [dueCount, setDueCount] = useState(0)
   const [loading, setLoading] = useState(true)
+  const [exporting, setExporting] = useState(false)  // 防止重复点击导出
 
   const loadFavorites = async () => {
     setLoading(true)
@@ -58,28 +59,49 @@ export default function Notebook() {
             <div className="absolute right-0 mt-1 w-40 bg-white dark:bg-stone-800 rounded-lg shadow-lg border border-stone-200 dark:border-stone-700 z-10 overflow-hidden">
               <button
                 onClick={async () => {
-                  const csv = await exportToCSV()
-                  downloadFile(csv, `生词本-${formatDate()}.csv`, 'text/csv')
+                  if (exporting) return
+                  setExporting(true)
+                  try {
+                    const csv = await exportToCSV()
+                    downloadFile(csv, `生词本-${formatDate()}.csv`, 'text/csv')
+                  } finally {
+                    setTimeout(() => setExporting(false), 1000)
+                  }
                 }}
-                className="block w-full text-left px-4 py-2 text-sm hover:bg-stone-100 dark:hover:bg-stone-700"
+                disabled={exporting}
+                className="block w-full text-left px-4 py-2 text-sm hover:bg-stone-100 dark:hover:bg-stone-700 disabled:opacity-50"
               >
                 📊 导出 CSV
               </button>
               <button
                 onClick={async () => {
-                  const json = await exportToJSON()
-                  downloadFile(json, `生词本-${formatDate()}.json`, 'application/json')
+                  if (exporting) return
+                  setExporting(true)
+                  try {
+                    const json = await exportToJSON()
+                    downloadFile(json, `生词本-${formatDate()}.json`, 'application/json')
+                  } finally {
+                    setTimeout(() => setExporting(false), 1000)
+                  }
                 }}
-                className="block w-full text-left px-4 py-2 text-sm hover:bg-stone-100 dark:hover:bg-stone-700"
+                disabled={exporting}
+                className="block w-full text-left px-4 py-2 text-sm hover:bg-stone-100 dark:hover:bg-stone-700 disabled:opacity-50"
               >
                 📋 导出 JSON
               </button>
               <button
                 onClick={async () => {
-                  const backup = await exportFullBackup()
-                  downloadFile(backup, `完整备份-${formatDate()}.json`, 'application/json')
+                  if (exporting) return
+                  setExporting(true)
+                  try {
+                    const backup = await exportFullBackup()
+                    downloadFile(backup, `完整备份-${formatDate()}.json`, 'application/json')
+                  } finally {
+                    setTimeout(() => setExporting(false), 1000)
+                  }
                 }}
-                className="block w-full text-left px-4 py-2 text-sm hover:bg-stone-100 dark:hover:bg-stone-700 border-t border-stone-200 dark:border-stone-700"
+                disabled={exporting}
+                className="block w-full text-left px-4 py-2 text-sm hover:bg-stone-100 dark:hover:bg-stone-700 disabled:opacity-50 border-t border-stone-200 dark:border-stone-700"
               >
                 💾 完整备份
               </button>

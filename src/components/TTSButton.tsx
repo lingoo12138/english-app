@@ -28,6 +28,11 @@ export default function TTSButton({ text, size = 'md', variant = 'icon' }: Props
   }, [])
 
   const handleClick = () => {
+    // 修复: 检测 TTS 是否可用,不支持时提示
+    if (!('speechSynthesis' in window)) {
+      alert('当前浏览器不支持语音朗读,请换 Chrome/Edge/Safari')
+      return
+    }
     if (isPlaying) {
       stopSpeak()
       setIsPlaying(false)

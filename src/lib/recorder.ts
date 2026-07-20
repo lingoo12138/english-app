@@ -216,7 +216,8 @@ export class AudioRecorder {
       }
     } catch (e) {
       console.warn('录音分析失败', e)
-      return { volume: 0, peakVolume: 0, waveformData: [] }
+      // 修复: 返回错误信息让 UI 能提示
+      throw new Error('录音分析失败:可能是不支持的音频格式。请换 Chrome/Edge 试试。')
     }
   }
 
