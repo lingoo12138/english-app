@@ -111,7 +111,8 @@ async function main() {
 
   await mp.goto(BASE + '/scenes/restaurant', { waitUntil: 'networkidle' })
   await mp.waitForTimeout(800)
-  await mp.screenshot({ path: `${OUT}/13-mobile-scene.png`, fullPage: true })
+  // 用 viewport 截图(用户首次看到的样子,fullPage 会误导)
+  await mp.screenshot({ path: `${OUT}/13-mobile-scene.png` })
   console.log('📸 13-mobile-scene.png')
 
   // ===== 11. 暗色模式 =====

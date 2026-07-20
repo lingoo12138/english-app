@@ -130,12 +130,16 @@ export default function SceneDetail() {
   }, [])
 
   return (
-    <div className="space-y-4">
-      {/* 顶部 */}
+    <div className="space-y-4 pb-32">
+      {/* 顶部: 桌面端显示返回(移动端由 Layout 提供,避免双 header) */}
       <div className="flex items-center justify-between">
-        <button onClick={() => navigate('/scenes')} className="btn-ghost text-sm">
-          ← 返回
+        <button
+          onClick={() => navigate('/scenes')}
+          className="btn-ghost text-sm hidden md:inline-flex"
+        >
+          ← 返回场景列表
         </button>
+        <div className="md:hidden" />
         <span className="text-sm text-stone-500">
           {currentIdx + 1} / {total}
         </span>
