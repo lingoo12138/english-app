@@ -28,7 +28,8 @@ applyFontSize(fontSize)
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    {/* 修复: 部署到子路径(如 GitHub Pages)时需告诉 React Router base path */}
+    <BrowserRouter basename="/english-app">
       <App />
     </BrowserRouter>
   </React.StrictMode>

@@ -3,10 +3,13 @@ import type { Word } from '../types'
 
 let cached: Word[] | null = null
 
+// 修复: 跟随 vite base path(部署到子路径如 GitHub Pages 时也要对)
+const BASE_URL = import.meta.env.BASE_URL || '/'
+
 export async function loadWords(): Promise<Word[]> {
   if (cached) return cached
   try {
-    const res = await fetch('/data/words.json')
+    const res = await fetch(`${BASE_URL}data/words.json`)
     cached = await res.json()
     return cached!
   } catch (e) {
