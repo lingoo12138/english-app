@@ -1,8 +1,15 @@
-// 录音 + 简单评分
+// 录音 + 详细评分
 // 修复(code review 反馈):
 // - AudioContext 必须 resume() 才能处理数据
 // - 重复 start() 时清理旧资源
 // - 评分算法更严格,诚实标注局限性
+//
+// 评分维度 (v0.14 优化):
+// - 音量得分: RMS 评估
+// - 时长得分: 实际 / 目标 时长匹配
+// - 稳定性得分: 波形数据的标准差(越小越稳)
+// - 加权总分 + 改进提示
+// 重要: 评分不判断发音准确性,仅评估能量/节奏/稳定性
 
 export interface RecordingResult {
   audioBlob: Blob
@@ -13,12 +20,15 @@ export interface RecordingResult {
 }
 
 export interface PronunciationScore {
-  total: number                      // 总分 0-100
+  total: number                      // 总分 0-100 (加权)
   volume: number                     // 音量分 0-100
   duration: number                   // 时长匹配分 0-100
-  energy: number                     // 能量分布分 0-100
-  feedback: string                   // 文字反馈
+  consistency: number                // 音量稳定性分 0-100 (0=忽大忽小, 100=很稳)
+  durationActual: number             // 实际时长
+  durationExpected: number           // 目标时长
+  tips: string[]                     // 改进建议
   level: 'excellent' | 'good' | 'fair' | 'poor'
+  feedback: string                   // 文字反馈 (兼容旧字段)
 }
 
 // 检查浏览器支持
@@ -248,60 +258,94 @@ export class AudioRecorder {
   }
 }
 
-// 跟读评分:基于音量和时长,粗略的反馈
+// 跟读评分:音量 + 时长匹配 + 音量稳定性 三维度
 // 重要: 这只是粗略指标,无法判断发音准确性
 // 反馈中要诚实告知用户
 export function scorePronunciation(
   result: RecordingResult,
   targetWord: string
 ): PronunciationScore {
-  // 时长分: 目标时长 = 单词字符数 * 0.15s,允许偏差 30% 内
-  const targetDuration = targetWord.length * 0.15
-  const durationRatio = result.duration / targetDuration
-  let durationScore = 0
-  if (durationRatio >= 0.7 && durationRatio <= 1.3) {
-    // 30% 容差
-    const diff = Math.abs(durationRatio - 1)
-    durationScore = Math.max(0, 100 - diff * 150)
-  } else if (durationRatio >= 0.4 && durationRatio <= 2.0) {
-    // 宽松范围
-    const diff = Math.abs(durationRatio - 1)
-    durationScore = Math.max(0, 60 - diff * 30)
-  }
-  // 录音太短(< 0.2s)直接 0
-  if (result.duration < 0.2) durationScore = 0
-
-  // 音量分: RMS 评估(原始 0-1, 放大 4 倍)
-  // 阈值: rms < 0.05 视为太轻, 0.05-0.2 适中, > 0.2 偏响
+  // ----- 1. 音量分 (0-100) -----
+  // RMS 原始 0-1,analyzeRecording 已 * 4 归一化
+  // 阈值分段: 0-0.01 静默, 0.01-0.05 偏轻, 0.05-0.4 适中, 0.4-0.7 偏响, >0.7 爆音
   let volumeScore = 0
-  if (result.volume >= 0.05 && result.volume <= 0.4) {
-    volumeScore = 100
-  } else if (result.volume > 0.4 && result.volume <= 0.7) {
-    volumeScore = 80  // 偏响
-  } else if (result.volume < 0.05 && result.volume >= 0.01) {
-    volumeScore = 50  // 偏轻
+  if (result.duration < 0.2) {
+    volumeScore = 0  // 录音太短,无意义
   } else if (result.volume < 0.01) {
-    volumeScore = 0  // 几乎无声
+    volumeScore = 0
+  } else if (result.volume < 0.05) {
+    // 偏轻: 0-50
+    volumeScore = Math.round((result.volume / 0.05) * 50)
+  } else if (result.volume <= 0.4) {
+    // 适中: 100(中间最佳)
+    volumeScore = 100
+  } else if (result.volume <= 0.7) {
+    // 偏响: 80
+    volumeScore = 80
   } else {
-    volumeScore = 30  // 太响(可能爆音)
+    // 爆音: 30
+    volumeScore = 30
   }
 
-  // 能量分: 峰值在 0.1-0.8 最佳
-  let energyScore = 0
-  if (result.peakVolume >= 0.1 && result.peakVolume <= 0.8) {
-    energyScore = 80 + (1 - Math.abs(result.peakVolume - 0.45) / 0.35) * 20
-  } else if (result.peakVolume > 0.8) {
-    energyScore = 30  // 爆音
+  // ----- 2. 时长分 (0-100) -----
+  // 目标时长 = 单词字符数 * 0.15s
+  const targetDuration = Math.max(0.3, targetWord.length * 0.15)
+  const ratio = result.duration / targetDuration
+  let durationScore: number
+  if (result.duration < 0.2) {
+    durationScore = 0
+  } else if (ratio < 0.5) {
+    // 太短: 按比例给分
+    durationScore = Math.round(ratio * 100)
+  } else if (ratio > 1.5) {
+    // 太长: 超长则衰减 (ratio=2.0 → 0)
+    durationScore = Math.max(0, Math.round((2 - ratio) * 100))
   } else {
-    energyScore = 20  // 太弱
+    // 接近目标: 100 - 偏差*50
+    durationScore = Math.max(0, 100 - Math.round(Math.abs(ratio - 1) * 50))
   }
 
+  // ----- 3. 稳定性分 (0-100) -----
+  // 从 waveformData(200 个点)的标准差评估
+  // std 越小 → 音量越稳定 → 分越高
+  let consistency = 0
+  if (result.waveformData.length > 1) {
+    const mean =
+      result.waveformData.reduce((a, b) => a + b, 0) / result.waveformData.length
+    const variance =
+      result.waveformData.reduce((sum, v) => sum + (v - mean) ** 2, 0) /
+      result.waveformData.length
+    const std = Math.sqrt(variance)
+    // std=0 → 100, std=0.2 → 0; 系数 500
+    consistency = Math.max(0, Math.min(100, Math.round(100 - std * 500)))
+  }
+
+  // ----- 4. 总分加权 (音量 0.4 + 时长 0.4 + 稳定性 0.2) -----
   const total = Math.round(
-    durationScore * 0.4 +
     volumeScore * 0.4 +
-    energyScore * 0.2
+    durationScore * 0.4 +
+    consistency * 0.2
   )
 
+  // ----- 5. 改进提示 -----
+  const tips: string[] = []
+  if (result.duration < 0.2) {
+    tips.push('⏱ 录音太短,读一个完整的词')
+  } else {
+    if (volumeScore < 60) {
+      if (result.volume < 0.05) tips.push('🔇 声音太小, 试着靠近麦克风')
+      else tips.push('🔊 声音偏响, 保持适中音量')
+    }
+    if (durationScore < 60) {
+      tips.push('⏱ 时长不太对, 跟着原音频节奏读')
+    }
+    if (consistency < 60) {
+      tips.push('📈 声音忽大忽小, 保持稳定音量')
+    }
+  }
+  if (total >= 80) tips.push('🎉 发音很棒!')
+
+  // ----- 6. 等级 + 文字反馈 (兼容旧字段) -----
   let level: PronunciationScore['level']
   let feedback: string
   if (total >= 80) {
@@ -328,9 +372,12 @@ export function scorePronunciation(
     total,
     volume: Math.round(volumeScore),
     duration: Math.round(durationScore),
-    energy: Math.round(energyScore),
-    feedback,
+    consistency,
+    durationActual: result.duration,
+    durationExpected: targetDuration,
+    tips,
     level,
+    feedback,
   }
 }
 

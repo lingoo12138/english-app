@@ -1,11 +1,12 @@
-// IndexedDB 存储: 生词本、学习记录、复习计划
+// IndexedDB 存储: 生词本、学习记录、复习计划、跟读尝试
 import Dexie, { type Table } from 'dexie'
-import type { Favorite, LearnRecord, ReviewItem } from '../types'
+import type { Favorite, LearnRecord, ReviewItem, PronunciationAttempt } from '../types'
 
 class EnglishAppDB extends Dexie {
   favorites!: Table<Favorite, string>
   records!: Table<LearnRecord, number>
   reviews!: Table<ReviewItem, string>
+  pronunciationAttempts!: Table<PronunciationAttempt, number>
 
   constructor() {
     super('EnglishAppDB')
@@ -13,6 +14,13 @@ class EnglishAppDB extends Dexie {
       favorites: 'wordId, addedAt',
       records: '++id, wordId, action, timestamp',
       reviews: 'wordId, nextReview',
+    })
+    // v2: 新增跟读尝试表(仅在需要时建立)
+    this.version(2).stores({
+      favorites: 'wordId, addedAt',
+      records: '++id, wordId, action, timestamp',
+      reviews: 'wordId, nextReview',
+      pronunciationAttempts: '++id, wordId, ts, score',
     })
   }
 }
@@ -140,4 +148,39 @@ export async function reviewWord(wordId: string, quality: 0 | 1 | 2 | 3 | 4 | 5)
 export async function getDueReviews(): Promise<ReviewItem[]> {
   const now = Date.now()
   return await db.reviews.where('nextReview').below(now).toArray()
+}
+
+// 跟读尝试: 写一条新尝试
+export async function addPronunciationAttempt(attempt: Omit<PronunciationAttempt, 'id'>) {
+  try {
+    return await db.pronunciationAttempts.add(attempt)
+  } catch (e) {
+    handleDbError(e, '保存跟读记录')
+  }
+}
+
+// 取某词的所有尝试(按时间倒序)
+export async function getAttemptsByWord(wordId: string): Promise<PronunciationAttempt[]> {
+  try {
+    return await db.pronunciationAttempts
+      .where('wordId')
+      .equals(wordId)
+      .reverse()
+      .sortBy('ts')
+  } catch (e) {
+    console.warn('读取跟读记录失败', e)
+    return []
+  }
+}
+
+// 取某词最佳一次尝试(按 score 倒序)
+export async function getBestAttempt(wordId: string): Promise<PronunciationAttempt | undefined> {
+  try {
+    const all = await db.pronunciationAttempts.where('wordId').equals(wordId).toArray()
+    if (all.length === 0) return undefined
+    return all.reduce((best, cur) => (cur.score > best.score ? cur : best))
+  } catch (e) {
+    console.warn('读取最佳跟读记录失败', e)
+    return undefined
+  }
 }

@@ -123,6 +123,39 @@ export default function WeakWords() {
         </div>
       </div>
 
+      {/* 掌握度进度条 v0.14 */}
+      {stats.total > 0 && (
+        <div className="card">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-sm font-semibold text-stone-700 dark:text-stone-300">薄弱词分布</h3>
+            <span className="text-xs text-stone-500 dark:text-stone-400">{stats.total} 个待攻克</span>
+          </div>
+          <div className="space-y-1.5">
+            {(() => {
+              // 按错次分组
+              const buckets = [
+                { label: '1 次', min: 1, max: 2, color: 'bg-yellow-400' },
+                { label: '3-5 次', min: 3, max: 5, color: 'bg-orange-500' },
+                { label: '6+ 次', min: 6, max: 999, color: 'bg-red-500' },
+              ]
+              return buckets.map(b => {
+                const count = items.filter(it => it.wrongCount >= b.min && it.wrongCount <= b.max).length
+                const pct = (count / stats.total) * 100
+                return (
+                  <div key={b.label} className="flex items-center gap-2">
+                    <div className="text-xs w-12 text-stone-500 dark:text-stone-400">{b.label}</div>
+                    <div className="flex-1 h-2 bg-stone-100 dark:bg-stone-700 rounded-full overflow-hidden">
+                      <div className={`h-full ${b.color} transition-all`} style={{ width: `${pct}%` }} />
+                    </div>
+                    <div className="text-xs w-8 text-right text-stone-600 dark:text-stone-400">{count}</div>
+                  </div>
+                )
+              })
+            })()}
+          </div>
+        </div>
+      )}
+
       {/* 提示 */}
       <div className="card bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 border border-orange-200 dark:border-orange-800">
         <div className="flex items-start gap-3">

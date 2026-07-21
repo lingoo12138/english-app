@@ -157,8 +157,23 @@ export default function WordList() {
       <div>
         <h1 className="text-2xl font-bold mb-1">词库</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">
-          {loading ? '加载中...' : `共 ${allWords.length} 个词 · 已显示 ${visible.length}`}
+          {loading ? '加载中...' : `共 ${allWords.length} 个词 · 已显示 ${visible.length} · 收藏 ${favSet.size}`}
         </p>
+        {/* v0.14 学段进度条 */}
+        {!loading && allWords.length > 0 && level !== 'all' && (
+          <div className="mt-2">
+            <div className="flex items-center justify-between text-xs text-stone-500 dark:text-stone-400 mb-1">
+              <span>{LEVELS.find(l => l.value === level)?.label || level}</span>
+              <span>{filtered.length} 个</span>
+            </div>
+            <div className="h-1.5 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-brand-500 transition-all"
+                style={{ width: `${Math.min(100, (filtered.length / allWords.length) * 100)}%` }}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 搜索 */}

@@ -12,6 +12,7 @@ export default function Notebook() {
   const [dueCount, setDueCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [exporting, setExporting] = useState(false)  // 防止重复点击导出
+  const [groupBy, setGroupBy] = useState<'none' | 'letter'>('none')  // v0.14
 
   const loadFavorites = async () => {
     setLoading(true)
@@ -53,6 +54,13 @@ export default function Notebook() {
           <p className="text-stone-500 dark:text-stone-400 text-sm">共 {words.length} 个词 {dueCount > 0 && `· ${dueCount} 个待复习`}</p>
         </div>
         {words.length > 0 && (
+          <>
+          <button
+            onClick={() => setGroupBy(groupBy === 'none' ? 'letter' : 'none')}
+            className="btn-ghost text-sm"
+          >
+            {groupBy === 'none' ? '📋 列表' : '🔤 按字母分组'}
+          </button>
           <details className="relative">
             <summary className="btn-ghost text-sm cursor-pointer list-none">
               导出 ▾
@@ -108,6 +116,7 @@ export default function Notebook() {
               </button>
             </div>
           </details>
+          </>
         )}
       </div>
 
@@ -149,26 +158,49 @@ export default function Notebook() {
         </div>
       ) : (
         <div className="space-y-2">
-          {words.map(w => (
-            <div key={w.id} className="card flex items-center gap-3">
-              <Link to={`/words/${w.id}`} className="flex-1 min-w-0">
-                <h3 className="text-lg font-semibold">{w.word}</h3>
-                <p className="text-sm text-stone-500 dark:text-stone-400">{w.phonetic}</p>
-                <p className="text-sm text-stone-600 dark:text-stone-400 mt-0.5 truncate">
-                  {w.translations.slice(0, 2).join(' · ')}
-                </p>
-              </Link>
-              <TTSButton text={w.word} size="sm" />
-              <button
-                onClick={() => handleRemove(w.id)}
-                className="text-stone-400 dark:text-stone-300 hover:text-red-500 w-8 h-8 flex items-center justify-center"
-              >
-                ✕
-              </button>
-            </div>
-          ))}
+          {(groupBy === 'letter'
+            ? (() => {
+                const grouped: Record<string, Word[]> = {}
+                words.forEach(w => {
+                  const l = w.word[0]?.toUpperCase() || '#'
+                  if (!grouped[l]) grouped[l] = []
+                  grouped[l].push(w)
+                })
+                return Object.keys(grouped).sort().flatMap(letter => [
+                  <div key={'g-' + letter} className="text-xs font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider pt-2 sticky top-14 md:top-0 bg-stone-50/95 dark:bg-stone-900/95 z-10 px-1">{letter}</div>,
+                  ...grouped[letter].map(w => (
+                    <NotebookWord key={w.id} w={w} onRemove={handleRemove} />
+                  ))
+                ])
+              })()
+            : words.map(w => (
+                <NotebookWord key={w.id} w={w} onRemove={handleRemove} />
+              )))}
         </div>
       )}
+    </div>
+  )
+}
+
+
+function NotebookWord({ w, onRemove }: { w: Word; onRemove: (id: string) => void }) {
+  return (
+    <div className="card flex items-center gap-3">
+      <Link to={`/words/${w.id}`} className="flex-1 min-w-0">
+        <h3 className="text-lg font-semibold">{w.word}</h3>
+        <p className="text-sm text-stone-500 dark:text-stone-400">{w.phonetic}</p>
+        <p className="text-sm text-stone-600 dark:text-stone-400 mt-0.5 truncate">
+          {w.translations.slice(0, 2).join(' · ')}
+        </p>
+      </Link>
+      <TTSButton text={w.word} size="sm" />
+      <button
+        onClick={() => onRemove(w.id)}
+        className="text-stone-400 dark:text-stone-300 hover:text-red-500 w-8 h-8 flex items-center justify-center"
+        aria-label="从生词本移除"
+      >
+        ✕
+      </button>
     </div>
   )
 }

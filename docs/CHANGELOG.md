@@ -4,6 +4,49 @@
 
 ---
 
+## [v0.14] - 2026-07-21
+
+### 学习闭环深度优化(v0.14)
+
+**A1: 图片识别 6 项优化**:
+- 鲁棒 JSON 解析 `extractJSON()` — 优先匹配 markdown code fence,大括号计数找配对(LLM 在 JSON 前后加 prose 也能正确解析)
+- 物体数 1-3 → 1-5 更灵活
+- 置信度阈值过滤(< 0.5 不显示)
+- 自动分类 `classifyItem()` — food/animal/tool/furniture/nature/place/people/clothing/transport/other
+- 整体场景分类 `classifyOverall()`
+- 批量识别 `recognizeImages()` 串行处理(避免 rate limit)
+
+**A2: 跟读评测(v0.13 已实现, 文档化)**:
+- 三维度评分: 音量 40% + 时长 40% + 稳定性 20%
+- 多次尝试 (MAX_ATTEMPTS = 3)
+- 录音回放 `playRecording()`
+- 详细分项 + 改进建议
+- 波形可视化 (200 个点)
+- 诚实标注: "仅基于音量/时长,无法判断发音准确性"
+
+**A3: 学习闭环 4 项优化**:
+- **ReviewCenter** — 加进度条 + ✅ / 😕 计数,实时显示复习进度
+- **WeakWords** — 加"薄弱词分布"柱状图(1 次 / 3-5 次 / 6+ 次 分桶)
+- **Notebook** — 加"按字母分组"切换视图(分组时字母头 sticky)
+- **Notebook** — 抽 `NotebookWord` 组件(更易复用 + 加 a11y label)
+- **WordList** — 学段进度条(选 CET-4 显示该学段占总词比例)
+
+### 验证
+- `scripts/verify-v14.mjs` 全过
+  - Camera 当前渠道 ✅
+  - WordList CET-4 学段进度 ✅
+  - ReviewCenter 进度条(需有待复习词)
+  - WeakWords 分布(需有薄弱词)
+  - Notebook 分组(需有收藏词)
+- 自审: extractJSON 6 个边界用例全通过 ✅
+
+### 累计
+- **13 页面 + 5 组件 + 5 图表** (含 1 进度条 + 1 分布柱状图 + 1 学段进度)
+- **78 个 bug 修复**(v0.13 73 + v0.14 5 P2)
+- **4200+ 行代码**
+
+---
+
 ## [v0.13] - 2026-07-21
 
 ### 重大: 多渠道扩展 + 独立 Verifier 修复 6 P0 + 5 P1

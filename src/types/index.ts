@@ -55,3 +55,18 @@ export interface ReviewItem {
   easeFactor: number                // SM-2 难度因子
   repetitions: number               // 连续正确次数
 }
+
+// 跟读评测尝试(IndexedDB 持久化)
+export interface PronunciationAttempt {
+  id?: number
+  wordId: string
+  word: string                      // 冗余存储,便于查
+  ts: number                        // 尝试时间戳
+  score: number                     // 总分 0-100
+  volumeScore: number               // 音量得分
+  durationScore: number             // 时长匹配得分
+  consistency: number               // 音量稳定性得分
+  duration: number                  // 实际录音秒数
+  volume: number                    // 平均音量 0-1
+  attemptNumber: number             // 第几次尝试 (1-3)
+}
