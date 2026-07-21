@@ -77,6 +77,9 @@ export default function Settings() {
       <div>
         <h1 className="text-2xl font-bold mb-1">设置</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">个性化你的学习体验</p>
+        <p className="text-xs text-amber-600 dark:text-amber-400 mt-1.5">
+          ⚠️ 所有 API Key 明文存于浏览器 localStorage, 公共电脑请勿填写
+        </p>
       </div>
 
       {/* 学习偏好 */}
@@ -164,6 +167,34 @@ export default function Settings() {
             </div>
           </>
         )}
+
+        {/* Edge TTS / Azure / ElevenLabs: 需要 API key */}
+        {(ttsProviderId === 'azure-speech' || ttsProviderId === 'elevenlabs') && (
+          <div>
+            <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">
+              {ttsProviderId === 'azure-speech' ? 'API Key (Azure Speech)' : 'API Key (ElevenLabs)'}
+            </label>
+            <input
+              type="password"
+              value={ttsApiKeys[ttsProviderId] || ''}
+              onChange={(e) => setTtsApiKey(ttsProviderId, e.target.value)}
+              placeholder="填入后自动保存"
+              className="input"
+            />
+            <p className="text-xs text-stone-500 dark:text-stone-400 mt-1.5">
+              {ttsProviderId === 'azure-speech' && 'Azure Speech: '}
+              {ttsProviderId === 'elevenlabs' && 'ElevenLabs: '}
+              {ttsProviderId === 'azure-speech' ? '注册 Azure 账号, 在 Speech 服务获取 Key + Region'
+                : '注册 elevenlabs.io, 在 Profile 拿 API Key'}
+            </p>
+          </div>
+        )}
+
+        {ttsProviderId === 'edge-tts' && (
+          <p className="text-xs text-amber-600 dark:text-amber-400">
+            ⚠️ Edge TTS 浏览器直连可能受 CORS 限制, 需配合代理或浏览器扩展使用
+          </p>
+        )}
       </section>
 
 
@@ -241,13 +272,19 @@ export default function Settings() {
         {currentTranslate?.apiKeyRequired && currentTranslate.id !== 'llm' && (
           <div>
             <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">
-              {currentTranslate.id === 'baidu' ? 'App ID|Key (用 | 分隔)' : 'API Key'}
+              {currentTranslate.id === 'baidu' || currentTranslate.id === 'youdao'
+                ? 'App ID|Key (用 | 分隔)'
+                : 'API Key'}
             </label>
             <input
               type="password"
               value={translateApiKeys[currentTranslate.id] || ''}
               onChange={(e) => setTranslateApiKey(currentTranslate.id, e.target.value)}
-              placeholder="填入后自动保存"
+              placeholder={
+                currentTranslate.id === 'baidu' ? 'appid|key'
+                : currentTranslate.id === 'youdao' ? 'appKey|appSecret'
+                : '填入后自动保存'
+              }
               className="input"
             />
           </div>
@@ -488,7 +525,7 @@ export default function Settings() {
 
       {/* 底部 */}
       <div className="text-center text-xs text-stone-500 dark:text-stone-400 py-4">
-        句刻 v0.12
+        句刻 v0.13
         <div className="mt-1">让英语在你用的时候就能用上</div>
         <div className="mt-1">数据完全存在本地,不上传任何隐私</div>
       </div>
@@ -521,7 +558,13 @@ function AddCustomLlmForm({ onAdd }: { onAdd: (p: any) => void }) {
       <button
         disabled={!name || !baseUrl || !defaultModel}
         onClick={() => {
-          onAdd(createCustomLLMProvider({ name, baseUrl, defaultModel, supportsVision: vision, apiKeyRequired: needKey }))
+          try {
+            const p = createCustomLLMProvider({ name, baseUrl, defaultModel, supportsVision: vision, apiKeyRequired: needKey })
+            onAdd(p)
+          } catch (e: any) {
+            alert(e?.message || '配置错误')
+            return
+          }
           setName(''); setBaseUrl(''); setDefaultModel('')
         }}
         className="btn-primary text-sm w-full disabled:opacity-50"
@@ -550,10 +593,16 @@ function AddCustomTtsForm({ onAdd }: { onAdd: (p: any) => void }) {
       <button
         disabled={!name || !endpoint}
         onClick={() => {
-          onAdd(createCustomTTSProvider({
-            name, endpoint, defaultVoice: voice, apiKeyRequired: needKey,
-            bodyTemplate: JSON.stringify({ text: '{{text}}', voice: voice || '', rate: '+0%' }),
-          }))
+          try {
+            const p = createCustomTTSProvider({
+              name, endpoint, defaultVoice: voice, apiKeyRequired: needKey,
+              bodyTemplate: JSON.stringify({ text: '{{text}}', voice: voice || '', rate: '+0%' }),
+            })
+            onAdd(p)
+          } catch (e: any) {
+            alert(e?.message || '配置错误')
+            return
+          }
           setName(''); setEndpoint(''); setVoice('')
         }}
         className="btn-primary text-sm w-full disabled:opacity-50"

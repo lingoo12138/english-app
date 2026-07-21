@@ -2,7 +2,7 @@
 // 内置: 浏览器内置(无 API) / MyMemory(免费) / 百度翻译 / 谷歌翻译(非官方) / Mock
 import { BUILTIN_LLM_PROVIDERS, LLMProvider } from './providers/llm'
 
-export type TranslateProviderType = 'mymemory' | 'baidu' | 'google-free' | 'llm' | 'mock'
+export type TranslateProviderType = 'mymemory' | 'baidu' | 'google' | 'youdao' | 'deepl' | 'llm' | 'mock'
 
 export interface TranslateProvider {
   id: string
@@ -52,11 +52,36 @@ export const BUILTIN_TRANSLATE_PROVIDERS: TranslateProvider[] = [
     builtin: true,
     description: '返回固定翻译, 用于测试流程',
   },
+  {
+    id: 'google',
+    name: 'Google Translate (免费,非官方)',
+    type: 'google',
+    free: true,
+    apiKeyRequired: false,
+    builtin: true,
+    description: 'Google 翻译非官方端点, 免费无限次, 无需 API key, 偶发限流',
+  },
+  {
+    id: 'youdao',
+    name: '有道智云翻译 (需 appKey)',
+    type: 'youdao',
+    apiKeyRequired: true,
+    builtin: true,
+    description: '有道智云, 100万字/月免费, 需 appKey+appSecret (格式: appKey|appSecret)',
+  },
+  {
+    id: 'deepl',
+    name: 'DeepL 翻译 (需 API key)',
+    type: 'deepl',
+    apiKeyRequired: true,
+    builtin: true,
+    description: 'DeepL 翻译, 50万字/月免费, 质量高, 需注册 API key',
+  },
 ]
 
 export interface TranslateResult {
   text: string
-  source: string  // 'mymemory' / 'baidu' / 'llm' / 'mock'
+  source: string  // 'mymemory' / 'baidu' / 'google' / 'youdao' / 'deepl' / 'llm' / 'mock'
   detectedFrom?: string
 }
 
@@ -79,6 +104,12 @@ export async function translate(opts: TranslateOptions): Promise<TranslateResult
       return translateMyMemory(truncated, opts.from || 'auto', opts.to || 'zh')
     case 'baidu':
       return translateBaidu(truncated, opts)
+    case 'google':
+      return translateGoogle(truncated, opts.from || 'auto', opts.to || 'zh')
+    case 'youdao':
+      return translateYoudao(truncated, opts)
+    case 'deepl':
+      return translateDeepL(truncated, opts)
     case 'llm':
       return translateLLM(truncated, opts)
     case 'mock':
@@ -155,6 +186,93 @@ async function translateMock(text: string): Promise<TranslateResult> {
     text: `[Mock 翻译] ${text}`,
     source: 'mock',
   }
+}
+
+async function translateGoogle(text: string, from: string, to: string): Promise<TranslateResult> {
+  // Google 非官方端点不支持 sl=auto, 用 hasChinese 检测给个默认源语言
+  const detectedFrom = from === 'auto' ? (hasChinese(text) ? 'zh-CN' : 'en') : from
+  const resp = await fetchWithTimeout(
+    `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${detectedFrom}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`,
+    { method: 'GET' },
+    8000,
+  )
+  if (!resp.ok) throw new Error(`Google ${resp.status}`)
+  const data = await resp.json()
+  // data[0] 是翻译结果数组, 每个元素 [translated, original, ...]
+  const translated = (data[0] || []).map((seg: any) => seg[0]).join('')
+  if (!translated) throw new Error('Google 返回空')
+  return { text: translated, source: 'google' }
+}
+
+async function translateYoudao(text: string, opts: TranslateOptions): Promise<TranslateResult> {
+  const from = opts.from || 'auto'
+  const to = opts.to || 'zh'
+  const apiKey = opts.apiKeys?.['youdao'] || ''  // 格式: appKey|appSecret
+  if (!apiKey) throw new Error('有道翻译需要配置 appKey|appSecret, 格式: appKey|appSecret')
+  const [appKey, appSecret] = apiKey.split('|')
+  if (!appKey || !appSecret) throw new Error('有道配置格式错误, 应为: appKey|appSecret')
+
+  // 有道 V3 签名算法: input = text.length > 20 ? text[0:10] + len + text[-10:] : text
+  const salt = String(Date.now())
+  const curtime = String(Math.floor(Date.now() / 1000))
+  const input = text.length > 20 ? text.slice(0, 10) + text.length + text.slice(-10) : text
+  const signStr = appKey + input + salt + curtime + appSecret
+  const sign = await md5(signStr)
+
+  // 有道使用 zh-CHS(简体中文) / en
+  const youdaoTo = to === 'zh' ? 'zh-CHS' : to
+  const body = new URLSearchParams({
+    q: text,
+    from,
+    to: youdaoTo,
+    appKey,
+    salt,
+    sign,
+    signType: 'v3',
+    curtime,
+  })
+  const resp = await fetchWithTimeout('https://openapi.youdao.com/api', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: body.toString(),
+  }, 8000)
+  if (!resp.ok) throw new Error(`Youdao ${resp.status}`)
+  const data = await resp.json()
+  if (data.errorCode !== '0') throw new Error(`有道错误 ${data.errorCode}`)
+  const translated = data.translation?.[0]
+  if (!translated) throw new Error('有道返回空')
+  return { text: translated, source: 'youdao' }
+}
+
+async function translateDeepL(text: string, opts: TranslateOptions): Promise<TranslateResult> {
+  const from = opts.from || 'auto'
+  const to = opts.to || 'zh'
+  const apiKey = opts.apiKeys?.['deepl'] || ''
+  if (!apiKey) throw new Error('DeepL 需要 API key')
+  // DeepL 使用大写语言代码, source_lang 为空时让 DeepL 自动检测
+  const sourceLang = from === 'auto' ? '' : from.toUpperCase()
+  const targetLang = to.toUpperCase()
+  const resp = await fetchWithTimeout('https://api-free.deepl.com/v2/translate', {
+    method: 'POST',
+    headers: {
+      'Authorization': `DeepL-Auth-Key ${apiKey}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      text,
+      source_lang: sourceLang,
+      target_lang: targetLang,
+    }).toString(),
+  }, 8000)
+  if (!resp.ok) throw new Error(`DeepL ${resp.status}`)
+  const data = await resp.json()
+  const translated = data.translations?.[0]?.text
+  if (!translated) throw new Error('DeepL 返回空')
+  return { text: translated, source: 'deepl' }
+}
+
+function hasChinese(text: string): boolean {
+  return /[\u4e00-\u9fa5]/.test(text)
 }
 
 async function fetchWithTimeout(url: string, init: RequestInit, timeoutMs: number): Promise<Response> {

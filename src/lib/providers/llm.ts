@@ -298,8 +298,12 @@ export function createCustomLLMProvider(opts: {
   apiKeyRequired?: boolean
   customHeaders?: Record<string, string>
 }): LLMProvider {
+  // 修复 P1-2: 协议校验
+  if (!/^https?:\/\//i.test(opts.baseUrl)) {
+    throw new Error('baseUrl 必须以 http:// 或 https:// 开头')
+  }
   return {
-    id: `custom-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+    id: `custom-${crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`}`,
     name: opts.name,
     type: 'openai',
     baseUrl: opts.baseUrl.replace(/\/$/, ''),  // 去尾部斜杠

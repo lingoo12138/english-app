@@ -39,21 +39,37 @@ export default function TTSButton({ text, size = 'md', variant = 'icon' }: Props
     stopSpeak()
   }, [])
 
-  // 轮询 fallback: onend 不可靠时保底
+  // 修复 P0-4: 监听 tts-end / tts-error 事件,支持所有 TTS 渠道(浏览器 + Edge/Azure/ElevenLabs)
   useEffect(() => {
     if (!isPlaying) return
+    const onEnd = () => setIsPlaying(false)
+    const onErr = (e: Event) => {
+      setIsPlaying(false)
+      const detail = (e as CustomEvent).detail
+      // 友好提示, 不用 alert 打断
+      const msg = detail ? `TTS 错误: ${detail}` : 'TTS 错误'
+      // eslint-disable-next-line no-console
+      console.error(msg)
+    }
+    window.addEventListener('tts-end', onEnd)
+    window.addEventListener('tts-error', onErr)
+    // 浏览器 polling fallback(只对 browser 渠道有用)
     const interval = window.setInterval(() => {
-      // 朗读结束(speaking=false 且 pending=false 视为完全结束)
+      if (!('speechSynthesis' in window)) return
       if (!window.speechSynthesis.speaking && !window.speechSynthesis.pending) {
         setIsPlaying(false)
         clearInterval(interval)
       }
     }, 200)
-    return () => clearInterval(interval)
+    return () => {
+      window.removeEventListener('tts-end', onEnd)
+      window.removeEventListener('tts-error', onErr)
+      clearInterval(interval)
+    }
   }, [isPlaying])
 
   const handleClick = () => {
-    if (!('speechSynthesis' in window)) {
+    if (!('speechSynthesis' in window) && typeof (window as any).Audio === 'undefined') {
       alert('当前浏览器不支持语音朗读,请换 Chrome/Edge/Safari')
       return
     }

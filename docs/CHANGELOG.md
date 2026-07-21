@@ -4,6 +4,70 @@
 
 ---
 
+## [v0.13] - 2026-07-21
+
+### 重大: 多渠道扩展 + 独立 Verifier 修复 6 P0 + 5 P1
+
+**🌐 翻译渠道: 4 → 7**(新加 3 个):
+- Google Translate(免费,非官方)
+- 有道智云(需 appKey+appSecret, 100万字/月免费)
+- DeepL(需 API key, 50万字/月免费, 质量高)
+
+**🔊 TTS 渠道: 3 → 5**(新加 2 个真实接入):
+- Edge TTS(WebSocket+SSML 真实接入, 微软免费)
+- Microsoft Azure Speech(需 key+region, REST)
+- ElevenLabs(需 API key, 高质量)
+
+**🤖 LLM 渠道: 保持 8 个内置**(已 v0.12 完成)
+
+### 独立 Verifier 报告(对抗性审查)
+
+**6 个 P0 修复**:
+- **P0-1**: Settings id 错配 — `ttsProviderId === 'azure'` 但实际 id 是 `'azure-speech'`,导致 Azure Key 输入框永不显示
+- **P0-2**: TTS 错误丢失到 console — Edge/Azure/ElevenLabs 错误只 console.error,用户零反馈
+- **P0-3**: Edge WebSocket 抢占不干净 — 旧 WS 没关闭,新旧 audio 重叠
+- **P0-4**: TTSButton 状态脱节 — 只检查 speechSynthesis,Edge/Azure/ElevenLabs 模式下 isPlaying 永远 true
+- **P0-5**: edge-free 占位 URL 是 example.com — 选了必失败
+
+**5 个 P1 修复**:
+- P1-1: Translate.tsx `handleTranslate` 加 `if (loading) return` 防 race
+- P1-2: `createCustomLLMProvider/TTSProvider` baseUrl 协议校验(http/https)
+- P1-3: createCustomLLMProvider 提交用 try-catch 包装,错误用 alert 显示
+- P1-4: createCustomTTSProvider 同样 try-catch + alert
+- P1-5: `useStore.setTtsProviderId` 切换时调 `stopSpeak()` 停止当前播放
+- P1-6: `crypto.randomUUID()` 替代时间戳+随机 4 字符 ID
+
+**8 个 P2 修复/记录**:
+- Settings 顶部加 "Key 明文存于浏览器 localStorage" 警告
+- package.json 0.12.0 → 0.13.0
+- Settings 底部 v0.12 → v0.13
+- TTSButton handleClick 检查 window.Audio
+- ...(其他已记录)
+
+### 改造
+- `src/lib/translate.ts` — 加 Google/有道/DeepL 实现 + 完善 type 定义 + hasChinese helper
+- `src/lib/tts.ts` — 加 Edge TTS(WebSocket)/Azure/ElevenLabs 实现 + currentWS 跟踪 + bodyTemplate warn
+- `src/lib/providers/llm.ts` — baseUrl 校验 + crypto.randomUUID
+- `src/pages/Settings.tsx` — Azure/Edge id 修对 + 自定义端点错误用 alert
+- `src/pages/Translate.tsx` — race 防护
+- `src/components/TTSButton.tsx` — 监听 tts-end / tts-error 事件
+- `src/store/useStore.ts` — setTtsProviderId 停止播放
+- `package.json` — 0.13.0
+
+### 验证
+- `scripts/verify-v13b.mjs` 全过
+  - P0-1 Settings id 修复 ✅
+  - P1-2 baseUrl 协议校验 ✅
+  - Azure/Edge 警告/输入框正确显示 ✅
+- 截图: v13b-azure.png(选中 Azure 显示 API Key)
+
+### 累计
+- **13 页面 + 5 组件 + 7 翻译 + 5 TTS + 8 LLM + 自定义端点**
+- **73 个 bug 修复**(v0.12 67 + v0.13 6 P0)
+- **4100+ 行代码**
+
+---
+
 ## [v0.12] - 2026-07-21
 
 ### 架构升级: 统一 OpenAI 数据结构 + 自定义端点

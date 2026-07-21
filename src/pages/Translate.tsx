@@ -23,6 +23,7 @@ export default function Translate() {
   const provider = translateProviders.find(p => p.id === translateProviderId)
 
   const handleTranslate = async () => {
+    if (loading) return  // 修复 P1-1: 防 race
     if (!text.trim() || !provider) return
     setLoading(true)
     setError('')

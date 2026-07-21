@@ -89,7 +89,14 @@ export const useStore = create<AppState>()(
       rate: 1,
       setRate: (rate) => set({ rate }),
       ttsProviderId: 'browser',
-      setTtsProviderId: (id) => set({ ttsProviderId: id }),
+      setTtsProviderId: (id) => {
+        // 修复 P1-7: 切换时停止当前播放
+        try {
+          // 动态 import 避免循环依赖
+          import('../lib/tts').then(m => m.stopSpeak())
+        } catch {}
+        set({ ttsProviderId: id })
+      },
       ttsProviders: [],
       setTtsProviders: (p) => set({ ttsProviders: p }),
       customTtsProviders: [],
