@@ -168,24 +168,35 @@ export default function Settings() {
           </>
         )}
 
-        {/* Edge TTS / Azure / ElevenLabs: 需要 API key */}
-        {(ttsProviderId === 'azure-speech' || ttsProviderId === 'elevenlabs') && (
+        {/* 5 个 TTS 渠道: Azure / ElevenLabs / 百度 / Google / 讯飞 */}
+        {['azure-speech', 'elevenlabs', 'baidu-tts', 'google-tts', 'iflytek-tts'].includes(ttsProviderId) && (
           <div>
             <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">
-              {ttsProviderId === 'azure-speech' ? 'API Key (Azure Speech)' : 'API Key (ElevenLabs)'}
+              {ttsProviderId === 'azure-speech' ? 'API Key (Azure Speech)'
+                : ttsProviderId === 'elevenlabs' ? 'API Key (ElevenLabs)'
+                : ttsProviderId === 'baidu-tts' ? 'API Key|Secret Key (用 | 分隔)'
+                : ttsProviderId === 'google-tts' ? 'API Key (Google Cloud)'
+                : 'APPID|APIKey|APISecret (用 | 分隔)'}
             </label>
             <input
               type="password"
               value={ttsApiKeys[ttsProviderId] || ''}
               onChange={(e) => setTtsApiKey(ttsProviderId, e.target.value)}
-              placeholder="填入后自动保存"
+              placeholder={
+                ttsProviderId === 'azure-speech' ? 'Azure Speech Key'
+                : ttsProviderId === 'elevenlabs' ? 'xi-api-...'
+                : ttsProviderId === 'baidu-tts' ? 'APIKey|SecretKey'
+                : ttsProviderId === 'google-tts' ? 'AIza...'
+                : 'APPID|APIKey|APISecret'
+              }
               className="input"
             />
             <p className="text-xs text-stone-500 dark:text-stone-400 mt-1.5">
-              {ttsProviderId === 'azure-speech' && 'Azure Speech: '}
-              {ttsProviderId === 'elevenlabs' && 'ElevenLabs: '}
-              {ttsProviderId === 'azure-speech' ? '注册 Azure 账号, 在 Speech 服务获取 Key + Region'
-                : '注册 elevenlabs.io, 在 Profile 拿 API Key'}
+              {ttsProviderId === 'azure-speech' && 'Azure Speech: 注册 Azure 账号, 在 Speech 服务获取 Key'}
+              {ttsProviderId === 'elevenlabs' && 'ElevenLabs: 注册 elevenlabs.io, 在 Profile 拿 API Key'}
+              {ttsProviderId === 'baidu-tts' && '百度智能云: 注册 cloud.baidu.com, 创建语音技术应用, 拿 API Key + Secret Key'}
+              {ttsProviderId === 'google-tts' && 'Google Cloud TTS: 注册 cloud.google.com, 启用 Text-to-Speech API, 创建 API Key'}
+              {ttsProviderId === 'iflytek-tts' && '讯飞: 注册 xfyun.cn, 创建 WebAPI 应用, 拿 APPID + APIKey + APISecret'}
             </p>
           </div>
         )}
@@ -525,7 +536,7 @@ export default function Settings() {
 
       {/* 底部 */}
       <div className="text-center text-xs text-stone-500 dark:text-stone-400 py-4">
-        句刻 v0.14
+        句刻 v0.15
         <div className="mt-1">让英语在你用的时候就能用上</div>
         <div className="mt-1">数据完全存在本地,不上传任何隐私</div>
       </div>

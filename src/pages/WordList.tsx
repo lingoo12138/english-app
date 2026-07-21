@@ -57,6 +57,12 @@ export default function WordList() {
     setActiveLetter('')
   }, [level, debouncedQuery])
 
+  // 修复 P0-2: 进度条用只用 level 过滤的集合, 不受 search 污染
+  const levelOnlyFiltered = useMemo(() => {
+    if (level === 'all') return allWords
+    return allWords.filter(w => w.level === level)
+  }, [allWords, level])
+
   const filtered = useMemo(() => {
     let result = allWords
     if (level !== 'all') {
@@ -159,17 +165,17 @@ export default function WordList() {
         <p className="text-stone-500 dark:text-stone-400 text-sm">
           {loading ? '加载中...' : `共 ${allWords.length} 个词 · 已显示 ${visible.length} · 收藏 ${favSet.size}`}
         </p>
-        {/* v0.14 学段进度条 */}
-        {!loading && allWords.length > 0 && level !== 'all' && (
+        {/* v0.14 学段进度条 - 修复 P0-2: 用 levelOnlyFiltered 不受 search 污染 */}
+        {!loading && allWords.length > 0 && (
           <div className="mt-2">
             <div className="flex items-center justify-between text-xs text-stone-500 dark:text-stone-400 mb-1">
-              <span>{LEVELS.find(l => l.value === level)?.label || level}</span>
-              <span>{filtered.length} 个</span>
+              <span>{level === 'all' ? '全部' : (LEVELS.find(l => l.value === level)?.label || level)}</span>
+              <span>{levelOnlyFiltered.length} 个{query.trim() && filtered.length !== levelOnlyFiltered.length ? ` (${filtered.length} 搜索后)` : ''}</span>
             </div>
             <div className="h-1.5 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
               <div
-                className="h-full bg-brand-500 transition-all"
-                style={{ width: `${Math.min(100, (filtered.length / allWords.length) * 100)}%` }}
+                className="h-full bg-brand-500 transition-[width] duration-300"
+                style={{ width: `${Math.min(100, (levelOnlyFiltered.length / allWords.length) * 100)}%` }}
               />
             </div>
           </div>

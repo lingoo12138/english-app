@@ -148,7 +148,8 @@ export default function ReviewCenter() {
   }
 
   const word = queue[currentIndex]
-  const progress = ((currentIndex) / queue.length) * 100
+  // 修复 P0-3: 进度条显示 currentIndex+1, 答完一题就跳到下一个位置 (最后答完时 100%)
+  const progress = ((currentIndex + 1) / queue.length) * 100
 
   return (
     <div className="space-y-6">

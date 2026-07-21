@@ -9,7 +9,7 @@
 // - azure: Microsoft Azure Speech (REST, 需 API Key + Region)
 // - elevenlabs: ElevenLabs (HTTP POST, 需 API Key)
 
-export type TTSProviderType = 'browser' | 'mock' | 'http' | 'edge' | 'azure' | 'elevenlabs'
+export type TTSProviderType = 'browser' | 'mock' | 'http' | 'edge' | 'azure' | 'elevenlabs' | 'baidu' | 'google' | 'iflytek'
 
 export interface TTSProvider {
   id: string
@@ -48,6 +48,33 @@ export const BUILTIN_TTS_PROVIDERS: TTSProvider[] = [
     description: '不实际发音, 只显示文字',
   },
   // 注: edge-free HTTP 占位(指向 example.com)已删除, 用户用下面浏览器直连模式或自建代理
+  {
+    id: 'baidu-tts',
+    name: '百度智能云 TTS',
+    type: 'baidu',
+    builtin: true,
+    apiKeyRequired: true,
+    description: '百度短文本在线合成, 需 API Key + Secret Key (格式: APIKey|SecretKey), 免费 100万字符/月',
+    defaultVoice: 'zh_female_shuangkuai',
+  },
+  {
+    id: 'google-tts',
+    name: 'Google Cloud TTS',
+    type: 'google',
+    builtin: true,
+    apiKeyRequired: true,
+    description: 'Google Cloud Text-to-Speech, 需 API Key, 每月 1M 字符免费 (WaveNet/Neural2 神经语音)',
+    defaultVoice: 'en-US-Neural2-A',
+  },
+  {
+    id: 'iflytek-tts',
+    name: '讯飞 TTS (WebSocket)',
+    type: 'iflytek',
+    builtin: true,
+    apiKeyRequired: true,
+    description: '科大讯飞在线语音合成, 需 APPID|APIKey|APISecret, 免费 30万字符/2年',
+    defaultVoice: 'xiaoyan',
+  },
   {
     id: 'edge-tts',
     name: 'Edge TTS (浏览器直连, 免费)',
@@ -152,6 +179,30 @@ export function speak(opts: SpeakOptions): void {
   if (provider.type === 'elevenlabs') {
     speakElevenLabs(opts, provider, store).catch((e) => {
       console.error('TTS ElevenLabs error', e)
+      window.dispatchEvent(new CustomEvent('tts-error', { detail: e?.message || String(e) }))
+    })
+    return
+  }
+
+  if (provider.type === 'baidu') {
+    speakBaidu(opts, provider, store).catch((e) => {
+      console.error('TTS Baidu error', e)
+      window.dispatchEvent(new CustomEvent('tts-error', { detail: e?.message || String(e) }))
+    })
+    return
+  }
+
+  if (provider.type === 'google') {
+    speakGoogle(opts, provider, store).catch((e) => {
+      console.error('TTS Google error', e)
+      window.dispatchEvent(new CustomEvent('tts-error', { detail: e?.message || String(e) }))
+    })
+    return
+  }
+
+  if (provider.type === 'iflytek') {
+    speakIflytek(opts, provider, store).catch((e) => {
+      console.error('TTS Iflytek error', e)
       window.dispatchEvent(new CustomEvent('tts-error', { detail: e?.message || String(e) }))
     })
     return
@@ -273,6 +324,16 @@ export function stopSpeak(): void {
 }
 
 // === Edge TTS (浏览器直连 Microsoft Edge, WebSocket + SSML) ===
+async function fetchWithTimeout(url: string, init: RequestInit, timeoutMs: number): Promise<Response> {
+  const controller = new AbortController()
+  const t = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    return await fetch(url, { ...init, signal: controller.signal })
+  } finally {
+    clearTimeout(t)
+  }
+}
+
 function escapeXml(s: string): string {
   return s
     .replace(/&/g, '&amp;')
@@ -498,6 +559,236 @@ async function speakElevenLabs(opts: SpeakOptions, provider: TTSProvider, store:
     audio.onended = () => { cleanup(); resolve() }
     audio.onerror = () => { cleanup(); reject(new Error('ElevenLabs 音频播放失败')) }
     audio.play().catch(err => { cleanup(); reject(new Error('ElevenLabs 播放失败: ' + (err?.message || err))) })
+  })
+}
+
+// === 百度智能云 TTS ===
+// API 文档: https://cloud.baidu.com/doc/SPEECH/s/Vk38lxily
+// 鉴权: API Key + Secret Key 换 access_token (30 天有效, 这里每次重新换简单实现)
+async function speakBaidu(opts: SpeakOptions, provider: TTSProvider, store: any): Promise<void> {
+  const apiKeyCombined = store.ttsApiKeys?.[provider.id] || ''
+  if (!apiKeyCombined) throw new Error('百度 TTS 需要配置 API Key|Secret Key')
+  const [apiKey, secretKey] = apiKeyCombined.split('|')
+  if (!apiKey || !secretKey) throw new Error('百度 TTS 配置格式: APIKey|SecretKey (用 | 分隔)')
+
+  // 1. 拿 access_token
+  const tokenResp = await fetchWithTimeout(
+    `https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=${encodeURIComponent(apiKey)}&client_secret=${encodeURIComponent(secretKey)}`,
+    { method: 'POST' },
+    10000,
+  )
+  if (!tokenResp.ok) throw new Error(`百度 TTS token 失败 ${tokenResp.status}`)
+  const tokenData = await tokenResp.json()
+  const accessToken = tokenData.access_token
+  if (!accessToken) throw new Error('百度 TTS 拿不到 access_token')
+
+  // 2. 调 TTS API
+  const voice = (typeof opts.voice === 'string' ? opts.voice : provider.defaultVoice) || 'zh_female_shuangkuai'
+  const speed = Math.max(0, Math.min(9, Math.round((opts.rate || 1) * 5 - 1)))  // 0-9
+  const ttsResp = await fetchWithTimeout(
+    `https://tsn.baidu.com/text2audio?tex=${encodeURIComponent(opts.text)}&tok=${accessToken}&cuid=english-app&ctp=1&lan=zh&spd=${speed}&pit=5&vol=5&per=${voice}&aue=mp3`,
+    { method: 'GET' },
+    15000,
+  )
+  if (!ttsResp.ok) throw new Error(`百度 TTS 合成失败 ${ttsResp.status}`)
+  const blob = await ttsResp.blob()
+  const url = URL.createObjectURL(blob)
+  const audio = new Audio(url)
+  currentAudio = audio
+  await new Promise<void>((resolve, reject) => {
+    audio.onended = () => {
+      URL.revokeObjectURL(url)
+      if (currentAudio === audio) currentAudio = null
+      window.dispatchEvent(new CustomEvent('tts-end'))
+      resolve()
+    }
+    audio.onerror = () => {
+      URL.revokeObjectURL(url)
+      if (currentAudio === audio) currentAudio = null
+      reject(new Error('百度 TTS 播放失败'))
+    }
+    audio.play().catch(err => reject(new Error('百度 TTS 播放失败: ' + (err?.message || err))))
+  })
+}
+
+// === Google Cloud TTS ===
+// API 文档: https://cloud.google.com/text-to-speech/docs/rest
+// 鉴权: API Key 作为查询参数 ?key=...
+async function speakGoogle(opts: SpeakOptions, provider: TTSProvider, store: any): Promise<void> {
+  const apiKey = store.ttsApiKeys?.[provider.id] || ''
+  if (!apiKey) throw new Error('Google TTS 需要 API Key')
+
+  const voice = (typeof opts.voice === 'string' ? opts.voice : provider.defaultVoice) || 'en-US-Neural2-A'
+  const voiceName = voice
+  // 解析 voice name 拿 language code
+  const lang = voiceName.startsWith('zh') ? 'cmn-CN' : voiceName.split('-').slice(0, 2).join('-') || 'en-US'
+  const rate = Math.max(0.25, Math.min(4, opts.rate || 1))
+
+  const resp = await fetchWithTimeout(
+    `https://texttospeech.googleapis.com/v1/text:synthesize?key=${apiKey}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        input: { text: opts.text },
+        voice: {
+          languageCode: lang,
+          name: voiceName,
+        },
+        audioConfig: {
+          audioEncoding: 'MP3',
+          speakingRate: rate,
+        },
+      }),
+    },
+    15000,
+  )
+  if (!resp.ok) {
+    const errText = await resp.text()
+    throw new Error(`Google TTS ${resp.status}: ${errText.slice(0, 200)}`)
+  }
+  const data = await resp.json()
+  // audioContent 是 base64 编码的 MP3
+  const audioContent = data.audioContent
+  if (!audioContent) throw new Error('Google TTS 返回空 audioContent')
+  // base64 → Blob
+  const binary = atob(audioContent)
+  const bytes = new Uint8Array(binary.length)
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i)
+  const blob = new Blob([bytes], { type: 'audio/mpeg' })
+  const url = URL.createObjectURL(blob)
+  const audio = new Audio(url)
+  currentAudio = audio
+  await new Promise<void>((resolve, reject) => {
+    audio.onended = () => {
+      URL.revokeObjectURL(url)
+      if (currentAudio === audio) currentAudio = null
+      window.dispatchEvent(new CustomEvent('tts-end'))
+      resolve()
+    }
+    audio.onerror = () => {
+      URL.revokeObjectURL(url)
+      if (currentAudio === audio) currentAudio = null
+      reject(new Error('Google TTS 播放失败'))
+    }
+    audio.play().catch(err => reject(new Error('Google TTS 播放失败: ' + (err?.message || err))))
+  })
+}
+
+// === 讯飞 TTS (WebSocket) ===
+// API 文档: https://www.xfyun.cn/doc/asr/voicedictation/API.html
+// 鉴权: APPID|APIKey|APISecret (用 | 分隔)
+// WebSocket URL 鉴权: 用 HMAC-SHA256 在 URL 加 authorization 参数
+async function speakIflytek(opts: SpeakOptions, provider: TTSProvider, store: any): Promise<void> {
+  const apiKeyCombined = store.ttsApiKeys?.[provider.id] || ''
+  if (!apiKeyCombined) throw new Error('讯飞 TTS 需要配置 APPID|APIKey|APISecret')
+  const [appId, apiKey, apiSecret] = apiKeyCombined.split('|')
+  if (!appId || !apiKey || !apiSecret) throw new Error('讯飞 TTS 配置格式: APPID|APIKey|APISecret (用 | 分隔)')
+
+  const voice = (typeof opts.voice === 'string' ? opts.voice : provider.defaultVoice) || 'xiaoyan'
+  const host = 'cbm01.cn-huabei-1.xf-yun.com'
+  const path = '/v1/private/mcd9mcd97t1b'
+  const date = new Date().toUTCString()
+  const algorithm = 'hmac-sha256'
+  const headers = 'host date request-line'
+  const signatureOrigin = `host: ${host}\ndate: ${date}\nGET ${path} HTTP/1.1`
+  // 简化的 HMAC-SHA256 签名(用 Web Crypto API)
+  const enc = new TextEncoder()
+  const key = await crypto.subtle.importKey(
+    'raw',
+    enc.encode(apiSecret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign'],
+  )
+  const sig = await crypto.subtle.sign('HMAC', key, enc.encode(signatureOrigin))
+  const sigBase64 = btoa(String.fromCharCode(...new Uint8Array(sig)))
+  const authorization = `api_key="${apiKey}", algorithm="${algorithm}", headers="${headers}", signature="${sigBase64}"`
+  const url = `wss://${host}${path}?authorization=${encodeURIComponent(authorization)}&date=${encodeURIComponent(date)}&host=${host}`
+
+  return new Promise((resolve, reject) => {
+    const ws = new WebSocket(url)
+    currentWS = ws
+    const audioChunks: ArrayBuffer[] = []
+    let settled = false
+
+    function settle(fn: () => void) {
+      if (settled) return
+      settled = true
+      try { ws.close() } catch {}
+      if (currentWS === ws) currentWS = null
+      fn()
+    }
+
+    ws.onopen = () => {
+      const speed = Math.max(0, Math.min(100, Math.round((opts.rate || 1) * 50)))
+      const req = {
+        header: { app_id: appId, status: 2 },
+        parameter: {
+          tts: {
+            vcn: voice,
+            speed,
+            volume: 50,
+            pitch: 50,
+            audio: { encoding: 'raw', sample_rate: 16000, channels: 1, bit_depth: 16 },
+          },
+        },
+        payload: {
+          text: {
+            encoding: 'utf8',
+            compress: 'raw',
+            format: 'plain',
+            status: 2,
+            text: btoa(unescape(encodeURIComponent(opts.text))),
+          },
+        },
+      }
+      ws.send(JSON.stringify(req))
+    }
+
+    ws.onmessage = (e) => {
+      try {
+        const data = JSON.parse(e.data as string)
+        if (data.payload?.audio?.audio) {
+          // base64 音频
+          const audioBase64 = data.payload.audio.audio
+          const binary = atob(audioBase64)
+          const bytes = new Uint8Array(binary.length)
+          for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i)
+          audioChunks.push(bytes.buffer)
+        }
+        if (data.payload?.audio?.status === 2 || data.header?.status === 0 && data.header?.code === 0 && data.payload?.audio?.status === 2) {
+          // 合成完成
+          const blob = new Blob(audioChunks, { type: 'audio/wav' })
+          const audioUrl = URL.createObjectURL(blob)
+          const audio = new Audio(audioUrl)
+          currentAudio = audio
+          audio.onended = () => {
+            URL.revokeObjectURL(audioUrl)
+            if (currentAudio === audio) currentAudio = null
+            window.dispatchEvent(new CustomEvent('tts-end'))
+          }
+          audio.play().catch(err => {
+            URL.revokeObjectURL(audioUrl)
+            reject(new Error('讯飞 TTS 播放失败: ' + (err?.message || err)))
+          })
+          settle(resolve)
+        }
+      } catch (err) {
+        // 不是 JSON,可能是二进制
+        if (e.data instanceof ArrayBuffer) {
+          audioChunks.push(e.data)
+        }
+      }
+    }
+
+    ws.onerror = () => settle(() => reject(new Error('讯飞 TTS WebSocket 错误(可能被 CORS / 网络 / 浏览器策略拦截)')))
+    ws.onclose = (e) => {
+      if (e.code !== 1000 && !settled) {
+        reject(new Error(`讯飞 TTS WebSocket 关闭 (code ${e.code})`))
+      }
+    }
+    setTimeout(() => settle(() => reject(new Error('讯飞 TTS 超时'))), 20000)
   })
 }
 

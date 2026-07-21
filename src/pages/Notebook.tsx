@@ -13,6 +13,8 @@ export default function Notebook() {
   const [loading, setLoading] = useState(true)
   const [exporting, setExporting] = useState(false)  // 防止重复点击导出
   const [groupBy, setGroupBy] = useState<'none' | 'letter'>('none')  // v0.14
+  const [batchMode, setBatchMode] = useState(false)  // v0.14: 批量模式
+  const [selected, setSelected] = useState<Set<string>>(new Set())  // 选中的 wordId
 
   const loadFavorites = async () => {
     setLoading(true)
@@ -46,6 +48,27 @@ export default function Notebook() {
     loadFavorites()
   }
 
+  // 批量删除选中
+  const handleBatchDelete = async () => {
+    if (selected.size === 0) return
+    if (!confirm(`确定从生词本移除 ${selected.size} 个词?`)) return
+    for (const id of Array.from(selected)) {
+      await removeFavorite(id)
+    }
+    setSelected(new Set())
+    setBatchMode(false)
+    loadFavorites()
+  }
+
+  const toggleSelect = (id: string) => {
+    setSelected(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -61,6 +84,27 @@ export default function Notebook() {
           >
             {groupBy === 'none' ? '📋 列表' : '🔤 按字母分组'}
           </button>
+          <button
+            onClick={() => {
+              if (batchMode) {
+                setBatchMode(false)
+                setSelected(new Set())
+              } else {
+                setBatchMode(true)
+              }
+            }}
+            className={`btn-ghost text-sm ${batchMode ? 'bg-brand-100 dark:bg-brand-900/30' : ''}`}
+          >
+            {batchMode ? `✓ 批量 (${selected.size})` : '☑ 批量管理'}
+          </button>
+          {batchMode && selected.size > 0 && (
+            <button
+              onClick={handleBatchDelete}
+              className="btn text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 border border-red-200 dark:border-red-800"
+            >
+              🗑 删除 {selected.size} 个
+            </button>
+          )}
           <details className="relative">
             <summary className="btn-ghost text-sm cursor-pointer list-none">
               导出 ▾
@@ -169,12 +213,12 @@ export default function Notebook() {
                 return Object.keys(grouped).sort().flatMap(letter => [
                   <div key={'g-' + letter} className="text-xs font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider pt-2 sticky top-14 md:top-0 bg-stone-50/95 dark:bg-stone-900/95 z-10 px-1">{letter}</div>,
                   ...grouped[letter].map(w => (
-                    <NotebookWord key={w.id} w={w} onRemove={handleRemove} />
+                    <NotebookWord key={w.id} w={w} onRemove={handleRemove} batchMode={batchMode} selected={selected.has(w.id)} onToggleSelect={toggleSelect} />
                   ))
                 ])
               })()
             : words.map(w => (
-                <NotebookWord key={w.id} w={w} onRemove={handleRemove} />
+                <NotebookWord key={w.id} w={w} onRemove={handleRemove} batchMode={batchMode} selected={selected.has(w.id)} onToggleSelect={toggleSelect} />
               )))}
         </div>
       )}
@@ -183,24 +227,46 @@ export default function Notebook() {
 }
 
 
-function NotebookWord({ w, onRemove }: { w: Word; onRemove: (id: string) => void }) {
+function NotebookWord({ w, onRemove, batchMode, selected, onToggleSelect }: {
+  w: Word
+  onRemove: (id: string) => void
+  batchMode?: boolean
+  selected?: boolean
+  onToggleSelect?: (id: string) => void
+}) {
+  const isSelected = !!selected
   return (
-    <div className="card flex items-center gap-3">
-      <Link to={`/words/${w.id}`} className="flex-1 min-w-0">
+    <div
+      className={`card flex items-center gap-3 cursor-pointer transition-colors ${isSelected ? 'ring-2 ring-brand-500 bg-brand-50 dark:bg-brand-900/20' : ''}`}
+      onClick={batchMode ? () => onToggleSelect?.(w.id) : undefined}
+    >
+      {batchMode && (
+        <input
+          type="checkbox"
+          checked={isSelected}
+          onChange={() => onToggleSelect?.(w.id)}
+          onClick={(e) => e.stopPropagation()}
+          className="w-5 h-5"
+          aria-label={`选择 ${w.word}`}
+        />
+      )}
+      <Link to={`/words/${w.id}`} className="flex-1 min-w-0" onClick={(e) => batchMode && e.preventDefault()}>
         <h3 className="text-lg font-semibold">{w.word}</h3>
         <p className="text-sm text-stone-500 dark:text-stone-400">{w.phonetic}</p>
         <p className="text-sm text-stone-600 dark:text-stone-400 mt-0.5 truncate">
           {w.translations.slice(0, 2).join(' · ')}
         </p>
       </Link>
-      <TTSButton text={w.word} size="sm" />
-      <button
-        onClick={() => onRemove(w.id)}
-        className="text-stone-400 dark:text-stone-300 hover:text-red-500 w-8 h-8 flex items-center justify-center"
-        aria-label="从生词本移除"
-      >
-        ✕
-      </button>
+      {!batchMode && <TTSButton text={w.word} size="sm" />}
+      {!batchMode && (
+        <button
+          onClick={() => onRemove(w.id)}
+          className="text-stone-400 dark:text-stone-300 hover:text-red-500 w-8 h-8 flex items-center justify-center"
+          aria-label="从生词本移除"
+        >
+          ✕
+        </button>
+      )}
     </div>
   )
 }

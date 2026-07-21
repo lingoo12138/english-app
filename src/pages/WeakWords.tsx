@@ -17,7 +17,7 @@ export default function WeakWords() {
   const navigate = useNavigate()
   const [items, setItems] = useState<WeakWordItem[]>([])
   const [loading, setLoading] = useState(true)
-  const [filter, setFilter] = useState<'all' | 'recite'>('all')
+  // 注: filter state 已删除(v0.14 死代码)
 
   useEffect(() => {
     loadData()
@@ -134,7 +134,7 @@ export default function WeakWords() {
             {(() => {
               // 按错次分组
               const buckets = [
-                { label: '1 次', min: 1, max: 2, color: 'bg-yellow-400' },
+                { label: '1-2 次', min: 1, max: 2, color: 'bg-yellow-400' },
                 { label: '3-5 次', min: 3, max: 5, color: 'bg-orange-500' },
                 { label: '6+ 次', min: 6, max: 999, color: 'bg-red-500' },
               ]

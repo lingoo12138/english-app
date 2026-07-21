@@ -42,19 +42,27 @@ const USER_TEMPLATE = (hint: string) => `请识别图片中的 1-5 个物体,按
 }
 ${hint ? `用户提示: ${hint}` : ''}`
 
-// 鲁棒 JSON 提取: 1) 试 markdown code fence, 2) 大括号计数
+// 鲁棒 JSON 提取: 1) 试 markdown code fence, 2) 字符串感知大括号计数
+// 修复 P0-1: 字符串字面量内的 { 和 } 不计入 depth
 export function extractJSON(text: string): any {
   if (!text) throw new Error('LLM 返回为空')
   // 1. markdown code fence ```json ... ```
   const fence = text.match(/```(?:json)?\s*(\{[\s\S]*?\})\s*```/i)
   if (fence) return JSON.parse(fence[1])
-  // 2. 大括号计数找配对
+  // 2. 字符串感知大括号计数
   const start = text.indexOf('{')
   if (start === -1) throw new Error('LLM 未返回 JSON 对象')
   let depth = 0
+  let inString = false
+  let escape = false
   for (let i = start; i < text.length; i++) {
-    if (text[i] === '{') depth++
-    else if (text[i] === '}') {
+    const ch = text[i]
+    if (escape) { escape = false; continue }
+    if (ch === '\\\\') { escape = true; continue }
+    if (ch === '"' && !escape) { inString = !inString; continue }
+    if (inString) continue
+    if (ch === '{') depth++
+    else if (ch === '}') {
       depth--
       if (depth === 0) return JSON.parse(text.slice(start, i + 1))
     }
@@ -141,23 +149,33 @@ export async function recognizeImage(
   return { raw: resp, items, category: classifyOverall(items) }
 }
 
-/** 批量识别(多张图) */
+export interface BatchRecognizeResult {
+  index: number
+  ok: boolean
+  result?: RecognizeResult
+  error?: string
+}
+
+/** 批量识别(多张图) - 串行处理, 返回每张结果 + 错误 */
 export async function recognizeImages(
   imageDataUrls: string[],
   provider: LLMProvider,
   apiKey: string,
   model: string,
   hint: string = '',
-): Promise<RecognizeResult[]> {
+): Promise<BatchRecognizeResult[]> {
   // 串行处理(避免同时多个 LLM 调用造成 rate limit)
-  const results: RecognizeResult[] = []
-  for (const url of imageDataUrls) {
+  const results: BatchRecognizeResult[] = []
+  for (let i = 0; i < imageDataUrls.length; i++) {
+    const url = imageDataUrls[i]
     try {
       const r = await recognizeImage(url, provider, apiKey, model, hint)
-      results.push(r)
-    } catch (e) {
-      // 单张失败不阻塞整体
-      console.error('识别单张图片失败', e)
+      results.push({ index: i, ok: true, result: r })
+    } catch (e: any) {
+      // 修复 P1-2: 不再静默吞错, 返回错误信息
+      const msg = e?.message || String(e)
+      console.error(`识别第 ${i + 1} 张图片失败:`, msg)
+      results.push({ index: i, ok: false, error: msg })
     }
   }
   return results

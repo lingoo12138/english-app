@@ -4,6 +4,46 @@
 
 ---
 
+## [v0.15] - 2026-07-21
+
+### A 审查 + D 扩展 TTS 云渠道(v0.15)
+
+**A 审查(v0.14 独立 verifier 找到 3 个 P0 + 5 个 P1 + 8 个 P2)**:
+- **P0-1**: extractJSON 字符串内 `{` `}` 解析 bug → 字符串感知大括号计数(8 边界用例全过)
+- **P0-2**: WordList 进度条受 search 污染 → 改用 `levelOnlyFiltered` (只用 level 过滤的子集)
+- **P0-3**: ReviewCenter 进度条永远到不了 100% → `currentIndex + 1` 而不是 `currentIndex`
+- **P1-2**: recognizeImages 静默吞错 → 改返回 `BatchRecognizeResult[]` 含 `ok/error`
+- **P1-3**: WeakWords 桶 label "1 次" 误导 → 改 "1-2 次"
+- **P1-4**: WeakWords `filter` 死代码 → 删除
+- **P1-6**: Notebook 缺批量管理 → 加 checkbox 批量模式 + 批量删除
+
+**D TTS 云渠道扩展: 5 → 8**(新加 3 个):
+- **百度智能云 TTS** (baidu) — OAuth 2.0, 需 APIKey|SecretKey, 100万字符/月免费
+- **Google Cloud TTS** (google) — REST + API Key, 1M 字符/月免费, Neural2/WaveNet 神经语音
+- **讯飞 TTS** (iflytek) — WebSocket + HMAC-SHA256 鉴权, 需 APPID|APIKey|APISecret
+
+### 改造
+- `src/lib/tts.ts` — TTSProviderType 加 3 个 + 3 个新实现函数(speakBaidu/speakGoogle/speakIflytek) + BUILTIN 加 3 项
+- `src/lib/imageRecog.ts` — extractJSON 字符串感知 + BatchRecognizeResult 接口
+- `src/pages/WordList.tsx` — levelOnlyFiltered + 进度条不受 search 污染 + 显示搜索后提示
+- `src/pages/ReviewCenter.tsx` — 进度条 currentIndex+1
+- `src/pages/WeakWords.tsx` — 桶 label 改 "1-2 次" + 删 filter 死代码
+- `src/pages/Notebook.tsx` — batchMode + selected + 批量删除 + NotebookWord 接 props
+- `src/pages/Settings.tsx` — 5 个 TTS 渠道 key 输入框
+
+### 验证
+- 8 个 extractJSON 边界用例全过(含字符串内 `{` `}` + 转义)
+- Playwright `verify-v15a.mjs` WordList 进度条 + 搜索 hint ✅
+- Playwright `verify-v15d.mjs` 8 个 TTS 渠道 + 3 个 Key 输入框 ✅
+- extractJSON 边界: code fence / prose 包裹 / 嵌套 / 字符串内 `{` / 字符串内 `}` / 转义 / 纯文本 / 未闭合
+
+### 累计
+- **13 页面 + 5 组件 + 8 TTS 渠道 + 7 翻译 + 8 LLM + 自定义端点**
+- **83 个 bug 修复**(v0.14 78 + v0.15 3 P0 + 2 P1)
+- **4400+ 行代码**
+
+---
+
 ## [v0.14] - 2026-07-21
 
 ### 学习闭环深度优化(v0.14)
