@@ -2,7 +2,42 @@
 
 > 这份文档是产品**理论层面的完整功能记录**,供用户在无时间亲自测试时查阅、验收、规划下一步。
 >
-> 最后更新: 2026-07-20(v0.10)
+> 最后更新: 2026-07-21(v0.13)
+
+---
+
+## v0.13 重点更新(2026-07-21) — 3 agent 协作 + 独立 verifier
+
+### 翻译 4→7 + TTS 3→5(2 写 agent 并行)
+- 翻译新加 Google / 有道 / DeepL,全走 OpenAI 风格 fetch
+- TTS 新加 Edge TTS(WebSocket+SSML 真实) / Azure / ElevenLabs
+- 独立 verifier agent 找到 6 P0 + 5 P1 + 8 P2,全部修复
+
+### 关键 P0
+- Settings id 错配 → Azure Key 输入框永不显示
+- TTS 错误全走 console → 加 tts-error 事件传到 UI
+- Edge WebSocket 抢占不干净 → 加 currentWS 跟踪
+- TTSButton 状态脱节(只检查 speechSynthesis)→ 监听 tts-end / tts-error
+- edge-free 占位 URL 是 example.com → 删除
+- 多个 race condition 修复
+
+### 8 P2 已修
+- Settings 顶部 Key 明文警告
+- baseUrl 协议校验 + try-catch + alert
+- crypto.randomUUID() 替代时间戳 ID
+- setTtsProviderId 切换停止当前播放
+- package.json 0.13.0
+- 等等
+
+---
+
+## v0.12 重点更新(2026-07-20) — 统一 OpenAI 协议
+
+### 架构升级
+- 所有 LLM 走 OpenAI 协议(原 Anthropic 也)
+- 8 个内置 LLM + 自定义端点(填 baseUrl)
+- TTS 加自定义端点(Edge / Azure / 有道 / ElevenLabs)
+- 文档 `docs/AI_CHAT_ROADMAP.md` 记录 AI 对话进阶需求
 
 ---
 
