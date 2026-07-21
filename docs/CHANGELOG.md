@@ -4,6 +4,27 @@
 
 ---
 
+## [v0.16] - 2026-07-22
+
+### D 审查(v0.15 verifier 报告 + 修复)
+
+**5 个 P0/P1 修复**:
+- **P0-1**: 讯飞 TTS 状态条件重复 — `data.payload?.audio?.status === 2 || (data.header.status === 0 && ... && data.payload.audio.status === 2)` 简化为单条件
+- **P0-2**: 讯飞 TTS text base64 编码用 `btoa(unescape(encodeURIComponent(text)))` 替换为现代 `btoa(String.fromCharCode(...new TextEncoder().encode(text)))` (去 unescape deprecated)
+- **P1-1**: 百度 TTS access_token 每次调用都重新拿(浪费请求) — 加 1h 内存缓存
+- **P1-2**: 百度 TTS speed 映射 `(rate*5-1)` rate=0.5 → 1.5(可能为负) — 改 `(rate*4)` 0.5→0, 1.0→4, 2.0→9
+- **P1-3**: Google TTS base64 → Blob 优化(Uint8Array.fromBase64 优先)
+
+### 改造
+- `src/lib/tts.ts` — 讯飞状态条件 + text 编码 + 百度 token 缓存 + speed 边界 + Google fromBase64
+
+### 验证
+- 8 个 TTS 渠道 + 5 个 key 输入框切换全过 ✅
+- AI 对话 Mock 渠道正常 ✅
+- Camera 当前渠道显示 ✅
+
+---
+
 ## [v0.15] - 2026-07-21
 
 ### A 审查 + D 扩展 TTS 云渠道(v0.15)

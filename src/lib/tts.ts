@@ -564,27 +564,39 @@ async function speakElevenLabs(opts: SpeakOptions, provider: TTSProvider, store:
 
 // === 百度智能云 TTS ===
 // API 文档: https://cloud.baidu.com/doc/SPEECH/s/Vk38lxily
-// 鉴权: API Key + Secret Key 换 access_token (30 天有效, 这里每次重新换简单实现)
+// 鉴权: API Key + Secret Key 换 access_token (30 天有效, 这里加 1h 缓存避免每次重新换)
+let baiduTokenCache: { token: string; expiresAt: number } | null = null
+
+async function getBaiduAccessToken(apiKey: string, secretKey: string): Promise<string> {
+  if (baiduTokenCache && baiduTokenCache.expiresAt > Date.now()) {
+    return baiduTokenCache.token
+  }
+  const resp = await fetchWithTimeout(
+    `https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=${encodeURIComponent(apiKey)}&client_secret=${encodeURIComponent(secretKey)}`,
+    { method: 'POST' },
+    10000,
+  )
+  if (!resp.ok) throw new Error(`百度 TTS token 失败 ${resp.status}`)
+  const data = await resp.json()
+  if (!data.access_token) throw new Error(`百度 TTS 拿不到 access_token: ${data.error_description || JSON.stringify(data)}`)
+  // 缓存 1h(实际 30 天, 但保守 1h 防止 token 失效未刷新)
+  baiduTokenCache = { token: data.access_token, expiresAt: Date.now() + 60 * 60 * 1000 }
+  return data.access_token
+}
+
 async function speakBaidu(opts: SpeakOptions, provider: TTSProvider, store: any): Promise<void> {
   const apiKeyCombined = store.ttsApiKeys?.[provider.id] || ''
   if (!apiKeyCombined) throw new Error('百度 TTS 需要配置 API Key|Secret Key')
   const [apiKey, secretKey] = apiKeyCombined.split('|')
   if (!apiKey || !secretKey) throw new Error('百度 TTS 配置格式: APIKey|SecretKey (用 | 分隔)')
 
-  // 1. 拿 access_token
-  const tokenResp = await fetchWithTimeout(
-    `https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=${encodeURIComponent(apiKey)}&client_secret=${encodeURIComponent(secretKey)}`,
-    { method: 'POST' },
-    10000,
-  )
-  if (!tokenResp.ok) throw new Error(`百度 TTS token 失败 ${tokenResp.status}`)
-  const tokenData = await tokenResp.json()
-  const accessToken = tokenData.access_token
-  if (!accessToken) throw new Error('百度 TTS 拿不到 access_token')
+  // 1. 拿 access_token (缓存 1h)
+  const accessToken = await getBaiduAccessToken(apiKey, secretKey)
 
   // 2. 调 TTS API
   const voice = (typeof opts.voice === 'string' ? opts.voice : provider.defaultVoice) || 'zh_female_shuangkuai'
-  const speed = Math.max(0, Math.min(9, Math.round((opts.rate || 1) * 5 - 1)))  // 0-9
+  // rate 0.5-2.0 映射到百度 speed 0-9: 0.5→0, 1.0→4, 2.0→9
+  const speed = Math.max(0, Math.min(9, Math.round((opts.rate ?? 1) * 4)))
   const ttsResp = await fetchWithTimeout(
     `https://tsn.baidu.com/text2audio?tex=${encodeURIComponent(opts.text)}&tok=${accessToken}&cuid=english-app&ctp=1&lan=zh&spd=${speed}&pit=5&vol=5&per=${voice}&aue=mp3`,
     { method: 'GET' },
@@ -651,7 +663,7 @@ async function speakGoogle(opts: SpeakOptions, provider: TTSProvider, store: any
   // audioContent 是 base64 编码的 MP3
   const audioContent = data.audioContent
   if (!audioContent) throw new Error('Google TTS 返回空 audioContent')
-  // base64 → Blob
+  // base64 → Uint8Array (用 atob + 循环, 兼容性最广)
   const binary = atob(audioContent)
   const bytes = new Uint8Array(binary.length)
   for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i)
@@ -739,7 +751,7 @@ async function speakIflytek(opts: SpeakOptions, provider: TTSProvider, store: an
             compress: 'raw',
             format: 'plain',
             status: 2,
-            text: btoa(unescape(encodeURIComponent(opts.text))),
+            text: btoa(String.fromCharCode(...new TextEncoder().encode(opts.text))),
           },
         },
       }
@@ -757,7 +769,7 @@ async function speakIflytek(opts: SpeakOptions, provider: TTSProvider, store: an
           for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i)
           audioChunks.push(bytes.buffer)
         }
-        if (data.payload?.audio?.status === 2 || data.header?.status === 0 && data.header?.code === 0 && data.payload?.audio?.status === 2) {
+        if (data.payload?.audio?.status === 2) {
           // 合成完成
           const blob = new Blob(audioChunks, { type: 'audio/wav' })
           const audioUrl = URL.createObjectURL(blob)
