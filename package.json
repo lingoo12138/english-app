@@ -1,7 +1,7 @@
 {
   "name": "english-app",
   "private": true,
-  "version": "0.22.1",
+  "version": "0.22.2",
   "homepage": "https://lingoo12138.github.io/english-app",
   "type": "module",
   "scripts": {

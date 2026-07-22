@@ -4,6 +4,44 @@
 
 ---
 
+## [v0.22.2] - 2026-07-22
+
+### P2 长期改进: Settings 拆组件 + PWA 缓存版本化
+
+**P2-5 修: Settings 拆组件 (715 → 35 行)**
+- 根因: Settings.tsx 单文件 715 行,9 个 section,维护难
+- 修: 拆为 7 个子组件
+  - PreferencesSection(目标学段 + 每日目标)
+  - TTSSection(主 TTS + 5 个内置 Key + 自定义 TTS)
+  - TranslateSection(翻译 + 自定义翻译)
+  - LLMSection(LLM + 自定义 LLM)
+  - AppearanceSection(主题色 + 字号 + 暗色)
+  - DataManagementSection(清空数据)
+  - CustomForms(3 个 AddCustom 表单)
+- Settings.tsx 主体只组合,35 行
+- 文件: src/components/settings/ (新建 7 个), src/pages/Settings.tsx
+
+**P2-6 修: PWA 缓存版本化**
+- 根因: 词库 30 天 CacheFirst,新词库发布时旧 cache 不更新
+- 修: vite.config.ts
+  - 缓存名加版本号: word-data-cache-v1(升词库时改 v1→v2 自动作废)
+  - 缓存期 30 天 → 7 天(发新词库频率比 30 天高)
+- 验证: build pass,sw.js 正常生成
+
+### 验证
+- Settings 6 section 全渲染 ✅
+- 自定义 LLM form 展开 ✅
+- 主题/字号/暗色切换正常 ✅
+- 截图 v22-2-settings.png 完整展示
+- 脚本 verify-v22d.mjs 全过
+
+### 累计
+- 0 P0 + 0 P1 + 6 P2 修复(2 个短期 + 2 个中期 + 2 个长期)
+- Settings 715 → 35 行(主)
+- 代码 5000+ 行
+
+---
+
 ## [v0.22.1] - 2026-07-22
 
 ### P2 优化: learnReport 透明度 + imageRecog 1-5 提示
