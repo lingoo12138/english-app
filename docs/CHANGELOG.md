@@ -4,6 +4,49 @@
 
 ---
 
+## [v0.22] - 2026-07-22
+
+### 🔍 v0.22 审查 + 修复(2 P1 + 2 P2)
+
+**P1-1 修: WordDetail 词不存在永远"加载中"**
+- 根因: `if (!word)` 区分不了"还在加载"和"找不到"
+- 修: useState 改 `Word | null | 'loading'` 三态
+  - 'loading' → 显示"加载中..."
+  - null → 显示"🔍 找不到这个词" + id + "返回词库"按钮
+- 文件: src/pages/WordDetail.tsx
+
+**P1-2 修: AIChat 切场景/level race condition**
+- 根因: 旧请求晚到会覆盖当前对话(`setMessages([...newMessages, reply])`)
+- 修: 加 `reqIdRef.current` 自增 id,响应时检查 `if (myReqId !== reqIdRef.current) return`
+- catch 和 finally 也加检查,避免旧请求 setLoading(false) 干扰
+- 文件: src/pages/AIChat.tsx
+
+**P2-1 修: Notebook 单条删除无 confirm**
+- 根因: 批量删除有 confirm,单条无
+- 修: handleRemove 加 `if (!confirm('从生词本移除这个词?')) return`
+- 文件: src/pages/Notebook.tsx
+
+**P2-2 加: WordDetail 字母顺序相邻词导航**
+- 根因: handleReview 用 `Math.random()` 随机下一词,不可预期
+- 修: 改为字母顺序相邻 `filtered[idx+1]`
+- 加 neighbors state(字母顺序前/后词),顶部导航加 `← prev` / `next →` 按钮
+- useEffect 监听 word/targetLevel 变化,自动重算
+- 文件: src/pages/WordDetail.tsx
+
+### 验证
+- /words/nonexistent-id-xxx 显示"找不到" + 返回按钮 ✅
+- AIChat 快速发 2 条不互相覆盖 ✅
+- Notebook 单条删除弹 confirm ✅
+- WordDetail absorb 词显示 ← absent / abstract → ✅
+- 点 abstract → 跳到新词,邻居自动重算 ✅
+- 脚本 verify-v22.mjs + verify-v22b.mjs 全过
+
+### 累计
+- 4 修完成,0 P0,0 P1,4 P2(剩余 2 P2 长期改进)
+- 4900+ 行 / 100+ commit
+
+---
+
 ## [v0.21] - 2026-07-22
 
 ### C: AI 对话学习报告(词汇统计 + 难度分布)

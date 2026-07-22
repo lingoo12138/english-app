@@ -10,7 +10,7 @@ import { useStore } from '../store/useStore'
 export default function WordDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const [word, setWord] = useState<Word | null>(null)
+  const [word, setWord] = useState<Word | null | 'loading'>('loading')
   const [fav, setFav] = useState(false)
   const [showAllExamples, setShowAllExamples] = useState(false)
   const targetLevel = useStore(s => s.targetLevel)
@@ -23,7 +23,7 @@ export default function WordDetail() {
     let cancelled = false
     getWord(id).then((w) => {
       if (cancelled) return
-      setWord(w || null)
+      setWord(w || null)  // null = 找不到, undefined/Word = 加载中/找到
       if (w) {
         isFavorite(w.id).then(f => {
           if (!cancelled) setFav(f)
@@ -40,7 +40,7 @@ export default function WordDetail() {
   }, [id])
 
   const handleToggleFav = async () => {
-    if (!word) return
+    if (!word || word === 'loading') return
     if (fav) {
       await removeFavorite(word.id)
       setFav(false)
@@ -53,34 +53,85 @@ export default function WordDetail() {
   }
 
   const handleReview = async (know: boolean) => {
-    if (!word) return
+    if (!word || word === 'loading') return
     // SM-2: 5=完美, 0=完全不会
     const quality = know ? 5 : 1
     await reviewWord(word.id, quality)
     logAction(word.id, know ? 'known' : 'unknown')
-    // 下一个词
+    // P2-2 修: 下一个词 — 字母顺序相邻(稳定可预期),不是随机
     const words = await loadWords()
     const filtered = targetLevel === 'all' ? words : words.filter(w => w.level === targetLevel)
-    const others = filtered.filter(w => w.id !== word.id)
-    if (others.length > 0) {
-      const next = others[Math.floor(Math.random() * others.length)]
-      navigate(`/words/${next.id}`)
+    const idx = filtered.findIndex(w => w.id === word.id)
+    if (idx >= 0 && idx + 1 < filtered.length) {
+      navigate(`/words/${filtered[idx + 1].id}`)
+    } else if (filtered.length > 1) {
+      navigate(`/words/${filtered[0].id}`)
     }
   }
 
-  if (!word) {
+  // P2-2 加: 字母顺序邻居(用于 UI 上一个/下一个按钮)
+  const [neighbors, setNeighbors] = useState<{ prev: Word | null; next: Word | null }>({ prev: null, next: null })
+  useEffect(() => {
+    if (!word || word === 'loading') {
+      setNeighbors({ prev: null, next: null })
+      return
+    }
+    let cancelled = false
+    loadWords().then((words) => {
+      if (cancelled) return
+      const filtered = targetLevel === 'all' ? words : words.filter(w => w.level === targetLevel)
+      const idx = filtered.findIndex(w => w.id === word.id)
+      setNeighbors({
+        prev: idx > 0 ? filtered[idx - 1] : null,
+        next: idx >= 0 && idx + 1 < filtered.length ? filtered[idx + 1] : null,
+      })
+    })
+    return () => { cancelled = true }
+  }, [word, targetLevel])
+
+  if (word === 'loading') {
     return <div className="text-center py-12 text-stone-500 dark:text-stone-400">加载中...</div>
+  }
+  if (word === null) {
+    return (
+      <div className="text-center py-12">
+        <div className="text-5xl mb-3">🔍</div>
+        <p className="text-lg mb-1">找不到这个词</p>
+        <p className="text-sm text-stone-500 dark:text-stone-400 mb-4">id: <code className="text-xs">{id}</code></p>
+        <button onClick={() => navigate('/words')} className="btn-primary">返回词库</button>
+      </div>
+    )
   }
 
   const visibleExamples = showAllExamples ? word.examples : word.examples.slice(0, 1)
 
   return (
     <div className="space-y-4">
-      {/* 顶部导航 */}
+      {/* 顶部导航 — P2-2: 加字母顺序的 上一个/下一个 */}
       <div className="flex items-center justify-between">
         <button onClick={() => navigate(-1)} className="btn-ghost">
           ← 返回
         </button>
+        <div className="flex items-center gap-2">
+          {neighbors.prev && (
+            <button
+              onClick={() => navigate(`/words/${neighbors.prev!.id}`)}
+              className="btn-ghost text-sm flex items-center gap-1"
+              title={`上一个: ${neighbors.prev.word}`}
+            >
+              ← {neighbors.prev.word}
+            </button>
+          )}
+          {neighbors.next && (
+            <button
+              onClick={() => navigate(`/words/${neighbors.next!.id}`)}
+              className="btn-ghost text-sm flex items-center gap-1"
+              title={`下一个: ${neighbors.next.word}`}
+            >
+              {neighbors.next.word} →
+            </button>
+          )}
+        </div>
         <button
           onClick={handleToggleFav}
           className="text-2xl"

@@ -83,6 +83,8 @@ export default function AIChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   // 加载中 ref(避开 useEffect 依赖)
   const loadingRef = useRef(false)
+  // P1-2 修: 请求 id 跟踪,避免切场景/level 后旧请求覆盖新结果
+  const reqIdRef = useRef(0)
   // 加载中 ref 跟随 (避开 useEffect 依赖)
 
   // 自动保存到 IndexedDB(每条 AI 回复后)
@@ -200,15 +202,23 @@ export default function AIChat() {
     setInput('')
     setError('')
     setLoading(true)
+    const myReqId = ++reqIdRef.current  // P1-2 修: 每次发送自增
 
     try {
       const reply = await aiChat(newMessages, { scenario, level }, provider, apiKey, model)
+      if (myReqId !== reqIdRef.current) {
+        // 已有新请求发出,旧请求丢弃
+        return
+      }
       setMessages([...newMessages, reply])
     } catch (e: any) {
+      if (myReqId !== reqIdRef.current) return
       console.error(e)
       setError(e.message || 'AI 响应失败')
     } finally {
-      setLoading(false)
+      if (myReqId === reqIdRef.current) {
+        setLoading(false)
+      }
     }
   }
 

@@ -44,6 +44,7 @@ export default function Notebook() {
   }, [])
 
   const handleRemove = async (wordId: string) => {
+    if (!confirm('从生词本移除这个词?')) return
     await removeFavorite(wordId)
     loadFavorites()
   }
