@@ -741,4 +741,77 @@ npm run build
 
 ---
 
+## v0.19-v0.21 进度(2026-07-22)
+
+### v0.19 — 翻译自定义端点
+**动机**: 用户已能配 LLM/TTS 自定义端点,但翻译还停在 8 个内置,内网/小众翻译 API 用不上
+**实现**:
+- `createCustomTranslateProvider({name, endpoint, bodyTemplate, headers, apiKeyRequired})`
+- `translateCustom()` 通用 HTTP 翻译,支持 `{{text}} {{from}} {{to}}` 占位
+- Settings 加 "自定义翻译端点" section + AddCustomTranslateForm
+- Translate.tsx 合并 `allTranslateProviders`
+- 修 useStore partialize 漏保存 `customTranslateProviders` 的 P0 bug
+
+### v0.20 — AI 对话持久化
+**动机**: AI 对话刷新就丢,宝贵的练习记录没了
+**实现**:
+- db.ts v3 加 `chats` 表(id, scenario, level, title, messages[], createdAt, updatedAt)
+- 4 个助手: saveChat / getAllChats / getChat / deleteChat
+- AIChat.tsx 改造: 自动保存(500ms 防抖)+ 标题自动生成(首条 user 消息前 30 字符)
+- 历史侧栏: 📚 按钮 + 列表 + 🆕 新对话 + 🗑 删除
+- 加载历史自动同步 scenario/level
+
+### v0.21 — 学习报告
+**动机**: 对话里用了什么词? 难度分布? 哪些场景聊得多? 用户没数据感
+**实现**:
+- `src/lib/learnReport.ts` 词汇提取算法
+  - 100+ 停用词(虚词/数字/常见动词)
+  - 跟词库匹配,标注 A1-C2
+  - 统计 count/firstUsed/lastUsed/perScenario
+- `src/pages/LearnReport.tsx` 报告页
+  - 4 Tab: 📈 概览 / 🔥 高频词 / 💎 难词 / 🕐 最近
+  - 难度柱状图 + 场景柱状图 + 14 天日历
+  - 词条带音标/翻译/次数×/场景数
+  - 导出 JSON 报告
+- Layout desktop/mobile nav 都加 Report tab
+- Home.tsx 加 "学习报告" 渐变卡片
+
+### v0.21.1 — GitHub Pages SPA 子路径 fix
+**问题**: 根路径 / 工作, 但 /report /chat /words 等子路径直接 404
+**根因**: GitHub Pages 不像 Netlify/Vercel 自动 SPA fallback
+**解决**: 加 public/404.html = index.html 副本
+- GitHub Pages 找不到子路径时返回 404.html
+- React Router 接管,根据 URL 渲染对应页
+- 标准做法(Angular/React 文档都推荐)
+
+## 当前状态(2026-07-22 12:00)
+
+**代码量**: 4800+ 行
+**Commit 数**: 90+ 个
+**总版本**: v0.1 → v0.21 + v0.21.1 hotfix
+**最后 push**: 1e6e1d5 (404.html fix)
+
+**功能完成度**:
+- ✅ 13 页面 + 5 组件
+- ✅ 5334 词 + 13234 句 + 5 场景
+- ✅ 8 TTS 渠道(浏览器/Mock/Edge/Azure/ElevenLabs/百度/Google/讯飞)
+- ✅ 8 翻译渠道(MyMemory/百度/LLM/Mock/Google/有道/DeepL/腾讯)
+- ✅ 8 LLM 渠道(OpenRouter/OpenAI/Anthropic/硅基流动/Mock/DeepSeek/智谱/百炼)
+- ✅ 3 类自定义端点(LLM/TTS/翻译)
+- ✅ STT 语音输入(Web Speech API)
+- ✅ AI 对话 5 场景 × 6 难度 + 持久化 + 历史
+- ✅ 学习报告(词汇统计 + 难度分布)
+- ✅ 跟读评测(3 维度评分 + 波形可视化)
+- ✅ 拍照识物(OpenRouter + Gemini 2.5 Flash)
+- ✅ PWA 离线 + 主题切换 + 字号 + iOS 安全区
+
+**bug 修复累计**: 89+ 个 P0/P1/P2
+
+**待优化**:
+- 🔜 微信小程序(uni-app 跨端)
+- 🔜 对话搜索 / 标签分类
+- 🔜 学习计划 / 每日目标
+
+---
+
 **让英语在你想用的时候就能用上** —— 这是产品的初心,也是这份日志的初心。

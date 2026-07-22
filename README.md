@@ -1,4 +1,4 @@
-# 句刻 · 即时英语学习 v0.13
+# 句刻 · 即时英语学习 v0.21
 
 > 让你在"想用英语的瞬间就能用上"——把英语嵌进真实生活场景里。
 >
@@ -12,7 +12,7 @@
 
 ---
 
-## ✨ v0.13 核心特性
+## ✨ v0.21 核心特性
 
 ### 📚 内容
 - **5334 高频词** —— 涵盖 CET-4 / 高考 / CET-6 / 考研 / 初中 / 高中 / 日常 7 个学段
@@ -24,12 +24,13 @@
 - **5 个真实场景专题课** —— 餐厅点餐 / 问路 / 购物 / 办公职场 / 自我介绍
 
 ### 🛠️ 学习闭环
-- 🔊 **真人发音(多渠道 5 个)** —— 浏览器内置 TTS / Edge TTS / Azure Speech / ElevenLabs / 自定义端点
+- 🔊 **真人发音(多渠道 8 个)** —— 浏览器内置 TTS / Edge TTS / Azure Speech / ElevenLabs / 百度智能云 / Google Cloud / 讯飞 WebSocket / 自定义端点
 - 🎤 **跟读评测** —— 麦克风录音 + 音量/时长分析(诚实标注:仅基于音量时长,无法判断发音准确性)
-- 🔤 **中英互译(多渠道 7 个)** —— MyMemory / 百度 / Google / 有道 / DeepL / LLM 智能 / 自定义
+- 🔤 **中英互译(多渠道 8 个)** —— MyMemory / 百度 / Google / 有道 / DeepL / 腾讯 / LLM 智能 / 自定义
 - ⭐ **生词本** —— SM-2 间隔重复算法,科学复习
 - 📕 **错题本** —— 自动识别反复记不住的词,一键掌握
 - 📊 **学习日历** —— 直观看到自己坚持了多久
+- 💬 **AI 对话陪练** —— 5 场景 × 6 难度(A1-C2),语音输入 + 对话历史 + 学习报告
 
 ### 🤖 AI 多渠道(8 个内置 + 自定义)
 - **OpenRouter** —— 通用聚合,gemini-2.5-flash:free
@@ -38,6 +39,7 @@
 - **DeepSeek** —— deepseek-chat/reasoner
 - **智谱 GLM** —— glm-4-flash/vision
 - **阿里云百炼** —— qwen-turbo/vl-plus
+- **自定义端点(LLM/TTS/翻译)** —— 对齐 OpenAI 协议,支持任意内网/自部署服务
 - **Anthropic Claude** —— via OpenRouter 中转
 - **🧪 Mock 模拟** —— 零成本测试,适合流程跑通
 
@@ -94,7 +96,7 @@ src/
 │  ├─ db.ts                 IndexedDB + 离线数据
 │  ├─ themes.ts             6 主题 + 4 字号
 │  └─ words.ts              词库加载
-├─ pages/ (13 个)
+├─ pages/ (14 个)
 │  ├─ Home / WordList / WordDetail
 │  ├─ DailyPage / Translate / Notebook / WeakWords
 │  ├─ ReviewCenter / Settings
@@ -105,6 +107,23 @@ src/
    ├─ WordCard / StudyCalendar
    └─ PronunciationPractice
 ```
+
+---
+
+## 📊 当前进度(2026-07-22)
+
+**版本**: v0.21
+**代码量**: 4800+ 行 / 90+ commit
+**功能模块**:
+- ✅ 14 页面 + 5 组件
+- ✅ 8 LLM / 8 TTS / 8 翻译 + 3 类自定义端点
+- ✅ AI 对话(5 场景 × 6 难度 + 语音输入 + 历史 + 学习报告)
+- ✅ 跟读评测(3 维度评分) + 拍照识物
+- ✅ SM-2 间隔重复 + 主题/字号 + PWA 离线
+
+**累计修复**: 89+ P0/P1/P2 bug
+
+[更新日志](./docs/CHANGELOG.md) · [开发日志](./docs/DEV_LOG.md) · [路线图](./docs/ROADMAP.md)
 
 ---
 
