@@ -116,9 +116,14 @@ export default function Home() {
             {plan.isDone ? (
               <div className="text-3xl">🎉</div>
             ) : (
-              <Link to="/words" className="btn-primary text-sm whitespace-nowrap">
-                开始学习 →
-              </Link>
+              <div className="flex flex-col gap-1">
+                <Link to="/words" className="btn-primary text-sm whitespace-nowrap">
+                  开始学习 →
+                </Link>
+                <Link to="/plan" className="text-[10px] text-stone-500 dark:text-stone-400 text-center">
+                  看完整 →
+                </Link>
+              </div>
             )}
           </div>
 
@@ -305,6 +310,14 @@ export default function Home() {
             <div className="flex-1">
               <div className="font-medium">AI 对话陪练</div>
               <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">5 个场景 · 6 个难度 · Mock 零成本测试</div>
+            </div>
+            <div className="text-stone-400 dark:text-stone-300">→</div>
+          </Link>
+          <Link to="/plan" key="plan" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 no-select">
+            <div className="text-3xl">📅</div>
+            <div className="flex-1">
+              <div className="font-medium">学习计划</div>
+              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">7 天曲线 · 连续天数 · 今日详情</div>
             </div>
             <div className="text-stone-400 dark:text-stone-300">→</div>
           </Link>

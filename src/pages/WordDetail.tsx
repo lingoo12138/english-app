@@ -5,6 +5,7 @@ import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
 import PronunciationPractice from '../components/PronunciationPractice'
 import { addFavorite, removeFavorite, isFavorite, logAction, reviewWord } from '../lib/db'
+import { markWordCompleted } from '../lib/plan'
 import { useStore } from '../store/useStore'
 
 export default function WordDetail() {
@@ -29,6 +30,8 @@ export default function WordDetail() {
           if (!cancelled) setFav(f)
         })
         logAction(w.id, 'view')
+        // v0.22.5: 访问词详情时自动标记今日计划完成
+        markWordCompleted(w.id)
       }
     })
     return () => { cancelled = true }

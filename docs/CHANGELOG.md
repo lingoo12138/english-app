@@ -4,6 +4,35 @@
 
 ---
 
+## [v0.22.5] - 2026-07-22
+
+### 🆕 计划页 /plan + 访问词自动标记
+
+**A: 访问词自动 markPlanWord**
+- WordDetail.tsx useEffect 加 markWordCompleted(w.id)
+- WordCard.tsx Link onClick 加 markWordCompleted (动态 import 避免循环)
+- 用户访问词详情即算"今日已学",无需手动点 ✓
+- logAction 同步,数据更准
+
+**B: PlanPage 7 天曲线**
+- 路由 /plan
+- 7 天柱状图: 完成数 / 目标,达成 emerald 渐变 / 今日 cyan 脉冲 / 未达成灰色
+- 关键指标: 连续天数 🔥 / 完成 7 天中 / 总学词(7天)
+- 今日详情: 进度条 + 词列表(可勾) + 鼓励提示
+- 提示: "访问词详情时自动标记完成,也可手动点 ✓"
+
+**集成**:
+- Layout nav 加 "📅 计划" tab(桌面 + 移动)
+- Home.tsx 今日计划卡片加 "看完整" 链接
+
+### 验证
+- PlanPage 7 天曲线 + 连续天数 ✅
+- 访问词详情 plan-progress 1 个 ✅
+- Home 计划卡片 + "看完整"链接 ✅
+- 脚本 verify-v22h.mjs 全过
+
+---
+
 ## [v0.22.4] - 2026-07-22
 
 ### 🆕 LLM 渠道: Google AI Studio + Mistral

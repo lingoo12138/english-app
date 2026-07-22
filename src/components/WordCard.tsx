@@ -16,6 +16,10 @@ export default function WordCard({ word, isFavorite, onToggleFavorite }: Props) 
   return (
     <Link
       to={`/words/${word.id}`}
+      onClick={() => {
+        // v0.22.5: 点击词卡跳转时, 标记今日计划完成
+        import('../lib/plan').then(m => m.markWordCompleted(word.id))
+      }}
       className="card flex items-center gap-3 hover:shadow-md active:scale-[0.98] transition-all no-select"
     >
       <div className="flex-1 min-w-0">
