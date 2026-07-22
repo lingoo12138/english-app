@@ -97,7 +97,7 @@ export default function Camera() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold mb-1">📷 拍照识物</h1>
-        <p className="text-stone-500 dark:text-stone-400 text-sm">拍照或上传图片,AI 帮你识别出英语单词</p>
+        <p className="text-stone-500 dark:text-stone-400 text-sm">拍照或上传图片,AI 帮你识别出英语单词(每次识别 1-5 个)</p>
       </div>
 
       {/* 当前渠道状态 */}
@@ -208,9 +208,14 @@ export default function Camera() {
 
       {status === 'result' && results.length > 0 && (
         <div className="space-y-3">
-          <h2 className="text-sm font-semibold text-stone-500 dark:text-stone-400">
-            识别到 {results.length} 个单词
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-stone-500 dark:text-stone-400">
+              识别到 {results.length} 个单词
+            </h2>
+            <span className="text-xs text-stone-500 dark:text-stone-400">
+              {results.length >= 5 ? '已到上限 5 个' : `上限 5 个`}
+            </span>
+          </div>
           {results.map((item, i) => (
             <ItemCard
               key={i}

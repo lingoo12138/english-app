@@ -70,10 +70,23 @@ export default function LearnReport() {
           <Stat label="约学习时长" value={`${minutes} 分钟`} icon="⏱️" />
         </div>
 
-        <div className="text-sm text-stone-600 dark:text-stone-400">
-          词库匹配率: <span className="font-semibold text-brand-600">{matchedPct}%</span>
-          {' · '}
-          {report.totalUserMessages} 条 user 消息
+        <div className="text-sm text-stone-600 dark:text-stone-400 space-y-1">
+          <div>
+            词库匹配率:{' '}
+            <span className="font-semibold text-brand-600">
+              {report.totalVocab - (report.levelDistribution.unknown || 0)}
+            </span>
+            {' / '}
+            {report.totalVocab}
+            {' = '}
+            <span className="font-semibold text-brand-600">{matchedPct}%</span>
+            <span className="text-xs ml-1">
+              (未匹配 = 词库里没有的词,可能是专有名词/新词)
+            </span>
+          </div>
+          <div className="text-xs">
+            统计范围: {report.totalUserMessages} 条 user 消息 · 已过滤 100+ 停用词(虚词/数字/常见动词)
+          </div>
         </div>
       </div>
 
