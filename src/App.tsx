@@ -23,6 +23,7 @@ import { getPageTitle } from './lib/utils'
 import { BUILTIN_LLM_PROVIDERS } from './lib/providers/llm'
 import { BUILTIN_TRANSLATE_PROVIDERS } from './lib/translate'
 import { BUILTIN_TTS_PROVIDERS } from './lib/tts'
+import { cleanupOldProgress } from './lib/plan'
 
 function App() {
   const darkMode = useStore((s) => s.darkMode)
@@ -46,6 +47,12 @@ function App() {
   useEffect(() => {
     applyFontSize(fontSize)
   }, [fontSize])
+
+  // v0.22.7: 启动清理 30 天前的 plan-progress key
+  useEffect(() => {
+    const removed = cleanupOldProgress()
+    if (removed > 0) console.log(`[plan] 清理了 ${removed} 个过期 plan-progress`)
+  }, [])
 
   // 初始化内置渠道列表(只需设一次, zustand persist 会保存选中项)
   const setLlmProviders = useStore(s => s.setLlmProviders)

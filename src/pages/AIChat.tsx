@@ -34,6 +34,8 @@ export default function AIChat() {
   const setLevel = useStore(s => s.setChatLevel)
 
   const [showHistory, setShowHistory] = useState(false)
+  const [historyQuery, setHistoryQuery] = useState('')  // v0.22.7: 历史搜索
+  const [historyFilter, setHistoryFilter] = useState<'all' | string>('all')  // v0.22.7: 按场景过滤
 
   // 加载历史对话列表
   useEffect(() => {
@@ -284,34 +286,96 @@ export default function AIChat() {
             <h2 className="text-sm font-semibold">📚 历史对话 ({chats.length})</h2>
             <button onClick={() => setShowHistory(false)} className="text-xs text-stone-500">关闭</button>
           </div>
-          {chats.length === 0 ? (
-            <p className="text-sm text-stone-500 dark:text-stone-400 text-center py-4">还没有对话记录</p>
-          ) : (
-            <div className="space-y-2 max-h-64 overflow-y-auto">
-              {chats.map(c => (
-                <div
-                  key={c.id}
-                  className={`p-2 rounded border ${c.id === currentChatId ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/20' : 'border-stone-200 dark:border-stone-700'}`}
+          {/* v0.22.7: 搜索 + 场景过滤 */}
+          {chats.length > 0 && (
+            <div className="space-y-2 mb-2">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={historyQuery}
+                  onChange={e => setHistoryQuery(e.target.value)}
+                  placeholder="🔍 搜索标题/消息内容..."
+                  className="input text-sm pr-8"
+                />
+                {historyQuery && (
+                  <button
+                    onClick={() => setHistoryQuery('')}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
+                    aria-label="清除"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+              <div className="flex gap-1 overflow-x-auto pb-1">
+                <button
+                  onClick={() => setHistoryFilter('all')}
+                  className={`text-xs px-2 py-1 rounded shrink-0 ${
+                    historyFilter === 'all' ? 'bg-brand-500 text-white' : 'bg-stone-100 dark:bg-stone-800'
+                  }`}
                 >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex-1 min-w-0 cursor-pointer" onClick={() => loadChat(c)}>
-                      <div className="font-medium text-sm truncate">{c.title}</div>
-                      <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
-                        {c.scenario} · {c.level} · {c.messages.length} 条 · {new Date(c.updatedAt).toLocaleDateString()}
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => c.id && handleDeleteChat(c.id)}
-                      className="text-xs text-stone-400 hover:text-red-500 shrink-0"
-                      aria-label="删除对话"
-                    >
-                      🗑
-                    </button>
-                  </div>
-                </div>
-              ))}
+                  全部
+                </button>
+                {SCENARIOS.map(s => (
+                  <button
+                    key={s.id}
+                    onClick={() => setHistoryFilter(s.id)}
+                    className={`text-xs px-2 py-1 rounded shrink-0 ${
+                      historyFilter === s.id ? 'bg-brand-500 text-white' : 'bg-stone-100 dark:bg-stone-800'
+                    }`}
+                  >
+                    {s.name}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
+          {chats.length === 0 ? (
+            <p className="text-sm text-stone-500 dark:text-stone-400 text-center py-4">还没有对话记录</p>
+          ) : (() => {
+            // 过滤逻辑
+            const q = historyQuery.trim().toLowerCase()
+            const filtered = chats.filter(c => {
+              if (historyFilter !== 'all' && c.scenario !== historyFilter) return false
+              if (!q) return true
+              // 搜标题/消息内容
+              if (c.title.toLowerCase().includes(q)) return true
+              return c.messages.some(m => m.content.toLowerCase().includes(q))
+            })
+            if (filtered.length === 0) {
+              return (
+                <p className="text-sm text-stone-500 dark:text-stone-400 text-center py-4">
+                  没找到匹配 "{historyQuery}" 的对话
+                </p>
+              )
+            }
+            return (
+              <div className="space-y-2 max-h-64 overflow-y-auto">
+                {filtered.map(c => (
+                  <div
+                    key={c.id}
+                    className={`p-2 rounded border ${c.id === currentChatId ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/20' : 'border-stone-200 dark:border-stone-700'}`}
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0 cursor-pointer" onClick={() => loadChat(c)}>
+                        <div className="font-medium text-sm truncate">{c.title}</div>
+                        <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+                          {c.scenario} · {c.level} · {c.messages.length} 条 · {new Date(c.updatedAt).toLocaleDateString()}
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => c.id && handleDeleteChat(c.id)}
+                        className="text-xs text-stone-400 hover:text-red-500 shrink-0"
+                        aria-label="删除对话"
+                      >
+                        🗑
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )
+          })()}
         </div>
       )}
 

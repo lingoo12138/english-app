@@ -4,6 +4,40 @@
 
 ---
 
+## [v0.22.7] - 2026-07-22
+
+### 🆕 B: AIChat 历史搜索 + 场景过滤
+
+**AIChat.tsx 搜索/过滤**:
+- `historyQuery` state + `historyFilter` state
+- 搜索框: 标题 / 消息内容
+- 场景过滤 chips: 全部 / 5 场景
+- 过滤逻辑: 搜索 ∩ 场景
+- 空结果提示: "没找到匹配 xxx 的对话"
+- ✕ 清除按钮(搜时显示)
+
+### 🔧 D1: Mistral UI 警告
+
+**LLMSection.tsx 警告**:
+- 选 Mistral 时显示: "⚠️ Mistral 不支持图像输入,仅纯文本. 拍照识物 / 视觉对话请换其他渠道"
+- 防止用户选 Mistral 然后拍照识物失败
+
+### 🔧 D2: App 启动调 cleanupOldProgress
+
+**App.tsx 启动钩子**:
+- import cleanupOldProgress
+- useEffect mount 时调一次, 清 30 天前 plan-progress key
+- 清理数量 console.log 通知
+
+### 验证
+- AIChat 搜 "hotel" 找到 Hotel + 排除 Coffee ✅
+- 场景过滤 chips 显示 5 个场景 ✅
+- Mistral 警告显示 ✅
+- 60 天前 key 启动清理 ✅
+- 脚本 verify-v22j.mjs 全过
+
+---
+
 ## [v0.22.6] - 2026-07-22
 
 ### 🔧 静态审查 6 P1 + 4 P2 修复

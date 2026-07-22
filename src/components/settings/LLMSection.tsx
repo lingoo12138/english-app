@@ -95,6 +95,13 @@ export default function LLMSection() {
             🧪 Mock 渠道:零成本,返回预设响应,用于测试流程
           </p>
         )}
+
+        {/* v0.22.7: Mistral 不支持图像警告(防止拍照识物 / 视觉对话时踩坑) */}
+        {currentLlm?.id === 'mistral' && (
+          <p className="text-xs text-amber-600 dark:text-amber-400">
+            ⚠️ Mistral 不支持图像输入,仅纯文本. 拍照识物 / 视觉对话请换其他渠道
+          </p>
+        )}
       </section>
 
       {/* 自定义 LLM */}
