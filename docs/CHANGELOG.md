@@ -4,6 +4,34 @@
 
 ---
 
+## [v0.17] - 2026-07-22
+
+### A 审查(v0.16 静态审查 + 修复)
+
+**P0 修复**:
+- **P0-1**: 百度 TTS token 缓存污染 — 切账号后旧 token 仍被复用(导致 API 调失败)
+  - 修: 缓存用 `apiKey+secretKey` fingerprint 隔离, 不同 key 互不影响
+  - 加 `clearBaiduTokenCache()` 工具函数
+
+**P2 改进**:
+- 加 `testSpeak()` 工具: 用当前激活的 TTS 渠道读一句测试文本
+- 加 `clearBaiduTokenCache()` 工具: 用户切换账号/重置时手动清
+
+### 改造
+- `src/lib/tts.ts` — 百度 token 缓存 fingerprint + 2 个新工具函数
+
+### 验证
+- 百度 key 切换后 UI 独立存 ✅
+- Camera / AI 对话 / 翻译页正常 ✅
+- Playwright 8 个 TTS 渠道 + 切换 key 输入框全过 ✅
+
+### 累计
+- **8 TTS + 7 翻译 + 8 LLM + 自定义**
+- **89 bug 修复**(v0.16 88 + v0.17 1)
+- **4400+ 行代码**
+
+---
+
 ## [v0.16] - 2026-07-22
 
 ### D 审查(v0.15 verifier 报告 + 修复)

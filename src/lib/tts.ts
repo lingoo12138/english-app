@@ -323,6 +323,16 @@ export function stopSpeak(): void {
   currentUtter = null
 }
 
+/** 测试发音: 用当前激活的 TTS 渠道读一句测试文本 */
+export async function testSpeak(): Promise<void> {
+  return speak({ text: 'Hello, this is a test.' })
+}
+
+/** 清空百度 token 缓存(用户切换账号或重置时调用) */
+export function clearBaiduTokenCache(): void {
+  baiduTokenCache = null
+}
+
 // === Edge TTS (浏览器直连 Microsoft Edge, WebSocket + SSML) ===
 async function fetchWithTimeout(url: string, init: RequestInit, timeoutMs: number): Promise<Response> {
   const controller = new AbortController()
@@ -565,10 +575,16 @@ async function speakElevenLabs(opts: SpeakOptions, provider: TTSProvider, store:
 // === 百度智能云 TTS ===
 // API 文档: https://cloud.baidu.com/doc/SPEECH/s/Vk38lxily
 // 鉴权: API Key + Secret Key 换 access_token (30 天有效, 这里加 1h 缓存避免每次重新换)
-let baiduTokenCache: { token: string; expiresAt: number } | null = null
+// 修复 P0-1: 缓存用 apiKey+secretKey fingerprint, 避免切换账号后用旧 token
+let baiduTokenCache: { fingerprint: string; token: string; expiresAt: number } | null = null
+
+function getBaiduCacheKey(apiKey: string, secretKey: string): string {
+  return `${apiKey}:${secretKey}`
+}
 
 async function getBaiduAccessToken(apiKey: string, secretKey: string): Promise<string> {
-  if (baiduTokenCache && baiduTokenCache.expiresAt > Date.now()) {
+  const fingerprint = getBaiduCacheKey(apiKey, secretKey)
+  if (baiduTokenCache && baiduTokenCache.fingerprint === fingerprint && baiduTokenCache.expiresAt > Date.now()) {
     return baiduTokenCache.token
   }
   const resp = await fetchWithTimeout(
@@ -580,7 +596,7 @@ async function getBaiduAccessToken(apiKey: string, secretKey: string): Promise<s
   const data = await resp.json()
   if (!data.access_token) throw new Error(`百度 TTS 拿不到 access_token: ${data.error_description || JSON.stringify(data)}`)
   // 缓存 1h(实际 30 天, 但保守 1h 防止 token 失效未刷新)
-  baiduTokenCache = { token: data.access_token, expiresAt: Date.now() + 60 * 60 * 1000 }
+  baiduTokenCache = { fingerprint, token: data.access_token, expiresAt: Date.now() + 60 * 60 * 1000 }
   return data.access_token
 }
 
