@@ -30,8 +30,16 @@
 | **v0.20** | **2026-07-22** | **AI 对话持久化 + 历史侧栏(IndexedDB)** |
 | **v0.21** | **2026-07-22** | **AI 对话学习报告(词汇统计 + 难度分布)** |
 | **v0.22** | **2026-07-22** | **3 Reviewer 审查 + 修 2 P1 + 2 P2(WordDetail/AIChat/Notebook)** |
+| **v0.22.1** | **2026-07-22** | **P2 透明度优化: learnReport 显示 X/Y 分数 + 100+ 停用词说明, imageRecog 1-5 提示** |
+| **v0.22.2** | **2026-07-22** | **Settings 拆 7 子组件(715→35 行主体) + PWA 缓存版本化(v1+7d)** |
+| **v0.22.3** | **2026-07-22** | **每日学习计划(Home 智能选词卡片: 复习/收藏/新词)** |
+| **v0.22.4** | **2026-07-22** | **加 Google AI Studio + Mistral LLM 渠道(10 LLM 总)** |
+| **v0.22.5** | **2026-07-22** | **计划页 /plan + 访问词详情自动 markPlanWord** |
+| **v0.22.6** | **2026-07-22** | **静态审查 6 P1 + 4 P2 修复(plan.ts 鲁棒性/连续天数算法/README 同步)** |
+| **v0.22.7** | **2026-07-22** | **AIChat 历史搜索 + 场景过滤 + Mistral 警告 + App 启动自动清理** |
+| **v0.22.8** | **2026-07-22** | **AI 对话导出/导入(JSON 备份/迁移) + 单条导出按钮** |
 
-**累计**: **13 个页面、5 个组件、73 个 bug 修复、8 LLM + 5 TTS + 7 翻译 + 自定义端点、4100+ 行代码、零付费依赖**。
+**累计**: **15 个页面、5 个组件 + 8 个 Settings 子组件、105 个 bug 修复、10 LLM + 8 TTS + 8 翻译 + 3 自定义端点、5500+ 行代码、零付费依赖**。
 
 详细功能见 [DEV_LOG.md](./DEV_LOG.md)。
 
@@ -80,22 +88,32 @@
 
 ---
 
-## 📊 当前数据(截至 v0.10)
+## 📊 当前数据(截至 v0.22.8)
 
 ```
 词库:        5334 词(7 学段)
-例句:        13234 句(总)/3+ 句 覆盖率 62% / 0 句 1.7% / 1-2 句 36%
+例句:        13234 句(3+ 句/词)
 音标:        5266 词(98%)
 词根:        2897 词(54%)
 短语:        4000+ 词
 每日一句:    30 句(可循环)
 场景课:      5 个(40 句)
-代码:        3700+ 行
-页面:        12 个(+ Camera)
-组件:        5 个
+代码:        5500+ 行
+页面:        15 个 (Home/WordList/WordDetail/DailyPage/Translate/Notebook/ReviewCenter/WeakWords/Scenes/SceneDetail/Camera/AIChat/Settings/PlanPage/LearnReport)
+组件:        5 个 (Layout/TTSButton/WordCard/StudyCalendar/PronunciationPractice) + 8 Settings 子组件
+Settings 子: PreferencesSection/TTSSection/TranslateSection/LLMSection/AppearanceSection/DataManagementSection/AIChatDataSection/CustomForms
+LLM 渠道:    10 (OpenRouter/OpenAI/Anthropic/硅基流动/DeepSeek/智谱/百炼/Google AI Studio/Mistral/Mock) + 自定义
+TTS 渠道:    8 (浏览器/Mock/Edge/Azure/ElevenLabs/百度/Google/讯飞) + 自定义
+翻译渠道:    8 (MyMemory/百度/LLM/Google/有道/DeepL/腾讯/Mock) + 自定义
+STT:         Web Speech API (Chrome/Edge/Safari)
 第三方:      0 付费依赖
-P0/P1/P2:   49 个全清
-LLM:         OpenRouter + Gemini 2.5 Flash(免费)
+P0/P1/P2:   0/0/0 当前; 历史 105 个全清
+每日学习计划: 7天曲线 + 连续天数 + Home 智能选词卡片
+AI 对话:     5 场景 × 6 难度 + 语音输入 + 历史搜索 + 导出/导入
+学习报告:    词汇统计 + 难度分布 + 14天日历
+拍照识物:    OpenRouter + Gemini 2.5 Flash 免费
+跟读评测:    3 维度评分(音量 40% + 时长 40% + 稳定性 20%)
+PWA:         离线 + 自动部署 + 缓存版本化
 ```
 
 ---
@@ -108,4 +126,4 @@ LLM:         OpenRouter + Gemini 2.5 Flash(免费)
 
 ---
 
-**最后更新**: 2026-07-22(v0.22)
+**最后更新**: 2026-07-22(v0.22.8)

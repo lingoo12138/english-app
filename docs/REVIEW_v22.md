@@ -167,3 +167,33 @@ if (!confirm('从生词本移除这个词?')) return
 
 **审查工具**: 静态 grep + Playwright 1.55 + 2 subagent
 **总代码**: 4900+ 行 / 100+ commit / v0.1-v0.21 + v0.21.1 + v0.22 审查
+
+---
+
+## 补充 (v0.22.6 静态审查 + 修复)
+
+### 🔍 静态审查 (替代 failed subagent)
+
+v0.22 完成后, 启动 2 个独立 verifier subagent, 但都 failed (token 限流, 无输出).
+**降级方案**: 自己写 `scripts/review-v22.py` 做静态审查, 找到 **6 P1 + 4 P2** 全部已修.
+
+### 静态审查发现 (全部已修)
+
+| ID | 级别 | 描述 | 修复 |
+|----|------|------|------|
+| P1-1 | plan.ts | saveProgress 缺 try-catch, QuotaExceeded 会崩 | 显式 catch + warn |
+| P1-2 | PlanPage | 连续天数算法混乱 (起点 i===6) | 倒序连续 + 快照 |
+| P1-3 | PlanPage | 历史天数用当前 dailyGoal, 改目标后显示不准 | 存 plan-progress 快照 `{completed, goal}` |
+| P1-4 | README | 顶部 v0.21, 8 LLM (实际 10) | 同步 v0.22.5 + 10 LLM |
+| P2-1 | Home | 词列表 inline localStorage, 不一致 | completedSet state |
+| P2-2 | WordCard | 动态 import 创建 chunk | 静态 import + useStore |
+| P2-3 | Settings | 选 Mistral 不显示图像警告 | 加警告 banner |
+| P2-4 | plan.ts | localStorage 永久增长 | cleanupOldProgress() 函数 + App 启动调用 |
+
+### subagent 经验
+
+- 独立 verifier 是 P0 杀手 (v0.13 / v0.14 都靠它)
+- 但 **token 限流是常态** (本次 v0.22.6 启动 2 个都 failed)
+- 降级: 静态审查 + Playwright 边界用例, 仍能找出 6 P1 + 4 P2
+- 建议: subagent 只在短任务(明确范围 + 短 prompt)时可靠, 长任务用静态审查
+

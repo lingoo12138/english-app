@@ -814,4 +814,118 @@ npm run build
 
 ---
 
+## v0.22 全套(v0.22 - v0.22.8)进度总结(2026-07-22)
+
+### v0.22 — 3 Reviewer 审查 + 修 2 P1 + 2 P2
+**动机**: 不再"做完就行",开始有审查文化
+**实现**:
+- 3 Reviewer 分模块独立审查(核心 / AI / PWA/性能/安全)+ Playwright 边界
+- 报告 `docs/REVIEW_v22.md`
+- P1-1: WordDetail 词不存在永远"加载中" → 三态 'loading' / null / Word + "找不到" UI
+- P1-2: AIChat 切场景/level race condition → reqIdRef 跟踪
+- P2-1: Notebook 单条删除加 confirm
+- P2-2: WordDetail 字母顺序相邻词导航(代替随机)
+
+### v0.22.1 — 透明度优化
+**动机**: 100% 匹配率 / 拍照识物 1-5 物体, 用户不知道边界
+**实现**:
+- learnReport 显示 "X / Y = XX% (未匹配 = 词库里没有的词)"
+- 加 "100+ 停用词" 统计说明
+- Camera 顶部 "每次识别 1-5 个" + 结果区 "已到上限 5 个"
+
+### v0.22.2 — Settings 拆 7 子组件 + PWA 缓存
+**动机**: Settings.tsx 715 行难以维护
+**实现**:
+- 拆 7 子组件: PreferencesSection / TTSSection / TranslateSection / LLMSection / AppearanceSection / DataManagementSection / CustomForms
+- Settings 主体 35 行只组合
+- PWA 缓存版本化: `word-data-cache-v1` + 30 天 → 7 天
+- 升词库时改 v1→v2 自动作废
+
+### v0.22.3 — 每日学习计划(Home 卡片)
+**动机**: 用户有 dailyGoal 设定但看不到要学什么
+**实现**:
+- `src/lib/plan.ts` 智能选词: 复习 due → 已收藏未掌握 → targetLevel 新词
+- Home 渐变进度条 + 来源标签 + 词列表(可勾)
+- localStorage `plan-progress-YYYY-MM-DD` 进度持久化
+
+### v0.22.4 — Google AI Studio + Mistral LLM 渠道
+**动机**: 8 LLM 不够, 用户要更多免费/付费选项
+**实现**:
+- Google AI Studio: 6 模型 (gemini-2.0-flash-exp 默认免费 + 1.5 系列)
+- Mistral AI: 6 模型 (mistral-large-latest + mixtral 系列 + codestral)
+- 统一 OpenAI 协议
+
+### v0.22.5 — 计划页 /plan + 访问词自动 mark
+**动机**: Home 卡片详情不够, 用户要完整 7 天视图
+**实现**:
+- `src/pages/PlanPage.tsx` 7 天柱状图 + 关键指标(连续天数/完成日/总学词)
+- WordDetail/WordCard 访问词自动 markWordCompleted
+- Layout nav 加 "📅 计划" tab
+- Home 卡片加 "看完整" 链接
+
+### v0.22.6 — 静态审查 6 P1 + 4 P2 修复
+**动机**: 2 subagent 审查都 failed (token 限流), 用静态审查替代
+**实现**:
+- `scripts/review-v22.py` 静态审查脚本
+- P1: plan.ts saveProgress try-catch
+- P1: PlanPage 连续天数算法(倒序 + 快照)
+- P1: plan-progress 持久化升级 `{completed, goal}` (兼容老数据)
+- P1: README 同步 v0.22.5 + 10 LLM
+- P2: WordCard 静态 import(代替动态)
+- P2: Home/PlanPage 词列表 state 化
+- P2: plan.ts cleanupOldProgress() 清理 30 天前 key
+
+### v0.22.7 — AIChat 历史搜索 + 场景过滤 + 自动清理
+**动机**: 长期用户对话多, 需要搜索/分类
+**实现**:
+- AIChat 历史侧栏搜索框: 标题/消息内容
+- 场景过滤 chips: 全部 / 5 场景
+- Mistral 选时不显示图像警告(防拍照识物踩坑)
+- App.tsx 启动调 cleanupOldProgress
+
+### v0.22.8 — AI 对话导出/导入
+**动机**: 用户的对话宝贵, 需要备份/迁移
+**实现**:
+- `src/lib/exportChat.ts` 工具(单条/全部/解析/导入/文件选择)
+- AIChat 顶部"📤 导出" + 每条"📤"单条导出
+- Settings 新增 AIChatDataSection
+- "📥 导入对话(从 JSON)" 按钮
+- "🗑 清空所有 AI 对话" 按钮(二次 confirm)
+
+## 当前状态(2026-07-22 21:00)
+
+**版本**: v0.22.8
+**代码量**: **5500+ 行**
+**Commit 数**: **115+**
+**总版本**: v0.1 → v0.22.8
+**最后 push**: 0670b25 (AI 对话导出/导入)
+
+**功能完成度**:
+- ✅ 15 页面 + 5 组件 + 8 Settings 子组件
+- ✅ 5334 词 + 13234 句 + 5 场景
+- ✅ **10 LLM**(8 + Google AI Studio + Mistral) + 自定义
+- ✅ **8 TTS** + 自定义
+- ✅ **8 翻译** + 自定义
+- ✅ STT(Web Speech API)
+- ✅ AI 对话 5 场景 × 6 难度 + 语音输入 + 历史搜索 + 导出/导入
+- ✅ **学习报告**(词汇统计 + 难度分布)
+- ✅ **每日学习计划**(7天曲线 + 连续天数 + 智能选词)
+- ✅ 跟读评测(3 维度评分 + 波形可视化)
+- ✅ 拍照识物(OpenRouter + Gemini 2.5 Flash)
+- ✅ PWA 离线(版本化) + 主题切换 + 字号 + iOS 安全区
+
+**bug 修复累计**: **105+ 个 P0/P1/P2**
+
+**v0.22 全套新增**:
+- 0 P0
+- 2 P1(WordDetail 三态 / AIChat race)
+- 8 P2(Notebook confirm / 字母索引 / learnReport 透明度 / imageRecog 1-5 / Settings 拆 / PWA 缓存 / 静态审查 6 修 / 词列表 state / 静态 import / 历史搜索 / 场景过滤 / Mistral 警告 / 自动清理 / 导出导入)
+
+**待优化**:
+- 🔜 P3 微信小程序(uni-app 跨端)
+- 🔜 DeepSeek Vision / Qwen3 等新渠道
+- 🔜 对话标签分类
+
+---
+
 **让英语在你想用的时候就能用上** —— 这是产品的初心,也是这份日志的初心。
