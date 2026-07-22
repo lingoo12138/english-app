@@ -8,6 +8,7 @@ class EnglishAppDB extends Dexie {
   reviews!: Table<ReviewItem, string>
   pronunciationAttempts!: Table<PronunciationAttempt, number>
   chats!: Table<ChatRecord, number>
+  writingErrors!: Table<WritingError, number>
 
   constructor() {
     super('EnglishAppDB')
@@ -30,6 +31,8 @@ class EnglishAppDB extends Dexie {
       reviews: 'wordId, nextReview',
       pronunciationAttempts: '++id, wordId, ts, score',
       chats: '++id, scenario, level, updatedAt, createdAt, title',
+      // v0.23: 写作批改错误表
+      writingErrors: '++id, ts, source',
     })
   }
 }
@@ -37,6 +40,21 @@ class EnglishAppDB extends Dexie {
 export const db = new EnglishAppDB()
 
 // === AI 对话持久化 ===
+export interface WritingError {
+  id?: number
+  source: 'write' | 'chat'  // 写作批改 / AI 对话纠错
+  original: string
+  corrected: string
+  errors: Array<{
+    original: string
+    suggestion: string
+    type: 'grammar' | 'vocab' | 'spelling' | 'style' | 'tense' | 'preposition' | 'article' | 'other'
+    explanation: string
+    severity: number  // 0-1
+  }>
+  ts: number
+}
+
 export interface ChatRecord {
   id?: number
   scenario: string
@@ -49,6 +67,19 @@ export interface ChatRecord {
 
 export async function saveChat(record: ChatRecord): Promise<number> {
   return db.chats.put({ ...record, updatedAt: Date.now() })
+}
+
+// 写作错误 helpers
+export async function saveWritingError(err: WritingError): Promise<number> {
+  return db.writingErrors.put({ ...err, ts: Date.now() })
+}
+
+export async function getAllWritingErrors(): Promise<WritingError[]> {
+  return db.writingErrors.orderBy('ts').reverse().toArray()
+}
+
+export async function deleteWritingError(id: number): Promise<void> {
+  return db.writingErrors.delete(id)
 }
 
 export async function getAllChats(): Promise<ChatRecord[]> {

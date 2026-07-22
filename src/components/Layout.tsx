@@ -9,6 +9,7 @@ const desktopNav = [
   { to: '/daily', label: '每日一句', icon: '✨' },
   { to: '/chat', label: 'AI', icon: '💬' },
   { to: '/plan', label: '计划', icon: '📅' },
+  { to: '/write', label: '写作', icon: '✍️' },
   { to: '/report', label: '报告', icon: '📊' },
   { to: '/translate', label: '翻译', icon: '🔤' },
   { to: '/notebook', label: '生词本', icon: '⭐' },
@@ -22,6 +23,7 @@ const mobileNav = [
   { to: '/scenes', label: '场景', icon: '🎬' },
   { to: '/chat', label: 'AI', icon: '💬' },
   { to: '/plan', label: '计划', icon: '📅' },
+  { to: '/write', label: '写作', icon: '✍️' },
   { to: '/report', label: '报告', icon: '📊' },
   { to: '/notebook', label: '生词', icon: '⭐' },
 ]

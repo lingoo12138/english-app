@@ -321,6 +321,14 @@ export default function Home() {
             </div>
             <div className="text-stone-400 dark:text-stone-300">→</div>
           </Link>
+          <Link to="/write" key="write" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-rose-50 to-pink-50 dark:from-rose-900/20 dark:to-pink-900/20 no-select">
+            <div className="text-3xl">✍️</div>
+            <div className="flex-1">
+              <div className="font-medium">写作批改</div>
+              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">AI 改错 + 标色 diff + 一键收藏生词</div>
+            </div>
+            <div className="text-stone-400 dark:text-stone-300">→</div>
+          </Link>
         </div>
       </div>
     </div>

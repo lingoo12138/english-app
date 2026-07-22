@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import TTSButton from '../components/TTSButton'
 import { getTodaySentence, getAllSentences } from '../lib/daily'
 import { isFavorite, addFavorite, removeFavorite } from '../lib/db'
@@ -62,6 +63,13 @@ export default function DailyPage() {
           <p className="text-base opacity-90 mb-4">{sentences[todayIdx].zh}</p>
           <div className="flex items-center gap-3">
             <TTSButton text={sentences[todayIdx].en} variant="text" />
+            <Link
+              to={`/pronounce-custom?text=${encodeURIComponent(sentences[todayIdx].en)}`}
+              className="text-sm opacity-90 hover:opacity-100 underline-offset-2 hover:underline"
+              aria-label="跟读今日推荐句"
+            >
+              🎤 跟读
+            </Link>
             <button
               onClick={() => handleToggleFav(sentences[todayIdx])}
               className="text-sm opacity-90 hover:opacity-100"
@@ -93,7 +101,16 @@ export default function DailyPage() {
               </div>
               <div className="flex items-start justify-between gap-2 mb-2">
                 <p className="text-lg font-medium flex-1">{s.en}</p>
-                <TTSButton text={s.en} size="sm" />
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <TTSButton text={s.en} size="sm" />
+                  <Link
+                    to={`/pronounce-custom?text=${encodeURIComponent(s.en)}`}
+                    className="btn-ghost text-xs px-2 py-1"
+                    aria-label={`跟读: ${s.en}`}
+                  >
+                    🎤
+                  </Link>
+                </div>
               </div>
               <p className="text-sm text-stone-500 dark:text-stone-400">{s.zh}</p>
             </div>

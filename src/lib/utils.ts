@@ -23,6 +23,7 @@ export function getPageTitle(pathname: string): string {
   if (pathname.startsWith('/weak')) return '错题本 - 句刻'
   if (pathname.startsWith('/review')) return '复习中心 - 句刻'
   if (pathname.startsWith('/cards')) return '卡片复习 - 句刻'
+  if (pathname.startsWith('/pronounce-custom')) return '跟读练习 - 句刻'
   if (pathname.startsWith('/settings')) return '设置 - 句刻'
   return '句刻'
 }

@@ -4,6 +4,63 @@
 
 ---
 
+## [v0.23] - 2026-07-23
+
+### 🆕 W1: 写作批改 + 每日一句跟读 + AI 对话中单词收藏
+
+**W1-A 写作批改 /write 页面**:
+- 新页面 `src/pages/WritePage.tsx` (~430 行)
+- 调 LLM(JSON 协议): `{corrected, errors: [{original, suggestion, type, explanation, severity}]}`
+- 容错: 移除 markdown fence + 找 `{` 和 `}` 截取 + try-catch
+- UI: 原文 vs 改后并排 + 错误高亮(severity %) + 错误类型标签(8 类)
+- 字符限制 500 + 截断提示
+- 日 20 次限量(防 LLM 成本)
+- "我的作文"历史 Tab(IndexedDB `writing_errors` 表)
+- "加入生词本" 单条 + 一键(查词库匹配)
+- Mock 渠道支持 + 必须配置 API Key 检查
+
+**W1-B AI 对话中单词收藏** (subagent 1):
+- AIChat.tsx onMouseUp/onTouchEnd → window.getSelection()
+- tooltip: 翻译 + ⭐ 收藏 + ✕ 关闭
+- 选区是英文单词时触发,定位在选区附近
+- 词库匹配 → addFavorite()
+- 1.5s 自动消失
+
+**W1-C 每日一句跟读** (subagent 2):
+- DailyPage.tsx 每日一句卡片加 "🎤 跟读" 按钮
+- 跳 `/pronounce-custom?text=...`
+- 新 `PronounceCustom.tsx` wrapper
+- PronunciationPractice 加 `customText` prop
+- 复用现有跟读评测(3 维度评分)
+
+**db.ts v4 升级**:
+- 新表 `writingErrors`: id, ts, source, original, corrected, errors[]
+- 索引: ts, source
+- helper: `saveWritingError` / `getAllWritingErrors` / `deleteWritingError`
+- 类型: `WritingError`(7 错误类型:grammar/vocab/spelling/style/tense/preposition/article/other)
+
+**集成**:
+- Layout desktop + mobile nav 加 "✍️ 写作" tab
+- Home 卡片区加 "✍️ 写作批改" 入口(rose-pink 渐变)
+
+### 验证
+- /write 路由 ✅
+- /pronounce-custom 路由 ✅
+- 写 textarea + LLM 改错 UI ✅
+- 错误清单 + 标色 diff ✅
+- 加生词本按钮 ✅
+- 我的作文历史 ✅
+- DailyPage 跟读入口 ✅
+- npm run build pass
+
+### 累计
+- **17 页面**(+ WritePage + PronounceCustom)
+- **5 组件 + 9 Settings 子组件**
+- **5800+ 行**
+- **121+ commit**
+
+---
+
 ## [v0.22.9] - 2026-07-22
 
 ### 🆕 A: 学习提醒(Web Notification API)

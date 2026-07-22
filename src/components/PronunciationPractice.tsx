@@ -18,6 +18,7 @@ import { addPronunciationAttempt } from '../lib/db'
 interface Props {
   word: string
   wordId?: string                 // 可选,未传时用 word 文本兜底
+  customText?: string             // 可选,外部传入的自定义跟读文本(如每日一句);非空时替代 word
   onComplete?: (score: PronunciationScore) => void
 }
 
@@ -32,7 +33,7 @@ interface Attempt {
 const MAX_ATTEMPTS = 3
 const VOLUME_HISTORY_MAX = 60     // 实时波形保留的帧数
 
-export default function PronunciationPractice({ word, wordId, onComplete }: Props) {
+export default function PronunciationPractice({ word, wordId, customText, onComplete }: Props) {
   const [state, setState] = useState<State>('idle')
   const [volume, setVolume] = useState(0)
   const [volumeHistory, setVolumeHistory] = useState<number[]>([])  // 实时波形
@@ -59,6 +60,8 @@ export default function PronunciationPractice({ word, wordId, onComplete }: Prop
   useEffect(() => { attemptsRef.current = attempts }, [attempts])
 
   const effectiveWordId = wordId || word
+  // 自定义文本模式: 用 customText 替代 word 作为跟读目标
+  const practiceText = (customText && customText.trim()) ? customText : word
 
   // 重置所有
   const reset = useCallback(() => {
@@ -100,10 +103,10 @@ export default function PronunciationPractice({ word, wordId, onComplete }: Prop
     }
   }, [])
 
-  // word 变化时重置整个状态
+  // word / customText 变化时重置整个状态
   useEffect(() => {
     reset()
-  }, [word, reset])
+  }, [practiceText, reset])
 
   async function startPractice() {
     if (!supported) {
@@ -127,7 +130,7 @@ export default function PronunciationPractice({ word, wordId, onComplete }: Prop
 
     // 步骤 1: 听原声
     setState('listening')
-    speak({ text: word, rate: 0.8 })
+    speak({ text: practiceText, rate: 0.8 })
 
     // 等 2 秒,开始倒计时
     listenTimerRef.current = window.setTimeout(() => {
@@ -223,7 +226,7 @@ export default function PronunciationPractice({ word, wordId, onComplete }: Prop
       const r = await recorder.stop()
       recorderRef.current = null
       if (!mountedRef.current) return
-      const s = scorePronunciation(r, word)
+      const s = scorePronunciation(r, practiceText)
 
       // 写入 attempt 历史(本地 state + IndexedDB)
       const attemptNumber = attemptsRef.current.length + 1
@@ -239,7 +242,7 @@ export default function PronunciationPractice({ word, wordId, onComplete }: Prop
       // 异步写入 IndexedDB(失败不影响 UI)
       addPronunciationAttempt({
         wordId: effectiveWordId,
-        word,
+        word: practiceText,
         ts: Date.now(),
         score: s.total,
         volumeScore: s.volume,
@@ -435,7 +438,7 @@ export default function PronunciationPractice({ word, wordId, onComplete }: Prop
             onPlayMy={playMyRecording}
             onRetry={startPractice}
             onFinish={reset}
-            onPlayOriginal={() => speak({ text: word, rate: 0.8 })}
+            onPlayOriginal={() => speak({ text: practiceText, rate: 0.8 })}
           />
         )}
 

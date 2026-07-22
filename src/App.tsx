@@ -13,7 +13,9 @@ import CardReview from './pages/CardReview'
 import WeakWords from './pages/WeakWords'
 import Scenes from './pages/Scenes'
 import LearnReport from './pages/LearnReport'
+import PronounceCustom from './pages/PronounceCustom'
 import PlanPage from './pages/PlanPage'
+import WritePage from './pages/WritePage'
 import SceneDetail from './pages/SceneDetail'
 import Camera from './pages/Camera'
 import AIChat from './pages/AIChat'
@@ -118,7 +120,9 @@ function App() {
         <Route path="camera" element={<Camera />} />
         <Route path="chat" element={<AIChat />} />
         <Route path="plan" element={<PlanPage />} />
+        <Route path="write" element={<WritePage />} />
         <Route path="report" element={<LearnReport />} />
+        <Route path="pronounce-custom" element={<PronounceCustom />} />
         <Route path="settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
