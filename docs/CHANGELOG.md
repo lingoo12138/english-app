@@ -4,6 +4,45 @@
 
 ---
 
+## [v0.18] - 2026-07-22
+
+### C + D: AI 语音输入 + 腾讯翻译(v0.18)
+
+**C: AI 对话语音输入(STT)**:
+- 加 `src/lib/stt.ts` — Web Speech API (SpeechRecognition)
+- 兼容性: Chrome/Edge/Safari ✅ / Firefox ❌
+- AIChat.tsx 加麦克风按钮(🎤 / ⏹)
+- 录音中状态: 红色脉冲 + 实时识别文字 placeholder
+- 停止 / 切换页面时 cleanup
+- 浏览器不支持: 友好提示"请用键盘输入"
+
+**D: 腾讯翻译**:
+- TC3-HMAC-SHA256 签名(浏览器原生 Web Crypto API)
+- API 文档: `https://tmt.tencentcloudapi.com/`
+- 格式: `SecretId|SecretKey` (用 | 分隔)
+- 鉴权: HMAC-SHA256 链式签名(date → service → tc3_request)
+- 免费 5 万字/月
+- Settings 加 Key 输入框(placeholder "SecretId|SecretKey")
+
+### 改造
+- `src/lib/stt.ts` — STTController 封装 SpeechRecognition
+- `src/pages/AIChat.tsx` — 麦克风按钮 + sttActive state + 实时识别
+- `src/lib/translate.ts` — translateTencent + sha256Hex/hmacSha256/bytesToHex helpers
+- `src/pages/Settings.tsx` — 腾讯翻译 Key 输入框(label + placeholder)
+
+### 验证
+- 8 个翻译渠道(含腾讯)✅
+- Settings 腾讯 Key 输入框 ✅
+- AI 对话麦克风按钮 ✅
+- 浏览器支持检测 + 友好提示 ✅
+
+### 累计
+- **8 TTS + 8 翻译 + 8 LLM + AI 对话语音输入 + 自定义**
+- **89+ bug 修复**(v0.17 89)
+- **4500+ 行代码**
+
+---
+
 ## [v0.17] - 2026-07-22
 
 ### A 审查(v0.16 静态审查 + 修复)

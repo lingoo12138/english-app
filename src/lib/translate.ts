@@ -2,7 +2,7 @@
 // 内置: 浏览器内置(无 API) / MyMemory(免费) / 百度翻译 / 谷歌翻译(非官方) / Mock
 import { BUILTIN_LLM_PROVIDERS, LLMProvider } from './providers/llm'
 
-export type TranslateProviderType = 'mymemory' | 'baidu' | 'google' | 'youdao' | 'deepl' | 'llm' | 'mock'
+export type TranslateProviderType = 'mymemory' | 'baidu' | 'google' | 'youdao' | 'deepl' | 'tencent' | 'llm' | 'mock'
 
 export interface TranslateProvider {
   id: string
@@ -77,11 +77,19 @@ export const BUILTIN_TRANSLATE_PROVIDERS: TranslateProvider[] = [
     builtin: true,
     description: 'DeepL 翻译, 50万字/月免费, 质量高, 需注册 API key',
   },
+  {
+    id: 'tencent',
+    name: '腾讯云翻译 (需 SecretId|Key)',
+    type: 'tencent',
+    apiKeyRequired: true,
+    builtin: true,
+    description: '腾讯云机器翻译, 免费 5万字/月, 需 SecretId|SecretKey (用 | 分隔)',
+  },
 ]
 
 export interface TranslateResult {
   text: string
-  source: string  // 'mymemory' / 'baidu' / 'google' / 'youdao' / 'deepl' / 'llm' / 'mock'
+  source: string  // 'mymemory' / 'baidu' / 'google' / 'youdao' / 'deepl' / 'tencent' / 'llm' / 'mock'
   detectedFrom?: string
 }
 
@@ -110,6 +118,8 @@ export async function translate(opts: TranslateOptions): Promise<TranslateResult
       return translateYoudao(truncated, opts)
     case 'deepl':
       return translateDeepL(truncated, opts)
+    case 'tencent':
+      return translateTencent(truncated, opts)
     case 'llm':
       return translateLLM(truncated, opts)
     case 'mock':
@@ -177,6 +187,144 @@ async function translateLLM(text: string, opts: TranslateOptions): Promise<Trans
     maxTokens: 500,
   })
   return { text: resp.content.trim(), source: `llm:${llmProvider.id}` }
+}
+
+// === 腾讯云翻译 (TC3-HMAC-SHA256 签名) ===
+// API 文档: https://cloud.tencent.com/document/api/551/15619
+// 鉴权: TC3-HMAC-SHA256, 需要 SecretId + SecretKey
+async function translateTencent(text: string, opts: TranslateOptions): Promise<TranslateResult> {
+  const from = opts.from || 'auto'
+  const to = opts.to || 'zh'
+  const apiKeyCombined = opts.apiKeys?.['tencent'] || ''
+  if (!apiKeyCombined) throw new Error('腾讯翻译需要配置 SecretId|SecretKey, 格式: SecretId|SecretKey')
+  const [secretId, secretKey] = apiKeyCombined.split('|')
+  if (!secretId || !secretKey) throw new Error('腾讯翻译配置格式错误, 应为: SecretId|SecretKey (用 | 分隔)')
+
+  const host = 'tmt.tencentcloudapi.com'
+  const service = 'tmt'
+  const region = 'ap-guangzhou'  // 默认广州
+  const action = 'TextTranslate'
+  const version = '2018-03-21'
+  const algorithm = 'TC3-HMAC-SHA256'
+
+  // 腾讯语言代码: zh / en / ja / ko 等
+  const tencentFrom = from === 'auto' ? 'auto' : from === 'zh' ? 'zh' : from === 'en' ? 'en' : from
+  const tencentTo = to === 'zh' ? 'zh' : to === 'en' ? 'en' : to
+
+  const payload = JSON.stringify({
+    SourceText: text,
+    Source: tencentFrom,
+    Target: tencentTo,
+    ProjectId: 0,
+  })
+
+  // TC3 签名
+  const timestamp = Math.floor(Date.now() / 1000)
+  const date = new Date(timestamp * 1000).toISOString().slice(0, 10)  // YYYY-MM-DD
+
+  // 1. 拼接规范请求串
+  const httpRequestMethod = 'POST'
+  const canonicalUri = '/'
+  const canonicalQueryString = ''
+  const canonicalHeaders = `content-type:application/json\nhost:${host}\n`
+  const signedHeaders = 'content-type;host'
+  const hashedRequestPayload = await sha256Hex(payload)
+  const canonicalRequest = [
+    httpRequestMethod,
+    canonicalUri,
+    canonicalQueryString,
+    canonicalHeaders,
+    signedHeaders,
+    hashedRequestPayload,
+  ].join('\n')
+
+  // 2. 拼接待签串
+  const credentialScope = `${date}/${service}/tc3_request`
+  const hashedCanonicalRequest = await sha256Hex(canonicalRequest)
+  const stringToSign = [
+    algorithm,
+    timestamp,
+    credentialScope,
+    hashedCanonicalRequest,
+  ].join('\n')
+
+  // 3. 计算签名
+  const enc = new TextEncoder()
+  const secretDate = await hmacSha256(`TC3${secretKey}`, date)
+  const secretService = await hmacSha256Bytes(secretDate, service)
+  const secretSigning = await hmacSha256Bytes(secretService, 'tc3_request')
+  const signatureBytes = await hmacSha256Bytes(secretSigning, stringToSign)
+  const signature = bytesToHex(signatureBytes)
+
+  // 4. 拼装 Authorization
+  const authorization = `${algorithm} Credential=${secretId}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`
+
+  // 5. 发请求
+  const resp = await fetchWithTimeout(`https://${host}/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      Host: host,
+      'X-TC-Action': action,
+      'X-TC-Version': version,
+      'X-TC-Timestamp': String(timestamp),
+      'X-TC-Region': region,
+      Authorization: authorization,
+    },
+    body: payload,
+  }, 8000)
+  if (!resp.ok) throw new Error(`腾讯翻译 ${resp.status}`)
+  const data = await resp.json()
+  if (data.Response?.Error) {
+    throw new Error(`腾讯翻译错误: ${data.Response.Error.Code} - ${data.Response.Error.Message}`)
+  }
+  const translated = data.Response?.TargetText
+  if (!translated) throw new Error('腾讯翻译返回空')
+  return { text: translated, source: 'tencent' }
+}
+
+// SHA-256 十六进制
+async function sha256Hex(text: string): Promise<string> {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
+  return bytesToHex(new Uint8Array(buf))
+}
+
+// HMAC-SHA256 字符串(返回十六进制)
+async function hmacSha256(key: string, message: string): Promise<string> {
+  const enc = new TextEncoder()
+  const keyBuf = enc.encode(key)
+  const ab = new ArrayBuffer(keyBuf.byteLength)
+  new Uint8Array(ab).set(keyBuf)
+  const k = await crypto.subtle.importKey(
+    'raw',
+    ab,
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign'],
+  )
+  const sig = await crypto.subtle.sign('HMAC', k, enc.encode(message))
+  return bytesToHex(new Uint8Array(sig))
+}
+
+// HMAC-SHA256 字节数组
+async function hmacSha256Bytes(keyBytes: Uint8Array | string, message: string): Promise<Uint8Array> {
+  const enc = new TextEncoder()
+  const keyData = typeof keyBytes === 'string' ? enc.encode(keyBytes) : keyBytes
+  const ab2 = new ArrayBuffer(keyData.byteLength)
+  new Uint8Array(ab2).set(keyData)
+  const k = await crypto.subtle.importKey(
+    'raw',
+    ab2,
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign'],
+  )
+  const sig = await crypto.subtle.sign('HMAC', k, enc.encode(message))
+  return new Uint8Array(sig)
+}
+
+function bytesToHex(bytes: Uint8Array): string {
+  return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('')
 }
 
 async function translateMock(text: string): Promise<TranslateResult> {

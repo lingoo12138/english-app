@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useStore } from '../store/useStore'
 import { chat as aiChat, type ChatMessage } from '../lib/aiChat'
 import TTSButton from '../components/TTSButton'
+import { STTController, isSTTSupported } from '../lib/stt'
 
 const SCENARIOS = [
   { id: 'cafe', name: '☕ 咖啡店', desc: '点单 / 咨询 / 结账' },
@@ -35,6 +36,9 @@ export default function AIChat() {
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [sttActive, setSttActive] = useState(false)
+  const [sttInterim, setSttInterim] = useState('')
+  const sttControllerRef = useRef<STTController | null>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
 
   const provider = llmProviders.find(p => p.id === llmProviderId)
@@ -47,6 +51,48 @@ export default function AIChat() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
   }, [messages])
+
+  const handleStartSTT = () => {
+    if (!isSTTSupported()) {
+      setError('当前浏览器不支持语音识别, 请用 Chrome/Edge/Safari 或键盘输入')
+      return
+    }
+    if (sttActive) {
+      sttControllerRef.current?.stop()
+      return
+    }
+    setError('')
+    setSttInterim('')
+    const ctl = new STTController({
+      onResult: (text, isFinal) => {
+        if (isFinal) {
+          // 最终结果,追加到 input
+          setInput(prev => (prev ? prev + ' ' : '') + text)
+          setSttInterim('')
+        } else {
+          setSttInterim(text)
+        }
+      },
+      onError: (msg) => {
+        setError('🎤 ' + msg)
+        setSttActive(false)
+      },
+      onEnd: () => {
+        setSttActive(false)
+        setSttInterim('')
+        sttControllerRef.current = null
+      },
+    })
+    sttControllerRef.current = ctl
+    ctl.start({ lang: 'en-US' })
+    setSttActive(true)
+  }
+
+  useEffect(() => {
+    return () => {
+      sttControllerRef.current?.stop()
+    }
+  }, [])
 
   const handleSend = async () => {
     if (!input.trim() || loading) return
@@ -169,15 +215,30 @@ export default function AIChat() {
 
       {/* 输入区 */}
       <div className="flex gap-2 pt-3 border-t border-stone-200 dark:border-stone-700">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend() } }}
-          placeholder="输入英文,Enter 发送"
-          className="input flex-1"
+        <button
+          onClick={handleStartSTT}
           disabled={loading}
-        />
+          className={`btn ${sttActive ? 'bg-red-500 text-white animate-pulse' : 'btn-ghost'} w-12 h-12 !p-0`}
+          title={sttActive ? '点击停止录音' : '点击开始语音输入'}
+          aria-label={sttActive ? '停止录音' : '开始语音输入'}
+          aria-pressed={sttActive}
+        >
+          {sttActive ? '⏹' : '🎤'}
+        </button>
+        <div className="flex-1 relative">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend() } }}
+            placeholder={sttInterim ? sttInterim : '输入英文,Enter 发送'}
+            className="input w-full"
+            disabled={loading}
+          />
+          {sttInterim && (
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400 italic">识别中...</span>
+          )}
+        </div>
         <button
           onClick={handleSend}
           disabled={loading || !input.trim()}
@@ -185,7 +246,7 @@ export default function AIChat() {
         >
           {loading ? '...' : '发送'}
         </button>
-      </div>
+        </div>
     </div>
   )
 }

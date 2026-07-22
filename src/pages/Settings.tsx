@@ -283,7 +283,7 @@ export default function Settings() {
         {currentTranslate?.apiKeyRequired && currentTranslate.id !== 'llm' && (
           <div>
             <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">
-              {currentTranslate.id === 'baidu' || currentTranslate.id === 'youdao'
+              {currentTranslate.id === 'baidu' || currentTranslate.id === 'youdao' || currentTranslate.id === 'tencent'
                 ? 'App ID|Key (用 | 分隔)'
                 : 'API Key'}
             </label>
@@ -294,6 +294,7 @@ export default function Settings() {
               placeholder={
                 currentTranslate.id === 'baidu' ? 'appid|key'
                 : currentTranslate.id === 'youdao' ? 'appKey|appSecret'
+                : currentTranslate.id === 'tencent' ? 'SecretId|SecretKey'
                 : '填入后自动保存'
               }
               className="input"
@@ -536,7 +537,7 @@ export default function Settings() {
 
       {/* 底部 */}
       <div className="text-center text-xs text-stone-500 dark:text-stone-400 py-4">
-        句刻 v0.17
+        句刻 v0.18
         <div className="mt-1">让英语在你用的时候就能用上</div>
         <div className="mt-1">数据完全存在本地,不上传任何隐私</div>
       </div>
