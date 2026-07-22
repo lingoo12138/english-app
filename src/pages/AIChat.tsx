@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useStore } from '../store/useStore'
 import { chat as aiChat, type ChatMessage } from '../lib/aiChat'
 import { saveChat, getAllChats, deleteChat, type ChatRecord } from '../lib/db'
+import { exportAllChats, downloadChatJson, exportChat } from '../lib/exportChat'
 import TTSButton from '../components/TTSButton'
 import { STTController, isSTTSupported } from '../lib/stt'
 
@@ -240,6 +241,17 @@ export default function AIChat() {
           </p>
         </div>
         <button onClick={handleNewChat} className="btn-ghost text-sm">🆕 新对话</button>
+        <button
+          onClick={async () => {
+            // v0.22.8: 导出全部对话
+            const content = await exportAllChats()
+            const date = new Date().toISOString().slice(0, 10)
+            downloadChatJson(content, `chats-${date}.json`)
+          }}
+          className="btn-ghost text-sm"
+        >
+          📤 导出
+        </button>
         <button onClick={() => setShowHistory(!showHistory)} className={`btn-ghost text-sm ${showHistory ? 'bg-brand-100 dark:bg-brand-900/30' : ''}`}>
           📚 历史 ({chats.length})
         </button>
@@ -363,13 +375,28 @@ export default function AIChat() {
                           {c.scenario} · {c.level} · {c.messages.length} 条 · {new Date(c.updatedAt).toLocaleDateString()}
                         </div>
                       </div>
-                      <button
-                        onClick={() => c.id && handleDeleteChat(c.id)}
-                        className="text-xs text-stone-400 hover:text-red-500 shrink-0"
-                        aria-label="删除对话"
-                      >
-                        🗑
-                      </button>
+                      <div className="flex flex-col gap-1 shrink-0">
+                        <button
+                          onClick={() => {
+                            // v0.22.8: 单条导出
+                            const content = exportChat(c)
+                            const date = new Date(c.updatedAt).toISOString().slice(0, 10)
+                            const safeTitle = c.title.replace(/[^a-z0-9-]/gi, '-').slice(0, 30)
+                            downloadChatJson(content, `chat-${safeTitle}-${date}.json`)
+                          }}
+                          className="text-xs text-stone-400 hover:text-brand-500"
+                          aria-label="导出对话"
+                        >
+                          📤
+                        </button>
+                        <button
+                          onClick={() => c.id && handleDeleteChat(c.id)}
+                          className="text-xs text-stone-400 hover:text-red-500"
+                          aria-label="删除对话"
+                        >
+                          🗑
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}

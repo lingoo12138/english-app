@@ -4,6 +4,42 @@
 
 ---
 
+## [v0.22.8] - 2026-07-22
+
+### 🆕 C: AI 对话导出/导入
+
+**src/lib/exportChat.ts 工具**:
+- `exportChat(chat)` 单条对话 JSON
+- `exportAllChats()` 全部对话 JSON
+- `downloadChatJson(content, filename)` 触发下载
+- `parseChatsJson(text)` 解析 + 验证 + 兼容 3 种格式
+- `importChats(result)` upsert 到 IndexedDB
+- `pickJsonFile()` 浏览器文件选择器
+- 格式: {version, type, exportedAt, chats/chat}
+
+**AIChat.tsx 导出**:
+- 顶部"📤 导出"按钮 → 下载全部对话
+- 每条对话"📤"按钮 → 单条导出(文件名带标题+日期)
+- 文件名安全处理(去除特殊字符)
+
+**Settings.tsx 导入**:
+- 新增 AIChatDataSection 子组件
+- "📥 导入对话(从 JSON)" 按钮
+  - 文件选择器 → 解析 → confirm 数量 → upsert
+  - 失败报警(显示前 3 个错误)
+- "🗑 清空所有 AI 对话" 按钮
+  - 二次 confirm 防误操作
+
+### 验证
+- AIChat 顶部"📤 导出" ✅
+- 每条对话"📤"按钮 2 个 ✅
+- Settings"💬 AI 对话数据" section ✅
+- "📥 导入对话"按钮 ✅
+- "清空所有 AI 对话"按钮 ✅
+- 脚本 verify-v22k.mjs 全过
+
+---
+
 ## [v0.22.7] - 2026-07-22
 
 ### 🆕 B: AIChat 历史搜索 + 场景过滤

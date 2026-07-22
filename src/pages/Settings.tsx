@@ -5,6 +5,7 @@ import TranslateSection from '../components/settings/TranslateSection'
 import LLMSection from '../components/settings/LLMSection'
 import AppearanceSection from '../components/settings/AppearanceSection'
 import DataManagementSection from '../components/settings/DataManagementSection'
+import AIChatDataSection from '../components/settings/AIChatDataSection'
 
 export default function Settings() {
   return (
@@ -23,6 +24,7 @@ export default function Settings() {
       <LLMSection />
       <AppearanceSection />
       <DataManagementSection />
+      <AIChatDataSection />
 
       {/* 底部 */}
       <div className="text-center text-xs text-stone-500 dark:text-stone-400 py-4">
