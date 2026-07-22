@@ -4,6 +4,34 @@
 
 ---
 
+## [v0.22.3] - 2026-07-22
+
+### 🆕 每日学习计划 (Home 卡片)
+
+**src/lib/plan.ts 选词逻辑**:
+- `generateTodayPlan(dailyGoal, targetLevel)` 智能选词
+- 优先级 1) 🔄 复习 due 词  2) ⭐ 已收藏未掌握  3) ✨ targetLevel 新词
+- 去重 + 按字母顺序
+- `markWordCompleted/unmarkWordCompleted` 标记完成
+- 进度存 localStorage `plan-progress-YYYY-MM-DD`(按日切分)
+- `getAllReviews` 加到 db.ts(plan.ts 需用)
+
+**Home.tsx 今日计划卡片**:
+- 📅 日期 + 进度 X/Y + 百分比
+- 渐变进度条(emerald → cyan)
+- 来源标签:🔄 复习 N / ⭐ 收藏 N / ✨ 新词 N
+- 词列表(可滚动):✓ 复选框 + 词名(level)+ 跳词链接
+- 完成态:🎉 + "今日计划已全部完成!" 提示
+
+### 验证
+- 10 个 CET-4 词自动选 ✅
+- 点 ✓ 后进度 0/10 → 1/10 ✅
+- 词列表 + level 标签 ✅
+- 截图 v22-3-plan.png 完整展示
+- 脚本 verify-v22e.mjs 全过
+
+---
+
 ## [v0.22.2] - 2026-07-22
 
 ### P2 长期改进: Settings 拆组件 + PWA 缓存版本化

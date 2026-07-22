@@ -181,6 +181,10 @@ export async function reviewWord(wordId: string, quality: 0 | 1 | 2 | 3 | 4 | 5)
   })
 }
 
+export async function getAllReviews(): Promise<ReviewItem[]> {
+  return await db.reviews.toArray()
+}
+
 export async function getDueReviews(): Promise<ReviewItem[]> {
   const now = Date.now()
   return await db.reviews.where('nextReview').below(now).toArray()
