@@ -7,6 +7,8 @@ const desktopNav = [
   { to: '/words', label: '词库', icon: '📚' },
   { to: '/scenes', label: '场景课', icon: '🎬' },
   { to: '/daily', label: '每日一句', icon: '✨' },
+  { to: '/chat', label: 'AI', icon: '💬' },
+  { to: '/report', label: '报告', icon: '📊' },
   { to: '/translate', label: '翻译', icon: '🔤' },
   { to: '/notebook', label: '生词本', icon: '⭐' },
   { to: '/settings', label: '设置', icon: '⚙️' },
@@ -18,6 +20,7 @@ const mobileNav = [
   { to: '/words', label: '词库', icon: '📚' },
   { to: '/scenes', label: '场景', icon: '🎬' },
   { to: '/chat', label: 'AI', icon: '💬' },
+  { to: '/report', label: '报告', icon: '📊' },
   { to: '/notebook', label: '生词', icon: '⭐' },
 ]
 

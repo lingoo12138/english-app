@@ -11,6 +11,7 @@ import Settings from './pages/Settings'
 import ReviewCenter from './pages/ReviewCenter'
 import WeakWords from './pages/WeakWords'
 import Scenes from './pages/Scenes'
+import LearnReport from './pages/LearnReport'
 import SceneDetail from './pages/SceneDetail'
 import Camera from './pages/Camera'
 import AIChat from './pages/AIChat'
@@ -97,6 +98,7 @@ function App() {
         <Route path="scenes/:id" element={<SceneDetail />} />
         <Route path="camera" element={<Camera />} />
         <Route path="chat" element={<AIChat />} />
+        <Route path="report" element={<LearnReport />} />
         <Route path="settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

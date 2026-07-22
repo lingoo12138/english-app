@@ -591,7 +591,7 @@ export default function Settings() {
 
       {/* 底部 */}
       <div className="text-center text-xs text-stone-500 dark:text-stone-400 py-4">
-        句刻 v0.20
+        句刻 v0.21
         <div className="mt-1">让英语在你用的时候就能用上</div>
         <div className="mt-1">数据完全存在本地,不上传任何隐私</div>
       </div>
