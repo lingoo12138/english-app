@@ -5,6 +5,7 @@ import { getVoices, createCustomTTSProvider } from '../lib/tts'
 import { db } from '../lib/db'
 import { THEMES, FONT_SIZES, applyTheme, applyFontSize, getTheme } from '../lib/themes'
 import { BUILTIN_LLM_PROVIDERS, createCustomLLMProvider } from "../lib/providers/llm"
+import { createCustomTranslateProvider } from "../lib/translate"
 
 export default function Settings() {
   const darkMode = useStore(s => s.darkMode)
@@ -23,6 +24,9 @@ export default function Settings() {
   const customTtsProviders = useStore(s => s.customTtsProviders)
   const addCustomTtsProvider = useStore(s => s.addCustomTtsProvider)
   const removeCustomTtsProvider = useStore(s => s.removeCustomTtsProvider)
+  const customTranslateProviders = useStore(s => s.customTranslateProviders)
+  const addCustomTranslateProvider = useStore(s => s.addCustomTranslateProvider)
+  const removeCustomTranslateProvider = useStore(s => s.removeCustomTranslateProvider)
   const ttsApiKeys = useStore(s => s.ttsApiKeys)
   const setTtsApiKey = useStore(s => s.setTtsApiKey)
   const targetLevel = useStore(s => s.targetLevel)
@@ -52,6 +56,7 @@ export default function Settings() {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
   const [showAddLlm, setShowAddLlm] = useState(false)
   const [showAddTts, setShowAddTts] = useState(false)
+  const [showAddTranslate, setShowAddTranslate] = useState(false)
 
   useEffect(() => {
     setVoices(getVoices())
@@ -69,6 +74,7 @@ export default function Settings() {
   const englishVoices = voices.filter(v => v.lang.startsWith('en'))
   const allLlmProviders = [...llmProviders, ...customLlmProviders]
   const allTtsProviders = [...ttsProviders, ...customTtsProviders]
+  const allTranslateProviders = [...translateProviders, ...customTranslateProviders]
   const currentLlm = allLlmProviders.find(p => p.id === llmProviderId)
   const currentTranslate = translateProviders.find(p => p.id === translateProviderId)
 
@@ -257,6 +263,54 @@ export default function Settings() {
         )}
       </section>
 
+      {/* 自定义翻译渠道 */}
+      <section className="card space-y-3">
+        <div className="flex items-center justify-between">
+          <h3 className="font-semibold">🔌 自定义翻译端点</h3>
+          <button
+            onClick={() => setShowAddTranslate(!showAddTranslate)}
+            className="btn-ghost text-sm"
+          >
+            {showAddTranslate ? '取消' : '+ 添加'}
+          </button>
+        </div>
+        <p className="text-xs text-stone-500 dark:text-stone-400">
+          接任意 OpenAI 风格 / 自定义 HTTP 翻译 API (需 POST {`{endpoint}`}, 返回 {`{text}`} 或 {`{translation}`})
+        </p>
+
+        {showAddTranslate && <AddCustomTranslateForm onAdd={(p) => { addCustomTranslateProvider(p); setShowAddTranslate(false) }} />}
+
+        {customTranslateProviders.length > 0 && (
+          <div className="space-y-2">
+            {customTranslateProviders.map(p => (
+              <div key={p.id} className="card !p-3 bg-stone-50 dark:bg-stone-800/50">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1 text-xs">
+                    <div className="font-medium">{p.name}</div>
+                    <div className="text-stone-500 dark:text-stone-400 mt-0.5 break-all">endpoint: {p.endpoint}</div>
+                    {p.apiKeyRequired && (
+                      <input
+                        type="password"
+                        value={translateApiKeys[p.id] || ''}
+                        onChange={e => setTranslateApiKey(p.id, e.target.value)}
+                        placeholder="API Key"
+                        className="input mt-1.5 text-xs !py-1.5"
+                      />
+                    )}
+                  </div>
+                  <button
+                    onClick={() => { if (confirm(`删除自定义翻译渠道 "${p.name}"?`)) removeCustomTranslateProvider(p.id) }}
+                    className="text-xs text-red-500 shrink-0"
+                  >
+                    🗑
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
       {/* 翻译渠道 */}
       <section className="card space-y-3">
         <h3 className="font-semibold">🌐 翻译渠道</h3>
@@ -270,9 +324,9 @@ export default function Settings() {
             onChange={(e) => setTranslateProviderId(e.target.value)}
             className="input"
           >
-            {translateProviders.map(p => (
+            {allTranslateProviders.map(p => (
               <option key={p.id} value={p.id}>
-                {p.name}{p.apiKeyRequired ? ' 🔑' : ''}
+                {p.name}{p.apiKeyRequired ? ' 🔑' : ''}{!p.builtin ? ' 🛠' : ''}
               </option>
             ))}
           </select>
@@ -537,7 +591,7 @@ export default function Settings() {
 
       {/* 底部 */}
       <div className="text-center text-xs text-stone-500 dark:text-stone-400 py-4">
-        句刻 v0.18
+        句刻 v0.19
         <div className="mt-1">让英语在你用的时候就能用上</div>
         <div className="mt-1">数据完全存在本地,不上传任何隐私</div>
       </div>
@@ -578,6 +632,41 @@ function AddCustomLlmForm({ onAdd }: { onAdd: (p: any) => void }) {
             return
           }
           setName(''); setBaseUrl(''); setDefaultModel('')
+        }}
+        className="btn-primary text-sm w-full disabled:opacity-50"
+      >
+        ➕ 添加
+      </button>
+    </div>
+  )
+}
+
+function AddCustomTranslateForm({ onAdd }: { onAdd: (p: any) => void }) {
+  const [name, setName] = useState('')
+  const [endpoint, setEndpoint] = useState('')
+  const [needKey, setNeedKey] = useState(true)
+  return (
+    <div className="border border-dashed border-stone-300 dark:border-stone-600 rounded-lg p-3 space-y-2 bg-stone-50 dark:bg-stone-800/30">
+      <input value={name} onChange={e => setName(e.target.value)} placeholder="显示名 (例如 我的翻译代理)" className="input text-sm" />
+      <input value={endpoint} onChange={e => setEndpoint(e.target.value)} placeholder="endpoint URL" className="input text-sm" />
+      <label className="flex items-center gap-1.5 text-sm">
+        <input type="checkbox" checked={needKey} onChange={e => setNeedKey(e.target.checked)} />
+        需 API Key
+      </label>
+      <p className="text-xs text-stone-500 dark:text-stone-400">
+        协议: POST {`{endpoint}`}, body 含 text/from/to, 返回 {`{text}`} 或 {`{translation[0]}`}
+      </p>
+      <button
+        disabled={!name || !endpoint}
+        onClick={() => {
+          try {
+            const p = createCustomTranslateProvider({ name, endpoint, apiKeyRequired: needKey })
+            onAdd(p)
+          } catch (e: any) {
+            alert(e?.message || '配置错误')
+            return
+          }
+          setName(''); setEndpoint('')
         }}
         className="btn-primary text-sm w-full disabled:opacity-50"
       >

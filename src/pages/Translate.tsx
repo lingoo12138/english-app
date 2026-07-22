@@ -7,6 +7,8 @@ type Direction = 'auto' | 'en2zh' | 'zh2en'
 
 export default function Translate() {
   const translateProviders = useStore(s => s.translateProviders)
+  const customTranslateProviders = useStore(s => s.customTranslateProviders)
+  const allTranslateProviders = [...translateProviders, ...customTranslateProviders]
   const translateProviderId = useStore(s => s.translateProviderId)
   const setTranslateProviderId = useStore(s => s.setTranslateProviderId)
   const llmProviders = useStore(s => s.llmProviders)
@@ -20,7 +22,7 @@ export default function Translate() {
   const [error, setError] = useState('')
   const [direction, setDirection] = useState<Direction>('auto')
 
-  const provider = translateProviders.find(p => p.id === translateProviderId)
+  const provider = allTranslateProviders.find(p => p.id === translateProviderId)
 
   const handleTranslate = async () => {
     if (loading) return  // 修复 P1-1: 防 race
@@ -75,9 +77,9 @@ export default function Translate() {
           onChange={(e) => setTranslateProviderId(e.target.value)}
           className="input"
         >
-          {translateProviders.map(p => (
+          {allTranslateProviders.map(p => (
             <option key={p.id} value={p.id}>
-              {p.name}{p.apiKeyRequired ? ' 🔑' : ''}{p.free ? ' ✓' : ''}
+              {p.name}{p.apiKeyRequired ? ' 🔑' : ''}{p.free ? ' ✓' : ''}{!p.builtin ? ' 🛠' : ''}
             </option>
           ))}
         </select>

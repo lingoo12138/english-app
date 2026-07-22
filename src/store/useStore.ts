@@ -33,6 +33,11 @@ interface AppState {
   setCustomTtsProviders: (p: TTSProvider[]) => void
   addCustomTtsProvider: (p: TTSProvider) => void
   removeCustomTtsProvider: (id: string) => void
+  /** 翻译自定义端点(对齐 LLM/TTS) */
+  customTranslateProviders: TranslateProvider[]
+  setCustomTranslateProviders: (p: TranslateProvider[]) => void
+  addCustomTranslateProvider: (p: TranslateProvider) => void
+  removeCustomTranslateProvider: (id: string) => void
   /** TTS 渠道 API key(用于 http 类型) */
   ttsApiKeys: Record<string, string>
   setTtsApiKey: (providerId: string, key: string) => void
@@ -103,6 +108,10 @@ export const useStore = create<AppState>()(
       setCustomTtsProviders: (p) => set({ customTtsProviders: p }),
       addCustomTtsProvider: (p) => set(s => ({ customTtsProviders: [...s.customTtsProviders, p] })),
       removeCustomTtsProvider: (id) => set(s => ({ customTtsProviders: s.customTtsProviders.filter(p => p.id !== id) })),
+      customTranslateProviders: [],
+      setCustomTranslateProviders: (p) => set({ customTranslateProviders: p }),
+      addCustomTranslateProvider: (p) => set(s => ({ customTranslateProviders: [...s.customTranslateProviders, p] })),
+      removeCustomTranslateProvider: (id) => set(s => ({ customTranslateProviders: s.customTranslateProviders.filter(p => p.id !== id) })),
       ttsApiKeys: {},
       setTtsApiKey: (providerId, key) => set(s => ({ ttsApiKeys: { ...s.ttsApiKeys, [providerId]: key } })),
 
@@ -157,6 +166,7 @@ export const useStore = create<AppState>()(
         llmModels: state.llmModels,
         translateProviderId: state.translateProviderId,
         translateApiKeys: state.translateApiKeys,
+        customTranslateProviders: state.customTranslateProviders,
         chatScenario: state.chatScenario,
         chatLevel: state.chatLevel,
         targetLevel: state.targetLevel,

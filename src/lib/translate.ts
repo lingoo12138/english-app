@@ -2,7 +2,7 @@
 // 内置: 浏览器内置(无 API) / MyMemory(免费) / 百度翻译 / 谷歌翻译(非官方) / Mock
 import { BUILTIN_LLM_PROVIDERS, LLMProvider } from './providers/llm'
 
-export type TranslateProviderType = 'mymemory' | 'baidu' | 'google' | 'youdao' | 'deepl' | 'tencent' | 'llm' | 'mock'
+export type TranslateProviderType = 'mymemory' | 'baidu' | 'google' | 'youdao' | 'deepl' | 'tencent' | 'custom' | 'llm' | 'mock'
 
 export interface TranslateProvider {
   id: string
@@ -14,6 +14,10 @@ export interface TranslateProvider {
   apiKeyRequired: boolean
   builtin?: boolean
   description?: string
+  /** 自定义端点(type=custom 时使用, 对齐 LLM/TTS 自定义) */
+  endpoint?: string
+  headers?: Record<string, string>
+  bodyTemplate?: string
 }
 
 export const BUILTIN_TRANSLATE_PROVIDERS: TranslateProvider[] = [
@@ -89,7 +93,7 @@ export const BUILTIN_TRANSLATE_PROVIDERS: TranslateProvider[] = [
 
 export interface TranslateResult {
   text: string
-  source: string  // 'mymemory' / 'baidu' / 'google' / 'youdao' / 'deepl' / 'tencent' / 'llm' / 'mock'
+  source: string  // 'mymemory' / 'baidu' / 'google' / 'youdao' / 'deepl' / 'tencent' / 'custom' / 'llm' / 'mock'
   detectedFrom?: string
 }
 
@@ -120,6 +124,8 @@ export async function translate(opts: TranslateOptions): Promise<TranslateResult
       return translateDeepL(truncated, opts)
     case 'tencent':
       return translateTencent(truncated, opts)
+    case 'custom':
+      return translateCustom(truncated, opts)
     case 'llm':
       return translateLLM(truncated, opts)
     case 'mock':
@@ -325,6 +331,82 @@ async function hmacSha256Bytes(keyBytes: Uint8Array | string, message: string): 
 
 function bytesToHex(bytes: Uint8Array): string {
   return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('')
+}
+
+// === 自定义翻译端点 (对齐 LLM/TTS) ===
+// 统一协议: POST {endpoint}, body JSON, 返回 { text: "..." } 或 { translation: [...] }
+async function translateCustom(text: string, opts: TranslateOptions): Promise<TranslateResult> {
+  const provider = opts.provider
+  const endpoint = provider.endpoint
+  if (!endpoint) throw new Error('自定义翻译渠道未配置 endpoint')
+  const apiKey = opts.apiKeys?.[provider.id] || ''
+  if (provider.apiKeyRequired && !apiKey) {
+    throw new Error(`${provider.name} 需要配置 API Key`)
+  }
+
+  const from = opts.from || 'auto'
+  const to = opts.to || 'zh'
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...(provider.headers || {}),
+  }
+  if (apiKey) headers.Authorization = `Bearer ${apiKey}`
+
+  // 解析 body 模板(支持 {{text}} {{from}} {{to}} 占位)
+  let body: any
+  if (provider.bodyTemplate) {
+    const tpl = provider.bodyTemplate
+      .replace(/\{\{text\}\}/g, JSON.stringify(text))
+      .replace(/\{\{from\}\}/g, JSON.stringify(from))
+      .replace(/\{\{to\}\}/g, JSON.stringify(to))
+    try {
+      body = JSON.parse(tpl)
+    } catch (e) {
+      body = { text, from, to }
+    }
+  } else {
+    body = { text, from, to }
+  }
+
+  const resp = await fetchWithTimeout(endpoint, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(body),
+  }, 10000)
+  if (!resp.ok) {
+    const errText = await resp.text()
+    throw new Error(`自定义翻译 ${resp.status}: ${errText.slice(0, 200)}`)
+  }
+  const data = await resp.json()
+  // 兼容多种返回格式
+  const translated = data.text || data.translation || (Array.isArray(data) ? data[0] : null)
+  if (!translated) throw new Error('自定义翻译返回空(期望 { text } 或 { translation })')
+  return { text: typeof translated === 'string' ? translated : JSON.stringify(translated), source: 'custom' }
+}
+
+// 自定义翻译 Provider 工具(对齐 createCustomLLMProvider/createCustomTTSProvider)
+export function createCustomTranslateProvider(opts: {
+  name: string
+  endpoint: string
+  bodyTemplate?: string
+  headers?: Record<string, string>
+  apiKeyRequired?: boolean
+  description?: string
+}): TranslateProvider {
+  if (!/^https?:\/\//i.test(opts.endpoint)) {
+    throw new Error('endpoint 必须以 http:// 或 https:// 开头')
+  }
+  return {
+    id: `translate-custom-${crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`}`,
+    name: opts.name,
+    type: 'custom',
+    endpoint: opts.endpoint,
+    bodyTemplate: opts.bodyTemplate,
+    headers: opts.headers,
+    apiKeyRequired: opts.apiKeyRequired ?? true,
+    description: opts.description,
+    builtin: false,
+  }
 }
 
 async function translateMock(text: string): Promise<TranslateResult> {

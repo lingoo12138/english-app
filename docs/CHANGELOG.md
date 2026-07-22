@@ -4,6 +4,49 @@
 
 ---
 
+## [v0.19] - 2026-07-22
+
+### D: TTS / 翻译 自定义端点(对齐 LLM)+ 持久化修复
+
+**D: 翻译自定义端点**:
+- `createCustomTranslateProvider({ name, endpoint, apiKeyRequired, headers, bodyTemplate })`
+- `translateCustom()` 通用 HTTP 翻译:POST {endpoint}, body 含 text/from/to, 返回 {text} 或 {translation[0]}
+- Settings 加 "自定义翻译端点" section(对齐 TTS/LLM)
+- Translate.tsx 合并 `allTranslateProviders` 列表(显示自定义)
+- body 模板支持 {{text}} {{from}} {{to}} 占位
+- 端点校验:`/^https?:\/\//i.test(endpoint)` 必须 http/https
+- try-catch 包装 `createCustomTranslateProvider` 提交,错误用 alert
+
+**持久化修复**:
+- P0 修: `useStore` partialize 没保存 `customTranslateProviders` 字段,导致自定义翻译渠道刷新后丢失
+- 同步加上 `customTranslateProviders: state.customTranslateProviders`
+- 现在 3 个自定义渠道 (LLM / TTS / 翻译) 都正确持久化
+
+**TTS 自定义端点 apiKey 集成**:
+- 之前自定义 TTS 加 endpoint 即可,apiKey 走 endpoint 内 query string
+- 现在 Settings 加自定义 TTS 时,checkbox "需 API Key" 启用后,会显示独立 password input
+- key 存到 `ttsApiKeys[provider.id]`,跟内置 TTS 渠道一致
+
+### 改造
+- `src/lib/translate.ts` — `createCustomTranslateProvider` + `translateCustom` + `TranslateProvider` 加 endpoint/headers/bodyTemplate
+- `src/store/useStore.ts` — `customTranslateProviders` + partialize
+- `src/pages/Settings.tsx` — "自定义翻译端点" section + `AddCustomTranslateForm`
+- `src/pages/Translate.tsx` — `allTranslateProviders` 合并 customTranslateProviders
+
+### 验证
+- 9 个翻译渠道(8 内置 + 1 自定义)✅
+- 自定义 TTS / LLM / 翻译 都加成功 ✅
+- 持久化 localStorage `customTranslateProviders: 1` ✅
+- 非法 URL 报警友好 ✅
+- Playwright scripts/verify-v19b.mjs 全过
+
+### 累计
+- **8 TTS + 8 翻译 + 8 LLM + 3 自定义端点(LLM/TTS/翻译) + AI 语音输入**
+- **89+ bug 修复**
+- **4500+ 行代码**
+
+---
+
 ## [v0.18] - 2026-07-22
 
 ### C + D: AI 语音输入 + 腾讯翻译(v0.18)
