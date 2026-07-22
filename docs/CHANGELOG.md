@@ -4,6 +4,41 @@
 
 ---
 
+## [v0.22.4] - 2026-07-22
+
+### 🆕 LLM 渠道: Google AI Studio + Mistral
+
+**Google AI Studio (Gemini via OpenAI 兼容)**:
+- baseUrl: `https://generativelanguage.googleapis.com/v1beta/openai/`
+- 6 个模型:
+  - `gemini-2.0-flash-exp` (默认,免费实验版)
+  - `gemini-2.0-flash-thinking-exp` (思考模式)
+  - `gemini-1.5-flash` (1.5 快速版,免费)
+  - `gemini-1.5-flash-8b` (超快,8B)
+  - `gemini-1.5-pro` (高质量)
+  - `gemini-1.5-pro-vision` (图像)
+- supportsVision: true ✅
+- 文档: https://ai.google.dev/gemini-api/docs/openai
+
+**Mistral AI**:
+- baseUrl: `https://api.mistral.ai/v1`
+- 6 个模型:
+  - `mistral-large-latest` (默认,旗舰)
+  - `mistral-small-latest` (性价比)
+  - `open-mistral-7b` (开源)
+  - `open-mixtral-8x7b` (MoE)
+  - `open-mixtral-8x22b` (大 MoE)
+  - `codestral-latest` (代码)
+- 文档: https://docs.mistral.ai/api/
+- 无 vision
+
+### 累计
+- 10 LLM 渠道 (8 + Google AI + Mistral) + 自定义端点
+- 所有走统一 OpenAI 协议
+- 代码 5050+ 行
+
+---
+
 ## [v0.22.3] - 2026-07-22
 
 ### 🆕 每日学习计划 (Home 卡片)

@@ -159,6 +159,48 @@ export const BUILTIN_LLM_PROVIDERS: LLMProvider[] = [
     builtin: true,
   },
   {
+    // v0.22.4: Google AI Studio (Gemini via OpenAI 兼容端点)
+    // 文档: https://ai.google.dev/gemini-api/docs/openai
+    id: 'google-ai',
+    name: 'Google AI Studio (Gemini)',
+    type: 'openai',
+    baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai/',
+    defaultModel: 'gemini-2.0-flash-exp',
+    models: [
+      'gemini-2.0-flash-exp',
+      'gemini-2.0-flash-thinking-exp',
+      'gemini-1.5-flash',
+      'gemini-1.5-flash-8b',
+      'gemini-1.5-pro',
+      'gemini-1.5-pro-vision',
+    ],
+    supportsVision: true,
+    free: true,
+    apiKeyRequired: true,
+    builtin: true,
+  },
+  {
+    // v0.22.4: Mistral AI (OpenAI 兼容)
+    // 文档: https://docs.mistral.ai/api/
+    id: 'mistral',
+    name: 'Mistral AI',
+    type: 'openai',
+    baseUrl: 'https://api.mistral.ai/v1',
+    defaultModel: 'mistral-large-latest',
+    models: [
+      'mistral-large-latest',
+      'mistral-small-latest',
+      'open-mistral-7b',
+      'open-mixtral-8x7b',
+      'open-mixtral-8x22b',
+      'codestral-latest',
+    ],
+    supportsVision: false,
+    free: false,
+    apiKeyRequired: true,
+    builtin: true,
+  },
+  {
     id: 'mock',
     name: 'Mock 模拟 (零成本测试)',
     type: 'openai',
