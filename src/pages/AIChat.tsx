@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useStore } from '../store/useStore'
 import { chat as aiChat, type ChatMessage } from '../lib/aiChat'
+import { saveChat, getAllChats, deleteChat, type ChatRecord } from '../lib/db'
 import TTSButton from '../components/TTSButton'
 import { STTController, isSTTSupported } from '../lib/stt'
 
@@ -32,7 +33,90 @@ export default function AIChat() {
   const level = useStore(s => s.chatLevel)
   const setLevel = useStore(s => s.setChatLevel)
 
+  const [showHistory, setShowHistory] = useState(false)
+
+  // 加载历史对话列表
+  useEffect(() => {
+    refreshChats()
+  }, [])
+
+  const refreshChats = async () => {
+    const list = await getAllChats()
+    setChats(list)
+  }
+
+  // 加载历史对话
+  const loadChat = (chat: ChatRecord) => {
+    setCurrentChatId(chat.id ?? null)
+    setMessages(chat.messages.map(m => ({ id: m.id, role: m.role as 'user' | 'assistant', content: m.content, ts: m.ts })))
+    setScenario(chat.scenario)
+    setLevel(chat.level as any)
+    setShowHistory(false)
+  }
+
+  // 删除历史对话
+  const handleDeleteChat = async (id: number) => {
+    if (!confirm('确定删除这条对话?')) return
+    await deleteChat(id)
+    if (id === currentChatId) {
+      // 当前对话被删,清空
+      setCurrentChatId(null)
+      setMessages([])
+    }
+    refreshChats()
+  }
+
+  // 新对话
+  const handleNewChat = () => {
+    setCurrentChatId(null)
+    setMessages([])
+    setInput('')
+    setSttInterim('')
+  }
+
+  const [currentChatId, setCurrentChatId] = useState<number | null>(null)
+  const [chats, setChats] = useState<ChatRecord[]>([])
+  
+  // 自动保存需要在 useState 之前声明依赖(loading 等)
+  // 实际: 把 loading 声明提前到这里
+  const [loadingEarly, setLoadingEarly] = useState(false)
   const [messages, setMessages] = useState<ChatMessage[]>([])
+  // 加载中 ref(避开 useEffect 依赖)
+  const loadingRef = useRef(false)
+  // 加载中 ref 跟随 (避开 useEffect 依赖)
+
+  // 自动保存到 IndexedDB(每条 AI 回复后)
+  useEffect(() => {
+    if (messages.length === 0) return
+    if (loadingRef.current) return  // 避免保存中间态
+    const save = async () => {
+      // 标题自动生成: 用首条 user 消息前 30 字符
+      const firstUser = messages.find(m => m.role === 'user')
+      const title = firstUser
+        ? firstUser.content.slice(0, 30) + (firstUser.content.length > 30 ? '...' : '')
+        : '新对话'
+      const record: ChatRecord = {
+        id: currentChatId ?? undefined,
+        scenario,
+        level,
+        title,
+        messages: messages.map(m => ({ id: m.id, role: m.role as any, content: m.content, ts: m.ts })),
+        createdAt: currentChatId ? (chats.find(c => c.id === currentChatId)?.createdAt ?? Date.now()) : Date.now(),
+        updatedAt: Date.now(),
+      }
+      try {
+        const newId = await saveChat(record)
+        if (!currentChatId) setCurrentChatId(newId)
+        refreshChats()
+      } catch (e) {
+        console.warn('保存对话失败', e)
+      }
+    }
+    // 防抖 500ms
+    const t = setTimeout(save, 500)
+    return () => clearTimeout(t)
+  }, [messages, currentChatId, scenario, level])
+
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -143,7 +227,10 @@ export default function AIChat() {
             {provider?.name || '未选择渠道'} · {SCENARIOS.find(s => s.id === scenario)?.name} · {LEVELS.find(l => l.id === level)?.name}
           </p>
         </div>
-        <button onClick={handleReset} className="btn-ghost text-sm">🔄 重置</button>
+        <button onClick={handleNewChat} className="btn-ghost text-sm">🆕 新对话</button>
+        <button onClick={() => setShowHistory(!showHistory)} className={`btn-ghost text-sm ${showHistory ? 'bg-brand-100 dark:bg-brand-900/30' : ''}`}>
+          📚 历史 ({chats.length})
+        </button>
       </div>
 
       {/* 场景 / 难度选择 */}
@@ -179,6 +266,44 @@ export default function AIChat() {
           ))}
         </div>
       </div>
+
+      {/* 历史侧栏 */}
+      {showHistory && (
+        <div className="card">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-sm font-semibold">📚 历史对话 ({chats.length})</h2>
+            <button onClick={() => setShowHistory(false)} className="text-xs text-stone-500">关闭</button>
+          </div>
+          {chats.length === 0 ? (
+            <p className="text-sm text-stone-500 dark:text-stone-400 text-center py-4">还没有对话记录</p>
+          ) : (
+            <div className="space-y-2 max-h-64 overflow-y-auto">
+              {chats.map(c => (
+                <div
+                  key={c.id}
+                  className={`p-2 rounded border ${c.id === currentChatId ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/20' : 'border-stone-200 dark:border-stone-700'}`}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0 cursor-pointer" onClick={() => loadChat(c)}>
+                      <div className="font-medium text-sm truncate">{c.title}</div>
+                      <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+                        {c.scenario} · {c.level} · {c.messages.length} 条 · {new Date(c.updatedAt).toLocaleDateString()}
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => c.id && handleDeleteChat(c.id)}
+                      className="text-xs text-stone-400 hover:text-red-500 shrink-0"
+                      aria-label="删除对话"
+                    >
+                      🗑
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* 错误提示 */}
       {error && (

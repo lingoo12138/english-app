@@ -4,6 +4,41 @@
 
 ---
 
+## [v0.20] - 2026-07-22
+
+### C: AI 对话持久化 + 历史(v0.20)
+
+**AI 对话持久化**:
+- `src/lib/db.ts` v3: 加 `chats` 表(id, scenario, level, title, messages, createdAt, updatedAt)
+- `saveChat / getAllChats / getChat / deleteChat` 助手函数
+- `src/pages/AIChat.tsx` 自动保存(每条 AI 回复后 500ms 防抖)
+- 标题自动生成: 用首条 user 消息前 30 字符
+- 关闭页面 / 刷新后自动恢复
+
+**历史侧栏**:
+- 📚 历史 按钮(显示对话数)
+- 列表项: 标题 + 场景 + 难度 + 消息数 + 日期
+- 点击加载(切换 scenario/level 自动同步)
+- 🆕 新对话 按钮(清空当前)
+- 🗑 单条删除(确认对话框)
+
+**改造**:
+- `src/lib/db.ts` — chats 表 + 4 个助手函数
+- `src/pages/AIChat.tsx` — currentChatId/chats/showHistory state + loadChat/handleDeleteChat/handleNewChat + 自动保存 useEffect
+
+### 验证
+- 历史按钮 + 新对话按钮 ✅
+- 模拟对话后 IndexedDB 自动保存 ✅
+- 历史侧栏显示对话列表 ✅
+- 脚本 verify-v20.mjs 全过
+
+### 累计
+- **8 TTS + 8 翻译 + 8 LLM + 3 自定义 + STT + 对话历史**
+- **89+ bug 修复**
+- **4600+ 行代码**
+
+---
+
 ## [v0.19] - 2026-07-22
 
 ### D: TTS / 翻译 自定义端点(对齐 LLM)+ 持久化修复

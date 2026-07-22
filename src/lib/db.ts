@@ -7,6 +7,7 @@ class EnglishAppDB extends Dexie {
   records!: Table<LearnRecord, number>
   reviews!: Table<ReviewItem, string>
   pronunciationAttempts!: Table<PronunciationAttempt, number>
+  chats!: Table<ChatRecord, number>
 
   constructor() {
     super('EnglishAppDB')
@@ -22,10 +23,45 @@ class EnglishAppDB extends Dexie {
       reviews: 'wordId, nextReview',
       pronunciationAttempts: '++id, wordId, ts, score',
     })
+    // v3: AI 对话持久化(场景 + messages + ts)
+    this.version(3).stores({
+      favorites: 'wordId, addedAt',
+      records: '++id, wordId, action, timestamp',
+      reviews: 'wordId, nextReview',
+      pronunciationAttempts: '++id, wordId, ts, score',
+      chats: '++id, scenario, level, updatedAt, createdAt, title',
+    })
   }
 }
 
 export const db = new EnglishAppDB()
+
+// === AI 对话持久化 ===
+export interface ChatRecord {
+  id?: number
+  scenario: string
+  level: string
+  title: string
+  messages: { id: string; role: 'user' | 'assistant' | 'system'; content: string; ts: number }[]
+  createdAt: number
+  updatedAt: number
+}
+
+export async function saveChat(record: ChatRecord): Promise<number> {
+  return db.chats.put({ ...record, updatedAt: Date.now() })
+}
+
+export async function getAllChats(): Promise<ChatRecord[]> {
+  return db.chats.orderBy('updatedAt').reverse().toArray()
+}
+
+export async function getChat(id: number): Promise<ChatRecord | undefined> {
+  return db.chats.get(id)
+}
+
+export async function deleteChat(id: number): Promise<void> {
+  return db.chats.delete(id)
+}
 
 /** 统一处理 IDB 写入错误(quota exceeded 等) */
 function handleDbError(e: unknown, context: string): never {
