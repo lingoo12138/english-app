@@ -4,6 +4,47 @@
 
 ---
 
+## [v0.22.6] - 2026-07-22
+
+### 🔧 静态审查 6 P1 + 4 P2 修复
+
+**plan-progress 持久化升级**:
+- value 结构: string[] → {completed: string[], goal: number}
+- 兼容老数据(Array 自动包成 {completed: data, goal: 0})
+- dailyGoal 快照, 改目标后历史显示仍是当时的目标
+
+**PlanPage 连续天数算法**:
+- 之前: 起点 i===6, 含混逻辑
+- 修: 倒序连续天数 — 从最后一天(今天)往前数, count>=goal 才算, 断了就停
+- 用 dailyGoal 快照, 不用当前 dailyGoal
+
+**Home/PlanPage 词列表完成态 state 化**:
+- 之前: inline 读 localStorage, 不一致
+- 修: completedSet state, markWordCompleted 后刷新
+
+**WordCard 静态 import**:
+- 之前: 动态 import('../lib/plan') 创建 chunk
+- 修: 顶部静态 import, 加 useStore 拿 dailyGoal
+
+**plan.ts 鲁棒性**:
+- saveProgress 显式 catch + warn
+- cleanupOldProgress() 函数(清 30 天前 key)
+- 兼容老 string[] 数据
+
+**README 同步**:
+- 顶部 v0.21 → v0.22.5
+- "8 LLM" → "10 LLM"
+- 核心特性 8 LLM → 10 LLM
+- 加 Google AI Studio / Mistral AI 描述
+- 加每日学习计划功能
+
+### 验证
+- 新格式 {completed, goal} ✅
+- PlanPage 7 天 + 连续天数 ✅
+- 脚本 verify-v22i.mjs 全过
+
+---
+
 ## [v0.22.5] - 2026-07-22
 
 ### 🆕 计划页 /plan + 访问词自动标记

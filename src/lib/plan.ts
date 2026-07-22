@@ -25,38 +25,55 @@ function todayKey(): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
-// 今日完成的 wordId 集合: 用 localStorage 缓存
+// 今日完成的 wordId 集合 + 目标快照: 用 localStorage 缓存
+// v0.22.6: 改 value 结构 {completed: string[], goal: number}
+//   goal 快照, 用户改 dailyGoal 后历史显示仍是当时的 goal
 const STORAGE_KEY = 'plan-progress-'
 
-function loadProgress(date: string): Set<string> {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY + date)
-    if (raw) return new Set(JSON.parse(raw))
-  } catch {}
-  return new Set()
+interface ProgressData {
+  completed: string[]
+  goal: number
 }
 
-export function saveProgress(date: string, completed: Set<string>): void {
+function loadProgress(date: string): { completed: Set<string>; goal: number } {
   try {
-    localStorage.setItem(STORAGE_KEY + date, JSON.stringify(Array.from(completed)))
+    const raw = localStorage.getItem(STORAGE_KEY + date)
+    if (raw) {
+      const data = JSON.parse(raw) as ProgressData | string[]  // 兼容老数据
+      if (Array.isArray(data)) {
+        return { completed: new Set(data), goal: 0 }
+      }
+      return { completed: new Set(data.completed || []), goal: data.goal || 0 }
+    }
   } catch {}
+  return { completed: new Set(), goal: 0 }
+}
+
+export function saveProgress(date: string, completed: Set<string>, goal: number): void {
+  try {
+    const data: ProgressData = { completed: Array.from(completed), goal }
+    localStorage.setItem(STORAGE_KEY + date, JSON.stringify(data))
+  } catch (e) {
+    // P1 修: 显式 catch 报警,避免静默失败
+    console.warn('plan.ts: saveProgress 失败 (quota?):', e)
+  }
 }
 
 // 标记一个词今日完成
-export function markWordCompleted(wordId: string, date?: string): Set<string> {
+export function markWordCompleted(wordId: string, date?: string, goal?: number): Set<string> {
   const d = date || todayKey()
-  const completed = loadProgress(d)
+  const { completed, goal: storedGoal } = loadProgress(d)
   completed.add(wordId)
-  saveProgress(d, completed)
+  saveProgress(d, completed, goal || storedGoal)
   return completed
 }
 
 // 取消标记
-export function unmarkWordCompleted(wordId: string, date?: string): Set<string> {
+export function unmarkWordCompleted(wordId: string, date?: string, goal?: number): Set<string> {
   const d = date || todayKey()
-  const completed = loadProgress(d)
+  const { completed, goal: storedGoal } = loadProgress(d)
   completed.delete(wordId)
-  saveProgress(d, completed)
+  saveProgress(d, completed, goal || storedGoal)
   return completed
 }
 
@@ -67,7 +84,9 @@ export function unmarkWordCompleted(wordId: string, date?: string): Set<string> 
  */
 export async function generateTodayPlan(dailyGoal: number, targetLevel: string): Promise<TodayPlan> {
   const date = todayKey()
-  const completed = loadProgress(date)
+  const { completed, goal: storedGoal } = loadProgress(date)
+  // P1 修: 用历史快照 goal, 但如果用户改过 dailyGoal, 用新的
+  const effectiveGoal = storedGoal > 0 ? storedGoal : dailyGoal
   const allWords = await loadWords()
   const wordMap = new Map<string, Word>()
   for (const w of allWords) wordMap.set(w.id, w)
@@ -133,6 +152,30 @@ export async function generateTodayPlan(dailyGoal: number, targetLevel: string):
     isDone: completedCount >= words.length && words.length > 0,
     progressPct: words.length > 0 ? Math.round((completedCount / words.length) * 100) : 0,
   }
+}
+
+// P2 修: 清理 30 天前的 plan-progress key,避免 localStorage 无限增长
+export function cleanupOldProgress(): number {
+  let removed = 0
+  try {
+    const now = Date.now()
+    const cutoff = 30 * 24 * 60 * 60 * 1000  // 30 天
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i)
+      if (k && k.startsWith(STORAGE_KEY)) {
+        const dateStr = k.slice(STORAGE_KEY.length)
+        const t = Date.parse(dateStr)
+        if (!isNaN(t) && now - t > cutoff) {
+          localStorage.removeItem(k)
+          removed++
+          i--  // 调整索引
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('plan.ts: cleanupOldProgress 失败:', e)
+  }
+  return removed
 }
 
 // 简单 hook: 监听 localStorage 变化时重新加载

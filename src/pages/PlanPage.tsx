@@ -20,6 +20,8 @@ export default function PlanPage() {
   const [history, setHistory] = useState<DayProgress[]>([])
   const [streak, setStreak] = useState(0)
   const [totalAll, setTotalAll] = useState(0)
+  // P2 修: 词列表完成态用 state 同步, 不用 inline localStorage
+  const [completedSet, setCompletedSet] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     refresh()
@@ -32,41 +34,56 @@ export default function PlanPage() {
   }
 
   // 7 天历史(从 localStorage)
+  // P1 修: 倒序连续天数 (从今天往前数, 连续 count>=goal 的天数)
+  // P1 修: 用 dailyGoal 快照, 不用当前 dailyGoal
   const computeHistory = () => {
     const days: DayProgress[] = []
-    let s = 0
     let total = 0
     for (let i = 6; i >= 0; i--) {
       const d = new Date()
       d.setDate(d.getDate() - i)
       const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
       let count = 0
+      let storedGoal = 0
       try {
         const raw = localStorage.getItem('plan-progress-' + key)
-        if (raw) count = JSON.parse(raw).length
+        if (raw) {
+          const data = JSON.parse(raw)
+          if (Array.isArray(data)) count = data.length
+          else {
+            count = (data.completed || []).length
+            storedGoal = data.goal || 0
+          }
+        }
       } catch {}
-      const goal = dailyGoal
+      const goal = storedGoal > 0 ? storedGoal : dailyGoal
       const pct = goal > 0 ? Math.min(100, Math.round((count / goal) * 100)) : 0
       days.push({ date: key, count, goal, pct })
       total += count
-      // 连续天数: 倒序, count >= goal 算 1 天(但今天如果没到,也算 streak 候选)
-      if (i === 6) {
-        // 第一天(最早), 起点
-        if (count >= goal) s = 1
-        else s = 0
-      } else if (count >= goal) {
-        s += 1
-      } else {
-        s = 0  // 断了
-      }
+    }
+    // 倒序连续天数: 从最后一天(今天)往前数, 连续 count>=goal 的天数
+    let s = 0
+    for (let i = days.length - 1; i >= 0; i--) {
+      if (days[i].count >= days[i].goal && days[i].goal > 0) s++
+      else break
     }
     setHistory(days)
     setStreak(s)
     setTotalAll(total)
+    // 同步今日完成集合
+    const todayKey = days[days.length - 1]?.date
+    if (todayKey) {
+      const raw = localStorage.getItem('plan-progress-' + todayKey)
+      if (raw) {
+        const data = JSON.parse(raw)
+        const arr = Array.isArray(data) ? data : (data.completed || [])
+        setCompletedSet(new Set(arr))
+      }
+    }
   }
 
   const handleMark = async (wordId: string) => {
-    markWordCompleted(wordId)
+    markWordCompleted(wordId, undefined, dailyGoal)
     await refresh()
   }
 
@@ -153,12 +170,7 @@ export default function PlanPage() {
         {plan.words.length > 0 && (
           <div className="space-y-1.5">
             {plan.words.map(w => {
-              const isCompleted = (() => {
-                try {
-                  const raw = localStorage.getItem('plan-progress-' + plan.date)
-                  return raw ? JSON.parse(raw).includes(w.id) : false
-                } catch { return false }
-              })()
+              const isCompleted = completedSet.has(w.id)
               return (
                 <div key={w.id} className="flex items-center gap-2 text-sm">
                   <button

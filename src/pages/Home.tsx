@@ -45,7 +45,7 @@ export default function Home() {
 
   // v0.22.3: 标记 plan 词为已完成
   const handleMarkPlanWord = async (wordId: string) => {
-    markWordCompleted(wordId)
+    markWordCompleted(wordId, undefined, dailyGoal)
     await logAction(wordId, 'view')
     const newPlan = await generateTodayPlan(dailyGoal, targetLevel)
     setPlan(newPlan)

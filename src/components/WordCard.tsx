@@ -1,5 +1,7 @@
 // 单词卡组件
 import { Link } from 'react-router-dom'
+import { markWordCompleted } from '../lib/plan'
+import { useStore } from '../store/useStore'
 import type { Word } from '../types'
 import TTSButton from './TTSButton'
 import { LEVELS } from '../lib/words'
@@ -11,6 +13,7 @@ interface Props {
 }
 
 export default function WordCard({ word, isFavorite, onToggleFavorite }: Props) {
+  const dailyGoal = useStore(s => s.dailyGoal)
   const level = LEVELS.find(l => l.value === word.level)
 
   return (
@@ -18,7 +21,8 @@ export default function WordCard({ word, isFavorite, onToggleFavorite }: Props) 
       to={`/words/${word.id}`}
       onClick={() => {
         // v0.22.5: 点击词卡跳转时, 标记今日计划完成
-        import('../lib/plan').then(m => m.markWordCompleted(word.id))
+        // P2 修: 用静态 import,避免每次创建 chunk
+        markWordCompleted(word.id, undefined, dailyGoal)
       }}
       className="card flex items-center gap-3 hover:shadow-md active:scale-[0.98] transition-all no-select"
     >

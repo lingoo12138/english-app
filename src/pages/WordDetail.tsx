@@ -31,6 +31,7 @@ export default function WordDetail() {
         })
         logAction(w.id, 'view')
         // v0.22.5: 访问词详情时自动标记今日计划完成
+        // 注: dailyGoal 来自 useStore, store targetLevel 已在依赖
         markWordCompleted(w.id)
       }
     })
