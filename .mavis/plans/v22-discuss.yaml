@@ -1,0 +1,83 @@
+version: 1
+plan:
+  name: "句刻 v0.22.8 现状盘点 + 未来规划讨论"
+  auto_reject_retries: 0
+  max_concurrency: 2
+
+tasks:
+  - id: "track-current"
+    title: "现状盘点: 当前所有功能分类整理"
+    assigned_to: "general"
+    timeout_ms: 1500000
+    verify_skip_reason: "讨论/盘点任务,产物是 markdown 报告,直接由 owner (Mavis) 综合,不需要独立 verifier"
+    prompt: |
+      你是 Mavis 团队的"产品现状盘点"agent。请基于 /workspace/english-app/ 仓库,做一份
+      "当前已完成功能"的完整盘点。**只读不写**,只输出报告。
+
+      ## 报告要求
+      1. 列出所有 15 个页面(路径 + 用途)
+      2. 列出所有 5 个核心组件 + 8 个 Settings 子组件
+      3. 列出所有 16 个 lib 模块及其核心导出
+      4. 列出所有 AI 渠道(LLM / TTS / 翻译, 含数量)
+      5. 列出所有数据存储(IndexedDB 表 / localStorage key)
+      6. 列出所有 PWA 能力(离线/缓存/版本化)
+      7. 列出代码量统计(总行数 / 文件数 / 平均文件行数)
+      8. 列出已知功能限制(从代码注释 + TODO + README 找)
+
+      ## 关键文件
+      - src/pages/*.tsx (15 个)
+      - src/components/*.tsx + src/components/settings/*.tsx
+      - src/lib/*.ts
+      - src/store/useStore.ts
+      - package.json
+      - docs/ROADMAP.md, docs/CHANGELOG.md, docs/DEV_LOG.md
+      - README.md
+
+      ## 输出格式
+      用 markdown 写一个 .mavis/plans/v22-current-report.md,结构清晰,每个分类下用 bullet 列表。
+      报告末尾给一个 "**核心发现**" 段落 (3-5 句),总结这个项目的真实复杂度和亮点。
+
+      不要做未来规划,只做现状。
+    output:
+      files:
+        - ".mavis/plans/v22-current-report.md"
+
+  - id: "track-future"
+    title: "未来规划: 文档里提到但未做的功能清单"
+    assigned_to: "general"
+    timeout_ms: 1500000
+    verify_skip_reason: "讨论/盘点任务,产物是 markdown 报告,直接由 owner (Mavis) 综合,不需要独立 verifier"
+    prompt: |
+      你是 Mavis 团队的"未来规划"agent。请基于 /workspace/english-app/ 仓库的文档和代码,做一份
+      "未来计划要做但还没做"的功能盘点。**只读不写**,只输出报告。
+
+      ## 报告要求
+      1. **从 docs/ROADMAP.md 提取**所有"P3/P4/P5"或"下一步"或"待做"提到的功能
+      2. **从 docs/AI_CHAT_ROADMAP.md 提取**所有进阶需求(10 个候选 + 5 个待决问题)
+      3. **从代码注释 / TODO / FIXME 提取**有标记但未实现的功能
+      4. **从 README / DEV_LOG 的"待优化"或"未来"段落**找暗示
+      5. 把这些功能按 **短期(1-2 周) / 中期(2-4 周) / 远期(需要后端)** 分类
+      6. 每个功能注明:
+         - 来源(哪个文档 / TODO)
+         - 难度估计(低/中/高)
+         - 与现有功能的关系(独立 / 依赖 / 增强)
+         - 业务价值(用户价值 / 增长 / 留存)
+
+      ## 关键文件
+      - docs/ROADMAP.md
+      - docs/AI_CHAT_ROADMAP.md
+      - docs/DEV_LOG.md
+      - docs/CHANGELOG.md
+      - README.md
+      - grep "TODO\|FIXME\|XXX\|HACK" src/ -r 2>/dev/null
+
+      ## 输出格式
+      用 markdown 写一个 .mavis/plans/v22-future-report.md。
+      - 顶部:3 句话总览
+      - 中间: 3 个表格(短期/中期/远期),每行一个功能
+      - 底部: "**TOP 5 推荐**" 段落(根据价值+难度选 5 个最该先做的)
+
+      不要做现状盘点,只做未来规划。
+    output:
+      files:
+        - ".mavis/plans/v22-future-report.md"

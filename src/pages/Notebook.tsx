@@ -79,12 +79,19 @@ export default function Notebook() {
         </div>
         {words.length > 0 && (
           <>
+          <Link to="/cards" className="btn-primary text-sm">
+            🎴 卡片复习
+          </Link>
           <button
             onClick={() => setGroupBy(groupBy === 'none' ? 'letter' : 'none')}
             className="btn-ghost text-sm"
           >
             {groupBy === 'none' ? '📋 列表' : '🔤 按字母分组'}
           </button>
+          {/* v0.22.9: Anki 风格卡片复习入口 */}
+          <Link to="/cards" className="btn-primary text-sm">
+            🎴 卡片复习
+          </Link>
           <button
             onClick={() => {
               if (batchMode) {

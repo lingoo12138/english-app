@@ -4,6 +4,55 @@
 
 ---
 
+## [v0.22.9] - 2026-07-22
+
+### 🆕 A: 学习提醒(Web Notification API)
+
+**`src/lib/reminder.ts`**:
+- `isNotificationSupported` / `getNotificationPermission` / `requestNotificationPermission`
+- `getReminderSettings` / `setReminderSettings`(localStorage)
+- `startReminderScheduler` / `stopReminderScheduler`(setInterval 单例)
+- `fireTestNotification`(立即测试)
+- `formatTime` 工具
+- 命中时间窗口时弹通知,tag 防重复,可选显示连续天数
+
+**`src/components/settings/ReminderSection.tsx`**:
+- 权限状态徽章(已授权/已拒绝/未授权)
+- 拒绝时友好提示(去浏览器设置开)
+- 开启开关 + 时间选择(hour + minute [0,15,30,45])
+- 显示连续天数 checkbox
+- 🧪 测试按钮
+- 不支持时降级提示
+
+**App.tsx 启动钩子**:
+- useEffect mount 时调 `startReminderScheduler`
+- cleanup 调 `stopReminderScheduler`(避免重复)
+
+### 🆕 B: Anki 风格生词卡片复习
+
+**`src/pages/CardReview.tsx`** (394 行):
+- 路由 `/cards`
+- 大卡片 + 翻转动效(rotateY 180deg)
+- 正面: 单词 + 音标 + TTS 按钮
+- 反面: 释义 + 例句 + TTS
+- 4 档评级: Again(quality=1) / Hard(3) / Good(4) / Easy(5)
+- 翻卡: 1 键 / 空格 / 卡片点击
+- 评级: 1/2/3/4 / Esc 退出
+- SM-2 算法调 `reviewWord()`
+- 进度 N/M + 完成提示
+
+**`src/pages/Notebook.tsx` 入口**:
+- 顶部"🎴 卡片复习"主按钮(>=1 词时显示)
+
+### 验证
+- Settings ⏰ 学习提醒 卡片 ✅
+- /cards 路由 + 翻卡 UI ✅
+- Notebook 🎴 卡片复习 入口 ✅
+- 截图 v22-9-reminder/cards/notebook 完整
+- 脚本 verify-v22l.mjs + v22n.mjs 全过
+
+---
+
 ## [v0.22.8] - 2026-07-22
 
 ### 🆕 C: AI 对话导出/导入

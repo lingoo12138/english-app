@@ -9,6 +9,7 @@ import Translate from './pages/Translate'
 import Notebook from './pages/Notebook'
 import Settings from './pages/Settings'
 import ReviewCenter from './pages/ReviewCenter'
+import CardReview from './pages/CardReview'
 import WeakWords from './pages/WeakWords'
 import Scenes from './pages/Scenes'
 import LearnReport from './pages/LearnReport'
@@ -24,6 +25,7 @@ import { BUILTIN_LLM_PROVIDERS } from './lib/providers/llm'
 import { BUILTIN_TRANSLATE_PROVIDERS } from './lib/translate'
 import { BUILTIN_TTS_PROVIDERS } from './lib/tts'
 import { cleanupOldProgress } from './lib/plan'
+import { startReminderScheduler, stopReminderScheduler, isNotificationSupported } from './lib/reminder'
 
 function App() {
   const darkMode = useStore((s) => s.darkMode)
@@ -52,6 +54,14 @@ function App() {
   useEffect(() => {
     const removed = cleanupOldProgress()
     if (removed > 0) console.log(`[plan] 清理了 ${removed} 个过期 plan-progress`)
+  }, [])
+
+  // v0.22.9: 启动学习提醒调度(单例 setInterval,卸载时清)
+  useEffect(() => {
+    if (isNotificationSupported()) {
+      startReminderScheduler()
+    }
+    return () => stopReminderScheduler()
   }, [])
 
   // 初始化内置渠道列表(只需设一次, zustand persist 会保存选中项)
@@ -102,6 +112,7 @@ function App() {
         <Route path="notebook" element={<Notebook />} />
         <Route path="weak" element={<WeakWords />} />
         <Route path="review" element={<ReviewCenter />} />
+        <Route path="cards" element={<CardReview />} />
         <Route path="scenes" element={<Scenes />} />
         <Route path="scenes/:id" element={<SceneDetail />} />
         <Route path="camera" element={<Camera />} />
