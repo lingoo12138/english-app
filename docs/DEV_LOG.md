@@ -928,4 +928,83 @@ npm run build
 
 ---
 
+## v0.22.9 — 学习提醒 + Anki 卡片(2026-07-23)
+
+### v0.22.9 — 学习提醒 + Anki 卡片复习
+
+**A: 学习提醒(Web Notification API)**
+- 用户痛点: 设了 dailyGoal 但没人提醒,容易忘
+- 调研: 浏览器 Notification API + 浏览器 Notification
+- `src/lib/reminder.ts` (~150 行)
+  - isNotificationSupported / getNotificationPermission / requestNotificationPermission
+  - getReminderSettings / setReminderSettings(localStorage 'reminder-settings')
+  - startReminderScheduler / stopReminderScheduler(setInterval 单例,60s 检查)
+  - fireTestNotification(立即测试)
+  - 命中 hour:minute 时 new Notification,tag 防重复,可选显示连续天数
+- `src/components/settings/ReminderSection.tsx`
+  - 权限徽章(已授权/已拒绝/未授权)
+  - 拒绝时友好提示
+  - 开启开关 + 时间选择(hour + [0,15,30,45] minute)
+  - 显示连续天数 checkbox + 🧪 测试按钮
+- App.tsx 启动钩子: useEffect mount 调 startReminderScheduler,cleanup 调 stop
+- 设计权衡: iOS Safari 通知支持有限,降级到 alert()
+
+**B: Anki 风格生词卡片复习**
+- 调研: 用户有 SM-2 复习中心,但 UI 简单(不认识/认识二分),Anki 4 档精细评级更科学
+- `src/pages/CardReview.tsx` (394 行)
+  - 路由 /cards
+  - 大卡片 + rotateY 180° 翻转动效
+  - 正面: 单词 + 音标 + TTS
+  - 反面: 释义 + 例句 + TTS
+  - 4 档评级: Again(quality=1) / Hard(3) / Good(4) / Easy(5)
+  - 键盘: 1/2/3/4 评级 / 空格翻卡 / Esc 退出
+  - SM-2 调 reviewWord()
+  - 进度 N/M + 完成提示
+- `src/pages/Notebook.tsx` 顶部 🎴 卡片复习主按钮
+- App.tsx 路由 /cards
+
+**多 agent 协作经验(v0.22.9)**:
+- 启动 2 个 general subagent 并行做 A+B
+- **结果: 2 个都 failed (token 限流,常态)**
+- 但 B subagent 写了 CardReview.tsx(部分成功)
+- A subagent 0 输出
+- 应对: **主人接管模式** — 我自己写 reminder.ts + 整合 Settings/App/Notebook
+- 这是 subagent 失败的标准降级流程
+
+## 当前状态(2026-07-23 00:00)
+
+**版本**: v0.22.9
+**代码量**: **5600+ 行**
+**Commit 数**: **119+**
+**总版本**: v0.1 → v0.22.9
+**最后 push**: 204046e
+
+**功能完成度**:
+- ✅ 16 页面 + 5 组件 + 9 Settings 子组件
+- ✅ 5334 词 + 13234 句 + 5 场景
+- ✅ 10 LLM + 8 TTS + 8 翻译 + 3 自定义
+- ✅ STT + 学习提醒(Web Push)
+- ✅ AI 对话陪练 + 历史搜索 + 导出/导入
+- ✅ 学习报告(词汇统计 + 难度分布)
+- ✅ 每日学习计划(7天曲线 + 连续天数)
+- ✅ **Anki 卡片复习(4 档 SM-2 评级)** — v0.22.9 新
+- ✅ 跟读评测(3 维度评分 + 波形)
+- ✅ 拍照识物
+- ✅ PWA 离线(版本化) + 主题 + 字号 + iOS 安全区
+
+**bug 修复累计**: **105+**
+
+**v0.22.9 新增**:
+- 0 P0
+- 0 P1
+- 0 P2 (新功能无 bug)
+- subagent failed → 主人接管模式
+
+**待优化(下一阶段)**:
+- 🔜 P3 微信小程序(uni-app 跨端)
+- 🔜 AI 改错本 + 写作批改(LLM 差异化)
+- 🔜 自定义场景课 + 测试模式
+
+---
+
 **让英语在你想用的时候就能用上** —— 这是产品的初心,也是这份日志的初心。

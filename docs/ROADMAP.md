@@ -38,8 +38,9 @@
 | **v0.22.6** | **2026-07-22** | **静态审查 6 P1 + 4 P2 修复(plan.ts 鲁棒性/连续天数算法/README 同步)** |
 | **v0.22.7** | **2026-07-22** | **AIChat 历史搜索 + 场景过滤 + Mistral 警告 + App 启动自动清理** |
 | **v0.22.8** | **2026-07-22** | **AI 对话导出/导入(JSON 备份/迁移) + 单条导出按钮** |
+| **v0.22.9** | **2026-07-22** | **学习提醒(Web Notification API) + Anki 卡片复习(/cards 翻卡 + 4 档 SM-2 评级)** |
 
-**累计**: **15 个页面、5 个组件 + 8 个 Settings 子组件、105 个 bug 修复、10 LLM + 8 TTS + 8 翻译 + 3 自定义端点、5500+ 行代码、零付费依赖**。
+**累计**: **16 个页面、5 个组件 + 9 个 Settings 子组件、105 个 bug 修复、10 LLM + 8 TTS + 8 翻译 + 3 自定义端点、5600+ 行代码、零付费依赖**。
 
 详细功能见 [DEV_LOG.md](./DEV_LOG.md)。
 
@@ -98,10 +99,10 @@
 短语:        4000+ 词
 每日一句:    30 句(可循环)
 场景课:      5 个(40 句)
-代码:        5500+ 行
-页面:        15 个 (Home/WordList/WordDetail/DailyPage/Translate/Notebook/ReviewCenter/WeakWords/Scenes/SceneDetail/Camera/AIChat/Settings/PlanPage/LearnReport)
-组件:        5 个 (Layout/TTSButton/WordCard/StudyCalendar/PronunciationPractice) + 8 Settings 子组件
-Settings 子: PreferencesSection/TTSSection/TranslateSection/LLMSection/AppearanceSection/DataManagementSection/AIChatDataSection/CustomForms
+代码:        5600+ 行
+页面:        16 个 (Home/WordList/WordDetail/DailyPage/Translate/Notebook/ReviewCenter/WeakWords/Scenes/SceneDetail/Camera/AIChat/Settings/PlanPage/LearnReport/CardReview)
+组件:        5 个 (Layout/TTSButton/WordCard/StudyCalendar/PronunciationPractice) + 9 Settings 子组件
+Settings 子: PreferencesSection/TTSSection/TranslateSection/LLMSection/AppearanceSection/DataManagementSection/AIChatDataSection/ReminderSection/CustomForms
 LLM 渠道:    10 (OpenRouter/OpenAI/Anthropic/硅基流动/DeepSeek/智谱/百炼/Google AI Studio/Mistral/Mock) + 自定义
 TTS 渠道:    8 (浏览器/Mock/Edge/Azure/ElevenLabs/百度/Google/讯飞) + 自定义
 翻译渠道:    8 (MyMemory/百度/LLM/Google/有道/DeepL/腾讯/Mock) + 自定义
@@ -126,4 +127,4 @@ PWA:         离线 + 自动部署 + 缓存版本化
 
 ---
 
-**最后更新**: 2026-07-22(v0.22.8)
+**最后更新**: 2026-07-23(v0.22.9)
