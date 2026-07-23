@@ -182,7 +182,21 @@ src/
 ✅ 单元测试 47→**57** (+10)
 ✅ 闭环 15/31 + 回归全过
 
-详情见 [CHANGELOG](./docs/CHANGELOG.md#v120---2026-07-23)
+
+
+## 🏆 v1.3.0 - 成就墙 (2026-07-24) - 留存
+
+✅ **20 成就 × 4 类** (连续/词量/错题/收藏)
+✅ /achievements 页面 (渐变进度 + 解锁动画)
+✅ Home 顶部 "🏆 成就 N/20" 入口
+✅ ShareCard 海报加 "已解锁 N 个成就"
+✅ 解锁动画 (bounce + glow)
+✅ 单元测试 57→**72** (+15)
+✅ 闭环 6/6 新增 (verify-v1.3-f2.mjs)
+
+详情见 [CHANGELOG](./docs/CHANGELOG.md#v130---2026-07-24)
+
+详情见 [CHANGELOG v1.2.0](./docs/CHANGELOG.md#v120---2026-07-23)
 
 详情见 [CHANGELOG v1.1.2](./docs/CHANGELOG.md#v112---2026-07-23)
 

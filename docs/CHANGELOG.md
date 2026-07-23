@@ -308,6 +308,54 @@
 ⚠️ schema v4 升级: Dexie 自动迁移
 ⚠️ Mock 渠道不存缓存, 避免污染
 
+## [v1.3.0] - 2026-07-24
+
+### 🏆 成就墙 (F2 完结) - 留存
+
+**T1 achievements.ts**:
+- `src/lib/achievements.ts` (160 行)
+- **20 成就** (4 类 × 多级):
+  - 🔥 streak: 1/3/7/30/100/365 (6 级)
+  - 📖 words: 10/50/100/500/1000/5000 (6 级)
+  - ✏️ errors: 1/10/50/200 (4 级)
+  - ⭐ favorites: 10/50/200/1000 (4 级)
+- `getAchievementStatus` / `getUnlockedCount` / `getNextAchievement`
+- `loadAchievementStats` 聚合
+
+**T2 /achievements 页面**:
+- `src/pages/Achievements.tsx` (200 行)
+- 顶部进度卡 (按 type 渐变色)
+- 4 个分类 Tab (streak/words/errors/favorites)
+- 成就卡: 🔒 灰 vs ✅ 彩色 + bounce + glow
+- 进度条 + 下一成就提示
+- 路由 lazy load
+
+**T3 Home 集成**:
+- Home 加 "🏆 成就 N/20" 卡 (渐变背景)
+- 下一成就提示
+- 点击 → /achievements
+
+**T4 解锁动画**:
+- `bounce-slow` keyframe (2s 弹跳)
+- `achievement-unlocked` glow shadow
+- 已解锁项有 bounce + 黄色边框
+
+**T5 ShareCard 集成**:
+- 海报加 "🏆 已解锁 N 个成就"
+- `ShareCardData.achievementCount` 字段
+
+**T6 单元测试 57→72 (+15)**:
+- `tests/achievements.test.ts` (15 测试)
+  - ACHIEVEMENTS (4)
+  - getAchievementStatus (4)
+  - getAllAchievementStatus (2)
+  - getUnlockedCount (3)
+  - getNextAchievement (2)
+- 72/72 全过
+- 闭环 6/6 新增 (verify-v1.3-f2.mjs)
+
+---
+
 ---
 
 ---

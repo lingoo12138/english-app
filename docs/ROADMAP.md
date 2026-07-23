@@ -55,6 +55,7 @@
 | **v1.1.1** | **2026-07-23** | **🎯 D1 错题个性化复习 (writingErrors → favorites, 12 单元测试)** |
 | **v1.1.2** | **2026-07-23** | **📤 F1 学习卡分享 (ShareCard 3 风格 + ShareModal, 5 单元测试)** |
 | **v1.2.0** | **2026-07-23** | **📚 D2 LLM 错题讲解 (ErrorExplainButton 3 处接入 + IndexedDB 缓存, 10 单元测试)** |
+| **v1.3.0** | **2026-07-24** | **🏆 F2 成就墙 (20 成就 × 4 类, /achievements 页面, 15 单元测试)** |
 | **v0.22.6** | **2026-07-22** | **静态审查 6 P1 + 4 P2 修复(plan.ts 鲁棒性/连续天数算法/README 同步)** |
 | **v0.22.7** | **2026-07-22** | **AIChat 历史搜索 + 场景过滤 + Mistral 警告 + App 启动自动清理** |
 | **v0.22.8** | **2026-07-22** | **AI 对话导出/导入(JSON 备份/迁移) + 单条导出按钮** |
@@ -162,6 +163,7 @@ P0/P1/P2:   0/0/0 当前; 历史 145+ 个全清
 错题复习:   writingErrors → favorites 自动入, ErrorsPage 一键加, 12 单元测试
 学习分享:   ShareCard 3 风格 (简洁/渐变/复古) + ShareModal 3 步, 5 单元测试
 错题讲解:   LLM Tutor (rule/examples/mnemonic) + ErrorExplainButton 3 处接入 + IndexedDB 缓存, 10 单元测试
+成就墙:     20 成就 × 4 类 (streak/words/errors/favorites) + /achievements 页面 + Home 入口 + ShareCard 集成, 15 单元测试
 测试:       30 单元测试 (vitest) + 15 闭环集成测试 (Playwright)
 性能:       Bundle 538KB → 入口 64KB (-54%), FCP 220→204ms
 每日学习计划: 7天曲线 + 连续天数 + Home 智能选词卡片
@@ -190,4 +192,4 @@ PWA:         离线 + 自动部署 + 缓存版本化
 
 ---
 
-**最后更新**: 2026-07-23 (v1.2.0 D2 完结, 5d 干完 4 周计划)
+**最后更新**: 2026-07-24 (v1.3.0 F2 完结, 6d 干完 5 周计划)

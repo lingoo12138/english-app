@@ -2,6 +2,7 @@
 // 设计: 渐变 + 大数字 + 成就感, 让用户想晒
 import { useEffect, useState } from 'react'
 import { getStreak, getTotalDays } from '../lib/streak'
+import { getUnlockedCount, loadAchievementStats } from '../lib/achievements'
 import { getAllFavorites, getTotalLearned, getAllWritingErrors } from '../lib/db'
 import { getWord } from '../lib/words'
 
@@ -15,6 +16,7 @@ export interface ShareCardData {
   favoriteCount: number    // 收藏数
   errorCount: number       // 错题数
   topFavorites: Array<{ word: string; translation: string }>  // Top 3 收藏
+  achievementCount: number  // v1.3-F2: 已解锁成就数
 }
 
 /**
@@ -38,6 +40,7 @@ export async function loadShareCardData(): Promise<ShareCardData> {
     }
   }
 
+  const achStats = await loadAchievementStats()
   return {
     streak,
     totalDays,
@@ -45,6 +48,7 @@ export async function loadShareCardData(): Promise<ShareCardData> {
     favoriteCount: favorites.length,
     errorCount: errors.length,
     topFavorites,
+    achievementCount: getUnlockedCount(achStats),
   }
 }
 
@@ -90,6 +94,11 @@ export function ShareCard({ data, style }: Props) {
         <Stat label="📅 累计天数" value={data.totalDays} unit="天" accent={accent} />
         <Stat label="📖 学过词数" value={data.totalLearned} unit="词" accent={accent} />
         <Stat label="⭐ 收藏" value={data.favoriteCount} unit="个" accent={accent} />
+      </div>
+
+      {/* v1.3-F2: 成就 */}
+      <div className={`text-center text-sm mb-4 ${accent} font-semibold`}>
+        🏆 已解锁 {data.achievementCount} 个成就
       </div>
 
       {/* 错题 */}

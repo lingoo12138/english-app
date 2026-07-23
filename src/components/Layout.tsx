@@ -16,6 +16,7 @@ const desktopNav = [
   { to: '/report', label: '报告', icon: '📊' },
   { to: '/translate', label: '翻译', icon: '🔤' },
   { to: '/notebook', label: '生词本', icon: '⭐' },
+  { to: '/achievements', label: '成就', icon: '🏆' },
   { to: '/settings', label: '设置', icon: '⚙️' },
 ]
 

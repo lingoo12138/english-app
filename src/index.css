@@ -135,3 +135,14 @@ body {
 .animate-slide-down {
   animation: slide-down 0.2s ease-out;
 }
+/* v1.3-F2: 成就解锁动画 */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+.achievement-unlocked {
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+}

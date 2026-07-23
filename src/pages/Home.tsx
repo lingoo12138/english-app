@@ -6,6 +6,7 @@ import DailySentenceCard from '../components/home/DailySentenceCard'
 import ReviewReminderCard from '../components/home/ReviewReminderCard'
 import StudyCalendar from '../components/StudyCalendar'
 import { ShareModal } from '../components/ShareModal'
+import { loadAchievementStats, getUnlockedCount, getNextAchievement } from '../lib/achievements'
 import { getTodaySentence } from '../lib/daily'
 import { loadWords, LEVELS } from '../lib/words'
 import type { Word, DailySentence } from '../types'
@@ -21,6 +22,7 @@ export default function Home() {
   const [dueReviewCount, setDueReviewCount] = useState(0)
   const [plan, setPlan] = useState<TodayPlan | null>(null)
   const [showShare, setShowShare] = useState(false)
+  const [achievementStats, setAchievementStats] = useState<Awaited<ReturnType<typeof loadAchievementStats>> | null>(null)
   const dailyGoal = useStore(s => s.dailyGoal)
   const stats = useStats()
   const targetLevel = useStore(s => s.targetLevel)
@@ -83,6 +85,27 @@ export default function Home() {
           📤 分享
         </button>
       </div>
+
+      {/* v1.3-F2: 成就卡 */}
+      {achievementStats && (
+        <Link
+          to="/achievements"
+          className="card bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 border border-yellow-200 dark:border-yellow-800 flex items-center gap-3 hover:shadow-md transition"
+        >
+          <div className="text-3xl">🏆</div>
+          <div className="flex-1">
+            <div className="font-semibold text-sm">成就</div>
+            <div className="text-xs text-stone-500 dark:text-stone-400">
+              已解锁 <b className="text-amber-600 dark:text-amber-400">{getUnlockedCount(achievementStats)}</b> / 19
+              {(() => {
+                const next = getNextAchievement(achievementStats)
+                return next ? ` · 下一: ${next.achievement.emoji} ${next.achievement.title}` : ''
+              })()}
+            </div>
+          </div>
+          <div className="text-stone-400">→</div>
+        </Link>
+      )}
 
       {/* 学习数据卡片 */}
       <div className="grid grid-cols-3 gap-3">
