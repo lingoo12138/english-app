@@ -1,0 +1,73 @@
+plan_id: v1.6-bugfix-core-review
+title: v1.6 Bugfix — 4 核心功能深 review 修复
+owner: Mavis
+created: 2026-07-23
+status: draft
+
+goal: |
+  修复 review 4 核心功能发现的 11 个 bug, 0 P0 + 0 P1 关闭
+
+tasks:
+  - id: bug1-bug2
+    name: WritePage tab 切换丢失 input 修复
+    priority: P1
+    type: code-fix
+    files: [src/pages/WritePage.tsx]
+    est_minutes: 10
+
+  - id: bug3-bug4
+    name: ListenPage 切 lesson 状态泄漏修复
+    priority: P1
+    type: code-fix
+    files: [src/pages/ListenPage.tsx]
+    est_minutes: 15
+
+  - id: bug5-bug6
+    name: ErrorExplainButton/UsageButton setLoading 缺失修复
+    priority: P1
+    type: code-fix
+    files: [src/components/ErrorExplainButton.tsx, src/components/UsageButton.tsx]
+    est_minutes: 10
+
+  - id: bug7
+    name: AIChat STT 累积无 MAX_LEN 限制修复
+    priority: P1
+    type: code-fix
+    files: [src/pages/AIChat.tsx]
+    est_minutes: 5
+
+  - id: bug8-bug11
+    name: P2 修复 (WritePage 截断 / handlePlay 重复 / UsageButton 解析 / addFavorite 重复)
+    priority: P2
+    type: code-fix
+    est_minutes: 20
+
+  - id: tests
+    name: 单元测试加 4 bug 覆盖
+    priority: P1
+    type: test
+    est_minutes: 30
+
+  - id: verify
+    name: 闭环脚本 verify-v1.6-bugfix.mjs
+    priority: P1
+    type: test
+    est_minutes: 20
+
+  - id: static-review
+    name: 静态审查 scripts/review-v1.6.py
+    priority: P1
+    type: verify
+    est_minutes: 15
+
+  - id: docs
+    name: CHANGELOG + DEV_LOG + ROADMAP
+    priority: P1
+    type: docs
+    est_minutes: 15
+
+  - id: commit-tag
+    name: commit + tag v1.6.0 + push
+    priority: P1
+    type: release
+    est_minutes: 10
