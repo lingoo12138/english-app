@@ -86,4 +86,17 @@ export default defineConfig({
     port: 5173,
     host: true,
   },
+  // v1.1-W1-T4: 拆 vendor + 路由按需
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'db-vendor': ['dexie'],
+          'state-vendor': ['zustand'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 800,
+  },
 })

@@ -1,28 +1,29 @@
 import { useEffect } from 'react'
+import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import InstallPrompt from './components/InstallPrompt'
-import Home from './pages/Home'
-import WordList from './pages/WordList'
-import WordDetail from './pages/WordDetail'
-import DailyPage from './pages/DailyPage'
-import Translate from './pages/Translate'
-import Notebook from './pages/Notebook'
-import Settings from './pages/Settings'
-import ReviewCenter from './pages/ReviewCenter'
-import CardReview from './pages/CardReview'
-import WeakWords from './pages/WeakWords'
-import Scenes from './pages/Scenes'
-import LearnReport from './pages/LearnReport'
-import PronounceCustom from './pages/PronounceCustom'
-import PlanPage from './pages/PlanPage'
-import WritePage from './pages/WritePage'
-import ErrorsPage from './pages/ErrorsPage'
-import ListenPage from './pages/ListenPage'
-import SceneDetail from './pages/SceneDetail'
-import Camera from './pages/Camera'
-import AIChat from './pages/AIChat'
+const Home = lazy(() => import('./pages/Home'))
+const WordList = lazy(() => import('./pages/WordList'))
+const WordDetail = lazy(() => import('./pages/WordDetail'))
+const DailyPage = lazy(() => import('./pages/DailyPage'))
+const Translate = lazy(() => import('./pages/Translate'))
+const Notebook = lazy(() => import('./pages/Notebook'))
+const Settings = lazy(() => import('./pages/Settings'))
+const ReviewCenter = lazy(() => import('./pages/ReviewCenter'))
+const CardReview = lazy(() => import('./pages/CardReview'))
+const WeakWords = lazy(() => import('./pages/WeakWords'))
+const Scenes = lazy(() => import('./pages/Scenes'))
+const LearnReport = lazy(() => import('./pages/LearnReport'))
+const PronounceCustom = lazy(() => import('./pages/PronounceCustom'))
+const PlanPage = lazy(() => import('./pages/PlanPage'))
+const WritePage = lazy(() => import('./pages/WritePage'))
+const ErrorsPage = lazy(() => import('./pages/ErrorsPage'))
+const ListenPage = lazy(() => import('./pages/ListenPage'))
+const SceneDetail = lazy(() => import('./pages/SceneDetail'))
+const Camera = lazy(() => import('./pages/Camera'))
+const AIChat = lazy(() => import('./pages/AIChat'))
 import { useStore, useStats } from './store/useStore'
 import { getTodayCount, getTotalLearned, getAllFavorites } from './lib/db'
 import { getTheme, applyTheme, applyFontSize } from './lib/themes'
@@ -108,6 +109,7 @@ function App() {
   }, [location.pathname])
 
   return (
+    <Suspense fallback={<div className="flex items-center justify-center h-32"><div className="text-stone-500">加载中...</div></div>}>
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
@@ -133,6 +135,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
+    </Suspense>
   )
 }
 
