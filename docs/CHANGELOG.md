@@ -224,6 +224,47 @@
 
 ⚠️ Home 集成: WONTFIX v1.1.1, 错词入生词本后**自动算入** ReviewReminderCard 待复习数
 
+## [v1.1.2] - 2026-07-23
+
+### 📤 学习卡分享 (F1 完结)
+
+**T1 ShareCard 海报组件**:
+- `src/components/ShareCard.tsx` (160 行)
+  - 3 套风格: 简洁 (白底) / 渐变 (绿) / 复古 (暖色)
+  - 4 大数据: 连续天数 / 累计天数 / 学过词数 / 收藏数 + 错题数
+  - Top 3 收藏 (含翻译)
+  - `loadShareCardData` 聚合函数 + `useShareCardData` hook
+
+**T2 Home 接入**:
+- 顶部 "📤 分享" 按钮 (绿渐变小药丸)
+- 点击 → 打开 ShareModal
+
+**T3 ShareModal**:
+- `src/components/ShareModal.tsx` (110 行)
+- 3 步: 选风格 → 预览 → 复制
+- 📱 长按 / 💻 右键 保存
+- 📋 复制分享文本 (朋友圈/小红书)
+- `Modal.tsx` 加 `children` prop 支持自定义内容
+
+**T4 3 风格系统**:
+- 配色变量驱动
+- 简洁/渐变/复古 各自独立背景色 + 强调色
+
+**T5 单元测试 42→47 (+5)**:
+- `tests/shareCard.test.ts` (5 测试)
+  - STYLES 3 套
+  - loadShareCardData: 空/字段/topFavorites ≤ 3
+  - ShareCardData 类型
+- 47/47 全过
+
+**T6 验证**:
+- verify-v1.1-e2e: 31/31 pass
+- build pass + typecheck 0 错误
+
+⚠️ html2canvas: WONTFIX, 提示用户截图代替 (省 40KB)
+
+---
+
 ---
 
 ---

@@ -5,6 +5,7 @@ import TodayPlanCard from '../components/home/TodayPlanCard'
 import DailySentenceCard from '../components/home/DailySentenceCard'
 import ReviewReminderCard from '../components/home/ReviewReminderCard'
 import StudyCalendar from '../components/StudyCalendar'
+import { ShareModal } from '../components/ShareModal'
 import { getTodaySentence } from '../lib/daily'
 import { loadWords, LEVELS } from '../lib/words'
 import type { Word, DailySentence } from '../types'
@@ -19,6 +20,7 @@ export default function Home() {
   const [fav, setFav] = useState(false)
   const [dueReviewCount, setDueReviewCount] = useState(0)
   const [plan, setPlan] = useState<TodayPlan | null>(null)
+  const [showShare, setShowShare] = useState(false)
   const dailyGoal = useStore(s => s.dailyGoal)
   const stats = useStats()
   const targetLevel = useStore(s => s.targetLevel)
@@ -68,9 +70,18 @@ export default function Home() {
   return (
     <div className="space-y-6">
       {/* 顶部欢迎 */}
-      <div>
-        <h1 className="text-2xl font-bold mb-1">你好 👋</h1>
-        <p className="text-stone-500 dark:text-stone-400 text-sm">今天来学点新东西吧</p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-bold mb-1">你好 👋</h1>
+          <p className="text-stone-500 dark:text-stone-400 text-sm">今天来学点新东西吧</p>
+        </div>
+        {/* v1.1-F1: 分享按钮 */}
+        <button
+          onClick={() => setShowShare(true)}
+          className="text-xs px-3 py-1.5 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-sm hover:shadow-md active:scale-95 transition"
+        >
+          📤 分享
+        </button>
       </div>
 
       {/* 学习数据卡片 */}
@@ -207,6 +218,8 @@ export default function Home() {
           </Link>
         </div>
       </div>
+
+      <ShareModal open={showShare} onClose={() => setShowShare(false)} />
     </div>
   )
 }

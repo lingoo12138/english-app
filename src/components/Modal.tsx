@@ -1,9 +1,10 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 
 export interface ModalProps {
   open: boolean
   title: string
-  message: string
+  message?: string
+  children?: ReactNode  // v1.1-F1: 支持自定义内容 (ShareModal 用)
   variant?: 'default' | 'danger' | 'info'
   confirmText?: string
   cancelText?: string
@@ -22,6 +23,7 @@ export function Modal({
   open,
   title,
   message,
+  children,
   variant = 'default',
   confirmText = '确定',
   cancelText = '取消',
@@ -78,7 +80,10 @@ export function Modal({
           <h2 id="modal-title" className="text-lg font-semibold mb-3 text-slate-900 dark:text-slate-100">
             {title}
           </h2>
-          <p className="text-sm text-slate-600 dark:text-slate-300 whitespace-pre-line">{message}</p>
+          {message && (
+            <p className="text-sm text-slate-600 dark:text-slate-300 whitespace-pre-line">{message}</p>
+          )}
+          {children}
         </div>
         <div className="px-6 pb-6 flex gap-2 justify-end">
           {showCancel && (
