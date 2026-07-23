@@ -2,6 +2,9 @@
 import Dexie, { type Table } from 'dexie'
 import type { Favorite, LearnRecord, ReviewItem, PronunciationAttempt } from '../types'
 
+// v1.0: export 供 migrate.ts 等使用
+export type { Favorite as FavoriteRecord, PronunciationAttempt }
+
 class EnglishAppDB extends Dexie {
   favorites!: Table<Favorite, string>
   records!: Table<LearnRecord, number>

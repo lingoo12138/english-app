@@ -5,6 +5,7 @@ import TranslateSection from '../components/settings/TranslateSection'
 import LLMSection from '../components/settings/LLMSection'
 import AppearanceSection from '../components/settings/AppearanceSection'
 import DataManagementSection from '../components/settings/DataManagementSection'
+import MigrationSection from '../components/settings/MigrationSection'
 import AIChatDataSection from '../components/settings/AIChatDataSection'
 import ReminderSection from '../components/settings/ReminderSection'
 
@@ -25,6 +26,7 @@ export default function Settings() {
       <LLMSection />
       <AppearanceSection />
       <DataManagementSection />
+      <MigrationSection />
       <AIChatDataSection />
       <ReminderSection />
 

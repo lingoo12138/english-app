@@ -109,3 +109,20 @@ details > summary::-webkit-details-marker {
 .card-back {
   transform: rotateY(180deg);
 }
+
+/* W7: iOS PWA safe-area + overscroll */
+:root {
+  --sat: env(safe-area-inset-top);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
+  --sar: env(safe-area-inset-right);
+}
+html, body {
+  overscroll-behavior-y: contain;
+}
+body {
+  padding-top: var(--sat);
+  padding-bottom: var(--sab);
+  padding-left: var(--sal);
+  padding-right: var(--sar);
+}
