@@ -83,3 +83,97 @@ export async function chat(
     ts: Date.now(),
   }
 }
+
+export interface ReviewError {
+  original: string
+  fixed: string
+  type: 'grammar' | 'vocab' | 'spelling' | 'style' | 'tense' | 'preposition' | 'article' | 'other'
+  why: string
+  severity: number  // 0-1
+}
+
+export interface ReviewResult {
+  hasError: boolean
+  errors: ReviewError[]
+}
+
+/**
+ * AI 对话实时纠错 (W2-A)
+ * - 在主对话不阻塞的情况下, 后台并行调 LLM 标错
+ * - 输出严格 JSON: {hasError, errors:[{original, fixed, type, why, severity}]}
+ * - 避免在 Mock 渠道上调用
+ */
+export async function reviewMessage(
+  text: string,
+  level: string,
+  provider: LLMProvider,
+  apiKey: string,
+  model: string,
+): Promise<ReviewResult> {
+  if (!text.trim()) return { hasError: false, errors: [] }
+  if (provider.id === 'mock') {
+    return { hasError: false, errors: [] }  // Mock 跳过
+  }
+
+  const systemPrompt = `You are an English grammar checker for Chinese learners at ${level} level.
+Analyze the user's message and return strict JSON:
+{
+  "hasError": <true|false>,
+  "errors": [
+    {
+      "original": "<exact wrong phrase from user message>",
+      "fixed": "<correct phrase>",
+      "type": "grammar|vocab|spelling|style|tense|preposition|article|other",
+      "why": "<1 sentence Chinese explanation>",
+      "severity": <0.0-1.0>
+    }
+  ]
+}
+Only flag meaningful errors (severity >= 0.4). If no errors, return {"hasError": false, "errors": []}.
+Do NOT add explanations outside JSON. Only return valid JSON.`
+
+  const resp = await chatCompletion({
+    provider,
+    apiKey,
+    model,
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: text },
+    ],
+    temperature: 0.2,
+    maxTokens: 800,
+  })
+
+  return parseReview(resp.content)
+}
+
+function parseReview(content: string): ReviewResult {
+  const trimmed = content.trim()
+  let jsonStr = trimmed
+  const fenceMatch = trimmed.match(/```(?:json)?\s*([\s\S]+?)\s*```/)
+  if (fenceMatch) jsonStr = fenceMatch[1].trim()
+  const first = jsonStr.indexOf('{')
+  const last = jsonStr.lastIndexOf('}')
+  if (first >= 0 && last > first) {
+    jsonStr = jsonStr.slice(first, last + 1)
+  }
+  try {
+    const obj = JSON.parse(jsonStr)
+    const validTypes = ['grammar', 'vocab', 'spelling', 'style', 'tense', 'preposition', 'article', 'other'] as const
+    return {
+      hasError: Boolean(obj.hasError) && Array.isArray(obj.errors) && obj.errors.length > 0,
+      errors: (Array.isArray(obj.errors) ? obj.errors : []).map((e: any) => {
+        const t = String(e.type || 'other')
+        return {
+          original: String(e.original || ''),
+          fixed: String(e.fixed || ''),
+          type: (validTypes as readonly string[]).includes(t) ? t as any : 'other',
+          why: String(e.why || ''),
+          severity: typeof e.severity === 'number' ? e.severity : 0.5,
+        }
+      }).filter((e: ReviewError) => e.severity >= 0.4),
+    }
+  } catch {
+    return { hasError: false, errors: [] }
+  }
+}

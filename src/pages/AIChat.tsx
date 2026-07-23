@@ -1,8 +1,8 @@
 // AI 对话陪练页 - v0.11
 import { useState, useRef, useEffect } from 'react'
 import { useStore } from '../store/useStore'
-import { chat as aiChat, type ChatMessage } from '../lib/aiChat'
-import { saveChat, getAllChats, deleteChat, addFavorite, isFavorite, type ChatRecord } from '../lib/db'
+import { chat as aiChat, reviewMessage, type ChatMessage, type ReviewResult } from '../lib/aiChat'
+import { saveChat, getAllChats, deleteChat, addFavorite, isFavorite, saveWritingError, type ChatRecord } from '../lib/db'
 import { exportAllChats, downloadChatJson, exportChat } from '../lib/exportChat'
 import TTSButton from '../components/TTSButton'
 import { STTController, isSTTSupported } from '../lib/stt'
@@ -77,6 +77,7 @@ export default function AIChat() {
     setMessages([])
     setInput('')
     setSttInterim('')
+    setReviews({})  // W2-A: 重置纠错状态
   }
 
   const [currentChatId, setCurrentChatId] = useState<number | null>(null)
@@ -86,6 +87,8 @@ export default function AIChat() {
   // 实际: 把 loading 声明提前到这里
   const [loadingEarly, setLoadingEarly] = useState(false)
   const [messages, setMessages] = useState<ChatMessage[]>([])
+  // W2-A: 实时纠错结果, key=msgId
+  const [reviews, setReviews] = useState<Record<string, ReviewResult>>({})
   // 加载中 ref(避开 useEffect 依赖)
   const loadingRef = useRef(false)
   // P1-2 修: 请求 id 跟踪,避免切场景/level 后旧请求覆盖新结果
@@ -208,6 +211,35 @@ export default function AIChat() {
     setError('')
     setLoading(true)
     const myReqId = ++reqIdRef.current  // P1-2 修: 每次发送自增
+
+    // W2-A: 后台并行起纠错 (Mock 跳过)
+    if (provider?.id !== 'mock') {
+      reviewMessage(userMsg.content, level, provider, apiKey, model)
+        .then((review) => {
+          if (myReqId !== reqIdRef.current) return
+          if (review.hasError) {
+            setReviews(prev => ({ ...prev, [userMsg.id]: review }))
+            // W2-A.3: 存到 IndexedDB
+            saveWritingError({
+              source: 'chat',
+              original: userMsg.content,
+              corrected: '',  // 实时纠错只给错误, 不给完整改正
+              errors: review.errors.map(e => ({
+                original: e.original,
+                suggestion: e.fixed,
+                type: e.type,
+                explanation: e.why,
+                severity: e.severity,
+              })),
+              ts: Date.now(),
+            }).catch(console.error)
+          }
+        })
+        .catch((e) => {
+          if (myReqId !== reqIdRef.current) return
+          console.error('纠错失败:', e)
+        })
+    }
 
     try {
       const reply = await aiChat(newMessages, { scenario, level }, provider, apiKey, model)
@@ -429,7 +461,7 @@ export default function AIChat() {
         )}
 
         {messages.map(m => (
-          <MessageBubble key={m.id} message={m} />
+          <MessageBubble key={m.id} message={m} review={reviews[m.id]} />
         ))}
 
         {loading && (
@@ -479,7 +511,7 @@ export default function AIChat() {
   )
 }
 
-function MessageBubble({ message }: { message: ChatMessage }) {
+function MessageBubble({ message, review }: { message: ChatMessage; review?: ReviewResult }) {
   const isUser = message.role === 'user'
   const [sel, setSel] = useState<{ word: string; x: number; y: number; translation: string; inVocab: boolean; alreadyFav: boolean } | null>(null)
   const selTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -578,6 +610,35 @@ function MessageBubble({ message }: { message: ChatMessage }) {
     return () => clearTimeout(t)
   }, [sel])
 
+  // W2-A: 纠错面板状态
+  const [showReview, setShowReview] = useState(false)
+  const [reviewAddedWords, setReviewAddedWords] = useState<Set<string>>(new Set())
+
+  const handleAddReviewWord = async (suggestion: string) => {
+    if (reviewAddedWords.has(suggestion)) return
+    const allWords = await loadWords()
+    const found = allWords.find(w => w.word.toLowerCase() === suggestion.toLowerCase())
+    if (found) {
+      await addFavorite(found.id)
+      setReviewAddedWords(prev => new Set(prev).add(suggestion))
+    }
+  }
+
+  const handleAddAllReviewWords = async () => {
+    if (!review) return
+    const allWords = await loadWords()
+    const wordMap = new Map(allWords.map(w => [w.word.toLowerCase(), w.id]))
+    const newSet = new Set(reviewAddedWords)
+    for (const err of review.errors) {
+      const word = err.fixed.toLowerCase().split(/\s+/)[0]
+      if (wordMap.has(word) && !newSet.has(word)) {
+        await addFavorite(wordMap.get(word)!)
+        newSet.add(word)
+      }
+    }
+    setReviewAddedWords(newSet)
+  }
+
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} relative`}>
       <div
@@ -588,6 +649,52 @@ function MessageBubble({ message }: { message: ChatMessage }) {
         }`}
       >
         <p ref={paragraphRef} className="text-sm whitespace-pre-wrap break-words">{message.content}</p>
+        {/* W2-A: 用户消息下纠错按钮 (Mock 渠道不显示) */}
+        {isUser && review && review.hasError && (
+          <button
+            onClick={() => setShowReview(!showReview)}
+            className="mt-1.5 text-xs px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/50"
+          >
+            ✏️ 纠错 ({review.errors.length})
+          </button>
+        )}
+        {showReview && review && (
+          <div className="mt-2 p-2 rounded bg-amber-50 dark:bg-amber-900/20 text-xs space-y-1.5 max-w-full">
+            <div className="flex items-center justify-between">
+              <span className="font-semibold text-amber-700 dark:text-amber-300">
+                📋 {review.errors.length} 个问题
+              </span>
+              <button
+                onClick={handleAddAllReviewWords}
+                className="text-amber-700 dark:text-amber-300 hover:underline"
+              >
+                ⭐ 一键加生词本
+              </button>
+            </div>
+            {review.errors.map((err, i) => (
+              <div key={i} className="border-l-2 border-amber-400 pl-2">
+                <div className="flex items-center gap-1 mb-0.5">
+                  <span className="line-through text-stone-500 dark:text-stone-400">{err.original}</span>
+                  <span>→</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-mono">{err.fixed}</span>
+                  <span className="text-[10px] px-1 py-0.5 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 rounded">
+                    {err.type}
+                  </span>
+                </div>
+                <p className="text-stone-600 dark:text-stone-300 text-[11px] mb-0.5">{err.why}</p>
+                <button
+                  onClick={() => handleAddReviewWord(err.fixed.toLowerCase().split(/\s+/)[0])}
+                  disabled={reviewAddedWords.has(err.fixed.toLowerCase().split(/\s+/)[0])}
+                  className="text-[10px] text-amber-600 dark:text-amber-400 hover:underline disabled:opacity-50 disabled:no-underline"
+                >
+                  {reviewAddedWords.has(err.fixed.toLowerCase().split(/\s+/)[0])
+                    ? '✓ 已加入'
+                    : '⭐ 加入生词本'}
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
         {!isUser && (
           <div className="mt-1.5">
             <TTSButton text={message.content} size="sm" variant="icon" />
