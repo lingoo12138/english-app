@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useStore } from '../store/useStore'
 import { chat as aiChat, reviewMessage, type ChatMessage, type ReviewResult } from '../lib/aiChat'
-import { saveChat, getAllChats, deleteChat, addFavorite, isFavorite, saveWritingError, type ChatRecord } from '../lib/db'
+import { saveChat, getAllChats, deleteChat, addFavorite, isFavorite, saveWritingError, getAllWritingErrors, type ChatRecord } from '../lib/db'
 import { exportAllChats, downloadChatJson, exportChat } from '../lib/exportChat'
 import TTSButton from '../components/TTSButton'
 import { STTController, isSTTSupported } from '../lib/stt'
@@ -51,12 +51,41 @@ export default function AIChat() {
   }
 
   // 加载历史对话
-  const loadChat = (chat: ChatRecord) => {
+  const loadChat = async (chat: ChatRecord) => {
     setCurrentChatId(chat.id ?? null)
     setMessages(chat.messages.map(m => ({ id: m.id, role: m.role as 'user' | 'assistant', content: m.content, ts: m.ts })))
     setScenario(chat.scenario)
     setLevel(chat.level as any)
     setShowHistory(false)
+    // P1 修复: 加载历史对话时, 从 writingErrors 表补上 reviews (source: 'chat')
+    try {
+      const allErrors = await getAllWritingErrors()
+      const chatErrors = allErrors.filter(e => e.source === 'chat')
+      const userMsgs = chat.messages.filter(m => m.role === 'user')
+      const newReviews: Record<string, ReviewResult> = {}
+      for (const um of userMsgs) {
+        // 匹配: original 内容相等 + ts 接近 (10分钟窗口)
+        const match = chatErrors.find(e =>
+          e.original === um.content &&
+          Math.abs(e.ts - um.ts) < 10 * 60 * 1000,
+        )
+        if (match) {
+          newReviews[um.id] = {
+            hasError: true,
+            errors: match.errors.map(er => ({
+              original: er.original,
+              fixed: er.suggestion,
+              type: er.type as any,
+              why: er.explanation,
+              severity: er.severity,
+            })),
+          }
+        }
+      }
+      setReviews(newReviews)
+    } catch (e) {
+      console.error('加载历史 reviews 失败', e)
+    }
   }
 
   // 删除历史对话
