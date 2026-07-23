@@ -13,8 +13,9 @@ export default function LearnReport() {
   const setScenario = useStore(s => s.setChatScenario)
 
   useEffect(() => {
+    // P1 修复: 切换 scenario 时重刷 (之前只读初始)
     refresh()
-  }, [])
+  }, [scenario])
 
   const refresh = async () => {
     setLoading(true)

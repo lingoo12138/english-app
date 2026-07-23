@@ -2,7 +2,7 @@
 // 跟 ReviewCenter 互补:ReviewCenter 是批量认识/不认识(快速模式),
 // CardReview 是单卡翻面 + 4 档精细评级(SM-2 标准算法)
 import { useState, useEffect, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { getDueReviews, getAllReviews, getAllFavorites, reviewWord, logAction } from '../lib/db'
 import { loadWords } from '../lib/words'
 import type { Word, ReviewItem } from '../types'
@@ -38,12 +38,20 @@ export default function CardReview() {
   })
 
   // 初始化:从生词本 + 复习计划拼装本次复习队列
+  // P1 修复: 监听 location pathname, 路由到 /cards 重新加载 (避免从别页返回后 state 残留)
+  const location = useLocation()
   useEffect(() => {
     loadQueue()
-  }, [])
+  }, [location.pathname])
 
   async function loadQueue() {
     setLoading(true)
+    // P1 修复: 重置所有 state(避免切页后状态残留)
+    setCurrentIndex(0)
+    setFlipped(false)
+    setSessionDone(false)
+    setReviewedCount(0)
+    setRatings({ again: 0, hard: 0, good: 0, easy: 0 })
     const [favs, due, allReviews] = await Promise.all([
       getAllFavorites(),
       getDueReviews(),

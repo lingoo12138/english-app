@@ -35,7 +35,7 @@ interface ProgressData {
   goal: number
 }
 
-function loadProgress(date: string): { completed: Set<string>; goal: number } {
+export function loadProgress(date: string): { completed: Set<string>; goal: number } {
   try {
     const raw = localStorage.getItem(STORAGE_KEY + date)
     if (raw) {
@@ -45,7 +45,10 @@ function loadProgress(date: string): { completed: Set<string>; goal: number } {
       }
       return { completed: new Set(data.completed || []), goal: data.goal || 0 }
     }
-  } catch {}
+  } catch (e) {
+    // P1 修复: 显式 catch + warn(避免静默失败)
+    console.warn('plan.ts: loadProgress 失败 (corrupted localStorage?):', e)
+  }
   return { completed: new Set(), goal: 0 }
 }
 
