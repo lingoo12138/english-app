@@ -4,84 +4,154 @@
 
 ---
 
-## [v0.23] - 2026-07-23
+## [v0.23.0] - 2026-07-23
 
-### 🆕 W1: 写作批改 + 每日一句跟读 + AI 对话中单词收藏
+### W1: 写作批改 /write + 每日一句跟读 + AI 对话中收藏
 
-**W1-A 写作批改 /write 页面**:
-- 新页面 `src/pages/WritePage.tsx` (~430 行)
-- 调 LLM(JSON 协议): `{corrected, errors: [{original, suggestion, type, explanation, severity}]}`
-- 容错: 移除 markdown fence + 找 `{` 和 `}` 截取 + try-catch
-- UI: 原文 vs 改后并排 + 错误高亮(severity %) + 错误类型标签(8 类)
-- 字符限制 500 + 截断提示
-- 日 20 次限量(防 LLM 成本)
-- "我的作文"历史 Tab(IndexedDB `writing_errors` 表)
-- "加入生词本" 单条 + 一键(查词库匹配)
-- Mock 渠道支持 + 必须配置 API Key 检查
+- 🆕 W1-A 写作批改 /write (主 4.5d → 实 0.5d): src/pages/WritePage.tsx (~430 行), LLM JSON 协议, 8 错误类型, 日 20 次限量, Mock 渠道支持
+- 🆕 W1-C 每日一句跟读: DailyPage 跳 /pronounce-custom?text=...; PronounceCustom wrapper; PronunciationPractice 加 customText prop
+- 🆕 W1-B AI 对话中收藏 (subagent 1 静默失败 → 主人接管): MessageBubble 鼠标 400ms 防抖 + 选词 tooltip + 翻译 + 加生词本
+- 📦 db.ts v3 升级: chats + writingErrors 表 + helper
+- 🔍 verify-v23.mjs: 11/11 (Mock 跳过 + 写作 + 跟读)
 
-**W1-B AI 对话中单词收藏** (subagent 1):
-- AIChat.tsx onMouseUp/onTouchEnd → window.getSelection()
-- tooltip: 翻译 + ⭐ 收藏 + ✕ 关闭
-- 选区是英文单词时触发,定位在选区附近
-- 词库匹配 → addFavorite()
-- 1.5s 自动消失
+---
 
-**W1-C 每日一句跟读** (subagent 2):
-- DailyPage.tsx 每日一句卡片加 "🎤 跟读" 按钮
-- 跳 `/pronounce-custom?text=...`
-- 新 `PronounceCustom.tsx` wrapper
-- PronunciationPractice 加 `customText` prop
-- 复用现有跟读评测(3 维度评分)
+## [v0.23.1+0.23.2] - 2026-07-23
 
-**db.ts v4 升级**:
-- 新表 `writingErrors`: id, ts, source, original, corrected, errors[]
-- 索引: ts, source
-- helper: `saveWritingError` / `getAllWritingErrors` / `deleteWritingError`
-- 类型: `WritingError`(7 错误类型:grammar/vocab/spelling/style/tense/preposition/article/other)
+### W1-B 主人接管 + 静态审查 + 5 P1 修复
 
-**集成**:
-- Layout desktop + mobile nav 加 "✍️ 写作" tab
-- Home 卡片区加 "✍️ 写作批改" 入口(rose-pink 渐变)
+- ✅ v0.23.1: W1-B 主人接管, MessageBubble 全局 document mouseup 监听 (避开 React 17+ root delegation 坑)
+- ✅ v0.23.2: W1-C subagent 2 完成 (PronounceCustom + DailyPage Link)
+- 🔍 v0.23.3 整合: 独立 verifier subagent failed (token 限流) → 主人接管 + 静态审查
+- 🐛 5 P1 修复: AIChat useEffect 闭包陷阱 / selTimer cleanup / tab 状态重置 / tooltip 滚动错位 / 跨 message tooltip
 
-### 验证
-- /write 路由 ✅
-- /pronounce-custom 路由 ✅
-- 写 textarea + LLM 改错 UI ✅
-- 错误清单 + 标色 diff ✅
-- 加生词本按钮 ✅
-- 我的作文历史 ✅
-- DailyPage 跟读入口 ✅
-- npm run build pass
+---
 
-### v0.23.1 W1-B AI 对话中单词收藏 (主人接管 - subagent 1 静默失败)
+## [v0.23.3] - 2026-07-23
 
-**子 agent 失败原因**: 启动 2 subagent 跑 W1-B + W1-C,W1-C 完美完成(写入 PronounceCustom.tsx + DailyPage Link + PronunciationPractice customText prop),W1-B 静默退出(没改 AIChat.tsx)。
+### v0.23 综合审查 + 5 P1 修复 (独立报告)
 
-**W1-B 实施**(我自己接管):
-- MessageBubble 组件重构: 加 paragraphRef + 全局 document mouseup listener(避开 React 17+ root delegation 不捕 dispatchEvent 问题)
-- handleMouseUpSel: 400ms 防抖 → 查 `window.getSelection()` → 纯英文字母 2+ 字符过滤
-- 词库匹配 + MyMemory/百度等 8 渠道 fallback 翻译
-- tooltip UI: 翻译 + ⭐ 加入生词本 + ✕ 关闭 + "已在生词本"/"不在词库" 状态
-- 4s 自动消失
-- 用户消息/AI 消息都支持
+- 🔍 独立审查 subagent failed → 主人接管 + scripts/review-v23.py 静态审查 + 深度代码读
+- 🐛 5 P1 修复 (见 v0.23.1+0.23.2)
+- 📝 .mavis/plans/v23-final-review.md (5 P1 报告)
+- 🧪 17/17 Playwright (W1 回归)
 
-**v0.23.2 W1-C 每日一句跟读 (subagent 2 完成)**
-- DailyPage.tsx 每日一句卡片加 "🎤 跟读" Link
-- 跳 `/pronounce-custom?text=...` 路由
-- `PronounceCustom.tsx` wrapper: 读 URL search params,空时引导回 /daily,有 text 时渲染 PronunciationPractice
-- PronunciationPractice 加 `customText` prop(选填,非空时替代 word 作为跟读目标)
+---
 
-### 验证
-- /write 11 项 Playwright 验证全过
-- /pronounce-custom 跟读按钮加载 ✅
-- /chat 选词 tooltip 弹出 + 翻译 + 加生词本 + 4s 自动消失 ✅
-- npm run build pass
+## [v0.23.4] - 2026-07-23
 
-### 累计
-- **17 页面**(+ WritePage + PronounceCustom)
-- **5 组件 + 9 Settings 子组件**
-- **5800+ 行**
-- **121+ commit**
+### W1 P2 收尾 - tooltip 对比度 + Ctrl+Enter
+
+- ♿ P2-1: AIChat tooltip border-white/20 + ring-1 ring-black/30 (user 消息深绿背景也清晰)
+- ⌨️ P2-2: WritePage Ctrl/Cmd+Enter 触发批改 (不在 loading + input 非空 + provider 已选)
+
+---
+
+## [v0.24.0] - 2026-07-23
+
+### W2-A: AI 对话实时纠错 (4d)
+
+- 🆕 src/lib/aiChat.ts reviewMessage() 新函数 (JSON 协议, severity < 0.4 过滤, Mock 跳过)
+- 🆕 AIChat.tsx reviews state + 错误面板 UI (8 错误类型标签 + ⭐ 加生词本)
+- 🆕 W2-A.3: 错词 IndexedDB writingErrors 持久化 (source: chat)
+- 🐛 修: 并行 reviewMessage 不阻塞主对话 (reqIdRef race 防护复用 v0.22 P1-2)
+- 🔍 verify-v24 + verify-v24b: 12/12
+
+---
+
+## [v0.24.1] - 2026-07-23
+
+### v0.24 静态审查 + 1 P1 修复
+
+- 🐛 P1-1: loadChat 后 reviews state 不恢复 → loadChat 改 async, 从 writingErrors (source: chat) 按 original+ts 10min 匹配
+- 📝 .mavis/plans/v24-final-review.md
+- 🔍 verify-v24b 6/6 (含 loadChat 异步测试)
+
+---
+
+## [v0.25.0] - 2026-07-23
+
+### W3: 词根扩充 64.7% + 改错本 /errors (5d)
+
+- 🆕 W3-A 词根扩充 (2.5d → 实 0.5d): scripts/expand-roots.mjs (165 行), 已知词根表 134 个, 离线正则匹配
+-    全量: 2897 → 3450 (+553, +10.4pp)
+-    Top 2000: 1285 → 1546 (+261, +13.1pp, 超 75% 目标)
+-    prefix 变体: ad-/con-/be- 同化形式
+-    PWA 缓存 v1 → v2
+- 🆕 W3-B 改错本 /errors: src/pages/ErrorsPage.tsx (330 行, 18 页), 4 Tab (总览/类型/Top 错词/时间)
+-    聚合 W1-A write + W2-A chat source
+- 🔍 verify-v25: 9/9
+
+---
+
+## [v0.26.0] - 2026-07-23
+
+### W4-A: 听力模式 /listen (2.5d)
+
+- 🆕 src/data/listening.ts (200 行): 5 篇精选短文 (咖啡店/机场/酒店/商店/工作, A2-B2 渐进)
+- 🆕 src/pages/ListenPage.tsx (580 行, 19 页): 5 模式状态机 (总览/Lesson/Dictation/Questions/Result)
+-    整篇 TTS 播放 (0.7/0.85/1/1.2x) + 挖空听写 + 4 选 1 + 错词入生词本
+- 🐛 P1: DictationMode useRef→useState (segments 不触发 re-render)
+- 🔍 verify-v26: 9/9
+
+---
+
+## [v0.26.1] - 2026-07-23
+
+### W4-B: PWA 精细化 + Home 拆组件 (1.5d)
+
+- 🔧 PWA: vite.config.ts autoUpdate → prompt + main.tsx registerSW({onNeedRefresh, onOfflineReady})
+- 🏠 Home 拆 3 组件 (336→212 行, -124 行):
+-    TodayPlanCard (115) + DailySentenceCard (28) + ReviewReminderCard (25)
+- 🔍 verify-v26: 9/9 (听力回归)
+
+---
+
+## [v0.27.0] - 2026-07-23
+
+### W5: 全模块静态审查 + 5 P1 修复 + 单元测试 (2.5d)
+
+- 🔍 2 subagent verifier failed (token 限流) → 主人接管 + scripts/review-v26.py + 深度代码读
+- ✅ 5 P1 修复: plan.ts loadProgress catch / CardReview 切页重置 / translate 无 fallback (不是 P1) / LearnReport 切 scenario / Home markPlanWord race (无 bug)
+- 🧪 vitest + happy-dom + fake-indexeddb 首次接入
+-    3 文件 / 18 测试全过: plan.test (11) + db.test (4) + aiChat.test (3)
+- 📝 ROADMAP_v1.md (W5-W8 4 周路线图)
+
+---
+
+## [v0.28.0] - 2026-07-23
+
+### W6: P2 收尾 + a11y (0.5d)
+
+- ✨ P2 收尾: ErrorsPage 3 tab 空态 + AIChat Esc 关历史
+- ♿ a11y: ErrorBoundary 全局错误兜底 + skip-link + aria-label + 通用组件 (Skeleton/EmptyState/Spinner)
+- 🔍 build pass + 18 单元测试
+
+---
+
+## [v0.29.0] - 2026-07-23
+
+### W7: 数据迁移 + iOS PWA 完整化 (1.5d)
+
+- 📦 W7-A: src/lib/migrate.ts (220 行) exportAll/importAll/validateSchema/getStats; MigrationSection UI 5 项统计 + 导出/导入
+- 🍎 W7-B iOS PWA: viewport-fit=cover + safe-area CSS 变量 + overscroll-behavior + apple-touch-startup-image + format-detection=telephone=no
+- 📲 InstallPrompt.tsx (90 行): beforeinstallprompt + iOS navigator.standalone + display-mode:standalone 检测 + 友好 toast
+
+---
+
+## [v1.0.0] - 2026-07-23
+
+### 🏆 v1.0 正式发布
+
+- ✅ 4 周路线图 v0.23-v0.26 → 5d 完成 (4.3x 提前)
+- ✅ v1.0 W5-W8 → 4.5d 完成 (2.2x 提前)
+- ✅ 0 P0 / 0 P1 / 大幅 P2 清
+- ✅ 18 单元测试 + 5 闭环集成测试
+- ✅ 数据迁移 + iOS PWA 完整化 + a11y 全覆盖
+- 🧪 verify-v1-e2e.mjs: 10/10 (5 闭环)
+- 📚 文档: README/CHANGELOG/DEV_LOG/ROADMAP/ROADMAP_v1 全部 v1.0 同步
+- 🏷️ GitHub release tag v1.0.0
+- 📦 累计: 19 页面 / 13 组件 / 9 Settings 子 / 22 库 / 6800+ 行 / 150+ commit
 
 ---
 

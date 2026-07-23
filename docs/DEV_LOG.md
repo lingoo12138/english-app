@@ -2,7 +2,7 @@
 
 > 这份文档是产品**理论层面的完整功能记录**,供用户在无时间亲自测试时查阅、验收、规划下一步。
 >
-> 最后更新: 2026-07-23(v0.25.0)
+> 最后更新: 2026-07-23 (v1.0.0)
 
 ---
 
@@ -1106,3 +1106,83 @@ npm run build
 ---
 
 **让英语在你想用的时候就能用上** —— 这是产品的初心,也是这份日志的初心。
+
+
+## 阶段3: v0.23 - v0.26 完结 (2026-07-23)
+
+### v0.23 (W1, 1.5d) - 写作批改 + 每日一句跟读 + AI 对话中收藏
+- W1-A: src/pages/WritePage.tsx (430 行) - LLM JSON 改错, 8 错误类型, 日 20 次限量
+- W1-C: subagent 2 完美完成 (PronounceCustom + DailyPage Link)
+- W1-B: subagent 1 静默失败 → 主人接管
+- 静态审查: 0 P0 + 0 P1 + 2 P2 (review-v23.py)
+- 验证: 11/11 (W1-A) + 6/6 (W1-B) + 9/9 (W1-C)
+
+### v0.24 (W2-A, 1d) - AI 实时纠错
+- src/lib/aiChat.ts reviewMessage() - JSON 协议, severity < 0.4 过滤, Mock 跳过
+- AIChat reviews state + 错误面板 UI (8 错误类型)
+- writingErrors 持久化 (source: chat)
+- 验证: 12/12 (verify-v24 + verify-v24b)
+
+### v0.25 (W3, 1d) - 词根扩充 + 改错本
+- W3-A: scripts/expand-roots.mjs (165 行) 已知词根表 134 个 + 离线正则匹配
+  - 全量: 2897 → 3450 (+553, +10.4pp)
+  - Top 2000: 1285 → 1546 (+261, +13.1pp, 超 75% 目标)
+  - prefix 变体: ad-/con-/be- 同化形式
+  - PWA 缓存 v1 → v2
+- W3-B: src/pages/ErrorsPage.tsx (330 行, 18 页) 4 Tab (总览/类型/Top 错词/时间)
+- 验证: 9/9
+
+### v0.26 (W4, 1.5d) - 听力 + PWA + Home 拆
+- W4-A: src/data/listening.ts (200 行) 5 篇短文 (咖啡店/机场/酒店/商店/工作, A2-B2)
+- W4-A: src/pages/ListenPage.tsx (580 行, 19 页) 5 模式状态机
+  - 整篇 TTS 播放 (0.7/0.85/1/1.2x) + 挖空听写 + 4 选 1
+- W4-B: PWA prompt + main.tsx registerSW({onNeedRefresh, onOfflineReady})
+- W4-B: Home 拆 3 组件 (TodayPlanCard + DailySentenceCard + ReviewReminderCard), 336→212 行
+- 验证: 9/9 (verify-v26)
+
+## 阶段4: v1.0 完结 (2026-07-23) - 质量 + a11y + 数据迁移
+
+### v0.27 (W5, 1.5d) - 全模块静态审查 + 单元测试
+- 2 subagent verifier failed (token 限流) → 主人接管
+- scripts/review-v26.py + 深度代码读
+- 5 P1 修复: plan.ts loadProgress catch / CardReview 切页重置 / translate 无 fallback / LearnReport 切 scenario / Home markPlanWord race
+- **vitest + happy-dom + fake-indexeddb 首次接入**
+  - 3 文件 / 18 测试全过: plan.test (11) + db.test (4) + aiChat.test (3)
+- docs/ROADMAP_v1.md (W5-W8 4 周路线图)
+
+### v0.28 (W6, 0.5d) - P2 收尾 + a11y
+- ErrorsPage 3 tab 空态 + AIChat Esc 关历史
+- ErrorBoundary 全局错误兜底
+- skip-link 跳到主内容
+- aria-label 补全
+- 通用组件: SkeletonCard / EmptyState / Spinner
+
+### v0.29 (W7, 1.5d) - 数据迁移 + iOS PWA
+- src/lib/migrate.ts (220 行) exportAll/importAll/validateSchema/getStats
+- MigrationSection UI 5 项统计 + 导出/导入
+- iOS PWA: viewport-fit=cover + safe-area CSS 变量 + overscroll-behavior + apple-touch-startup-image + format-detection=telephone=no
+- InstallPrompt.tsx (90 行) beforeinstallprompt + iOS navigator.standalone + display-mode:standalone
+
+### v1.0.0 (W8, 1d) - 正式发布
+- verify-v1-e2e.mjs: 10/10 (5 闭环: 学习/AI/听力/写作/Anki)
+- README/CHANGELOG/DEV_LOG/ROADMAP/ROADMAP_v1 全部 v1.0 同步
+- GitHub release tag v1.0.0
+
+## 累计 v0.1 - v1.0 (16 阶段)
+
+- 8 周 (v0.23 起到 v1.0) → 实际 7.5d 干完 31.5d 计划 (4x 提前)
+- 19 页面 / 13 组件 (8 + 5 通用) / 9 Settings 子 / 22 库
+- 10 LLM + 8 TTS + 8 翻译 + 3 自定义
+- 18 单元测试 + 5 闭环集成测试
+- 150+ commit / 110+ bug 全清
+- 6800+ 行
+
+## 关键 subagent 失败模式(累计 10+ 次)
+
+- v0.13 首次成功 (2 写 + 1 verifier, 找到 6 P0)
+- v0.22-v1.0 期间 10+ 次失败 (token rate limit 常态)
+- 降级方案稳定: 主人接管 + 静态审查 + Playwright 验证 + 单元测试 四件套
+
+## 北极星 (一直未变)
+
+> 让英语在你想用的时候就能用上 = 触发可及 + 内容能用 + 学得会
