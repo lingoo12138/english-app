@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getWord, loadWords } from '../lib/words'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
+import { UsageButton } from '../components/UsageButton'
 import PronunciationPractice from '../components/PronunciationPractice'
 import { addFavorite, removeFavorite, isFavorite, logAction, reviewWord } from '../lib/db'
 import { markWordCompleted } from '../lib/plan'
@@ -223,6 +224,18 @@ export default function WordDetail() {
           </div>
         </div>
       )}
+
+      {/* v1.5-D3: AI 推荐短语用法 */}
+      <div className="card">
+        <h3 className="font-semibold mb-3 flex items-center gap-2">
+          <span>💡</span>
+          <span>AI 短语用法</span>
+        </h3>
+        <UsageButton
+          word={word.word}
+          translation={word.translations[0] || ''}
+        />
+      </div>
 
       {/* 例句 */}
       <div className="card">

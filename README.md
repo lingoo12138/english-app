@@ -205,7 +205,20 @@ src/
 ✅ 单元测试 72→**78** (+6)
 ✅ 闭环 16/37 回归全过
 
-详情见 [CHANGELOG](./docs/CHANGELOG.md#v140---2026-07-24)
+
+
+## 💡 v1.5.0 - 单词短语用法 (2026-07-24) - LLM Tutor 2.0
+
+✅ **单词 AI 推荐短语** (3-5 个常用搭配)
+✅ WordDetail "💡 AI 短语用法" 按钮
+✅ 复用 IndexedDB 缓存 (`usage::${word}`)
+✅ Mock fallback (无 API 也能用)
+✅ 单元测试 78→**82** (+4)
+✅ 闭环 16/37 回归全过
+
+详情见 [CHANGELOG](./docs/CHANGELOG.md#v150---2026-07-24)
+
+详情见 [CHANGELOG v1.4.0](./docs/CHANGELOG.md#v140---2026-07-24)
 
 详情见 [CHANGELOG v1.3.0](./docs/CHANGELOG.md#v130---2026-07-24)
 

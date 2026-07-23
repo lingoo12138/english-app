@@ -383,6 +383,34 @@
 - build pass + typecheck 0 错误
 - 数据已写入 `public/data/words.json`
 
+## [v1.5.0] - 2026-07-24
+
+### 💡 单词短语用法 (D3 完结) - LLM Tutor 2.0
+
+**T1 explainUsage**:
+- `src/lib/llmTutor.ts` 加 `explainUsage(word, translation)` 函数
+- 协议: `{phrases: [{phrase, meaning, example}], tip: string}`
+- SYSTEM_PROMPT: 英语老师, 推荐 3-5 常用短语
+- Mock 渠道 fallback (固定短语模板 make/take/have + maker)
+- 协议容错 (markdown fence + { } 截取 + try-catch)
+
+**T2 WordDetail 接入**:
+- `src/components/UsageButton.tsx` (110 行) 复用组件
+- WordDetail 加 "💡 AI 短语用法" 模块 (在静态短语下方)
+- 展开/折叠 + loading + 错误处理
+- 复用 IndexedDB 缓存 (errorExplanations 表, key: `usage::${word}`)
+
+**T3 单元测试 78→82 (+4)**:
+- `tests/llmTutor.test.ts` 加 4 测试
+  - usageKey (1) / mockUsage (1) / explainUsage Mock (2)
+- 82/82 全过
+
+**T4 验证 + 文档**:
+- build + typecheck 0 错误
+- 文档全同步
+
+---
+
 ---
 
 ---

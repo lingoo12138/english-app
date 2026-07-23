@@ -57,6 +57,7 @@
 | **v1.2.0** | **2026-07-23** | **📚 D2 LLM 错题讲解 (ErrorExplainButton 3 处接入 + IndexedDB 缓存, 10 单元测试)** |
 | **v1.3.0** | **2026-07-24** | **🏆 F2 成就墙 (20 成就 × 4 类, /achievements 页面, 15 单元测试)** |
 | **v1.4.0** | **2026-07-24** | **🌱 A2 词根 80% (134→465 词根, 全量 80.4% / Top 2k 86.3%, 6 单元测试)** |
+| **v1.5.0** | **2026-07-24** | **💡 D3 单词短语用法 (UsageButton 复用 D2 LLM Tutor 模式, 4 单元测试)** |
 | **v0.22.6** | **2026-07-22** | **静态审查 6 P1 + 4 P2 修复(plan.ts 鲁棒性/连续天数算法/README 同步)** |
 | **v0.22.7** | **2026-07-22** | **AIChat 历史搜索 + 场景过滤 + Mistral 警告 + App 启动自动清理** |
 | **v0.22.8** | **2026-07-22** | **AI 对话导出/导入(JSON 备份/迁移) + 单条导出按钮** |
@@ -166,6 +167,7 @@ P0/P1/P2:   0/0/0 当前; 历史 145+ 个全清
 错题讲解:   LLM Tutor (rule/examples/mnemonic) + ErrorExplainButton 3 处接入 + IndexedDB 缓存, 10 单元测试
 成就墙:     20 成就 × 4 类 (streak/words/errors/favorites) + /achievements 页面 + Home 入口 + ShareCard 集成, 15 单元测试
 词根扩充:   134 → 465 已知词根 + 30 suffix 变体, 全量 80.4% / Top 2k 86.3%, 6 单元测试
+短语用法:   UsageButton 复用 D2 LLM Tutor 模式 (explainUsage + Mock fallback + IndexedDB 缓存), 4 单元测试
 测试:       30 单元测试 (vitest) + 15 闭环集成测试 (Playwright)
 性能:       Bundle 538KB → 入口 64KB (-54%), FCP 220→204ms
 每日学习计划: 7天曲线 + 连续天数 + Home 智能选词卡片
@@ -194,4 +196,4 @@ PWA:         离线 + 自动部署 + 缓存版本化
 
 ---
 
-**最后更新**: 2026-07-24 (v1.4.0 A2 完结, 7d 干完 6 周计划)
+**最后更新**: 2026-07-24 (v1.5.0 D3 完结, 8d 干完 7 周计划)

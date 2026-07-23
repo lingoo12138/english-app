@@ -152,3 +152,99 @@ export async function explainError(
   await getOrCreateExplanation(key, async () => parsed).catch(console.error)
   return parsed
 }
+
+// === v1.5-D3: 单词短语用法 ===
+export interface PhraseUsage {
+  phrase: string          // 短语
+  meaning: string         // 中文释义
+  example: string         // 例句
+}
+
+export interface UsageExplanation {
+  phrases: PhraseUsage[]  // 3-5 个常用短语
+  tip: string             // 使用小贴士
+  cached?: boolean
+}
+
+const USAGE_SYSTEM_PROMPT = `你是一位耐心的英语老师。用户给出一个英文单词 (及中文释义), 请推荐 3-5 个最常用的短语 (idiom/collocation/固定搭配)。
+
+严格用 JSON 格式输出, 不要 markdown 代码块:
+{
+  "phrases": [
+    {"phrase": "make a decision", "meaning": "做决定", "example": "I need to make a decision."},
+    {"phrase": "decision maker", "meaning": "决策者", "example": "She's the decision maker."}
+  ],
+  "tip": "一句话记住: decision 是名词, 动词 decide"
+}
+
+短语 3-5 个, 总长 ≤ 400 字。`
+
+export function usageKey(word: string): string {
+  return `usage::${word.trim().toLowerCase()}`.slice(0, 200)
+}
+
+function parseUsage(content: string): UsageExplanation {
+  let c = content.trim()
+  if (c.startsWith('```')) {
+    c = c.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, '')
+  }
+  const i = c.indexOf('{')
+  const j = c.lastIndexOf('}')
+  if (i >= 0 && j > i) {
+    c = c.slice(i, j + 1)
+  }
+  try {
+    const obj = JSON.parse(c)
+    const phrases = Array.isArray(obj.phrases) ? obj.phrases.map((p: any) => ({
+      phrase: String(p.phrase || ''),
+      meaning: String(p.meaning || ''),
+      example: String(p.example || ''),
+    })).filter((p: PhraseUsage) => p.phrase) : []
+    return {
+      phrases,
+      tip: String(obj.tip || '暂无小贴士'),
+    }
+  } catch {
+    return {
+      phrases: [],
+      tip: c.slice(0, 200) || '解析失败',
+    }
+  }
+}
+
+export function mockUsage(word: string): UsageExplanation {
+  return {
+    phrases: [
+      { phrase: `make a ${word}`, meaning: `做...`, example: `I need to make a ${word} quickly.` },
+      { phrase: `take a ${word}`, meaning: `采取...`, example: `Let's take a ${word} on this.` },
+      { phrase: `${word} maker`, meaning: `...者`, example: `She's a professional ${word} maker.` },
+      { phrase: `have a ${word}`, meaning: `有...`, example: `I have a ${word} tomorrow.` },
+    ],
+    tip: `提示: ${word} 是常用词, 注意搭配 make/take/have a ${word} 等`,
+  }
+}
+
+export async function explainUsage(
+  provider: LLMProvider,
+  apiKey: string | undefined,
+  model: string | undefined,
+  word: string,
+  translation: string,
+): Promise<UsageExplanation> {
+  if (provider.id === 'mock' || !apiKey) {
+    return { ...mockUsage(word), cached: true }
+  }
+  const userMsg = `单词: ${word}\n中文释义: ${translation}\n\n请用 JSON 格式推荐 3-5 个常用短语。`
+  const resp = await chatCompletion({
+    provider,
+    apiKey,
+    model,
+    messages: [
+      { role: 'system', content: USAGE_SYSTEM_PROMPT },
+      { role: 'user', content: userMsg },
+    ],
+    temperature: 0.3,
+    maxTokens: 600,
+  })
+  return parseUsage(resp.content)
+}

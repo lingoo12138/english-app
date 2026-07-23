@@ -96,3 +96,36 @@ describe('llmTutor', () => {
     })
   })
 })
+
+import { explainUsage, usageKey, mockUsage } from '../src/lib/llmTutor'
+
+describe('llmTutor 短语用法 (v1.5-D3)', () => {
+  describe('usageKey', () => {
+    it('应标准化 (lowercase + trim + namespace)', () => {
+      expect(usageKey('Hello')).toBe('usage::hello')
+    })
+  })
+
+  describe('mockUsage', () => {
+    it('应返回 4 个短语 (make/take/have + maker)', () => {
+      const r = mockUsage('decision')
+      expect(r.phrases.length).toBe(4)
+      expect(r.phrases[0].phrase).toContain('decision')
+    })
+  })
+
+  describe('explainUsage (Mock 渠道)', () => {
+    it('应直接返回 mock 当 mock 渠道', async () => {
+      const mock = BUILTIN_LLM_PROVIDERS.find(p => p.id === 'mock')!
+      const r = await explainUsage(mock, '', '', 'test', '测试')
+      expect(r.phrases.length).toBeGreaterThan(0)
+      expect(r.cached).toBe(true)
+    })
+
+    it('应返回 mock 当无 API key', async () => {
+      const openai = BUILTIN_LLM_PROVIDERS.find(p => p.id === 'openai')!
+      const r = await explainUsage(openai, undefined, undefined, 'test', '测试')
+      expect(r.phrases.length).toBeGreaterThan(0)
+    })
+  })
+})
