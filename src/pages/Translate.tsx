@@ -109,7 +109,7 @@ export default function Translate() {
           <option value="en2zh">英 → 中</option>
           <option value="zh2en">中 → 英</option>
         </select>
-        <button onClick={swap} className="btn-ghost">
+        <button onClick={swap} className="btn-ghost" aria-label="交换源语言和目标语言" title="交换语言">
           ⇄
         </button>
       </div>

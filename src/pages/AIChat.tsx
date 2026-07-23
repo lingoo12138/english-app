@@ -37,6 +37,15 @@ export default function AIChat() {
   const setLevel = useStore(s => s.setChatLevel)
 
   const [showHistory, setShowHistory] = useState(false)
+  // W6 a11y: Esc 关闭历史侧栏
+  useEffect(() => {
+    if (!showHistory) return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setShowHistory(false)
+    }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [showHistory])
   const [historyQuery, setHistoryQuery] = useState('')  // v0.22.7: 历史搜索
   const [historyFilter, setHistoryFilter] = useState<'all' | string>('all')  // v0.22.7: 按场景过滤
 

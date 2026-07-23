@@ -103,7 +103,7 @@ export default function Layout() {
       </header>
 
       {/* 主内容 */}
-      <main id="main-content" className="flex-1 md:ml-56 pb-20 md:pb-0">
+      <main id="main-content" tabIndex={-1} className="flex-1 md:ml-56 pb-20 md:pb-0">
         <div className="max-w-3xl mx-auto px-4 md:px-8 py-6">
           <Outlet />
         </div>

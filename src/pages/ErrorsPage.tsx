@@ -229,7 +229,9 @@ export default function ErrorsPage() {
             </button>
           </div>
           {topWords.length === 0 ? (
-            <p className="text-sm text-stone-500 text-center py-4">没有错词</p>
+            <div className="text-center py-4">
+              <p className="text-sm text-stone-500">📭 还没有错词记录</p>
+            </div>
           ) : (
             topWords.map((tw, i) => (
               <div
@@ -267,7 +269,10 @@ export default function ErrorsPage() {
       {tab === 'timeline' && (
         <div className="space-y-2">
           {stats.filtered.length === 0 ? (
-            <p className="text-sm text-stone-500 text-center py-4">没有记录</p>
+            <div className="card text-center py-6">
+              <div className="text-3xl mb-2" aria-hidden="true">📭</div>
+              <p className="text-sm text-stone-500">没有 {filter === 'all' ? '' : (filter === 'write' ? '写作' : '对话')} 记录</p>
+            </div>
           ) : (
             stats.filtered.map(item => (
               <div key={item.id} className="card">

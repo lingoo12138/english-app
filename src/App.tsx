@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import Home from './pages/Home'
 import WordList from './pages/WordList'
 import WordDetail from './pages/WordDetail'
