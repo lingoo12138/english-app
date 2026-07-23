@@ -47,7 +47,7 @@ export default defineConfig({
             options: {
               // P2-6 修: 缓存名加版本号,发新词库时强制刷新
               // 升级时改 v1 → v2, 旧 cache 自动作废
-              cacheName: 'word-data-cache-v1',
+              cacheName: 'word-data-cache-v2',
               expiration: {
                 maxEntries: 10,
                 // P2-6 修: 7 天而非 30 天(发新词库频率比这高)
