@@ -2,8 +2,10 @@
 // 修复: 用 onend 事件代替 300ms 轮询(更准且省 CPU)
 // 修复: Chrome cancel+speak bug 加 setTimeout 1ms
 // 修复: 快速连点用 isStartingRef 互斥,避免 race
+// v1.1-W1: alert → toast
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { speak, speakSlow, stopSpeak } from '../lib/tts'
+import { toast } from './Toast'
 
 interface Props {
   text: string
@@ -70,7 +72,7 @@ export default function TTSButton({ text, size = 'md', variant = 'icon' }: Props
 
   const handleClick = () => {
     if (!('speechSynthesis' in window) && typeof (window as any).Audio === 'undefined') {
-      alert('当前浏览器不支持语音朗读,请换 Chrome/Edge/Safari')
+      toast.error('当前浏览器不支持语音朗读,请换 Chrome/Edge/Safari')
       return
     }
     if (isStartingRef.current) return  // 修复: 正在启动中,忽略后续点击

@@ -1,9 +1,10 @@
-// Settings 3 个 AddCustomForm - v0.22.2
+// Settings 3 个 AddCustomForm - v0.22.2 → v1.1-W1: alert → toast
 // LLM / 翻译 / TTS 自定义端点表单
 import { useState } from 'react'
 import { createCustomLLMProvider } from '../../lib/providers/llm'
 import { createCustomTranslateProvider } from '../../lib/translate'
 import { createCustomTTSProvider } from '../../lib/tts'
+import { toast } from '../Toast'
 
 export function AddCustomLlmForm({ onAdd }: { onAdd: (p: any) => void }) {
   const [name, setName] = useState('')
@@ -33,8 +34,9 @@ export function AddCustomLlmForm({ onAdd }: { onAdd: (p: any) => void }) {
             const p = createCustomLLMProvider({ name, baseUrl, defaultModel, supportsVision: vision, apiKeyRequired: needKey })
             onAdd(p)
             setName(''); setBaseUrl(''); setDefaultModel('')
+            toast.success(`已添加自定义 LLM 渠道: ${p.name}`)
           } catch (e: any) {
-            alert(e?.message || '配置错误')
+            toast.error(e?.message || '配置错误')
           }
         }}
         className="btn-primary text-sm w-full disabled:opacity-50"
@@ -67,8 +69,9 @@ export function AddCustomTranslateForm({ onAdd }: { onAdd: (p: any) => void }) {
             const p = createCustomTranslateProvider({ name, endpoint, apiKeyRequired: needKey })
             onAdd(p)
             setName(''); setEndpoint('')
+            toast.success(`已添加自定义翻译渠道: ${p.name}`)
           } catch (e: any) {
-            alert(e?.message || '配置错误')
+            toast.error(e?.message || '配置错误')
           }
         }}
         className="btn-primary text-sm w-full disabled:opacity-50"
@@ -104,8 +107,9 @@ export function AddCustomTtsForm({ onAdd }: { onAdd: (p: any) => void }) {
             })
             onAdd(p)
             setName(''); setEndpoint(''); setVoice('')
+            toast.success(`已添加自定义 TTS 渠道: ${p.name}`)
           } catch (e: any) {
-            alert(e?.message || '配置错误')
+            toast.error(e?.message || '配置错误')
           }
         }}
         className="btn-primary text-sm w-full disabled:opacity-50"

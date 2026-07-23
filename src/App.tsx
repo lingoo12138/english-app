@@ -59,7 +59,7 @@ function App() {
   // v0.22.7: 启动清理 30 天前的 plan-progress key
   useEffect(() => {
     const removed = cleanupOldProgress()
-    if (removed > 0) console.log(`[plan] 清理了 ${removed} 个过期 plan-progress`)
+    if (removed > 0) console.debug(`[plan] cleaned ${removed} plan-progress`)
   }, [])
 
   // v0.22.9: 启动学习提醒调度(单例 setInterval,卸载时清)

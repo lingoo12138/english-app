@@ -1,4 +1,4 @@
-// AI 对话陪练页 - v0.11
+// AI 对话陪练页 - v0.11 → v1.1-W1: confirm → Modal
 import { useState, useRef, useEffect } from 'react'
 import { useStore } from '../store/useStore'
 import { chat as aiChat, reviewMessage, type ChatMessage, type ReviewResult } from '../lib/aiChat'
@@ -6,6 +6,7 @@ import { saveChat, getAllChats, deleteChat, addFavorite, isFavorite, saveWriting
 import { exportAllChats, downloadChatJson, exportChat } from '../lib/exportChat'
 import TTSButton from '../components/TTSButton'
 import { STTController, isSTTSupported } from '../lib/stt'
+import { Modal } from '../components/Modal'
 import { loadWords } from '../lib/words'
 import { translate as translateText, BUILTIN_TRANSLATE_PROVIDERS } from '../lib/translate'
 
@@ -97,17 +98,8 @@ export default function AIChat() {
     }
   }
 
-  // 删除历史对话
-  const handleDeleteChat = async (id: number) => {
-    if (!confirm('确定删除这条对话?')) return
-    await deleteChat(id)
-    if (id === currentChatId) {
-      // 当前对话被删,清空
-      setCurrentChatId(null)
-      setMessages([])
-    }
-    refreshChats()
-  }
+  // 删除历史对话 — handle 函数 (state 声明在 line 128 后)
+  // handleDeleteChat / doDeleteChat 会在 state 之后重新定义
 
   // 新对话
   const handleNewChat = () => {
@@ -120,7 +112,9 @@ export default function AIChat() {
 
   const [currentChatId, setCurrentChatId] = useState<number | null>(null)
   const [chats, setChats] = useState<ChatRecord[]>([])
-  
+  const [pendingDelete, setPendingDelete] = useState<number | null>(null)
+  const [showResetConfirm, setShowResetConfirm] = useState(false)
+
   // 自动保存需要在 useState 之前声明依赖(loading 等)
   // 实际: 把 loading 声明提前到这里
   const [loadingEarly, setLoadingEarly] = useState(false)
@@ -298,9 +292,24 @@ export default function AIChat() {
   }
 
   const handleReset = () => {
-    if (messages.length > 0 && !confirm('清空当前对话?')) return
-    setMessages([])
-    setError('')
+    if (messages.length > 0) setShowResetConfirm(true)
+    else { setMessages([]); setError('') }
+  }
+
+  // 实际定义 handleDeleteChat / doDeleteChat
+  const handleDeleteChat = async (id: number) => {
+    setPendingDelete(id)
+  }
+  const doDeleteChat = async () => {
+    if (pendingDelete == null) return
+    const id = pendingDelete
+    setPendingDelete(null)
+    await deleteChat(id)
+    if (id === currentChatId) {
+      setCurrentChatId(null)
+      setMessages([])
+    }
+    refreshChats()
   }
 
   return (
@@ -772,6 +781,7 @@ function MessageBubble({ message, review }: { message: ChatMessage; review?: Rev
           </div>
         </div>
       )}
+
     </div>
   )
 }

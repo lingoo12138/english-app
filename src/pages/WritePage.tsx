@@ -7,6 +7,7 @@ import { chatCompletion, LLMProvider } from '../lib/providers/llm'
 import { saveWritingError, getAllWritingErrors, deleteWritingError, type WritingError } from '../lib/db'
 import { addFavorite } from '../lib/db'
 import { loadWords } from '../lib/words'
+import { Modal } from '../components/Modal'
 
 interface ReviewError {
   original: string
@@ -58,6 +59,7 @@ export default function WritePage() {
   const [error, setError] = useState('')
   const [activeTab, setActiveTab] = useState<'write' | 'history'>('write')
   const [history, setHistory] = useState<WritingError[]>([])
+  const [pendingDeleteId, setPendingDeleteId] = useState<number | null>(null)
   const [addedWords, setAddedWords] = useState<Set<string>>(new Set())
   const [todayCount, setTodayCount] = useState(0)
   const DAILY_LIMIT = 20
@@ -192,13 +194,27 @@ export default function WritePage() {
   }
 
   const handleDeleteHistory = async (id: number) => {
-    if (!confirm('确定删除这条记录?')) return
+    setPendingDeleteId(id)
+  }
+  const doDeleteHistory = async () => {
+    if (pendingDeleteId == null) return
+    const id = pendingDeleteId
+    setPendingDeleteId(null)
     await deleteWritingError(id)
     await loadHistory()
   }
 
   return (
     <div className="space-y-4">
+      <Modal
+        open={pendingDeleteId != null}
+        title="删除作文记录"
+        message="确定删除这条记录?"
+        variant="danger"
+        confirmText="删除"
+        onConfirm={doDeleteHistory}
+        onCancel={() => setPendingDeleteId(null)}
+      />
       <div>
         <h1 className="text-2xl font-bold mb-1">✍️ 写作批改</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">

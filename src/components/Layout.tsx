@@ -1,5 +1,6 @@
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { getPageTitle } from '../lib/utils'
+import { ToastContainer } from './Toast'
 
 // 桌面端侧边栏 — 7 个全量入口
 const desktopNav = [
@@ -108,6 +109,9 @@ export default function Layout() {
           <Outlet />
         </div>
       </main>
+
+      {/* Toast 通知 (顶部居中堆叠) */}
+      <ToastContainer />
 
       {/* 底部导航 (手机) - 修复: 加了 每日一句 tab(用户高频功能) */}
       <nav

@@ -1,10 +1,14 @@
-// TTS 设置 - v0.22.2
+// TTS 设置 - v0.22.2 → v1.1-W1: confirm → Modal
 import { useState, useEffect } from 'react'
 import { useStore } from '../../store/useStore'
 import { getVoices } from '../../lib/tts'
 import { AddCustomTtsForm } from './CustomForms'
+import { Modal } from '../Modal'
+import { toast } from '../Toast'
 
 export default function TTSSection() {
+  const [pendingDelete, setPendingDelete] = useState<string | null>(null)
+  const [pendingName, setPendingName] = useState('')
   const ttsProviderId = useStore(s => s.ttsProviderId)
   const setTtsProviderId = useStore(s => s.setTtsProviderId)
   const ttsProviders = useStore(s => s.ttsProviders)
@@ -158,7 +162,7 @@ export default function TTSSection() {
                     )}
                   </div>
                   <button
-                    onClick={() => { if (confirm(`删除自定义 TTS 渠道 "${p.name}"?`)) removeCustomTtsProvider(p.id) }}
+                    onClick={() => { setPendingDelete(p.id); setPendingName(p.name) }}
                     className="text-xs text-red-500 shrink-0"
                   >
                     🗑
@@ -169,6 +173,20 @@ export default function TTSSection() {
           </div>
         )}
       </section>
+
+      <Modal
+        open={!!pendingDelete}
+        title="删除自定义 TTS 渠道"
+        message={`确定要删除自定义 TTS 渠道 "${pendingName}"?`}
+        variant="danger"
+        confirmText="删除"
+        onConfirm={() => {
+          if (pendingDelete) removeCustomTtsProvider(pendingDelete)
+          toast.success(`已删除: ${pendingName}`)
+          setPendingDelete(null)
+        }}
+        onCancel={() => setPendingDelete(null)}
+      />
     </>
   )
 }

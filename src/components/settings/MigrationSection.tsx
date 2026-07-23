@@ -1,5 +1,6 @@
-// W7: 数据迁移 - 导出/导入所有学习数据
+// W7: 数据迁移 - 导出/导入所有学习数据 → v1.1-W1: confirm → Modal
 import { useState, useEffect } from 'react'
+import { Modal } from '../Modal'
 import {
   exportAll,
   importAll,
@@ -19,6 +20,7 @@ export default function MigrationSection() {
   } | null>(null)
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
+  const [showImportConfirm, setShowImportConfirm] = useState(false)
 
   useEffect(() => {
     refreshStats()
@@ -45,7 +47,11 @@ export default function MigrationSection() {
   }
 
   const handleImport = async () => {
-    if (!confirm('⚠️ 导入会覆盖当前所有数据!\n\n确定要继续吗?')) return
+    setShowImportConfirm(true)
+  }
+
+  const doImport = async () => {
+    setShowImportConfirm(false)
     setBusy(true)
     setMsg(null)
     try {
@@ -121,6 +127,16 @@ export default function MigrationSection() {
       <p className="text-[10px] text-stone-400 dark:text-stone-500">
         ⚠️ 导入时会跳过 API keys 配置(避免跨设备密钥泄露)
       </p>
+
+      <Modal
+        open={showImportConfirm}
+        title="导入数据"
+        message="⚠️ 导入会覆盖当前所有数据!\n\n确定要继续吗?"
+        variant="danger"
+        confirmText="继续导入"
+        onConfirm={doImport}
+        onCancel={() => setShowImportConfirm(false)}
+      />
     </section>
   )
 }

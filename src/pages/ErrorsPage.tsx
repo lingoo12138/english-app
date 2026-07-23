@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { getAllWritingErrors, deleteWritingError, type WritingError } from '../lib/db'
 import { addFavorite } from '../lib/db'
 import { loadWords } from '../lib/words'
+import { Modal } from '../components/Modal'
 
 type Tab = 'overview' | 'types' | 'top' | 'timeline'
 
@@ -13,6 +14,7 @@ export default function ErrorsPage() {
   const [loading, setLoading] = useState(true)
   const [tab, setTab] = useState<Tab>('overview')
   const [addedWords, setAddedWords] = useState<Set<string>>(new Set())
+  const [pendingDelete, setPendingDelete] = useState<number | null>(null)
   const [filter, setFilter] = useState<'all' | 'write' | 'chat'>('all')
 
   useEffect(() => {
@@ -77,7 +79,12 @@ export default function ErrorsPage() {
   }
 
   const handleDelete = async (id: number) => {
-    if (!confirm('确定删除这条记录?')) return
+    setPendingDelete(id)
+  }
+  const doDelete = async () => {
+    if (pendingDelete == null) return
+    const id = pendingDelete
+    setPendingDelete(null)
     await deleteWritingError(id)
     await loadAll()
   }
@@ -112,6 +119,15 @@ export default function ErrorsPage() {
 
   return (
     <div className="space-y-4">
+      <Modal
+        open={pendingDelete != null}
+        title="删除错题记录"
+        message="确定删除这条记录?"
+        variant="danger"
+        confirmText="删除"
+        onConfirm={doDelete}
+        onCancel={() => setPendingDelete(null)}
+      />
       <div>
         <h1 className="text-2xl font-bold mb-1">📕 改错本</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">

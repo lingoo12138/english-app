@@ -126,3 +126,12 @@ body {
   padding-left: var(--sal);
   padding-right: var(--sar);
 }
+
+/* v1.1-W1: Toast 滑入动画 */
+@keyframes slide-down {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+.animate-slide-down {
+  animation: slide-down 0.2s ease-out;
+}

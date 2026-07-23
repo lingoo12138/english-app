@@ -1,9 +1,13 @@
 // LLM 设置 - v0.22.2
+import { Modal } from '../Modal'
+import { toast } from '../Toast'
 import { useState } from 'react'
 import { useStore } from '../../store/useStore'
 import { AddCustomLlmForm } from './CustomForms'
 
 export default function LLMSection() {
+  const [pendingDelete, setPendingDelete] = useState<string | null>(null)
+  const [pendingName, setPendingName] = useState("")
   const llmProviderId = useStore(s => s.llmProviderId)
   const setLlmProviderId = useStore(s => s.setLlmProviderId)
   const llmProviders = useStore(s => s.llmProviders)
@@ -138,7 +142,7 @@ export default function LLMSection() {
                     )}
                   </div>
                   <button
-                    onClick={() => { if (confirm(`删除自定义 LLM 渠道 "${p.name}"?`)) removeCustomLlmProvider(p.id) }}
+                    onClick={() => { setPendingDelete(p.id); setPendingName(p.name) }}
                     className="text-xs text-red-500 shrink-0"
                   >
                     🗑
@@ -149,6 +153,20 @@ export default function LLMSection() {
           </div>
         )}
       </section>
+
+      <Modal
+        open={!!pendingDelete}
+        title="删除自定义 LLM 渠道"
+        message={`确定要删除自定义 LLM 渠道 "${pendingName}"?\n\n该渠道的配置和 API Key 将被清除。`}
+        variant="danger"
+        confirmText="删除"
+        onConfirm={() => {
+          if (pendingDelete) removeCustomLlmProvider(pendingDelete)
+          toast.success(`已删除: ${pendingName}`)
+          setPendingDelete(null)
+        }}
+        onCancel={() => setPendingDelete(null)}
+      />
     </>
   )
 }

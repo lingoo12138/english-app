@@ -6,6 +6,7 @@ import { getWord, loadWords } from '../lib/words'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
 import { removeFavorite, reviewWord, logAction, db } from '../lib/db'
+import { Modal } from '../components/Modal'
 
 interface WeakWordItem {
   word: Word
@@ -16,6 +17,7 @@ interface WeakWordItem {
 export default function WeakWords() {
   const navigate = useNavigate()
   const [items, setItems] = useState<WeakWordItem[]>([])
+  const [pendingRemove, setPendingRemove] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   // 注: filter state 已删除(v0.14 死代码)
 
@@ -59,8 +61,13 @@ export default function WeakWords() {
   }
 
   async function markRemove(wordId: string) {
-    if (!confirm('从生词本移除?')) return
-    await removeFavorite(wordId)
+    setPendingRemove(wordId)
+  }
+  async function doRemove() {
+    if (!pendingRemove) return
+    const id = pendingRemove
+    setPendingRemove(null)
+    await removeFavorite(id)
     loadData()
   }
 
@@ -97,6 +104,16 @@ export default function WeakWords() {
   }
 
   return (
+    <>
+      <Modal
+        open={pendingRemove !== null}
+        title="从生词本移除"
+        message="从生词本移除?"
+        variant="danger"
+        confirmText="移除"
+        onConfirm={doRemove}
+        onCancel={() => setPendingRemove(null)}
+      />
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold mb-1">错题本</h1>
@@ -219,6 +236,7 @@ export default function WeakWords() {
         ))}
       </div>
     </div>
+    </>
   )
 }
 

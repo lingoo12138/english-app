@@ -6,6 +6,7 @@ import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
 import { exportToCSV, exportToJSON, exportFullBackup, downloadFile } from '../lib/export'
 import { formatDate } from '../lib/utils'
+import { Modal } from '../components/Modal'
 
 export default function Notebook() {
   const [words, setWords] = useState<Word[]>([])
@@ -15,6 +16,8 @@ export default function Notebook() {
   const [groupBy, setGroupBy] = useState<'none' | 'letter'>('none')  // v0.14
   const [batchMode, setBatchMode] = useState(false)  // v0.14: 批量模式
   const [selected, setSelected] = useState<Set<string>>(new Set())  // 选中的 wordId
+  const [pendingRemoveId, setPendingRemoveId] = useState<string | null>(null)
+  const [showBatchConfirm, setShowBatchConfirm] = useState(false)
 
   const loadFavorites = async () => {
     setLoading(true)
@@ -44,15 +47,23 @@ export default function Notebook() {
   }, [])
 
   const handleRemove = async (wordId: string) => {
-    if (!confirm('从生词本移除这个词?')) return
-    await removeFavorite(wordId)
+    setPendingRemoveId(wordId)
+  }
+  const doRemove = async () => {
+    if (!pendingRemoveId) return
+    const id = pendingRemoveId
+    setPendingRemoveId(null)
+    await removeFavorite(id)
     loadFavorites()
   }
 
   // 批量删除选中
-  const handleBatchDelete = async () => {
+  const handleBatchDelete = () => {
     if (selected.size === 0) return
-    if (!confirm(`确定从生词本移除 ${selected.size} 个词?`)) return
+    setShowBatchConfirm(true)
+  }
+  const doBatchDelete = async () => {
+    setShowBatchConfirm(false)
     for (const id of Array.from(selected)) {
       await removeFavorite(id)
     }
@@ -72,6 +83,24 @@ export default function Notebook() {
 
   return (
     <div className="space-y-4">
+      <Modal
+        open={pendingRemoveId !== null}
+        title="从生词本移除"
+        message="从生词本移除这个词?"
+        variant="danger"
+        confirmText="移除"
+        onConfirm={doRemove}
+        onCancel={() => setPendingRemoveId(null)}
+      />
+      <Modal
+        open={showBatchConfirm}
+        title="批量移除"
+        message={`确定从生词本移除 ${selected.size} 个词?`}
+        variant="danger"
+        confirmText="全部移除"
+        onConfirm={doBatchDelete}
+        onCancel={() => setShowBatchConfirm(false)}
+      />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold mb-1">生词本</h1>
