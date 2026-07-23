@@ -53,6 +53,30 @@
 - DailyPage 跟读入口 ✅
 - npm run build pass
 
+### v0.23.1 W1-B AI 对话中单词收藏 (主人接管 - subagent 1 静默失败)
+
+**子 agent 失败原因**: 启动 2 subagent 跑 W1-B + W1-C,W1-C 完美完成(写入 PronounceCustom.tsx + DailyPage Link + PronunciationPractice customText prop),W1-B 静默退出(没改 AIChat.tsx)。
+
+**W1-B 实施**(我自己接管):
+- MessageBubble 组件重构: 加 paragraphRef + 全局 document mouseup listener(避开 React 17+ root delegation 不捕 dispatchEvent 问题)
+- handleMouseUpSel: 400ms 防抖 → 查 `window.getSelection()` → 纯英文字母 2+ 字符过滤
+- 词库匹配 + MyMemory/百度等 8 渠道 fallback 翻译
+- tooltip UI: 翻译 + ⭐ 加入生词本 + ✕ 关闭 + "已在生词本"/"不在词库" 状态
+- 4s 自动消失
+- 用户消息/AI 消息都支持
+
+**v0.23.2 W1-C 每日一句跟读 (subagent 2 完成)**
+- DailyPage.tsx 每日一句卡片加 "🎤 跟读" Link
+- 跳 `/pronounce-custom?text=...` 路由
+- `PronounceCustom.tsx` wrapper: 读 URL search params,空时引导回 /daily,有 text 时渲染 PronunciationPractice
+- PronunciationPractice 加 `customText` prop(选填,非空时替代 word 作为跟读目标)
+
+### 验证
+- /write 11 项 Playwright 验证全过
+- /pronounce-custom 跟读按钮加载 ✅
+- /chat 选词 tooltip 弹出 + 翻译 + 加生词本 + 4s 自动消失 ✅
+- npm run build pass
+
 ### 累计
 - **17 页面**(+ WritePage + PronounceCustom)
 - **5 组件 + 9 Settings 子组件**

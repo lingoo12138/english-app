@@ -2,10 +2,12 @@
 import { useState, useRef, useEffect } from 'react'
 import { useStore } from '../store/useStore'
 import { chat as aiChat, type ChatMessage } from '../lib/aiChat'
-import { saveChat, getAllChats, deleteChat, type ChatRecord } from '../lib/db'
+import { saveChat, getAllChats, deleteChat, addFavorite, isFavorite, type ChatRecord } from '../lib/db'
 import { exportAllChats, downloadChatJson, exportChat } from '../lib/exportChat'
 import TTSButton from '../components/TTSButton'
 import { STTController, isSTTSupported } from '../lib/stt'
+import { loadWords } from '../lib/words'
+import { translate as translateText, BUILTIN_TRANSLATE_PROVIDERS } from '../lib/translate'
 
 const SCENARIOS = [
   { id: 'cafe', name: '☕ 咖啡店', desc: '点单 / 咨询 / 结账' },
@@ -479,8 +481,81 @@ export default function AIChat() {
 
 function MessageBubble({ message }: { message: ChatMessage }) {
   const isUser = message.role === 'user'
+  const [sel, setSel] = useState<{ word: string; x: number; y: number; translation: string; inVocab: boolean; alreadyFav: boolean } | null>(null)
+  const selTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const translateProviderId = useStore(s => s.translateProviderId)
+  const customTranslateProviders = useStore(s => s.customTranslateProviders)
+  const translateApiKeys = useStore(s => s.translateApiKeys)
+  const activeTranslateProvider = BUILTIN_TRANSLATE_PROVIDERS.find(p => p.id === translateProviderId)
+    || [...BUILTIN_TRANSLATE_PROVIDERS, ...customTranslateProviders].find(p => p.id === translateProviderId)
+    || BUILTIN_TRANSLATE_PROVIDERS[0]
+  const paragraphRef = useRef<HTMLParagraphElement>(null)
+
+  useEffect(() => {
+    // 全局 mouseup 监听,避开 React 17+ root delegation 事件不出
+    const handler = (e: MouseEvent) => {
+      if (!paragraphRef.current || !paragraphRef.current.contains(e.target as Node)) return
+      handleMouseUpSel(e)
+    }
+    document.addEventListener('mouseup', handler)
+    return () => document.removeEventListener('mouseup', handler)
+  }, [])
+
+  const handleMouseUpSel = (e: MouseEvent) => {
+    if (selTimer.current) clearTimeout(selTimer.current)
+    selTimer.current = setTimeout(async () => {
+      const selection = window.getSelection()
+      const text = selection?.toString().trim() || ''
+      if (!/^[a-zA-Z]{2,}$/.test(text)) {
+        setSel(null)
+        return
+      }
+      const lower = text.toLowerCase()
+      const allWords = await loadWords()
+      const found = allWords.find(w => w.word.toLowerCase() === lower)
+      let translation = ''
+      if (found) {
+        translation = found.translations?.[0] || found.word
+      } else {
+        try {
+          const res = await translateText({ provider: activeTranslateProvider, text, from: 'en', to: 'zh', apiKeys: translateApiKeys })
+          translation = res.text || '该词不在词库'
+        } catch {
+          translation = '该词不在词库'
+        }
+      }
+      const fav = found ? await isFavorite(found.id) : false
+      const rect = (paragraphRef.current as HTMLElement).getBoundingClientRect()
+      setSel({
+        word: text,
+        x: e.clientX,
+        y: rect.top + window.scrollY - 8,
+        translation,
+        inVocab: !!found,
+        alreadyFav: fav,
+      })
+    }, 400)
+  }
+
+  const handleAddFav = async () => {
+    if (!sel || !sel.inVocab) return
+    const allWords = await loadWords()
+    const found = allWords.find(w => w.word.toLowerCase() === sel.word.toLowerCase())
+    if (found) {
+      await addFavorite(found.id)
+      setSel({ ...sel, alreadyFav: true })
+    }
+  }
+
+  // 2s 自动消失
+  useEffect(() => {
+    if (!sel) return
+    const t = setTimeout(() => setSel(null), 4000)
+    return () => clearTimeout(t)
+  }, [sel])
+
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
+    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} relative`}>
       <div
         className={`max-w-[80%] rounded-2xl px-4 py-2.5 ${
           isUser
@@ -488,13 +563,45 @@ function MessageBubble({ message }: { message: ChatMessage }) {
             : 'bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-stone-100'
         }`}
       >
-        <p className="text-sm whitespace-pre-wrap break-words">{message.content}</p>
+        <p ref={paragraphRef} className="text-sm whitespace-pre-wrap break-words">{message.content}</p>
         {!isUser && (
           <div className="mt-1.5">
             <TTSButton text={message.content} size="sm" variant="icon" />
           </div>
         )}
       </div>
+      {sel && (
+        <div
+          className="fixed z-50 bg-stone-900 text-white text-xs rounded-lg shadow-lg px-3 py-2 max-w-[280px] -translate-x-1/2"
+          style={{ left: sel.x, top: sel.y - 4 }}
+          onMouseDown={(e) => e.stopPropagation()}
+        >
+          <div className="font-semibold mb-0.5">📖 {sel.word}</div>
+          <div className="text-stone-300 mb-1.5 line-clamp-2">{sel.translation}</div>
+          <div className="flex items-center gap-1.5">
+            {sel.inVocab ? (
+              sel.alreadyFav ? (
+                <span className="text-emerald-400">✓ 已在生词本</span>
+              ) : (
+                <button
+                  onClick={handleAddFav}
+                  className="text-amber-300 hover:text-amber-200 underline"
+                >
+                  ⭐ 加入生词本
+                </button>
+              )
+            ) : (
+              <span className="text-stone-400">不在词库</span>
+            )}
+            <button
+              onClick={() => setSel(null)}
+              className="ml-auto text-stone-400 hover:text-white"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
