@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+/// <reference types="vite-plugin-pwa/client" />
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
@@ -34,3 +36,17 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </BrowserRouter>
   </React.StrictMode>
 )
+
+// W4-B: PWA "新版本可用" 提示
+import { registerSW } from 'virtual:pwa-register'
+const updateSW = registerSW({
+  onNeedRefresh() {
+    // 弹个轻量提示,让用户刷新
+    if (confirm('🚀 新版本可用,是否立即更新?\n(将清空当前页面缓存)')) {
+      updateSW(true)
+    }
+  },
+  onOfflineReady() {
+    console.log('[PWA] 离线就绪,无网络也能用')
+  },
+})
