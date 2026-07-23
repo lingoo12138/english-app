@@ -2,7 +2,7 @@
 
 > 这份文档是产品**理论层面的完整功能记录**,供用户在无时间亲自测试时查阅、验收、规划下一步。
 >
-> 最后更新: 2026-07-23 (v1.0.0)
+> 最后更新: 2026-07-23 (v1.1.0)
 
 ---
 
@@ -1168,6 +1168,55 @@ npm run build
 - README/CHANGELOG/DEV_LOG/ROADMAP/ROADMAP_v1 全部 v1.0 同步
 - GitHub release tag v1.0.0
 
+## 阶段5: v1.1.0 0 关闭率 (2026-07-23) - 1 天干完 5d 计划
+
+### 流程 (用户强调)
+- 先做计划,存档 → 实施 → 改状态,存档 → 更新文档
+
+### T1 P2 全量审计
+- `scripts/audit-p2.py` 静态扫描
+- 64 文件, 170 命中 → 误报豁免后 34 真 P2 + 1 P1
+
+### T2 P2 关闭 (34 → 0)
+- 共享 Modal.tsx (95 行) + Toast.tsx (90 行)
+- 28 个 alert/confirm → Modal/Toast
+- 1 个 P1 空 catch → 修
+- 1 WONTFIX (main.tsx PWA 升级)
+- commit 352e609
+
+### T3 闭环测试 5→15
+- `scripts/verify-v1.1-e2e.mjs` (15 闭环)
+- 31/31 全过
+- commit b7479f6
+
+### T4 性能优化
+- 19 路由 React.lazy() + manualChunks
+- Bundle 538KB → 入口 64KB
+- 首屏 gzip 173KB → ~80KB (-54%)
+- FCP 220ms → 204ms
+- commit bb2b9a3
+
+### T5 单元测试 18→30
+- `tests/migrate.test.ts` (+12)
+- 30/30 全过
+- commit 6f9612e
+
+### 0 关闭率 v1.1.0
+- 0 P0 + 0 P1 + 0 P2
+- 15 闭环 + 30 单元测试
+- 4 件套: 静态审查 + Playwright + 单元测试 + 主人接管
+
+## 累计 v0.1 - v1.1 (17 阶段, 2d 干完 1 周计划)
+
+- 8 周 + 1 周路线图 → 5d 完成
+- 19 页面 / 14 组件 (8 + 5 通用 + Toast + Modal) / 9 Settings 子 / 22 库
+- 30 单元测试 + 15 闭环 (31 测试点)
+- 150+ commit
+- 0 关闭率
+
+## 北极星 (一直未变)
+
+> 让英语在你想用的时候就能用上 = 触发可及 + 内容能用 + 学得会
 ## 累计 v0.1 - v1.0 (16 阶段)
 
 - 8 周 (v0.23 起到 v1.0) → 实际 7.5d 干完 31.5d 计划 (4x 提前)

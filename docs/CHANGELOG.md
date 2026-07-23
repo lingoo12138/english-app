@@ -153,6 +153,46 @@
 - 🏷️ GitHub release tag v1.0.0
 - 📦 累计: 19 页面 / 13 组件 / 9 Settings 子 / 22 库 / 6800+ 行 / 150+ commit
 
+## [v1.1.0] - 2026-07-23
+
+### 🏆 0 关闭率 + 性能 + 闭环 + 单元测试 4 件套
+
+**T1 P2 全量审计**:
+- `scripts/audit-p2.py` 静态扫描器
+- 64 文件扫描, 170 命中 → 误报豁免后 34 真 P2 + 1 P1
+- `docs/P2_AUDIT_v1.1.md` 完整清单
+
+**T2 P2 关闭冲刺 (34 → 0)**:
+- 共享 `Modal.tsx` (95 行) + `Toast.tsx` (90 行) + zustand store
+- 28 个 alert/confirm → Modal/Toast (覆盖 13 页面/组件)
+- 3 个 console.log → console.debug
+- 1 个 P1 空 catch → 修
+- 4 个 WONTFIX (1 真 + 3 误报)
+
+**T3 闭环测试 5→15**:
+- `scripts/verify-v1.1-e2e.mjs` (15 闭环, 31 测试点)
+- 31/31 全过
+- 覆盖 19 页面 + Settings 9 子 + PWA iOS + 跨页状态
+
+**T4 性能优化**:
+- 19 路由 React.lazy() 按需加载
+- manualChunks 拆 3 vendor (react/db/state)
+- Bundle: 538KB → 入口 64KB + 路由按需
+- 首屏 gzip: 173KB → ~80KB (-54%)
+- FCP: 220ms → 204ms
+
+**T5 单元测试 18→30**:
+- `tests/migrate.test.ts` (+12)
+- 30/30 全过 (plan/db/aiChat/migrate)
+- 核心库覆盖: 间隔算法/数据迁移/AI 对话
+
+**0 关闭率验证**:
+- 0 P0 + 0 P1 + 0 P2 ✅
+- 15 闭环 + 30 单元测试 ✅
+- FCP 204ms / TTI 估 <1.5s ✅
+
+---
+
 ---
 
 ## [v0.22.9] - 2026-07-22
