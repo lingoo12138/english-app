@@ -71,6 +71,12 @@ export default function WritePage() {
   useEffect(() => {
     if (activeTab === 'history') {
       loadHistory()
+    } else {
+      // 切回 write tab: 重置 input/result/addedWords/error,避免跨 tab 状态污染
+      setInput('')
+      setResult(null)
+      setError('')
+      setAddedWords(new Set())
     }
   }, [activeTab])
 

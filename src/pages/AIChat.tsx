@@ -490,52 +490,76 @@ function MessageBubble({ message }: { message: ChatMessage }) {
     || [...BUILTIN_TRANSLATE_PROVIDERS, ...customTranslateProviders].find(p => p.id === translateProviderId)
     || BUILTIN_TRANSLATE_PROVIDERS[0]
   const paragraphRef = useRef<HTMLParagraphElement>(null)
+  // 修复 P1-1: 闭包陷阱 - 用 ref 同步 provider,避免 useEffect 依赖空导致老闭包
+  const providerRef = useRef(activeTranslateProvider)
+  const apiKeysRef = useRef(translateApiKeys)
+  providerRef.current = activeTranslateProvider
+  apiKeysRef.current = translateApiKeys
+  // 修复 P1-2: 组件 unmount 时清理 selTimer,避免 setState 死状态
+  const mountedRef = useRef(true)
+  useEffect(() => () => { mountedRef.current = false }, [])
 
   useEffect(() => {
     // 全局 mouseup 监听,避开 React 17+ root delegation 事件不出
     const handler = (e: MouseEvent) => {
       if (!paragraphRef.current || !paragraphRef.current.contains(e.target as Node)) return
-      handleMouseUpSel(e)
+      // 通过 ref 读取最新 provider, 避开闭包过期问题
+      const provider = providerRef.current
+      const apiKeys = apiKeysRef.current
+      if (selTimer.current) clearTimeout(selTimer.current)
+      selTimer.current = setTimeout(async () => {
+        if (!mountedRef.current) return  // P1-2: 组件已 unmount
+        const selection = window.getSelection()
+        const text = selection?.toString().trim() || ''
+        if (!/^[a-zA-Z]{2,}$/.test(text)) {
+          setSel(null)
+          return
+        }
+        const lower = text.toLowerCase()
+        const allWords = await loadWords()
+        const found = allWords.find(w => w.word.toLowerCase() === lower)
+        let translation = ''
+        if (found) {
+          translation = found.translations?.[0] || found.word
+        } else {
+          try {
+            const res = await translateText({ provider, text, from: 'en', to: 'zh', apiKeys })
+            translation = res.text || '该词不在词库'
+          } catch {
+            translation = '该词不在词库'
+          }
+        }
+        if (!mountedRef.current) return  // P1-2: 二次检查
+        const fav = found ? await isFavorite(found.id) : false
+        if (!mountedRef.current) return
+        const rect = (paragraphRef.current as HTMLElement).getBoundingClientRect()
+        setSel({
+          word: text,
+          x: e.clientX,
+          y: rect.top - 8,  // P1 修复: fixed 定位不用 + window.scrollY
+          translation,
+          inVocab: !!found,
+          alreadyFav: fav,
+        })
+      }, 400)
+    }
+    // P1-5: 跨 message 选词时, click outside paragraph 关闭当前 tooltip
+    const clickOutside = (e: MouseEvent) => {
+      if (!paragraphRef.current) return
+      if (paragraphRef.current.contains(e.target as Node)) return
+      // tooltip 本身: 让 tooltip click 不关闭
+      const target = e.target as HTMLElement
+      if (target.closest('[data-word-tooltip]')) return
+      setSel(null)
     }
     document.addEventListener('mouseup', handler)
-    return () => document.removeEventListener('mouseup', handler)
+    document.addEventListener('mousedown', clickOutside)
+    return () => {
+      document.removeEventListener('mouseup', handler)
+      document.removeEventListener('mousedown', clickOutside)
+      if (selTimer.current) clearTimeout(selTimer.current)  // P1-2: 清理
+    }
   }, [])
-
-  const handleMouseUpSel = (e: MouseEvent) => {
-    if (selTimer.current) clearTimeout(selTimer.current)
-    selTimer.current = setTimeout(async () => {
-      const selection = window.getSelection()
-      const text = selection?.toString().trim() || ''
-      if (!/^[a-zA-Z]{2,}$/.test(text)) {
-        setSel(null)
-        return
-      }
-      const lower = text.toLowerCase()
-      const allWords = await loadWords()
-      const found = allWords.find(w => w.word.toLowerCase() === lower)
-      let translation = ''
-      if (found) {
-        translation = found.translations?.[0] || found.word
-      } else {
-        try {
-          const res = await translateText({ provider: activeTranslateProvider, text, from: 'en', to: 'zh', apiKeys: translateApiKeys })
-          translation = res.text || '该词不在词库'
-        } catch {
-          translation = '该词不在词库'
-        }
-      }
-      const fav = found ? await isFavorite(found.id) : false
-      const rect = (paragraphRef.current as HTMLElement).getBoundingClientRect()
-      setSel({
-        word: text,
-        x: e.clientX,
-        y: rect.top + window.scrollY - 8,
-        translation,
-        inVocab: !!found,
-        alreadyFav: fav,
-      })
-    }, 400)
-  }
 
   const handleAddFav = async () => {
     if (!sel || !sel.inVocab) return
@@ -572,6 +596,7 @@ function MessageBubble({ message }: { message: ChatMessage }) {
       </div>
       {sel && (
         <div
+          data-word-tooltip
           className="fixed z-50 bg-stone-900 text-white text-xs rounded-lg shadow-lg px-3 py-2 max-w-[280px] -translate-x-1/2"
           style={{ left: sel.x, top: sel.y - 4 }}
           onMouseDown={(e) => e.stopPropagation()}
