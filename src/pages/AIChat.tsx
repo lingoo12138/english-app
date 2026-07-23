@@ -597,7 +597,7 @@ function MessageBubble({ message }: { message: ChatMessage }) {
       {sel && (
         <div
           data-word-tooltip
-          className="fixed z-50 bg-stone-900 text-white text-xs rounded-lg shadow-lg px-3 py-2 max-w-[280px] -translate-x-1/2"
+          className="fixed z-50 bg-stone-900 text-white text-xs rounded-lg shadow-lg px-3 py-2 max-w-[280px] -translate-x-1/2 border border-white/20 ring-1 ring-black/30"
           style={{ left: sel.x, top: sel.y - 4 }}
           onMouseDown={(e) => e.stopPropagation()}
         >

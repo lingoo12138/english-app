@@ -240,7 +240,16 @@ export default function WritePage() {
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="例如: I go to school yesterday and play with my friend."
+              onKeyDown={(e) => {
+                // P2 优化: Ctrl+Enter / Cmd+Enter 触发批改
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                  e.preventDefault()
+                  if (!loading && input.trim() && provider) {
+                    handleReview()
+                  }
+                }
+              }}
+              placeholder="例如: I go to school yesterday and play with my friend. (Ctrl+Enter 批改)"
               className="input min-h-32 resize-y"
               maxLength={MAX_LEN}
             />
