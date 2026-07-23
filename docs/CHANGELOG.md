@@ -354,6 +354,37 @@
 - 72/72 全过
 - 闭环 6/6 新增 (verify-v1.3-f2.mjs)
 
+## [v1.4.0] - 2026-07-24
+
+### 🌱 词根 80% (A2 完结) - 数据扩展
+
+**T1-T3 词根扩充**:
+- 134 → **465** 已知词根
+- 50 数字/时间/度量/方向 root
+- 30 suffix 变体 (-tion/-ment/-able/-ly 等)
+- 25 短 suffix (-ic/-al/-ent/-or 等)
+- 15 prefix (re-/un-/dis-/pre- 等)
+- 50 高频 root + 80 基础词
+- prefix 同化: in→im/il/ir, ob→oc/of/op, sub→suc/suf/sup/sur, ex→ef
+
+**T4 覆盖率验证**:
+- 全量: 64.7% → **80.4%** (4291/5334) ✅
+- Top 2k: 77.3% → **86.3%** (1726/2000) ✅
+
+**T5 单元测试 72→78 (+6)**:
+- `tests/roots.test.ts` (6 测试)
+  - 全量 ≥ 80% / Top 2k ≥ 85%
+  - 词根字段完整 (root/meaning/type)
+  - 高频词 (happy/study/work) 有词根
+  - 派生词 (teacher/actor) 有 suffix
+- 78/78 全过
+
+**T6 验证 + 文档**:
+- build pass + typecheck 0 错误
+- 数据已写入 `public/data/words.json`
+
+---
+
 ---
 
 ---
