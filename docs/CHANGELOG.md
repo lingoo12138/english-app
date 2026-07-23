@@ -191,6 +191,41 @@
 - 15 闭环 + 30 单元测试 ✅
 - FCP 204ms / TTI 估 <1.5s ✅
 
+## [v1.1.1] - 2026-07-23
+
+### 🎯 错题个性化复习 (D1 完结)
+
+**T1 核心逻辑**:
+- `src/lib/errorReview.ts` (90 行)
+- `extractErrorWords` — 提取错题里的 suggestion (去标点/取首词/过滤)
+- `addErrorWordsToFavorites` — 批量加生词本 (查词库/跳过已存在)
+- `getErrorWordsCount` / `getAllErrorWords` 统计
+- 词库内存缓存 (`wordCache`)
+
+**T2 接入 WritePage + AIChat**:
+- WritePage 批改完成后, 错词自动入复习 + toast 提示
+- AIChat 实时纠错后, 错词链式入复习 (review → saveError → addToFavorites)
+- 用户零摩擦: 错一次 → 自动进复习
+
+**T3 ErrorsPage 一键加复习**:
+- 标题下加 "⭐ 全部错词加入复习队列" 按钮
+- 历史错题一条即可触发
+
+**T4 单元测试 30→42 (+12)**:
+- `tests/errorReview.test.ts` (12 测试)
+  - extractErrorWords (7): 空/单/多/标点/短词/数组/重复
+  - addErrorWordsToFavorites (2): typo 跳过/真实词
+  - getErrorWordsCount + getAllErrorWords (3)
+- 42/42 全过
+
+**T5 验证**:
+- verify-v1.1-e2e: 31/31 pass
+- build pass + typecheck 0 错误
+
+⚠️ Home 集成: WONTFIX v1.1.1, 错词入生词本后**自动算入** ReviewReminderCard 待复习数
+
+---
+
 ---
 
 ---

@@ -6,8 +6,10 @@ import { useStore } from '../store/useStore'
 import { chatCompletion, LLMProvider } from '../lib/providers/llm'
 import { saveWritingError, getAllWritingErrors, deleteWritingError, type WritingError } from '../lib/db'
 import { addFavorite } from '../lib/db'
+import { addErrorWordsToFavorites } from '../lib/errorReview'
 import { loadWords } from '../lib/words'
 import { Modal } from '../components/Modal'
+import { toast } from '../components/Toast'
 
 interface ReviewError {
   original: string
@@ -139,6 +141,20 @@ export default function WritePage() {
         errors: parsed.errors.map(e => ({ ...e, type: e.type as any })),
         ts: Date.now(),
       })
+
+      // v1.1-D1: 错词自动入复习
+      if (parsed.errors.length > 0) {
+        const added = await addErrorWordsToFavorites({
+          source: 'write',
+          original: text,
+          corrected: parsed.corrected,
+          errors: parsed.errors.map(e => ({ ...e, type: e.type as any })),
+          ts: Date.now(),
+        } as any)
+        if (added.length > 0) {
+          toast.success(`已加入 ${added.length} 个错词到复习队列`)
+        }
+      }
 
       // 累加今日次数
       const newCount = todayCount + 1

@@ -149,7 +149,19 @@ src/
 ✅ 共享 `Modal` + `Toast` 组件 (替代 alert/confirm 28 处)
 ✅ 19 路由 `React.lazy()` 按需加载
 
-详情见 [CHANGELOG](./docs/CHANGELOG.md#v110---2026-07-23)
+
+
+## 🎯 v1.1.1 - 错题个性化复习 (2026-07-23)
+
+✅ **错过的词自动入 Anki 复习** (零摩擦)
+✅ 写错/AI 错 → 自动加生词本
+✅ ErrorsPage 一键全部加复习
+✅ 单元测试 30→**42** (+12)
+✅ 闭环 15/31 + 回归全过
+
+详情见 [CHANGELOG](./docs/CHANGELOG.md#v111---2026-07-23)
+
+详情见 [CHANGELOG v1.1.0](./docs/CHANGELOG.md#v110---2026-07-23)
 
 ## 🚀 快速开始
 

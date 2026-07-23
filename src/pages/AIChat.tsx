@@ -7,6 +7,8 @@ import { exportAllChats, downloadChatJson, exportChat } from '../lib/exportChat'
 import TTSButton from '../components/TTSButton'
 import { STTController, isSTTSupported } from '../lib/stt'
 import { Modal } from '../components/Modal'
+import { addErrorWordsToFavorites } from '../lib/errorReview'
+import { toast } from '../components/Toast'
 import { loadWords } from '../lib/words'
 import { translate as translateText, BUILTIN_TRANSLATE_PROVIDERS } from '../lib/translate'
 
@@ -264,6 +266,25 @@ export default function AIChat() {
                 severity: e.severity,
               })),
               ts: Date.now(),
+            }).then(async (id) => {
+              // v1.1-D1: 错词自动入复习
+              const added = await addErrorWordsToFavorites([{
+                id,
+                source: 'chat',
+                original: userMsg.content,
+                corrected: '',
+                errors: review.errors.map(e => ({
+                  original: e.original,
+                  suggestion: e.fixed,
+                  type: e.type,
+                  explanation: e.why,
+                  severity: e.severity,
+                })),
+                ts: Date.now(),
+              }])
+              if (added.length > 0) {
+                toast.success(`已加入 ${added.length} 个错词到复习队列`)
+              }
             }).catch(console.error)
           }
         })

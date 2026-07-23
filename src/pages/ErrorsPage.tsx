@@ -6,6 +6,8 @@ import { getAllWritingErrors, deleteWritingError, type WritingError } from '../l
 import { addFavorite } from '../lib/db'
 import { loadWords } from '../lib/words'
 import { Modal } from '../components/Modal'
+import { addErrorWordsToFavorites } from '../lib/errorReview'
+import { toast } from '../components/Toast'
 
 type Tab = 'overview' | 'types' | 'top' | 'timeline'
 
@@ -134,6 +136,23 @@ export default function ErrorsPage() {
           累计 {errors.length} 条记录,共 {stats.totalErrs} 个错误
         </p>
       </div>
+
+      {/* v1.1-D1: 全部错词加入复习 */}
+      {errors.length > 0 && (
+        <button
+          onClick={async () => {
+            const added = await addErrorWordsToFavorites(errors)
+            if (added.length > 0) {
+              toast.success(`已加入 ${added.length} 个错词到复习队列`)
+            } else {
+              toast.info('所有错词已在复习队列中')
+            }
+          }}
+          className="btn-primary w-full text-sm"
+        >
+          ⭐ 全部错词加入复习队列
+        </button>
+      )}
 
       {/* 过滤器 */}
       <div className="flex gap-2 text-sm">
