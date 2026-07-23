@@ -170,7 +170,21 @@ src/
 ✅ 单元测试 42→**47** (+5)
 ✅ 闭环 15/31 + 回归全过
 
-详情见 [CHANGELOG](./docs/CHANGELOG.md#v112---2026-07-23)
+
+
+## 📚 v1.2.0 - LLM 错题讲解 (2026-07-23) - 杀手锏
+
+✅ **错题一键讲解** (LLM 让你真懂)
+✅ WritePage/AIChat/ErrorsPage 3 处 "📚 解释" 按钮
+✅ 协议: rule (规则) + examples (例句) + mnemonic (口诀)
+✅ IndexedDB 缓存 (errorExplanations 表) — 省 LLM 成本 + 离线可用
+✅ Mock 渠道 fallback (无 API 也能用)
+✅ 单元测试 47→**57** (+10)
+✅ 闭环 15/31 + 回归全过
+
+详情见 [CHANGELOG](./docs/CHANGELOG.md#v120---2026-07-23)
+
+详情见 [CHANGELOG v1.1.2](./docs/CHANGELOG.md#v112---2026-07-23)
 
 详情见 [CHANGELOG v1.1.1](./docs/CHANGELOG.md#v111---2026-07-23)
 

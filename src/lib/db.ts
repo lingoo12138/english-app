@@ -12,6 +12,7 @@ class EnglishAppDB extends Dexie {
   pronunciationAttempts!: Table<PronunciationAttempt, number>
   chats!: Table<ChatRecord, number>
   writingErrors!: Table<WritingError, number>
+  errorExplanations!: Table<{ key: string; rule: string; examples: string; mnemonic: string; ts: number }, string>
 
   constructor() {
     super('EnglishAppDB')
@@ -36,6 +37,16 @@ class EnglishAppDB extends Dexie {
       chats: '++id, scenario, level, updatedAt, createdAt, title',
       // v0.23: 写作批改错误表
       writingErrors: '++id, ts, source',
+    })
+    // v1.2-D2: 错题解释缓存表
+    this.version(4).stores({
+      favorites: 'wordId, addedAt',
+      records: '++id, wordId, action, timestamp',
+      reviews: 'wordId, nextReview',
+      pronunciationAttempts: '++id, wordId, ts, score',
+      chats: '++id, scenario, level, updatedAt, createdAt, title',
+      writingErrors: '++id, ts, source',
+      errorExplanations: 'key, ts',
     })
   }
 }
@@ -83,6 +94,28 @@ export async function getAllWritingErrors(): Promise<WritingError[]> {
 
 export async function deleteWritingError(id: number): Promise<void> {
   return db.writingErrors.delete(id)
+}
+
+// === 错题解释缓存 (v1.2-D2) ===
+export async function getExplanation(key: string) {
+  return db.errorExplanations.get(key)
+}
+
+export async function saveExplanation(key: string, rule: string, examples: string, mnemonic: string) {
+  return db.errorExplanations.put({ key, rule, examples, mnemonic, ts: Date.now() })
+}
+
+export async function getOrCreateExplanation(
+  key: string,
+  creator: () => Promise<{ rule: string; examples: string; mnemonic: string }>,
+): Promise<{ rule: string; examples: string; mnemonic: string; cached: boolean }> {
+  const cached = await getExplanation(key)
+  if (cached) {
+    return { rule: cached.rule, examples: cached.examples, mnemonic: cached.mnemonic, cached: true }
+  }
+  const fresh = await creator()
+  await saveExplanation(key, fresh.rule, fresh.examples, fresh.mnemonic)
+  return { ...fresh, cached: false }
 }
 
 export async function getAllChats(): Promise<ChatRecord[]> {

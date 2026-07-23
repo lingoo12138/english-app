@@ -263,6 +263,53 @@
 
 ⚠️ html2canvas: WONTFIX, 提示用户截图代替 (省 40KB)
 
+## [v1.2.0] - 2026-07-23
+
+### 📚 LLM 错题讲解 (D2 完结) - 杀手锏
+
+**T1 llmTutor.ts**:
+- `src/lib/llmTutor.ts` (160 行)
+- `explainError(type, original, suggestion)` 调 LLM
+- 协议: `{rule, examples, mnemonic}` JSON
+- SYSTEM_PROMPT: 英语老师角色, 简洁解释
+- `mockExplanation` 8 错误类型固定解释 (无 API key fallback)
+- 协议容错: 移除 markdown fence + 找 { } 截取 + try-catch
+
+**T2 接入 WritePage + AIChat**:
+- 复用 `ErrorExplainButton` 组件
+- WritePage 错题面板: 每条错加 "📚 解释" 按钮
+- AIChat 纠错面板: 每条错加 "📚 解释" 按钮
+- 点击 → 加载 → 展开紫色讲解面板 (rule/examples/mnemonic)
+
+**T3 ErrorsPage**:
+- 时间 Tab 错题每条加 "📚 解释"
+- 复用同一组件, 零代码重复
+
+**T4 IndexedDB 缓存**:
+- `db.ts` schema v4 加 `errorExplanations` 表 (key + ts)
+- `getOrCreateExplanation` 自动查缓存/调 LLM/存
+- 缓存 key 标准化 (lowercase + trim)
+- 节省 LLM 成本 + 离线可用
+
+**T5 ErrorExplainButton 复用**:
+- `src/components/ErrorExplainButton.tsx` (90 行)
+- 展开/折叠 + loading 状态 + 错误处理
+- 3 处复用 (WritePage/AIChat/ErrorsPage)
+
+**T6 单元测试 47→57 (+10)**:
+- `tests/llmTutor.test.ts` (10 测试)
+  - explanationKey (2)
+  - mockExplanation (3)
+  - getOrCreateExplanation (3)
+  - explainError Mock (2)
+- 57/57 全过
+- 31/31 闭环回归
+
+⚠️ schema v4 升级: Dexie 自动迁移
+⚠️ Mock 渠道不存缓存, 避免污染
+
+---
+
 ---
 
 ---

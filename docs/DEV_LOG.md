@@ -2,7 +2,7 @@
 
 > 这份文档是产品**理论层面的完整功能记录**,供用户在无时间亲自测试时查阅、验收、规划下一步。
 >
-> 最后更新: 2026-07-23 (v1.1.2)
+> 最后更新: 2026-07-23 (v1.2.0)
 
 ---
 
@@ -1259,6 +1259,44 @@ npm run build
 
 ⚠️ html2canvas WONTFIX: 提示截图代替 (省 40KB)
 
+## 阶段8: v1.2.0 D2 LLM 错题讲解 (2026-07-23) - 1d 干完 1.5d 计划
+
+### 流程 (用户强调)
+- 先做计划,存档 → 实施 → 改状态,存档 → 更新文档
+
+### T1 llmTutor.ts
+- 160 行, 协议 {rule, examples, mnemonic}
+- Mock 8 错误类型 fallback
+- JSON 解析容错 (markdown fence + { } 截取)
+
+### T2-T3 3 处接入
+- ErrorExplainButton 复用组件 (90 行)
+- WritePage / AIChat / ErrorsPage 接入
+- 展开紫色讲解面板
+
+### T4 IndexedDB 缓存
+- db.ts schema v4: errorExplanations 表
+- getOrCreateExplanation 自动查缓存/调 LLM
+- 节省 LLM 成本 + 离线可用
+
+### T5-T6 测试 + 验证
+- 单元测试 47→57 (+10), 57/57 全过
+- 闭环 31/31 回归
+- build pass + typecheck 0 错误
+
+⚠️ schema v4 升级: Dexie 自动迁移
+
+## 累计 v0.1 - v1.2.0 (20 阶段, 5d)
+
+- 8 周 + 4 周路线图 → 5d 完成
+- 19 页面 / 17 组件 (8 + 5 通用 + Toast + Modal + ShareCard + ShareModal + ErrorExplainButton) / 23 库
+- 57 单元测试 + 15 闭环 (31 测试点)
+- 0 关闭率
+- 5 个 GitHub release tag (v1.0.0 / v1.1.0/1/2 / v1.2.0)
+
+## 北极星 (一直未变)
+
+> 让英语在你想用的时候就能用上 = 触发可及 + 内容能用 + 学得会
 ## 累计 v0.1 - v1.1.2 (19 阶段, 4d)
 
 - 8 周 + 3 周路线图 → 4d 完成

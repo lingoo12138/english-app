@@ -7,6 +7,7 @@ import { exportAllChats, downloadChatJson, exportChat } from '../lib/exportChat'
 import TTSButton from '../components/TTSButton'
 import { STTController, isSTTSupported } from '../lib/stt'
 import { Modal } from '../components/Modal'
+import { ErrorExplainButton } from '../components/ErrorExplainButton'
 import { addErrorWordsToFavorites } from '../lib/errorReview'
 import { toast } from '../components/Toast'
 import { loadWords } from '../lib/words'
@@ -759,6 +760,11 @@ function MessageBubble({ message, review }: { message: ChatMessage; review?: Rev
                     ? '✓ 已加入'
                     : '⭐ 加入生词本'}
                 </button>
+                <ErrorExplainButton
+                  type={err.type}
+                  original={err.original}
+                  suggestion={err.fixed}
+                />
               </div>
             ))}
           </div>

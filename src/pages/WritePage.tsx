@@ -9,6 +9,7 @@ import { addFavorite } from '../lib/db'
 import { addErrorWordsToFavorites } from '../lib/errorReview'
 import { loadWords } from '../lib/words'
 import { Modal } from '../components/Modal'
+import { ErrorExplainButton } from '../components/ErrorExplainButton'
 import { toast } from '../components/Toast'
 
 interface ReviewError {
@@ -355,6 +356,11 @@ export default function WritePage() {
                             ? '✓ 已加入生词本'
                             : '⭐ 加入生词本'}
                         </button>
+                        <ErrorExplainButton
+                          type={err.type}
+                          original={err.original}
+                          suggestion={err.suggestion}
+                        />
                       </div>
                     ))}
                   </div>

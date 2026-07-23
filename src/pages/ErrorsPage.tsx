@@ -6,6 +6,7 @@ import { getAllWritingErrors, deleteWritingError, type WritingError } from '../l
 import { addFavorite } from '../lib/db'
 import { loadWords } from '../lib/words'
 import { Modal } from '../components/Modal'
+import { ErrorExplainButton } from '../components/ErrorExplainButton'
 import { addErrorWordsToFavorites } from '../lib/errorReview'
 import { toast } from '../components/Toast'
 
@@ -329,19 +330,28 @@ export default function ErrorsPage() {
                   {item.original}
                 </p>
                 {item.errors.length > 0 && (
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     {item.errors.map((err, i) => (
-                      <div key={i} className="text-xs flex items-center gap-1">
-                        <span className="line-through text-red-500 font-mono">
-                          {err.original}
-                        </span>
-                        <span>→</span>
-                        <span className="text-emerald-600 font-mono">
-                          {err.suggestion}
-                        </span>
-                        <span className="text-[10px] px-1 bg-stone-200 dark:bg-stone-700 rounded">
-                          {err.type}
-                        </span>
+                      <div key={i} className="space-y-1">
+                        <div className="text-xs flex items-center gap-1 flex-wrap">
+                          <span className="line-through text-red-500 font-mono">
+                            {err.original}
+                          </span>
+                          <span>→</span>
+                          <span className="text-emerald-600 font-mono">
+                            {err.suggestion}
+                          </span>
+                          <span className="text-[10px] px-1 bg-stone-200 dark:bg-stone-700 rounded">
+                            {err.type}
+                          </span>
+                        </div>
+                        {/* v1.2-D2: 解释按钮 */}
+                        <ErrorExplainButton
+                          type={err.type}
+                          original={err.original}
+                          suggestion={err.suggestion}
+                          variant="inline"
+                        />
                       </div>
                     ))}
                   </div>
