@@ -195,11 +195,14 @@ function parseUsage(content: string): UsageExplanation {
   }
   try {
     const obj = JSON.parse(c)
-    const phrases = Array.isArray(obj.phrases) ? obj.phrases.map((p: any) => ({
-      phrase: String(p.phrase || ''),
-      meaning: String(p.meaning || ''),
-      example: String(p.example || ''),
-    })).filter((p: PhraseUsage) => p.phrase) : []
+    const phrases = Array.isArray(obj.phrases) ? obj.phrases.map((p: unknown) => {
+      const pp = (p && typeof p === 'object' ? p : {}) as { phrase?: unknown; meaning?: unknown; example?: unknown }
+      return {
+        phrase: String(pp.phrase || ''),
+        meaning: String(pp.meaning || ''),
+        example: String(pp.example || ''),
+      }
+    }).filter((p: PhraseUsage) => p.phrase) : []
     return {
       phrases,
       tip: String(obj.tip || '暂无小贴士'),

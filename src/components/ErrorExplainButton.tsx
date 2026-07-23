@@ -51,9 +51,9 @@ export function ErrorExplainButton({ type, original, suggestion, variant = 'inli
         return { rule: result.rule, examples: result.examples, mnemonic: result.mnemonic }
       })
       setExplanation({ ...cached, cached: cached.cached })
-    } catch (e: any) {
+    } catch (e: unknown) { const err = e instanceof Error ? e : new Error(String(e))
       console.error(e)
-      toast.error(`讲解失败: ${e?.message || '未知错误'}`)
+      toast.error(`讲解失败: ${err.message || '未知错误'}`)
     } finally {
       setLoading(false)
     }

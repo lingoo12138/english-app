@@ -55,9 +55,9 @@ export function UsageButton({ word, translation }: Props) {
       } catch {
         setUsage({ phrases: [], tip: cached.rule, cached: cached.cached })
       }
-    } catch (e: any) {
+    } catch (e: unknown) { const err = e instanceof Error ? e : new Error(String(e))
       console.error(e)
-      toast.error(`加载失败: ${e?.message || '未知错误'}`)
+      toast.error(`加载失败: ${err.message || '未知错误'}`)
     } finally {
       setLoading(false)
     }
