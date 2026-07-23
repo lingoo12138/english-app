@@ -1055,10 +1055,43 @@ npm run build
 - 10 LLM + 8 TTS + 8 翻译 + 3 自定义
 - 7 阶段 (v0.1-v0.4 基础 / v0.5 跟读 / v0.6-v0.7 修复 / v0.8 例句 / v0.9 拍照 / v0.10-v0.11 渠道 / v0.12 自定义 / v0.13 verifier / v0.14-v0.22.9 进阶 / v0.23-v0.25 LLM 杀手锏)
 
-**v0.26 计划 (1 周收尾)**:
-- W4-A 听力模式 /listen (2.5d)
-- W4-B P2 收尾 + PWA 精细化 (1.5d)
-- W4 缓冲 + v0.26 发布 (1d)
+**v0.26 完成 (1.5d 干完 5d 计划)**:
+- W4-A 听力模式 /listen (5 篇精选短文 + 挖空听写 + 理解题)
+  - src/data/listening.ts: 5 篇 A2-B2 渐进短文
+  - src/pages/ListenPage.tsx: 5 模式状态机 (总览/Lesson/Dictation/Questions/Result)
+- W4-B PWA 缓存精细化 + Home 拆组件
+  - vite.config.ts: autoUpdate → prompt (用户主动选择更新)
+  - main.tsx: registerSW({onNeedRefresh, onOfflineReady})
+  - Home 拆 3 组件 (TodayPlanCard/DailySentenceCard/ReviewReminderCard) — 336→212 行
+- P1 修复: DictationMode useRef→useState (segments 不触发 re-render)
+- v0.26.1 全模块验证 26/26 pass (19 页面 + PWA SW + 5 篇短文 + 改错本 + 写作批改 + 学习计划 + Home 拆组件 + AIChat 选词 tooltip)
+
+**4 周路线图 v0.23-v0.26 完结统计**:
+- 14 个版本发布 (v0.23.0 ~ v0.26.1)
+- 总耗时 5d (原计划 19.5d, 提前 14.5d)
+- 0 P0 + 8 P1 全修 + 2 P2 全修
+- 19 页面 / 8 组件 + 9 Settings 子 / 18 库
+- 6000+ 行 (从 5300+ 加 700)
+- 5334 词 + 3450 词根 (64.7%) + Top 2k 77.3%
+- 10 LLM + 8 TTS + 8 翻译 + 3 自定义
+- 5 听力短文 (A2-B2) + 5 场景 (40 句)
+
+**subagent 累计 8 次失败模式**:
+- v0.13 首次成功 (2 写 + 1 verifier)
+- v0.22-v0.26 期间 7 次失败 (token rate limit 限流)
+- 降级方案: 主人接管 + 静态审查 + Playwright 验证 三件套稳定
+
+**累计 v0.1 - v0.26**:
+- 150+ commit
+- 0 P0 (历史 110+ bug 全清)
+- 19 页面
+- 6000+ 行
+- 8 阶段: v0.1-v0.4 基础 / v0.5 跟读 / v0.6-v0.7 修复 / v0.8 例句 / v0.9 拍照 / v0.10-v0.13 渠道+verifier / v0.14-v0.22.9 进阶 / v0.23-v0.26 LLM 杀手锏 + 听力 + 改错本
+
+**v1.0 候选 (8 周里程碑)**:
+- 需要: 多端同步 / 账号 / 社区 / 微信小程序
+- 当前无后端硬约束, 8 周内不计划
+- 当前是极简本地版 v0.26, 已是"让英语在你想用的时候就能用上"核心需求
 
 ---
 
