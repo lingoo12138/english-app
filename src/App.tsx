@@ -17,6 +17,7 @@ import PronounceCustom from './pages/PronounceCustom'
 import PlanPage from './pages/PlanPage'
 import WritePage from './pages/WritePage'
 import ErrorsPage from './pages/ErrorsPage'
+import ListenPage from './pages/ListenPage'
 import SceneDetail from './pages/SceneDetail'
 import Camera from './pages/Camera'
 import AIChat from './pages/AIChat'
@@ -123,6 +124,7 @@ function App() {
         <Route path="plan" element={<PlanPage />} />
         <Route path="write" element={<WritePage />} />
         <Route path="errors" element={<ErrorsPage />} />
+        <Route path="listen" element={<ListenPage />} />
         <Route path="report" element={<LearnReport />} />
         <Route path="pronounce-custom" element={<PronounceCustom />} />
         <Route path="settings" element={<Settings />} />

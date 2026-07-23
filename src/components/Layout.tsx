@@ -11,6 +11,7 @@ const desktopNav = [
   { to: '/plan', label: '计划', icon: '📅' },
   { to: '/write', label: '写作', icon: '✍️' },
   { to: '/errors', label: '错题', icon: '📕' },
+  { to: '/listen', label: '听力', icon: '🎧' },
   { to: '/report', label: '报告', icon: '📊' },
   { to: '/translate', label: '翻译', icon: '🔤' },
   { to: '/notebook', label: '生词本', icon: '⭐' },
@@ -26,6 +27,7 @@ const mobileNav = [
   { to: '/plan', label: '计划', icon: '📅' },
   { to: '/write', label: '写作', icon: '✍️' },
   { to: '/errors', label: '错题', icon: '📕' },
+  { to: '/listen', label: '听力', icon: '🎧' },
   { to: '/report', label: '报告', icon: '📊' },
   { to: '/notebook', label: '生词', icon: '⭐' },
 ]
