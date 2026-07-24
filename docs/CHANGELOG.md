@@ -1695,3 +1695,30 @@
 - 24 闭环验证 + 13 修复点
 - 22 → 23 组件 (新加 SynonymsButton) + 25 → 26 库 (新加 synonyms)
 - 3 commits + 1 tag (v1.10.0)
+
+## [v1.11.0] - 2026-07-25 (W12 团队推荐)
+
+### v1.11.0 FSRS + 复习智能队列 + 日报/周报 (3 producer 并行 1d 干完 3d)
+
+- 🆕 v1.11.0-A FSRS 间隔重复算法 (B8, 新加, 默认 false 保持 SM-2):
+  - src/lib/fsrs.ts (201 行): 4 参数 (d 难度/s 稳定性/r 可检索性/t 间隔)
+  - 4 评级: Again/Hard/Good/Easy (复用 Anki 4 档)
+  - initFSRS / reviewFSRS / getRetrievability / fromSM2 / toSM2
+  - plan.ts 集成: saveFSRSCard / loadFSRSCard / migrateFSRSToSM2
+  - 18 单元测试
+- 🆕 v1.11.0-B 复习中心智能队列 (B10):
+  - src/lib/reviewQueue.ts (135 行): scoreReviewItem (due/难/新) + sortReviewQueue
+  - ReviewCenter '🎯 智能排序' 切换 (默认开, 可切回时间排)
+  - SortToggle 组件
+  - 7 单元测试
+- 🆕 v1.11.0-C 学习日报/周报 (B11):
+  - src/lib/learningReport.ts (361 行): getDailyReport / getWeeklyReport / getTrend / getEncouragement
+  - src/pages/ReportsPage.tsx (293 行, lazy load): 今日日报 + 本周周报 Tab
+  - 路由 /reports + Home 入口卡片
+  - 分享按钮 (复用 ShareCard, 不引 html2canvas)
+  - 10 单元测试
+- 📊 195 → 230 单元测试 (+35)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持
+- 26 闭环验证 + 14 修复点
+- 23 → 24 组件 (新加 SortToggle) + 26 → 27 库 (新加 fsrs/reviewQueue/learningReport)
+- 4 commits + 1 tag (v1.11.0)
