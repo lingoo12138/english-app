@@ -1,4 +1,4 @@
-# 句刻 · 即时英语学习 v1.8.0
+# 句刻 · 即时英语学习 v1.11.0
 
 > 让你在"想用英语的瞬间就能用上"——把英语嵌进真实生活场景里。
 >
@@ -10,22 +10,27 @@
 [📝 更新日志](./docs/CHANGELOG.md) ·
 [📦 v1.6.0 Release Notes](./docs/RELEASE_v1.6.0.md) ·
 [📦 v1.8.0 Release Notes](./docs/RELEASE_v1.8.0.md) ·
+[📦 v1.10.0 Release Notes](./docs/RELEASE_v1.10.0.md) ·
+[📦 v1.11.0 Release Notes](./docs/RELEASE_v1.11.0.md) ·
 [🔍 v1.6 Review Report](./docs/REVIEW_v1.6.md) ·
 [💬 AI 对话进阶需求](./docs/AI_CHAT_ROADMAP.md)
 
 ---
 
-## 🎯 当前进度 (v1.8.0)
+## 🎯 当前进度 (v1.11.0)
 
-✅ **11 个版本量产** (v1.1.0 ~ v1.8.0, 3 producer 并行 1d 干完 3d 计划)
-✅ **164 单元测试 + 16 闭环集成测试** 全过 (104 → 164, +60)
-✅ **0 关闭率** (0 P0/P1/P2) — v1.6/v1.7/v1.8 连续 3 个版本维持
+✅ **12 个版本量产** (v1.1.0 ~ v1.11.0, 3 producer 并行 1d 干完 3-6d 计划 × 5 轮)
+✅ **230 单元测试 + 16 闭环集成测试** 全过 (104 → 230, +126)
+✅ **0 关闭率** (0 P0/P1/P2) — v1.6/v1.7/v1.8/v1.10/v1.11 连续 5 个版本维持
 ✅ **性能优化** (Bundle 538KB → 64KB 入口, -54%, FCP 220→204ms)
 ✅ **词根 80.4% / Top 2k 86.3%** (134→465 已知词根)
-✅ **LLM 杀手锏** (错题讲解 D2 + 短语用法 D3 + 语法讲解 v1.8-A, 复用 D1 错词入复习)
-✅ **留存钩子** (成就墙 20 成就 + 学习卡分享 + 错词自动入复习 + **首启 onboarding** v1.8-A + **难度自适应 + 自由话题** v1.9.0)
-✅ **真实 LLM e2e** (v1.8-B e2eTest + chatCompletionWithTimeout + OpenRouter 0 成本)
+✅ **LLM 杀手锏矩阵** (错题讲解 + 短语用法 + 语法讲解 + 同义词辨析, 4 组件, 复用 D1 错词入复习)
+✅ **留存钩子** (成就墙 20 成就 + 学习卡分享 + 错词自动入复习 + 首启 onboarding + 难度自适应 + 自由话题)
+✅ **真实 LLM e2e** (e2eTest + chatCompletionWithTimeout + OpenRouter 0 成本)
 ✅ **B 听力自适应** (v1.7.0 错题推课 + Daily 100 句)
+✅ **FSRS 算法** (v1.11.0-A 新加, 默认 false 保持 SM-2, 向后兼容)
+✅ **复习智能队列** (v1.11.0-B 按 due/难/新 排序, 可切回时间排)
+✅ **学习日报/周报** (v1.11.0-C ReportsPage /reports, 鼓励文案 + 趋势对比)
 
 ### 已完成路线图
 
@@ -42,6 +47,8 @@
 | v1.7.0 | B 听力自适应 + LLM Tutor 2.0 + e2e (3 producer 并行) | ✅ |
 | v1.8.0 | **🎓 首启 onboarding + ✨ 难度自适应 + 💬 自由话题** | ✅ |
 | v1.9.0 | (含在 v1.8.0) 难度自适应 + 自由话题 | ✅ |
+| v1.10.0 | **🌐 中译英 Tab + 🔀 同义词辨析 + 🎤 例句跟读** | ✅ |
+| v1.11.0 | **📅 FSRS 算法 + 🎯 复习智能队列 + 📊 日报/周报** | ✅ |
 
 
 ## ✨ v1.0.0 核心特性
@@ -353,6 +360,59 @@ src/
 
 详情见 [CHANGELOG v1.8.0](./docs/CHANGELOG.md#v180--v190---2026-07-24)
 
+
+
+## 🌐 v1.10.0 - 中译英 + 同义词 + 例句跟读 (2026-07-24) - 3 producer 并行 (W11)
+
+✅ **🌐 中译英 Tab** (B5 重新提): WritePage 加 "🌐 中译英" 第二 Tab
+- 中文 → LLM 翻译 + 等级 (A1-C2) + 备选译法 + 注释
+- CHINESE_SYSTEM_PROMPT 协议: {translation, level, alternatives, notes}
+- 5 句 mock fallback
+- 13 单元测试
+
+✅ **🔀 同义词辨析** (B6): WordDetail "AI 同义词辨析" 卡片
+- src/lib/synonyms.ts: 协议 + 8 词 mock + LLM
+- 8 词: happy/sad/angry/big/small/good/bad/fast
+- SynonymsButton 组件 (复用 UsageButton 模式)
+- 13 单元测试
+
+✅ **🎤 例句 TTS 跟读** (B7): WordDetail 例句加 "🎤 跟读"
+- showPronounce → pronounceText 动态文本 (单词/例句复用弹窗)
+- 5 单元测试
+
+📊 **164 → 195 单元测试** (+31)
+✅ **0 P0 + 0 P1 + 0 P2** 维持
+
+详情见 [CHANGELOG v1.10.0](./docs/CHANGELOG.md#v1100---2026-07-24-w11-团队推荐)
+
+
+
+## 📅 v1.11.0 - FSRS + 复习智能队列 + 日报/周报 (2026-07-25) - 3 producer 并行 (W12)
+
+✅ **📅 FSRS 间隔重复算法** (B8, 新加, 默认 false 保持 SM-2):
+- src/lib/fsrs.ts (201 行): 4 参数 (d 难度 / s 稳定性 / r 可检索性 / t 间隔)
+- 4 评级: Again/Hard/Good/Easy (复用 Anki 4 档)
+- initFSRS / reviewFSRS / getRetrievability / fromSM2 / toSM2
+- plan.ts 集成: saveFSRSCard / loadFSRSCard / migrateFSRSToSM2
+- 18 单元测试
+
+✅ **🎯 复习中心智能队列** (B10): ReviewCenter "🎯 智能排序" 切换
+- src/lib/reviewQueue.ts: scoreReviewItem (due 早 + 难词 + 新词) + sortReviewQueue
+- SortToggle 组件
+- 7 单元测试
+
+✅ **📊 学习日报/周报** (B11): ReportsPage 路由 /reports
+- src/lib/learningReport.ts (361 行): getDailyReport / getWeeklyReport / getTrend / getEncouragement
+- src/pages/ReportsPage.tsx (293 行, lazy load): 今日 + 本周 Tab
+- "📤 分享" 按钮 (复用 ShareCard, 不引 html2canvas)
+- Home 入口卡片
+- 10 单元测试
+
+📊 **195 → 230 单元测试** (+35)
+✅ **0 P0 + 0 P1 + 0 P2** 维持
+
+详情见 [CHANGELOG v1.11.0](./docs/CHANGELOG.md#v1110---2026-07-25-w12-团队推荐)
+
 ## 🚀 快速开始
 
 ```bash
@@ -371,17 +431,18 @@ npm run preview  # 预览 dist
 
 ---
 
-## 📊 累计数据(截至 v1.8.0)
+## 📊 累计数据(截至 v1.11.0)
 
-- **20 页面 + 22 组件 + 25 库 + 8500+ 行代码**
+- **21 页面 + 24 组件 + 27 库 + 9500+ 行代码**
 - **5334 词 + 13234 例句 + 5 场景 + 5 听力 + 100 每日一句**
 - **465 词根 (全量 80.4% / Top 2k 86.3%)**
 - **10 LLM (含 OpenRouter free) + 8 TTS + 8 翻译 + 3 自定义端点**
-- **20 成就 (连续/词量/错题/收藏) + 8 主题/字号 + 7 学段筛选 + 3 步 onboarding**
-- **164 单元测试 + 16 闭环 (37 测试点) + 0 P0/P1**
+- **20 成就 + 8 主题/字号 + 7 学段筛选 + 3 步 onboarding + 智能复习队列**
+- **230 单元测试 + 16 闭环 (37 测试点) + 0 P0/P1**
+- **FSRS 间隔重复 + 智能队列 + 日报/周报 + 4 LLM 讲解组件**
 - **首启 onboarding + 难度自适应 + 自由话题 + LLM e2e + B 听力自适应**
 - **102+ bug 修复**(22+ P0 + 23+ P1 + 28+ P2 + 13+ v1.6 review + 3+ v1.8 遗留 : any)
-- **210+ commit / 10 release tag (v1.0.0 ~ v1.8.0)**
+- **230+ commit / 12 release tag (v1.0.0 ~ v1.11.0)**
 - **零付费依赖**(完全本地 + 公共 API + 免费层 LLM)
 
 ---

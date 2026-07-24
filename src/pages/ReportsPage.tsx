@@ -24,7 +24,7 @@ export default function ReportsPage() {
 
   useEffect(() => {
     refresh()
-  }, [activeTab])
+  }, [])
 
   async function refresh() {
     setLoading(true)
