@@ -1,0 +1,224 @@
+version: 1
+plan:
+  name: "句刻 v1.7+ 并行开发 (3 producer 1d 干完 3d 计划)"
+  auto_reject_retries: 0
+  max_concurrency: 3
+
+tasks:
+  - id: "p1-v17-listening-adaptive"
+    title: "P1: v1.7 B 听力自适应 (3d → 1d)"
+    assigned_to: "general"
+    timeout_ms: 1800000
+    verify_skip_reason: "大功能 (lib + UI + tests), 完成后需独立 verifier"
+    prompt: |
+      你是 Mavis 团队的"v1.7 B 听力自适应" producer。负责实现 ListenPage 顶部 "🎯 为你推荐" 卡片,
+      根据错题数据反向推该听哪课。
+
+      ## 范围
+      1. **src/lib/listeningRecommend.ts** (90 行):
+         - `extractLessonKeywords(lesson)`: Set<string> — 提取该课 vocabulary + blanks 答案
+         - `calculateLessonScore(lesson, errorWords)`: {score, matchedWords}
+         - `recommendLessons(lessons, errors, completedIds, topN=3)`: List<{lesson, score, matchedWords, isCompleted}>
+         - 已完成课降权 (score * 0.3)
+         - score > 0 才返回
+         - 输入: errors: WritingError[] (从 db.getAllWritingErrors() 来)
+         - 复用 `extractErrorWords` from `src/lib/errorReview.ts`
+
+      2. **tests/listeningRecommend.test.ts** (8 测试):
+         - extractLessonKeywords 应包含 vocabulary + blanks 答案
+         - calculateLessonScore 命中 0 词 → score 0
+         - calculateLessonScore 命中 3 词 → score 3 + matchedWords 3 个
+         - recommendLessons 错词为空 → 返回空
+         - recommendLessons 按 score 降序排
+         - recommendLessons 已完成课降权到 0.3 倍
+         - recommendLessons 只返回 score > 0
+         - recommendLessons Top 3 截断
+
+      3. **src/pages/ListenPage.tsx** 改造:
+         - useEffect 加载 writingErrors → recommendLessons
+         - 顶部 "🎯 为你推荐" 卡片 (Top 3, 仅在有数据时显示)
+         - 没数据时显示 "💡 完成几道题后, 这里会出现个性化推荐"
+         - 复用现有 `getAllWritingErrors` from db.ts + `LISTENING_LESSONS` from data/listening.ts
+         - 保留 v1.6 修复 (切 lesson 重置状态 + handlePlay if (playing) return) **不要破坏**
+
+      4. **scripts/verify-v1.7-b.mjs** 闭环脚本 (5 静态验证):
+         - listeningRecommend.ts 存在
+         - 8 单元测试存在
+         - ListenPage 调用 recommendLessons
+         - "🎯 为你推荐" 文案在 ListenPage
+         - 静态审查 scripts/review-v1.7.py 存在
+
+      ## 关键文件先读
+      - docs/plans/v1.7-B-listening-adaptive.md (详细设计)
+      - src/pages/ListenPage.tsx (547 行, 5 模式状态机)
+      - src/data/listening.ts (5 课 + vocabulary + blanks)
+      - src/lib/errorReview.ts (extractErrorWords 复用)
+      - src/lib/db.ts (getAllWritingErrors)
+      - tests/setup.ts (vitest 配置)
+
+      ## 验证
+      ```bash
+      npx tsc --noEmit                                    # 0 错误
+      npx vitest run tests/listeningRecommend.test.ts     # 8 通过
+      node scripts/verify-v1.7-b.mjs                       # 5/5
+      python3 scripts/review-v1.7.py                      # 0 P0 + 0 P1 + 0 P2
+      npx vite build                                       # pass
+      ```
+
+      ## 提交
+      1 commit: `feat(v1.7): B 听力自适应 (lib + UI + 8 tests + 闭环)`
+      然后 commit: `test(v1.7): 闭环 + 静态审查 + docs`
+
+      ## 不要做
+      - ❌ 不动 ListenPage 5 模式状态机 (v1.6 刚修)
+      - ❌ 不做 LLM 推荐 (纯本地算法, 0 成本)
+      - ❌ 不持久化推荐 (每次重算)
+      - ❌ 不破坏 v1.6 review 修复 (切 lesson 重置 + handlePlay + 解析失败 tip)
+      - ❌ 不动 v1.5 review 后的其他文件 (Achievements / ShareCard / UsageButton)
+
+      ## 失败 fallback
+      如果 token rate limit 失败, 主人会接管。先做 lib (最关键), 再做 UI, 最后 tests。
+      lib + 1-2 个测试 + UI 改动 已是 MVP。
+
+    output:
+      files:
+        - "src/lib/listeningRecommend.ts"
+        - "tests/listeningRecommend.test.ts"
+        - "src/pages/ListenPage.tsx"
+        - "scripts/verify-v1.7-b.mjs"
+        - "scripts/review-v1.7.py"
+
+  - id: "p2-v18a-llm-tutor-2"
+    title: "P2: v1.8-A D3 LLM Tutor 2.0 完整版 (2d → 0.5d)"
+    assigned_to: "general"
+    timeout_ms: 1500000
+    verify_skip_reason: "复用 D2/D3 模式, 需独立 verifier"
+    prompt: |
+      你是 Mavis 团队的"v1.8-A D3 LLM Tutor 2.0 完整版" producer。负责把错题讲解
+      从"短语用法"扩展到"完整语法讲解"(规则 + 例句 + 例句翻译 + 易错点对比)。
+
+      ## 范围
+      1. **src/lib/llmTutor.ts** 加 `explainGrammar(word, pos, translation)` 函数:
+         - 协议: `{definition, usage, examples: [{en, zh}], commonMistakes: [{wrong, right, why}]}`
+         - `parseGrammar` / `mockGrammar` (8 个常见词性: noun/verb/adj/adv/prep/conj/article/pronoun)
+         - `grammarKey` 函数: `grammar::${word}::${pos}`
+         - 复用 `getOrCreateExplanation` 缓存 (errorExplanations 表, 已有)
+
+      2. **src/components/GrammarButton.tsx** (120 行):
+         - 复用 UsageButton 模式 (loading 状态 / setLoading(true) 修复)
+         - 展开: 规则 + 例句翻译 + 易错点对比
+         - 来自缓存提示
+
+      3. **tests/llmTutor.test.ts** 加 4 测试:
+         - explainGrammar 缓存命中
+         - parseGrammar 有效 JSON
+         - parseGrammar markdown fence 处理
+         - mockGrammar fallback (8 词性)
+
+      4. **src/pages/WordDetail.tsx** 加 "📖 语法讲解" 按钮 (在 UsageButton 之后)
+
+      ## 关键文件先读
+      - src/lib/llmTutor.ts (已有 explainError + explainUsage, 复用模式)
+      - src/components/UsageButton.tsx (复用 UI 模式)
+      - src/lib/db.ts (getOrCreateExplanation 已有)
+      - tests/llmTutor.test.ts (已有 14 测试, 加 4)
+      - src/pages/WordDetail.tsx (找 UsageButton 位置)
+
+      ## 验证
+      ```bash
+      npx tsc --noEmit                              # 0 错误
+      npx vitest run tests/llmTutor.test.ts          # 18 通过 (14 + 4)
+      npx vitest run                                # 全部 108+ 通过
+      npx vite build                                 # pass
+      ```
+
+      ## 提交
+      1 commit: `feat(v1.8-A): D3 LLM Tutor 2.0 完整版 (语法讲解 + GrammarButton)`
+
+      ## 不要做
+      - ❌ 不动 v1.5 review 后的其他模块 (成就墙 / 分享卡)
+      - ❌ 不重写 explainError / explainUsage (只加 explainGrammar)
+      - ❌ 不动 llmTutor 协议格式 (新加字段, 旧字段保留)
+      - ❌ 不破坏 v1.6 review 修复 (setLoading 修复, 解析失败 tip)
+
+      ## 失败 fallback
+      先做 explainGrammar + mockGrammar + 1 测试, 然后 UI, 最后接入 WordDetail。
+
+    output:
+      files:
+        - "src/lib/llmTutor.ts"
+        - "src/components/GrammarButton.tsx"
+        - "tests/llmTutor.test.ts"
+        - "src/pages/WordDetail.tsx"
+
+  - id: "p3-v18b-llm-e2e"
+    title: "P3: v1.8-B 真实 LLM 渠道端到端 (2d → 0.5d)"
+    assigned_to: "general"
+    timeout_ms: 1500000
+    verify_skip_reason: "端到端测试, 需独立 verifier"
+    prompt: |
+      你是 Mavis 团队的"v1.8-B 真实 LLM 渠道端到端测试" producer。负责验证 LLM chain
+      从 UI → store → providers → fetch → parse → 渲染 全链路正常 (用 mock 渠道)。
+
+      ## 范围
+      1. **src/lib/providers/llm.ts** 加 `e2eTest(provider, apiKey, model)` 函数:
+         - 用 provider 真实协议 (OpenAI 风格) 发测试消息 "Say 'OK' in one word"
+         - 验证: status 200 + content 含 "OK" 或 "ok"
+         - 超时 10s
+         - 不抛错只返回 `{ok: boolean, latencyMs, content, error?}`
+
+      2. **tests/llmE2E.test.ts** (6 测试):
+         - mock 渠道 e2eTest 应 ok=true
+         - mock 渠道 e2eTest 应 < 1s
+         - 无效 provider 应 ok=false
+         - 无 apiKey 应 ok=false
+         - 超时 (mock 5s sleep) 应 ok=false
+         - 异常 JSON 响应应 ok=false (mock 设置)
+
+      3. **scripts/verify-llm-e2e.mjs** 闭环脚本:
+         - 跑 e2eTest(mock provider)
+         - 验证 chain: chatCompletion → fetch → parse → response
+         - 验证 WritePage handleReview chain
+         - 验证 AIChat handleSend chain
+         - 验证 ErrorExplainButton chain
+         - 静态检查: 5 处 chatCompletion 调用, 5 处都有错误处理
+
+      4. **src/lib/providers/llm.ts** 加 `chatCompletionWithTimeout` wrapper:
+         - 复用 chatCompletion
+         - 加 10s timeout (AbortController)
+         - 超时抛 Error('LLM 调用超时 (10s), 请重试或换 Mock')
+
+      ## 关键文件先读
+      - src/lib/providers/llm.ts (8 LLM 渠道, 统一 OpenAI 协议)
+      - src/pages/WritePage.tsx (handleReview 用 chatCompletion)
+      - src/pages/AIChat.tsx (handleSend 用 aiChat)
+      - src/lib/llmTutor.ts (explainError / explainUsage)
+      - src/components/ErrorExplainButton.tsx (getOrCreateExplanation)
+
+      ## 验证
+      ```bash
+      npx tsc --noEmit                                # 0 错误
+      npx vitest run tests/llmE2E.test.ts              # 6 通过
+      npx vitest run                                  # 全部 110+ 通过
+      node scripts/verify-llm-e2e.mjs                 # 5/5
+      npx vite build                                   # pass
+      ```
+
+      ## 提交
+      1 commit: `feat(v1.8-B): LLM 端到端测试 (e2eTest + chatCompletionWithTimeout)`
+
+      ## 不要做
+      - ❌ 不接真实 API key (用户没配, 用 mock 渠道)
+      - ❌ 不动 chatCompletion 主函数 (只加 wrapper)
+      - ❌ 不破坏现有 LLM 渠道协议
+      - ❌ 不加依赖 (e2eTest 用 native fetch + AbortController)
+      - ❌ 不破坏 v1.6 review 修复
+
+      ## 失败 fallback
+      先做 e2eTest + 1-2 tests + mock 模拟, 然后 chatCompletionWithTimeout, 最后闭环。
+
+    output:
+      files:
+        - "src/lib/providers/llm.ts"
+        - "tests/llmE2E.test.ts"
+        - "scripts/verify-llm-e2e.mjs"
