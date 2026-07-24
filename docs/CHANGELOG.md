@@ -1611,3 +1611,29 @@
 - AI 对话陪练
 - 听力模式
 - 多端数据同步
+
+## [v1.7.0] - 2026-07-24
+
+### v1.7.0 B 听力自适应 + v1.8 候选
+
+- 🆕 v1.7.0 B 听力自适应 (src/lib/listeningRecommend.ts 65 行):
+  - extractLessonKeywords: 提取该课 vocabulary + blanks 答案
+  - calculateLessonScore: 命中错词数
+  - recommendLessons: Top N 排序 + 已完成降权 0.3
+  - ListenPage 顶部 '🎯 为你推荐' 卡片 + '💡 完成几道题后' 提示
+  - visibilitychange 监听 (回前台重算)
+  - 11 单元测试 + 10 静态验证 + 0 P0/P1/P2
+- 🆕 v1.8-A D3 LLM Tutor 2.0 完整版 (src/lib/llmTutor.ts +150 行):
+  - explainGrammar: 完整语法讲解 (定义 + 用法 + 3 例句 + 易错点)
+  - 8 词性 mock fallback (noun/verb/adj/adv/prep/conj/article/pronoun)
+  - GrammarButton 组件 (复用 UsageButton 模式 + setLoading(true) 修复)
+  - WordDetail 加 'AI 语法讲解' 卡片
+  - 4 单元测试
+- 🆕 v1.8-B LLM 端到端测试 (src/lib/providers/llm.ts +82 行):
+  - e2eTest: 端到端验证 LLM 渠道
+  - chatCompletionWithTimeout: 10s AbortController wrapper
+  - mock LLM 探测消息快速返回 'OK' (e2e 优化)
+  - 7 单元测试 + 8 静态验证
+- 📊 104 → 126 单元测试 (+22)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持
+- 3 commits + 1 tag (v1.7.0)
