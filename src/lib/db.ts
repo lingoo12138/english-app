@@ -56,7 +56,7 @@ export const db = new EnglishAppDB()
 // === AI 对话持久化 ===
 export interface WritingError {
   id?: number
-  source: 'write' | 'chat'  // 写作批改 / AI 对话纠错
+  source: 'write' | 'chat' | 'chinese'  // 写作批改 / AI 对话纠错 / 中译英 (v1.10.0-A)
   original: string
   corrected: string
   errors: Array<{
