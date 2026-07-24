@@ -25,7 +25,9 @@ export function ErrorExplainButton({ type, original, suggestion, variant = 'inli
       setOpen(false)
       return
     }
+    if (loading) return  // v1.6 bugfix: 防重复点击
     setOpen(true)
+    setLoading(true)  // v1.6 bugfix: 显示加载状态
     // 先查缓存
     const key = `${type}::${original.trim().toLowerCase()}::${suggestion.trim().toLowerCase()}`.slice(0, 200)
     try {

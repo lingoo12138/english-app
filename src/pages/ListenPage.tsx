@@ -236,6 +236,13 @@ function DictationMode({
   const [playing, setPlaying] = useState(false)
   const [addedWords, setAddedWords] = useState<Set<string>>(new Set())
 
+  // v1.6 bugfix: 切 lesson 重置 answers/submitted/addedWords,避免上次答了一半的旧答案残留
+  useEffect(() => {
+    setAnswers({})
+    setSubmitted(false)
+    setAddedWords(new Set())
+  }, [lesson.id])
+
   // 把 text 按 blanks 切分
   const [segments, setSegments] = useState<(string | number)[]>([])
   useEffect(() => {
@@ -256,6 +263,7 @@ function DictationMode({
   }, [lesson])
 
   const handlePlay = async () => {
+    if (playing) return  // v1.6 bugfix: 防重复点击触发多次 TTS
     setPlaying(true)
     try {
       await speak({ text: lesson.text, rate: 1 })
@@ -399,7 +407,14 @@ function QuestionsMode({
   const [submitted, setSubmitted] = useState(false)
   const [playing, setPlaying] = useState(false)
 
+  // v1.6 bugfix: 切 lesson 重置 answers/submitted
+  useEffect(() => {
+    setAnswers({})
+    setSubmitted(false)
+  }, [lesson.id])
+
   const handlePlay = async () => {
+    if (playing) return  // v1.6 bugfix: 防重复点击
     setPlaying(true)
     try {
       await speak({ text: lesson.text, rate: 1 })

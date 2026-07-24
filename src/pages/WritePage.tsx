@@ -12,10 +12,12 @@ import { Modal } from '../components/Modal'
 import { ErrorExplainButton } from '../components/ErrorExplainButton'
 import { toast } from '../components/Toast'
 
+type WritingErrorType = 'grammar' | 'vocab' | 'spelling' | 'style' | 'tense' | 'preposition' | 'article' | 'other'
+
 interface ReviewError {
   original: string
   suggestion: string
-  type: string
+  type: WritingErrorType
   explanation: string
   severity: number
 }
@@ -73,15 +75,11 @@ export default function WritePage() {
     setTodayCount(Number(raw) || 0)
   }, [])
 
+  // v1.6 bugfix: 切回 write tab 不重置 input/result/addedWords,避免用户输入丢失
+  // (历史 Tab 加载历史时, 只有 loadHistory 需要; write tab state 由用户操作控制)
   useEffect(() => {
     if (activeTab === 'history') {
       loadHistory()
-    } else {
-      // 切回 write tab: 重置 input/result/addedWords/error,避免跨 tab 状态污染
-      setInput('')
-      setResult(null)
-      setError('')
-      setAddedWords(new Set())
     }
   }, [activeTab])
 
@@ -94,10 +92,6 @@ export default function WritePage() {
     if (!input.trim()) {
       setError('请输入要批改的英文')
       return
-    }
-    if (input.length > MAX_LEN) {
-      setError(`文本超过 ${MAX_LEN} 字符(当前 ${input.length}),已截断`)
-      setInput(input.slice(0, MAX_LEN))
     }
     if (!provider) {
       setError('未选择 LLM 渠道,请先在设置中选择')
@@ -112,13 +106,19 @@ export default function WritePage() {
       return
     }
 
+    // v1.6 bugfix: 用截断后的 text 变量, 避免 LLM 收到超长 input
+    const text = input.length > MAX_LEN ? input.slice(0, MAX_LEN) : input
+    if (input.length > MAX_LEN) {
+      setError(`文本超过 ${MAX_LEN} 字符(当前 ${input.length}),已截断`)
+      setInput(text)
+    }
+
     setLoading(true)
     setError('')
     setResult(null)
     setAddedWords(new Set())
 
     try {
-      const text = input.slice(0, MAX_LEN)
       const llmResp = await chatCompletion({
         provider,
         apiKey,
@@ -162,9 +162,9 @@ export default function WritePage() {
       setTodayCount(newCount)
       const today = new Date().toISOString().slice(0, 10)
       localStorage.setItem('write-count-' + today, String(newCount))
-    } catch (e: any) {
+    } catch (e: unknown) { const err = e instanceof Error ? e : new Error(String(e))
       console.error(e)
-      setError(e.message || '批改失败,请重试')
+      setError(err.message || '批改失败,请重试')
     } finally {
       setLoading(false)
     }
@@ -448,15 +448,16 @@ function parseResult(content: string): ReviewResult {
     const obj = JSON.parse(jsonStr)
     return {
       corrected: String(obj.corrected || ''),
-      errors: Array.isArray(obj.errors) ? obj.errors.map((e: any) => {
+      errors: Array.isArray(obj.errors) ? obj.errors.map((e: unknown) => {
+        const err = e as Record<string, unknown>
         const validTypes = ['grammar', 'vocab', 'spelling', 'style', 'tense', 'preposition', 'article', 'other'] as const
-        const t = String(e.type || 'other')
+        const t = String(err.type || 'other')
         return {
-          original: String(e.original || ''),
-          suggestion: String(e.suggestion || ''),
-          type: (validTypes as readonly string[]).includes(t) ? t as any : 'other',
-          explanation: String(e.explanation || ''),
-          severity: typeof e.severity === 'number' ? e.severity : 0.5,
+          original: String(err.original || ''),
+          suggestion: String(err.suggestion || ''),
+          type: (validTypes as readonly string[]).includes(t) ? t as WritingErrorType : 'other',
+          explanation: String(err.explanation || ''),
+          severity: typeof err.severity === 'number' ? err.severity : 0.5,
         }
       }) : [],
     }

@@ -21,7 +21,9 @@ export function UsageButton({ word, translation }: Props) {
       setOpen(false)
       return
     }
+    if (loading) return  // v1.6 bugfix: 防重复点击
     setOpen(true)
+    setLoading(true)  // v1.6 bugfix: 显示加载状态
     const key = `usage::${word.trim().toLowerCase()}`.slice(0, 200)
     try {
       const llmProviderId = useStore.getState().llmProviderId
@@ -53,7 +55,8 @@ export function UsageButton({ word, translation }: Props) {
           cached: cached.cached,
         })
       } catch {
-        setUsage({ phrases: [], tip: cached.rule, cached: cached.cached })
+        // v1.6 bugfix: 解析失败时 tip 不显示 JSON 字符串
+        setUsage({ phrases: [], tip: '暂无数据', cached: cached.cached })
       }
     } catch (e: unknown) { const err = e instanceof Error ? e : new Error(String(e))
       console.error(e)

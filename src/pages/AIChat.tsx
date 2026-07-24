@@ -167,6 +167,8 @@ export default function AIChat() {
   const [error, setError] = useState('')
   const [sttActive, setSttActive] = useState(false)
   const [sttInterim, setSttInterim] = useState('')
+  // v1.6 bugfix: STT 累积 input 加 MAX_LEN 限制, 避免 LLM token 超限
+  const MAX_INPUT = 500
   const sttControllerRef = useRef<STTController | null>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -195,8 +197,11 @@ export default function AIChat() {
     const ctl = new STTController({
       onResult: (text, isFinal) => {
         if (isFinal) {
-          // 最终结果,追加到 input
-          setInput(prev => (prev ? prev + ' ' : '') + text)
+          // 最终结果,追加到 input (v1.6 bugfix: 加 MAX_INPUT 截断)
+          setInput(prev => {
+            const next = (prev ? prev + ' ' : '') + text
+            return next.length > MAX_INPUT ? next.slice(0, MAX_INPUT) : next
+          })
           setSttInterim('')
         } else {
           setSttInterim(text)
@@ -302,10 +307,10 @@ export default function AIChat() {
         return
       }
       setMessages([...newMessages, reply])
-    } catch (e: any) {
+    } catch (e: unknown) { const err = e instanceof Error ? e : new Error(String(e))
       if (myReqId !== reqIdRef.current) return
       console.error(e)
-      setError(e.message || 'AI 响应失败')
+      setError(err.message || 'AI 响应失败')
     } finally {
       if (myReqId === reqIdRef.current) {
         setLoading(false)
