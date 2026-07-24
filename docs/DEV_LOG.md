@@ -2,7 +2,7 @@
 
 > 这份文档是产品**理论层面的完整功能记录**,供用户在无时间亲自测试时查阅、验收、规划下一步。
 >
-> 最后更新: 2026-07-24 (v1.5.0)
+> 最后更新: 2026-07-24 (v1.6.0)
 
 ---
 
@@ -1450,3 +1450,40 @@ npm run build
 ## 北极星 (一直未变)
 
 > 让英语在你想用的时候就能用上 = 触发可及 + 内容能用 + 学得会
+
+## v1.6 — 4 核心功能深 review (2026-07-23)
+
+### 触发
+用户指令 "仔细 review 4 个核心功能 (写作批改/AI对话/听力/错题讲解)"
+
+### 范围
+- WritePage 468 行 / AIChat 819 行 / ListenPage 547 行 / ErrorExplainButton 98 行 / UsageButton 112 行
+- **总 2044 行**
+
+### 发现 13 真 bug
+- P1 (7): 切 tab 丢输入 / 切 lesson 状态泄漏 / setLoading 缺失 / STT 无限制
+- P2 (6): 截断逻辑 / handlePlay 重复 / 解析失败 tip / 3 处 catch (e: any) / parseResult any 参数
+
+### 修法
+- WritePage: 移除 useEffect else 分支 + text 变量 + 3 catch 改 unknown
+- ListenPage: 2 useEffect [lesson.id] 重置 + 2 handlePlay if (playing) return
+- ErrorExplainButton/UsageButton: setLoading(true) + 解析失败 tip 友好
+- AIChat: MAX_INPUT=500 截断 + 1 catch 改 unknown
+
+### 验证
+- 104/104 单元测试 (95 + 9)
+- 10/11 闭环 (静态代码检查, 云端 playwright 太慢)
+- 0 P0 + 0 P1 + 0 P2 静态审查
+- typecheck 0 错误 + build pass
+
+### 累计
+- 20 页面 / 19 组件 / 24 库
+- 104 单元测试 + 16 闭环
+- 200+ commit
+- 0 P0/P1 维持
+
+### 修后影响
+- WritePage: 用户输入不再丢失, history 加载正常
+- ListenPage: 切 lesson 不再状态污染, TTS 不会重复
+- ErrorExplain/Usage: 加载状态可见, 用户知道在等
+- AIChat: STT 累积不会超 token

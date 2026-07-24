@@ -4,6 +4,31 @@
 
 ---
 
+## [v1.6.0] - 2026-07-23
+
+### v1.6 Bugfix — 4 核心功能深 review
+
+- 🐛 P1 修复 7:
+  - WritePage: 切回 write tab 不再重置 input/result (免输入丢失)
+  - WritePage: handleHistoryItem 设置 input/result 不再被 useEffect 覆盖
+  - ListenPage DictationMode/QuestionsMode: 切 lesson 重置 answers/submitted/addedWords
+  - ErrorExplainButton: setLoading(true) 修复, 按钮显示加载状态
+  - UsageButton: setLoading(true) 修复
+  - AIChat: STT 累积 input 加 MAX_INPUT=500 截断
+- 🐛 P2 修复 6:
+  - WritePage: 截断逻辑用 text 变量 (避免 setInput 后用旧 input 发 LLM)
+  - ListenPage: DictationMode/QuestionsMode handlePlay 加 if (playing) return
+  - UsageButton: cached.rule 解析失败 tip 显示 "暂无数据" (不显示 JSON)
+  - WritePage/AIChat: 3 处 catch (e: any) 改 unknown + Error 守卫 (v1.5 review 漏修)
+  - WritePage parseResult: (e: any) 参数 + t as any 改 unknown + WritingErrorType 类型
+- 🧪 tests/v1.6Bugfix.test.ts (9 测试): 95 → **104 单元测试**
+- 🔍 scripts/verify-v1.6-bugfix.mjs (10 静态验证): 0 P0 + 0 P1 + 0 P2 + 6/6 修复
+- 🔍 scripts/review-v1.6.py: 静态审查脚本 (含 as any 豁免规则)
+- 📦 docs/REVIEW_v1.6.md: 综合 review report
+- ✅ 0 P0 + 0 P1 关闭, 0 catch any 残留, 0 as any 隐式类型
+
+---
+
 ## [v0.23.0] - 2026-07-23
 
 ### W1: 写作批改 /write + 每日一句跟读 + AI 对话中收藏
