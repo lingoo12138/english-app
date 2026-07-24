@@ -1,9 +1,18 @@
 // 每日学习计划 - v0.22.3
 // 根据 dailyGoal + targetLevel, 智能选今天要学的 N 个词
 // 选词优先级: 1) 复习 due 词  2) 已收藏但未掌握  3) targetLevel 新词
+// v1.11.0-A: 新加 FSRS 算法 (平行 SM-2, 默认 false 保持 SM-2)
 import { loadWords } from './words'
-import { getAllFavorites, getDueReviews, getAllReviews } from './db'
-import type { Word } from '../types'
+import { getAllFavorites, getDueReviews, getAllReviews, reviewWord } from './db'
+import {
+  initFSRS,
+  reviewFSRS,
+  fromSM2,
+  toSM2,
+  type FSRSCard,
+  type Rating,
+} from './fsrs'
+import type { Word, ReviewItem } from '../types'
 
 export interface TodayPlan {
   date: string  // YYYY-MM-DD
@@ -191,3 +200,104 @@ export function subscribeToPlan(callback: () => void): () => void {
   // 这里简化: 不做轮询, 每次 markWordCompleted 后手动 reload
   return () => window.removeEventListener('storage', handler)
 }
+
+// === v1.11.0-A: FSRS 间隔重复算法 (新加, 平行 SM-2) ===
+// 默认关闭, 用户在设置中开启后, 新数据走 FSRS.
+// 旧数据 (db.reviews SM-2 records) 继续用 SM-2, 互不干扰.
+
+const FSRS_USE_KEY = 'fsrs-use-flag'  // 'true' | 'false'
+const FSRS_CARD_KEY = 'fsrs-card-'    // fsrs-card-{wordId}
+
+/** 读取 useFSRS 状态 (默认 false, 保持 SM-2) */
+export function getUseFSRS(): boolean {
+  try {
+    return localStorage.getItem(FSRS_USE_KEY) === 'true'
+  } catch {
+    return false
+  }
+}
+
+/** 写入 useFSRS 状态 */
+export function setUseFSRS(enabled: boolean): void {
+  try {
+    localStorage.setItem(FSRS_USE_KEY, enabled ? 'true' : 'false')
+  } catch (e) {
+    console.warn('plan.ts: setUseFSRS 失败:', e)
+  }
+}
+
+/** 加载某词的 FSRS 卡片 (无则返回 null) */
+export function loadFSRSCard(wordId: string): FSRSCard | null {
+  try {
+    const raw = localStorage.getItem(FSRS_CARD_KEY + wordId)
+    if (!raw) return null
+    return JSON.parse(raw) as FSRSCard
+  } catch (e) {
+    console.warn('plan.ts: loadFSRSCard 失败:', e)
+    return null
+  }
+}
+
+/** 保存某词的 FSRS 卡片 */
+export function saveFSRSCard(wordId: string, card: FSRSCard): void {
+  try {
+    localStorage.setItem(FSRS_CARD_KEY + wordId, JSON.stringify(card))
+  } catch (e) {
+    console.warn('plan.ts: saveFSRSCard 失败:', e)
+  }
+}
+
+/**
+ * 现有 SM-2 包装 (不动): 走 db.reviewWord, 保持原有逻辑
+ * @returns 更新后的 ReviewItem, 不存在时返回 null
+ */
+export async function getNextReview(
+  wordId: string,
+  quality: 0 | 1 | 2 | 3 | 4 | 5,
+): Promise<ReviewItem | null> {
+  await reviewWord(wordId, quality)
+  const all = await getAllReviews()
+  return all.find((r) => r.wordId === wordId) || null
+}
+
+/**
+ * v1.11.0-A 新加: FSRS 算法包装
+ * - 加载或初始化卡片 → reviewFSRS 更新 → 保存
+ * - 不动 db.reviews, 走独立 localStorage key
+ * @returns 更新后的 FSRSCard
+ */
+export function getNextReviewFSRS(
+  wordId: string,
+  rating: Rating,
+  now: number = Date.now(),
+): FSRSCard {
+  const existing = loadFSRSCard(wordId) || initFSRS(now)
+  const updated = reviewFSRS(existing, rating, now)
+  saveFSRSCard(wordId, updated)
+  return updated
+}
+
+/**
+ * SM-2 → FSRS 迁移 (从 db.reviews 取旧数据, 初始化 FSRS 卡片)
+ * - 用户在设置开启 FSRS 时, 可选对老词做一次性迁移
+ * - 不删除原 SM-2 记录, 平滑过渡
+ */
+export function migrateSM2ToFSRS(
+  wordId: string,
+  sm2Item: ReviewItem,
+  now: number = Date.now(),
+): FSRSCard {
+  const card = fromSM2(sm2Item, now)
+  saveFSRSCard(wordId, card)
+  return card
+}
+
+/**
+ * FSRS → SM-2 回写 (用户关掉 FSRS 时, 可选把 FSRS 卡写回 db.reviews)
+ */
+export function migrateFSRSToSM2(wordId: string, card: FSRSCard): ReviewItem {
+  const item = toSM2(card)
+  item.wordId = wordId
+  return item
+}
+

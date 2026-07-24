@@ -25,5 +25,6 @@ export function getPageTitle(pathname: string): string {
   if (pathname.startsWith('/cards')) return '卡片复习 - 句刻'
   if (pathname.startsWith('/pronounce-custom')) return '跟读练习 - 句刻'
   if (pathname.startsWith('/settings')) return '设置 - 句刻'
+  if (pathname.startsWith('/reports')) return '学习报告 - 句刻'
   return '句刻'
 }
