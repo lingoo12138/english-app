@@ -1,0 +1,65 @@
+plan_id: v1.7-b-listening-adaptive
+title: v1.7 — B 听力自适应 (3d)
+owner: Mavis
+created: 2026-07-24
+status: draft
+parent: v1.6.0
+
+goal: |
+  利用错题数据反向推 "该听哪课" — 哪课 vocabulary 命中错词多, 就优先推
+  ListenPage 顶部加 "🎯 为你推荐" 卡片, Top 3 排序
+
+scope:
+  must:
+    - src/lib/listeningRecommend.ts (90 行): extractLessonKeywords + calculateLessonScore + recommendLessons
+    - ListenPage 改造: 顶部推荐卡片 + 错题稀疏提示
+    - tests/listeningRecommend.test.ts (8 测试)
+    - scripts/verify-v1.7-b.mjs 闭环
+    - scripts/review-v1.7.py 静态审查
+  wontfix:
+    - 不动 ListenPage 5 模式状态机 (v1.6 刚修)
+    - 不做 LLM 推荐 (纯本地算法, 0 成本)
+    - 不持久化推荐 (每次重算)
+
+data_flow:
+  input:
+    - getAllWritingErrors() from db.ts
+    - LISTENING_LESSONS from data/listening.ts
+    - completedLessons from localStorage
+  processing:
+    - extractErrorWords → errorWords Set
+    - 对每课 calculateLessonScore → 命中错词数
+    - 已完成 score * 0.3 降权
+    - 按 score 降序, 取 Top N
+  output:
+    - List<{lesson, score, matchedWords, isCompleted}>
+
+tests: 8
+estimated_minutes: 3 * 24 * 60  # 3d
+
+tasks:
+  - id: lib
+    name: listeningRecommend.ts + 8 单元测试
+    est_minutes: 360
+
+  - id: listen-page
+    name: ListenPage 推荐卡片
+    est_minutes: 240
+
+  - id: verify
+    name: 闭环 + 静态审查
+    est_minutes: 120
+
+  - id: docs
+    name: CHANGELOG + DEV_LOG + ROADMAP
+    est_minutes: 60
+
+  - id: release
+    name: commit + tag v1.7.0 + push
+    est_minutes: 30
+
+risks:
+  - 错题稀疏: 0 错题不显示 (加 hasErrors 判断)
+  - 命中 0: 5 课 vocabulary 都不在错词 (score 0 过滤)
+  - 性能: 5 课 × N 错词 N<100, 几乎瞬间
+  - 数据新鲜度: useEffect 依赖 completedLessons + visibilitychange 重新加载

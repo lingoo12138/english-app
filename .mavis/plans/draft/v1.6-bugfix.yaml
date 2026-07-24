@@ -2,10 +2,20 @@ plan_id: v1.6-bugfix-core-review
 title: v1.6 Bugfix — 4 核心功能深 review 修复
 owner: Mavis
 created: 2026-07-23
-status: draft
+status: done
+completed: 2026-07-24
+tag: v1.6.0
+commits: [a6daff5, 4779dfa, c737395, a609742, 203de41]
 
 goal: |
-  修复 review 4 核心功能发现的 11 个 bug, 0 P0 + 0 P1 关闭
+  修复 review 4 核心功能发现的 13 个 bug, 0 P0 + 0 P1 关闭
+
+result:
+  p1_fixed: 7
+  p2_fixed: 6
+  unit_tests: 104
+  static_review: 0 P0 + 0 P1 + 0 P2
+  release_tag: v1.6.0
 
 tasks:
   - id: bug1-bug2

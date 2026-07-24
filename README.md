@@ -1,4 +1,4 @@
-# 句刻 · 即时英语学习 v1.0.0
+# 句刻 · 即时英语学习 v1.6.0
 
 > 让你在"想用英语的瞬间就能用上"——把英语嵌进真实生活场景里。
 >
@@ -8,19 +8,21 @@
 [📖 开发日志](./docs/DEV_LOG.md) ·
 [🗺️ 路线图](./docs/ROADMAP.md) ·
 [📝 更新日志](./docs/CHANGELOG.md) ·
+[📦 v1.6.0 Release Notes](./docs/RELEASE_v1.6.0.md) ·
+[🔍 v1.6 Review Report](./docs/REVIEW_v1.6.md) ·
 [💬 AI 对话进阶需求](./docs/AI_CHAT_ROADMAP.md)
 
 ---
 
-## 🎯 当前进度 (v1.5.0)
+## 🎯 当前进度 (v1.6.0)
 
-✅ **8 个版本量产** (v1.1.0 ~ v1.5.0, 今晚 5 小时)
-✅ **82 单元测试 + 16 闭环集成测试** 全过
-✅ **0 关闭率** (0 P0/P1/P2)
-✅ **性能优化** (Bundle 538KB → 64KB 入口, -54%)
+✅ **9 个版本量产** (v1.1.0 ~ v1.6.0, 8d 干完 7 周计划)
+✅ **104 单元测试 + 16 闭环集成测试** 全过 (95 → 104, +9)
+✅ **0 关闭率** (0 P0/P1/P2) — v1.6 深 review 4 核心功能后维持
+✅ **性能优化** (Bundle 538KB → 64KB 入口, -54%, FCP 220→204ms)
 ✅ **词根 80.4% / Top 2k 86.3%** (134→465 已知词根)
 ✅ **LLM 杀手锏** (错题讲解 D2 + 短语用法 D3, 复用 D1 错词入复习)
-✅ **留存钩子** (成就墙 20 成就 + 学习卡分享)
+✅ **留存钩子** (成就墙 20 成就 + 学习卡分享 + 错词自动入复习)
 
 ### 已完成路线图
 
@@ -33,6 +35,7 @@
 | v1.3.0 | F2 成就墙 (20 成就) | ✅ |
 | v1.4.0 | A2 词根 80% | ✅ |
 | v1.5.0 | D3 单词短语用法 | ✅ |
+| v1.6.0 | 4 核心功能深 review bugfix (7 P1 + 6 P2) | ✅ |
 
 
 ## ✨ v1.0.0 核心特性
@@ -241,6 +244,38 @@ src/
 
 详情见 [CHANGELOG](./docs/CHANGELOG.md#v150---2026-07-24)
 
+
+
+## 🐛 v1.6.0 - 4 核心功能深 review (2026-07-24) - Bugfix
+
+✅ **4 核心功能 2044 行 code review**: WritePage 写作批改 / AIChat 对话 / ListenPage 听力 / ErrorExplainButton 错题讲解 / UsageButton 短语用法
+✅ **修复 13 个真 bug** (7 P1 + 6 P2)
+✅ **0 P0 + 0 P1 + 0 P2 静态审查** (含 as any 豁免规则)
+✅ 单元测试 82→**104** (+9: getOrCreateExplanation 缓存 / 解析失败 tip / lesson 切重置 / 截断变量 / 500 字符限制 / STT 累积 / parseResult JSON/fence 解析)
+✅ typecheck 0 错误 + build pass
+
+### 修复的 P1 (7 个,必修)
+
+| # | 模块 | Bug | 影响 |
+|---|------|-----|------|
+| 1 | 写作批改 | 切回 '批改' tab 重置 input/result | **用户输入文本丢失** |
+| 2 | 写作批改 | handleHistoryItem 设置 input/result 被 useEffect 覆盖 | **加载历史无效** |
+| 3 | 听力 DictationMode | 切 lesson 听写答案残留 | 旧课答案污染新课 |
+| 4 | 听力 QuestionsMode | 切 lesson 答案残留 | 同上 |
+| 5 | 错题讲解 | setLoading(true) 缺失 | 按钮不显示加载状态 |
+| 6 | 短语用法 | setLoading(true) 缺失 | 同上 |
+| 7 | AI 对话 | STT 累积 input 无 MAX_LEN | 说话久了 input 超 token |
+
+### 修复的 P2 (6 个,选修)
+
+- 写作批改: 截断 500 字符时旧 input 仍发 LLM (用 text 变量修复)
+- 听力: handlePlay 重复点击 (加 if playing return)
+- 短语用法: 缓存解析失败 tip 显示 JSON 字符串 (改 "暂无数据")
+- 写作批改 + AI 对话: 3 处 `catch (e: any)` 改 `unknown + Error 守卫`
+- 写作批改 parseResult: `(e: any)` 参数 + 类型断言改 `unknown + WritingErrorType` 类型
+
+详情见 [v1.6 Release Notes](./docs/RELEASE_v1.6.0.md) · [v1.6 Review Report](./docs/REVIEW_v1.6.md)
+
 详情见 [CHANGELOG v1.4.0](./docs/CHANGELOG.md#v140---2026-07-24)
 
 详情见 [CHANGELOG v1.3.0](./docs/CHANGELOG.md#v130---2026-07-24)
@@ -271,12 +306,16 @@ npm run preview  # 预览 dist
 
 ---
 
-## 📊 累计数据(截至 v0.13)
+## 📊 累计数据(截至 v1.6.0)
 
-- **13 页面 + 5 组件 + 4100+ 行代码**
-- **5334 词 + 13234 例句 + 5 场景 + 30 每日一句**
-- **7 翻译渠道 + 5 TTS 渠道 + 8 LLM 渠道 + 自定义端点**
-- **73 个 bug 修复**(22 P0 + 23 P1 + 28 P2)
+- **20 页面 + 19 组件 + 24 库 + 8000+ 行代码**
+- **5334 词 + 13234 例句 + 5 场景 + 5 听力 + 30 每日一句**
+- **465 词根 (全量 80.4% / Top 2k 86.3%)**
+- **10 LLM + 8 TTS + 8 翻译 + 3 自定义端点**
+- **20 成就 (连续/词量/错题/收藏) + 8 主题/字号 + 7 学段筛选**
+- **104 单元测试 + 16 闭环 (37 测试点) + 0 P0/P1**
+- **102+ bug 修复**(22+ P0 + 23+ P1 + 28+ P2 + 13+ v1.6 review)
+- **200+ commit / 8 release tag (v1.0.0 ~ v1.6.0)**
 - **零付费依赖**(完全本地 + 公共 API + 免费层 LLM)
 
 ---
