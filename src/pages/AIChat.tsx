@@ -1,7 +1,7 @@
 // AI 对话陪练页 - v0.11 → v1.1-W1: confirm → Modal
 import { useState, useRef, useEffect } from 'react'
 import { useStore } from '../store/useStore'
-import { chat as aiChat, reviewMessage, type ChatMessage, type ReviewResult } from '../lib/aiChat'
+import { chat as aiChat, reviewMessage, type ChatMessage, type ReviewResult, type CEFRLevel, assessUserLevel } from '../lib/aiChat'
 import { saveChat, getAllChats, deleteChat, addFavorite, isFavorite, saveWritingError, getAllWritingErrors, type ChatRecord } from '../lib/db'
 import { exportAllChats, downloadChatJson, exportChat } from '../lib/exportChat'
 import TTSButton from '../components/TTSButton'
@@ -167,6 +167,11 @@ export default function AIChat() {
   const [error, setError] = useState('')
   const [sttActive, setSttActive] = useState(false)
   const [sttInterim, setSttInterim] = useState('')
+  // v1.9.0: 难度自适应 (✨ 自动) + 自由话题 (💬)
+  const [autoLevel, setAutoLevel] = useState(false)
+  const [dynamicLevel, setDynamicLevel] = useState<CEFRLevel | null>(null)
+  const [customTopic, setCustomTopic] = useState<string>('')
+  const [showTopicModal, setShowTopicModal] = useState(false)
   // v1.6 bugfix: STT 累积 input 加 MAX_LEN 限制, 避免 LLM token 超限
   const MAX_INPUT = 500
   const sttControllerRef = useRef<STTController | null>(null)
@@ -300,8 +305,31 @@ export default function AIChat() {
         })
     }
 
+    // v1.9.0: 自动难度评估 (用局部变量, 避免 setState 异步问题)
+    let effectiveDynamicLevel: CEFRLevel | undefined
+    if (autoLevel) {
+      const detected = assessUserLevel(newMessages)
+      if (detected) {
+        setDynamicLevel(detected)
+        effectiveDynamicLevel = detected
+      }
+    } else {
+      setDynamicLevel(null)
+    }
+
     try {
-      const reply = await aiChat(newMessages, { scenario, level }, provider, apiKey, model)
+      const reply = await aiChat(
+        newMessages,
+        {
+          scenario,
+          level,
+          dynamicLevel: effectiveDynamicLevel,
+          customTopic: customTopic || undefined,
+        },
+        provider,
+        apiKey,
+        model,
+      )
       if (myReqId !== reqIdRef.current) {
         // 已有新请求发出,旧请求丢弃
         return
@@ -341,6 +369,54 @@ export default function AIChat() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-7rem)] md:h-[calc(100vh-4rem)]">
+      {/* v1.9.0: 💬 自由话题 modal */}
+      <Modal
+        open={showTopicModal}
+        title="💬 自由话题"
+        message="输入你想聊的话题 (200 字符内), AI 会按这个主题和你聊。"
+        variant="info"
+        confirmText="确认"
+        cancelText="清除"
+        onConfirm={() => {
+          setShowTopicModal(false)
+        }}
+        onCancel={() => {
+          setCustomTopic('')
+          setShowTopicModal(false)
+        }}
+      >
+        <div className="mt-2 space-y-2">
+          <input
+            type="text"
+            value={customTopic}
+            onChange={e => setCustomTopic(e.target.value.slice(0, 200))}
+            placeholder="例: 和乔布斯聊创业 / 讨论 AI 对教育的影响 / 询问租房经验"
+            className="input w-full text-sm"
+            autoFocus
+            maxLength={200}
+          />
+          <div className="flex items-center justify-between text-xs text-stone-500">
+            <span>{customTopic.length}/200 字符</span>
+            {customTopic && (
+              <button
+                onClick={() => setCustomTopic('')}
+                className="text-red-500 hover:underline"
+              >
+                清除
+              </button>
+            )}
+          </div>
+        </div>
+      </Modal>
+      {/* v1.9.0: 已选 customTopic 提示 */}
+      {customTopic && (
+        <div className="mb-2 p-2 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded text-xs flex items-center justify-between">
+          <span>💬 话题: <strong>{customTopic}</strong></span>
+          <button onClick={() => setCustomTopic('')} className="text-purple-600 dark:text-purple-400 hover:underline">
+            ✕
+          </button>
+        </div>
+      )}
       <div className="flex items-center justify-between mb-3">
         <div>
           <h1 className="text-2xl font-bold">💬 AI 对话陪练</h1>
@@ -381,14 +457,26 @@ export default function AIChat() {
               {s.name}
             </button>
           ))}
+          {/* v1.9.0: 自由话题按钮 */}
+          <button
+            onClick={() => setShowTopicModal(true)}
+            className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors ${
+              customTopic
+                ? 'bg-purple-600 text-white'
+                : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300'
+            }`}
+            title={customTopic ? `话题: ${customTopic}` : '自由话题'}
+          >
+            💬 自由话题
+          </button>
         </div>
-        <div className="flex gap-2 overflow-x-auto pb-1">
+        <div className="flex gap-2 overflow-x-auto pb-1 items-center">
           {LEVELS.map(l => (
             <button
               key={l.id}
-              onClick={() => setLevel(l.id)}
+              onClick={() => { setLevel(l.id); setAutoLevel(false) }}
               className={`px-3 py-1 rounded text-xs whitespace-nowrap ${
-                level === l.id
+                !autoLevel && level === l.id
                   ? 'bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300 font-medium'
                   : 'text-stone-500 dark:text-stone-400'
               }`}
@@ -396,6 +484,23 @@ export default function AIChat() {
               {l.name}
             </button>
           ))}
+          {/* v1.9.0: ✨ 自动难度切换 */}
+          <button
+            onClick={() => setAutoLevel(!autoLevel)}
+            className={`px-3 py-1 rounded text-xs whitespace-nowrap transition-colors ${
+              autoLevel
+                ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium'
+                : 'text-stone-500 dark:text-stone-400'
+            }`}
+            title={autoLevel ? '已开启: 系统根据你最近 5 轮表达自动调难度' : '开启自动难度'}
+          >
+            ✨ 自动
+          </button>
+          {autoLevel && dynamicLevel && (
+            <span className="text-xs px-2 py-0.5 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 rounded">
+              当前: {dynamicLevel}
+            </span>
+          )}
         </div>
       </div>
 

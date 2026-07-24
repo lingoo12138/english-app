@@ -1,7 +1,10 @@
 // AI 对话陪练
 // 走 LLMProvider 多渠道
 // 支持: 选定一个 LLM provider, 用其 chat 接口对话
+// v1.9.0: 难度自适应 (assessUserLevel) + 自由话题 (customTopic)
 import { chatCompletion, LLMProvider, LLMResponse } from './providers/llm'
+
+export type CEFRLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
 
 export interface ChatMessage {
   id: string
@@ -12,8 +15,12 @@ export interface ChatMessage {
 
 export interface ChatContext {
   scenario?: string  // 场景: 'cafe' / 'airport' / ...
-  level?: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'  // 难度
+  level?: CEFRLevel  // 难度 (默认)
+  /** v1.9.0: 动态评估的难度 (高于 level 时使用), 由 assessUserLevel 产生 */
+  dynamicLevel?: CEFRLevel
   topic?: string     // 话题
+  /** v1.9.0: 自由话题 (200 字符内), 与 topic 二选一, customTopic 优先 */
+  customTopic?: string
 }
 
 const SCENARIO_PROMPTS: Record<string, string> = {
@@ -24,13 +31,26 @@ const SCENARIO_PROMPTS: Record<string, string> = {
   meeting: '你在工作场景, 需要自我介绍、汇报工作、讨论项目。',
 }
 
-const LEVEL_GUIDANCE: Record<string, string> = {
+const LEVEL_GUIDANCE: Record<CEFRLevel, string> = {
   A1: '使用最简单的词汇和句型, 一句话不超过 5 个单词。',
   A2: '使用基础日常词汇, 短句为主, 偶尔复合句。',
   B1: '使用日常和部分学术词汇, 中等长度句子, 自然对话。',
   B2: '使用丰富词汇, 长短.复杂句.自然流畅。',
   C1: '使用高级词汇, 长难句, 涵盖隐含意思和委婉表达。',
   C2: '使用母语级词汇, 复杂语法, 习语和文化典故。',
+}
+
+const TOPIC_MAX_LEN = 200
+
+/**
+ * v1.9.0: 截断 customTopic 到 200 字符
+ * - 截断后追加省略号, 提示用户
+ * - 静默截断, 不抛错
+ */
+export function truncateCustomTopic(topic: string, maxLen = TOPIC_MAX_LEN): string {
+  if (!topic) return ''
+  if (topic.length <= maxLen) return topic
+  return topic.slice(0, maxLen) + '…'
 }
 
 function buildSystemPrompt(ctx: ChatContext): string {
@@ -46,13 +66,79 @@ function buildSystemPrompt(ctx: ChatContext): string {
   if (ctx.scenario && SCENARIO_PROMPTS[ctx.scenario]) {
     parts.push(`\n场景设定: ${SCENARIO_PROMPTS[ctx.scenario]}`)
   }
-  if (ctx.topic) {
+  // v1.9.0: customTopic 优先 topic
+  if (ctx.customTopic) {
+    const t = truncateCustomTopic(ctx.customTopic)
+    parts.push(`\n话题: ${t}`)
+  } else if (ctx.topic) {
     parts.push(`\n话题: ${ctx.topic}`)
   }
-  if (ctx.level) {
-    parts.push(`\n用户水平: ${ctx.level}. 难度要求: ${LEVEL_GUIDANCE[ctx.level]}`)
+  // v1.9.0: dynamicLevel 优先 level
+  const effectiveLevel = ctx.dynamicLevel || ctx.level
+  if (effectiveLevel) {
+    parts.push(`\n用户水平: ${effectiveLevel}. 难度要求: ${LEVEL_GUIDANCE[effectiveLevel]}`)
   }
   return parts.join('\n')
+}
+
+/**
+ * v1.9.0: 难度自适应 — 评估用户最近消息的语言水平
+ * - 取最近 5 轮 user 消息
+ * - 至少 3 轮才评估, 不够返回 undefined
+ * - 词数评估:
+ *   A1: ≤3, A2: 4-6, B1: 7-12, B2: 13-18, C1: 19-25, C2: >25
+ * - 句法复杂度加分: 含 if/because/although 等从属连词 +1 档
+ * - 不持久化, 每次调用重新评估
+ */
+const SUBORDINATING_CONJUNCTIONS = [
+  'if', 'because', 'although', 'though', 'while', 'when', 'since', 'unless',
+  'after', 'before', 'until', 'whereas', 'whether', 'as', 'so that',
+  'even though', 'provided that', 'as long as', 'in case',
+]
+
+const LEVEL_ORDER: CEFRLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+
+function levelToIndex(l: CEFRLevel): number {
+  return LEVEL_ORDER.indexOf(l)
+}
+function indexToLevel(i: number): CEFRLevel {
+  return LEVEL_ORDER[Math.max(0, Math.min(LEVEL_ORDER.length - 1, i))]
+}
+
+function countWords(text: string): number {
+  // 简单按空格切, 过滤空字符串
+  return text.trim().split(/\s+/).filter(Boolean).length
+}
+
+function hasComplexClause(text: string): boolean {
+  const lower = text.toLowerCase()
+  return SUBORDINATING_CONJUNCTIONS.some(c => lower.includes(c))
+}
+
+export function assessUserLevel(messages: ChatMessage[]): CEFRLevel | undefined {
+  if (!Array.isArray(messages) || messages.length === 0) return undefined
+  // 取最近 5 轮 user 消息
+  const userMsgs = messages.filter(m => m.role === 'user').slice(-5)
+  if (userMsgs.length < 3) return undefined
+
+  const avgWords = userMsgs.reduce((s, m) => s + countWords(m.content), 0) / userMsgs.length
+
+  // 基础档位
+  let base: CEFRLevel
+  if (avgWords <= 3) base = 'A1'
+  else if (avgWords <= 6) base = 'A2'
+  else if (avgWords <= 12) base = 'B1'
+  else if (avgWords <= 18) base = 'B2'
+  else if (avgWords <= 25) base = 'C1'
+  else base = 'C2'
+
+  // 句法复杂度加分: 至少一条 user 消息含从属连词
+  const anyComplex = userMsgs.some(m => hasComplexClause(m.content))
+  if (anyComplex) {
+    base = indexToLevel(levelToIndex(base) + 1)
+  }
+
+  return base
 }
 
 export async function chat(
@@ -162,14 +248,15 @@ function parseReview(content: string): ReviewResult {
     const validTypes = ['grammar', 'vocab', 'spelling', 'style', 'tense', 'preposition', 'article', 'other'] as const
     return {
       hasError: Boolean(obj.hasError) && Array.isArray(obj.errors) && obj.errors.length > 0,
-      errors: (Array.isArray(obj.errors) ? obj.errors : []).map((e: any) => {
-        const t = String(e.type || 'other')
+      errors: (Array.isArray(obj.errors) ? obj.errors : []).map((e: unknown) => {
+        const err = e as Record<string, unknown>
+        const t = String(err.type || 'other')
         return {
-          original: String(e.original || ''),
-          fixed: String(e.fixed || ''),
-          type: (validTypes as readonly string[]).includes(t) ? t as any : 'other',
-          why: String(e.why || ''),
-          severity: typeof e.severity === 'number' ? e.severity : 0.5,
+          original: String(err.original || ''),
+          fixed: String(err.fixed || ''),
+          type: (validTypes as readonly string[]).includes(t) ? t : 'other',
+          why: String(err.why || ''),
+          severity: typeof err.severity === 'number' ? err.severity : 0.5,
         }
       }).filter((e: ReviewError) => e.severity >= 0.4),
     }
