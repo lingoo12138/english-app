@@ -56,7 +56,7 @@ export interface LLMResponse {
   content: string
   model: string
   usage?: { prompt_tokens: number; completion_tokens: number; total_tokens: number }
-  raw?: any  // 完整响应, 调试用
+  raw?: unknown  // 完整响应, 调试用
 }
 
 // === 内置预置渠道(全部走 OpenAI 协议) ===
@@ -227,7 +227,7 @@ export async function chatCompletion(opts: LLMRequestOptions): Promise<LLMRespon
   }
 
   // 所有渠道统一发到 {baseUrl}/chat/completions
-  const body: any = {
+  const body: Record<string, unknown> = {
     model: model || provider.defaultModel,
     messages,                  // OpenAI 风格 messages
     temperature,

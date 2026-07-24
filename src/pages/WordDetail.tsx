@@ -15,6 +15,8 @@ export default function WordDetail() {
   const navigate = useNavigate()
   const [word, setWord] = useState<Word | null | 'loading'>('loading')
   const [fav, setFav] = useState(false)
+  // v1.8.0-C8: 跟读弹窗状态
+  const [showPronounce, setShowPronounce] = useState(false)
   const [showAllExamples, setShowAllExamples] = useState(false)
   const targetLevel = useStore(s => s.targetLevel)
 
@@ -153,8 +155,31 @@ export default function WordDetail() {
             <h1 className="text-4xl font-bold mb-1">{word.word}</h1>
             <p className="text-stone-500 dark:text-stone-400">{word.phonetic}</p>
           </div>
-          <TTSButton text={word.word} size="lg" />
+          <div className="flex items-center gap-2">
+            <TTSButton text={word.word} size="lg" />
+            {/* v1.8.0-C8: 跟读按钮 (复用 PronunciationPractice) */}
+            <button
+              onClick={() => setShowPronounce(true)}
+              className="px-3 py-2 rounded-lg bg-emerald-500 text-white text-sm font-medium hover:bg-emerald-600 transition-colors flex items-center gap-1.5"
+              title="点击跟读评测"
+            >
+              🎤 跟读
+            </button>
+          </div>
         </div>
+
+        {/* v1.8.0-C8: 跟读模态框 (复用 PronunciationPractice) */}
+        {showPronounce && (
+          <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={() => setShowPronounce(false)}>
+            <div className="bg-white dark:bg-stone-800 rounded-lg p-4 max-w-md w-full" onClick={e => e.stopPropagation()}>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg font-semibold">🎤 跟读: {word.word}</h3>
+                <button onClick={() => setShowPronounce(false)} className="text-stone-400 hover:text-stone-600 text-xl">✕</button>
+              </div>
+              <PronunciationPractice word={word.word} wordId={word.id} />
+            </div>
+          </div>
+        )}
 
         <div className="flex items-center gap-1.5 mb-3 flex-wrap">
           {word.pos.map(p => (

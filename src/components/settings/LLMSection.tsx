@@ -56,6 +56,12 @@ export default function LLMSection() {
           <div>
             <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">
               {currentLlm.name} API Key
+              {/* v1.8.0-C: OpenRouter 0 成本标签 */}
+              {currentLlm.id === 'openrouter' && (
+                <span className="ml-2 text-xs px-1.5 py-0.5 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded">
+                  🆓 0 成本
+                </span>
+              )}
             </label>
             <input
               type="password"
