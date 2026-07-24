@@ -1664,3 +1664,34 @@
 - 25 闭环 + 13 修复点验证
 - 21 → 22 组件 (新加 Onboarding) + 24 → 25 库 (新加 daily 100 句)
 - 3 commits + 1 tag (v1.8.0)
+
+## [v1.10.0] - 2026-07-24 (W11 团队推荐)
+
+### v1.10.0 中译英 + 同义词 + 例句跟读 (3 producer 并行 1d 干完 3d)
+
+- 🆕 v1.10.0-A 中译英 Tab (B5 重新提):
+  - WritePage 加 "🌐 中译英" 第二 Tab
+  - 中文 → LLM 翻译 + 等级 (A1-C2) + 备选译法 + 注释
+  - CHINESE_SYSTEM_PROMPT 协议: {translation, level, alternatives, notes}
+  - mockChineseTranslation 5 句 fallback (学校/开心/帮忙/找工作/期待回复)
+  - parseChineseResult: 解析 LLM JSON (含 markdown fence)
+  - 保存到历史 (source: 'chinese')
+  - 13 单元测试
+- 🆕 v1.10.0-B 同义词辨析 (B6):
+  - src/lib/synonyms.ts (200 行): 协议 + 8 词 mock + LLM 集成
+  - 8 词覆盖: happy/sad/angry/big/small/good/bad/fast
+  - mockSynonyms: 每词给 3-5 个同义词 + 2-3 个混淆词
+  - 未知单词返通用 fallback
+  - SynonymsButton 组件 (150 行): 复用 UsageButton 模式
+  - WordDetail 加 "🔀 AI 同义词辨析" 卡片
+  - 13 单元测试
+- 🆕 v1.10.0-C 例句 TTS 跟读 (B7):
+  - WordDetail 例句区: 每个例句加 "🎤 跟读" 按钮
+  - showPronounce → pronounceText 动态文本 (单词/例句复用同一弹窗)
+  - 复用 PronunciationPractice + ex.en
+  - 5 单元测试
+- 📊 164 → 195 单元测试 (+31)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持
+- 24 闭环验证 + 13 修复点
+- 22 → 23 组件 (新加 SynonymsButton) + 25 → 26 库 (新加 synonyms)
+- 3 commits + 1 tag (v1.10.0)
