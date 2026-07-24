@@ -2,7 +2,7 @@
 
 > 这份文档是产品**理论层面的完整功能记录**,供用户在无时间亲自测试时查阅、验收、规划下一步。
 >
-> 最后更新: 2026-07-24 (v1.6.0)
+> 最后更新: 2026-07-24 (v1.8.0 + v1.9.0)
 
 ---
 
@@ -1487,3 +1487,56 @@ npm run build
 - ListenPage: 切 lesson 不再状态污染, TTS 不会重复
 - ErrorExplain/Usage: 加载状态可见, 用户知道在等
 - AIChat: STT 累积不会超 token
+
+## v1.7.0 — 3 producer 并行 (2026-07-24)
+
+### 触发
+团队讨论 next-phase-plan-v2.md 推荐 B 听力自适应 + 团队连续 12+ 次 subagent failed 降级为"主人接管"
+
+### 范围
+- **P1 v1.7.0 B 听力自适应** (subagent 写 65 行 lib + 11 测试) → 主人接管 UI 改造 + 闭环 + 静态审查
+- **P2 v1.8-A D3 LLM Tutor 2.0** (subagent 0 产出) → 主人接管全做 (llmTutor +150 + GrammarButton 170 + WordDetail 接入 + 4 测试)
+- **P3 v1.8-B LLM e2e** (subagent 写 82 行 llm.ts) → 主人接管测试 + 闭环
+
+### 数据
+- 104 → 126 单元测试 (+22)
+- 0 P0 + 0 P1 + 0 P2 维持
+- 20 → 21 组件 (新加 GrammarButton) + 24 → 25 库 (新加 listeningRecommend)
+- 1d 干完 3d 计划
+
+### 累计
+- 9 release tag / 200+ commit / 21 组件 / 25 库
+- 126 单元测试 + 16 闭环
+- 0 P0/P1 维持
+
+## v1.8.0 + v1.9.0 — 3 producer 并行 (2026-07-24)
+
+### 触发
+团队 next-phase-plan-v2.md W9 (首启 onboarding, 留存修复) + W10 (难度自适应+自由话题) + C4/C8 顺手做
+
+### 范围
+- **P1 v1.8.0-A 首启 onboarding** (subagent 写 513 行 Onboarding + 17 测试) → 主人接管 Home/Settings 整合 + 修 happy-dom 兼容性
+- **P2 v1.9.0 难度自适应 + 自由话题** (subagent 写 95 行 aiChat) → 主人接管 10 测试 + AIChat UI (✨/💬 modal)
+- **P3 v1.8.0-C 3 小优化** (subagent 改 Settings 一点) → 主人接管 OpenRouter 0 成本 + Daily 100 句 + WordDetail 跟读 + 11 测试 + 修 3 处历史 : any
+
+### 数据
+- 126 → 164 单元测试 (+38)
+- 0 P0 + 0 P1 + 0 P2 维持
+- 21 → 22 组件 (新加 Onboarding)
+- 1d 干完 6d 计划
+- 25 闭环验证 + 13 修复点
+
+### 累计 (v1.8.0)
+- 10 release tag / 210+ commit / 22 组件 / 25 库 / 8500+ 行
+- 164 单元测试 + 16 闭环
+- 102+ bug 修复 (含 3 处 v1.5 漏修 : any)
+
+### 北极星对齐
+- **触发可业**: onboarding 拉新→激活关键路径 (W9)
+- **内容能用**: 难度自适应让用户挑战合适难度, 自由话题扩展场景
+- **学得会**: 跟读入口强化"听"维度, Daily 100 句延长使用周期, e2eTest 保 LLM 链稳定
+
+### 教训
+- subagent 累计 14+ 次 token rate limit failed, 主人接管成标准模式
+- 3 producer 并行 1d 干完 6d 计划 = 用户节奏匹配
+- "verify 0 P0/P1/P2" 是唯一质量保证

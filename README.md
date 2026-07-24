@@ -1,4 +1,4 @@
-# 句刻 · 即时英语学习 v1.6.0
+# 句刻 · 即时英语学习 v1.8.0
 
 > 让你在"想用英语的瞬间就能用上"——把英语嵌进真实生活场景里。
 >
@@ -9,20 +9,23 @@
 [🗺️ 路线图](./docs/ROADMAP.md) ·
 [📝 更新日志](./docs/CHANGELOG.md) ·
 [📦 v1.6.0 Release Notes](./docs/RELEASE_v1.6.0.md) ·
+[📦 v1.8.0 Release Notes](./docs/RELEASE_v1.8.0.md) ·
 [🔍 v1.6 Review Report](./docs/REVIEW_v1.6.md) ·
 [💬 AI 对话进阶需求](./docs/AI_CHAT_ROADMAP.md)
 
 ---
 
-## 🎯 当前进度 (v1.6.0)
+## 🎯 当前进度 (v1.8.0)
 
-✅ **9 个版本量产** (v1.1.0 ~ v1.6.0, 8d 干完 7 周计划)
-✅ **104 单元测试 + 16 闭环集成测试** 全过 (95 → 104, +9)
-✅ **0 关闭率** (0 P0/P1/P2) — v1.6 深 review 4 核心功能后维持
+✅ **11 个版本量产** (v1.1.0 ~ v1.8.0, 3 producer 并行 1d 干完 3d 计划)
+✅ **164 单元测试 + 16 闭环集成测试** 全过 (104 → 164, +60)
+✅ **0 关闭率** (0 P0/P1/P2) — v1.6/v1.7/v1.8 连续 3 个版本维持
 ✅ **性能优化** (Bundle 538KB → 64KB 入口, -54%, FCP 220→204ms)
 ✅ **词根 80.4% / Top 2k 86.3%** (134→465 已知词根)
-✅ **LLM 杀手锏** (错题讲解 D2 + 短语用法 D3, 复用 D1 错词入复习)
-✅ **留存钩子** (成就墙 20 成就 + 学习卡分享 + 错词自动入复习)
+✅ **LLM 杀手锏** (错题讲解 D2 + 短语用法 D3 + 语法讲解 v1.8-A, 复用 D1 错词入复习)
+✅ **留存钩子** (成就墙 20 成就 + 学习卡分享 + 错词自动入复习 + **首启 onboarding** v1.8-A + **难度自适应 + 自由话题** v1.9.0)
+✅ **真实 LLM e2e** (v1.8-B e2eTest + chatCompletionWithTimeout + OpenRouter 0 成本)
+✅ **B 听力自适应** (v1.7.0 错题推课 + Daily 100 句)
 
 ### 已完成路线图
 
@@ -36,6 +39,9 @@
 | v1.4.0 | A2 词根 80% | ✅ |
 | v1.5.0 | D3 单词短语用法 | ✅ |
 | v1.6.0 | 4 核心功能深 review bugfix (7 P1 + 6 P2) | ✅ |
+| v1.7.0 | B 听力自适应 + LLM Tutor 2.0 + e2e (3 producer 并行) | ✅ |
+| v1.8.0 | **🎓 首启 onboarding + ✨ 难度自适应 + 💬 自由话题** | ✅ |
+| v1.9.0 | (含在 v1.8.0) 难度自适应 + 自由话题 | ✅ |
 
 
 ## ✨ v1.0.0 核心特性
@@ -288,6 +294,65 @@ src/
 
 详情见 [CHANGELOG v1.1.0](./docs/CHANGELOG.md#v110---2026-07-23)
 
+
+
+## 🎓 v1.7.0 - B 听力自适应 + LLM Tutor 2.0 + e2e (2026-07-24) - 3 producer 并行
+
+✅ **🎧 听力自适应**: ListenPage 顶部 "🎯 为你推荐" 卡片, 错词命中排序
+- `listeningRecommend.ts`: extractLessonKeywords + calculateLessonScore + recommendLessons
+- 已完成课降权 score * 0.3, score > 0 才返回, Top 3 截断
+- visibilitychange 监听 (回前台重算)
+
+✅ **📖 D3 LLM Tutor 2.0 完整版 (语法讲解)**: WordDetail "AI 语法讲解" 卡片
+- `explainGrammar`: 定义 + 用法 + 3 例句 + 易错点对比
+- 8 词性 mock fallback (noun/verb/adj/adv/prep/conj/article/pronoun)
+- `GrammarButton` 组件 (复用 UsageButton 模式 + setLoading(true) 修复)
+
+✅ **🔌 LLM 端到端测试**: `e2eTest` + `chatCompletionWithTimeout` (10s AbortController)
+- mock LLM 探测消息快速返回 "OK" (e2e 优化)
+- 不抛错, 永远返回 {ok, latencyMs, content?, error?}
+
+📊 **104 → 126 单元测试** (+22)
+✅ **0 P0 + 0 P1 + 0 P2** 维持
+
+详情见 [CHANGELOG v1.7.0](./docs/CHANGELOG.md#v170---2026-07-24)
+
+
+
+## 🎓 v1.8.0 - 首启 onboarding + 难度自适应 + 3 小优化 (2026-07-24) - 3 producer 并行
+
+✅ **🎓 首启 onboarding** (留存修复, W9 团队推荐):
+- `Onboarding.tsx` (513 行): 3 步引导 (选学段 / 跟读 / 加生词本)
+- localStorage.onboarded 标记, 只显示一次
+- Home CTA "👋 第一次来? 跟我 5 分钟了解"
+- Settings "🔄 重新看引导" 按钮
+- 17 单元测试
+
+✅ **✨ v1.9.0 难度自适应 + 💬 自由话题** (AI 对话扩展, W10 团队推荐):
+- `assessUserLevel(messages)`: 词数 + 从属连词加 1 档
+- `truncateCustomTopic(topic, maxLen=200)`: 截断 + Unicode 省略号
+- `buildSystemPrompt` 用 effectiveLevel = dynamicLevel || level
+- "✨ 自动" 切换 + "💬 自由话题" 按钮 + 200 字符 modal
+- 10 单元测试
+
+✅ **🆓 OpenRouter 0 成本** (3 个小优化):
+- OpenRouter defaultModel: `google/gemini-2.5-flash:free`
+- Settings 渠道卡片 "🆓 0 成本" 标签
+
+✅ **📅 C4 Daily 100 句**: 30 → 100 句 (10 场景: 旅行/工作/生活/学校/购物/健康/餐厅/酒店/机场/日常)
+- 旧 30 句保留 (向后兼容)
+- id 1-100 唯一
+
+✅ **🎤 C8 WordDetail 跟读**: "🎤 跟读" 按钮 + 复用 PronunciationPractice 弹窗
+
+🐛 修 3 处历史遗留 `: any` (v1.5 review 漏修): aiChat.ts + llm.ts 改 unknown + Record
+
+📊 **126 → 164 单元测试** (+38)
+✅ **0 P0 + 0 P1 + 0 P2** 维持
+✅ 25 闭环验证 + 13 修复点
+
+详情见 [CHANGELOG v1.8.0](./docs/CHANGELOG.md#v180--v190---2026-07-24)
+
 ## 🚀 快速开始
 
 ```bash
@@ -306,16 +371,17 @@ npm run preview  # 预览 dist
 
 ---
 
-## 📊 累计数据(截至 v1.6.0)
+## 📊 累计数据(截至 v1.8.0)
 
-- **20 页面 + 19 组件 + 24 库 + 8000+ 行代码**
-- **5334 词 + 13234 例句 + 5 场景 + 5 听力 + 30 每日一句**
+- **20 页面 + 22 组件 + 25 库 + 8500+ 行代码**
+- **5334 词 + 13234 例句 + 5 场景 + 5 听力 + 100 每日一句**
 - **465 词根 (全量 80.4% / Top 2k 86.3%)**
-- **10 LLM + 8 TTS + 8 翻译 + 3 自定义端点**
-- **20 成就 (连续/词量/错题/收藏) + 8 主题/字号 + 7 学段筛选**
-- **104 单元测试 + 16 闭环 (37 测试点) + 0 P0/P1**
-- **102+ bug 修复**(22+ P0 + 23+ P1 + 28+ P2 + 13+ v1.6 review)
-- **200+ commit / 8 release tag (v1.0.0 ~ v1.6.0)**
+- **10 LLM (含 OpenRouter free) + 8 TTS + 8 翻译 + 3 自定义端点**
+- **20 成就 (连续/词量/错题/收藏) + 8 主题/字号 + 7 学段筛选 + 3 步 onboarding**
+- **164 单元测试 + 16 闭环 (37 测试点) + 0 P0/P1**
+- **首启 onboarding + 难度自适应 + 自由话题 + LLM e2e + B 听力自适应**
+- **102+ bug 修复**(22+ P0 + 23+ P1 + 28+ P2 + 13+ v1.6 review + 3+ v1.8 遗留 : any)
+- **210+ commit / 10 release tag (v1.0.0 ~ v1.8.0)**
 - **零付费依赖**(完全本地 + 公共 API + 免费层 LLM)
 
 ---
