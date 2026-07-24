@@ -276,10 +276,15 @@ async function fetchWithTimeout(url: string, init: RequestInit, timeoutMs: numbe
 
 // === Mock 实现(零成本测试) ===
 async function mockLLMResponse(opts: LLMRequestOptions): Promise<LLMResponse> {
-  await new Promise(r => setTimeout(r, 800 + Math.random() * 600))
-
   const lastMsg = opts.messages[opts.messages.length - 1]
   const userText = typeof lastMsg?.content === 'string' ? lastMsg.content : ''
+
+  // v1.8-B: e2eTest 探测消息,立即返回 "OK" (跳过随机 sleep, 避免测试延迟)
+  if (userText.includes("Say 'OK'") || userText.includes('Say "OK"') || /say.{0,3}ok/i.test(userText)) {
+    return { content: 'OK', model: 'mock' }
+  }
+
+  await new Promise(r => setTimeout(r, 800 + Math.random() * 600))
 
   if (opts.jsonMode) {
     const words = ['apple', 'book', 'phone', 'cat', 'tree', 'cup', 'computer', 'lamp', 'chair', 'pen']
@@ -305,6 +310,81 @@ async function mockLLMResponse(opts: LLMRequestOptions): Promise<LLMResponse> {
   return {
     content: responses[Math.floor(Math.random() * responses.length)],
     model: 'mock',
+  }
+}
+
+// === v1.8-B: chatCompletionWithTimeout (10s 包装) ===
+/**
+ * 复用 chatCompletion, 加 10s AbortController 超时
+ * - 超时抛 `Error('LLM 调用超时 (10s), 请重试或换 Mock')`
+ * - 内部 catch 转 unknown + Error 守卫
+ * - 用 Promise.race 实现, 不破坏 chatCompletion 主函数
+ */
+export async function chatCompletionWithTimeout(opts: LLMRequestOptions): Promise<LLMResponse> {
+  const TIMEOUT_MS = 10_000
+  let timer: ReturnType<typeof setTimeout> | null = null
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => {
+      reject(new Error('LLM 调用超时 (10s), 请重试或换 Mock'))
+    }, TIMEOUT_MS)
+  })
+  try {
+    return await Promise.race([
+      chatCompletion(opts),
+      timeoutPromise,
+    ])
+  } catch (e: unknown) {
+    // unknown + Error 守卫 (符合 v1.6 review 规范)
+    if (e instanceof Error) throw e
+    throw new Error(String(e))
+  } finally {
+    if (timer) clearTimeout(timer)
+  }
+}
+
+// === v1.8-B: e2eTest 端到端渠道验证 ===
+/**
+ * 端到端测试一个 LLM 渠道是否可用
+ * - 用真实 OpenAI 协议发 "Say 'OK' in one word"
+ * - 验证 status 200 + content 含 "OK"/"ok"
+ * - 10s 超时 (经 chatCompletionWithTimeout)
+ * - 不抛错, 永远返回 {ok, latencyMs, content?, error?}
+ */
+export interface E2ETestResult {
+  ok: boolean
+  latencyMs: number
+  content?: string
+  error?: string
+}
+
+const E2E_PROMPT = "Say 'OK' in one word"
+
+export async function e2eTest(provider: LLMProvider, apiKey: string, model?: string): Promise<E2ETestResult> {
+  const start = Date.now()
+  try {
+    if (!provider || !provider.id) {
+      return { ok: false, latencyMs: 0, error: '无效 provider' }
+    }
+    if (provider.apiKeyRequired && !apiKey) {
+      return { ok: false, latencyMs: 0, error: `缺少 ${provider.name} API key` }
+    }
+    const resp = await chatCompletionWithTimeout({
+      provider,
+      apiKey,
+      model,
+      messages: [{ role: 'user', content: E2E_PROMPT }],
+      temperature: 0,
+      maxTokens: 10,
+    })
+    const content = (resp.content || '').trim()
+    const latencyMs = Date.now() - start
+    if (/\bok\b/i.test(content)) {
+      return { ok: true, latencyMs, content }
+    }
+    return { ok: false, latencyMs, content, error: '响应不含 OK' }
+  } catch (e: unknown) {
+    const err = e instanceof Error ? e : new Error(String(e))
+    return { ok: false, latencyMs: Date.now() - start, error: err.message || '未知错误' }
   }
 }
 
