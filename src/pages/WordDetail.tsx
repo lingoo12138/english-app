@@ -4,6 +4,7 @@ import { getWord, loadWords } from '../lib/words'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
 import { UsageButton } from '../components/UsageButton'
+import { GrammarButton } from '../components/GrammarButton'
 import PronunciationPractice from '../components/PronunciationPractice'
 import { addFavorite, removeFavorite, isFavorite, logAction, reviewWord } from '../lib/db'
 import { markWordCompleted } from '../lib/plan'
@@ -233,6 +234,19 @@ export default function WordDetail() {
         </h3>
         <UsageButton
           word={word.word}
+          translation={word.translations[0] || ''}
+        />
+      </div>
+
+      {/* v1.8-A: D3 LLM Tutor 2.0 完整版 (语法讲解) */}
+      <div className="card">
+        <h3 className="font-semibold mb-3 flex items-center gap-2">
+          <span>📖</span>
+          <span>AI 语法讲解</span>
+        </h3>
+        <GrammarButton
+          word={word.word}
+          pos={word.pos[0] || 'noun'}
           translation={word.translations[0] || ''}
         />
       </div>

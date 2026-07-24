@@ -251,3 +251,145 @@ export async function explainUsage(
   })
   return parseUsage(resp.content)
 }
+
+// === v1.8-A: D3 LLM Tutor 2.0 完整版 (语法讲解) ===
+export interface GrammarExample {
+  en: string
+  zh: string
+}
+
+export interface GrammarMistake {
+  wrong: string          // 错误用法
+  right: string          // 正确用法
+  why: string            // 为什么错 (中文)
+}
+
+export interface GrammarExplanation {
+  definition: string     // 词性定义 (中文)
+  usage: string          // 语法使用规则 (中英混合, 1-2 句)
+  examples: GrammarExample[]   // 3 个例句 (英文 + 中文翻译)
+  commonMistakes: GrammarMistake[]  // 2-3 个易错点对比
+  cached?: boolean
+}
+
+const GRAMMAR_SYSTEM_PROMPT = `你是一位耐心的英语老师。用户给出一个英文单词和词性 (POS), 请用中文详细讲解这个单词的语法。
+
+严格用 JSON 格式输出, 不要 markdown 代码块:
+{
+  "definition": "名词: 表示...的东西",
+  "usage": "作主语/宾语使用, 可数/不可数, 后面常接...",
+  "examples": [
+    {"en": "I need a decision.", "zh": "我需要一个决定。"},
+    {"en": "Make a quick decision.", "zh": "快速做出决定。"},
+    {"en": "It's your decision.", "zh": "这是你的决定。"}
+  ],
+  "commonMistakes": [
+    {"wrong": "make decision", "right": "make a decision", "why": "decision 是可数名词, 需要冠词 a"},
+    {"wrong": "do a decision", "right": "make a decision", "why": "固定搭配 make a decision, 不用 do"}
+  ]
+}
+
+definition + usage ≤ 200 字。examples 3 个, 每个 en ≤ 20 词。commonMistakes 2-3 个。`
+
+export function grammarKey(word: string, pos: string): string {
+  return `grammar::${word.trim().toLowerCase()}::${pos.trim().toLowerCase()}`.slice(0, 200)
+}
+
+function parseGrammar(content: string): GrammarExplanation {
+  let c = content.trim()
+  if (c.startsWith('```')) {
+    c = c.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, '')
+  }
+  const i = c.indexOf('{')
+  const j = c.lastIndexOf('}')
+  if (i >= 0 && j > i) {
+    c = c.slice(i, j + 1)
+  }
+  try {
+    const obj = JSON.parse(c)
+    const examples = Array.isArray(obj.examples) ? obj.examples.map((e: unknown) => {
+      const ee = (e && typeof e === 'object' ? e : {}) as { en?: unknown; zh?: unknown }
+      return {
+        en: String(ee.en || ''),
+        zh: String(ee.zh || ''),
+      }
+    }).filter((e: GrammarExample) => e.en) : []
+    const commonMistakes = Array.isArray(obj.commonMistakes) ? obj.commonMistakes.map((m: unknown) => {
+      const mm = (m && typeof m === 'object' ? m : {}) as { wrong?: unknown; right?: unknown; why?: unknown }
+      return {
+        wrong: String(mm.wrong || ''),
+        right: String(mm.right || ''),
+        why: String(mm.why || ''),
+      }
+    }).filter((m: GrammarMistake) => m.wrong || m.right) : []
+    return {
+      definition: String(obj.definition || '暂无定义'),
+      usage: String(obj.usage || '暂无用法说明'),
+      examples,
+      commonMistakes,
+    }
+  } catch {
+    return {
+      definition: '解析失败',
+      usage: c.slice(0, 200),
+      examples: [],
+      commonMistakes: [],
+    }
+  }
+}
+
+const POS_NAMES: Record<string, string> = {
+  noun: '名词',
+  verb: '动词',
+  adj: '形容词',
+  adv: '副词',
+  prep: '介词',
+  conj: '连词',
+  article: '冠词',
+  pronoun: '代词',
+}
+
+export function mockGrammar(word: string, pos: string): GrammarExplanation {
+  const posName = POS_NAMES[pos.toLowerCase()] || pos
+  return {
+    definition: `${posName}: ${word} 是常见英语${posName}, 需根据语境理解。`,
+    usage: `在句中作${posName}使用, 注意上下文与搭配。`,
+    examples: [
+      { en: `I need ${word}.`, zh: `我需要 ${word}。` },
+      { en: `This ${word} is important.`, zh: `这个 ${word} 很重要。` },
+      { en: `She uses ${word} often.`, zh: `她经常使用 ${word}。` },
+    ],
+    commonMistakes: [
+      { wrong: `错用 ${word}`, right: `正确使用 ${word}`, why: `注意 ${posName} 常见搭配和语法规则` },
+    ],
+    cached: true,
+  }
+}
+
+export async function explainGrammar(
+  provider: LLMProvider,
+  apiKey: string | undefined,
+  model: string | undefined,
+  word: string,
+  pos: string,
+  translation: string,
+): Promise<GrammarExplanation> {
+  const key = grammarKey(word, pos)
+  // Mock 渠道走 mock 路径
+  if (provider.id === 'mock' || !apiKey) {
+    return mockGrammar(word, pos)
+  }
+  const userMsg = `单词: ${word}\n词性: ${pos}\n中文释义: ${translation}\n\n请用 JSON 格式讲解这个单词的语法。`
+  const resp = await chatCompletion({
+    provider,
+    apiKey,
+    model,
+    messages: [
+      { role: 'system', content: GRAMMAR_SYSTEM_PROMPT },
+      { role: 'user', content: userMsg },
+    ],
+    temperature: 0.3,
+    maxTokens: 800,
+  })
+  return parseGrammar(resp.content)
+}

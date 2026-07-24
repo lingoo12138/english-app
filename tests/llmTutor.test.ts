@@ -1,7 +1,7 @@
 // tests/llmTutor.test.ts - v1.2-D2 LLM 错题讲解
 import { describe, it, expect, beforeEach } from 'vitest'
 import { db, getOrCreateExplanation, getExplanation, saveExplanation } from '../src/lib/db'
-import { explainError, explanationKey, mockExplanation } from '../src/lib/llmTutor'
+import { explainError, explanationKey, mockExplanation, explainGrammar, grammarKey, mockGrammar } from '../src/lib/llmTutor'
 import { BUILTIN_LLM_PROVIDERS } from '../src/lib/providers/llm'
 
 describe('llmTutor', () => {
@@ -126,6 +126,36 @@ describe('llmTutor 短语用法 (v1.5-D3)', () => {
       const openai = BUILTIN_LLM_PROVIDERS.find(p => p.id === 'openai')!
       const r = await explainUsage(openai, undefined, undefined, 'test', '测试')
       expect(r.phrases.length).toBeGreaterThan(0)
+    })
+  })
+
+  // === v1.8-A: D3 LLM Tutor 2.0 (语法讲解) ===
+  describe('explainGrammar', () => {
+    it('mockGrammar 应返定义 + 例句 + 易错点', () => {
+      const r = mockGrammar('decision', 'noun')
+      expect(r.definition).toBeTruthy()
+      expect(r.examples.length).toBe(3)
+      expect(r.examples[0].en).toBeTruthy()
+      expect(r.examples[0].zh).toBeTruthy()
+      expect(r.commonMistakes.length).toBeGreaterThan(0)
+    })
+
+    it('grammarKey 应标准化 (lowercase + trim)', () => {
+      expect(grammarKey('Decision', 'NOUN')).toBe('grammar::decision::noun')
+    })
+
+    it('mock 渠道 explainGrammar 应直接返 mock', async () => {
+      const mockProvider = { id: 'mock', name: 'Mock', type: 'mock' as any, apiKeyRequired: false, defaultModel: 'mock' }
+      const r = await explainGrammar(mockProvider, '', 'mock', 'book', 'noun', '书')
+      expect(r.definition).toContain('名词')
+      expect(r.examples.length).toBe(3)
+    })
+
+    it('无 API key 时 explainGrammar 应返 mock', async () => {
+      const openai = BUILTIN_LLM_PROVIDERS.find(p => p.id === 'openai')!
+      const r = await explainGrammar(openai, undefined, undefined, 'happy', 'adj', '快乐')
+      expect(r.definition).toBeTruthy()
+      expect(r.examples.length).toBe(3)
     })
   })
 })
