@@ -25,6 +25,7 @@ const Achievements = lazy(() => import('./pages/Achievements'))
 const SceneDetail = lazy(() => import('./pages/SceneDetail'))
 const Camera = lazy(() => import('./pages/Camera'))
 const AIChat = lazy(() => import('./pages/AIChat'))
+const ReportsPage = lazy(() => import('./pages/ReportsPage'))
 import { useStore, useStats } from './store/useStore'
 import { getTodayCount, getTotalLearned, getAllFavorites } from './lib/db'
 import { getTheme, applyTheme, applyFontSize } from './lib/themes'
@@ -132,6 +133,7 @@ function App() {
         <Route path="listen" element={<ListenPage />} />
         <Route path="achievements" element={<Achievements />} />
         <Route path="report" element={<LearnReport />} />
+        <Route path="reports" element={<ReportsPage />} />
         <Route path="pronounce-custom" element={<PronounceCustom />} />
         <Route path="settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />

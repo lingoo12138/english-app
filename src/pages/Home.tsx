@@ -130,6 +130,19 @@ export default function Home() {
         </Link>
       )}
 
+      {/* v1.11.0-C: 日报/周报入口 */}
+      <Link
+        to="/reports"
+        className="card bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 border border-cyan-200 dark:border-cyan-800 flex items-center gap-3 hover:shadow-md transition"
+      >
+        <div className="text-3xl">📊</div>
+        <div className="flex-1">
+          <div className="font-semibold text-sm">日报 / 周报</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400">今日数据 · 7 天汇总 · 同周对比</div>
+        </div>
+        <div className="text-stone-400">→</div>
+      </Link>
+
       {/* 学习数据卡片 */}
       <div className="grid grid-cols-3 gap-3">
         <div className="card text-center">
