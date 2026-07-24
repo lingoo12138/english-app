@@ -1637,3 +1637,30 @@
 - 📊 104 → 126 单元测试 (+22)
 - ✅ 0 P0 + 0 P1 + 0 P2 维持
 - 3 commits + 1 tag (v1.7.0)
+
+## [v1.8.0 + v1.9.0] - 2026-07-24
+
+### v1.8.0 + v1.9.0 并行开发 (3 producer 1d 干完 6d)
+
+- 🆕 v1.8.0-A 首启 onboarding (W9 推荐):
+  - src/components/Onboarding.tsx (513 行): 3 步引导 (选学段 / 跟读 / 加生词本)
+  - localStorage.onboarded 标记, 只显示一次
+  - Home CTA "👋 第一次来? 跟我 5 分钟了解"
+  - Settings "🔄 重新看引导" 按钮
+  - 17 单元测试
+- 🆕 v1.9.0 难度自适应 + 自由话题 (W10 推荐):
+  - aiChat.ts: assessUserLevel (基于最近 5 轮词数 + 从属连词) + truncateCustomTopic (200 字符)
+  - buildSystemPrompt 用 effectiveLevel = dynamicLevel || level
+  - AIChat UI: '✨ 自动' 切换 + '💬 自由话题' 按钮 + 200 字符 modal
+  - 10 单元测试
+- 🆕 v1.8.0-C 3 个小优化:
+  - **OpenRouter 0 成本**: defaultModel 'google/gemini-2.5-flash:free' + '🆓 0 成本' 标签
+  - **C4 Daily 100 句**: 30 → 100 (旅行/工作/生活/学校/购物/健康/餐厅/酒店/机场/日常 10 场景)
+  - **C8 WordDetail 跟读**: '🎤 跟读' 按钮 + 复用 PronunciationPractice 弹窗
+  - 11 单元测试
+- 🐛 修 3 处历史遗留 `: any` (aiChat.ts + llm.ts): 改 unknown + Record
+- 📊 126 → 164 单元测试 (+38)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持
+- 25 闭环 + 13 修复点验证
+- 21 → 22 组件 (新加 Onboarding) + 24 → 25 库 (新加 daily 100 句)
+- 3 commits + 1 tag (v1.8.0)
