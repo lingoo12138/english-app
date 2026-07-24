@@ -1,11 +1,12 @@
-// 听力模式 - v0.26
-// 5 篇精选短文 + TTS 播放 + 挖空听写 + 错词入生词本
+// 听力模式 - v0.26 + v1.7.0 B 听力自适应
+// 5 篇精选短文 + TTS 播放 + 挖空听写 + 错词入生词本 + 错题推课
 import { useState, useEffect, useRef } from 'react'
 import { useStore } from '../store/useStore'
 import { LISTENING_LESSONS, type ListeningLesson } from '../data/listening'
 import { speak } from '../lib/tts'
-import { addFavorite } from '../lib/db'
+import { addFavorite, getAllWritingErrors } from '../lib/db'
 import { loadWords } from '../lib/words'
+import { recommendLessons } from '../lib/listeningRecommend'
 
 type Mode = 'overview' | 'lesson' | 'dictation' | 'questions' | 'result'
 
@@ -13,10 +14,44 @@ export default function ListenPage() {
   const [mode, setMode] = useState<Mode>('overview')
   const [currentLesson, setCurrentLesson] = useState<ListeningLesson | null>(null)
   const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set())
+  // v1.7.0 B 听力自适应: 推荐 Top 3 课 (根据错题)
+  const [recommendations, setRecommendations] = useState<Array<{ lesson: ListeningLesson; score: number; matchedWords: string[]; isCompleted: boolean }>>([])
+  const [hasErrors, setHasErrors] = useState(false)
+
   useEffect(() => {
     const completed = JSON.parse(localStorage.getItem('listening-completed') || '[]')
     setCompletedLessons(new Set(completed))
   }, [])
+
+  // v1.7.0: 加载错题 → 推荐 (依赖 completedLessons, 完成后重算)
+  // visibilitychange: 用户从别页回到 ListenPage 时重算 (写作批改后可能产生新错题)
+  const loadRecommendations = async () => {
+    try {
+      const errors = await getAllWritingErrors()
+      setHasErrors(errors.length > 0)
+      if (errors.length > 0) {
+        const recs = recommendLessons(LISTENING_LESSONS, errors, completedLessons, 3)
+        setRecommendations(recs)
+      } else {
+        setRecommendations([])
+      }
+    } catch (e) {
+      console.error('加载推荐失败:', e)
+      setRecommendations([])
+    }
+  }
+
+  useEffect(() => {
+    loadRecommendations()
+  }, [completedLessons])
+
+  useEffect(() => {
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') loadRecommendations()
+    }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => document.removeEventListener('visibilitychange', onVisible)
+  }, [completedLessons])
 
   const startLesson = (lesson: ListeningLesson) => {
     setCurrentLesson(lesson)
@@ -44,11 +79,62 @@ export default function ListenPage() {
       </div>
 
       {mode === 'overview' && (
-        <LessonList
-          lessons={LISTENING_LESSONS}
-          completed={completedLessons}
-          onStart={startLesson}
-        />
+        <>
+          {/* v1.7.0 B 听力自适应: 🎯 为你推荐 */}
+          {recommendations.length > 0 && (
+            <div className="card bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200 dark:border-amber-800">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-semibold text-amber-800 dark:text-amber-200">🎯 为你推荐</h3>
+                <span className="text-xs text-amber-600 dark:text-amber-400">根据你的错题</span>
+              </div>
+              <div className="space-y-2">
+                {recommendations.map(({ lesson, score, matchedWords, isCompleted }) => {
+                  const icon = lesson.scene === 'cafe' ? '☕'
+                    : lesson.scene === 'airport' ? '✈️'
+                    : lesson.scene === 'hotel' ? '🏨'
+                    : lesson.scene === 'shopping' ? '🛍️'
+                    : '💼'
+                  return (
+                    <button
+                      key={lesson.id}
+                      onClick={() => startLesson(lesson)}
+                      className="w-full text-left p-2.5 bg-white dark:bg-stone-800 rounded-lg hover:shadow-md active:scale-[0.98] transition-all"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-xl shrink-0">{icon}</span>
+                          <span className="text-sm font-medium truncate">{lesson.title}</span>
+                        </div>
+                        <span className="text-xs text-amber-600 dark:text-amber-400 shrink-0">
+                          命中 {score >= 1 ? score.toFixed(1) : score} 错词
+                        </span>
+                      </div>
+                      {matchedWords.length > 0 && (
+                        <div className="text-xs text-stone-500 dark:text-stone-400 mt-1 truncate">
+                          关键词: {matchedWords.slice(0, 4).join(', ')}
+                          {matchedWords.length > 4 && ` +${matchedWords.length - 4}`}
+                        </div>
+                      )}
+                      {isCompleted && (
+                        <div className="text-xs text-emerald-600 dark:text-emerald-400 mt-1">✓ 已完成</div>
+                      )}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+          {!hasErrors && (
+            <div className="card text-center text-sm text-stone-500 dark:text-stone-400 py-4">
+              💡 完成几道题后, 这里会出现个性化推荐
+            </div>
+          )}
+          <LessonList
+            lessons={LISTENING_LESSONS}
+            completed={completedLessons}
+            onStart={startLesson}
+          />
+        </>
       )}
 
       {mode === 'lesson' && currentLesson && (
