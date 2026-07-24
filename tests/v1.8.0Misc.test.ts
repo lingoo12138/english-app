@@ -68,9 +68,9 @@ describe('v1.8.0-C: OpenRouter + Daily 100 + WordDetail 跟读', () => {
       expect(wd).toMatch(/🎤 跟读/)
     })
 
-    it('WordDetail.tsx 应有 showPronounce state', () => {
+    it('WordDetail.tsx 应有动态 pronounceText state (v1.10.0 升级)', () => {
       const wd = readFileSync('src/pages/WordDetail.tsx', 'utf-8')
-      expect(wd).toMatch(/showPronounce/)
+      expect(wd).toMatch(/pronounceText/)
     })
   })
 
