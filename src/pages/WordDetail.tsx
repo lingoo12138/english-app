@@ -5,6 +5,7 @@ import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
 import { UsageButton } from '../components/UsageButton'
 import { GrammarButton } from '../components/GrammarButton'
+import { SynonymsButton } from '../components/SynonymsButton'
 import PronunciationPractice from '../components/PronunciationPractice'
 import { addFavorite, removeFavorite, isFavorite, logAction, reviewWord } from '../lib/db'
 import { markWordCompleted } from '../lib/plan'
@@ -15,8 +16,8 @@ export default function WordDetail() {
   const navigate = useNavigate()
   const [word, setWord] = useState<Word | null | 'loading'>('loading')
   const [fav, setFav] = useState(false)
-  // v1.8.0-C8: 跟读弹窗状态
-  const [showPronounce, setShowPronounce] = useState(false)
+  // v1.10.0-C: 跟读弹窗状态 — 用动态文本而非 boolean,支持单词 / 例句
+  const [pronounceText, setPronounceText] = useState<string>('')
   const [showAllExamples, setShowAllExamples] = useState(false)
   const targetLevel = useStore(s => s.targetLevel)
 
@@ -157,9 +158,9 @@ export default function WordDetail() {
           </div>
           <div className="flex items-center gap-2">
             <TTSButton text={word.word} size="lg" />
-            {/* v1.8.0-C8: 跟读按钮 (复用 PronunciationPractice) */}
+            {/* v1.8.0-C8: 跟读按钮 (复用 PronunciationPractice) — v1.10.0 升级: 动态设置跟读文本 */}
             <button
-              onClick={() => setShowPronounce(true)}
+              onClick={() => setPronounceText(word.word)}
               className="px-3 py-2 rounded-lg bg-emerald-500 text-white text-sm font-medium hover:bg-emerald-600 transition-colors flex items-center gap-1.5"
               title="点击跟读评测"
             >
@@ -168,15 +169,15 @@ export default function WordDetail() {
           </div>
         </div>
 
-        {/* v1.8.0-C8: 跟读模态框 (复用 PronunciationPractice) */}
-        {showPronounce && (
-          <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={() => setShowPronounce(false)}>
+        {/* v1.8.0-C8: 跟读模态框 (复用 PronunciationPractice) — v1.10.0 升级: 用动态 pronounceText 适配单词 / 例句 */}
+        {pronounceText && (
+          <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={() => setPronounceText('')}>
             <div className="bg-white dark:bg-stone-800 rounded-lg p-4 max-w-md w-full" onClick={e => e.stopPropagation()}>
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-lg font-semibold">🎤 跟读: {word.word}</h3>
-                <button onClick={() => setShowPronounce(false)} className="text-stone-400 hover:text-stone-600 text-xl">✕</button>
+                <h3 className="text-lg font-semibold">🎤 跟读: {pronounceText}</h3>
+                <button onClick={() => setPronounceText('')} className="text-stone-400 hover:text-stone-600 text-xl">✕</button>
               </div>
-              <PronunciationPractice word={word.word} wordId={word.id} />
+              <PronunciationPractice word={pronounceText} wordId={word.id} />
             </div>
           </div>
         )}
@@ -276,6 +277,19 @@ export default function WordDetail() {
         />
       </div>
 
+      {/* v1.10.0-B: 同义词辨析 */}
+      <div className="card">
+        <h3 className="font-semibold mb-3 flex items-center gap-2">
+          <span>🔀</span>
+          <span>AI 同义词辨析</span>
+        </h3>
+        <SynonymsButton
+          word={word.word}
+          pos={word.pos[0] || 'noun'}
+          translation={word.translations[0] || ''}
+        />
+      </div>
+
       {/* 例句 */}
       <div className="card">
         <h3 className="font-semibold mb-3 flex items-center gap-2">
@@ -293,6 +307,14 @@ export default function WordDetail() {
               <div className="flex items-start gap-2">
                 <p className="flex-1 text-base">{ex.en}</p>
                 <TTSButton text={ex.en} size="sm" />
+                {/* v1.10.0-C: 例句跟读按钮 (复用 PronunciationPractice 弹窗) */}
+                <button
+                  onClick={() => setPronounceText(ex.en)}
+                  className="px-2 py-1 rounded bg-emerald-500 text-white text-xs font-medium hover:bg-emerald-600 transition-colors flex items-center gap-1"
+                  title="跟读此例句"
+                >
+                  🎤 跟读
+                </button>
               </div>
               <p className="text-sm text-stone-500 dark:text-stone-400 mt-1">{ex.zh}</p>
               {ex.scene && (
