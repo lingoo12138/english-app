@@ -1,10 +1,13 @@
 // 复习中心 - 批量复习待复习的词
-import { useState, useEffect, useRef } from 'react'
+// v1.11.0-B: 加智能排序 (按 due/难/新 算分数) + SortToggle 切换
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getDueReviews, reviewWord, logAction } from '../lib/db'
 import { getWord } from '../lib/words'
+import { sortReviewQueue, toReviewQueueItem } from '../lib/reviewQueue'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
+import SortToggle from '../components/ReviewCenter/SortToggle'
 
 export default function ReviewCenter() {
   const navigate = useNavigate()
@@ -15,23 +18,33 @@ export default function ReviewCenter() {
   const [correctCount, setCorrectCount] = useState(0)
   const [wrongCount, setWrongCount] = useState(0)
   const [loading, setLoading] = useState(true)
+  // v1.11.0-B: 智能排序开关 (默认开, 升级用户的复习体验)
+  const [smartSort, setSmartSort] = useState(true)
   const startTimeRef = useRef<number>(0)
 
-  useEffect(() => {
-    loadQueue()
-  }, [])
-
-  async function loadQueue() {
+  // v1.11.0-B: 用 useCallback 让 smartSort 变化也能重新加载队列
+  const loadQueue = useCallback(async () => {
     setLoading(true)
     const due = await getDueReviews()
+    // 转成 ReviewQueueItem, 按 smartSort 排序后再映射成 Word
+    const queueItems = due.map(toReviewQueueItem)
+    const sorted = sortReviewQueue(queueItems, Date.now(), { smartSort })
     const wordList: Word[] = []
-    for (const item of due) {
-      const w = await getWord(item.wordId)
+    for (const item of sorted) {
+      const w = await getWord(item.id)
       if (w) wordList.push(w)
     }
     setQueue(wordList)
+    setCurrentIndex(0)
+    setSessionDone(false)
+    setCorrectCount(0)
+    setWrongCount(0)
     setLoading(false)
-  }
+  }, [smartSort])
+
+  useEffect(() => {
+    loadQueue()
+  }, [loadQueue])
 
   function startWord() {
     startTimeRef.current = Date.now()
@@ -168,6 +181,10 @@ export default function ReviewCenter() {
             className="h-full bg-brand-600 transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
+        </div>
+        {/* v1.11.0-B: 智能排序切换 */}
+        <div className="flex justify-end mt-2">
+          <SortToggle smartSort={smartSort} onChange={setSmartSort} />
         </div>
       </div>
 
