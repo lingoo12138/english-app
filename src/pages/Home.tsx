@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import TTSButton from '../components/TTSButton'
+import Onboarding, { isOnboarded } from '../components/Onboarding'
 import TodayPlanCard from '../components/home/TodayPlanCard'
 import DailySentenceCard from '../components/home/DailySentenceCard'
 import ReviewReminderCard from '../components/home/ReviewReminderCard'
@@ -22,6 +23,8 @@ export default function Home() {
   const [dueReviewCount, setDueReviewCount] = useState(0)
   const [plan, setPlan] = useState<TodayPlan | null>(null)
   const [showShare, setShowShare] = useState(false)
+  const [showOnboarding, setShowOnboarding] = useState(false)
+  const [onboarded, setOnboarded] = useState<boolean>(() => isOnboarded())
   const [achievementStats, setAchievementStats] = useState<Awaited<ReturnType<typeof loadAchievementStats>> | null>(null)
   const dailyGoal = useStore(s => s.dailyGoal)
   const stats = useStats()
@@ -85,6 +88,26 @@ export default function Home() {
           📤 分享
         </button>
       </div>
+
+      {/* v1.8.0-A: 首启 onboarding CTA (仅未引导用户可见) */}
+      {!onboarded && (
+        <button
+          onClick={() => setShowOnboarding(true)}
+          className="w-full card bg-gradient-to-r from-brand-50 to-emerald-50 dark:from-brand-900/30 dark:to-emerald-900/30 border-2 border-brand-300 dark:border-brand-700 hover:shadow-md active:scale-[0.98] transition-all text-left"
+          aria-label="打开首启引导"
+        >
+          <div className="flex items-center gap-3">
+            <div className="text-3xl" aria-hidden="true">👋</div>
+            <div className="flex-1">
+              <div className="font-semibold text-base">第一次来? 跟我 5 分钟了解</div>
+              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+                选学段 · 体验跟读 · 收个生词 — 3 步上手
+              </div>
+            </div>
+            <div className="text-brand-600 dark:text-brand-400 text-xl" aria-hidden="true">→</div>
+          </div>
+        </button>
+      )}
 
       {/* v1.3-F2: 成就卡 */}
       {achievementStats && (
@@ -243,6 +266,14 @@ export default function Home() {
       </div>
 
       <ShareModal open={showShare} onClose={() => setShowShare(false)} />
+      {/* v1.8.0-A: 首启 onboarding (受控) */}
+      <Onboarding
+        open={showOnboarding}
+        onClose={() => {
+          setShowOnboarding(false)
+          setOnboarded(true)  // 同步状态,不需刷新
+        }}
+      />
     </div>
   )
 }

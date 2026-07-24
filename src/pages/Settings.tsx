@@ -1,4 +1,6 @@
 // 设置 - v0.22.2 拆为 6 个子组件
+// v1.8.0-A: 加 "🔄 重新看引导" 按钮 (清除 onboarded 标志)
+import { useNavigate } from 'react-router-dom'
 import PreferencesSection from '../components/settings/PreferencesSection'
 import TTSSection from '../components/settings/TTSSection'
 import TranslateSection from '../components/settings/TranslateSection'
@@ -8,8 +10,17 @@ import DataManagementSection from '../components/settings/DataManagementSection'
 import MigrationSection from '../components/settings/MigrationSection'
 import AIChatDataSection from '../components/settings/AIChatDataSection'
 import ReminderSection from '../components/settings/ReminderSection'
+import { clearOnboarded } from '../components/Onboarding'
 
 export default function Settings() {
+  const navigate = useNavigate()
+
+  // v1.8.0-A: 重看 onboarding 引导
+  const handleReplayOnboarding = () => {
+    clearOnboarded()
+    navigate('/')
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -29,6 +40,21 @@ export default function Settings() {
       <MigrationSection />
       <AIChatDataSection />
       <ReminderSection />
+
+      {/* v1.8.0-A: 重新看引导 */}
+      <section className="card">
+        <h3 className="font-semibold mb-3">🎓 引导</h3>
+        <button
+          onClick={handleReplayOnboarding}
+          className="btn-ghost text-sm w-full"
+          aria-label="清除 onboarding 标志, 跳回首页重新查看引导"
+        >
+          🔄 重新看引导
+        </button>
+        <p className="text-xs text-stone-500 dark:text-stone-400 mt-2">
+          清除首次使用标记, 跳回首页重新弹 onboarding 弹层
+        </p>
+      </section>
 
       {/* 底部 */}
       <div className="text-center text-xs text-stone-500 dark:text-stone-400 py-4">
