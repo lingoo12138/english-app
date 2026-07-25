@@ -3,12 +3,13 @@
 // 用浏览器内置 FileReader API, 不引依赖
 
 /** 支持的文件扩展名 */
-export const SUPPORTED_EXTENSIONS = ['.txt', '.md']
+export const SUPPORTED_EXTENSIONS = ['.txt', '.md', '.pdf']
 
 /** 支持的 MIME 类型 */
 export const SUPPORTED_MIME_TYPES = [
   'text/plain',
   'text/markdown',
+  'application/pdf',
   'application/octet-stream',  // 某些 .md 文件无标准 MIME
 ]
 

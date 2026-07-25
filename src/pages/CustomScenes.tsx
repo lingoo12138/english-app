@@ -18,6 +18,7 @@ import {
 } from '../lib/customScenes'
 import { getSceneInReviewCount } from '../lib/sceneReview'
 import { validateFile, readAndTruncateFile, extractFileName, formatFileSize, SUPPORTED_EXTENSIONS } from '../lib/fileUpload'
+import { isPdfFile, extractPdfText, isPdfEncryptedError } from '../lib/pdfUpload'
 import { toast } from '../components/Toast'
 import { recordLLMCall, getLimitExceededMessage } from '../lib/llmUsage'
 
@@ -162,17 +163,42 @@ export default function CustomScenes() {
     }
     setUploading(true)
     try {
-      const { text: fileText, truncated } = await readAndTruncateFile(file)
-      setText(fileText)
-      setUploadedFileName(file.name)
-      // 自动提取标题 (从文件名)
-      if (!title) {
-        setTitle(extractFileName(file.name))
-      }
-      if (truncated) {
-        toast.success(`✓ 已上传并截断到 ${MAX_TEXT_LEN} 字符`)
+      // v1.23.0: PDF 走不同解析路径
+      if (isPdfFile(file)) {
+        toast.info(`⏳ PDF 解析中... (${file.name})`)
+        try {
+          const { text: pdfText, pageCount, truncated } = await extractPdfText(file, MAX_TEXT_LEN)
+          setText(pdfText)
+          setUploadedFileName(file.name)
+          if (!title) {
+            setTitle(extractFileName(file.name))
+          }
+          if (truncated) {
+            toast.success(`✓ PDF 解析完成 (${pageCount} 页), 截断到 ${MAX_TEXT_LEN} 字符`)
+          } else {
+            toast.success(`✓ PDF 解析完成 (${pageCount} 页)`)
+          }
+        } catch (pdfErr) {
+          if (isPdfEncryptedError(pdfErr)) {
+            toast.error('PDF 已加密, 请先解密')
+          } else {
+            const err = pdfErr instanceof Error ? pdfErr : new Error(String(pdfErr))
+            toast.error(`PDF 解析失败: ${err.message || '未知错误'}`)
+          }
+        }
       } else {
-        toast.success(`✓ 已上传 ${file.name} (${formatFileSize(file.size)})`)
+        // TXT/MD 走原有路径
+        const { text: fileText, truncated } = await readAndTruncateFile(file)
+        setText(fileText)
+        setUploadedFileName(file.name)
+        if (!title) {
+          setTitle(extractFileName(file.name))
+        }
+        if (truncated) {
+          toast.success(`✓ 已上传并截断到 ${MAX_TEXT_LEN} 字符`)
+        } else {
+          toast.success(`✓ 已上传 ${file.name} (${formatFileSize(file.size)})`)
+        }
       }
     } catch (err) {
       const e = err instanceof Error ? err : new Error(String(err))

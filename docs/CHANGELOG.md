@@ -2054,3 +2054,33 @@
 - ✅ 0 build 错误
 
 详见 `docs/REVIEW_v1.22.0.md`
+
+---
+
+## [v1.23.0] - 2026-07-25
+
+### v1.23.0 W24 — PDF 上传 (闭环 v1.18 文件上传)
+
+#### v1.23.0-A: 核心库 (`pdfUpload.ts` 90 行)
+- 📄 `isPdfFile(file)`: 后缀 + MIME 判断
+- 🔐 `isPdfEncryptedError(e)`: 检测加密 PDF 错误
+- 📖 `extractPdfText(file, maxLen)`: 懒加载 pdfjs 解析
+- 📄 `getPdfPageCount(file)`: 取页数
+- 🚦 `MAX_PDF_PAGES = 50`: 防恶意大文件
+- ⚡ 性能: `disableFontFace: true` 加速解析
+
+#### v1.23.0-B: 依赖 + 集成
+- 📦 `pdfjs-dist@^6.1.200` 引入 (open source, 0 成本)
+- 🔧 `fileUpload.ts` 加 `.pdf` + `application/pdf` MIME
+- 🎨 `CustomScenes.tsx` PDF 走独立解析路径
+  - 📄 TXT/MD: 原路径 (readAndTruncateFile)
+  - 📑 PDF: 懒加载 + 加密检测 + 页数提示
+- 🍞 toast 反馈: "⏳ PDF 解析中..." → "✓ PDF 解析完成 (X 页)"
+
+#### 验证 & 文档
+- 📊 510 → 526 单元测试 (+16)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持 (28/28 review, 含 catch any 检查)
+- 🆕 37 → 38 库 (新加 pdfUpload)
+- 📦 +1 依赖 (pdfjs-dist)
+- 📝 `docs/plans/v1.23.0-pdf-upload.md` + `scripts/verify-v1.23.0.mjs` + `scripts/review-v1.23.0.py`
+- 4 commits + 1 tag (v1.23.0)
