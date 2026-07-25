@@ -1833,3 +1833,31 @@
 - 🆕 23 → 24 页面 (新加 CustomSceneLearn)
 - 📝 `docs/plans/v1.15.0-custom-scene-learn.md` + `scripts/verify-v1.15.0.mjs` + `scripts/review-v1.15.0.py`
 - 3 commits + 1 tag (v1.15.0)
+
+---
+
+## [v1.16.0] - 2026-07-25
+
+### v1.16.0 W17 — 多场景关联 (闭环 v1.11 + v1.14 + v1.15)
+
+#### v1.16.0-A: 核心库 (`sceneReview.ts` 100 行)
+- 📚 `addSceneWordsToReview(words, title)`: 批量入 v1.11 reviews 表
+- 🏷️ 词 ID 前缀 `customScene:` (区分来源, 防冲突)
+- ⚙️ SM-2 初始值: easeFactor=2.5, interval=0, repetitions=0
+- ⏭️ nextReview=now (立即可复习)
+- 🚫 幂等: 已存在的跳过 (不覆盖间隔/难度)
+- 📊 `getSceneReviewStatus`: { totalWords, inReviewCount, masteredCount }
+- 🗑️ `removeSceneWordsFromReview`: 同步清复习 (删除场景时)
+
+#### v1.16.0-B: UI 集成
+- 📚 `CustomSceneLearn` 完成态加 "📚 加入复习队列" 按钮
+- 📊 `CustomSceneDetail` 加复习状态卡片 (总/复习/已掌握 3 列)
+- 🏷️ `CustomScenes` 列表项加 "📚 N 复习中" 标签
+- 🔄 切回详情自动刷新复习状态
+
+#### 验证 & 文档
+- 📊 372 → 390 单元测试 (+18)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持 (29/29 review)
+- 🆕 31 → 32 库 (新加 sceneReview)
+- 📝 `docs/plans/v1.16.0-scene-to-review.md` + `scripts/verify-v1.16.0.mjs` + `scripts/review-v1.16.0.py`
+- 3 commits + 1 tag (v1.16.0)
