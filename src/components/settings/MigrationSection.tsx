@@ -39,8 +39,9 @@ export default function MigrationSection() {
       const date = new Date().toISOString().slice(0, 10)
       downloadMigrationJson(data, `english-app-backup-${date}.json`)
       setMsg({ type: 'success', text: `✓ 已导出 (favorites: ${data.favorites.length}, 跟读: ${data.pronunciationAttempts.length}, 错题: ${data.writingErrors.length}, 对话: ${data.chats.length})` })
-    } catch (e: any) {
-      setMsg({ type: 'error', text: `导出失败: ${e.message}` })
+    } catch (e: unknown) {
+      const err = e instanceof Error ? e : new Error(String(e))
+      setMsg({ type: 'error', text: `导出失败: ${err.message}` })
     } finally {
       setBusy(false)
     }
@@ -63,8 +64,9 @@ export default function MigrationSection() {
       })
       await refreshStats()
       setTimeout(() => location.reload(), 2000)
-    } catch (e: any) {
-      setMsg({ type: 'error', text: `导入失败: ${e.message}` })
+    } catch (e: unknown) {
+      const err = e instanceof Error ? e : new Error(String(e))
+      setMsg({ type: 'error', text: `导入失败: ${err.message}` })
     } finally {
       setBusy(false)
     }

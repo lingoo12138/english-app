@@ -139,8 +139,9 @@ export async function fireTestNotification(): Promise<{ ok: boolean; reason?: st
       tag: 'reminder-test',
     })
     return { ok: true }
-  } catch (e: any) {
-    return { ok: false, reason: e?.message || '未知错误' }
+  } catch (e: unknown) {
+    const err = e instanceof Error ? e : new Error(String(e))
+    return { ok: false, reason: err.message || '未知错误' }
   }
 }
 

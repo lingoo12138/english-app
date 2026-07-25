@@ -199,10 +199,11 @@ export default function PronunciationPractice({ word, wordId, customText, onComp
           stopRecording('auto')
         }
       }, 5000)
-    } catch (e: any) {
+    } catch (e: unknown) {
       recorderRef.current = null
       if (mountedRef.current) {
-        setErrorMsg(e?.message || '录音启动失败,请允许麦克风权限')
+        const err = e instanceof Error ? e : new Error(String(e))
+        setErrorMsg(err.message || '录音启动失败,请允许麦克风权限')
         setState('error')
       }
     }
@@ -264,10 +265,11 @@ export default function PronunciationPractice({ word, wordId, customText, onComp
       }
 
       if (mountedRef.current) setState('result')
-    } catch (e: any) {
+    } catch (e: unknown) {
       recorderRef.current = null
       if (mountedRef.current) {
-        setErrorMsg(e?.message || '录音失败')
+        const err = e instanceof Error ? e : new Error(String(e))
+        setErrorMsg(err.message || '录音失败')
         setState('error')
       }
     }

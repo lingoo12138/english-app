@@ -50,8 +50,9 @@ export default function Translate() {
       })
       setResult(res.text)
       setSource(res.source)
-    } catch (e: any) {
-      setError(e.message || '翻译失败,请检查网络或 API 配置')
+    } catch (e: unknown) {
+      const err = e instanceof Error ? e : new Error(String(e))
+      setError(err.message || '翻译失败,请检查网络或 API 配置')
     } finally {
       setLoading(false)
     }

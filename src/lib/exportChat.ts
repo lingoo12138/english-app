@@ -58,8 +58,9 @@ export async function parseChatsJson(text: string): Promise<ImportResult> {
   let data: any
   try {
     data = JSON.parse(text)
-  } catch (e: any) {
-    result.errors.push('JSON 解析失败: ' + e.message)
+  } catch (e: unknown) {
+    const err = e instanceof Error ? e : new Error(String(e))
+    result.errors.push('JSON 解析失败: ' + err.message)
     return result
   }
 

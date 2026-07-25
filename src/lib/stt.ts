@@ -112,8 +112,9 @@ export class STTController {
     try {
       this.recognition.start()
       return true
-    } catch (e: any) {
-      this.onError(`启动语音识别失败: ${e?.message || e}`)
+    } catch (e: unknown) {
+      const err = e instanceof Error ? e : new Error(String(e))
+      this.onError(`启动语音识别失败: ${err.message || String(e)}`)
       this.onEnd()
       return false
     }

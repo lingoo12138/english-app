@@ -216,9 +216,10 @@ export async function recognizeImages(
     try {
       const r = await recognizeImage(url, provider, apiKey, model, hint)
       results.push({ index: i, ok: true, result: r })
-    } catch (e: any) {
+    } catch (e: unknown) {
       // 修复 P1-2: 不再静默吞错, 返回错误信息
-      const msg = e?.message || String(e)
+      const err = e instanceof Error ? e : new Error(String(e))
+      const msg = err.message || String(e)
       console.error(`识别第 ${i + 1} 张图片失败:`, msg)
       results.push({ index: i, ok: false, error: msg })
     }

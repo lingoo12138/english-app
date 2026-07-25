@@ -163,7 +163,7 @@ export function speak(opts: SpeakOptions): void {
     // 修复: 错误传 UI,不是 console
     speakEdge(opts, provider).catch((e) => {
       console.error('TTS Edge error', e)
-      window.dispatchEvent(new CustomEvent('tts-error', { detail: e?.message || String(e) }))
+      window.dispatchEvent(new CustomEvent('tts-error', { detail: e.message || String(e) }))
     })
     return
   }
@@ -171,7 +171,7 @@ export function speak(opts: SpeakOptions): void {
   if (provider.type === 'azure') {
     speakAzure(opts, provider, store).catch((e) => {
       console.error('TTS Azure error', e)
-      window.dispatchEvent(new CustomEvent('tts-error', { detail: e?.message || String(e) }))
+      window.dispatchEvent(new CustomEvent('tts-error', { detail: e.message || String(e) }))
     })
     return
   }
@@ -179,7 +179,7 @@ export function speak(opts: SpeakOptions): void {
   if (provider.type === 'elevenlabs') {
     speakElevenLabs(opts, provider, store).catch((e) => {
       console.error('TTS ElevenLabs error', e)
-      window.dispatchEvent(new CustomEvent('tts-error', { detail: e?.message || String(e) }))
+      window.dispatchEvent(new CustomEvent('tts-error', { detail: e.message || String(e) }))
     })
     return
   }
@@ -187,7 +187,7 @@ export function speak(opts: SpeakOptions): void {
   if (provider.type === 'baidu') {
     speakBaidu(opts, provider, store).catch((e) => {
       console.error('TTS Baidu error', e)
-      window.dispatchEvent(new CustomEvent('tts-error', { detail: e?.message || String(e) }))
+      window.dispatchEvent(new CustomEvent('tts-error', { detail: e.message || String(e) }))
     })
     return
   }
@@ -195,7 +195,7 @@ export function speak(opts: SpeakOptions): void {
   if (provider.type === 'google') {
     speakGoogle(opts, provider, store).catch((e) => {
       console.error('TTS Google error', e)
-      window.dispatchEvent(new CustomEvent('tts-error', { detail: e?.message || String(e) }))
+      window.dispatchEvent(new CustomEvent('tts-error', { detail: e.message || String(e) }))
     })
     return
   }
@@ -203,7 +203,7 @@ export function speak(opts: SpeakOptions): void {
   if (provider.type === 'iflytek') {
     speakIflytek(opts, provider, store).catch((e) => {
       console.error('TTS Iflytek error', e)
-      window.dispatchEvent(new CustomEvent('tts-error', { detail: e?.message || String(e) }))
+      window.dispatchEvent(new CustomEvent('tts-error', { detail: e.message || String(e) }))
     })
     return
   }
@@ -296,9 +296,10 @@ async function speakHTTP(opts: SpeakOptions, provider: TTSProvider): Promise<voi
       URL.revokeObjectURL(audioUrl)
       window.dispatchEvent(new CustomEvent('tts-end'))
     }
-  } catch (e: any) {
+  } catch (e: unknown) {
+        const err = e instanceof Error ? e : new Error(String(e))
     console.error('TTS HTTP error', e)
-    window.dispatchEvent(new CustomEvent('tts-error', { detail: e?.message || String(e) }))
+    window.dispatchEvent(new CustomEvent('tts-error', { detail: err.message || String(e) }))
     throw e
   }
 }
@@ -381,8 +382,9 @@ async function speakEdge(opts: SpeakOptions, provider: TTSProvider): Promise<voi
     if (!tokenResp.ok) throw new Error(`HTTP ${tokenResp.status}`)
     token = (await tokenResp.text()).trim()
     if (!token) throw new Error('空 token')
-  } catch (e: any) {
-    throw new Error(`Edge TTS 拿 token 失败 (可能 CORS / 网络问题): ${e?.message || e}`)
+  } catch (e: unknown) {
+        const err = e instanceof Error ? e : new Error(String(e))
+    throw new Error(`Edge TTS 拿 token 失败 (可能 CORS / 网络问题): ${err.message || e}`)
   }
 
   // 2. WebSocket 合成
@@ -393,8 +395,9 @@ async function speakEdge(opts: SpeakOptions, provider: TTSProvider): Promise<voi
     let ws: WebSocket
     try {
       ws = new WebSocket(wsUrl)
-    } catch (e: any) {
-      reject(new Error('Edge WebSocket 创建失败: ' + (e?.message || e)))
+    } catch (e: unknown) {
+        const err = e instanceof Error ? e : new Error(String(e))
+      reject(new Error('Edge WebSocket 创建失败: ' + (err.message || e)))
       return
     }
 
@@ -439,12 +442,14 @@ async function speakEdge(opts: SpeakOptions, provider: TTSProvider): Promise<voi
               `Path:ssml\r\n` +
               `\r\n${ssml}`
             )
-          } catch (e: any) {
-            settle(() => reject(new Error('Edge 发送 SSML 失败: ' + (e?.message || e))))
+          } catch (e: unknown) {
+        const err = e instanceof Error ? e : new Error(String(e))
+            settle(() => reject(new Error('Edge 发送 SSML 失败: ' + (err.message || e))))
           }
         }, 100)
-      } catch (e: any) {
-        settle(() => reject(new Error('Edge WebSocket 发送失败: ' + (e?.message || e))))
+      } catch (e: unknown) {
+        const err = e instanceof Error ? e : new Error(String(e))
+        settle(() => reject(new Error('Edge WebSocket 发送失败: ' + (err.message || e))))
       }
     }
 

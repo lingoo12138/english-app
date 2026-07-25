@@ -73,9 +73,10 @@ export default function Camera() {
         }
       }
       setFavSet(favs)
-    } catch (e: any) {
+    } catch (e: unknown) {
+      const err = e instanceof Error ? e : new Error(String(e))
       console.error(e)
-      setError(e.message || '识别失败')
+      setError(err.message || '识别失败')
       setStatus('error')
     }
   }

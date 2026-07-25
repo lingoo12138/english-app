@@ -35,8 +35,9 @@ export function AddCustomLlmForm({ onAdd }: { onAdd: (p: any) => void }) {
             onAdd(p)
             setName(''); setBaseUrl(''); setDefaultModel('')
             toast.success(`已添加自定义 LLM 渠道: ${p.name}`)
-          } catch (e: any) {
-            toast.error(e?.message || '配置错误')
+          } catch (e: unknown) {
+            const err = e instanceof Error ? e : new Error(String(e))
+            toast.error(err.message || '配置错误')
           }
         }}
         className="btn-primary text-sm w-full disabled:opacity-50"
@@ -70,8 +71,9 @@ export function AddCustomTranslateForm({ onAdd }: { onAdd: (p: any) => void }) {
             onAdd(p)
             setName(''); setEndpoint('')
             toast.success(`已添加自定义翻译渠道: ${p.name}`)
-          } catch (e: any) {
-            toast.error(e?.message || '配置错误')
+          } catch (e: unknown) {
+            const err = e instanceof Error ? e : new Error(String(e))
+            toast.error(err.message || '配置错误')
           }
         }}
         className="btn-primary text-sm w-full disabled:opacity-50"
@@ -108,8 +110,9 @@ export function AddCustomTtsForm({ onAdd }: { onAdd: (p: any) => void }) {
             onAdd(p)
             setName(''); setEndpoint(''); setVoice('')
             toast.success(`已添加自定义 TTS 渠道: ${p.name}`)
-          } catch (e: any) {
-            toast.error(e?.message || '配置错误')
+          } catch (e: unknown) {
+            const err = e instanceof Error ? e : new Error(String(e))
+            toast.error(err.message || '配置错误')
           }
         }}
         className="btn-primary text-sm w-full disabled:opacity-50"
