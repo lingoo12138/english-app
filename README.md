@@ -1,4 +1,4 @@
-# 句刻 · 即时英语学习 v1.11.0
+# 句刻 · 即时英语学习 v1.12.0
 
 > 让你在"想用英语的瞬间就能用上"——把英语嵌进真实生活场景里。
 >
@@ -11,16 +11,16 @@
 [📦 v1.6.0 Release Notes](./docs/RELEASE_v1.6.0.md) ·
 [📦 v1.8.0 Release Notes](./docs/RELEASE_v1.8.0.md) ·
 [📦 v1.10.0 Release Notes](./docs/RELEASE_v1.10.0.md) ·
-[📦 v1.11.0 Release Notes](./docs/RELEASE_v1.11.0.md) ·
+[📦 v1.12.0 Release Notes](./docs/RELEASE_v1.12.0.md) ·
 [🔍 v1.6 Review Report](./docs/REVIEW_v1.6.md) ·
 [💬 AI 对话进阶需求](./docs/AI_CHAT_ROADMAP.md)
 
 ---
 
-## 🎯 当前进度 (v1.11.0)
+## 🎯 当前进度 (v1.12.0)
 
-✅ **12 个版本量产** (v1.1.0 ~ v1.11.0, 3 producer 并行 1d 干完 3-6d 计划 × 5 轮)
-✅ **230 单元测试 + 16 闭环集成测试** 全过 (104 → 230, +126)
+✅ **13 个版本量产** (v1.1.0 ~ v1.12.0, 3 producer 并行 1d 干完 3-6d 计划 × 6 轮)
+✅ **288 单元测试 + 16 闭环集成测试** 全过 (104 → 288, +184)
 ✅ **0 关闭率** (0 P0/P1/P2) — v1.6/v1.7/v1.8/v1.10/v1.11 连续 5 个版本维持
 ✅ **性能优化** (Bundle 538KB → 64KB 入口, -54%, FCP 220→204ms)
 ✅ **词根 80.4% / Top 2k 86.3%** (134→465 已知词根)
@@ -49,6 +49,7 @@
 | v1.9.0 | (含在 v1.8.0) 难度自适应 + 自由话题 | ✅ |
 | v1.10.0 | **🌐 中译英 Tab + 🔀 同义词辨析 + 🎤 例句跟读** | ✅ |
 | v1.11.0 | **📅 FSRS 算法 + 🎯 复习智能队列 + 📊 日报/周报** | ✅ |
+| v1.12.0 | **🛠️ 错误恢复 + 🎯 拍照场景 + 📊 LLM 日限** | ✅ |
 
 
 ## ✨ v1.0.0 核心特性
@@ -412,6 +413,15 @@ src/
 ✅ **0 P0 + 0 P1 + 0 P2** 维持
 
 详情见 [CHANGELOG v1.11.0](./docs/CHANGELOG.md#v1110---2026-07-25-w12-团队推荐)
+
+## 🛠️ v1.12.0 - 错误恢复 + 拍照场景 + LLM 日限 (2026-07-25) - W13+ 自主选
+
+- 🛠️ **错误恢复**: `llmFallback.ts` 6 类分类 + `withFallback` 自动降级 mock
+- 🎯 **拍照场景**: 7 场景 prompt 池 (general/office/food/animal/plant/furniture/tool)
+- 📊 **LLM 日限**: 3 类别上限 (write 20 / chat 50 / explain 30), Settings 用量卡片
+- 📈 230 → 288 单元测试 (+58)
+
+详情见 [CHANGELOG v1.12.0](./docs/CHANGELOG.md#v1120---2026-07-25-w13-自主选)
 
 ## 🚀 快速开始
 

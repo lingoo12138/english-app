@@ -1722,3 +1722,37 @@
 - 26 闭环验证 + 14 修复点
 - 23 → 24 组件 (新加 SortToggle) + 26 → 27 库 (新加 fsrs/reviewQueue/learningReport)
 - 4 commits + 1 tag (v1.11.0)
+
+---
+
+## [v1.12.0] - 2026-07-25
+
+### v1.12.0 W13+ 自主选 — 拍照场景 + 错误恢复 + LLM 日限
+
+#### v1.12.0-B: LLM 错误恢复 (`llmFallback.ts` + `chatCompletionWithFallback`)
+- 🛠️ 6 类错误分类: `network` / `rate_limit` / `auth` / `invalid` / `timeout` / `unknown`
+- 💬 友好中文提示 + 错误码映射
+- 🔄 `withFallback` 包装: primary 失败 → 自动降级 mock
+- 📦 `chatCompletionWithFallback` 接入 (`src/lib/providers/llm.ts`)
+- ✅ 31 单元测试 (含中文匹配 timeout 修复)
+
+#### v1.12.0-A: 拍照识物多场景 (`imageRecog.ts` + `Camera.tsx`)
+- 🎯 7 场景 prompt 池: `general` / `office` / `food` / `animal` / `plant` / `furniture` / `tool`
+- 🏷️ UI 场景选择按钮组 (emoji + label)
+- 🔧 `getScenePrompt` + `recognizeImageWithScene` 集成
+- ✅ 10 单元测试
+
+#### v1.12.0-C: LLM 成本控制 (`llmUsage.ts` + Settings 用量卡片)
+- 📊 3 类 LLM 日限: `write` (20) / `chat` (50) / `explain` (30)
+- 🔄 `recordLLMCall` 累加 + 跨日自动重置
+- 🚦 `checkLLMLimit` 超限返 `ok:false` + 友好提示
+- 💾 localStorage 持久化 (`llm-usage` key)
+- 🎨 Settings 加 "📊 LLM 用量" 卡片 (3 类别进度条 + 刷新/重置按钮)
+- ✅ 23 单元测试
+
+#### 验证 & 文档
+- 📊 230 → 288 单元测试 (+58: 31 fallback + 10 imageRecog + 23 llmUsage -6 重叠)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持
+- 🆕 27 → 29 库 (新加 llmFallback + llmUsage)
+- 📝 `docs/plans/v1.12.0-error-recovery-llm-limit.md` + `scripts/verify-v1.12.0.mjs` + `scripts/review-v1.12.0.py`
+- 3 commits + 1 tag (v1.12.0)
