@@ -1,5 +1,7 @@
 // 设置 - v0.22.2 拆为 6 个子组件
 // v1.8.0-A: 加 "🔄 重新看引导" 按钮 (清除 onboarded 标志)
+// v1.12.0-C: 加 "📊 LLM 用量" 卡片
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PreferencesSection from '../components/settings/PreferencesSection'
 import TTSSection from '../components/settings/TTSSection'
@@ -11,15 +13,31 @@ import MigrationSection from '../components/settings/MigrationSection'
 import AIChatDataSection from '../components/settings/AIChatDataSection'
 import ReminderSection from '../components/settings/ReminderSection'
 import { clearOnboarded } from '../components/Onboarding'
+import { getLLMUsageToday, resetLLMUsageToday, DAILY_LIMITS, type LLMCategory } from '../lib/llmUsage'
 
 export default function Settings() {
   const navigate = useNavigate()
+  // v1.12.0-C: LLM 用量 state (跨日重置)
+  const [usage, setUsage] = useState(() => getLLMUsageToday())
 
   // v1.8.0-A: 重看 onboarding 引导
   const handleReplayOnboarding = () => {
     clearOnboarded()
     navigate('/')
   }
+
+  // v1.12.0-C: 刷新用量 (跨日或重置)
+  const refreshUsage = () => setUsage(getLLMUsageToday())
+  const handleResetUsage = () => {
+    resetLLMUsageToday()
+    refreshUsage()
+  }
+
+  const CATEGORIES: Array<{ key: LLMCategory; label: string; emoji: string }> = [
+    { key: 'write', label: '写作批改/中译英', emoji: '✍️' },
+    { key: 'chat', label: 'AI 对话', emoji: '💬' },
+    { key: 'explain', label: '错题/短语/语法/同义词讲解', emoji: '📚' },
+  ]
 
   return (
     <div className="space-y-6">
@@ -53,6 +71,56 @@ export default function Settings() {
         </button>
         <p className="text-xs text-stone-500 dark:text-stone-400 mt-2">
           清除首次使用标记, 跳回首页重新弹 onboarding 弹层
+        </p>
+      </section>
+
+      {/* v1.12.0-C: LLM 用量 */}
+      <section className="card">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="font-semibold">📊 LLM 用量 (今日)</h3>
+          <div className="flex gap-2">
+            <button
+              onClick={refreshUsage}
+              className="btn-ghost text-xs"
+              aria-label="刷新用量"
+            >
+              🔄 刷新
+            </button>
+            <button
+              onClick={handleResetUsage}
+              className="text-xs text-red-500 hover:underline"
+              aria-label="重置今日用量"
+            >
+              重置
+            </button>
+          </div>
+        </div>
+        <div className="space-y-3">
+          {CATEGORIES.map(({ key, label, emoji }) => {
+            const used = usage[key] || 0
+            const limit = DAILY_LIMITS[key]
+            const pct = Math.min(100, Math.round((used / limit) * 100))
+            const overLimit = used >= limit
+            return (
+              <div key={key}>
+                <div className="flex items-center justify-between text-xs mb-1">
+                  <span>{emoji} {label}</span>
+                  <span className={overLimit ? 'text-red-500 font-medium' : 'text-stone-500'}>
+                    {used} / {limit} {overLimit && '⚠️'}
+                  </span>
+                </div>
+                <div className="h-1.5 bg-stone-200 dark:bg-stone-700 rounded overflow-hidden">
+                  <div
+                    className={`h-full ${overLimit ? 'bg-red-500' : pct > 80 ? 'bg-amber-500' : 'bg-emerald-500'}`}
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        <p className="text-xs text-stone-500 dark:text-stone-400 mt-3">
+          💡 限制每日 LLM 调用次数, 跨日自动重置。超限需明天或换 Mock 渠道
         </p>
       </section>
 
