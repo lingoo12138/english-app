@@ -2001,3 +2001,28 @@
 - 🆕 35 → 36 库 (新加 wordTags)
 - 📝 `docs/plans/v1.21.0-word-tags.md` + `scripts/verify-v1.21.0.mjs` + `scripts/review-v1.21.0.py`
 - 3 commits + 1 tag (v1.21.0)
+
+---
+
+## [v1.22.0] - 2026-07-25
+
+### v1.22.0 W23 — 复习按 tag 过滤 (复用 v1.11 + v1.21)
+
+#### v1.22.0-A: 核心 (`taggedReviews.ts` 70 行)
+- 🔍 `getReviewsByTag(tag, onlyDue)`: 按 tag 返 reviews
+- 🔢 `getReviewCountByTag`: 计数
+- 📊 `getAllTagsWithReviewCount(onlyDue)`: tag + due 数 + 总数 (按 due 降序)
+- ⭐ `getReviewsByTagWithScore`: 复用 v1.11 sortReviewQueue 智能排序
+- ✅ `isWordInTag`: 检查 wordId 是否在某 tag
+
+#### v1.22.0-B: UI (ReviewCenter)
+- 🏷️ 顶部 tag 过滤栏 (复用 v1.21 getTagColor 配色)
+- 📊 显示 `tag (due/total)` 计数
+- 🎯 切 tag 重新加载队列 (复用 loadQueue useCallback)
+
+#### 验证 & 文档
+- 📊 496 → 510 单元测试 (+14)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持 (25/25 review)
+- 🆕 36 → 37 库 (新加 taggedReviews)
+- 📝 `docs/plans/v1.22.0-review-by-tag.md` + `scripts/verify-v1.22.0.mjs` + `scripts/review-v1.22.0.py`
+- 3 commits + 1 tag (v1.22.0)
