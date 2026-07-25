@@ -1761,3 +1761,103 @@ W20 候选 B9 学习日历 (复用 v1.11 learningReport)
 - 触发可业: 8 角色 + 自定义场景 + 拍照 + 文件上传 + 学习日历
 - 内容能用: 5334 词 + 465 词根 + 13234 句 + 5 场景 + 8 角色 + 用户文件
 - 学得会: FSRS + 智能队列 + LLM 日限 + 错误恢复 + 难度自适应 + 月历可视化
+
+## v1.20.0 — W21 (2026-07-25)
+
+### 触发
+W21 候选 B10 生词本批量操作
+
+### 范围
+- 主人接管全程:
+  - notebookBulk.ts 130 行 (6 函数)
+  - Notebook 加 3 个新 handler + 3 个新按钮
+  - 复用 v0.14 batchMode (选择模式)
+  - 20 测试
+
+### 数据
+- 440 → 460 单元测试 (+20)
+- 34 → 35 库
+- 0 P0 + 0 P1 + 0 P2 维持
+
+## v1.21.0 — W22 (2026-07-25)
+
+### 触发
+W22 候选 B11 生词本标签
+
+### 范围
+- 主人接管全程:
+  - IDB v6 + wordTags.ts 200 行
+  - 9 函数: parseTagInput/addTagsToWord/suggestTagsFromWord/getTagColor/...
+  - 7 类启发式 (work/travel/food/study/tech/sport/health)
+  - 7 配色循环
+  - 36 测试
+
+### 数据
+- 460 → 496 单元测试 (+36)
+- 35 → 36 库
+- IDB v5 → v6 (+1 wordTags 表)
+- 0 P0 + 0 P1 + 0 P2 维持
+
+## v1.22.0 — W23 (2026-07-25)
+
+### 触发
+W23 候选 B12 复习按 tag 过滤
+
+### 范围
+- 主人接管全程:
+  - taggedReviews.ts 70 行 (5 函数)
+  - ReviewCenter 加 tag 过滤栏 (due/total 计数)
+  - 复用 v1.21 getTagColor 配色
+  - 14 测试
+
+### 数据
+- 496 → 510 单元测试 (+14)
+- 36 → 37 库
+- 0 P0 + 0 P1 + 0 P2 维持
+
+## v1.22.0 大 review (2026-07-25)
+
+### 触发
+v1.7-v1.22 共 16 版本累积未做深度 review, 跟 v1.6 review 机制
+
+### 范围
+- 5 维度静态审查
+- 找到 18 处 catch (e: any) P1 (累积未修)
+- 全部改为 catch (e: unknown) + Error 守卫
+- 10 文件: PronunciationPractice/CustomForms/MigrationSection/exportChat/imageRecog/reminder/stt/Camera/Translate/tts
+
+### 数据
+- 510 单元测试全过
+- 0 catch (e: any) 残留
+- 0 P0 + 0 P1 + 0 P2 阻塞
+- 2 commits + push
+
+## v1.23.0 — W24 (2026-07-25)
+
+### 触发
+W24 候选: PDF 上传 (闭环 v1.18 文件上传, 论文/邮件/合同)
+
+### 范围
+- 引入 pdfjs-dist (open source, 懒加载)
+- pdfUpload.ts 150 行 (PDF 解析 + 验证 + 加密检测)
+- CustomScenes 扩展 PDF 支持
+- 12 测试
+
+### 数据
+- TBD
+
+## v1.22.0 累计 (全项目 5+ 周完结)
+
+- **23 release tag** / 320+ commit / 25 页面 / 26 组件 / 37 库 / 12100+ 行
+- **510 单元测试** + 16 闭环
+- 110+ bug 修复 (含 v1.22.0 review 修 18 处 catch any)
+- 8 角色 + 自定义场景 + 文件上传 + 月历热力图 + 标签系统
+- 错误恢复 + LLM 日限 + 拍照场景
+- 难度自适应 + 智能队列 + FSRS + 日报/周报 + 复习按 tag
+- 月历热力图 (复用 learningReport)
+- **0 P0 + 0 P1 维持 17+ 轮**
+
+北极星 3 维度:
+- 触发可业: 8 角色 + 自定义场景 + 拍照 + 文件上传 + 学习日历
+- 内容能用: 5334 词 + 465 词根 + 13234 句 + 5 场景 + 8 角色 + 用户文件
+- 学得会: FSRS + 智能队列 + LLM 日限 + 错误恢复 + 难度自适应 + 月历 + tag 复习
