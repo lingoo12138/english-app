@@ -1,8 +1,9 @@
 // 拍照识物页 - v0.11 多 LLM 渠道版本
+// v1.12.0-A: 加多场景 prompt (general/office/food/animal/plant/furniture/tool)
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TTSButton from '../components/TTSButton'
-import { recognizeImage, type RecognizedItem } from '../lib/imageRecog'
+import { recognizeImage, recognizeImageWithScene, type RecognizedItem, type ImageScene, SCENE_OPTIONS } from '../lib/imageRecog'
 import { addFavorite, isFavorite, removeFavorite } from '../lib/db'
 import { useStore } from '../store/useStore'
 
@@ -21,6 +22,8 @@ export default function Camera() {
   const [results, setResults] = useState<RecognizedItem[]>([])
   const [hint, setHint] = useState('')
   const [favSet, setFavSet] = useState<Set<string>>(new Set())
+  // v1.12.0-A 场景选择
+  const [scene, setScene] = useState<ImageScene>('general')
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const provider = llmProviders.find(p => p.id === llmProviderId)
@@ -59,7 +62,7 @@ export default function Camera() {
       setPreview(url)
       const dataUrl = await fileToDataURL(file)
       // 识别
-      const result = await recognizeImage(dataUrl, provider, apiKey, model, hint)
+      const result = await recognizeImageWithScene(dataUrl, provider, apiKey, model, scene, hint)
       setResults(result.items)
       setStatus('result')
       // 查收藏状态
@@ -133,6 +136,30 @@ export default function Camera() {
           </div>
         </div>
       )}
+
+      {/* v1.12.0-A 场景选择 */}
+      <div>
+        <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">🎯 识别场景</label>
+        <div className="flex gap-1.5 overflow-x-auto pb-1">
+          {SCENE_OPTIONS.map(opt => (
+            <button
+              key={opt.value}
+              onClick={() => setScene(opt.value)}
+              disabled={status === 'loading'}
+              className={`px-3 py-1.5 rounded-full text-xs whitespace-nowrap transition-colors shrink-0 ${
+                scene === opt.value
+                  ? 'bg-brand-600 text-white'
+                  : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300'
+              } disabled:opacity-50`}
+            >
+              {opt.emoji} {opt.label}
+            </button>
+          ))}
+        </div>
+        <p className="text-xs text-stone-400 dark:text-stone-500 mt-1">
+          💡 选场景后 AI 会重点识别该类别的单词
+        </p>
+      </div>
 
       {/* 提示输入 */}
       <div>

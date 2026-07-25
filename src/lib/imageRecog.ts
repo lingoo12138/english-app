@@ -1,10 +1,41 @@
 // 图片识别业务逻辑
 // v0.14: JSON 解析鲁棒性 + 物体 1-5 + 置信度过滤 + 场景分类 + 批量识别
+// v1.12.0-A: 加多场景 prompt 池 (general/office/food/animal/plant/furniture/tool)
 import { chatCompletionVision, LLMProvider, type LLMResponse } from './providers/llm'
 import { loadWords } from './words'
 import type { Word } from '../types'
 
 export type ImageCategory = 'food' | 'animal' | 'tool' | 'furniture' | 'nature' | 'place' | 'people' | 'clothing' | 'transport' | 'other'
+
+/** v1.12.0-A 场景类型 */
+export type ImageScene = 'general' | 'office' | 'food' | 'animal' | 'plant' | 'furniture' | 'tool'
+
+/** v1.12.0-A 场景 prompt 池 */
+export const SCENE_PROMPTS: Record<ImageScene, string> = {
+  general: '通用场景, 识别图片中任何可命名的英语单词 (物体/动物/食物/工具等).',
+  office: '办公场景, 重点识别办公用品 (pen / paper / computer / folder / stapler / printer / desk / chair / monitor / keyboard / mouse / whiteboard / marker 等).',
+  food: '食物场景, 重点识别食物 (apple / banana / bread / rice / pizza / coffee / tea / milk / water / egg / meat / vegetable / fruit / cake / chocolate 等).',
+  animal: '动物场景, 重点识别动物 (cat / dog / bird / fish / horse / cow / pig / chicken / duck / rabbit / hamster / turtle 等).',
+  plant: '植物场景, 重点识别植物 (flower / tree / grass / leaf / rose / tulip / sunflower / cactus / fern / bamboo / pine / oak / maple 等).',
+  furniture: '家具场景, 重点识别家具 (table / chair / bed / sofa / desk / shelf / cabinet / wardrobe / lamp / mirror / clock / rug / curtain 等).',
+  tool: '工具场景, 重点识别工具 (hammer / screwdriver / wrench / pliers / saw / drill / tape / ruler / scissors / knife / paintbrush / ladder / nails 等).',
+}
+
+/** v1.12.0-A 场景选项 (用于 UI) */
+export const SCENE_OPTIONS: Array<{ value: ImageScene; label: string; emoji: string }> = [
+  { value: 'general', label: '通用', emoji: '🌐' },
+  { value: 'office', label: '办公', emoji: '💼' },
+  { value: 'food', label: '食物', emoji: '🍎' },
+  { value: 'animal', label: '动物', emoji: '🐱' },
+  { value: 'plant', label: '植物', emoji: '🌷' },
+  { value: 'furniture', label: '家具', emoji: '🛋' },
+  { value: 'tool', label: '工具', emoji: '🔧' },
+]
+
+/** v1.12.0-A 获取场景 prompt */
+export function getScenePrompt(scene: ImageScene = 'general'): string {
+  return SCENE_PROMPTS[scene] || SCENE_PROMPTS.general
+}
 
 export interface RecognizedItem {
   word: string
@@ -154,6 +185,20 @@ export interface BatchRecognizeResult {
   ok: boolean
   result?: RecognizeResult
   error?: string
+}
+
+/** v1.12.0-A 带场景的图片识别 (场景 prompt 拼接) */
+export async function recognizeImageWithScene(
+  imageDataUrl: string,
+  provider: LLMProvider,
+  apiKey: string,
+  model: string,
+  scene: ImageScene = 'general',
+  hint: string = '',
+): Promise<RecognizeResult> {
+  const sceneHint = getScenePrompt(scene)
+  const fullHint = sceneHint + (hint ? ` 额外提示: ${hint}` : '')
+  return recognizeImage(imageDataUrl, provider, apiKey, model, fullHint)
 }
 
 /** 批量识别(多张图) - 串行处理, 返回每张结果 + 错误 */
