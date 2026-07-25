@@ -29,6 +29,7 @@ const ReportsPage = lazy(() => import('./pages/ReportsPage'))
 const CustomScenes = lazy(() => import('./pages/CustomScenes'))
 const CustomSceneDetail = lazy(() => import('./pages/CustomSceneDetail'))
 const CustomSceneLearn = lazy(() => import('./pages/CustomSceneLearn'))
+const CalendarPage = lazy(() => import('./pages/CalendarPage'))
 import { useStore, useStats } from './store/useStore'
 import { getTodayCount, getTotalLearned, getAllFavorites } from './lib/db'
 import { getTheme, applyTheme, applyFontSize } from './lib/themes'
@@ -137,6 +138,7 @@ function App() {
         <Route path="achievements" element={<Achievements />} />
         <Route path="report" element={<LearnReport />} />
         <Route path="reports" element={<ReportsPage />} />
+        <Route path="calendar" element={<CalendarPage />} />
         <Route path="pronounce-custom" element={<PronounceCustom />} />
         <Route path="custom-scenes" element={<CustomScenes />} />
         <Route path="custom-scenes/:id" element={<CustomSceneDetail />} />

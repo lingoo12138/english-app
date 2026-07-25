@@ -156,6 +156,19 @@ export default function Home() {
         <div className="text-stone-400">→</div>
       </Link>
 
+      {/* v1.19.0: 学习日历入口 */}
+      <Link
+        to="/calendar"
+        className="card bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border border-amber-200 dark:border-amber-800 flex items-center gap-3 hover:shadow-md transition"
+      >
+        <div className="text-3xl">📅</div>
+        <div className="flex-1">
+          <div className="font-semibold text-sm">学习日历</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400">月度学习可视化 · 热力图</div>
+        </div>
+        <div className="text-stone-400">→</div>
+      </Link>
+
       {/* 学习数据卡片 */}
       <div className="grid grid-cols-3 gap-3">
         <div className="card text-center">
