@@ -8,6 +8,7 @@ import { exportToCSV, exportToJSON, exportFullBackup, downloadFile } from '../li
 import { formatDate } from '../lib/utils'
 import { Modal } from '../components/Modal'
 import { addFavoritesToReview, downloadFavoritesCSV, selectAll as selectAllIds, invertSelection } from '../lib/notebookBulk'
+import { addTagsToWord, getAllTagsWithCount, buildWordTagMap, getTagColor, getWordIdsByTag, removeTagFromWord } from '../lib/wordTags'
 import { toast } from '../components/Toast'
 
 export default function Notebook() {
@@ -20,6 +21,11 @@ export default function Notebook() {
   const [selected, setSelected] = useState<Set<string>>(new Set())  // 选中的 wordId
   const [pendingRemoveId, setPendingRemoveId] = useState<string | null>(null)
   const [showBatchConfirm, setShowBatchConfirm] = useState(false)
+  // v1.21.0: tag 状态
+  const [allTags, setAllTags] = useState<Array<{ tag: string; count: number }>>([])
+  const [wordTagMap, setWordTagMap] = useState<Map<string, Set<string>>>(new Map())
+  const [filterTag, setFilterTag] = useState<string | null>(null)
+  const [tagInput, setTagInput] = useState<Record<string, string>>({})  // wordId -> input
 
   const loadFavorites = async () => {
     setLoading(true)
@@ -41,6 +47,13 @@ export default function Notebook() {
 
     const due = await getDueReviews()
     setDueCount(due.length)
+    // v1.21.0: 加载 tag 数据
+    const [tags, wtagMap] = await Promise.all([
+      getAllTagsWithCount(),
+      buildWordTagMap(),
+    ])
+    setAllTags(tags)
+    setWordTagMap(wtagMap)
     setLoading(false)
   }
 
@@ -118,6 +131,27 @@ export default function Notebook() {
     setSelected(invertSelection(selected, words.map(w => ({ wordId: w.id, addedAt: 0 }))))
   }
 
+  // v1.21.0: 加 tag
+  const handleAddTag = async (wordId: string) => {
+    const input = tagInput[wordId]?.trim()
+    if (!input) return
+    const { addTagsToWord: addFn } = await import('../lib/wordTags')
+    const result = await addFn(wordId, [input.toLowerCase()])
+    if (result.added > 0) {
+      toast.success(`✓ 已加 tag: ${input.toLowerCase()}`)
+    } else if (result.skipped > 0) {
+      toast.success('已存在')
+    }
+    setTagInput(prev => ({ ...prev, [wordId]: '' }))
+    loadFavorites()
+  }
+
+  // v1.21.0: 去 tag
+  const handleRemoveTag = async (wordId: string, tag: string) => {
+    await removeTagFromWord(wordId, tag)
+    loadFavorites()
+  }
+
   const toggleSelect = (id: string) => {
     setSelected(prev => {
       const next = new Set(prev)
@@ -151,6 +185,27 @@ export default function Notebook() {
         <div>
           <h1 className="text-2xl font-bold mb-1">生词本</h1>
           <p className="text-stone-500 dark:text-stone-400 text-sm">共 {words.length} 个词 {dueCount > 0 && `· ${dueCount} 个待复习`}</p>
+          {/* v1.21.0: tag 过滤 */}
+          {allTags.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1 items-center">
+              <span className="text-xs text-stone-500">按 tag 过滤:</span>
+              <button
+                onClick={() => setFilterTag(null)}
+                className={`text-xs px-2 py-0.5 rounded ${filterTag === null ? 'bg-brand-500 text-white' : 'bg-stone-100 dark:bg-stone-700'}`}
+              >
+                全部 ({words.length})
+              </button>
+              {allTags.map(({ tag, count }) => (
+                <button
+                  key={tag}
+                  onClick={() => setFilterTag(filterTag === tag ? null : tag)}
+                  className={`text-xs px-2 py-0.5 rounded ${filterTag === tag ? 'bg-brand-500 text-white' : getTagColor(tag)}`}
+                >
+                  {tag} ({count})
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         {words.length > 0 && (
           <>
@@ -317,24 +372,30 @@ export default function Notebook() {
         </div>
       ) : (
         <div className="space-y-2">
-          {(groupBy === 'letter'
-            ? (() => {
-                const grouped: Record<string, Word[]> = {}
-                words.forEach(w => {
-                  const l = w.word[0]?.toUpperCase() || '#'
-                  if (!grouped[l]) grouped[l] = []
-                  grouped[l].push(w)
-                })
-                return Object.keys(grouped).sort().flatMap(letter => [
-                  <div key={'g-' + letter} className="text-xs font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider pt-2 sticky top-14 md:top-0 bg-stone-50/95 dark:bg-stone-900/95 z-10 px-1">{letter}</div>,
-                  ...grouped[letter].map(w => (
-                    <NotebookWord key={w.id} w={w} onRemove={handleRemove} batchMode={batchMode} selected={selected.has(w.id)} onToggleSelect={toggleSelect} />
-                  ))
-                ])
-              })()
-            : words.map(w => (
-                <NotebookWord key={w.id} w={w} onRemove={handleRemove} batchMode={batchMode} selected={selected.has(w.id)} onToggleSelect={toggleSelect} />
-              )))}
+          {/* v1.21.0: 按 tag 过滤 */}
+          {(() => {
+            const filteredWords = filterTag
+              ? words.filter(w => wordTagMap.get(w.id)?.has(filterTag))
+              : words
+            return groupBy === 'letter'
+              ? (() => {
+                  const grouped: Record<string, Word[]> = {}
+                  filteredWords.forEach(w => {
+                    const l = w.word[0]?.toUpperCase() || '#'
+                    if (!grouped[l]) grouped[l] = []
+                    grouped[l].push(w)
+                  })
+                  return Object.keys(grouped).sort().flatMap(letter => [
+                    <div key={'g-' + letter} className="text-xs font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider pt-2 sticky top-14 md:top-0 bg-stone-50/95 dark:bg-stone-900/95 z-10 px-1">{letter}</div>,
+                    ...grouped[letter].map(w => (
+                      <NotebookWord key={w.id} w={w} onRemove={handleRemove} batchMode={batchMode} selected={selected.has(w.id)} onToggleSelect={toggleSelect} wordTags={wordTagMap.get(w.id)} onAddTag={handleAddTag} onRemoveTag={handleRemoveTag} tagInput={tagInput[w.id] || ''} onTagInputChange={(v) => setTagInput(prev => ({ ...prev, [w.id]: v }))} />
+                    ))
+                  ])
+                })()
+              : filteredWords.map(w => (
+                  <NotebookWord key={w.id} w={w} onRemove={handleRemove} batchMode={batchMode} selected={selected.has(w.id)} onToggleSelect={toggleSelect} wordTags={wordTagMap.get(w.id)} onAddTag={handleAddTag} onRemoveTag={handleRemoveTag} tagInput={tagInput[w.id] || ''} onTagInputChange={(v) => setTagInput(prev => ({ ...prev, [w.id]: v }))} />
+                ))
+          })()}
         </div>
       )}
     </div>
@@ -342,12 +403,17 @@ export default function Notebook() {
 }
 
 
-function NotebookWord({ w, onRemove, batchMode, selected, onToggleSelect }: {
+function NotebookWord({ w, onRemove, batchMode, selected, onToggleSelect, wordTags, onAddTag, onRemoveTag, tagInput, onTagInputChange }: {
   w: Word
   onRemove: (id: string) => void
   batchMode?: boolean
   selected?: boolean
   onToggleSelect?: (id: string) => void
+  wordTags?: Set<string>
+  onAddTag?: (id: string) => void
+  onRemoveTag?: (id: string, tag: string) => void
+  tagInput?: string
+  onTagInputChange?: (v: string) => void
 }) {
   const isSelected = !!selected
   return (
@@ -371,6 +437,37 @@ function NotebookWord({ w, onRemove, batchMode, selected, onToggleSelect }: {
         <p className="text-sm text-stone-600 dark:text-stone-400 mt-0.5 truncate">
           {w.translations.slice(0, 2).join(' · ')}
         </p>
+        {/* v1.21.0: tag 徽章 + 输入 */}
+        {!batchMode && (
+          <div className="mt-1 flex flex-wrap items-center gap-1" onClick={(e) => e.stopPropagation()}>
+            {wordTags && Array.from(wordTags).map(tag => (
+              <span
+                key={tag}
+                className={`text-xs px-1.5 py-0.5 rounded ${getTagColor(tag)} flex items-center gap-1`}
+              >
+                {tag}
+                {onRemoveTag && (
+                  <button
+                    onClick={() => onRemoveTag(w.id, tag)}
+                    className="hover:text-red-500"
+                    aria-label={`移除 tag ${tag}`}
+                  >×</button>
+                )}
+              </span>
+            ))}
+            {onAddTag && onTagInputChange && (
+              <input
+                type="text"
+                value={tagInput || ''}
+                onChange={e => onTagInputChange(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') onAddTag(w.id) }}
+                placeholder="+tag"
+                className="text-xs px-1.5 py-0.5 rounded border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 w-16"
+                aria-label={`为 ${w.word} 加 tag`}
+              />
+            )}
+          </div>
+        )}
       </Link>
       {!batchMode && <TTSButton text={w.word} size="sm" />}
       {!batchMode && (
