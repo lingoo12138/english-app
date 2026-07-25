@@ -1,10 +1,13 @@
 // 复习中心 - 批量复习待复习的词
 // v1.11.0-B: 加智能排序 (按 due/难/新 算分数) + SortToggle 切换
+// v1.22.0: 加 tag 过滤 (复用 v1.21 wordTags)
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getDueReviews, reviewWord, logAction } from '../lib/db'
 import { getWord } from '../lib/words'
 import { sortReviewQueue, toReviewQueueItem } from '../lib/reviewQueue'
+import { getAllTagsWithReviewCount, getReviewsByTagWithScore } from '../lib/taggedReviews'
+import { getTagColor } from '../lib/wordTags'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
 import SortToggle from '../components/ReviewCenter/SortToggle'
@@ -20,15 +23,24 @@ export default function ReviewCenter() {
   const [loading, setLoading] = useState(true)
   // v1.11.0-B: 智能排序开关 (默认开, 升级用户的复习体验)
   const [smartSort, setSmartSort] = useState(true)
+  // v1.22.0: tag 过滤
+  const [filterTag, setFilterTag] = useState<string | null>(null)
+  const [tagStats, setTagStats] = useState<Array<{ tag: string; count: number; totalCount: number }>>([])
   const startTimeRef = useRef<number>(0)
 
   // v1.11.0-B: 用 useCallback 让 smartSort 变化也能重新加载队列
+  // v1.22.0: 支持 tag 过滤
   const loadQueue = useCallback(async () => {
     setLoading(true)
-    const due = await getDueReviews()
-    // 转成 ReviewQueueItem, 按 smartSort 排序后再映射成 Word
-    const queueItems = due.map(toReviewQueueItem)
-    const sorted = sortReviewQueue(queueItems, Date.now(), { smartSort })
+    let sorted: ReturnType<typeof toReviewQueueItem>[] = []
+    if (filterTag) {
+      // v1.22.0: 按 tag 加载
+      sorted = await getReviewsByTagWithScore(filterTag, true, smartSort)
+    } else {
+      const due = await getDueReviews()
+      const queueItems = due.map(toReviewQueueItem)
+      sorted = sortReviewQueue(queueItems, Date.now(), { smartSort })
+    }
     const wordList: Word[] = []
     for (const item of sorted) {
       const w = await getWord(item.id)
@@ -40,7 +52,16 @@ export default function ReviewCenter() {
     setCorrectCount(0)
     setWrongCount(0)
     setLoading(false)
-  }, [smartSort])
+  }, [smartSort, filterTag])
+
+  // v1.22.0: 加载 tag 统计
+  const loadTagStats = useCallback(async () => {
+    const stats = await getAllTagsWithReviewCount(true)
+    setTagStats(stats)
+  }, [])
+  useEffect(() => {
+    loadTagStats()
+  }, [loadTagStats])
 
   useEffect(() => {
     loadQueue()
@@ -182,6 +203,30 @@ export default function ReviewCenter() {
             style={{ width: `${progress}%` }}
           />
         </div>
+        {/* v1.22.0: tag 过滤 + 智能排序 */}
+        {tagStats.length > 0 && (
+          <div className="mt-2 flex flex-wrap items-center gap-1">
+            <span className="text-xs text-stone-500">tag:</span>
+            <button
+              onClick={() => setFilterTag(null)}
+              className={`text-xs px-2 py-0.5 rounded ${filterTag === null ? 'bg-brand-500 text-white' : 'bg-stone-100 dark:bg-stone-700'}`}
+              aria-label="全部复习"
+            >
+              全部
+            </button>
+            {tagStats.map(({ tag, count, totalCount }) => (
+              <button
+                key={tag}
+                onClick={() => setFilterTag(filterTag === tag ? null : tag)}
+                className={`text-xs px-2 py-0.5 rounded ${filterTag === tag ? 'bg-brand-500 text-white' : getTagColor(tag)}`}
+                aria-label={`按 ${tag} 复习 (${count}/${totalCount})`}
+                title={`按 ${tag} 复习 - 待复习 ${count} / 总 ${totalCount}`}
+              >
+                {tag} {count > 0 ? `(${count}/${totalCount})` : `(${totalCount})`}
+              </button>
+            ))}
+          </div>
+        )}
         {/* v1.11.0-B: 智能排序切换 */}
         <div className="flex justify-end mt-2">
           <SortToggle smartSort={smartSort} onChange={setSmartSort} />
