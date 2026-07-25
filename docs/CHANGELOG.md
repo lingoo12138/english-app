@@ -1944,3 +1944,31 @@
 - 🆕 33 → 34 库 (新加 learningCalendar) + 24 → 25 页面 (新加 CalendarPage)
 - 📝 `docs/plans/v1.19.0-learning-calendar.md` + `scripts/verify-v1.19.0.mjs` + `scripts/review-v1.19.0.py`
 - 3 commits + 1 tag (v1.19.0)
+
+---
+
+## [v1.20.0] - 2026-07-25
+
+### v1.20.0 W21 — 生词本批量操作
+
+#### v1.20.0-A: 核心库 (`notebookBulk.ts` 130 行)
+- 📚 `addFavoritesToReview(favs)`: 批量入 v1.11 复习 (复用 SM-2 初始值)
+- 🗑 `removeFavorites(favs)`: 批量删收藏 (Dexie 静默成功)
+- 📤 `exportFavoritesAsCSV(favs, lookup)`: 导出 CSV (word,translation,difficulty,addedAt)
+- 💾 `downloadFavoritesCSV(favs, lookup)`: 触发浏览器下载
+- ☑ `selectAll(allFavs)`: 全选辅助 → Set
+- ⇄ `invertSelection(current, all)`: 反选辅助
+
+#### v1.20.0-B: UI 集成 (`Notebook.tsx`)
+- ☑ 选择模式 (复用 v0.14 batchMode)
+- ☑ 全选 / ⇄ 反选 按钮
+- 📚 批量入复习 (sm-2 init, 幂等)
+- 📤 批量导出 CSV
+- 🗑 批量删除 (原有)
+
+#### 验证 & 文档
+- 📊 440 → 460 单元测试 (+20)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持 (28/28 review)
+- 🆕 34 → 35 库 (新加 notebookBulk)
+- 📝 `docs/plans/v1.20.0-notebook-bulk.md` + `scripts/verify-v1.20.0.mjs` + `scripts/review-v1.20.0.py`
+- 3 commits + 1 tag (v1.20.0)
