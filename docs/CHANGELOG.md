@@ -1779,3 +1779,31 @@
 - 🆕 29 → 30 库 (新加 chatRoles) + 25 → 26 组件 (新加 RoleSelector)
 - 📝 `docs/plans/v1.13.0-multi-role-chat.md` + `scripts/verify-v1.13.0.mjs` + `scripts/review-v1.13.0.py`
 - 3 commits + 1 tag (v1.13.0)
+
+---
+
+## [v1.14.0] - 2026-07-25
+
+### v1.14.0 B4 自定义场景课 — 粘贴文本 → AI 提取生词
+
+#### v1.14.0-A: 核心系统 (`customScenes.ts` + db 表 + 路由)
+- 📄 用户粘贴任意英文文本 (10000 字符内)
+- ✨ AI 自动提取 5-30 个生词 (CEFR B1+) + 释义 + 例句 + 难度
+- 🛠️ mock fallback: 词频统计 + 停用词过滤 + 假释义
+- 🔒 严格 JSON 解析 + 字段验证 (word/difficulty 降级)
+- 💾 IDB v5 加 `customScenes` 表 (`++id, updatedAt, createdAt, title`)
+- 🔗 5 函数: extractWordsFromText / parseExtractResult / mockExtractWords / truncateText / autoExtractTitle
+- 🛡️ LLM 日限: explain 30 上限 + 超限友好提示
+
+#### v1.14.0-B: UI 页面 (`CustomScenes` + `CustomSceneDetail` + Home 入口)
+- 📝 `CustomScenes.tsx`: 文本输入 + 提取 + 词列表 (可删除) + 标题 + 保存
+- 📚 `CustomSceneDetail.tsx`: 词列表 + 收藏/不收藏 + 原文展示
+- 🏠 `Home.tsx`: 紫色 "📝 自定义场景" 卡片
+- 🛣️ 路由 `/custom-scenes` + `/custom-scenes/:id`
+
+#### 验证 & 文档
+- 📊 324 → 356 单元测试 (+32)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持 (38/38 review)
+- 🆕 30 → 31 库 (新加 customScenes) + 21 → 23 页面 (新加 CustomScenes + CustomSceneDetail)
+- 📝 `docs/plans/v1.14.0-custom-scene.md` + `scripts/verify-v1.14.0.mjs` + `scripts/review-v1.14.0.py`
+- 3 commits + 1 tag (v1.14.0)
