@@ -1,4 +1,5 @@
 // AI 对话陪练页 - v0.11 → v1.1-W1: confirm → Modal
+// v1.13.0: B3 多角色对话 (5 角色 + "普通对话")
 import { useState, useRef, useEffect } from 'react'
 import { useStore } from '../store/useStore'
 import { chat as aiChat, reviewMessage, type ChatMessage, type ReviewResult, type CEFRLevel, assessUserLevel } from '../lib/aiChat'
@@ -12,6 +13,8 @@ import { addErrorWordsToFavorites } from '../lib/errorReview'
 import { toast } from '../components/Toast'
 import { loadWords } from '../lib/words'
 import { translate as translateText, BUILTIN_TRANSLATE_PROVIDERS } from '../lib/translate'
+import { getRoleById, getGreetingForRole, getFallbackReply, NONE_ROLE, type ChatRole } from '../lib/chatRoles'
+import RoleSelector from '../components/RoleSelector'
 
 const SCENARIOS = [
   { id: 'cafe', name: '☕ 咖啡店', desc: '点单 / 咨询 / 结账' },
@@ -172,6 +175,8 @@ export default function AIChat() {
   const [dynamicLevel, setDynamicLevel] = useState<CEFRLevel | null>(null)
   const [customTopic, setCustomTopic] = useState<string>('')
   const [showTopicModal, setShowTopicModal] = useState(false)
+  // v1.13.0: 多角色对话 (默认 'none' = 普通)
+  const [currentRoleId, setCurrentRoleId] = useState<string>('none')
   // v1.6 bugfix: STT 累积 input 加 MAX_LEN 限制, 避免 LLM token 超限
   const MAX_INPUT = 500
   const sttControllerRef = useRef<STTController | null>(null)
@@ -325,6 +330,7 @@ export default function AIChat() {
           level,
           dynamicLevel: effectiveDynamicLevel,
           customTopic: customTopic || undefined,
+          role: currentRoleId,  // v1.13.0: 多角色
         },
         provider,
         apiKey,
@@ -349,6 +355,30 @@ export default function AIChat() {
   const handleReset = () => {
     if (messages.length > 0) setShowResetConfirm(true)
     else { setMessages([]); setError('') }
+  }
+
+  // v1.13.0: 切换角色 (清空历史 + 角色问候语 + 角色入 messages)
+  const handleRoleChange = (roleId: string) => {
+    setCurrentRoleId(roleId)
+    setMessages([])  // 清空历史, 避免角色混乱
+    setError('')
+    const role = getRoleById(roleId)
+    if (role.id === 'none') {
+      // 切回普通对话, 不加 greeting
+      return
+    }
+    const greeting = getGreetingForRole(role)
+    if (greeting) {
+      // 角色问候语以 assistant 身份插入, 用户直接看到
+      const greetingMsg: ChatMessage = {
+        id: `greeting-${Date.now()}`,
+        role: 'assistant',
+        content: greeting,
+        ts: Date.now(),
+      }
+      setMessages([greetingMsg])
+      toast.success(`已切换到 ${role.emoji} ${role.name}`)
+    }
   }
 
   // 实际定义 handleDeleteChat / doDeleteChat
@@ -443,6 +473,20 @@ export default function AIChat() {
 
       {/* 场景 / 难度选择 */}
       <div className="space-y-2 mb-3">
+        {/* v1.13.0: B3 多角色对话 (5 角色 + "普通") */}
+        <RoleSelector
+          selectedRoleId={currentRoleId}
+          onChange={handleRoleChange}
+        />
+        {currentRoleId !== 'none' && (() => {
+          const role = getRoleById(currentRoleId)
+          return (
+            <div className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+              <span aria-hidden="true">{role.emoji}</span>
+              <span>当前角色: <strong>{role.name}</strong> - {role.scenario}模式</span>
+            </div>
+          )
+        })()}
         <div className="flex gap-2 overflow-x-auto pb-1">
           {SCENARIOS.map(s => (
             <button
