@@ -7,6 +7,8 @@ import TTSButton from '../components/TTSButton'
 import { exportToCSV, exportToJSON, exportFullBackup, downloadFile } from '../lib/export'
 import { formatDate } from '../lib/utils'
 import { Modal } from '../components/Modal'
+import { addFavoritesToReview, downloadFavoritesCSV, selectAll as selectAllIds, invertSelection } from '../lib/notebookBulk'
+import { toast } from '../components/Toast'
 
 export default function Notebook() {
   const [words, setWords] = useState<Word[]>([])
@@ -72,6 +74,50 @@ export default function Notebook() {
     loadFavorites()
   }
 
+  // v1.20.0: 批量入复习
+  const handleBatchAddToReview = async () => {
+    if (selected.size === 0) return
+    const selectedFavs = words
+      .filter(w => selected.has(w.id))
+      .map(w => ({ wordId: w.id, addedAt: 0 }))
+    const result = await addFavoritesToReview(selectedFavs)
+    if (result.added > 0) {
+      toast.success(`✓ ${result.added} 词已加入复习${result.skipped > 0 ? ` (跳过 ${result.skipped} 已存)` : ''}`)
+    } else if (result.skipped > 0) {
+      toast.success(`已在复习中 (${result.skipped} 词)`)
+    }
+    setSelected(new Set())
+    setBatchMode(false)
+    loadFavorites()
+  }
+
+  // v1.20.0: 批量导出 CSV
+  const handleBatchExport = () => {
+    if (selected.size === 0) {
+      toast.error('请先选择要导出的词')
+      return
+    }
+    const selectedFavs = words
+      .filter(w => selected.has(w.id))
+      .map(w => ({ wordId: w.id, addedAt: 0 }))
+    const lookup = (id: string) => {
+      const w = words.find(ww => ww.id === id)
+      return w ? { translation: w.translations?.[0] || '', difficulty: w.level || '' } : undefined
+    }
+    downloadFavoritesCSV(selectedFavs, lookup)
+    toast.success(`✓ 已导出 ${selected.size} 词到 CSV`)
+  }
+
+  // v1.20.0: 全选
+  const handleSelectAll = () => {
+    setSelected(selectAllIds(words.map(w => ({ wordId: w.id, addedAt: 0 }))))
+  }
+
+  // v1.20.0: 反选
+  const handleInvert = () => {
+    setSelected(invertSelection(selected, words.map(w => ({ wordId: w.id, addedAt: 0 }))))
+  }
+
   const toggleSelect = (id: string) => {
     setSelected(prev => {
       const next = new Set(prev)
@@ -134,13 +180,45 @@ export default function Notebook() {
           >
             {batchMode ? `✓ 批量 (${selected.size})` : '☑ 批量管理'}
           </button>
+          {batchMode && (
+            <div className="flex gap-2 flex-wrap">
+              <button
+                onClick={handleSelectAll}
+                className="btn-ghost text-xs"
+                aria-label="全选"
+              >
+                ☑ 全选
+              </button>
+              <button
+                onClick={handleInvert}
+                className="btn-ghost text-xs"
+                aria-label="反选"
+              >
+                ⇄ 反选
+              </button>
+            </div>
+          )}
           {batchMode && selected.size > 0 && (
-            <button
-              onClick={handleBatchDelete}
-              className="btn text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 border border-red-200 dark:border-red-800"
-            >
-              🗑 删除 {selected.size} 个
-            </button>
+            <>
+              <button
+                onClick={handleBatchAddToReview}
+                className="btn text-sm text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800"
+              >
+                📚 入复习 ({selected.size})
+              </button>
+              <button
+                onClick={handleBatchExport}
+                className="btn text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-blue-200 dark:border-blue-800"
+              >
+                📤 导出 ({selected.size})
+              </button>
+              <button
+                onClick={handleBatchDelete}
+                className="btn text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 border border-red-200 dark:border-red-800"
+              >
+                🗑 删除 ({selected.size})
+              </button>
+            </>
           )}
           <details className="relative">
             <summary className="btn-ghost text-sm cursor-pointer list-none">
