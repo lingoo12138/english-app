@@ -46,7 +46,8 @@ describe('fileUpload (v1.18.0-B8)', () => {
     })
 
     it('不支持类型', () => {
-      const file = new File(['data'], 'test.pdf', { type: 'application/pdf' })
+      // v1.23 起 .pdf 变支持, 用 .docx 作为不支持例子
+      const file = new File(['data'], 'test.docx', { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' })
       const result = validateFile(file)
       expect(result.valid).toBe(false)
       expect(result.error).toContain('不支持')

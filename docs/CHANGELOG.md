@@ -2084,3 +2084,40 @@
 - 📦 +1 依赖 (pdfjs-dist)
 - 📝 `docs/plans/v1.23.0-pdf-upload.md` + `scripts/verify-v1.23.0.mjs` + `scripts/review-v1.23.0.py`
 - 4 commits + 1 tag (v1.23.0)
+
+---
+
+## [v1.24.0] - 2026-07-26
+
+### v1.24.0 W25 — 学习提醒升级 (留存关键)
+
+#### v1.24.0-A: 动态内容 (`reminderContent.ts` 80 行)
+- 🔄 `buildReminderBody()`: 动态生成通知正文
+  - 0/0 → "0 个复习, 学 3 个新词 1 分钟搞定"
+  - 5/3 → "5 个复习 + 3 个新词, 3 分钟搞定"
+- 📊 `getReminderStats()`: 今日到期复习 + 今日新词 + 不活跃天数
+- ⏰ `getLastStudyTimestamp()`: 从 records 表查最近学习时间
+- 📈 `estimateMinutes()`: 复习 0.5min + 新词 0.3min
+- 复用: db.getDueReviews + learningReport.getDailyReport + favorites.addedAt
+
+#### v1.24.0-B: 通知点击跳转
+- 🔗 `reminder.ts` Notification 加 `data: { url: '/review?from=reminder' }`
+- 🚦 `checkAndFire` 异步触发, 不阻塞调度
+- 🛡️ catch (e: unknown) 守卫 + Error 守卫 (v1.22 review 维持)
+
+#### v1.24.0-C: 不活跃召回
+- 📅 3 天未学 → "别断! 3 天前你学了 5 个词, 今天 5 分钟恢复一下"
+- 📅 7 天未学 → "别断! 7 天前你学了 N 个词, ..."
+
+#### v1.24.0-D: ReminderSection 动态预览
+- 🎨 Settings 加蓝色预览卡片, 实时显示今日动态通知
+- 🔄 useEffect 加载 buildReminderBody
+- 🛡️ 失败 fallback 默认文案
+
+#### 验证 & 文档
+- 📊 534 → 542 单元测试 (+8, 包含 estimateMinutes/getReminderStats/getLastStudyTimestamp/buildReminderBody)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持 (29/29 review, 含 catch any 检查)
+- 🆕 38 → 39 库 (新加 reminderContent)
+- 🐛 修 v1.23 引入的 fileUpload 测试 (.pdf 现在支持)
+- 📝 `docs/plans/v1.24.0-learning-reminder.md` + `scripts/verify-v1.24.0.mjs` + `scripts/review-v1.24.0.py`
+- 4 commits + 1 tag (v1.24.0)

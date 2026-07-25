@@ -1,6 +1,7 @@
-// 学习提醒 - v0.22.9
+// 学习提醒 - v0.22.9 + v1.24.0 动态内容
 // Web Notification API, 每日固定时间弹通知
 // 兼容降级:不支持时 UI 提示,iOS Safari partial
+// v1.24.0 升级: 动态 body (buildReminderBody) + 通知点击跳转 (data.url) + 3 天未学召回
 
 export interface ReminderSettings {
   enabled: boolean
@@ -92,34 +93,50 @@ function checkAndFire(): void {
 
   if (now.getHours() === settings.hour && now.getMinutes() === settings.minute) {
     lastFiredKey = fireKey
-    fireReminderNotification(settings)
+    void fireReminderNotification(settings)
   }
 }
 
-/** 触发通知(纯文本,不读 plan 数据,避免耦合) */
-function fireReminderNotification(settings: ReminderSettings): void {
+/** 触发通知(v1.24.0: 动态内容 + data.url 跳转) */
+async function fireReminderNotification(settings: ReminderSettings): Promise<void> {
   const title = '⏰ 该学英语啦'
   let body = '坚持每天学一点,养成习惯!'
-  if (settings.showStreak) {
-    try {
-      const raw = localStorage.getItem('english-app-stats')
-      if (raw) {
-        const stats = JSON.parse(raw)
-        if (stats.state?.streak && stats.state.streak > 0) {
-          body = `连续 ${stats.state.streak} 天,今天继续!`
+
+  // v1.24.0: 动态 body (复习/新词数 + 不活跃召回)
+  try {
+    const { buildReminderBody, getReminderStats } = await import('./reminderContent')
+    const stats = await getReminderStats()
+    let streakSuffix = ''
+    if (settings.showStreak) {
+      try {
+        const raw = localStorage.getItem('english-app-stats')
+        if (raw) {
+          const s = JSON.parse(raw)
+          if (s.state?.streak && s.state.streak > 0) {
+            streakSuffix = ` · 连续 ${s.state.streak} 天`
+          }
         }
-      }
-    } catch {}
+      } catch {}
+    }
+    const dynamicBody = await buildReminderBody()
+    body = stats.daysInactive >= 3 ? dynamicBody : `${dynamicBody}${streakSuffix}`
+  } catch (e: unknown) {
+    const err = e instanceof Error ? e : new Error(String(e))
+    console.warn('reminder.ts: buildReminderBody 失败, 用默认 body:', err.message)
   }
+
   try {
     new Notification(title, {
       body,
       icon: '/english-app/pwa-192.png',
       badge: '/english-app/pwa-192.png',
       tag: 'reminder-daily',
+      // v1.24.0-B: 通知点击跳转 (service worker notificationclick)
+      data: { url: '/review?from=reminder' },
     })
-  } catch (e) {
-    console.warn('reminder.ts: fireNotification 失败:', e)
+  } catch (e: unknown) {
+    const err = e instanceof Error ? e : new Error(String(e))
+    console.warn('reminder.ts: fireNotification 失败:', err.message)
   }
 }
 

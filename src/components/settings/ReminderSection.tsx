@@ -1,4 +1,4 @@
-// 提醒设置 - v0.22.9
+// 提醒设置 - v0.22.9 + v1.24.0 动态预览
 import { useState, useEffect } from 'react'
 import {
   isNotificationSupported,
@@ -10,6 +10,8 @@ import {
   formatTime,
   type ReminderSettings,
 } from '../../lib/reminder'
+// v1.24.0: 动态预览
+import { buildReminderBody, estimateMinutes } from '../../lib/reminderContent'
 
 export default function ReminderSection() {
   const [settings, setSettings] = useState<ReminderSettings>(getReminderSettings())
@@ -18,9 +20,14 @@ export default function ReminderSection() {
   )
   const [testResult, setTestResult] = useState<{ ok: boolean; reason?: string } | null>(null)
   const [supported] = useState(isNotificationSupported())
+  // v1.24.0: 动态预览
+  const [preview, setPreview] = useState<string>('加载中…')
 
   useEffect(() => {
     setPermission(getNotificationPermission())
+    buildReminderBody()
+      .then(setPreview)
+      .catch(() => setPreview('坚持每天学一点, 养成习惯!'))
   }, [])
 
   const update = (patch: Partial<ReminderSettings>) => {
@@ -76,6 +83,13 @@ export default function ReminderSection() {
         每天固定时间弹浏览器通知,提醒你来学习。
         iOS Safari 通知支持有限,可能不弹。
       </p>
+
+      {/* v1.24.0: 动态内容预览 */}
+      <div className="text-xs p-2 bg-blue-50 dark:bg-blue-900/20 rounded text-blue-700 dark:text-blue-300">
+        <span className="font-semibold">⏰ 该学英语啦</span>
+        <br />
+        {preview}
+      </div>
 
       {permission === 'denied' && (
         <p className="text-xs text-red-600 dark:text-red-400 p-2 bg-red-50 dark:bg-red-900/20 rounded">
