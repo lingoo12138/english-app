@@ -1882,3 +1882,31 @@
 - 🆕 8 角色 (+3)
 - 📝 `docs/plans/v1.17.0-more-roles.md` + `scripts/verify-v1.17.0.mjs` + `scripts/review-v1.17.0.py`
 - 2 commits + 1 tag (v1.17.0, push 暂缓)
+
+---
+
+## [v1.18.0] - 2026-07-25
+
+### v1.18.0 W19 — 文件上传 (TXT/MD, 闭环 v1.14 自定义场景)
+
+#### v1.18.0-A: 核心库 (`fileUpload.ts` 100 行)
+- 📁 支持类型: `.txt` / `.md`
+- 📏 大小限制: 1MB
+- 🔒 验证: validateFile (类型 + 大小)
+- 📖 读取: readTextFile (FileReader API, UTF-8)
+- ✂️ 截断: readAndTruncateFile → 10000 字符
+- 🏷️ 标题: extractFileName (去扩展名 + 替换 _/- + 截断)
+- 📊 formatFileSize (B/KB/MB)
+
+#### v1.18.0-B: UI 集成 (`CustomScenes.tsx`)
+- 📁 "📁 上传文件" 按钮 (隐藏 file input)
+- ✅ onChange: 验证 → 读 → 截断 → 填到 text state
+- 🏷️ 上传后显示文件名 + 清除按钮
+- 💡 自动从文件名提取标题
+
+#### 验证 & 文档
+- 📊 396 → 419 单元测试 (+23)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持 (28/28 review)
+- 🆕 32 → 33 库 (新加 fileUpload)
+- 📝 `docs/plans/v1.18.0-file-upload.md` + `scripts/verify-v1.18.0.mjs` + `scripts/review-v1.18.0.py`
+- 3 commits + 1 tag (v1.18.0)
