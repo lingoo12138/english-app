@@ -143,6 +143,19 @@ export default function Home() {
         <div className="text-stone-400">→</div>
       </Link>
 
+      {/* v1.14.0: 自定义场景入口 */}
+      <Link
+        to="/custom-scenes"
+        className="card bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 border border-violet-200 dark:border-violet-800 flex items-center gap-3 hover:shadow-md transition"
+      >
+        <div className="text-3xl">📝</div>
+        <div className="flex-1">
+          <div className="font-semibold text-sm">自定义场景</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400">粘贴文本 · AI 提取生词 · 专属场景</div>
+        </div>
+        <div className="text-stone-400">→</div>
+      </Link>
+
       {/* 学习数据卡片 */}
       <div className="grid grid-cols-3 gap-3">
         <div className="card text-center">

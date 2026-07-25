@@ -26,6 +26,8 @@ const SceneDetail = lazy(() => import('./pages/SceneDetail'))
 const Camera = lazy(() => import('./pages/Camera'))
 const AIChat = lazy(() => import('./pages/AIChat'))
 const ReportsPage = lazy(() => import('./pages/ReportsPage'))
+const CustomScenes = lazy(() => import('./pages/CustomScenes'))
+const CustomSceneDetail = lazy(() => import('./pages/CustomSceneDetail'))
 import { useStore, useStats } from './store/useStore'
 import { getTodayCount, getTotalLearned, getAllFavorites } from './lib/db'
 import { getTheme, applyTheme, applyFontSize } from './lib/themes'
@@ -135,6 +137,8 @@ function App() {
         <Route path="report" element={<LearnReport />} />
         <Route path="reports" element={<ReportsPage />} />
         <Route path="pronounce-custom" element={<PronounceCustom />} />
+        <Route path="custom-scenes" element={<CustomScenes />} />
+        <Route path="custom-scenes/:id" element={<CustomSceneDetail />} />
         <Route path="settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
