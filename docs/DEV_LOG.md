@@ -1861,3 +1861,87 @@ W24 候选: PDF 上传 (闭环 v1.18 文件上传, 论文/邮件/合同)
 - 触发可业: 8 角色 + 自定义场景 + 拍照 + 文件上传 + 学习日历
 - 内容能用: 5334 词 + 465 词根 + 13234 句 + 5 场景 + 8 角色 + 用户文件
 - 学得会: FSRS + 智能队列 + LLM 日限 + 错误恢复 + 难度自适应 + 月历 + tag 复习
+
+---
+
+## v1.23.0 — W24 (2026-07-25)
+
+### 触发
+- 用户选 W24: PDF 上传 (闭环 v1.18 文件上传, 论文/邮件/合同场景)
+- pdfjs-dist 是 open source, 允许引入
+
+### 范围
+- 引入 pdfjs-dist@^6.1.200
+- src/lib/pdfUpload.ts 90 行: loadPdfJs (懒加载) / isPdfFile / extractPdfText / isPdfEncryptedError / MAX_PDF_PAGES=50
+- fileUpload.ts 加 .pdf + application/pdf MIME
+- CustomScenes.tsx PDF 走独立解析路径 (懒加载 + 加密检测 + 页数提示)
+- 16/16 pdfUpload 测试
+
+### 数据
+- 510 → 526 单元测试 (+16)
+- 37 → 38 库 (+1 pdfUpload)
+- +1 依赖 (pdfjs-dist, 0 成本, 懒加载 ~470KB)
+- Bundle 1733 → 2201 KiB (PDF 懒加载)
+- PWA 58 → 60 entries (+2 pdf worker)
+
+---
+
+## v1.24.0 — W25 (2026-07-26)
+
+### 触发
+- 用户选 W25: 学习提醒升级 (留存关键 — 30% 用户 7 天后不回来)
+- v0.22 reminder 已有基础, 升级 3 件
+
+### 范围
+- src/lib/reminderContent.ts 80 行: buildReminderBody + getReminderStats + getLastStudyTimestamp + estimateMinutes
+- 复用 v1.11 reviewQueue.getDueReviews + learningReport.getDailyReport + favorites.addedAt
+- reminder.ts 异步 fireNotification + data.url='/review?from=reminder' + catch (e: unknown)
+- ReminderSection 动态预览 (蓝色卡片)
+- 3 天未学召回: "别断! 3 天前你学了 5 个词"
+- 10/10 reminderContent 测试
+- 修 v1.23 引入的 fileUpload 测试 (.pdf 已支持, 改用 .docx 例子)
+
+### 数据
+- 526 → 542 单元测试 (+16)
+- 38 → 39 库 (+1 reminderContent)
+- 29/29 review (0 P0 + 0 P1 + 0 P2)
+
+---
+
+## v1.25.0 — W26 (2026-07-26)
+
+### 触发
+- 用户选 W26: tag 合并/重命名 (复用 v1.21 wordTags 框架)
+- 用户场景: 30 个 tag 重复/拼写不一致想合并
+
+### 范围
+- wordTags.ts 加 3 函数: renameTag/mergeTags/findSimilarTags
+- 复用 IDB wordTags 幂等 put + 删旧行
+- Notebook UI: 🏷️ 管理按钮 + 每个 tag 行加 ✏️🔗
+- Modal 复用, catch (e: unknown) 守卫
+- 13/13 tagMerge 测试
+
+### 数据
+- 542 → 555 单元测试 (+13)
+- 38 库 (wordTags 扩 3 函数, 不增库)
+- 13/13 review (0 P0 + 0 P1 + 0 P2)
+
+---
+
+## v1.25.0 累计 (全项目 8 周+ 完结)
+
+- **26 release tag** / 360+ commit / 25 页面 / 26 组件 / 39 库 / 12300+ 行
+- **555 单元测试** + 16 闭环
+- 130+ bug 修复 (含 v1.22.0 review 修 18 处 catch any)
+- 8 角色 + 自定义场景 + 文件上传 + PDF + 月历热力图 + 标签系统
+- 动态通知内容 + 通知点击跳转 + 3 天未学召回
+- tag 合并/重命名/相似查找
+- 错误恢复 + LLM 日限 + 拍照场景
+- 难度自适应 + 智能队列 + FSRS + 日报/周报 + 复习按 tag
+- 月历热力图 (复用 learningReport)
+- **0 P0 + 0 P1 维持 20+ 轮**
+
+北极星 3 维度:
+- 触发可业: 8 角色 + 自定义场景 + 拍照 + 文件上传 + PDF + 学习日历
+- 内容能用: 5334 词 + 465 词根 + 13234 句 + 5 场景 + 8 角色 + 用户文件/PDF
+- 学得会: FSRS + 智能队列 + 复习按 tag + 错题讲解 + 动态通知 + 流失召回
