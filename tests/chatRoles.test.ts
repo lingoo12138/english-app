@@ -12,20 +12,25 @@ import {
   type ChatRoleId,
 } from '../src/lib/chatRoles'
 
-describe('chatRoles (v1.13.0-B3 + v1.17.0-B7)', () => {
-  describe('CHAT_ROLES 8 角色 (v1.17.0 加 3)', () => {
-    it('应有 8 个角色', () => {
-      expect(CHAT_ROLES.length).toBe(8)
+describe('chatRoles (v1.13.0-B3 + v1.17.0-B7 + v1.26.0-W27)', () => {
+  describe('CHAT_ROLES 11 角色 (v1.26.0 加 3)', () => {
+    it('应有 11 个角色', () => {
+      expect(CHAT_ROLES.length).toBe(11)
     })
 
-    it('8 角色 id 正确', () => {
+    it('11 角色 id 正确', () => {
       const ids = CHAT_ROLES.map(r => r.id)
       expect(ids).toEqual(
         expect.arrayContaining([
           'interviewer', 'barista', 'receptionist', 'tour_guide', 'waiter',
           'doctor', 'banker', 'police',
+          'teacher', 'lawyer', 'engineer',
         ]),
       )
+    })
+
+    it('ALL_ROLES 应为 12 (含 NONE_ROLE)', () => {
+      expect(ALL_ROLES.length).toBe(12)
     })
 
     it('每角色都有完整字段', () => {
@@ -70,6 +75,43 @@ describe('chatRoles (v1.13.0-B3 + v1.17.0-B7)', () => {
     it('doctor 角色含医生相关词', () => {
       const r = CHAT_ROLES.find(r => r.id === 'doctor')!
       expect(r.systemPrompt.toLowerCase()).toMatch(/doctor|medical|symptom|health/)
+    })
+
+    // v1.26.0 新增 3 角色验证 (W27)
+    it('teacher 角色含教师相关词', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'teacher')!
+      expect(r.emoji).toBe('👩‍🏫')
+      expect(r.systemPrompt.toLowerCase()).toMatch(/teacher|english|grammar|learn|student|practice/)
+      expect(r.greetings.length).toBeGreaterThanOrEqual(3)
+    })
+
+    it('lawyer 角色含律师相关词', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'lawyer')!
+      expect(r.emoji).toBe('⚖️')
+      expect(r.systemPrompt.toLowerCase()).toMatch(/lawyer|legal|attorney|client|advice|contract/)
+      expect(r.fallbackReplies.length).toBeGreaterThanOrEqual(5)
+    })
+
+    it('engineer 角色含工程师相关词', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'engineer')!
+      expect(r.emoji).toBe('💻')
+      expect(r.systemPrompt.toLowerCase()).toMatch(/engineer|technical|system|design|code|software/)
+      expect(r.fallbackReplies.length).toBeGreaterThanOrEqual(5)
+    })
+
+    it('teacher 中文标签', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'teacher')!
+      expect(r.name).toBe('英语教师')
+    })
+
+    it('lawyer 中文标签', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'lawyer')!
+      expect(r.name).toBe('律师')
+    })
+
+    it('engineer 中文标签', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'engineer')!
+      expect(r.name).toBe('软件工程师')
     })
 
     it('banker 角色含银行相关词', () => {
@@ -117,8 +159,8 @@ describe('chatRoles (v1.13.0-B3 + v1.17.0-B7)', () => {
   })
 
   describe('ALL_ROLES 完整角色表', () => {
-    it('含 NONE_ROLE + 8 角色 = 9 项 (v1.17.0 加 3)', () => {
-      expect(ALL_ROLES.length).toBe(9)
+    it('含 NONE_ROLE + 11 角色 = 12 项 (v1.26.0 加 3)', () => {
+      expect(ALL_ROLES.length).toBe(12)
       expect(ALL_ROLES[0]).toBe(NONE_ROLE)
     })
   })

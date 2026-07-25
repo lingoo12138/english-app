@@ -2148,3 +2148,23 @@
 - 🆕 38 库 (wordTags 扩 3 函数)
 - 📝 `scripts/verify-v1.25.0.mjs` + `scripts/review-v1.25.0.py`
 - 3 commits + 1 tag (v1.25.0)
+
+---
+
+## [v1.26.0] - 2026-07-26
+
+### v1.26.0 W27 — 角色扩 8→11 (1d)
+
+#### v1.26.0-A: 3 角色 (复用 v1.13 + v1.17 chatRoles 框架)
+- 👩‍🏫 **teacher** (英语教师): 课堂, 讲解语法/词义/造句
+- ⚖️ **lawyer** (律师): 法律咨询, 合同解释, 诉讼建议
+- 💻 **engineer** (软件工程师): 技术讨论, 系统设计, 代码 review
+
+每个角色: 1 systemPrompt (2-3 句) + 5 greetings + 10 fallbackReplies
+
+#### 验证 & 文档
+- 📊 555 → 562 单元测试 (+7)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持
+- 8 → 11 角色 (interviewer/barista/receptionist/tour_guide/waiter/doctor/banker/police/teacher/lawyer/engineer)
+- NONE_ROLE + 11 = 12 ALL_ROLES
+- 3 commits + 1 tag (v1.26.0)
