@@ -13,6 +13,8 @@ class EnglishAppDB extends Dexie {
   chats!: Table<ChatRecord, number>
   writingErrors!: Table<WritingError, number>
   errorExplanations!: Table<{ key: string; rule: string; examples: string; mnemonic: string; ts: number }, string>
+  // v1.14.0: 自定义场景表
+  customScenes!: Table<CustomScene, number>
 
   constructor() {
     super('EnglishAppDB')
@@ -47,6 +49,17 @@ class EnglishAppDB extends Dexie {
       chats: '++id, scenario, level, updatedAt, createdAt, title',
       writingErrors: '++id, ts, source',
       errorExplanations: 'key, ts',
+    })
+    // v1.14.0: 自定义场景表 (用户粘贴文本 + AI 提取生词)
+    this.version(5).stores({
+      favorites: 'wordId, addedAt',
+      records: '++id, wordId, action, timestamp',
+      reviews: 'wordId, nextReview',
+      pronunciationAttempts: '++id, wordId, ts, score',
+      chats: '++id, scenario, level, updatedAt, createdAt, title',
+      writingErrors: '++id, ts, source',
+      errorExplanations: 'key, ts',
+      customScenes: '++id, updatedAt, createdAt, title',
     })
   }
 }
@@ -99,6 +112,37 @@ export async function deleteWritingError(id: number): Promise<void> {
 // === 错题解释缓存 (v1.2-D2) ===
 export async function getExplanation(key: string) {
   return db.errorExplanations.get(key)
+}
+
+// === v1.14.0 自定义场景 ===
+export interface CustomScene {
+  id?: number
+  title: string
+  sourceText: string  // 截断 10000 字符
+  words: Array<{
+    word: string
+    translation: string
+    example: string
+    difficulty: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
+  }>
+  createdAt: number
+  updatedAt: number
+}
+
+export async function addCustomScene(scene: CustomScene): Promise<number> {
+  return db.customScenes.put({ ...scene, updatedAt: Date.now() })
+}
+
+export async function getAllCustomScenes(): Promise<CustomScene[]> {
+  return db.customScenes.orderBy('updatedAt').reverse().toArray()
+}
+
+export async function getCustomScene(id: number): Promise<CustomScene | undefined> {
+  return db.customScenes.get(id)
+}
+
+export async function deleteCustomScene(id: number): Promise<void> {
+  return db.customScenes.delete(id)
 }
 
 export async function saveExplanation(key: string, rule: string, examples: string, mnemonic: string) {
