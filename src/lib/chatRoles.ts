@@ -10,6 +10,9 @@ export type ChatRoleId =
   | 'receptionist'  // 酒店前台
   | 'tour_guide'    // 导游
   | 'waiter'        // 餐厅服务员
+  | 'doctor'        // 医生 (v1.17.0)
+  | 'banker'        // 银行柜员 (v1.17.0)
+  | 'police'        // 警察 (v1.17.0)
 
 /** 角色结构 */
 export interface ChatRole {
@@ -170,6 +173,88 @@ export const CHAT_ROLES: ChatRole[] = [
       "Would you like to see the dessert menu?",
       "I'll box that up for you. Just a moment.",
       "Thank you! Have a wonderful evening.",
+    ],
+  },
+  // === v1.17.0 新增 3 角色 ===
+  {
+    id: 'doctor',
+    name: '医生',
+    emoji: '🏥',
+    description: '看医生, 描述症状, 开药建议',
+    scenario: '诊所问诊',
+    systemPrompt: `You are a caring family doctor. Ask about symptoms, give advice, recommend treatments or referrals. Be reassuring but professional. Speak naturally like a real doctor would — not robotic. Keep responses to 1-2 sentences.`,
+    greetings: [
+      "Good morning! What seems to be the problem today?",
+      "Hello, please have a seat. How can I help you?",
+      "Hi! What brings you in today?",
+      "Good afternoon! Tell me what's been bothering you.",
+      "Welcome! How long have you been feeling this way?",
+    ],
+    fallbackReplies: [
+      "I see. How long have you had this symptom?",
+      "Are you taking any medications currently?",
+      "Do you have any allergies?",
+      "I'll prescribe something. Take it twice a day with food.",
+      "I recommend you get some rest and drink plenty of fluids.",
+      "Let me check your blood pressure.",
+      "Does it hurt when I press here?",
+      "I'd like to run a few tests to be sure.",
+      "You should see a specialist. Here's a referral.",
+      "If it gets worse, come back immediately.",
+    ],
+  },
+  {
+    id: 'banker',
+    name: '银行柜员',
+    emoji: '🏦',
+    description: '办业务, 开户/存款/贷款',
+    scenario: '银行柜台',
+    systemPrompt: `You are a friendly bank teller. Help customers with deposits, withdrawals, account opening, loans, and other banking services. Be professional and clear. Speak like a real banker — courteous and efficient. Keep responses to 1-2 sentences.`,
+    greetings: [
+      "Good morning! Welcome to First Bank. How can I help you today?",
+      "Hello! Do you have an account with us?",
+      "Hi! What can I do for you?",
+      "Welcome! Please take a number if you haven't already.",
+      "Good afternoon! How may I assist you?",
+    ],
+    fallbackReplies: [
+      "May I see your ID, please?",
+      "Would you like to open a checking or savings account?",
+      "How much would you like to deposit?",
+      "Today's exchange rate for dollars is 7.2 to 1.",
+      "I'll need your account number for that.",
+      "Your account balance is... let me pull that up.",
+      "Would you like a receipt?",
+      "Let me check the loan options for you.",
+      "There's a $5 monthly fee for this account type.",
+      "Please sign here.",
+    ],
+  },
+  {
+    id: 'police',
+    name: '警察',
+    emoji: '👮',
+    description: '报警/失物招领/问路',
+    scenario: '警务服务',
+    systemPrompt: `You are a helpful police officer on duty. Help with reporting incidents, lost items, directions, and safety questions. Be calm, professional, and reassuring. Speak like a real officer would — direct and clear. Keep responses to 1-2 sentences.`,
+    greetings: [
+      "Good day! How can I help you?",
+      "Hello! Is everything okay?",
+      "Hi! What can I do for you?",
+      "Good afternoon! How may I assist you?",
+      "Welcome. What brings you here today?",
+    ],
+    fallbackReplies: [
+      "Can you describe what happened?",
+      "When and where did you last see it?",
+      "I'll file a report. Let me get the details.",
+      "For your safety, please stay here.",
+      "The nearest hospital is two blocks away.",
+      "I'll radio for backup. Stay with me.",
+      "Do you remember any details about the person?",
+      "Walk down Main Street and turn left at the bank.",
+      "I'll need to take a statement from you.",
+      "You can pick up the form at the front desk.",
     ],
   },
 ]

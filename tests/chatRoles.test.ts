@@ -12,16 +12,19 @@ import {
   type ChatRoleId,
 } from '../src/lib/chatRoles'
 
-describe('chatRoles (v1.13.0-B3)', () => {
-  describe('CHAT_ROLES 5 角色', () => {
-    it('应有 5 个角色', () => {
-      expect(CHAT_ROLES.length).toBe(5)
+describe('chatRoles (v1.13.0-B3 + v1.17.0-B7)', () => {
+  describe('CHAT_ROLES 8 角色 (v1.17.0 加 3)', () => {
+    it('应有 8 个角色', () => {
+      expect(CHAT_ROLES.length).toBe(8)
     })
 
-    it('5 角色 id 正确', () => {
+    it('8 角色 id 正确', () => {
       const ids = CHAT_ROLES.map(r => r.id)
       expect(ids).toEqual(
-        expect.arrayContaining(['interviewer', 'barista', 'receptionist', 'tour_guide', 'waiter']),
+        expect.arrayContaining([
+          'interviewer', 'barista', 'receptionist', 'tour_guide', 'waiter',
+          'doctor', 'banker', 'police',
+        ]),
       )
     })
 
@@ -62,6 +65,40 @@ describe('chatRoles (v1.13.0-B3)', () => {
       const r = CHAT_ROLES.find(r => r.id === 'waiter')!
       expect(r.systemPrompt.toLowerCase()).toMatch(/waiter|restaurant|order|menu|food/)
     })
+
+    // v1.17.0 新增 3 角色验证
+    it('doctor 角色含医生相关词', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'doctor')!
+      expect(r.systemPrompt.toLowerCase()).toMatch(/doctor|medical|symptom|health/)
+    })
+
+    it('banker 角色含银行相关词', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'banker')!
+      expect(r.systemPrompt.toLowerCase()).toMatch(/bank|teller|account|deposit|loan/)
+    })
+
+    it('police 角色含警察相关词', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'police')!
+      expect(r.systemPrompt.toLowerCase()).toMatch(/police|officer|report|safety/)
+    })
+
+    it('doctor 角色中文标签正确', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'doctor')!
+      expect(r.name).toBe('医生')
+      expect(r.emoji).toBe('🏥')
+    })
+
+    it('banker 角色中文标签正确', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'banker')!
+      expect(r.name).toBe('银行柜员')
+      expect(r.emoji).toBe('🏦')
+    })
+
+    it('police 角色中文标签正确', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'police')!
+      expect(r.name).toBe('警察')
+      expect(r.emoji).toBe('👮')
+    })
   })
 
   describe('NONE_ROLE 普通对话', () => {
@@ -80,17 +117,21 @@ describe('chatRoles (v1.13.0-B3)', () => {
   })
 
   describe('ALL_ROLES 完整角色表', () => {
-    it('含 NONE_ROLE + 5 角色 = 6 项', () => {
-      expect(ALL_ROLES.length).toBe(6)
+    it('含 NONE_ROLE + 8 角色 = 9 项 (v1.17.0 加 3)', () => {
+      expect(ALL_ROLES.length).toBe(9)
       expect(ALL_ROLES[0]).toBe(NONE_ROLE)
     })
   })
 
   describe('getRoleById', () => {
-    it('有效 id 返对应角色', () => {
+    it('有效 id 返对应角色 (8 角色)', () => {
       expect(getRoleById('interviewer').name).toBe('面试官')
       expect(getRoleById('barista').name).toBe('咖啡师')
       expect(getRoleById('waiter').name).toBe('餐厅服务员')
+      // v1.17.0 新增
+      expect(getRoleById('doctor').name).toBe('医生')
+      expect(getRoleById('banker').name).toBe('银行柜员')
+      expect(getRoleById('police').name).toBe('警察')
     })
 
     it('无效 id 返 NONE_ROLE', () => {
@@ -109,7 +150,7 @@ describe('chatRoles (v1.13.0-B3)', () => {
   })
 
   describe('getGreetingForRole', () => {
-    it('5 角色都返非空字符串', () => {
+    it('8 角色都返非空字符串', () => {
       for (const r of CHAT_ROLES) {
         const g = getGreetingForRole(r)
         expect(g).toBeTruthy()
@@ -134,7 +175,7 @@ describe('chatRoles (v1.13.0-B3)', () => {
   })
 
   describe('getFallbackReply', () => {
-    it('5 角色都返非空字符串', () => {
+    it('8 角色都返非空字符串', () => {
       for (const r of CHAT_ROLES) {
         const f = getFallbackReply(r)
         expect(f).toBeTruthy()
@@ -156,7 +197,7 @@ describe('chatRoles (v1.13.0-B3)', () => {
   })
 
   describe('getRoleSystemPrompt', () => {
-    it('5 角色都返非空 system prompt', () => {
+    it('8 角色都返非空 system prompt', () => {
       for (const r of CHAT_ROLES) {
         const p = getRoleSystemPrompt(r)
         expect(p).toBeTruthy()
@@ -193,8 +234,8 @@ describe('chatRoles (v1.13.0-B3)', () => {
   })
 
   describe('角色协议类型检查', () => {
-    it('ChatRoleId 联合类型只含 5 + none', () => {
-      const validIds: ChatRoleId[] = ['interviewer', 'barista', 'receptionist', 'tour_guide', 'waiter']
+    it('ChatRoleId 联合类型只含 8 + none', () => {
+      const validIds: ChatRoleId[] = ['interviewer', 'barista', 'receptionist', 'tour_guide', 'waiter', 'doctor', 'banker', 'police']
       for (const id of validIds) {
         expect(CHAT_ROLES.find(r => r.id === id)).toBeDefined()
       }
