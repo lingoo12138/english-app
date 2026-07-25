@@ -1756,3 +1756,26 @@
 - 🆕 27 → 29 库 (新加 llmFallback + llmUsage)
 - 📝 `docs/plans/v1.12.0-error-recovery-llm-limit.md` + `scripts/verify-v1.12.0.mjs` + `scripts/review-v1.12.0.py`
 - 3 commits + 1 tag (v1.12.0)
+
+---
+
+## [v1.13.0] - 2026-07-25
+
+### v1.13.0 B3 多角色对话 — 5 角色 + "普通"
+
+#### v1.13.0-A: 角色系统 (`chatRoles.ts` + `RoleSelector` + `AIChat` 集成)
+- 🎭 5 角色: 💼 面试官 (interviewer) / ☕ 咖啡师 (barista) / 🏨 酒店前台 (receptionist) / 🗺️ 导游 (tour_guide) / 🍽️ 餐厅服务员 (waiter)
+- 💬 "普通对话" (NONE_ROLE) — 维持原 v1.9.0 自由聊天
+- 📋 每角色: emoji + 名字 + 描述 + 场景 + systemPrompt + ≥3 问候语 + ≥5 mock 回复
+- 🎚️ `getRoleSystemPrompt(role, level)` 注入难度自适应 (A1-C2)
+- 🎨 `RoleSelector` 横向 scroll 卡片, 选中高亮 (a11y radio)
+- 🔄 `handleRoleChange` 切角色清空历史 + 插入问候语 + Toast 提示
+- 🔧 `aiChat.ts` 角色优先于 scenario/topic/level, 角色模式下保持纠错规则
+- ✅ 31 单元测试 (chatRoles 结构 + 函数 + 协议) + 5 集成测试 (chat() 调通 + 共存)
+
+#### 验证 & 文档
+- 📊 288 → 324 单元测试 (+36: 31 chatRoles + 5 roleIntegration)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持 (34/34 review)
+- 🆕 29 → 30 库 (新加 chatRoles) + 25 → 26 组件 (新加 RoleSelector)
+- 📝 `docs/plans/v1.13.0-multi-role-chat.md` + `scripts/verify-v1.13.0.mjs` + `scripts/review-v1.13.0.py`
+- 3 commits + 1 tag (v1.13.0)
