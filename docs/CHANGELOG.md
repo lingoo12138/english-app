@@ -1972,3 +1972,32 @@
 - 🆕 34 → 35 库 (新加 notebookBulk)
 - 📝 `docs/plans/v1.20.0-notebook-bulk.md` + `scripts/verify-v1.20.0.mjs` + `scripts/review-v1.20.0.py`
 - 3 commits + 1 tag (v1.20.0)
+
+---
+
+## [v1.21.0] - 2026-07-25
+
+### v1.21.0 W22 — 生词本标签 (IDB v6 + 过滤 + 启发式)
+
+#### v1.21.0-A: 核心 (IDB v6 + wordTags.ts 200 行)
+- 🗃️ IDB v6: `wordTags` 表 (compound index `[wordId+tag]`)
+- 📝 parseTagInput: 逗号/分号/空格分隔 + 去重 + 小写化 + 长度限制
+- ✅ isValidTag: 字母数字中文和 - _
+- ➕ addTagsToWord: 批量加, 跳过已存, 限每词 10 tag
+- ➖ removeTagFromWord / clearAllTagsForWord
+- 📊 getAllTagsWithCount: 按 count 降序
+- 🏷️ suggestTagsFromWord: 启发式 (7 类: work/travel/food/study/tech/sport/health)
+- 🎨 getTagColor: 7 配色 (哈希稳定)
+
+#### v1.21.0-B: UI (Notebook)
+- 🏷️ 词条下显示 tag 徽章 (含删除按钮)
+- ➕ 词条下加 tag 输入框 (回车提交)
+- 🔘 顶部 tag 过滤栏 (含 "全部")
+- 🎨 7 配色循环
+
+#### 验证 & 文档
+- 📊 460 → 496 单元测试 (+36)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持 (35/35 review)
+- 🆕 35 → 36 库 (新加 wordTags)
+- 📝 `docs/plans/v1.21.0-word-tags.md` + `scripts/verify-v1.21.0.mjs` + `scripts/review-v1.21.0.py`
+- 3 commits + 1 tag (v1.21.0)
