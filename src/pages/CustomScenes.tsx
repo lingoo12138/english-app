@@ -15,6 +15,7 @@ import {
   type CustomWord,
   type CustomScene,
 } from '../lib/customScenes'
+import { getSceneInReviewCount } from '../lib/sceneReview'
 import { toast } from '../components/Toast'
 import { recordLLMCall, getLimitExceededMessage } from '../lib/llmUsage'
 
@@ -30,6 +31,8 @@ export default function CustomScenes() {
   const [title, setTitle] = useState('')
   const [loading, setLoading] = useState(false)
   const [scenes, setScenes] = useState<CustomScene[]>([])
+  // v1.16.0: 场景复习数
+  const [reviewCounts, setReviewCounts] = useState<Record<number, number>>({})
 
   const provider = llmProviders.find(p => p.id === llmProviderId)
   const apiKey = llmApiKeys[llmProviderId] || ''
@@ -43,6 +46,14 @@ export default function CustomScenes() {
   const refreshScenes = async () => {
     const items = await getAllCustomScenes()
     setScenes(items)
+    // v1.16.0: 加载每个场景的复习数
+    const counts: Record<number, number> = {}
+    for (const s of items) {
+      if (s.id) {
+        counts[s.id] = await getSceneInReviewCount(s.words)
+      }
+    }
+    setReviewCounts(counts)
   }
 
   const handleExtract = async () => {
@@ -245,7 +256,13 @@ export default function CustomScenes() {
                 >
                   <div className="font-medium text-sm">{s.title}</div>
                   <div className="text-xs text-stone-500 mt-1">
-                    {s.words.length} 词 · {new Date(s.updatedAt).toLocaleDateString('zh-CN')}
+                    {s.words.length} 词
+                    {s.id && reviewCounts[s.id] ? (
+                      <span className="ml-2 text-amber-600 dark:text-amber-400">
+                        📚 {reviewCounts[s.id]} 复习中
+                      </span>
+                    ) : null}
+                    {' · '}{new Date(s.updatedAt).toLocaleDateString('zh-CN')}
                   </div>
                 </button>
                 <button

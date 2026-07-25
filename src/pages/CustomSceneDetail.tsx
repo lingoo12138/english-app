@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getCustomSceneById, type CustomScene } from '../lib/customScenes'
 import { addFavorite, removeFavorite, isFavorite } from '../lib/db'
+import { getSceneReviewStatus, type SceneReviewStatus } from '../lib/sceneReview'
 import { toast } from '../components/Toast'
 
 export default function CustomSceneDetail() {
@@ -12,6 +13,8 @@ export default function CustomSceneDetail() {
   const [scene, setScene] = useState<CustomScene | null>(null)
   const [favMap, setFavMap] = useState<Record<string, boolean>>({})
   const [loading, setLoading] = useState(true)
+  // v1.16.0: 复习状态
+  const [reviewStatus, setReviewStatus] = useState<SceneReviewStatus | null>(null)
 
   useEffect(() => {
     if (!id) return
@@ -29,9 +32,19 @@ export default function CustomSceneDetail() {
         fav[w.word] = await isFavorite(w.word)
       }
       setFavMap(fav)
+      // v1.16.0: 加载复习状态
+      const status = await getSceneReviewStatus(s.words)
+      setReviewStatus(status)
       setLoading(false)
     })
   }, [id, navigate])
+
+  // v1.16.0: 刷新复习状态 (从 learn 返回时)
+  const refreshReviewStatus = async () => {
+    if (!scene) return
+    const status = await getSceneReviewStatus(scene.words)
+    setReviewStatus(status)
+  }
 
   const toggleFav = async (word: string) => {
     try {
@@ -79,6 +92,7 @@ export default function CustomSceneDetail() {
         <div className="flex items-center gap-2">
           <Link
             to={`/custom-scenes/${scene.id}/learn`}
+            onClick={() => setTimeout(refreshReviewStatus, 100)}
             className="btn-primary text-sm"
             aria-label="开始学习"
           >
@@ -89,6 +103,31 @@ export default function CustomSceneDetail() {
           </Link>
         </div>
       </div>
+
+      {/* v1.16.0: 复习状态卡片 */}
+      {reviewStatus && (
+        <section className="card bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 border border-emerald-200 dark:border-emerald-800">
+          <h3 className="font-semibold mb-2 text-sm">📊 复习状态</h3>
+          <div className="grid grid-cols-3 gap-2 text-center">
+            <div>
+              <div className="text-lg font-bold">{reviewStatus.totalWords}</div>
+              <div className="text-xs text-stone-500">总词数</div>
+            </div>
+            <div>
+              <div className="text-lg font-bold text-amber-600 dark:text-amber-400">
+                {reviewStatus.inReviewCount}
+              </div>
+              <div className="text-xs text-stone-500">复习中</div>
+            </div>
+            <div>
+              <div className="text-lg font-bold text-emerald-600 dark:text-emerald-400">
+                {reviewStatus.masteredCount}
+              </div>
+              <div className="text-xs text-stone-500">已掌握</div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 原文 */}
       <section className="card">

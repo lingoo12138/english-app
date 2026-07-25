@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getCustomSceneById, type CustomScene } from '../lib/customScenes'
 import { isFavorite, addFavorite, removeFavorite } from '../lib/db'
+import { addSceneWordsToReview } from '../lib/sceneReview'
 import { toast } from '../components/Toast'
 import TTSButton from '../components/TTSButton'
 
@@ -142,8 +143,22 @@ export default function CustomSceneLearn() {
 
   if (!scene) return null
 
-  // 完成态
+  // 完成态 - v1.16.0: 入复习
   if (isComplete) {
+    const handleFinishAndReview = async () => {
+      try {
+        const result = await addSceneWordsToReview(scene.words, scene.title)
+        if (result.added > 0) {
+          toast.success(`🎉 ${result.added} 词已加入复习队列`)
+        } else if (result.skipped > 0) {
+          toast.success(`已在复习中 (${result.skipped} 词)`)
+        }
+      } catch (e) {
+        const err = e instanceof Error ? e : new Error(String(e))
+        console.error('入复习失败:', err)
+        toast.error(err.message || '入复习失败')
+      }
+    }
     return (
       <div className="space-y-4">
         <div className="text-center py-12">
@@ -152,7 +167,14 @@ export default function CustomSceneLearn() {
           <p className="text-stone-500 dark:text-stone-400 mb-6">
             你已完成 <strong>{scene.title}</strong> 的 {scene.words.length} 个生词
           </p>
-          <div className="flex gap-2 justify-center">
+          <div className="flex gap-2 justify-center flex-wrap">
+            <button
+              onClick={handleFinishAndReview}
+              className="btn-primary text-sm"
+              aria-label="加入复习"
+            >
+              📚 加入复习队列
+            </button>
             <button
               onClick={handleReset}
               className="btn-ghost text-sm"
