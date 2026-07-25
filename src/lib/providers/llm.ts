@@ -5,6 +5,10 @@
 // - 不同渠道的私有参数(model、response_format、tools 等)通过 options 透传
 // 兼容性问题: 不同 provider 的私有参数(model 名称、max_tokens 命名等)由调用方处理
 
+// v1.12.0-B: LLM 错误恢复 / 离线降级
+import { withFallback, LLMFallbackError } from '../llmFallback'
+export { LLMFallbackError }
+
 export type LLMProviderType = 'openai'  // 统一为 OpenAI 协议
 
 export interface LLMProvider {
@@ -340,6 +344,38 @@ export async function chatCompletionWithTimeout(opts: LLMRequestOptions): Promis
   } finally {
     if (timer) clearTimeout(timer)
   }
+}
+
+// === v1.12.0-B: chatCompletionWithFallback (主备双链路) ===
+/**
+ * 复用 chatCompletion, 失败时自动降级到 mock 渠道
+ * - primary 成功 → 返结果
+ * - primary 失败 → 自动用 BUILTIN mock provider 再调一次
+ * - 都失败 → 抛 LLMFallbackError (含分类 + 友好 message)
+ *
+ * 不替换 chatCompletion 主函数, 仅作为可选包装层
+ * 与 chatCompletionWithTimeout 不冲突: 超时仍 10s, 然后尝试 mock
+ */
+export async function chatCompletionWithFallback(opts: LLMRequestOptions): Promise<LLMResponse> {
+  // 找 mock provider (内置, 必有)
+  const mockProvider = BUILTIN_LLM_PROVIDERS.find(p => p.id === 'mock')
+  if (!mockProvider) {
+    // 极端情况: mock provider 不存在 → 直接调 chatCompletion (保持原行为)
+    return chatCompletion(opts)
+  }
+
+  // fallback 链路: 用 mock provider, 不传 apiKey
+  const fallbackOpts: LLMRequestOptions = {
+    ...opts,
+    provider: mockProvider,
+    apiKey: '',
+  }
+
+  return withFallback(
+    () => chatCompletion(opts),
+    () => chatCompletion(fallbackOpts),
+    opts.provider.name,
+  )
 }
 
 // === v1.8-B: e2eTest 端到端渠道验证 ===
