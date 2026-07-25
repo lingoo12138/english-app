@@ -15,6 +15,8 @@ class EnglishAppDB extends Dexie {
   errorExplanations!: Table<{ key: string; rule: string; examples: string; mnemonic: string; ts: number }, string>
   // v1.14.0: 自定义场景表
   customScenes!: Table<CustomScene, number>
+  // v1.21.0: 生词标签表
+  wordTags!: Table<{ wordId: string; tag: string; addedAt: number }, [string, string]>
 
   constructor() {
     super('EnglishAppDB')
@@ -60,6 +62,18 @@ class EnglishAppDB extends Dexie {
       writingErrors: '++id, ts, source',
       errorExplanations: 'key, ts',
       customScenes: '++id, updatedAt, createdAt, title',
+    })
+    // v1.21.0: 生词标签表
+    this.version(6).stores({
+      favorites: 'wordId, addedAt',
+      records: '++id, wordId, action, timestamp',
+      reviews: 'wordId, nextReview',
+      pronunciationAttempts: '++id, wordId, ts, score',
+      chats: '++id, scenario, level, updatedAt, createdAt, title',
+      writingErrors: '++id, ts, source',
+      errorExplanations: 'key, ts',
+      customScenes: '++id, updatedAt, createdAt, title',
+      wordTags: '[wordId+tag], wordId, tag, addedAt',
     })
   }
 }
@@ -112,6 +126,37 @@ export async function deleteWritingError(id: number): Promise<void> {
 // === 错题解释缓存 (v1.2-D2) ===
 export async function getExplanation(key: string) {
   return db.errorExplanations.get(key)
+}
+
+// === v1.21.0 生词标签 ===
+export interface WordTag {
+  wordId: string
+  tag: string         // 小写, ≤ 20 chars
+  addedAt: number
+}
+
+export async function addWordTag(wordId: string, tag: string): Promise<void> {
+  await db.wordTags.put({ wordId, tag, addedAt: Date.now() })
+}
+
+export async function getWordTags(wordId: string): Promise<WordTag[]> {
+  return db.wordTags.where('wordId').equals(wordId).toArray()
+}
+
+export async function getWordsByTag(tag: string): Promise<WordTag[]> {
+  return db.wordTags.where('tag').equals(tag).toArray()
+}
+
+export async function getAllWordTags(): Promise<WordTag[]> {
+  return db.wordTags.toArray()
+}
+
+export async function removeWordTag(wordId: string, tag: string): Promise<void> {
+  await db.wordTags.where('[wordId+tag]').equals([wordId, tag]).delete()
+}
+
+export async function removeAllTagsForWord(wordId: string): Promise<void> {
+  await db.wordTags.where('wordId').equals(wordId).delete()
 }
 
 // === v1.14.0 自定义场景 ===
