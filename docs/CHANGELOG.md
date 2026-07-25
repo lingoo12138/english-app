@@ -2026,3 +2026,31 @@
 - 🆕 36 → 37 库 (新加 taggedReviews)
 - 📝 `docs/plans/v1.22.0-review-by-tag.md` + `scripts/verify-v1.22.0.mjs` + `scripts/review-v1.22.0.py`
 - 3 commits + 1 tag (v1.22.0)
+
+---
+
+## [Unreleased] - v1.22.0 Review
+
+### v1.22.0 大 review (16 版本累积检查)
+
+#### 修 18 处 `catch (e: any)` (累积未修)
+- PronunciationPractice (2): 录音错误处理
+- CustomForms (3): 自定义 LLM/翻译/TTS 表单
+- MigrationSection (2): 数据导入导出
+- exportChat (1): 聊天 JSON 解析
+- imageRecog (1): 拍照识别
+- reminder (1): 通知提醒
+- stt (1): 语音识别
+- Camera (1): 拍照页面
+- Translate (1): 翻译页面
+- tts (5): TTS 多渠道
+
+全部改为 `catch (e: unknown)` + `const err = e instanceof Error ? e : new Error(String(e))`
+
+#### 验证
+- ✅ 0 P0 + 0 P1 + 0 P2 阻塞
+- ✅ 0 catch (e: any) 残留
+- ✅ 510 测试全过
+- ✅ 0 build 错误
+
+详见 `docs/REVIEW_v1.22.0.md`
