@@ -2,7 +2,9 @@
 // 走 LLMProvider 多渠道
 // 支持: 选定一个 LLM provider, 用其 chat 接口对话
 // v1.9.0: 难度自适应 (assessUserLevel) + 自由话题 (customTopic)
+// v1.13.0: 多角色对话 (role) - 5 角色优先于 scenario/topic/level
 import { chatCompletion, LLMProvider, LLMResponse } from './providers/llm'
+import { ChatRole, getRoleById, getRoleSystemPrompt } from './chatRoles'
 
 export type CEFRLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
 
@@ -21,6 +23,8 @@ export interface ChatContext {
   topic?: string     // 话题
   /** v1.9.0: 自由话题 (200 字符内), 与 topic 二选一, customTopic 优先 */
   customTopic?: string
+  /** v1.13.0: 多角色对话 - 5 角色 (interviewer/barista/receptionist/tour_guide/waiter), 角色优先 */
+  role?: ChatRole | string
 }
 
 const SCENARIO_PROMPTS: Record<string, string> = {
@@ -55,6 +59,23 @@ export function truncateCustomTopic(topic: string, maxLen = TOPIC_MAX_LEN): stri
 
 function buildSystemPrompt(ctx: ChatContext): string {
   const parts: string[] = []
+  // v1.13.0: 角色优先, 完全替代 system prompt
+  const role = typeof ctx.role === 'string' ? getRoleById(ctx.role) : ctx.role
+  if (role && role.id !== 'none') {
+    const effectiveLevel = ctx.dynamicLevel || ctx.level
+    const rolePrompt = getRoleSystemPrompt(role, effectiveLevel)
+    if (rolePrompt) {
+      parts.push(`[角色模式: ${role.name} (${role.emoji})]`)
+      parts.push(rolePrompt)
+      // 角色模式下, 保留纠错规则 (与角色对话并存)
+      parts.push('\n补充规则:')
+      parts.push('1. 每次回复 1-3 句, 保持对话节奏')
+      parts.push('2. 用户表达有错时, 先自然回应再委婉纠正')
+      parts.push('3. 完全保持角色身份, 不跳出角色说明你是 AI')
+      return parts.join('\n')
+    }
+  }
+
   parts.push('你是一个英语陪练老师, 用纯英文对话, 帮助用户练习英语口语。')
   parts.push('规则:')
   parts.push('1. 每次回复 1-3 句话, 保持自然对话节奏')
