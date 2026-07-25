@@ -1861,3 +1861,24 @@
 - 🆕 31 → 32 库 (新加 sceneReview)
 - 📝 `docs/plans/v1.16.0-scene-to-review.md` + `scripts/verify-v1.16.0.mjs` + `scripts/review-v1.16.0.py`
 - 3 commits + 1 tag (v1.16.0)
+
+---
+
+## [v1.17.0] - 2026-07-25
+
+### v1.17.0 W18 — 多角色扩展 (5 → 8 角色)
+
+#### v1.17.0-A: 加 3 角色 (`src/lib/chatRoles.ts`)
+- 🏥 **doctor (医生)**: 问诊/症状/开药
+- 🏦 **banker (银行柜员)**: 开户/存款/贷款
+- 👮 **police (警察)**: 报警/失物/问路
+- 每角色: emoji + 中文名 + 描述 + 场景 + systemPrompt + ≥3 问候语 + ≥5 mock 回复
+- ChatRoleId 联合类型扩到 8 角色 + none
+- `getRoleById` / `getGreetingForRole` / `getFallbackReply` / `getRoleSystemPrompt` 自动支持
+
+#### 验证 & 文档
+- 📊 390 → 396 单元测试 (+6, 改 chatRoles 测试 8 角色)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持 (24/24 review)
+- 🆕 8 角色 (+3)
+- 📝 `docs/plans/v1.17.0-more-roles.md` + `scripts/verify-v1.17.0.mjs` + `scripts/review-v1.17.0.py`
+- 2 commits + 1 tag (v1.17.0, push 暂缓)
