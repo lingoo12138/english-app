@@ -1910,3 +1910,37 @@
 - 🆕 32 → 33 库 (新加 fileUpload)
 - 📝 `docs/plans/v1.18.0-file-upload.md` + `scripts/verify-v1.18.0.mjs` + `scripts/review-v1.18.0.py`
 - 3 commits + 1 tag (v1.18.0)
+
+---
+
+## [v1.19.0] - 2026-07-25
+
+### v1.19.0 W20 — 学习日历 (复用 v1.11 learningReport)
+
+#### v1.19.0-A: 核心库 (`learningCalendar.ts` 150 行)
+- 📅 `getCalendarMonth(year, month)`: 月历数据 (6 周 × 7 天)
+- 🔥 `getHeatmapLevel(count)`: 0-4 等级 (灰/浅/中/深/极深)
+- 🎨 `HEATMAP_COLORS`: 5 等级配色 (emerald 系列)
+- 📊 月统计: totalActions / totalWords / activeDays
+- 🔄 `adjustMonth`: 跨年月份调整
+- 📐 `formatDateKey`: YYYY-MM-DD
+- 📆 `getDaysInMonth`: 处理 28/29/30/31
+- 🎯 `isCurrentMonth`: 当月判断
+- 🔗 复用 v1.11 `learningReport.getDailyReport` 数据
+
+#### v1.19.0-B: UI 页面 (`CalendarPage.tsx` 200 行)
+- 📅 7×N 网格 (周日-周六)
+- ⬅️➡️ 月份切换 (← 上一月 / 下一月 →)
+- 🎯 "今天" 按钮 (跳回当月)
+- 📊 月统计卡片 (3 列)
+- 🔥 热力图配色 (绿系 5 等级)
+- 🔘 "今天" 标记 ring
+- 💡 hover tooltip (日期 + 动作数 + 词数)
+- 🔗 跳转到 /reports
+
+#### 验证 & 文档
+- 📊 419 → 440 单元测试 (+21)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持 (29/29 review)
+- 🆕 33 → 34 库 (新加 learningCalendar) + 24 → 25 页面 (新加 CalendarPage)
+- 📝 `docs/plans/v1.19.0-learning-calendar.md` + `scripts/verify-v1.19.0.mjs` + `scripts/review-v1.19.0.py`
+- 3 commits + 1 tag (v1.19.0)
