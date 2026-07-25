@@ -1,6 +1,7 @@
 // CustomScenes.tsx - v1.14.0 B4 自定义场景列表 + 创建
-// 粘贴文本 → AI 提取生词 → 保存为场景
-import { useState, useEffect } from 'react'
+// v1.18.0: 加文件上传 (TXT/MD)
+// 粘贴文本 / 上传文件 → AI 提取生词 → 保存为场景
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../store/useStore'
 import {
@@ -16,6 +17,7 @@ import {
   type CustomScene,
 } from '../lib/customScenes'
 import { getSceneInReviewCount } from '../lib/sceneReview'
+import { validateFile, readAndTruncateFile, extractFileName, formatFileSize, SUPPORTED_EXTENSIONS } from '../lib/fileUpload'
 import { toast } from '../components/Toast'
 import { recordLLMCall, getLimitExceededMessage } from '../lib/llmUsage'
 
@@ -33,6 +35,10 @@ export default function CustomScenes() {
   const [scenes, setScenes] = useState<CustomScene[]>([])
   // v1.16.0: 场景复习数
   const [reviewCounts, setReviewCounts] = useState<Record<number, number>>({})
+  // v1.18.0: 上传文件名
+  const [uploadedFileName, setUploadedFileName] = useState<string>('')
+  const [uploading, setUploading] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const provider = llmProviders.find(p => p.id === llmProviderId)
   const apiKey = llmApiKeys[llmProviderId] || ''
@@ -144,6 +150,40 @@ export default function CustomScenes() {
     setExtractedWords(words => words.filter((_, i) => i !== idx))
   }
 
+  // v1.18.0: 文件上传 handler
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const validation = validateFile(file)
+    if (!validation.valid) {
+      toast.error(validation.error || '文件验证失败')
+      if (fileInputRef.current) fileInputRef.current.value = ''
+      return
+    }
+    setUploading(true)
+    try {
+      const { text: fileText, truncated } = await readAndTruncateFile(file)
+      setText(fileText)
+      setUploadedFileName(file.name)
+      // 自动提取标题 (从文件名)
+      if (!title) {
+        setTitle(extractFileName(file.name))
+      }
+      if (truncated) {
+        toast.success(`✓ 已上传并截断到 ${MAX_TEXT_LEN} 字符`)
+      } else {
+        toast.success(`✓ 已上传 ${file.name} (${formatFileSize(file.size)})`)
+      }
+    } catch (err) {
+      const e = err instanceof Error ? err : new Error(String(err))
+      console.error('文件读取失败:', e)
+      toast.error(e.message || '文件读取失败')
+    } finally {
+      setUploading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    }
+  }
+
   return (
     <div className="space-y-4">
       <div>
@@ -155,7 +195,7 @@ export default function CustomScenes() {
 
       {/* 文本输入 + 提取 */}
       <section className="card">
-        <h3 className="font-semibold mb-2">📄 粘贴英文文本</h3>
+        <h3 className="font-semibold mb-2">📄 粘贴英文文本 / 📁 上传文件</h3>
         <textarea
           value={text}
           onChange={e => setText(e.target.value.slice(0, MAX_TEXT_LEN))}
@@ -163,16 +203,50 @@ export default function CustomScenes() {
           className="input w-full h-40 text-sm"
           aria-label="英文文本输入框"
         />
-        <div className="flex items-center justify-between mt-2 text-xs text-stone-500">
+        {uploadedFileName && (
+          <div className="mt-2 text-xs text-emerald-600 dark:text-emerald-400">
+            📁 已上传: {uploadedFileName}
+            <button
+              onClick={() => {
+                setUploadedFileName('')
+                setText('')
+              }}
+              className="ml-2 text-red-500 hover:underline"
+              aria-label="清除上传文件"
+            >
+              ✕ 清除
+            </button>
+          </div>
+        )}
+        <div className="flex items-center justify-between mt-2 text-xs text-stone-500 gap-2 flex-wrap">
           <span>{text.length} / {MAX_TEXT_LEN} 字符</span>
-          <button
-            onClick={handleExtract}
-            disabled={loading || !text.trim()}
-            className="btn-primary text-sm disabled:opacity-50"
-            aria-label="AI 提取生词"
-          >
-            {loading ? '⏳ 提取中...' : '✨ 提取生词'}
-          </button>
+          <div className="flex items-center gap-2">
+            {/* v1.18.0: 文件上传按钮 */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept={SUPPORTED_EXTENSIONS.join(',')}
+              onChange={handleFileUpload}
+              className="hidden"
+              aria-label="选择文件"
+            />
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="btn-ghost text-xs disabled:opacity-50"
+              aria-label="上传 TXT 或 MD 文件"
+            >
+              {uploading ? '⏳ 上传中...' : '📁 上传文件'}
+            </button>
+            <button
+              onClick={handleExtract}
+              disabled={loading || !text.trim()}
+              className="btn-primary text-sm disabled:opacity-50"
+              aria-label="AI 提取生词"
+            >
+              {loading ? '⏳ 提取中...' : '✨ 提取生词'}
+            </button>
+          </div>
         </div>
       </section>
 
