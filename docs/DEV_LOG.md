@@ -1584,3 +1584,73 @@ npm run build
   - 内容能用: 5334 词 + 465 词根 + 13234 句 + 5 场景 + 5 听力
   - 学得会: 4 LLM 讲解 + 智能队列 + FSRS + 日报反馈
 
+
+## v1.12.0 — W13+ (2026-07-25)
+
+### 触发
+W13+ 自主选 3 件事: 错误恢复 + 拍照场景 + LLM 日限
+
+### 范围
+- **P1 拍照场景** (subagent 0 产出) → 主人接管 imageRecog.ts 7 场景 + Camera.tsx + 10 测试
+- **P2 错误恢复** (subagent 写 llmFallback.ts 149 + chatCompletionWithFallback + 31 测试) → 主人接管修 1 测试 (timeout 中文匹配)
+- **P3 LLM 日限** (subagent 0 产出) → 主人接管 llmUsage.ts 80 + Settings 用量卡片 + 5 处调前 check + 23 测试
+
+### 数据
+- 230 → 288 单元测试 (+58)
+- 0 P0 + 0 P1 + 0 P2 维持
+- 27 → 29 库 (+2 llmFallback + llmUsage)
+- 12 → 13 release tag
+- W13+ 第 1 轮 (v1.8-v1.12 累计 5 轮)
+
+## v1.13.0 — W14+ (2026-07-25)
+
+### 触发
+W14+ 候选 B3 多角色对话 (3d → 1d 压缩)
+
+### 范围
+- 主人接管全程 (单 subagent 启动失败 0 次, 直接干):
+  - chatRoles.ts 250 行 (5 角色 + NONE_ROLE + 4 函数)
+  - RoleSelector.tsx 60 行 (横向 scroll + a11y radio)
+  - AIChat.tsx 集成 (currentRoleId + handleRoleChange + 顶部 UI)
+  - aiChat.ts 改造 (role 字段 + 角色优先)
+  - 31 chatRoles 测试 + 5 roleIntegration 测试
+
+### 数据
+- 288 → 324 单元测试 (+36)
+- 0 P0 + 0 P1 + 0 P2 维持
+- 29 → 30 库 + 25 → 26 组件
+- 13 → 14 release tag
+- 3 producer 模式稳定 (5+ 轮)
+
+## v1.14.0 — W15 (2026-07-25)
+
+### 触发
+W15 候选 B4 自定义场景课 (4d → 1d 压缩)
+
+### 范围
+- 主人接管全程:
+  - customScenes.ts 250 行 (7 函数 + mock 词频 fallback + JSON 严格解析)
+  - db.ts v5 加 customScenes 表 + 4 helper
+  - CustomScenes.tsx 220 行 (列表 + 创建)
+  - CustomSceneDetail.tsx 120 行 (详情 + 收藏)
+  - App.tsx 路由 + Home.tsx 入口
+  - LLM 日限复用 explain 30
+  - 32 customScenes 测试
+
+### 数据
+- 324 → 356 单元测试 (+32)
+- 0 P0 + 0 P1 + 0 P2 维持
+- 30 → 31 库 + 21 → 23 页面
+- 14 → 15 release tag
+- W15 第 6 轮 (v1.8-v1.14 累计)
+
+## v1.14.0 累计 (全项目 5 周完结)
+
+- 15 release tag / 240+ commit / 26 组件 / 31 库 / 23 页面
+- 356 单元测试 + 16 闭环
+- 110+ bug 修复
+- 9500 → 10500 行代码
+- 北极星 3 维度:
+  - 触发可业: 5 角色对话 + 自定义场景 + 拍照
+  - 内容能用: 5334 词 + 465 词根 + 13234 句 + 5 场景 + 5 角色 + 用户内容
+  - 学得会: FSRS + 智能队列 + LLM 日限 + 错误恢复 + 难度自适应
