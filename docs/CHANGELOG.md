@@ -1807,3 +1807,29 @@
 - 🆕 30 → 31 库 (新加 customScenes) + 21 → 23 页面 (新加 CustomScenes + CustomSceneDetail)
 - 📝 `docs/plans/v1.14.0-custom-scene.md` + `scripts/verify-v1.14.0.mjs` + `scripts/review-v1.14.0.py`
 - 3 commits + 1 tag (v1.14.0)
+
+---
+
+## [v1.15.0] - 2026-07-25
+
+### v1.15.0 W16 — 自定义场景学习流 (闭环 v1.14.0 最后一公里)
+
+#### v1.15.0-A: CustomSceneLearn 页面 (`src/pages/CustomSceneLearn.tsx` 220 行)
+- 📚 卡片学习流: 翻面 (词 ↔ 释义+例句) + 翻页 (←/→)
+- ⌨️ 键盘快捷键: 空格=翻面, ←/→=翻页
+- 📊 进度条 + 计数 (3 / 15) + 持久化 (localStorage `customScene-${id}-progress`)
+- 🔊 TTS 朗读 (复用 TTSButton 组件)
+- ⭐ 收藏 toggle (复用 v1.14 收藏逻辑)
+- 🎉 完成态: "学完啦!" + 再学一遍 + 返回详情
+- 🔄 重置进度
+
+#### v1.15.0-B: 集成 (`CustomSceneDetail` 按钮 + 路由)
+- 📝 `CustomSceneDetail.tsx`: 顶部 "📚 开始学习" 按钮
+- 🛣️ `App.tsx`: 路由 `/custom-scenes/:id/learn` (lazy load)
+
+#### 验证 & 文档
+- 📊 356 → 372 单元测试 (+16)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持 (28/28 review)
+- 🆕 23 → 24 页面 (新加 CustomSceneLearn)
+- 📝 `docs/plans/v1.15.0-custom-scene-learn.md` + `scripts/verify-v1.15.0.mjs` + `scripts/review-v1.15.0.py`
+- 3 commits + 1 tag (v1.15.0)
