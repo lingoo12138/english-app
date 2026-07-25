@@ -28,6 +28,7 @@ const AIChat = lazy(() => import('./pages/AIChat'))
 const ReportsPage = lazy(() => import('./pages/ReportsPage'))
 const CustomScenes = lazy(() => import('./pages/CustomScenes'))
 const CustomSceneDetail = lazy(() => import('./pages/CustomSceneDetail'))
+const CustomSceneLearn = lazy(() => import('./pages/CustomSceneLearn'))
 import { useStore, useStats } from './store/useStore'
 import { getTodayCount, getTotalLearned, getAllFavorites } from './lib/db'
 import { getTheme, applyTheme, applyFontSize } from './lib/themes'
@@ -139,6 +140,7 @@ function App() {
         <Route path="pronounce-custom" element={<PronounceCustom />} />
         <Route path="custom-scenes" element={<CustomScenes />} />
         <Route path="custom-scenes/:id" element={<CustomSceneDetail />} />
+        <Route path="custom-scenes/:id/learn" element={<CustomSceneLearn />} />
         <Route path="settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

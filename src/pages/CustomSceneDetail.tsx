@@ -76,9 +76,18 @@ export default function CustomSceneDetail() {
             {scene.words.length} 词 · 创建于 {new Date(scene.createdAt).toLocaleDateString('zh-CN')}
           </p>
         </div>
-        <Link to="/custom-scenes" className="btn-ghost text-sm">
-          ← 返回
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            to={`/custom-scenes/${scene.id}/learn`}
+            className="btn-primary text-sm"
+            aria-label="开始学习"
+          >
+            📚 开始学习
+          </Link>
+          <Link to="/custom-scenes" className="btn-ghost text-sm">
+            ← 返回
+          </Link>
+        </div>
       </div>
 
       {/* 原文 */}
