@@ -8,7 +8,7 @@ import { exportToCSV, exportToJSON, exportFullBackup, downloadFile } from '../li
 import { formatDate } from '../lib/utils'
 import { Modal } from '../components/Modal'
 import { addFavoritesToReview, downloadFavoritesCSV, selectAll as selectAllIds, invertSelection } from '../lib/notebookBulk'
-import { addTagsToWord, getAllTagsWithCount, buildWordTagMap, getTagColor, getWordIdsByTag, removeTagFromWord } from '../lib/wordTags'
+import { addTagsToWord, getAllTagsWithCount, buildWordTagMap, getTagColor, getWordIdsByTag, removeTagFromWord, renameTag, mergeTags } from '../lib/wordTags'
 import { toast } from '../components/Toast'
 
 export default function Notebook() {
@@ -26,6 +26,10 @@ export default function Notebook() {
   const [wordTagMap, setWordTagMap] = useState<Map<string, Set<string>>>(new Map())
   const [filterTag, setFilterTag] = useState<string | null>(null)
   const [tagInput, setTagInput] = useState<Record<string, string>>({})  // wordId -> input
+  // v1.25.0: tag 合并/重命名 modal
+  const [showTagManager, setShowTagManager] = useState(false)
+  const [tagAction, setTagAction] = useState<{ type: 'rename' | 'merge'; tag: string } | null>(null)
+  const [tagActionValue, setTagActionValue] = useState('')
 
   const loadFavorites = async () => {
     setLoading(true)
@@ -152,6 +156,27 @@ export default function Notebook() {
     loadFavorites()
   }
 
+  // v1.25.0: 重命名/合并 tag
+  const handleTagAction = async () => {
+    if (!tagAction || !tagActionValue.trim()) return
+    try {
+      if (tagAction.type === 'rename') {
+        const n = await renameTag(tagAction.tag, tagActionValue.toLowerCase().trim())
+        toast.success(`✓ 已重命名 ${n} 个 word 的 tag`)
+      } else {
+        const r = await mergeTags(tagAction.tag, tagActionValue.toLowerCase().trim())
+        toast.success(`✓ 合并: ${r.merged} 改名 + ${r.removed} 删重复`)
+      }
+      setShowTagManager(false)
+      setTagAction(null)
+      setTagActionValue('')
+      loadFavorites()
+    } catch (e: unknown) {
+      const err = e instanceof Error ? e : new Error(String(e))
+      toast.error(err.message || '操作失败')
+    }
+  }
+
   const toggleSelect = (id: string) => {
     setSelected(prev => {
       const next = new Set(prev)
@@ -181,6 +206,42 @@ export default function Notebook() {
         onConfirm={doBatchDelete}
         onCancel={() => setShowBatchConfirm(false)}
       />
+
+      {/* v1.25.0: tag 合并/重命名 modal */}
+      <Modal
+        open={showTagManager}
+        title={tagAction?.type === 'rename' ? `重命名 "${tagAction?.tag}"` : `合并 "${tagAction?.tag}" 到...`}
+        onCancel={() => { setShowTagManager(false); setTagAction(null); setTagActionValue('') }}
+        onConfirm={() => {}}
+      >
+        <div className="space-y-3">
+          <p className="text-sm text-stone-500">
+            {tagAction?.type === 'rename'
+              ? '输入新 tag 名 (旧 tag 会被替换):'
+              : '输入目标 tag (重复 word 会去重):'}
+          </p>
+          <input
+            type="text"
+            value={tagActionValue}
+            onChange={(e) => setTagActionValue(e.target.value)}
+            placeholder={tagAction?.type === 'rename' ? '新 tag' : '目标 tag'}
+            className="input"
+            maxLength={20}
+            autoFocus
+          />
+          <div className="flex gap-2 justify-end">
+            <button
+              onClick={() => { setShowTagManager(false); setTagAction(null); setTagActionValue('') }}
+              className="btn-ghost text-sm"
+            >取消</button>
+            <button
+              onClick={handleTagAction}
+              disabled={!tagActionValue.trim()}
+              className="btn-primary text-sm disabled:opacity-50"
+            >确认</button>
+          </div>
+        </div>
+      </Modal>
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold mb-1">生词本</h1>
@@ -190,19 +251,35 @@ export default function Notebook() {
             <div className="mt-2 flex flex-wrap gap-1 items-center">
               <span className="text-xs text-stone-500">按 tag 过滤:</span>
               <button
+                onClick={() => setShowTagManager(true)}
+                className="text-xs px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-200"
+                title="管理 tag"
+              >🏷️ 管理</button>
+              <button
                 onClick={() => setFilterTag(null)}
                 className={`text-xs px-2 py-0.5 rounded ${filterTag === null ? 'bg-brand-500 text-white' : 'bg-stone-100 dark:bg-stone-700'}`}
               >
                 全部 ({words.length})
               </button>
               {allTags.map(({ tag, count }) => (
-                <button
-                  key={tag}
-                  onClick={() => setFilterTag(filterTag === tag ? null : tag)}
-                  className={`text-xs px-2 py-0.5 rounded ${filterTag === tag ? 'bg-brand-500 text-white' : getTagColor(tag)}`}
-                >
-                  {tag} ({count})
-                </button>
+                <div key={tag} className="inline-flex items-center">
+                  <button
+                    onClick={() => setFilterTag(filterTag === tag ? null : tag)}
+                    className={`text-xs px-2 py-0.5 rounded-l ${filterTag === tag ? 'bg-brand-500 text-white' : getTagColor(tag)}`}
+                  >
+                    {tag} ({count})
+                  </button>
+                  <button
+                    onClick={() => { setTagAction({ type: 'rename', tag }); setTagActionValue(''); setShowTagManager(true) }}
+                    className="text-xs px-1.5 py-0.5 rounded-r bg-stone-100 dark:bg-stone-700 hover:bg-stone-200"
+                    title="重命名"
+                  >✏️</button>
+                  <button
+                    onClick={() => { setTagAction({ type: 'merge', tag }); setTagActionValue(''); setShowTagManager(true) }}
+                    className="text-xs px-1.5 py-0.5 ml-0.5 rounded bg-stone-100 dark:bg-stone-700 hover:bg-stone-200"
+                    title="合并到其他 tag"
+                  >🔗</button>
+                </div>
               ))}
             </div>
           )}

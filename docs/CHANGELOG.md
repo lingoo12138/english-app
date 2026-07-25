@@ -2121,3 +2121,30 @@
 - 🐛 修 v1.23 引入的 fileUpload 测试 (.pdf 现在支持)
 - 📝 `docs/plans/v1.24.0-learning-reminder.md` + `scripts/verify-v1.24.0.mjs` + `scripts/review-v1.24.0.py`
 - 4 commits + 1 tag (v1.24.0)
+
+---
+
+## [v1.25.0] - 2026-07-26
+
+### v1.25.0 W26 — tag 合并/重命名 (1d)
+
+#### v1.25.0-A: 核心库 (3 函数)
+- ✏️ `renameTag(oldTag, newTag)`: 改所有 word 的旧 tag 为新 tag
+- 🔗 `mergeTags(source, target)`: 合并 + 去重, 返 { removed, merged }
+- 🔍 `findSimilarTags(query, limit)`: 前缀匹配找重复 tag
+- 复用 IDB wordTags 表 + 幂等 put
+- 165 → 213 行
+
+#### v1.25.0-B: Notebook UI
+- 🏷️ "🏷️ 管理" 按钮 (tag 过滤栏顶部)
+- ✏️🔗 每个 tag 行加 2 小按钮 (rename/merge)
+- 🎨 Modal 复用: 输入新值, 确认
+- 🍞 toast 反馈: "✓ 已重命名 N 个 word 的 tag" / "✓ 合并: N 改名 + M 删重复"
+- 🛡️ catch (e: unknown) 守卫
+
+#### 验证 & 文档
+- 📊 542 → 555 单元测试 (+13)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持 (13/13 review)
+- 🆕 38 库 (wordTags 扩 3 函数)
+- 📝 `scripts/verify-v1.25.0.mjs` + `scripts/review-v1.25.0.py`
+- 3 commits + 1 tag (v1.25.0)

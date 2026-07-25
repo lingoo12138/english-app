@@ -163,3 +163,62 @@ export function getTagColor(tag: string): string {
   }
   return TAG_COLORS[hash % TAG_COLORS.length]
 }
+
+// ============ v1.25.0 tag 合并/重命名 ============
+
+/** 重命名 tag: 把所有 oldTag 的 word 改为 newTag, 返回受影响的 word 数 */
+export async function renameTag(oldTag: string, newTag: string): Promise<number> {
+  if (!isValidTag(oldTag) || !isValidTag(newTag)) return 0
+  if (oldTag === newTag) return 0
+  const { db } = await import('./db')
+  const all = await db.wordTags.where('tag').equals(oldTag).toArray()
+  for (const row of all) {
+    // 幂等: put 覆盖 (新 addedAt) + 删旧行
+    await db.wordTags.put({ wordId: row.wordId, tag: newTag, addedAt: Date.now() })
+    await db.wordTags.where({ wordId: row.wordId, tag: oldTag }).delete()
+  }
+  return all.length
+}
+
+/** 合并 tag: 把 sourceTag 合并到 targetTag, 处理重复 (保留 target)
+ *  返回 { removed: number, merged: number } */
+export async function mergeTags(
+  sourceTag: string,
+  targetTag: string,
+): Promise<{ removed: number; merged: number }> {
+  if (!isValidTag(sourceTag) || !isValidTag(targetTag)) return { removed: 0, merged: 0 }
+  if (sourceTag === targetTag) return { removed: 0, merged: 0 }
+  const { db } = await import('./db')
+  const sourceRows = await db.wordTags.where('tag').equals(sourceTag).toArray()
+  const targetWordIds = new Set(
+    (await db.wordTags.where('tag').equals(targetTag).toArray()).map(r => r.wordId),
+  )
+  let merged = 0
+  let removed = 0
+  for (const row of sourceRows) {
+    if (targetWordIds.has(row.wordId)) {
+      // 重复: 删 source
+      await db.wordTags.where({ wordId: row.wordId, tag: sourceTag }).delete()
+      removed++
+    } else {
+      // 唯一: 改为 target
+      await db.wordTags.put({ wordId: row.wordId, tag: targetTag, addedAt: Date.now() })
+      merged++
+    }
+  }
+  return { removed, merged }
+}
+
+/** 找相似 tag (前缀匹配) — 给重复检测用 */
+export async function findSimilarTags(query: string, limit = 5): Promise<string[]> {
+  if (!query || query.length < 2) return []
+  const all = await getAllTagsWithCount()
+  const q = query.toLowerCase()
+  // 前缀匹配 + 包含
+  const matches = all
+    .filter(t => t.tag.startsWith(q) || t.tag.includes(q))
+    .filter(t => t.tag !== q)
+    .slice(0, limit)
+    .map(t => t.tag)
+  return matches
+}
