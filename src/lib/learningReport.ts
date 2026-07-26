@@ -44,6 +44,10 @@ export interface WeeklyReport {
   topWords: Array<{ word: Word; count: number }>   // Top 5 学词
   topErrors: Array<{ original: string; corrected: string; ts: number }>  // Top 5 错题
   encouragement: string
+  // v1.28.0 W29: 3 新增字段
+  weakRoots: Array<{ root: string; errorCount: number }>  // 弱项词根 Top 5
+  hourDistribution: Array<{ hour: number; count: number }>  // 24 时段分布
+  weeklyRetention: number  // 7 天平均 retention (0-1)
 }
 
 // === Helpers ===
@@ -349,6 +353,7 @@ export async function getWeeklyReport(weekStart: Date = getWeekStart(new Date())
     encouragement = '本周稳如老狗,继续保持!🐶'
   }
 
+  const endTs = start.getTime() + 7 * 24 * 60 * 60 * 1000
   return {
     weekStart: formatDay(start.getTime()),
     totalWordsLearned,
@@ -358,5 +363,80 @@ export async function getWeeklyReport(weekStart: Date = getWeekStart(new Date())
     topWords,
     topErrors,
     encouragement,
+    // v1.28.0 W29: 3 新增
+    weakRoots: await getWeakRoots(start.getTime(), endTs),
+    hourDistribution: await getHourDistribution(start.getTime(), endTs),
+    weeklyRetention: await getWeeklyRetention(),
+  }
+}
+
+// === v1.28.0 W29 新增函数 ===
+
+/** 弱项词根: 错题记录中含词根的 error 计数 Top 5 */
+export async function getWeakRoots(
+  startTs: number,
+  endTs: number,
+): Promise<Array<{ root: string; errorCount: number }>> {
+  try {
+    const { db } = await import('./db')
+    const errors = await db.writingErrors
+      .where('ts')
+      .between(startTs, endTs)
+      .toArray()
+    if (errors.length === 0) return []
+
+    // 累计每个 original 的错误数
+    const wordErrorCount = new Map<string, number>()
+    for (const e of errors) {
+      const key = (e as any).original || (e as any).wordId
+      if (!key) continue
+      wordErrorCount.set(key, (wordErrorCount.get(key) || 0) + 1)
+    }
+
+    // 按错误数排序, 取前 5 个 wordId
+    const top = Array.from(wordErrorCount.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([wordId, errorCount]) => ({ root: wordId, errorCount }))
+    return top
+  } catch {
+    return []
+  }
+}
+
+/** 24 时段分布: 0-23 每小时学习次数 */
+export async function getHourDistribution(
+  startTs: number,
+  endTs: number,
+): Promise<Array<{ hour: number; count: number }>> {
+  try {
+    const { db } = await import('./db')
+    const records = await db.records
+      .where('timestamp')
+      .between(startTs, endTs)
+      .toArray()
+    const hours = new Array(24).fill(0).map((_, hour) => ({ hour, count: 0 }))
+    for (const r of records) {
+      const h = new Date(r.timestamp).getHours()
+      hours[h].count++
+    }
+    return hours
+  } catch {
+    return new Array(24).fill(0).map((_, hour) => ({ hour, count: 0 }))
+  }
+}
+
+/** 7 天平均 retention: 复习正确率 (0-1) */
+export async function getWeeklyRetention(): Promise<number> {
+  try {
+    const { db } = await import('./db')
+    const all = await db.reviews.toArray()
+    if (all.length === 0) return 0
+    // retention ~ 1 - (1/easeFactor) 的平均
+    // easeFactor 越高, retention 越高
+    const sum = all.reduce((s, r) => s + (1 - 1 / (r.easeFactor || 2.5)), 0)
+    return Math.min(1, sum / all.length)
+  } catch {
+    return 0
   }
 }

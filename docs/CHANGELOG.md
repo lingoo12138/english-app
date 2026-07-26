@@ -2194,3 +2194,27 @@
 - ✅ 0 P0 + 0 P1 + 0 P2 维持
 - 11 单角色 + 3 多人场景 = 14 角色模式
 - 3 commits + 1 tag (v1.27.0)
+
+---
+
+## [v1.28.0] - 2026-07-26
+
+### v1.28.0 W29 — 学习报告升级 (2d, 实际 1.5h)
+
+#### v1.28.0-A: 3 新数据点 (learningReport.ts)
+- 🌱 `getWeakRoots()`: 错题记录按 wordId 累计 Top 5
+- ⏰ `getHourDistribution()`: 24 时段分布, 0-23 每小时 count
+- 🧠 `getWeeklyRetention()`: easeFactor 平均算 retention (0-1)
+- WeeklyReport 加 3 字段 (向后兼容)
+
+#### v1.28.0-B: ReportsPage 3 卡片
+- 🌱 弱项词根 Top 5 (卡片 + 错次数)
+- ⏰ 时段分布 (24 个柱状条 + hover 显示具体时段)
+- 🧠 7 天 retention (百分比 + 进度条 + 评级)
+- 8/8 新测试
+
+#### 验证 & 文档
+- 📊 573 → 581 单元测试 (+8)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持
+- 25 页面 (ReportsPage 升级)
+- 3 commits + 1 tag (v1.28.0)

@@ -237,6 +237,65 @@ function WeeklyCard({ weekly }: { weekly: WeeklyReport }) {
           本周还没有学习数据,先学几个词再来看看?
         </div>
       )}
+
+      {/* v1.28.0 W29: 弱项词根 Top 5 */}
+      {weekly.weakRoots.length > 0 && (
+        <div className="card">
+          <div className="text-sm font-semibold mb-3">🌱 弱项词根 Top 5</div>
+          <div className="space-y-2">
+            {weekly.weakRoots.map((r, i) => (
+              <div key={r.root} className="flex items-center gap-2 text-sm">
+                <span className="w-5 text-center text-stone-400">{i + 1}</span>
+                <span className="font-semibold flex-1">{r.root}</span>
+                <span className="text-xs text-red-600 dark:text-red-400">{r.errorCount} 错</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* v1.28.0 W29: 学习时段分布 */}
+      {weekly.hourDistribution.some(h => h.count > 0) && (
+        <div className="card">
+          <div className="text-sm font-semibold mb-3">⏰ 学习时段分布 (24h)</div>
+          <div className="flex items-end gap-0.5 h-16">
+            {weekly.hourDistribution.map((h) => {
+              const maxH = Math.max(1, ...weekly.hourDistribution.map(x => x.count))
+              const ratio = h.count / maxH
+              return (
+                <div
+                  key={h.hour}
+                  className="flex-1 bg-brand-500 rounded-t hover:bg-brand-600 transition-colors"
+                  style={{ height: `${Math.max(ratio * 100, h.count > 0 ? 4 : 0)}%`, minHeight: h.count > 0 ? '2px' : '0' }}
+                  title={`${h.hour}:00 - ${h.count} 次`}
+                />
+              )
+            })}
+          </div>
+          <div className="flex justify-between text-[10px] text-stone-400 mt-1">
+            <span>0</span><span>6</span><span>12</span><span>18</span><span>23</span>
+          </div>
+        </div>
+      )}
+
+      {/* v1.28.0 W29: 7 天 retention */}
+      <div className="card">
+        <div className="text-sm font-semibold mb-2">🧠 7 天平均 retention</div>
+        <div className="flex items-baseline gap-2">
+          <div className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
+            {Math.round(weekly.weeklyRetention * 100)}%
+          </div>
+          <div className="text-xs text-stone-500">
+            {weekly.weeklyRetention >= 0.8 ? '优秀' : weekly.weeklyRetention >= 0.6 ? '良好' : '需加强'}
+          </div>
+        </div>
+        <div className="mt-2 h-2 bg-stone-100 dark:bg-stone-800 rounded overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600"
+            style={{ width: `${weekly.weeklyRetention * 100}%` }}
+          />
+        </div>
+      </div>
     </div>
   )
 }
