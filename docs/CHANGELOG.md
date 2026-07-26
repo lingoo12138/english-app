@@ -2468,3 +2468,27 @@
 - 642 → 646 单元测试 (+4)
 - 0 P0 + 0 P1 + 0 P2 维持
 - 1 commit + 1 tag (v1.40.0)
+
+---
+
+## [v1.40.1] - 2026-07-27 (verifier 修复)
+
+### v1.40.0 大 review verifier3 修复 2 处
+
+**P1 (1 处)**: phraseCards 切短语不显示短语
+- 原因: v1.37 W35-3 写了切短语按钮 + 短语队列, 但 CardReview 渲染层只读 `queue[currentIndex].word`
+- 修复: 加 `currentPhrase = mode === 'phrase' ? phraseQueue[currentIndex] : null` 分支
+  - 正面: 短词出处 + phrase
+  - 翻面: phraseTranslation
+  - TTS: 短语 (而非单词)
+
+**P2 (1 处)**: themes.ts 暗色双实现 + race condition
+- 原因: themes.ts `isDarkMode`/`toggleDarkMode`/`initDarkMode` 写 localStorage 'dark-mode' key, 但 UI 走 useStore (zustand), 这个 key 永远空 (死路径)
+- 修复: 删 3 函数, App.tsx 不调 `initDarkMode`, 暗色统一走 useStore
+  - darkMode.test.ts: 10 → 3 测试 (删 7 dead)
+  - 仍保留 `applyContrastFix` (供 useEffect 调)
+
+#### 验证
+- 646 → 639 单元测试 (-7, 删 dead 测试)
+- 0 P0 + 0 P1 + 0 P2 维持
+- 1 commit + 1 tag (v1.40.1)

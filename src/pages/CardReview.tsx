@@ -236,6 +236,8 @@ export default function CardReview() {
 
   const current = queue[currentIndex]
   const word = current.word
+  // v1.40.0 W40: 短语模式分支
+  const currentPhrase = mode === 'phrase' ? phraseQueue[currentIndex] : null
   // 进度按 currentIndex+1(答完一题就跳到下一个位置)
   const progress = ((currentIndex + 1) / queue.length) * 100
 
@@ -280,21 +282,36 @@ export default function CardReview() {
         <div className={`card-inner ${flipped ? 'flipped' : ''}`}>
           {/* 正面:单词 + 音标 + TTS */}
           <div className="card-face card-front">
-            <div className="flex items-center gap-2 justify-center mb-3 min-h-[28px]">
-              {word.pos.slice(0, 2).map(p => (
-                <span key={p} className="text-xs px-2 py-0.5 bg-stone-100 dark:bg-stone-700 rounded">
-                  {p}
-                </span>
-              ))}
-            </div>
-            <h1 className="text-5xl font-bold mb-3 tracking-wide text-center break-words">
-              {word.word}
-            </h1>
+            {/* v1.40.0 W40: 短语模式分支 */}
+            {currentPhrase ? (
+              <>
+                <div className="flex items-center gap-2 justify-center mb-3 text-xs text-stone-500">
+                  <span>出自词</span>
+                  <span className="font-semibold text-brand-600 dark:text-brand-400">{currentPhrase.word}</span>
+                </div>
+                <h1 className="text-3xl font-bold mb-3 tracking-wide text-center break-words">
+                  {currentPhrase.phrase}
+                </h1>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center gap-2 justify-center mb-3 min-h-[28px]">
+                  {word.pos.slice(0, 2).map(p => (
+                    <span key={p} className="text-xs px-2 py-0.5 bg-stone-100 dark:bg-stone-700 rounded">
+                      {p}
+                    </span>
+                  ))}
+                </div>
+                <h1 className="text-5xl font-bold mb-3 tracking-wide text-center break-words">
+                  {word.word}
+                </h1>
+              </>
+            )}
             <p className="text-stone-500 dark:text-stone-400 text-center mb-6">
               {word.phonetic || (word.phonetic_us ?? '')}
             </p>
             <div className="flex justify-center mb-6">
-              <TTSButton text={word.word} size="lg" />
+              <TTSButton text={currentPhrase ? currentPhrase.phrase : word.word} size="lg" />
             </div>
             <p className="text-stone-400 dark:text-stone-300 text-sm text-center">
               {flipped ? '显示答案中...' : '点击卡片或按空格查看释义'}
@@ -309,11 +326,18 @@ export default function CardReview() {
             </p>
 
             <div className="text-xl text-stone-800 dark:text-stone-200 mb-4 text-center">
-              {word.translations[0]}
-              {word.translations.length > 1 && (
-                <span className="text-stone-500 dark:text-stone-400 text-sm block mt-1">
-                  {word.translations.slice(1).join(' · ')}
-                </span>
+              {/* v1.40.0 W40: 短语模式翻译 */}
+              {currentPhrase ? (
+                currentPhrase.phraseTranslation
+              ) : (
+                <>
+                  {word.translations[0]}
+                  {word.translations.length > 1 && (
+                    <span className="text-stone-500 dark:text-stone-400 text-sm block mt-1">
+                      {word.translations.slice(1).join(' · ')}
+                    </span>
+                  )}
+                </>
               )}
             </div>
 

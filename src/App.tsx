@@ -34,7 +34,7 @@ const CustomSceneLearn = lazy(() => import('./pages/CustomSceneLearn'))
 const CalendarPage = lazy(() => import('./pages/CalendarPage'))
 import { useStore, useStats } from './store/useStore'
 import { getTodayCount, getTotalLearned, getAllFavorites } from './lib/db'
-import { getTheme, applyTheme, applyFontSize, initDarkMode, applyContrastFix } from './lib/themes'
+import { getTheme, applyTheme, applyFontSize, applyContrastFix } from './lib/themes'
 import { getPageTitle } from './lib/utils'
 import { BUILTIN_LLM_PROVIDERS } from './lib/providers/llm'
 import { BUILTIN_TRANSLATE_PROVIDERS } from './lib/translate'
@@ -62,14 +62,10 @@ function App() {
   }, [themeColor])
 
   // v1.39.0 W37-3: 暗色模式优化 (WCAG AA)
+  // v1.40.0 W40: 暗色统一走 useStore, 不调 initDarkMode (避免 race + 死路径)
   useEffect(() => {
     applyContrastFix(darkMode)
   }, [darkMode])
-
-  // 启动时初始化暗色模式
-  useEffect(() => {
-    initDarkMode()
-  }, [])
 
   useEffect(() => {
     applyFontSize(fontSize)
