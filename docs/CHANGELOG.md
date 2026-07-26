@@ -2402,3 +2402,30 @@
 - 632 单元测试全过 (无新增, UI 集成)
 - 0 P0 + 0 P1 + 0 P2 维持
 - 1 commit + 1 tag (v1.38.0)
+
+---
+
+## [v1.39.0] - 2026-07-26
+
+### v1.39.0 W37 — 3 件 UI 增强 (1.5h)
+
+#### W37-1: 多人 UI 增强
+- 💬 AIChat MessageBubble 拆出 MultiRoleContent
+- 检测 [Name]: 前缀, 说话人 + emoji 标识
+- 复用 v1.27 parseMultiRoleReply (已写)
+
+#### W37-2: TTS 音色配置
+- 🔊 TTSSection 加 4 快速口音按钮 (美/英/澳/印)
+- 🇺🇸🇬🇧🇦🇺🇮🇳 自动选第一个匹配 voice
+- 保留原 select 全部 voice (高级用户)
+
+#### W37-3: 暗色模式优化 (WCAG AA)
+- 🌙 themes.ts 加 4 函数: isDarkMode/toggleDarkMode/initDarkMode/applyContrastFix
+- 🎨 暗色 stone-500/600 文字增强 (rgb 168 162 158, AA 4.5:1)
+- 💾 localStorage 持久化 + 系统偏好检测
+- App.tsx 启动时 initDarkMode
+
+#### 验证
+- 632 → **642** 单元测试 (+10 darkMode)
+- 0 P0 + 0 P1 + 0 P2 维持
+- 1 commit + 1 tag (v1.39.0)

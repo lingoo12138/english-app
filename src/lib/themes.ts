@@ -136,6 +136,76 @@ export function getTheme(id: string): Theme {
   return THEMES.find(t => t.id === id) || THEMES[0]
 }
 
+// === v1.39.0 W37-3: 暗色模式优化 ===
+
+/** 检测当前是否为暗色模式 */
+export function isDarkMode(): boolean {
+  if (typeof window === 'undefined') return false
+  return document.documentElement.classList.contains('dark')
+}
+
+/** 切换暗色模式 (设置 html class + localStorage 持久化) */
+export function toggleDarkMode(force?: boolean): boolean {
+  if (typeof window === 'undefined') return false
+  const html = document.documentElement
+  const shouldBeDark = force ?? !html.classList.contains('dark')
+  if (shouldBeDark) {
+    html.classList.add('dark')
+  } else {
+    html.classList.remove('dark')
+  }
+  try {
+    localStorage.setItem('dark-mode', shouldBeDark ? '1' : '0')
+  } catch {}
+  // v1.39.0: 应用 WCAG AA 优化 (暗色增强文本对比度)
+  applyContrastFix(shouldBeDark)
+  return shouldBeDark
+}
+
+/** v1.39.0: 暗色对比度优化 (WCAG AA 4.5:1)
+ *  暗色模式下,某些 stone 颜色对比度不足,加 .text-readable class 增强 */
+export function applyContrastFix(isDark: boolean): void {
+  if (typeof document === 'undefined') return
+  // 注入 style 标签 (一次性)
+  let styleEl = document.getElementById('dark-contrast-fix') as HTMLStyleElement | null
+  if (!styleEl) {
+    styleEl = document.createElement('style')
+    styleEl.id = 'dark-contrast-fix'
+    document.head.appendChild(styleEl)
+  }
+  if (isDark) {
+    // 暗色模式: 增强 stone-500/600 等中等亮度文字的对比度
+    styleEl.textContent = `
+      .dark .text-stone-500 { color: rgb(168 162 158) !important; }
+      .dark .text-stone-600 { color: rgb(186 181 175) !important; }
+      .dark .placeholder\\:text-stone-400::placeholder { color: rgb(168 162 158) !important; }
+    `
+  } else {
+    styleEl.textContent = ''
+  }
+}
+
+/** 初始化暗色模式 (从 localStorage 读) */
+export function initDarkMode(): boolean {
+  if (typeof window === 'undefined') return false
+  let saved: string | null = null
+  try {
+    saved = localStorage.getItem('dark-mode')
+  } catch {}
+  // 优先级: localStorage > 系统偏好 > 浅色
+  const shouldBeDark = saved === '1' || (
+    saved === null && window.matchMedia?.('(prefers-color-scheme: dark)').matches
+  )
+  if (shouldBeDark) {
+    document.documentElement.classList.add('dark')
+    applyContrastFix(true)
+  } else {
+    document.documentElement.classList.remove('dark')
+    applyContrastFix(false)
+  }
+  return shouldBeDark
+}
+
 // 字号档位
 export const FONT_SIZES = [
   { id: 'sm', name: '小', base: '14px' },

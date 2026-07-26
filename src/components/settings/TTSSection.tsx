@@ -60,8 +60,40 @@ export default function TTSSection() {
         </div>
         {ttsProviderId === 'browser' && (
           <>
+            {/* v1.39.0 W37-2: 快速口音选择 */}
             <div>
-              <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">英文语音</label>
+              <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">快速选择口音</label>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  { code: 'en-US', label: '美音 🇺🇸' },
+                  { code: 'en-GB', label: '英音 🇬🇧' },
+                  { code: 'en-AU', label: '澳音 🇦🇺' },
+                  { code: 'en-IN', label: '印音 🇮🇳' },
+                ].map(accent => {
+                  // 查找匹配口音的第一个 voice
+                  const matched = englishVoices.find(v => v.lang === accent.code)
+                  const isActive = matched && voiceName === matched.name
+                  return (
+                    <button
+                      key={accent.code}
+                      onClick={() => matched && setVoiceName(matched.name)}
+                      disabled={!matched}
+                      className={`text-xs px-2 py-1 rounded ${
+                        isActive
+                          ? 'bg-brand-500 text-white'
+                          : matched
+                          ? 'bg-stone-100 dark:bg-stone-700 hover:bg-stone-200'
+                          : 'bg-stone-50 dark:bg-stone-800 text-stone-400 opacity-50'
+                      }`}
+                    >
+                      {accent.label}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+            <div>
+              <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">英文语音 (全部)</label>
               <select
                 value={voiceName}
                 onChange={(e) => setVoiceName(e.target.value)}

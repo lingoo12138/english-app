@@ -13,7 +13,7 @@ import { addErrorWordsToFavorites } from '../lib/errorReview'
 import { toast } from '../components/Toast'
 import { loadWords } from '../lib/words'
 import { translate as translateText, BUILTIN_TRANSLATE_PROVIDERS } from '../lib/translate'
-import { getRoleById, getGreetingForRole, getFallbackReply, NONE_ROLE, type ChatRole } from '../lib/chatRoles'
+import { getRoleById, getGreetingForRole, getFallbackReply, NONE_ROLE, type ChatRole, parseMultiRoleReply } from '../lib/chatRoles'
 import RoleSelector from '../components/RoleSelector'
 import MultiRoleSelector from '../components/MultiRoleSelector'
 
@@ -882,7 +882,8 @@ function MessageBubble({ message, review }: { message: ChatMessage; review?: Rev
             : 'bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-stone-100'
         }`}
       >
-        <p ref={paragraphRef} className="text-sm whitespace-pre-wrap break-words">{message.content}</p>
+        {/* v1.39.0 W37-1: 多人模式气泡拆分 */}
+        <MultiRoleContent content={message.content} isUser={isUser} paragraphRef={paragraphRef} />
         {/* W2-A: 用户消息下纠错按钮 (Mock 渠道不显示) */}
         {isUser && review && review.hasError && (
           <button
@@ -974,6 +975,35 @@ function MessageBubble({ message, review }: { message: ChatMessage; review?: Rev
         </div>
       )}
 
+    </div>
+  )
+}
+
+// === v1.39.0 W37-1: 多人模式内容渲染 ===
+function MultiRoleContent({ content, isUser, paragraphRef }: {
+  content: string
+  isUser: boolean
+  paragraphRef: React.RefObject<HTMLParagraphElement>
+}) {
+  // 用户消息原样
+  if (isUser) {
+    return <p ref={paragraphRef} className="text-sm whitespace-pre-wrap break-words">{content}</p>
+  }
+
+  // 检测 [Name]: 前缀 (多人模式)
+  const parsed = parseMultiRoleReply(content)
+  if (!parsed) {
+    return <p ref={paragraphRef} className="text-sm whitespace-pre-wrap break-words">{content}</p>
+  }
+
+  // 多人模式: 拆为多气泡 (这里简化: 显示说话人 + 内容)
+  return (
+    <div className="space-y-1">
+      <div className="flex items-center gap-1.5 text-xs font-semibold text-cyan-700 dark:text-cyan-300">
+        <span>{parsed.emoji}</span>
+        <span>{parsed.name}</span>
+      </div>
+      <p className="text-sm whitespace-pre-wrap break-words">{parsed.content}</p>
     </div>
   )
 }
