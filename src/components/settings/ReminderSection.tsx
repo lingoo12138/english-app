@@ -12,6 +12,8 @@ import {
 } from '../../lib/reminder'
 // v1.24.0: 动态预览
 import { buildReminderBody, estimateMinutes } from '../../lib/reminderContent'
+// v1.34.0: iOS 兑底
+import { shouldUseInAppReminder } from '../../lib/inAppReminder'
 
 export default function ReminderSection() {
   const [settings, setSettings] = useState<ReminderSettings>(getReminderSettings())
@@ -81,8 +83,15 @@ export default function ReminderSection() {
 
       <p className="text-xs text-stone-500 dark:text-stone-400">
         每天固定时间弹浏览器通知,提醒你来学习。
-        iOS Safari 通知支持有限,可能不弹。
+        iOS Safari 通知支持有限,会启用 in-app banner 兑底。
       </p>
+
+      {/* v1.34.0: iOS 兑底提示 */}
+      {shouldUseInAppReminder() && (
+        <p className="text-xs p-2 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 rounded">
+          📱 检测到 iOS Safari (PWA): 通知 API 不支持。已启用 in-app banner 兑底, 打开应用时会显示提醒。
+        </p>
+      )}
 
       {/* v1.24.0: 动态内容预览 */}
       <div className="text-xs p-2 bg-blue-50 dark:bg-blue-900/20 rounded text-blue-700 dark:text-blue-300">

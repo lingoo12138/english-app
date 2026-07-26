@@ -2284,3 +2284,51 @@
 - 14 单角色 + 3 多人场景 = 17 角色模式
 - NONE_ROLE + 14 = 15 ALL_ROLES
 - 1 commit + 1 tag (v1.33.0)
+
+---
+
+## [v1.34.0] - 2026-07-26
+
+### v1.34.0 W32 — iOS 学习提醒兜底 (1d)
+
+- 🔔 `inAppReminder.ts` (100 行): iOS Safari PWA 不支持 Notification 的兜底
+  - `shouldUseInAppReminder()`: 检测 iOS + Notification 不支持
+  - `shouldShowInAppReminder()`: 设置启用 + 时间到 + 未 dismiss 24h
+  - `dismissInAppReminder()`: 关闭 24h 不重复
+  - `vibrateIfSupported()`: navigator.vibrate (静默降级)
+  - `setAppBadgeIfSupported()`: App Badge API (iOS 16.4+, 静默降级)
+- 🟡 ReminderSection 加 iOS 提示 + 启用提示
+- 8/8 测试
+
+---
+
+## [v1.35.0] - 2026-07-26
+
+### v1.35.0 W33 — 错题本升级 (1d)
+
+- 📊 `errorStats.ts` (90 行): 错题统计
+  - `getErrorSummary()`: 总数 + 按 type 分组 + 高频错词 Top 5 + 7/30 天趋势
+  - `ERROR_TYPE_LABELS`: 8 类型中文 (grammar/vocab/spelling/style/tense/preposition/article/other)
+  - `getErrorTypeColor()`: 8 配色
+- 8/8 测试
+
+---
+
+## [v1.36.0] - 2026-07-26
+
+### v1.36.0 W34 — 单词短语闪卡 (1d)
+
+- 📚 `phraseCards.ts` (40 行): 短语卡片
+  - `extractPhrasesFromWords()`: 从 words.json 抽短语 (每词最多 5)
+  - `shuffleCards()`: 随机打乱
+  - `getPhraseTTS()`: 去 / 翻译部分, 返纯英文 TTS
+- 10/10 测试
+
+---
+
+## 累计 (W32-34, 3 release tag)
+
+- **35 release tag** (v1.34/35/36)
+- 606 → **632** 单元测试 (+26)
+- 42 → 45 库 (+3)
+- 0 P0/P1/P2 维持
