@@ -13,7 +13,7 @@ Vite 5 + React 18 + TypeScript 5 + Tailwind 3 + Zustand 4 + Dexie 3
 ```
 
 ### 测试栈
-- **Vitest 4** 单元测试 (29 文件 / 526 测试)
+- **Vitest 4** 单元测试 (50 文件 / 657 测试)
 - **自定义 verify-v*.mjs** 静态检查 (16 闭环)
 - **自定义 review-v*.py** P0/P1/P2 审查 (14 版本)
 - **大 review 机制**: 类似 v1.6 13 bug 修复 / v1.22 18 处 catch (e: any) → unknown
@@ -36,7 +36,7 @@ db.version(6).stores({
 
 ## 模块清单 (v1.23.0)
 
-**38 库** (`src/lib/`):
+**42 库** (`src/lib/`):
 
 | 分类 | 模块 | 版本 |
 |-----|------|------|
@@ -44,6 +44,7 @@ db.version(6).stores({
 | 内容 | `daily.ts` `plan.ts` `achievements.ts` `streak.ts` | v1.0-1.3 |
 | 学习 | `errorReview.ts` `reviewQueue.ts` `fsrs.ts` `learningReport.ts` `learnReport.ts` `recorder.ts` | v1.0-1.11 |
 | 标签 | `wordTags.ts` `taggedReviews.ts` `notebookBulk.ts` | v1.20-1.22 |
+| i18n | `i18n.ts` `useTranslate.ts` | v1.41 (W41) |
 | 场景 | `customScenes.ts` `sceneReview.ts` `fileUpload.ts` `pdfUpload.ts` `learningCalendar.ts` | v1.14-1.23 |
 | AI | `aiChat.ts` `llmTutor.ts` `llmFallback.ts` `llmUsage.ts` `imageRecog.ts` `chatRoles.ts` `stt.ts` | v1.0-1.13 |
 | 渠道 | `providers/llm.ts` `tts.ts` `translate.ts` `synonyms.ts` | v1.0-1.10 |
@@ -115,8 +116,11 @@ english-app/
 
 - **5334 高频词** + **465 词根** (80.4% 词根覆盖, Top 2k 86.3%)
 - **13234 真实例句** + 5 场景 + 5 听力 + 100 每日一句
-- **10 LLM** + **8 TTS** + **8 翻译** + **3 自定义端点**
+- **10 LLM** + **8 TTS** (含 4 口音) + **8 翻译** + **3 自定义端点**
+- **11 单角色** + **3 多人场景** = 17 角色模式
+- **8 主题** + **4 字号** + **2 语言** (中/英)
+- **IDB v6** (9 表)
 
 ---
 
-**最后更新**: 2026-07-25 (v1.23.0)
+**最后更新**: 2026-07-27 (v1.41.0)
