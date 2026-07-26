@@ -2429,3 +2429,15 @@
 - 632 → **642** 单元测试 (+10 darkMode)
 - 0 P0 + 0 P1 + 0 P2 维持
 - 1 commit + 1 tag (v1.39.0)
+
+---
+
+## [v1.39.1] - 2026-07-26 (大 review)
+
+### v1.39 大 review — 3 版本累积
+
+- 5 维度静态审查 (catch any / setLoading / as any / console 守卫 / useEffect)
+- **0 P0 + 0 新 P1 + 0 P2** ✓
+- v1.36 review 修复 3 处全部维持
+- 3 新 as any 全是 v1.6 预存 (type literal 豁免)
+- 详见 `docs/REVIEW_v1.39.md`
