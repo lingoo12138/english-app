@@ -15,6 +15,7 @@ import { loadWords } from '../lib/words'
 import { translate as translateText, BUILTIN_TRANSLATE_PROVIDERS } from '../lib/translate'
 import { getRoleById, getGreetingForRole, getFallbackReply, NONE_ROLE, type ChatRole } from '../lib/chatRoles'
 import RoleSelector from '../components/RoleSelector'
+import MultiRoleSelector from '../components/MultiRoleSelector'
 
 const SCENARIOS = [
   { id: 'cafe', name: '☕ 咖啡店', desc: '点单 / 咨询 / 结账' },
@@ -177,6 +178,8 @@ export default function AIChat() {
   const [showTopicModal, setShowTopicModal] = useState(false)
   // v1.13.0: 多角色对话 (默认 'none' = 普通)
   const [currentRoleId, setCurrentRoleId] = useState<string>('none')
+  // v1.27.0: 多人场景
+  const [multiScenarioId, setMultiScenarioId] = useState<string | null>(null)
   // v1.6 bugfix: STT 累积 input 加 MAX_LEN 限制, 避免 LLM token 超限
   const MAX_INPUT = 500
   const sttControllerRef = useRef<STTController | null>(null)
@@ -478,6 +481,14 @@ export default function AIChat() {
           selectedRoleId={currentRoleId}
           onChange={handleRoleChange}
         />
+        {/* v1.27.0: 多人场景选择 (W28) */}
+        <div className="mt-2">
+          <div className="text-xs text-stone-500 dark:text-stone-400 mb-1">👥 多人场景</div>
+          <MultiRoleSelector
+            selectedScenarioId={multiScenarioId}
+            onChange={(id) => { setMultiScenarioId(id); if (id) setCurrentRoleId('none') }}
+          />
+        </div>
         {currentRoleId !== 'none' && (() => {
           const role = getRoleById(currentRoleId)
           return (

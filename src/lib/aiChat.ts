@@ -4,7 +4,7 @@
 // v1.9.0: 难度自适应 (assessUserLevel) + 自由话题 (customTopic)
 // v1.13.0: 多角色对话 (role) - 5 角色优先于 scenario/topic/level
 import { chatCompletion, LLMProvider, LLMResponse } from './providers/llm'
-import { ChatRole, getRoleById, getRoleSystemPrompt } from './chatRoles'
+import { ChatRole, getRoleById, getRoleSystemPrompt, buildMultiRoleSystemPrompt, type ChatRoleId } from './chatRoles'
 
 export type CEFRLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
 
@@ -25,6 +25,8 @@ export interface ChatContext {
   customTopic?: string
   /** v1.13.0: 多角色对话 - 5 角色 (interviewer/barista/receptionist/tour_guide/waiter), 角色优先 */
   role?: ChatRole | string
+  /** v1.27.0: 多人模式 - 2+ 角色拼接 (multiRoles 优先于单 role) */
+  multiRoles?: ChatRoleId[]
 }
 
 const SCENARIO_PROMPTS: Record<string, string> = {
@@ -58,6 +60,13 @@ export function truncateCustomTopic(topic: string, maxLen = TOPIC_MAX_LEN): stri
 }
 
 function buildSystemPrompt(ctx: ChatContext): string {
+  // v1.27.0 W28: 多人模式优先 (multiRoles array)
+  if (ctx.multiRoles && ctx.multiRoles.length >= 2) {
+    const effectiveLevel = ctx.dynamicLevel || ctx.level
+    const multiPrompt = buildMultiRoleSystemPrompt(ctx.multiRoles, effectiveLevel)
+    if (multiPrompt) return multiPrompt
+  }
+
   const parts: string[] = []
   // v1.13.0: 角色优先, 完全替代 system prompt
   const role = typeof ctx.role === 'string' ? getRoleById(ctx.role) : ctx.role

@@ -2168,3 +2168,29 @@
 - 8 → 11 角色 (interviewer/barista/receptionist/tour_guide/waiter/doctor/banker/police/teacher/lawyer/engineer)
 - NONE_ROLE + 11 = 12 ALL_ROLES
 - 3 commits + 1 tag (v1.26.0)
+
+---
+
+## [v1.27.0] - 2026-07-26
+
+### v1.27.0 W28 — 多人对话 (2d, 实际 1.5h)
+
+#### v1.27.0-A: 多人模式 (chatRoles.ts)
+- 🎭 `MULTI_ROLE_SCENARIOS`: 3 套预设
+  - 💼 团队会议 (interviewer + engineer + teacher)
+  - ☕ 咖啡馆见面 (barista + tour_guide + waiter)
+  - 🏛️ 服务一条街 (banker + police + doctor)
+- 🔗 `buildMultiRoleSystemPrompt()`: 拼接多角色 system prompt + [Name]: 标识
+- 🔍 `parseMultiRoleReply()`: 解析 LLM 输出 [Name]: 前缀, 返 {name, emoji, content}
+
+#### v1.27.0-B: AIChat 集成
+- 🎛️ `MultiRoleSelector` 组件 (60 行): 横向卡片, 关 / 3 套场景
+- 🔀 单角色 ↔ 多人模式互斥 (选多清单角色, 选单清多)
+- 📤 chatContext 加 multiRoles 字段 (优先于单 role)
+- 11/11 multiRole 测试
+
+#### 验证 & 文档
+- 📊 562 → 573 单元测试 (+11)
+- ✅ 0 P0 + 0 P1 + 0 P2 维持
+- 11 单角色 + 3 多人场景 = 14 角色模式
+- 3 commits + 1 tag (v1.27.0)

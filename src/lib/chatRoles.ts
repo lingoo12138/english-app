@@ -347,6 +347,79 @@ export const CHAT_ROLES: ChatRole[] = [
 /** 完整角色表 (含 none) */
 export const ALL_ROLES: ChatRole[] = [NONE_ROLE, ...CHAT_ROLES]
 
+// === v1.27.0 W28 多人对话 ===
+
+/** 多人对话场景模板 (预设 3 套组合) */
+export interface MultiRoleScenario {
+  id: string
+  name: string
+  emoji: string
+  roleIds: ChatRoleId[]
+  description: string
+}
+
+export const MULTI_ROLE_SCENARIOS: MultiRoleScenario[] = [
+  {
+    id: 'team_meeting',
+    name: '团队会议',
+    emoji: '💼',
+    roleIds: ['interviewer', 'engineer', 'teacher'],
+    description: '面试官 + 工程师 + 教师, 讨论产品/学习/职业',
+  },
+  {
+    id: 'cafe_visit',
+    name: '咖啡馆见面',
+    emoji: '☕',
+    roleIds: ['barista', 'tour_guide', 'waiter'],
+    description: '咖啡师 + 导游 + 服务员, 旅行点餐聊天',
+  },
+  {
+    id: 'service_plaza',
+    name: '服务一条街',
+    emoji: '🏛️',
+    roleIds: ['banker', 'police', 'doctor'],
+    description: '银行 + 警察 + 医生, 各种生活问题咨询',
+  },
+]
+
+/** 拼接多人 system prompt */
+export function buildMultiRoleSystemPrompt(roleIds: ChatRoleId[], level?: string): string {
+  if (roleIds.length === 0) return ''
+  const roles = roleIds.map(id => getRoleById(id)).filter(r => r.id !== 'none')
+  if (roles.length === 0) return ''
+  const lines: string[] = [
+    `[多人模式: ${roles.map(r => `${r.name} (${r.emoji})`).join(' + ')}]`,
+    '你是一个多人场景, 上述角色轮流发言. 每次回复必须用 [Name]: 前缀标识当前说话人. 例:',
+  ]
+  for (const r of roles) {
+    lines.push(`[${r.name}]: ${r.greetings[0] || 'Hi!'}`)
+  }
+  lines.push('')
+  lines.push('说话风格 / 场景 / 问候语请遵循每个角色原本的 system prompt:')
+  for (const r of roles) {
+    const basePrompt = getRoleSystemPrompt(r, level as any)
+    if (basePrompt) {
+      lines.push(`--- ${r.name} ---`)
+      lines.push(basePrompt)
+    }
+  }
+  lines.push('')
+  lines.push('重要: 每次只让一个角色发言, 避免多角色同时说话. 保持场景自然.')
+  return lines.join('\n')
+}
+
+/** 从 LLM 输出解析当前说话人 (返 [name, content] 或 null) */
+export function parseMultiRoleReply(text: string): { name: string; emoji: string; content: string } | null {
+  // 匹配 [Name]: 或 [Name 中文]: 前缀
+  const m = text.match(/^\s*\[([^\]]+)\]\s*:\s*([\s\S]+)$/)
+  if (!m) return null
+  const name = m[1].trim()
+  const content = m[2].trim()
+  // 找 emoji (从 ALL_ROLES)
+  const role = ALL_ROLES.find(r => r.name === name)
+  return { name, emoji: role?.emoji || '👤', content }
+}
+
 /** 按 id 取角色 (默认 NONE_ROLE) */
 export function getRoleById(id: string | undefined | null): ChatRole {
   if (!id) return NONE_ROLE
