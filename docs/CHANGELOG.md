@@ -2218,3 +2218,51 @@
 - ✅ 0 P0 + 0 P1 + 0 P2 维持
 - 25 页面 (ReportsPage 升级)
 - 3 commits + 1 tag (v1.28.0)
+
+---
+
+## [v1.29.0] - 2026-07-26
+
+### v1.29.0 W30-A — tag AI 智能推荐 (1d)
+
+- 🏷️ `tagSuggest.ts` (80 行): suggestTagsByLLM + parseTagSuggestions
+- 复用 LLM (chatCompletion) + v1.21 wordTags
+- LLM 日限 check (复用 explain 30)
+- 5/5 tagSuggest 测试
+
+---
+
+## [v1.30.0] - 2026-07-26
+
+### v1.30.0 W30-B — 写作模板 (1d)
+
+- 📝 `writingTemplates.ts` (90 行): 4 模板
+  - 📧 英文邮件 (to/subject/context/details)
+  - 👋 自我介绍 (name/role/experience/occasion)
+  - 🙏 道歉 (to/reason/fix)
+  - 💐 感谢 (to/reason/detail)
+- buildTemplatePrompt 拼装 prompt + 必填校验
+- 6/6 writingTemplates 测试
+
+---
+
+## [v1.32.0] - 2026-07-26
+
+### v1.32.0 W30-D — AI 学习计划定制 (1-2d, 实际 1h)
+
+- 📅 `aiPlanGenerator.ts` (110 行): generateAIPlan
+  - 输入: currentLevel / targetLevel / goal / dailyMinutes / totalDays / knownWordCount
+  - LLM 生成多日计划 (JSON 模式)
+  - parseAIPlan 解析 (含 markdown 提取)
+  - estimatePlanMinutes 估算时长
+- 复用 LLM + v1.11 learningReport
+- 8/8 aiPlanGenerator 测试
+
+---
+
+## 累计 (W30 A+B+D, 3 release tag)
+
+- **31 release tag** (v1.29/30/32, v1.31 跳过 = C 3D 翻卡已存在)
+- 581 → **600** 单元测试 (+19)
+- 39 → 42 库 (+3: tagSuggest/writingTemplates/aiPlanGenerator)
+- 0 P0/P1/P2 维持
