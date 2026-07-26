@@ -2361,3 +2361,23 @@
 **集成审查发现** (verifier-2):
 - 5 个新 lib (tagSuggest/writingTemplates/aiPlanGenerator/errorStats/phraseCards) 只写了 lib + test, UI 没集成 (dead code 风险 ≈ 817 行)
 - 详见 `docs/REVIEW_v1.36-verifier1.md` + `REVIEW_v1.36-verifier2.md`
+
+---
+
+## [v1.37.0] - 2026-07-26
+
+### v1.37.0 W35 — 5 Dead Code UI 集成 (大 review 后续)
+
+**verifier-2 发现**: v1.29-v1.36 写完 5 个 lib + 测试, UI 完全没集成 (= 817 行 dead code)。本次集成 5 个:
+
+1. **errorStats → ErrorsPage**: 3 卡片 (总类型分布 / 7 天趋势 / 高频错词 Top 5)
+2. **writingTemplates → WritePage**: 📝 模板按钮 + TemplateModal (4 模板)
+3. **phraseCards → CardReview**: 📚 切短语按钮 + 短语队列
+4. **aiPlanGenerator → PlanPage**: 🤖 AI 定制多日计划 + 弹窗
+5. **tagSuggest → Notebook**: 🤖 AI 推荐 tag 按钮 (本地启发式)
+
+#### 验证
+- 632 单元测试全过 (无新测试, 都是 UI 集成)
+- 0 P0 + 0 P1 + 0 P2 维持
+- 5 lib 全部触达用户
+- 1 commit + 1 tag (v1.37.0)

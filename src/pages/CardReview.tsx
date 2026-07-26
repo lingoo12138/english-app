@@ -7,6 +7,8 @@ import { getDueReviews, getAllReviews, getAllFavorites, reviewWord, logAction } 
 import { loadWords } from '../lib/words'
 import type { Word, ReviewItem } from '../types'
 import TTSButton from '../components/TTSButton'
+// v1.37.0 W35-3: 短语模式
+import { extractPhrasesFromWords, shuffleCards, getPhraseTTS, type PhraseCard } from '../lib/phraseCards'
 
 // SM-2 质量分(评级 -> quality)
 const QUALITY_MAP = {
@@ -33,6 +35,9 @@ export default function CardReview() {
   const [reviewedCount, setReviewedCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [pendingDueCount, setPendingDueCount] = useState(0)  // 本次到期的总数
+  // v1.37.0 W35-3: 短语模式
+  const [mode, setMode] = useState<'word' | 'phrase'>('word')
+  const [phraseQueue, setPhraseQueue] = useState<import('../lib/phraseCards').PhraseCard[]>([])
   const [ratings, setRatings] = useState<Record<Rating, number>>({
     again: 0, hard: 0, good: 0, easy: 0,
   })
@@ -107,6 +112,12 @@ export default function CardReview() {
     })
 
     setQueue(list)
+    // v1.37.0 W35-3: 短语模式队列
+    if (mode === 'phrase') {
+      const allWords = await loadWords()
+      const phraseList = extractPhrasesFromWords(allWords)
+      setPhraseQueue(shuffleCards(phraseList).slice(0, 20))
+    }
     setPendingDueCount(list.filter(x => x.isDue).length)
     setLoading(false)
   }
@@ -236,9 +247,18 @@ export default function CardReview() {
           <button onClick={() => navigate(-1)} className="btn-ghost text-sm" aria-label="退出复习">
             ← 退出
           </button>
-          <span className="text-sm text-stone-500 dark:text-stone-400">
-            {currentIndex + 1} / {queue.length}
-          </span>
+          <div className="flex items-center gap-2">
+            {/* v1.37.0 W35-3: 模式切换 */}
+            <button
+              onClick={() => { setMode(mode === 'word' ? 'phrase' : 'word'); window.location.reload() }}
+              className="text-xs px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
+            >
+              {mode === 'word' ? '📚 切短语' : '📖 切单词'}
+            </button>
+            <span className="text-sm text-stone-500 dark:text-stone-400">
+              {mode === 'word' ? currentIndex + 1 : Math.min(currentIndex + 1, phraseQueue.length)} / {mode === 'word' ? queue.length : phraseQueue.length}
+            </span>
+          </div>
         </div>
         <div className="h-1.5 bg-stone-100 dark:bg-stone-800 rounded-full overflow-hidden">
           <div

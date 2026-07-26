@@ -3,6 +3,8 @@
 import { useEffect, useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { getAllWritingErrors, deleteWritingError, type WritingError } from '../lib/db'
+// v1.37.0 W35-1: errorStats 集成
+import { getErrorSummary, ERROR_TYPE_LABELS, getErrorTypeColor, type ErrorSummary } from '../lib/errorStats'
 import { addFavorite } from '../lib/db'
 import { loadWords } from '../lib/words'
 import { Modal } from '../components/Modal'
@@ -19,10 +21,17 @@ export default function ErrorsPage() {
   const [addedWords, setAddedWords] = useState<Set<string>>(new Set())
   const [pendingDelete, setPendingDelete] = useState<number | null>(null)
   const [filter, setFilter] = useState<'all' | 'write' | 'chat'>('all')
+  // v1.37.0 W35-1: errorStats 集成
+  const [errorSummary, setErrorSummary] = useState<ErrorSummary | null>(null)
 
   useEffect(() => {
     loadAll()
   }, [])
+
+  useEffect(() => {
+    // v1.37.0 W35-1: 加载总体错题统计
+    getErrorSummary().then(setErrorSummary).catch(() => setErrorSummary(null))
+  }, [errors])
 
   const loadAll = async () => {
     setLoading(true)
@@ -253,6 +262,74 @@ export default function ErrorsPage() {
               )
             })}
         </div>
+      )}
+
+      {/* v1.37.0 W35-1: errorStats 集成 (3 卡片, 总览) */}
+      {errorSummary && errorSummary.total > 0 && tab === 'overview' && (
+        <>
+          {/* 类型分布 (总, 跨 filter) */}
+          {errorSummary.byType.length > 0 && (
+            <div className="card space-y-2">
+              <h3 className="text-sm font-semibold">🏷 错题类型 (总)</h3>
+              {errorSummary.byType.map((t) => (
+                <div key={t.type} className="text-sm">
+                  <div className="flex justify-between mb-0.5">
+                    <span className={getErrorTypeColor(t.type) + ' px-2 py-0.5 rounded'}>
+                      {ERROR_TYPE_LABELS[t.type] || t.type}
+                    </span>
+                    <span className="text-stone-500">{t.count} ({t.pct}%)</span>
+                  </div>
+                  <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded overflow-hidden">
+                    <div
+                      className="h-full bg-amber-500"
+                      style={{ width: `${t.pct}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* 7 天趋势 */}
+          {errorSummary.trend7.some(t => t > 0) && (
+            <div className="card">
+              <h3 className="text-sm font-semibold mb-3">📅 近 7 天错题趋势</h3>
+              <div className="flex items-end gap-1 h-16">
+                {errorSummary.trend7.map((count, i) => {
+                  const max7 = Math.max(1, ...errorSummary.trend7)
+                  const ratio = count / max7
+                  return (
+                    <div
+                      key={i}
+                      className="flex-1 bg-red-500 rounded-t hover:bg-red-600 transition-colors"
+                      style={{ height: `${Math.max(ratio * 100, count > 0 ? 4 : 0)}%`, minHeight: count > 0 ? '2px' : '0' }}
+                      title={`${i === 6 ? '今天' : `${6 - i} 天前`}: ${count} 个错题`}
+                    />
+                  )
+                })}
+              </div>
+              <div className="flex justify-between text-[10px] text-stone-400 mt-1">
+                <span>7 天前</span><span>今天</span>
+              </div>
+            </div>
+          )}
+
+          {/* 高频错词 Top 5 */}
+          {errorSummary.highFreq.length > 0 && (
+            <div className="card">
+              <h3 className="text-sm font-semibold mb-3">🔥 高频错词 Top 5</h3>
+              <div className="space-y-2">
+                {errorSummary.highFreq.map((w, i) => (
+                  <div key={w.original} className="flex items-center gap-2 text-sm">
+                    <span className="w-5 text-center text-stone-400">{i + 1}</span>
+                    <span className="font-semibold flex-1">{w.original}</span>
+                    <span className="text-xs text-red-600 dark:text-red-400">{w.count} 错</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       )}
 
       {/* 高频错词 */}

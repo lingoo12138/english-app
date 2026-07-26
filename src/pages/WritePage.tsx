@@ -2,6 +2,8 @@
 // v0.23: 英文批改 (用户粘贴英文 → LLM 改错 → 标色 diff → 一键收藏错句)
 // v1.10.0-A: 加 "中译英" Tab (中文 → 英文翻译 + 等级 + 备选译法 + 注释)
 import { useState, useEffect } from 'react'
+// v1.37.0 W35-2: 写作模板
+import { WRITING_TEMPLATES, buildTemplatePrompt } from '../lib/writingTemplates'
 import { Link } from 'react-router-dom'
 import { useStore } from '../store/useStore'
 import { chatCompletion } from '../lib/providers/llm'
@@ -109,6 +111,8 @@ export default function WritePage() {
   const [chineseResult, setChineseResult] = useState<ChineseResult | null>(null)
   const [chineseError, setChineseError] = useState('')
   const [chineseLoading, setChineseLoading] = useState(false)
+  // v1.37.0 W35-2: 写作模板
+  const [showTemplate, setShowTemplate] = useState(false)
   const DAILY_LIMIT = 20
 
   useEffect(() => {
@@ -362,6 +366,12 @@ export default function WritePage() {
         onConfirm={doDeleteHistory}
         onCancel={() => setPendingDeleteId(null)}
       />
+      {/* v1.37.0 W35-2: 写作模板选择 */}
+      <TemplateModal
+        open={showTemplate}
+        onClose={() => setShowTemplate(false)}
+        onSelect={(prompt) => { setInput(prompt); setShowTemplate(false) }}
+      />
       <div>
         <h1 className="text-2xl font-bold mb-1">✍️ 写作批改</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">
@@ -409,7 +419,14 @@ export default function WritePage() {
       {activeTab === 'write' && (
         <>
           <div className="card space-y-3">
-            <label className="text-sm font-medium">原文</label>
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-medium">原文</label>
+              {/* v1.37.0 W35-2: 写作模板 */}
+              <button
+                onClick={() => setShowTemplate(true)}
+                className="text-xs px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-200"
+              >📝 模板</button>
+            </div>
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -825,4 +842,73 @@ export function mockChineseTranslation(input: string): ChineseResult {
     alternatives: [],
     notes: 'Mock 渠道不支持此句,显示原文;请选真实 LLM 渠道获得翻译',
   }
+}
+
+// === v1.37.0 W35-2: 写作模板选择 ===
+function TemplateModal({ open, onClose, onSelect }: { open: boolean; onClose: () => void; onSelect: (prompt: string) => void }) {
+  const [selected, setSelected] = useState<string | null>(null)
+  const [values, setValues] = useState<Record<string, string>>({})
+
+  if (!open) return null
+  const template = WRITING_TEMPLATES.find(t => t.id === selected)
+
+  const handleConfirm = () => {
+    if (!template) return
+    try {
+      const prompt = buildTemplatePrompt(template.id, values)
+      onSelect(prompt)
+      setSelected(null)
+      setValues({})
+    } catch (e: unknown) {
+      const err = e instanceof Error ? e : new Error(String(e))
+      alert(err.message)
+    }
+  }
+
+  return (
+    <Modal
+      open={open}
+      title="📝 写作模板"
+      onCancel={() => { onClose(); setSelected(null); setValues({}) }}
+      onConfirm={selected && template ? handleConfirm : () => {}}
+    >
+      {!selected ? (
+        <div className="space-y-2">
+          {WRITING_TEMPLATES.map(t => (
+            <button
+              key={t.id}
+              onClick={() => setSelected(t.id)}
+              className="w-full text-left p-3 rounded-lg border border-stone-200 dark:border-stone-700 hover:bg-stone-50 dark:hover:bg-stone-800"
+            >
+              <div className="font-semibold">{t.emoji} {t.name}</div>
+              <div className="text-xs text-stone-500 mt-0.5">{t.description}</div>
+            </button>
+          ))}
+        </div>
+      ) : template ? (
+        <div className="space-y-3">
+          <button
+            onClick={() => setSelected(null)}
+            className="text-xs text-stone-500 hover:underline"
+          >← 返回模板列表</button>
+          <div className="font-semibold">{template.emoji} {template.name}</div>
+          {template.fields.map(f => (
+            <div key={f.key}>
+              <label className="text-sm text-stone-600 dark:text-stone-400">
+                {f.label} {f.required && <span className="text-red-500">*</span>}
+              </label>
+              <textarea
+                value={values[f.key] || ''}
+                onChange={(e) => setValues(prev => ({ ...prev, [f.key]: e.target.value }))}
+                placeholder={f.placeholder}
+                className="input mt-1"
+                rows={2}
+                maxLength={500}
+              />
+            </div>
+          ))}
+        </div>
+      ) : null}
+    </Modal>
+  )
 }

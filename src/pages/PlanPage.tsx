@@ -3,8 +3,12 @@
 import { useState, useEffect } from 'react'
 import { useStore } from '../store/useStore'
 import { generateTodayPlan, markWordCompleted, type TodayPlan } from '../lib/plan'
+// v1.37.0 W35-4: AI 定制多日计划
+import { generateAIPlan, type AIPlan } from '../lib/aiPlanGenerator'
 import { Link } from 'react-router-dom'
 import { levelColor, levelLabel } from '../lib/learnReport'
+import { BUILTIN_LLM_PROVIDERS } from '../lib/providers/llm'
+import { toast } from '../components/Toast'
 
 interface DayProgress {
   date: string  // YYYY-MM-DD
@@ -15,6 +19,10 @@ interface DayProgress {
 
 export default function PlanPage() {
   const dailyGoal = useStore(s => s.dailyGoal)
+  // v1.37.0 W35-4: AI 计划 modal
+  const [showAIPlan, setShowAIPlan] = useState(false)
+  const [aiPlan, setAIPlan] = useState<AIPlan | null>(null)
+  const [aiPlanLoading, setAIPlanLoading] = useState(false)
   const targetLevel = useStore(s => s.targetLevel)
   const [plan, setPlan] = useState<TodayPlan | null>(null)
   const [history, setHistory] = useState<DayProgress[]>([])
@@ -30,6 +38,40 @@ export default function PlanPage() {
   const refresh = async () => {
     const p = await generateTodayPlan(dailyGoal, targetLevel)
     setPlan(p)
+  }
+
+  // v1.37.0 W35-4: AI 计划生成 handler
+  const handleGenerateAIPlan = async () => {
+    setAIPlanLoading(true)
+    try {
+      const llmProviderId = useStore.getState().llmProviderId
+      const llmApiKeys = useStore.getState().llmApiKeys
+      const llmModels = useStore.getState().llmModels
+      const provider = BUILTIN_LLM_PROVIDERS.find(p => p.id === llmProviderId)
+      if (!provider) {
+        toast.error('未选择 LLM 渠道')
+        return
+      }
+      const plan = await generateAIPlan(
+        {
+          currentLevel: 'A2',
+          targetLevel: targetLevel === 'all' ? 'B2' : (targetLevel as string),
+          goal: 'work',
+          dailyMinutes: dailyGoal * 2,
+          totalDays: 7,
+          knownWordCount: 0,
+        },
+        provider,
+        llmApiKeys[llmProviderId] || '',
+        llmModels[llmProviderId] || provider.defaultModel || '',
+      )
+      setAIPlan(plan)
+    } catch (e: unknown) {
+      const err = e instanceof Error ? e : new Error(String(e))
+      toast.error(err.message)
+    } finally {
+      setAIPlanLoading(false)
+    }
     computeHistory()
   }
 
@@ -100,6 +142,11 @@ export default function PlanPage() {
       <div>
         <h1 className="text-2xl font-bold mb-1">📅 学习计划</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">每日目标 {dailyGoal} 词 · {targetLevel === 'all' ? '全部' : targetLevel}</p>
+        {/* v1.37.0 W35-4: AI 定制计划 */}
+        <button
+          onClick={() => setShowAIPlan(true)}
+          className="text-xs mt-2 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white"
+        >🤖 AI 定制多日计划</button>
       </div>
 
       {/* 7 天曲线 */}
@@ -208,6 +255,47 @@ export default function PlanPage() {
       <div className="text-xs text-stone-500 dark:text-stone-400 text-center py-2">
         💡 访问词详情时自动标记完成,也可手动点 ✓
       </div>
+
+      {/* v1.37.0 W35-4: AI 计划 modal */}
+      {showAIPlan && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowAIPlan(false)}>
+          <div className="bg-white dark:bg-stone-800 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold">🤖 AI 定制多日计划</h3>
+              <button onClick={() => setShowAIPlan(false)} className="text-stone-500">✕</button>
+            </div>
+            {!aiPlan ? (
+              <div className="text-center py-8">
+                <button
+                  onClick={handleGenerateAIPlan}
+                  disabled={aiPlanLoading}
+                  className="btn-primary"
+                >
+                  {aiPlanLoading ? '⏳ 生成中...' : '✨ 生成 7 天计划'}
+                </button>
+                <p className="text-xs text-stone-500 mt-2">使用当前 LLM 渠道, 消耗 1 次 explain 额度</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <div className="p-3 bg-cyan-50 dark:bg-cyan-900/20 rounded text-sm">
+                  <div className="font-semibold mb-1">📌 策略</div>
+                  {aiPlan.strategy}
+                </div>
+                <div className="text-xs text-stone-500">预计学 {aiPlan.estimatedWords} 词</div>
+                {aiPlan.tasks.map(t => (
+                  <div key={t.day} className="p-3 border border-stone-200 dark:border-stone-700 rounded">
+                    <div className="font-semibold text-sm">第 {t.day} 天 · {t.theme}</div>
+                    <div className="text-xs text-stone-500 mt-1">
+                      新词 {t.newWords} · 复习 {t.reviewWords} · {t.focusSkills.join(' + ')}
+                    </div>
+                    <div className="text-xs text-stone-600 dark:text-stone-400 mt-1">💡 {t.tip}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

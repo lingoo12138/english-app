@@ -150,6 +150,30 @@ export default function Notebook() {
     loadFavorites()
   }
 
+  // v1.37.0 W35-5: AI 推荐 tag (本地启发式, 不需 LLM)
+  const handleAISuggest = async (wordId: string) => {
+    const word = words.find(w => w.id === wordId)
+    if (!word) return
+    try {
+      const { suggestTagsFromWord, addTagsToWord } = await import('../lib/wordTags')
+      const suggested = suggestTagsFromWord(word.word, word.translations[0])
+      if (suggested.length === 0) {
+        toast.info('未找到启发式 tag, 请手动输入')
+        return
+      }
+      const result = await addTagsToWord(wordId, suggested)
+      if (result.added > 0) {
+        toast.success(`✓ 推荐 ${result.added} 个 tag: ${suggested.join(', ')}`)
+      } else {
+        toast.info('这些 tag 已存在')
+      }
+      loadFavorites()
+    } catch (e: unknown) {
+      const err = e instanceof Error ? e : new Error(String(e))
+      toast.error(err.message)
+    }
+  }
+
   // v1.21.0: 去 tag
   const handleRemoveTag = async (wordId: string, tag: string) => {
     await removeTagFromWord(wordId, tag)
@@ -470,7 +494,7 @@ export default function Notebook() {
                   ])
                 })()
               : filteredWords.map(w => (
-                  <NotebookWord key={w.id} w={w} onRemove={handleRemove} batchMode={batchMode} selected={selected.has(w.id)} onToggleSelect={toggleSelect} wordTags={wordTagMap.get(w.id)} onAddTag={handleAddTag} onRemoveTag={handleRemoveTag} tagInput={tagInput[w.id] || ''} onTagInputChange={(v) => setTagInput(prev => ({ ...prev, [w.id]: v }))} />
+                  <NotebookWord key={w.id} w={w} onRemove={handleRemove} batchMode={batchMode} selected={selected.has(w.id)} onToggleSelect={toggleSelect} wordTags={wordTagMap.get(w.id)} onAddTag={handleAddTag} onRemoveTag={handleRemoveTag} tagInput={tagInput[w.id] || ''} onTagInputChange={(v) => setTagInput(prev => ({ ...prev, [w.id]: v }))} onAISuggest={handleAISuggest} />
                 ))
           })()}
         </div>
@@ -480,7 +504,7 @@ export default function Notebook() {
 }
 
 
-function NotebookWord({ w, onRemove, batchMode, selected, onToggleSelect, wordTags, onAddTag, onRemoveTag, tagInput, onTagInputChange }: {
+function NotebookWord({ w, onRemove, batchMode, selected, onToggleSelect, wordTags, onAddTag, onRemoveTag, tagInput, onTagInputChange, onAISuggest }: {
   w: Word
   onRemove: (id: string) => void
   batchMode?: boolean
@@ -491,6 +515,7 @@ function NotebookWord({ w, onRemove, batchMode, selected, onToggleSelect, wordTa
   onRemoveTag?: (id: string, tag: string) => void
   tagInput?: string
   onTagInputChange?: (v: string) => void
+  onAISuggest?: (id: string) => void
 }) {
   const isSelected = !!selected
   return (
@@ -542,6 +567,13 @@ function NotebookWord({ w, onRemove, batchMode, selected, onToggleSelect, wordTa
                 className="text-xs px-1.5 py-0.5 rounded border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 w-16"
                 aria-label={`为 ${w.word} 加 tag`}
               />
+            )}
+            {onAISuggest && (
+              <button
+                onClick={() => onAISuggest(w.id)}
+                className="text-xs px-1.5 py-0.5 rounded bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-200"
+                title="AI 推荐 tag"
+              >🤖</button>
             )}
           </div>
         )}
