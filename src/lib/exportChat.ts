@@ -149,8 +149,9 @@ export function pickJsonFile(): Promise<string | null> {
       try {
         const text = await file.text()
         resolve(text)
-      } catch (err: any) {
-        console.error('读文件失败:', err)
+      } catch (e: unknown) {
+        const err = e instanceof Error ? e : new Error(String(e))
+        console.error('读文件失败:', err.message)
         resolve(null)
       }
     }

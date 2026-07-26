@@ -388,7 +388,8 @@ export async function getWeakRoots(
     // 累计每个 original 的错误数
     const wordErrorCount = new Map<string, number>()
     for (const e of errors) {
-      const key = (e as any).original || (e as any).wordId
+      // WritingError 接口无 wordId 字段, 只用 original
+      const key = e.original
       if (!key) continue
       wordErrorCount.set(key, (wordErrorCount.get(key) || 0) + 1)
     }

@@ -2344,3 +2344,20 @@
 - **0 P0 + 0 P1 + 0 P2 维持 30+ 轮**
 - 12 release tag 质量干净
 - 详见 `docs/REVIEW_v1.36.md`
+
+---
+
+## [v1.36.1] - 2026-07-26 (大 review 修复)
+
+### v1.36 大 review 后续: 修 3 处 (verifier 发现)
+
+**P1 (2 处 v1.22 review 漏修)**:
+- `src/lib/exportChat.ts:152` — `catch (err: any)` → `catch (e: unknown)` + Error 守卫
+- `src/lib/migrate.ts:151` — `catch (err: any)` → `catch (e: unknown)` + Error 守卫
+
+**P2 (1 处死代码)**:
+- `src/lib/learningReport.ts:391` — 删 `(e as any).wordId` 死代码 (WritingError 无 wordId 字段), 改 `e.original`
+
+**集成审查发现** (verifier-2):
+- 5 个新 lib (tagSuggest/writingTemplates/aiPlanGenerator/errorStats/phraseCards) 只写了 lib + test, UI 没集成 (dead code 风险 ≈ 817 行)
+- 详见 `docs/REVIEW_v1.36-verifier1.md` + `REVIEW_v1.36-verifier2.md`

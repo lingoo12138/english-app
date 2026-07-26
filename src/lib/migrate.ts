@@ -148,7 +148,8 @@ export function readMigrationFile(): Promise<MigrationData> {
           return
         }
         resolve(validation.data)
-      } catch (err: any) {
+      } catch (e: unknown) {
+        const err = e instanceof Error ? e : new Error(String(e))
         reject(new Error(`文件解析失败: ${err.message}`))
       }
     }
