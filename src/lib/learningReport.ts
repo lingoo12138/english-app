@@ -48,6 +48,8 @@ export interface WeeklyReport {
   weakRoots: Array<{ root: string; errorCount: number }>  // 弱项词根 Top 5
   hourDistribution: Array<{ hour: number; count: number }>  // 24 时段分布
   weeklyRetention: number  // 7 天平均 retention (0-1)
+  // v1.40.0 W38: 难度趋势
+  levelTrend?: LevelTrendResult  // 7 天难度趋势
 }
 
 // === Helpers ===
@@ -367,6 +369,8 @@ export async function getWeeklyReport(weekStart: Date = getWeekStart(new Date())
     weakRoots: await getWeakRoots(start.getTime(), endTs),
     hourDistribution: await getHourDistribution(start.getTime(), endTs),
     weeklyRetention: await getWeeklyRetention(),
+    // v1.40.0 W38: 难度趋势
+    levelTrend: await getLevelTrend(start),
   }
 }
 
@@ -428,6 +432,127 @@ export async function getHourDistribution(
 }
 
 /** 7 天平均 retention: 复习正确率 (0-1) */
+
+/** 难度趋势: 7 天每日平均 CEFR 等级 (1-6 数值), 用于可视化 */
+export interface LevelTrendResult {
+  /** 7 天每日平均等级 (1-6), null 表示该天无数据 */
+  dailyAvg: Array<number | null>
+  /** 7 天总平均等级 (1-6) */
+  weeklyAvg: number
+  /** 上周平均 (用于对比) */
+  prevWeekAvg: number
+  /** 等级分布 (A1-C2 各占比 %) */
+  distribution: Record<string, number>
+  /** 趋势: 'up' / 'down' / 'flat' */
+  direction: 'up' | 'down' | 'flat'
+  /** 变化 (+0.5 表示 +0.5 等级, 如 A2 → B1) */
+  delta: number
+}
+
+/** CEFR 等级 → 数值 (A1=1 ... C2=6) */
+const LEVEL_TO_NUM: Record<string, number> = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 }
+
+/** difficulty 1-5 → CEFR 名称 (1→A1, 2→A2, 3→B1, 4→B2, 5→C1) */
+function difficultyToCEFR(difficulty?: number): { num: number; level: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' } | null {
+  if (!difficulty || difficulty < 1 || difficulty > 5) return null
+  const map: Record<number, { num: number; level: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' }> = {
+    1: { num: 1, level: 'A1' },
+    2: { num: 2, level: 'A2' },
+    3: { num: 3, level: 'B1' },
+    4: { num: 4, level: 'B2' },
+    5: { num: 5, level: 'C1' },
+  }
+  return map[difficulty]
+}
+
+/** 7 天难度趋势 */
+export async function getLevelTrend(weekStart: Date = getWeekStart(new Date())): Promise<LevelTrendResult> {
+  try {
+    const { db } = await import('./db')
+    const { loadWords } = await import('./words')
+    const start = new Date(weekStart)
+    start.setHours(0, 0, 0, 0)
+    const prevStart = new Date(start.getTime() - 7 * 24 * 60 * 60 * 1000)
+
+    const allWords = await loadWords()
+    const wordMap = new Map(allWords.map(w => [w.id, w]))
+
+    // 7 天每日 records
+    const dailyAvg: Array<number | null> = new Array(7).fill(null)
+    const distribution: Record<string, number> = { A1: 0, A2: 0, B1: 0, B2: 0, C1: 0, C2: 0 }
+    let totalSum = 0
+    let totalCount = 0
+
+    for (let i = 0; i < 7; i++) {
+      const dayStart = new Date(start.getTime() + i * 86_400_000)
+      const dayEnd = new Date(dayStart.getTime() + 86_400_000)
+      const recs = await db.records
+        .where('timestamp')
+        .between(dayStart.getTime(), dayEnd.getTime())
+        .toArray()
+      let daySum = 0
+      let dayCount = 0
+      for (const r of recs) {
+        const word = wordMap.get(r.wordId)
+        const cefr = difficultyToCEFR(word?.difficulty)
+        if (!cefr) continue
+        daySum += cefr.num
+        dayCount++
+        distribution[cefr.level] = (distribution[cefr.level] || 0) + 1
+        totalSum += cefr.num
+        totalCount++
+      }
+      if (dayCount > 0) {
+        dailyAvg[i] = Math.round((daySum / dayCount) * 10) / 10
+      }
+    }
+
+    // 上周
+    const prevRecs = await db.records
+      .where('timestamp')
+      .between(prevStart.getTime(), start.getTime())
+      .toArray()
+    let prevSum = 0
+    let prevCount = 0
+    for (const r of prevRecs) {
+      const word = wordMap.get(r.wordId)
+      const cefr = difficultyToCEFR(word?.difficulty)
+      if (!cefr) continue
+      prevSum += cefr.num
+      prevCount++
+    }
+
+    const weeklyAvg = totalCount > 0 ? totalSum / totalCount : 0
+    const prevWeekAvg = prevCount > 0 ? prevSum / prevCount : weeklyAvg
+    const delta = Math.round((weeklyAvg - prevWeekAvg) * 10) / 10
+    const direction: 'up' | 'down' | 'flat' = delta > 0.3 ? 'up' : delta < -0.3 ? 'down' : 'flat'
+
+    if (totalCount > 0) {
+      for (const k of Object.keys(distribution)) {
+        distribution[k] = Math.round((distribution[k] / totalCount) * 100)
+      }
+    }
+
+    return {
+      dailyAvg,
+      weeklyAvg: Math.round(weeklyAvg * 10) / 10,
+      prevWeekAvg: Math.round(prevWeekAvg * 10) / 10,
+      distribution,
+      direction,
+      delta,
+    }
+  } catch {
+    return {
+      dailyAvg: new Array(7).fill(null),
+      weeklyAvg: 0,
+      prevWeekAvg: 0,
+      distribution: { A1: 0, A2: 0, B1: 0, B2: 0, C1: 0, C2: 0 },
+      direction: 'flat',
+      delta: 0,
+    }
+  }
+}
+
 export async function getWeeklyRetention(): Promise<number> {
   try {
     const { db } = await import('./db')

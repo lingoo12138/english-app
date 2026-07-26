@@ -2441,3 +2441,30 @@
 - v1.36 review 修复 3 处全部维持
 - 3 新 as any 全是 v1.6 预存 (type literal 豁免)
 - 详见 `docs/REVIEW_v1.39.md`
+
+---
+
+## [v1.40.0] - 2026-07-27
+
+### v1.40.0 W38 — 学习报告最终升级 (难度趋势, 1.5h)
+
+#### v1.40.0-A: getLevelTrend (learningReport.ts)
+- 📈 `LevelTrendResult` interface (7 个字段)
+- 🧮 `difficultyToCEFR()` 辅助: difficulty 1-5 → A1/A2/B1/B2/C1
+- 📊 7 天每日平均 CEFR 等级 (1-6 数值)
+- 📉 上周对比 → direction (up/down/flat) + delta
+- 🎯 A1-C2 分布百分比
+- 复用 records (timestamp 索引) + words.json (difficulty 字段)
+
+#### v1.40.0-B: ReportsPage 集成
+- 📈 难度趋势卡片 (weekly tab)
+  - 大数字 (3.5 = B1+ 水平)
+  - 趋势箭头 (↑/↓ + delta vs 上周)
+  - 7 天柱状图 (每天平均等级)
+  - A1-C2 6 分布格子
+- 仅 weeklyAvg > 0 时显示
+
+#### 验证
+- 642 → 646 单元测试 (+4)
+- 0 P0 + 0 P1 + 0 P2 维持
+- 1 commit + 1 tag (v1.40.0)

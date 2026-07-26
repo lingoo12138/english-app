@@ -278,6 +278,49 @@ function WeeklyCard({ weekly }: { weekly: WeeklyReport }) {
         </div>
       )}
 
+      {/* v1.40.0 W38: 难度趋势 */}
+      {weekly.levelTrend && weekly.levelTrend.weeklyAvg > 0 && (
+        <div className="card">
+          <div className="text-sm font-semibold mb-3">📈 7 天难度趋势</div>
+          <div className="flex items-baseline gap-2 mb-3">
+            <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
+              {weekly.levelTrend.weeklyAvg.toFixed(1)}
+            </div>
+            <div className="text-xs text-stone-500">
+              {weekly.levelTrend.weeklyAvg < 2 ? 'A1' : weekly.levelTrend.weeklyAvg < 3 ? 'A2' : weekly.levelTrend.weeklyAvg < 4 ? 'B1' : weekly.levelTrend.weeklyAvg < 5 ? 'B2' : weekly.levelTrend.weeklyAvg < 6 ? 'C1' : 'C2'}
+            </div>
+            {weekly.levelTrend.direction !== 'flat' && (
+              <div className={`text-xs ${weekly.levelTrend.direction === 'up' ? 'text-emerald-600' : 'text-red-600'}`}>
+                {weekly.levelTrend.direction === 'up' ? '↑' : '↓'} {Math.abs(weekly.levelTrend.delta).toFixed(1)} vs 上周
+              </div>
+            )}
+          </div>
+          {/* 7 天每日柱状 */}
+          <div className="flex items-end gap-1 h-12">
+            {weekly.levelTrend.dailyAvg.map((avg, i) => {
+              const height = avg ? (avg / 6) * 100 : 0
+              return (
+                <div
+                  key={i}
+                  className={`flex-1 rounded-t ${avg ? 'bg-indigo-500' : 'bg-stone-200 dark:bg-stone-700'}`}
+                  style={{ height: `${Math.max(height, avg ? 6 : 0)}%`, minHeight: avg ? '2px' : '0' }}
+                  title={avg ? `第 ${i + 1} 天: ${avg.toFixed(1)}` : '无数据'}
+                />
+              )
+            })}
+          </div>
+          {/* A1-C2 分布 */}
+          <div className="mt-3 flex gap-1">
+            {Object.entries(weekly.levelTrend.distribution).map(([level, pct]) => (
+              <div key={level} className="flex-1 text-center">
+                <div className="text-[10px] text-stone-500">{level}</div>
+                <div className="text-xs font-semibold">{pct}%</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* v1.28.0 W29: 7 天 retention */}
       <div className="card">
         <div className="text-sm font-semibold mb-2">🧠 7 天平均 retention</div>
