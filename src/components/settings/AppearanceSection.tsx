@@ -1,9 +1,13 @@
 // 外观设置 - v0.22.2
 import { useStore } from '../../store/useStore'
 import { THEMES, FONT_SIZES, applyTheme, applyFontSize, getTheme } from '../../lib/themes'
+// v1.41.0 W41: i18n
+import { useTranslate } from '../../lib/useTranslate'
 
 export default function AppearanceSection() {
   const darkMode = useStore(s => s.darkMode)
+  // v1.41.0 W41: 语言切换
+  const { t, locale, setLocale } = useTranslate()
   const toggleDark = useStore(s => s.toggleDark)
   const themeColor = useStore(s => s.themeColor)
   const setThemeColor = useStore(s => s.setThemeColor)
@@ -53,6 +57,28 @@ export default function AppearanceSection() {
             >
               <div className="text-sm font-medium">{fs.name}</div>
               <div className="text-xs text-stone-500 dark:text-stone-400">{fs.base}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+      {/* v1.41.0 W41: 语言切换 */}
+      <div className="flex items-center justify-between pt-2 border-t border-stone-100 dark:border-stone-700">
+        <div>
+          <div className="font-medium">🌐 {locale === 'zh' ? '语言' : 'Language'}</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+            {locale === 'zh' ? '界面语言' : 'UI Language'}
+          </div>
+        </div>
+        <div className="flex gap-1">
+          {(['zh', 'en'] as const).map(l => (
+            <button
+              key={l}
+              onClick={() => setLocale(l)}
+              className={`text-xs px-2 py-1 rounded ${
+                locale === l ? 'bg-brand-500 text-white' : 'bg-stone-100 dark:bg-stone-700'
+              }`}
+            >
+              {l === 'zh' ? '中文' : 'English'}
             </button>
           ))}
         </div>

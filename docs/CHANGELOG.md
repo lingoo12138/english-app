@@ -2492,3 +2492,33 @@
 - 646 → 639 单元测试 (-7, 删 dead 测试)
 - 0 P0 + 0 P1 + 0 P2 维持
 - 1 commit + 1 tag (v1.40.1)
+
+---
+
+## [v1.41.0] - 2026-07-27
+
+### v1.41.0 W41 — i18n + streak 升级 + 大 review (3 件 1.5h)
+
+#### W41-A: i18n 国际化
+- 🌐 `src/lib/i18n.ts` (100 行): DICT 字典 + t/tMany/getLocale/setLocale/initLocale
+- 🔄 `src/lib/useTranslate.ts` (30 行): useTranslate hook (监听 locale-change 事件)
+- 🎛️ Settings/AppearanceSection 加语言切换 (中文/English)
+- 💾 localStorage 持久化
+- 9/9 i18n 测试
+
+#### W41-B: streak 升级
+- 🏆 `STREAK_MILESTONES` (7 里程碑: 3/7/14/30/60/100/365 天)
+- 📈 `getStreakWithMilestones()`: 当前 + 历史最长 + 下一里程碑 + 剩天数
+- 💬 `getStreakMessage()`: emoji + 消息 + isWarning
+- 9/9 streakMilestones 测试
+
+#### W41-C: 大 review (5 版本累积)
+- 📊 `scripts/big-review-v1.41.py` 5 维度摸底
+- ✅ 0 P0 + 0 新 P1 + 0 P2 维持
+- ✅ 17 as any 全是预存豁免 (v1.6)
+- ✅ 75 console.error/warn 全有守卫
+
+#### 验证
+- 639 → 657 单元测试 (+18)
+- 0 P0 + 0 P1 + 0 P2 维持
+- 1 commit + 1 tag (v1.41.0)

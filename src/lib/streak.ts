@@ -63,6 +63,97 @@ export async function getStreak(): Promise<number> {
   return streak
 }
 
+// === v1.41.0 W41 streak 升级 ===
+
+/** 连续里程碑 */
+export interface StreakMilestone {
+  days: number
+  emoji: string
+  label: string
+  reached: boolean
+}
+
+export const STREAK_MILESTONES: StreakMilestone[] = [
+  { days: 3, emoji: '🌱', label: '起步', reached: false },
+  { days: 7, emoji: '🔥', label: '周坚持', reached: false },
+  { days: 14, emoji: '⚡', label: '两周', reached: false },
+  { days: 30, emoji: '🏆', label: '月度', reached: false },
+  { days: 60, emoji: '💎', label: '双月', reached: false },
+  { days: 100, emoji: '👑', label: '百日', reached: false },
+  { days: 365, emoji: '🎉', label: '年度', reached: false },
+]
+
+/** 拿 streak + 里程碑状态 */
+export async function getStreakWithMilestones(): Promise<{
+  current: number
+  longest: number
+  milestones: StreakMilestone[]
+  nextMilestone: StreakMilestone | null
+  daysToNext: number
+}> {
+  const current = await getStreak()
+  const longest = await getLongestStreak()
+  const milestones = STREAK_MILESTONES.map(m => ({
+    ...m,
+    reached: current >= m.days,
+  }))
+  const nextMilestone = milestones.find(m => !m.reached) || null
+  const daysToNext = nextMilestone ? nextMilestone.days - current : 0
+  return { current, longest, milestones, nextMilestone, daysToNext }
+}
+
+/** 拿历史最长 streak (从 records 算) */
+export async function getLongestStreak(): Promise<number> {
+  const stats = await getDailyStats(3650)
+  const days = Array.from(stats.entries())
+    .filter(([_, count]) => count > 0)
+    .map(([day]) => day)
+    .sort()
+  if (days.length === 0) return 0
+
+  let longest = 1
+  let current = 1
+  for (let i = 1; i < days.length; i++) {
+    const prev = new Date(days[i - 1])
+    const curr = new Date(days[i])
+    const diff = (curr.getTime() - prev.getTime()) / 86_400_000
+    if (Math.round(diff) === 1) {
+      current++
+      if (current > longest) longest = current
+    } else {
+      current = 1
+    }
+  }
+  return longest
+}
+
+/** Streak 状态 (给 UI 提示) */
+export function getStreakMessage(current: number): {
+  emoji: string
+  message: string
+  isWarning: boolean  // < 3 警告
+} {
+  if (current === 0) {
+    return { emoji: '😴', message: '今天还没学, 学 5 分钟恢复一下', isWarning: true }
+  }
+  if (current === 1) {
+    return { emoji: '🌱', message: '连续 1 天, 加油!', isWarning: false }
+  }
+  if (current < 3) {
+    return { emoji: '🌿', message: `连续 ${current} 天, 不错的开始!`, isWarning: false }
+  }
+  if (current < 7) {
+    return { emoji: '🔥', message: `连续 ${current} 天, 别断!`, isWarning: false }
+  }
+  if (current < 30) {
+    return { emoji: '⚡', message: `连续 ${current} 天, 习惯养成中!`, isWarning: false }
+  }
+  if (current < 100) {
+    return { emoji: '🏆', message: `连续 ${current} 天, 你是达人!`, isWarning: false }
+  }
+  return { emoji: '👑', message: `连续 ${current} 天, 传说级别!`, isWarning: false }
+}
+
 // 总学习天数(学过的总天数)
 export async function getTotalDays(): Promise<number> {
   const stats = await getDailyStats(3650)  // 10 年
