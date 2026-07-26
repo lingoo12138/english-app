@@ -1945,3 +1945,59 @@ W24 候选: PDF 上传 (闭环 v1.18 文件上传, 论文/邮件/合同)
 - 触发可业: 8 角色 + 自定义场景 + 拍照 + 文件上传 + PDF + 学习日历
 - 内容能用: 5334 词 + 465 词根 + 13234 句 + 5 场景 + 8 角色 + 用户文件/PDF
 - 学得会: FSRS + 智能队列 + 复习按 tag + 错题讲解 + 动态通知 + 流失召回
+
+---
+
+## v1.26.0 — W27 (2026-07-26)
+
+### 触发
+- 用户选 W27: 角色扩 8→11 (teacher/lawyer/engineer)
+- 复用 v1.13 + v1.17 chatRoles 框架, 1d 干完
+
+### 范围
+- chatRoles.ts 加 3 角色: teacher 👩‍🏫 / lawyer ⚖️ / engineer 💻
+- ChatRoleId 联合类型扩 (8 → 11)
+- 每个角色: 1 systemPrompt + 5 greetings + 10 fallbackReplies
+- 7/7 新测试 (中英文标签 + 关键词 + 完整字段)
+
+### 数据
+- 555 → 562 单元测试 (+7)
+- 8 → 11 角色 (NONE + 11 = 12 ALL_ROLES)
+
+---
+
+## v1.27.0 — W28 (2026-07-26)
+
+### 触发
+- 用户选 W28: 多人对话 (2-3d 估算, 实际 1.5h 干完)
+- 之前是 1 角色, 团队/聚会场景需要多人
+
+### 范围
+- chatRoles.ts: MULTI_ROLE_SCENARIOS (3 套预设) + buildMultiRoleSystemPrompt + parseMultiRoleReply
+- MultiRoleSelector.tsx (60 行, 新): 关 + 3 卡片横向 scroll
+- AIChat 集成: multiRoles 字段 + 单/多模式互斥
+- 11/11 multiRole 测试
+
+### 数据
+- 562 → 573 单元测试 (+11)
+- 11 单角色 + 3 多人 = 14 角色模式
+- 26 → 27 组件 (+1 MultiRoleSelector)
+
+---
+
+## v1.27.0 累计 (全项目 8 周+ 完结, 5 版本冲刺)
+
+- **28 release tag** / 370+ commit / 25 页面 / 27 组件 / 39 库 / 12500+ 行
+- **573 单元测试** + 16 闭环
+- 130+ bug 修复 (含 v1.22.0 review 修 18 处 catch any)
+- 11 单角色 + 3 多人场景 = 14 角色模式
+- 自定义场景 + 文件上传 + PDF + 月历热力图 + 标签系统 + 复习按 tag
+- 动态通知内容 + 通知点击跳转 + 3 天未学召回
+- tag 合并/重命名/相似查找
+- 错误恢复 + LLM 日限 + 拍照场景
+- 难度自适应 + 智能队列 + FSRS + 日报/周报
+- **0 P0 + 0 P1 维持 24+ 轮**
+
+5 版本冲刺 (v1.23 PDF → v1.24 reminder → v1.25 tag merge → v1.26 角色 11 → v1.27 多人):
+- 0:09-1:11 (1h2min) 完成 v1.23 + README 瘦身 + v1.24 + v1.25
+- 5:26-12:30 完成 v1.26 (1h) + v1.27 (1.5h)
