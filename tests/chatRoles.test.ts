@@ -12,25 +12,26 @@ import {
   type ChatRoleId,
 } from '../src/lib/chatRoles'
 
-describe('chatRoles (v1.13.0-B3 + v1.17.0-B7 + v1.26.0-W27)', () => {
-  describe('CHAT_ROLES 11 角色 (v1.26.0 加 3)', () => {
-    it('应有 11 个角色', () => {
-      expect(CHAT_ROLES.length).toBe(11)
+describe('chatRoles (v1.13.0-B3 + v1.17.0-B7 + v1.26.0-W27 + v1.33.0-W31)', () => {
+  describe('CHAT_ROLES 14 角色 (v1.33.0 加 3)', () => {
+    it('应有 14 个角色', () => {
+      expect(CHAT_ROLES.length).toBe(14)
     })
 
-    it('11 角色 id 正确', () => {
+    it('14 角色 id 正确', () => {
       const ids = CHAT_ROLES.map(r => r.id)
       expect(ids).toEqual(
         expect.arrayContaining([
           'interviewer', 'barista', 'receptionist', 'tour_guide', 'waiter',
           'doctor', 'banker', 'police',
           'teacher', 'lawyer', 'engineer',
+          'designer', 'data_analyst', 'chef',
         ]),
       )
     })
 
-    it('ALL_ROLES 应为 12 (含 NONE_ROLE)', () => {
-      expect(ALL_ROLES.length).toBe(12)
+    it('ALL_ROLES 应为 15 (含 NONE_ROLE)', () => {
+      expect(ALL_ROLES.length).toBe(15)
     })
 
     it('每角色都有完整字段', () => {
@@ -114,6 +115,32 @@ describe('chatRoles (v1.13.0-B3 + v1.17.0-B7 + v1.26.0-W27)', () => {
       expect(r.name).toBe('软件工程师')
     })
 
+    // v1.33.0 新增 3 角色验证 (W31)
+    it('designer 角色含设计相关词', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'designer')!
+      expect(r.emoji).toBe('🎨')
+      expect(r.systemPrompt.toLowerCase()).toMatch(/design|user|visual|ux|ui/)
+    })
+    it('data_analyst 角色含数据相关词', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'data_analyst')!
+      expect(r.emoji).toBe('📊')
+      expect(r.systemPrompt.toLowerCase()).toMatch(/data|sql|analy|metric|statistic/)
+    })
+    it('chef 角色含烹饪相关词', () => {
+      const r = CHAT_ROLES.find(r => r.id === 'chef')!
+      expect(r.emoji).toBe('🍳')
+      expect(r.systemPrompt.toLowerCase()).toMatch(/chef|cook|recipe|kitchen|ingredient|food/)
+    })
+    it('designer 中文标签', () => {
+      expect(CHAT_ROLES.find(r => r.id === 'designer')!.name).toBe('设计师')
+    })
+    it('data_analyst 中文标签', () => {
+      expect(CHAT_ROLES.find(r => r.id === 'data_analyst')!.name).toBe('数据分析师')
+    })
+    it('chef 中文标签', () => {
+      expect(CHAT_ROLES.find(r => r.id === 'chef')!.name).toBe('厨师')
+    })
+
     it('banker 角色含银行相关词', () => {
       const r = CHAT_ROLES.find(r => r.id === 'banker')!
       expect(r.systemPrompt.toLowerCase()).toMatch(/bank|teller|account|deposit|loan/)
@@ -159,8 +186,8 @@ describe('chatRoles (v1.13.0-B3 + v1.17.0-B7 + v1.26.0-W27)', () => {
   })
 
   describe('ALL_ROLES 完整角色表', () => {
-    it('含 NONE_ROLE + 11 角色 = 12 项 (v1.26.0 加 3)', () => {
-      expect(ALL_ROLES.length).toBe(12)
+    it('含 NONE_ROLE + 14 角色 = 15 项 (v1.33.0 加 3)', () => {
+      expect(ALL_ROLES.length).toBe(15)
       expect(ALL_ROLES[0]).toBe(NONE_ROLE)
     })
   })
