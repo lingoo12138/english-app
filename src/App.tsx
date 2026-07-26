@@ -4,6 +4,8 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import InstallPrompt from './components/InstallPrompt'
+// v1.38.0 W36: iOS in-app 提醒 banner
+import InAppBanner from './components/InAppBanner'
 const Home = lazy(() => import('./pages/Home'))
 const WordList = lazy(() => import('./pages/WordList'))
 const WordDetail = lazy(() => import('./pages/WordDetail'))
@@ -116,6 +118,8 @@ function App() {
 
   return (
     <Suspense fallback={<div className="flex items-center justify-center h-32"><div className="text-stone-500">加载中...</div></div>}>
+    {/* v1.38.0 W36: iOS 提醒 banner (iOS Safari 时启用) */}
+    <InAppBanner />
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />

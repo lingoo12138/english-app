@@ -72,6 +72,12 @@ details > summary::-webkit-details-marker {
   display: none;
 }
 
+/* v1.38.0 W36: InAppBanner 滑入动画 */
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
 /* v0.22.9: Anki 风格卡片翻转动效 */
 .card-container {
   perspective: 1000px;

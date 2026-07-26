@@ -2381,3 +2381,24 @@
 - 0 P0 + 0 P1 + 0 P2 维持
 - 5 lib 全部触达用户
 - 1 commit + 1 tag (v1.37.0)
+
+---
+
+## [v1.38.0] - 2026-07-26
+
+### v1.38.0 W36 — iOS InAppBanner 组件 (1d, 实际 30min)
+
+- 📱 `InAppBanner.tsx` (80 行, 新): 顶部 banner
+  - 自动检测 iOS Safari PWA (shouldUseInAppReminder)
+  - 启动时 + 每 60s 检查 shouldShowInAppReminder
+  - 命中后: 滑入动画 + 震动 + 顶部 banner
+  - 📚 复习按钮 → /review?from=inAppReminder
+  - × 关闭 → dismissInAppReminder (24h 不重复)
+- 🎨 index.css 加 slideDown 动画
+- App.tsx 顶层挂载 InAppBanner
+- 复用 v1.34 inAppReminder (lib, 8 测试已存)
+
+#### 验证
+- 632 单元测试全过 (无新增, UI 集成)
+- 0 P0 + 0 P1 + 0 P2 维持
+- 1 commit + 1 tag (v1.38.0)
