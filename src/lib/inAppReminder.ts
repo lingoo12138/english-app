@@ -24,7 +24,7 @@ export function shouldUseInAppReminder(): boolean {
   if (typeof window === 'undefined') return false
   const hasNotification = 'Notification' in window
   // 检测 2: 是 iOS Safari
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !('MSStream' in window)
   // iOS 优先 in-app, 桌面无 Notification 时也用 in-app
   if (!hasNotification) return true
   if (isIOS && Notification.permission !== 'granted') return true
@@ -78,30 +78,45 @@ export function vibrateIfSupported(): void {
   if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
     try {
       navigator.vibrate(200)
-    } catch {}
+    } catch (e: unknown) {
+      // v1.22 review 维持: catch unknown + Error 守卫
+      const err = e instanceof Error ? e : new Error(String(e))
+      console.warn('vibrate 失败:', err.message)
+    }
   }
 }
 
 /** 更新 App Badge (iOS 16.4+ / 部分 Android Chrome) */
 export async function setAppBadgeIfSupported(count: number): Promise<void> {
   if (typeof navigator === 'undefined') return
-  // @ts-ignore - Badge API 是实验性
-  if (typeof navigator.setAppBadge === 'function') {
+  const nav = navigator as Navigator & {
+    setAppBadge?: (count: number) => Promise<void>
+    clearAppBadge?: () => Promise<void>
+  }
+  if (typeof nav.setAppBadge === 'function') {
     try {
-      // @ts-ignore
-      await navigator.setAppBadge(count)
-    } catch {}
+      await nav.setAppBadge(count)
+    } catch (e: unknown) {
+      // 静默失败 (Badge API 实验性)
+      const err = e instanceof Error ? e : new Error(String(e))
+      console.warn('setAppBadge 失败:', err.message)
+    }
   }
 }
 
 /** 清除 Badge */
 export async function clearAppBadgeIfSupported(): Promise<void> {
   if (typeof navigator === 'undefined') return
-  // @ts-ignore
-  if (typeof navigator.clearAppBadge === 'function') {
+  const nav = navigator as Navigator & {
+    clearAppBadge?: () => Promise<void>
+  }
+  if (typeof nav.clearAppBadge === 'function') {
     try {
-      // @ts-ignore
-      await navigator.clearAppBadge()
-    } catch {}
+      await nav.clearAppBadge()
+    } catch (e: unknown) {
+      // 静默失败
+      const err = e instanceof Error ? e : new Error(String(e))
+      console.warn('clearAppBadge 失败:', err.message)
+    }
   }
 }

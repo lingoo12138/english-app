@@ -2332,3 +2332,15 @@
 - 606 → **632** 单元测试 (+26)
 - 42 → 45 库 (+3)
 - 0 P0/P1/P2 维持
+
+---
+
+## [v1.36.0] - 2026-07-26 (大 review)
+
+### v1.36.0 大 review — 12 版本累积
+
+- 5 维度静态审查: catch any / setLoading / useEffect / as any / console.error
+- **修 1 处 P1**: inAppReminder.ts as any + 4 处空 catch
+- **0 P0 + 0 P1 + 0 P2 维持 30+ 轮**
+- 12 release tag 质量干净
+- 详见 `docs/REVIEW_v1.36.md`
