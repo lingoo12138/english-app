@@ -1,9 +1,11 @@
 // 场景专题课列表页
 import { useState, useEffect } from 'react'
+import { useTranslate } from '../lib/useTranslate'
 import { Link } from 'react-router-dom'
 import { SCENES, type Scene, searchScenes, getSentenceId } from '../data/scenes'
 
 export default function Scenes() {
+  const { t } = useTranslate()
   const [query, setQuery] = useState('')
   const [scenes, setScenes] = useState<Scene[]>(SCENES)
   const [completed, setCompleted] = useState<Set<string>>(new Set())
@@ -58,7 +60,7 @@ export default function Scenes() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold mb-1">场景专题课</h1>
+        <h1 className="text-2xl font-bold mb-1">{t('scenes.title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">
           5 个真实场景 · 真实能用的高频表达
         </p>

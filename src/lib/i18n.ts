@@ -133,6 +133,12 @@ const DICT: Record<Locale, Record<string, string>> = {
     'achievements.title': '成就墙',
     'customlearn.done': '学完啦!',
     'worddetail.back': '返回',
+    // v1.54.0 W49: LearnReport/Scenes 5 key
+    'learnreport.title': 'AI 对话学习报告',
+    'learnreport.difficulty': '词汇难度分布',
+    'learnreport.scenes': '场景分布',
+    'scenes.title': '场景专题课',
+    'pronounce.back': '返回',
     // v1.49.0 W46: ListenPage 7 key
     'listen.title': '🎧 听力模式',
     'listen.subtitle': '5 篇真实场景短文 · TTS 播放 · 挖空听写 · 错词入生词本',
@@ -267,6 +273,12 @@ const DICT: Record<Locale, Record<string, string>> = {
     'achievements.title': 'Achievements',
     'customlearn.done': 'Done!',
     'worddetail.back': 'Back',
+    // v1.54.0 W49: LearnReport/Scenes 5 key
+    'learnreport.title': 'AI Chat Report',
+    'learnreport.difficulty': 'Difficulty',
+    'learnreport.scenes': 'Scenes',
+    'scenes.title': 'Scenes',
+    'pronounce.back': 'Back',
     // v1.49.0 W46: ListenPage 7 key
     'listen.title': '🎧 Listening',
     'listen.subtitle': '5 real scenes · TTS · dictation · error-to-fav',

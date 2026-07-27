@@ -1,11 +1,13 @@
 // 学习报告页 - v0.21
 // 展示用户 AI 对话中的词汇使用统计 + 难度分布
 import { useState, useEffect } from 'react'
+import { useTranslate } from '../lib/useTranslate'
 import { getAllChats } from '../lib/db'
 import { generateLearnReport, exportReportJSON, levelLabel, levelColor, type LearnReport } from '../lib/learnReport'
 import { useStore } from '../store/useStore'
 
 export default function LearnReport() {
+  const { t } = useTranslate()
   const [report, setReport] = useState<LearnReport | null>(null)
   const [loading, setLoading] = useState(true)
   const [tab, setTab] = useState<'overview' | 'top' | 'rare' | 'recent'>('overview')
@@ -59,7 +61,7 @@ export default function LearnReport() {
     <div className="space-y-4">
       <div className="card">
         <div className="flex items-center justify-between mb-3">
-          <h1 className="text-xl font-bold">📊 AI 对话学习报告</h1>
+          <h1 className="text-xl font-bold">📊 {t('learnreport.title')}</h1>
           <button onClick={handleExport} className="btn-ghost text-sm">⬇️ 导出 JSON</button>
         </div>
 
@@ -127,6 +129,7 @@ function Stat({ label, value, icon }: { label: string; value: number | string; i
 }
 
 function Overview({ report }: { report: LearnReport }) {
+  const { t } = useTranslate()
   const sortedLevels = Object.entries(report.levelDistribution)
     .filter(([k]) => k !== 'unknown')
     .sort(([a], [b]) => a.localeCompare(b))
@@ -138,7 +141,7 @@ function Overview({ report }: { report: LearnReport }) {
     <div className="space-y-4">
       {/* 难度分布 */}
       <div className="card">
-        <h2 className="font-semibold mb-3">📊 词汇难度分布</h2>
+        <h2 className="font-semibold mb-3">📊 {t('learnreport.difficulty')}</h2>
         <div className="space-y-2">
           {sortedLevels.map(([lvl, count]) => (
             <div key={lvl} className="flex items-center gap-2">
@@ -171,7 +174,7 @@ function Overview({ report }: { report: LearnReport }) {
 
       {/* 场景分布 */}
       <div className="card">
-        <h2 className="font-semibold mb-3">🎬 场景分布</h2>
+        <h2 className="font-semibold mb-3">🎬 {t('learnreport.scenes')}</h2>
         <div className="space-y-2">
           {Object.entries(report.scenarioDistribution)
             .sort(([, a], [, b]) => b - a)

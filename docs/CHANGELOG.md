@@ -2758,3 +2758,24 @@
 - 53 release tag / 702 测试 / 115 DICT key
 - 19 页面 i18n 覆盖
 - 0 P0/P1 维持
+
+---
+
+## [v1.54.0] - 2026-07-27
+
+### v1.54.0 W49 — i18n 2 页面 + 第 10 次大 review (~1h)
+
+#### i18n 2 页面
+- LearnReport 3 t() (title + difficulty + scenes)
+- Scenes 1 t() (title)
+- DICT 加 5 zh + 5 en = 10 key
+- LearnReport 子组件独立 useTranslate
+
+#### 第 10 次大 review
+- big-review-v1.54.py: 8 维度
+- 0 P0 + 0 P1 维持
+
+#### 累计
+- 54 release tag / 702 测试 / 120 DICT key
+- 21 页面 i18n 覆盖
+- 0 P0/P1 维持
