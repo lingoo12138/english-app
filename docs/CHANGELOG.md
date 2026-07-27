@@ -2631,3 +2631,17 @@
 #### 累计
 - 46 release tag / 706 测试
 - 0 P0/P1 维持
+
+---
+
+## [v1.47.0] - 2026-07-27
+
+### v1.47.0 W45 — Settings i18n 集成 (15min)
+
+#### Settings i18n
+- Settings.tsx 顶部标题改 t()
+- DICT 加 settings.page_title (zh + en)
+
+#### 累计
+- 47 release tag / 706 测试
+- 0 P0/P1 维持

@@ -13,10 +13,12 @@ import MigrationSection from '../components/settings/MigrationSection'
 import AIChatDataSection from '../components/settings/AIChatDataSection'
 import ReminderSection from '../components/settings/ReminderSection'
 import { clearOnboarded } from '../components/Onboarding'
+import { useTranslate } from '../lib/useTranslate'
 import { getLLMUsageToday, resetLLMUsageToday, DAILY_LIMITS, type LLMCategory } from '../lib/llmUsage'
 
 export default function Settings() {
   const navigate = useNavigate()
+  const { t } = useTranslate()
   // v1.12.0-C: LLM 用量 state (跨日重置)
   const [usage, setUsage] = useState(() => getLLMUsageToday())
 
@@ -42,7 +44,7 @@ export default function Settings() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold mb-1">设置</h1>
+        <h1 className="text-2xl font-bold mb-1">{t('settings.page_title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">个性化你的学习体验</p>
         <p className="text-xs text-amber-600 dark:text-amber-400 mt-1.5">
           ⚠️ 所有 API Key 明文存于浏览器 localStorage, 公共电脑请勿填写

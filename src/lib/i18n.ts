@@ -79,6 +79,8 @@ const DICT: Record<Locale, Record<string, string>> = {
     'home.streak_title': '连续学习',
     'home.review_center': '复习中心',
     'home.plan_summary': '7 天曲线 · 连续天数 · 今日详情',
+    // v1.47.0 W45: Settings 1 key
+    'settings.page_title': '设置',
   },
   en: {
     'app.name': 'Jùkè',
@@ -151,6 +153,8 @@ const DICT: Record<Locale, Record<string, string>> = {
     'home.streak_title': 'Streak',
     'home.review_center': 'Review Center',
     'home.plan_summary': '7-day curve · streak · today',
+    // v1.47.0 W45: Settings 1 key
+    'settings.page_title': 'Settings',
   },
 }
 
