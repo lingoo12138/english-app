@@ -82,7 +82,7 @@ export default function ReportsPage() {
               : 'border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-400'
           }`}
         >
-          📅 今日日报
+          📅 {t('reports.daily_title')}
         </button>
         <button
           onClick={() => setTab('weekly')}
@@ -92,7 +92,7 @@ export default function ReportsPage() {
               : 'border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-400'
           }`}
         >
-          📆 本周周报
+          📆 {t('reports.weekly_title')}
         </button>
       </div>
 
@@ -116,7 +116,7 @@ function Header({ onCopy }: { onCopy: () => void }) {
   return (
     <div className="flex items-center justify-between">
       <div>
-        <h1 className="text-2xl font-bold">📊 学习报告</h1>
+        <h1 className="text-2xl font-bold">📊 {t('reports.page_title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm mt-0.5">
           看看你今天/本周的成长足迹
         </p>

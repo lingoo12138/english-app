@@ -2591,3 +2591,22 @@
 #### 累计
 - 43 release tag / 702 测试 / 44 库 / 6 次大 review
 - 0 P0/P1 维持
+
+---
+
+## [v1.45.0] - 2026-07-27
+
+### v1.45.0 W45 — verifier1 P1+P2 Hotfix (30min)
+
+#### 修 P1-1: CardReview 26 t() key 补全
+- `src/lib/i18n.ts` 加 26×2 = 52 key (review.preparing/empty/done/again/hard/good/easy/flip/exit/switch/session/due ...)
+- `tests/i18nKeyCoverage.test.ts` (4 测试) 静态扫 t() 调用, 验证 DICT 完整
+
+#### 修 P2-1: ReportsPage 3+ t() 调用
+- 顶部标题 + 2 tab 改 t()
+- DICT 加 6 个 reports.* key
+
+#### 累计
+- 706 测试 (702 → 706, +4)
+- 0 P0 + 0 P1 维持
+- 详见 `docs/REVIEW_v1.45.md`
