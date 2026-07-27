@@ -74,6 +74,11 @@ const DICT: Record<Locale, Record<string, string>> = {
     'reports.page_title': '学习报告',
     'reports.daily_title': '今日日报',
     'reports.weekly_title': '本周周报',
+    // v1.46.0 W45: Home 4 key
+    'home.today_summary': '今日数据 · 7 天汇总 · 同周对比',
+    'home.streak_title': '连续学习',
+    'home.review_center': '复习中心',
+    'home.plan_summary': '7 天曲线 · 连续天数 · 今日详情',
   },
   en: {
     'app.name': 'Jùkè',
@@ -141,6 +146,11 @@ const DICT: Record<Locale, Record<string, string>> = {
     'reports.page_title': 'Reports',
     'reports.daily_title': 'Today',
     'reports.weekly_title': 'This Week',
+    // v1.46.0 W45: Home 4 key
+    'home.today_summary': 'Today · 7-day summary',
+    'home.streak_title': 'Streak',
+    'home.review_center': 'Review Center',
+    'home.plan_summary': '7-day curve · streak · today',
   },
 }
 

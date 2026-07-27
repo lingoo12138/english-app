@@ -2610,3 +2610,24 @@
 - 706 测试 (702 → 706, +4)
 - 0 P0 + 0 P1 维持
 - 详见 `docs/REVIEW_v1.45.md`
+
+---
+
+## [v1.46.0] - 2026-07-27
+
+### v1.46.0 W45 — Home/PlanPage i18n + PlanPage XP (30min)
+
+#### Home i18n 集成
+- Home.tsx 加 useTranslate + 4 处 t() 调用
+
+#### PlanPage XP 进度条
+- PlanPage 顶部加 Lv + 称号 + 进度条 + totalXP
+- 复用 v1.43 xpSystem
+
+#### DICT 扩 4 key
+- home.today_summary / streak_title / review_center / plan_summary
+- zh + en 各 4 个 (DICT: 96 → 104)
+
+#### 累计
+- 46 release tag / 706 测试
+- 0 P0/P1 维持

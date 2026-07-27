@@ -113,6 +113,7 @@ export default function ReportsPage() {
 }
 
 function Header({ onCopy }: { onCopy: () => void }) {
+  const { t } = useTranslate()
   return (
     <div className="flex items-center justify-between">
       <div>

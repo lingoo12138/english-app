@@ -19,6 +19,7 @@ import { generateTodayPlan, markWordCompleted, type TodayPlan } from '../lib/pla
 import { getStreakWithMilestones, getStreakMessage, type StreakMilestone } from '../lib/streak'
 // v1.43.0 W43-B: XP/level 游戏化
 import { getXPState, type XPCurrentState } from '../lib/xpSystem'
+import { useTranslate } from '../lib/useTranslate'
 import { toast } from '../components/Toast'
 
 export default function Home() {
@@ -33,6 +34,7 @@ export default function Home() {
     nextMilestone: StreakMilestone | null
     daysToNext: number
   } | null>(null)
+  const { t } = useTranslate()
   const [dueReviewCount, setDueReviewCount] = useState(0)
   const [plan, setPlan] = useState<TodayPlan | null>(null)
   const [showShare, setShowShare] = useState(false)
@@ -194,7 +196,7 @@ export default function Home() {
         <div className="text-3xl">📊</div>
         <div className="flex-1">
           <div className="font-semibold text-sm">日报 / 周报</div>
-          <div className="text-xs text-stone-500 dark:text-stone-400">今日数据 · 7 天汇总 · 同周对比</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400">{t('home.today_summary')}</div>
         </div>
         <div className="text-stone-400">→</div>
       </Link>
@@ -290,7 +292,7 @@ export default function Home() {
         <div className="card">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <div className="text-sm font-semibold">🏆 连续学习</div>
+              <div className="text-sm font-semibold">🏆 {t('home.streak_title')}</div>
               <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
                 {getStreakMessage(streakState.current).message}
               </div>
@@ -348,7 +350,7 @@ export default function Home() {
           </Link>
           <Link to="/review" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
             <div className="text-3xl mb-2">📝</div>
-            <div className="font-medium">复习中心</div>
+            <div className="font-medium">{t('home.review_center')}</div>
             <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">智能间隔重复</div>
           </Link>
           <Link to="/translate" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
@@ -392,7 +394,7 @@ export default function Home() {
             <div className="text-3xl">📅</div>
             <div className="flex-1">
               <div className="font-medium">学习计划</div>
-              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">7 天曲线 · 连续天数 · 今日详情</div>
+              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">{t('home.plan_summary')}</div>
             </div>
             <div className="text-stone-400 dark:text-stone-300">→</div>
           </Link>

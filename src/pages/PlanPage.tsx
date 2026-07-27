@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 import { levelColor, levelLabel } from '../lib/learnReport'
 import { BUILTIN_LLM_PROVIDERS } from '../lib/providers/llm'
 import { toast } from '../components/Toast'
+import { getXPState, type XPCurrentState } from '../lib/xpSystem'
 
 interface DayProgress {
   date: string  // YYYY-MM-DD
@@ -25,6 +26,8 @@ export default function PlanPage() {
   const [aiPlanLoading, setAIPlanLoading] = useState(false)
   const targetLevel = useStore(s => s.targetLevel)
   const [plan, setPlan] = useState<TodayPlan | null>(null)
+  // v1.46.0 W45: XP 状态 (复用 lib/xpSystem)
+  const [xpState, setXpState] = useState<XPCurrentState>(() => getXPState())
   const [history, setHistory] = useState<DayProgress[]>([])
   const [streak, setStreak] = useState(0)
   const [totalAll, setTotalAll] = useState(0)
@@ -148,6 +151,19 @@ export default function PlanPage() {
             🎯 推荐难度: <strong>{plan.difficulty}</strong>
           </div>
         )}
+        {/* v1.46.0 W45: XP 进度条 (复用 lib/xpSystem) */}
+        <div className="mt-2 flex items-center gap-2 text-xs">
+          <span className="px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 font-bold">
+            Lv.{xpState.level} {xpState.levelTitle}
+          </span>
+          <div className="flex-1 h-1.5 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all"
+              style={{ width: `${xpState.progress}%` }}
+            />
+          </div>
+          <span className="text-stone-500 dark:text-stone-400">{xpState.totalXP} XP</span>
+        </div>
         {/* v1.37.0 W35-4: AI 定制计划 */}
         <button
           onClick={() => setShowAIPlan(true)}
