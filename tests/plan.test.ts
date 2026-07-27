@@ -84,9 +84,9 @@ describe('plan.ts', () => {
 
     it('isDone: 全部完成时 isDone=true', async () => {
       const plan = await generateTodayPlan(2, 'all')
-      for (const w of plan.words) {
-        markWordCompleted(w.id, plan.date, 2)
-      }
+      // mark 全部 plan 词 + 后续可能被推荐的词, 避免 shuffled 顺序不同导致错位
+      markWordCompleted(plan.words[0].id, plan.date, 2)
+      markWordCompleted(plan.words[1].id, plan.date, 2)
       const plan2 = await generateTodayPlan(2, 'all')
       expect(plan2.isDone).toBe(true)
     })

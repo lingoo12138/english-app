@@ -159,7 +159,7 @@ export default function PlanPage() {
           <div className="flex-1 h-1.5 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all"
-              style={{ width: `${xpState.progress}%` }}
+            style={{ width: `${Math.min(100, Math.max(0, xpState.progress * 100))}%` }}
             />
           </div>
           <span className="text-stone-500 dark:text-stone-400">{xpState.totalXP} XP</span>

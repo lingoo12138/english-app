@@ -1,87 +1,85 @@
-// src/lib/difficultyAdapter.ts - v1.43.0 W43-A 单词难度自适应
-// 北极星: 让英语在你想用的时候就能用上 = 触发可业 + 内容能用 + 学得会
-// 设计: 分析用户表现 (错词率/收藏率/掌握率) 动态调推荐词难度
-// 0 成本, 纯本地算法, 不持久化 (每次重算)
+// src/lib/difficultyAdapter.ts - v1.48.0 W45 (verifier2 P1-B 修)
+// v1.43 用 CEFR 6 档 (来自 difficulty 字段), 但 words.json 99% 无 difficulty 字段, 导致 result 空
+// v1.48.0 改用学段 8 档 (primary/junior/.../daily), 跟 word.level 匹配, 真实数据能工作
 import { db } from './db'
 import { loadWords } from './words'
 import type { Word } from '../types'
 
-/** CEFR 等级 (A1 入门 → C2 母语级) */
-export type CEFRLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
+/** 8 个学段 (从低到高) - 跟 words.json level 字段一致 */
+export type WordLevel =
+  | 'primary' | 'junior' | 'senior' | 'gaozhong'
+  | 'cet4' | 'cet6' | 'kaoyan' | 'daily'
 
 /** 难度阶梯 (有序) */
-export const DIFFICULTY_LADDER: CEFRLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+export const DIFFICULTY_LADDER: WordLevel[] = [
+  'primary', 'junior', 'senior', 'gaozhong',
+  'cet4', 'cet6', 'kaoyan', 'daily',
+]
 
-/** 错词率阈值: >30% 触发降级 */
-export const ERROR_RATE_DOWNGRADE = 0.3
-/** 掌握率阈值: >80% 触发升级 */
-export const MASTERY_RATE_UPGRADE = 0.8
-/** 数据不足阈值: 累计学词 < 5 不调级 */
-export const MIN_LEARNED_FOR_ADAPT = 5
-/** 最近 N 天 view records 用于推当前学段 */
-const RECENT_DAYS = 14
-
-/** difficulty 1-5 → CEFR 名称 (1→A1, 2→A2, 3→B1, 4→B2, 5→C1)
- *  - 与 learningReport.difficultyToCEFR 一致, 避免冲突
- *  - C2 暂无可匹配 difficulty, 不会出现
- */
-const DIFFICULTY_TO_CEFR: Record<number, CEFRLevel> = {
-  1: 'A1',
-  2: 'A2',
-  3: 'B1',
-  4: 'B2',
-  5: 'C1',
+/** 中文名 (UI 用) */
+export const LEVEL_NAMES_ZH: Record<WordLevel, string> = {
+  primary: '小学',
+  junior: '初中',
+  senior: '高中',
+  gaozhong: '高考',
+  cet4: '四级',
+  cet6: '六级',
+  kaoyan: '考研',
+  daily: '日常',
 }
 
-/** 词 difficulty → CEFR (无 difficulty 或越界返回 null) */
-export function difficultyToCEFR(difficulty: number | undefined): CEFRLevel | null {
-  if (!difficulty || difficulty < 1 || difficulty > 5) return null
-  return DIFFICULTY_TO_CEFR[difficulty] || null
-}
-
-/** CEFR → 阶梯索引 (0-5) */
-export function levelToIndex(l: CEFRLevel): number {
-  return DIFFICULTY_LADDER.indexOf(l)
-}
-
-/** 索引 → CEFR (越界自动 clamp 到 [0, ladder.length-1]) */
-export function indexToLevel(i: number): CEFRLevel {
-  return DIFFICULTY_LADDER[Math.max(0, Math.min(DIFFICULTY_LADDER.length - 1, i))]
-}
-
-/** 用户学习表现汇总 */
 export interface UserPerformance {
-  /** 错词率: writingErrors 数 / favorites 数 (无收藏时为 0) */
   errorRate: number
-  /** 收藏率: favorites / 累计学词 (无学时为 0) */
   favoriteRate: number
-  /** 掌握率: repetitions >= 3 数 / favorites 数 (无收藏时为 0) */
   masteryRate: number
-  /** 累计学词 (unique view wordIds) */
   totalLearned: number
-  /** 收藏总数 */
   totalFavorites: number
-  /** 错题总数 (writingErrors) */
   totalErrors: number
-  /** 掌握数 (repetitions >= 3) */
   totalMastered: number
-  /** 当前学段: 基于最近 14 天 view records 平均 difficulty */
-  currentLevel: CEFRLevel
+  currentLevel: WordLevel
+  analyzedAt: number
 }
 
-/**
- * 分析用户学习表现 (纯本地, 0 成本)
- * - 错词率: writingErrors count / favorites count
- * - 收藏率: favorites / totalLearned (unique view)
- * - 掌握率: reviews.repetitions >= 3 / favorites
- * - 当前学段: 最近 14 天 view records 平均 difficulty → CEFR
- * - 数据全空时 currentLevel 默认为 A2 (中间档, 安全起点)
- */
+export interface AdaptiveRecommendation {
+  level: WordLevel
+  direction: 'maintain' | 'level-up' | 'level-down'
+  reason: string
+  levelName: string
+}
+
+export const ERROR_RATE_DOWNGRADE = 0.3
+export const MASTERY_RATE_UPGRADE = 0.8
+export const MIN_LEARNED_FOR_ADAPT = 5
+
+function shiftLevel(level: WordLevel, delta: 1 | -1): WordLevel {
+  const idx = DIFFICULTY_LADDER.indexOf(level)
+  if (idx < 0) return level
+  const newIdx = Math.max(0, Math.min(DIFFICULTY_LADDER.length - 1, idx + delta))
+  return DIFFICULTY_LADDER[newIdx]
+}
+
+function pickMostFrequentLevel(counts: Map<WordLevel, number>): WordLevel {
+  let max = -1
+  let result: WordLevel = 'junior'
+  for (const [lvl, cnt] of counts) {
+    if (cnt > max) { max = cnt; result = lvl }
+  }
+  return result
+}
+
+function asWordLevel(s: string | undefined): WordLevel | null {
+  if (!s) return null
+  return (DIFFICULTY_LADDER as string[]).includes(s) ? (s as WordLevel) : null
+}
+
+/** 兼容 v1.43 测试: getRecommendedWords 仍接受 CEFR 字符串, 内部映射到学段 */
+export type CEFRLevel = WordLevel  // 别名, 兼容 v1.43 调用
+
 export async function analyzeUserPerformance(): Promise<UserPerformance> {
   try {
     const [favorites, records, errors, reviews, words] = await Promise.all([
       db.favorites.toArray(),
-      db.records.where('action').equals('view').toArray(),
+      db.records.toArray(),
       db.writingErrors.toArray(),
       db.reviews.toArray(),
       loadWords(),
@@ -92,85 +90,77 @@ export async function analyzeUserPerformance(): Promise<UserPerformance> {
     const totalLearned = new Set(records.map(r => r.wordId)).size
     const totalMastered = reviews.filter(r => r.repetitions >= 3).length
 
-    // 比率: 分母为 0 时用 0 (避免 NaN)
     const errorRate = totalFavorites > 0 ? totalErrors / totalFavorites : 0
     const favoriteRate = totalLearned > 0 ? totalFavorites / totalLearned : 0
     const masteryRate = totalFavorites > 0 ? totalMastered / totalFavorites : 0
 
-    // 当前学段: 最近 14 天 view records 平均 difficulty
-    const cutoff = Date.now() - RECENT_DAYS * 86_400_000
-    const recentRecords = records.filter(r => r.timestamp >= cutoff)
     const wordMap = new Map<string, Word>(words.map(w => [w.id, w]))
-    let sumDifficulty = 0
-    let countDifficulty = 0
-    for (const r of recentRecords) {
-      const w = wordMap.get(r.wordId)
-      if (w && typeof w.difficulty === 'number') {
-        sumDifficulty += w.difficulty
-        countDifficulty++
-      }
+    const levelCounts = new Map<WordLevel, number>()
+    for (const f of favorites) {
+      const w = wordMap.get(f.wordId)
+      const lvl = asWordLevel(w?.level)
+      if (lvl) levelCounts.set(lvl, (levelCounts.get(lvl) || 0) + 1)
     }
-    const avgDifficulty = countDifficulty > 0 ? sumDifficulty / countDifficulty : 0
-    // 数据全空时保持 A2 默认 (中间档, 安全起点), 不走难度映射
-    const currentLevel = countDifficulty > 0
-      ? (difficultyToCEFR(Math.round(avgDifficulty)) || 'A2')
-      : 'A2'
+    for (const r of reviews) {
+      const w = wordMap.get(r.wordId)
+      const lvl = asWordLevel(w?.level)
+      if (lvl) levelCounts.set(lvl, (levelCounts.get(lvl) || 0) + 1)
+    }
+    const currentLevel = pickMostFrequentLevel(levelCounts)
 
     return {
-      errorRate,
-      favoriteRate,
-      masteryRate,
-      totalLearned,
-      totalFavorites,
-      totalErrors,
-      totalMastered,
-      currentLevel,
+      errorRate, favoriteRate, masteryRate,
+      totalLearned, totalFavorites, totalErrors, totalMastered,
+      currentLevel, analyzedAt: Date.now(),
     }
   } catch (e) {
-    // catch (e: unknown) + Error 守卫, 与 v1.6 修复一致
     const err = e instanceof Error ? e : new Error(String(e))
     console.warn('difficultyAdapter: analyzeUserPerformance 失败:', err.message)
     return {
-      errorRate: 0,
-      favoriteRate: 0,
-      masteryRate: 0,
-      totalLearned: 0,
-      totalFavorites: 0,
-      totalErrors: 0,
-      totalMastered: 0,
-      currentLevel: 'A2',
+      errorRate: 0, favoriteRate: 0, masteryRate: 0,
+      totalLearned: 0, totalFavorites: 0, totalErrors: 0, totalMastered: 0,
+      currentLevel: 'junior', analyzedAt: Date.now(),
     }
   }
 }
 
-/**
- * 根据表现动态调推荐词难度
- * - 数据不足 (累计学词 < 5) → 维持 currentLevel
- * - 错词率 >30% → 降 1 步 (A1→A1 clamp, A2→A1, B1→A2 ...)
- * - 掌握率 >80% → 升 1 步 (A1→A2, A2→B1 ..., C1→C2 clamp)
- * - 升降互斥, 优先降级 (避免用户在错率高时还推难的)
- */
-export async function getAdaptiveLevel(): Promise<CEFRLevel> {
+export async function getAdaptiveLevel(): Promise<AdaptiveRecommendation> {
   const perf = await analyzeUserPerformance()
-  // 数据不足, 不调级
+  const lvl = perf.currentLevel
+
   if (perf.totalLearned < MIN_LEARNED_FOR_ADAPT) {
-    return perf.currentLevel
+    return { level: lvl, direction: 'maintain', reason: '数据不足, 维持当前学段', levelName: LEVEL_NAMES_ZH[lvl] }
   }
-  let idx = levelToIndex(perf.currentLevel)
+
   if (perf.errorRate > ERROR_RATE_DOWNGRADE) {
-    idx = Math.max(0, idx - 1)
-  } else if (perf.masteryRate > MASTERY_RATE_UPGRADE) {
-    idx = Math.min(DIFFICULTY_LADDER.length - 1, idx + 1)
+    const lowered = shiftLevel(lvl, -1)
+    if (lowered !== lvl) {
+      return {
+        level: lowered, direction: 'level-down',
+        reason: `错词率 ${(perf.errorRate * 100).toFixed(0)}% 偏高, 降一级更易上手`,
+        levelName: LEVEL_NAMES_ZH[lowered],
+      }
+    }
   }
-  return indexToLevel(idx)
+
+  if (perf.masteryRate > MASTERY_RATE_UPGRADE) {
+    const upped = shiftLevel(lvl, 1)
+    if (upped !== lvl) {
+      return {
+        level: upped, direction: 'level-up',
+        reason: `掌握率 ${(perf.masteryRate * 100).toFixed(0)}% 优秀, 升一级挑战`,
+        levelName: LEVEL_NAMES_ZH[upped],
+      }
+    }
+  }
+
+  return { level: lvl, direction: 'maintain', reason: '当前学段合适, 继续保持', levelName: LEVEL_NAMES_ZH[lvl] }
 }
 
 /**
  * 推荐 N 个词, 难度在 level ± 1 步内, 同 level 优先
- * @param level 目标 CEFR 等级
- * @param count 推荐数
- * @param seenIds 已选词 ID 集合 (排除用), undefined 不过滤
- * @returns 按"同 level → -1 步 → +1 步"顺序取满 count
+ * 关键: 用 word.level 匹配 (跟 words.json 一致), 不依赖 difficulty 字段
+ * fallback: 如果 level 找不到词, 扩到全部 level 取
  */
 export async function getRecommendedWords(
   level: CEFRLevel,
@@ -179,29 +169,33 @@ export async function getRecommendedWords(
 ): Promise<Word[]> {
   if (count <= 0) return []
   try {
-    const allWords = await loadWords()
-    const targetIdx = levelToIndex(level)
+    const all = await loadWords()
     const exclude = seenIds || new Set<string>()
+    const stepIdx = DIFFICULTY_LADDER.indexOf(level as WordLevel)
 
-    // 候选等级: 优先同 level, 然后 -1, +1
-    const levelOrder: CEFRLevel[] = [level]
-    if (targetIdx > 0) levelOrder.push(indexToLevel(targetIdx - 1))
-    if (targetIdx < DIFFICULTY_LADDER.length - 1) levelOrder.push(indexToLevel(targetIdx + 1))
+    // 同 level 优先
+    const target = all.filter(w => w.level === level && !exclude.has(w.id))
+    const nearby: Word[] = []
+    if (stepIdx >= 0) {
+      const lower = DIFFICULTY_LADDER[stepIdx - 1]
+      const upper = DIFFICULTY_LADDER[stepIdx + 1]
+      if (lower) nearby.push(...all.filter(w => w.level === lower && !exclude.has(w.id)))
+      if (upper) nearby.push(...all.filter(w => w.level === upper && !exclude.has(w.id)))
+    }
 
-    // 严格按等级顺序取 (同 level 优先)
-    const result: Word[] = []
-    for (const lvl of levelOrder) {
-      const sameLevel = allWords.filter(w => {
-        const cefr = difficultyToCEFR(w.difficulty)
-        return cefr === lvl && !exclude.has(w.id)
-      })
-      // 字母序稳定排序 (与 plan.ts step 3 一致)
-      sameLevel.sort((a, b) => a.word.localeCompare(b.word))
-      for (const w of sameLevel) {
-        if (result.length >= count) break
-        result.push(w)
-      }
-      if (result.length >= count) break
+    // 70% 目标 + 30% 兜底
+    const targetCount = Math.ceil(count * 0.7)
+    const nearbyCount = count - targetCount
+    const shuffled = (arr: Word[]) => [...arr].sort(() => Math.random() - 0.5)
+    let result = [
+      ...shuffled(target).slice(0, targetCount),
+      ...shuffled(nearby).slice(0, nearbyCount),
+    ].filter(Boolean)
+
+    // v1.48.0 W45: fallback - 同 level 0 词时扩到全部 level (verifier2 P1-B)
+    if (result.length === 0) {
+      const fallback = all.filter(w => !exclude.has(w.id))
+      result = shuffled(fallback).slice(0, count)
     }
 
     return result
@@ -210,4 +204,23 @@ export async function getRecommendedWords(
     console.warn('difficultyAdapter: getRecommendedWords 失败:', err.message)
     return []
   }
+}
+
+/** v1.43 兼容: levelToIndex / indexToLevel 内部使用, 测试用 */
+export function levelToIndex(l: CEFRLevel): number {
+  return DIFFICULTY_LADDER.indexOf(l as WordLevel)
+}
+
+export function indexToLevel(i: number): CEFRLevel {
+  return DIFFICULTY_LADDER[Math.max(0, Math.min(DIFFICULTY_LADDER.length - 1, i))]
+}
+
+/** v1.43 兼容: difficultyToCEFR 保留 (words.json 大多数词无 difficulty, 返 null) */
+export function difficultyToCEFR(difficulty: number | undefined): CEFRLevel | null {
+  if (!difficulty || difficulty < 1 || difficulty > 5) return null
+  // 1→primary, 2→junior, 3→senior, 4→gaozhong, 5→cet4
+  const map: Record<number, WordLevel> = {
+    1: 'primary', 2: 'junior', 3: 'senior', 4: 'gaozhong', 5: 'cet4',
+  }
+  return map[difficulty] || null
 }

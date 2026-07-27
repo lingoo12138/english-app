@@ -2645,3 +2645,25 @@
 #### 累计
 - 47 release tag / 706 测试
 - 0 P0/P1 维持
+
+---
+
+## [v1.48.0] - 2026-07-27
+
+### v1.48.0 W45 — verifier2/3 找到 3 P1 Hotfix (~1h)
+
+#### P1-A 修: addXP 同步 import
+- plan.ts: 用静态 import addXP, 避免 fire-and-forget race (verifier2)
+
+#### P1-B 修: difficultyAdapter 改学段 8 档 + fallback
+- 改用 word.level (8 阶 primary/junior/.../daily)
+- getRecommendedWords 加 fallback: 0 词时扩到全部 (verifier2)
+- 兼容 v1.43: CEFRLevel = WordLevel 别名
+
+#### P1 修: PlanPage XP 进度条 width 错算
+- xpState.progress 是 0-1 不是 0-100, 改 * 100 (verifier3)
+
+#### 累计
+- 48 release tag / 700 测试
+- 0 P0/P1 维持
+- 大 review verifier 累计找到 10 处真 bug
