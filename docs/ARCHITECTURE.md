@@ -13,7 +13,7 @@ Vite 5 + React 18 + TypeScript 5 + Tailwind 3 + Zustand 4 + Dexie 3
 ```
 
 ### 测试栈
-- **Vitest 4** 单元测试 (53 文件 / 702 测试)
+- **Vitest 4** 单元测试 (54 文件 / 702 测试)
 - **自定义 verify-v*.mjs** 静态检查 (16 闭环)
 - **自定义 review-v*.py** P0/P1/P2 审查 (14 版本)
 - **大 review 机制**: 类似 v1.6 13 bug 修复 / v1.22 18 处 catch (e: any) → unknown
@@ -125,4 +125,4 @@ english-app/
 
 ---
 
-**最后更新**: 2026-07-27 (v1.43.0)
+**最后更新**: 2026-07-27 (v1.52.0)
