@@ -113,6 +113,10 @@ const DICT: Record<Locale, Record<string, string>> = {
     'errors.tab_types': '🏷 类型',
     'errors.tab_top': '🔥 高频错词',
     'errors.tab_timeline': '🕐 时间',
+    // v1.50.0 W46: DailyPage + CalendarPage 3 key
+    'daily.title': '每日一句',
+    'daily.history': '历史精选',
+    'calendar.title': '学习日历',
     // v1.49.0 W46: ListenPage 7 key
     'listen.title': '🎧 听力模式',
     'listen.subtitle': '5 篇真实场景短文 · TTS 播放 · 挖空听写 · 错词入生词本',
@@ -227,6 +231,10 @@ const DICT: Record<Locale, Record<string, string>> = {
     'errors.tab_types': '🏷 Types',
     'errors.tab_top': '🔥 Top',
     'errors.tab_timeline': '🕐 Timeline',
+    // v1.50.0 W46: DailyPage + CalendarPage 3 key
+    'daily.title': 'Daily',
+    'daily.history': 'History',
+    'calendar.title': 'Calendar',
     // v1.49.0 W46: ListenPage 7 key
     'listen.title': '🎧 Listening',
     'listen.subtitle': '5 real scenes · TTS · dictation · error-to-fav',

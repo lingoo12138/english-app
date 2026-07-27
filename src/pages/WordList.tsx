@@ -4,6 +4,7 @@ import type { Word } from '../types'
 import WordCard from '../components/WordCard'
 import { addFavorite, removeFavorite, getAllFavorites } from '../lib/db'
 import { useStore } from '../store/useStore'
+import { useTranslate } from '../lib/useTranslate'
 
 const PAGE_SIZE = 50
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
@@ -14,6 +15,8 @@ function getFirstLetter(word: string): string {
 }
 
 export default function WordList() {
+  // v1.49.0 W46: i18n
+  const { t } = useTranslate()
   const [allWords, setAllWords] = useState<Word[]>([])
   const [query, setQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')  // 修复: 搜索 debounce 300ms
@@ -161,9 +164,9 @@ export default function WordList() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold mb-1">词库</h1>
+        <h1 className="text-2xl font-bold mb-1">{t('wordlist.title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">
-          {loading ? '加载中...' : `共 ${allWords.length} 个词 · 已显示 ${visible.length} · 收藏 ${favSet.size}`}
+          {loading ? t('common.loading') : t('wordlist.count_summary').replace('N', String(allWords.length)).replace('M', String(visible.length)).replace('K', String(favSet.size))}
         </p>
         {/* v0.14 学段进度条 - 修复 P0-2: 用 levelOnlyFiltered 不受 search 污染 */}
         {!loading && allWords.length > 0 && (
@@ -187,7 +190,7 @@ export default function WordList() {
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="搜索单词或中文..."
+        placeholder={t('wordlist.search_placeholder')}
         className="input"
       />
 
@@ -241,7 +244,7 @@ export default function WordList() {
       <div ref={containerRef}>
         {filtered.length === 0 ? (
           <div className="text-center py-12 text-stone-500 dark:text-stone-400">
-            {loading ? '加载中...' : '没有匹配的词'}
+            {loading ? t('common.loading') : t('wordlist.empty')}
           </div>
         ) : (
           <>
@@ -279,14 +282,14 @@ export default function WordList() {
                     onClick={() => setDisplayCount(c => c + PAGE_SIZE)}
                     className="btn-ghost text-sm"
                   >
-                    加载更多 ↓
+                    {t('wordlist.load_more')}
                   </button>
                 </div>
               </>
             )}
             {!hasMore && filtered.length > 0 && (
               <div className="text-center text-xs text-stone-400 dark:text-stone-300 py-4">
-                已显示全部 {filtered.length} 个词
+                {t('wordlist.all_loaded').replace('N', String(filtered.length))}
               </div>
             )}
           </>

@@ -1,6 +1,7 @@
 // CalendarPage.tsx - v1.19.0 B9 学习日历
 // 7×N 网格 + 热力图 + 月份切换
 import { useState, useEffect } from 'react'
+import { useTranslate } from '../lib/useTranslate'
 import { Link } from 'react-router-dom'
 import {
   getCalendarMonth,
@@ -14,6 +15,7 @@ import {
 const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六']
 
 export default function CalendarPage() {
+  const { t } = useTranslate()
   const now = new Date()
   const [year, setYear] = useState(now.getFullYear())
   const [month, setMonth] = useState(now.getMonth())
@@ -46,7 +48,7 @@ export default function CalendarPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold">📅 学习日历</h1>
+        <h1 className="text-2xl font-bold">📅 {t('calendar.title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">
           月度学习可视化 · 颜色越深 = 学习越多
         </p>

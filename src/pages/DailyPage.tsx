@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslate } from '../lib/useTranslate'
 import { Link } from 'react-router-dom'
 import TTSButton from '../components/TTSButton'
 import { getTodaySentence, getAllSentences } from '../lib/daily'
@@ -7,6 +8,7 @@ import { useEffect } from 'react'
 import type { DailySentence } from '../types'
 
 export default function DailyPage() {
+  const { t } = useTranslate()
   const [sentences] = useState<DailySentence[]>(getAllSentences())
   const [todayIdx, setTodayIdx] = useState(0)
   const [favSet, setFavSet] = useState<Set<number>>(new Set())
@@ -46,7 +48,7 @@ export default function DailyPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold mb-1">每日一句</h1>
+        <h1 className="text-2xl font-bold mb-1">{t('daily.title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">每天一句,真实场景下能直接用</p>
       </div>
 
@@ -82,7 +84,7 @@ export default function DailyPage() {
 
       {/* 历史每日一句 */}
       <div>
-        <h2 className="text-sm font-semibold text-stone-500 dark:text-stone-400 mb-3 mt-6">历史精选</h2>
+        <h2 className="text-sm font-semibold text-stone-500 dark:text-stone-400 mb-3 mt-6">{t('daily.history')}</h2>
         <div className="space-y-3">
           {sentences.map((s, idx) => (
             <div

@@ -1,5 +1,6 @@
 // tests/i18nKeyCoverage.test.ts - v1.45.0 W45 静态扫 t() 调用, 验证 DICT 完整
 // 防止 v1.43 W43-C 漏修的 P1-1 (CardReview 26 key 但 DICT 只 5 个) 复现
+// v1.49.0 W46: 加 5 页面覆盖断言 (Notebook/WordList/WordDetail/ErrorsPage/ListenPage)
 import { describe, it, expect } from 'vitest'
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
@@ -26,7 +27,7 @@ function scanTCalls(): Set<string> {
   return result
 }
 
-describe('i18nKeyCoverage (v1.45.0-W45)', () => {
+describe('i18nKeyCoverage (v1.45.0-W45 / v1.49.0-W46)', () => {
   it('所有 t() 调用的 key 在 zh DICT 都能找到', () => {
     const keys = scanTCalls()
     expect(keys.size).toBeGreaterThan(20)  // 至少 20 个 key
@@ -51,9 +52,10 @@ describe('i18nKeyCoverage (v1.45.0-W45)', () => {
     expect(missing, `DICT en 缺 ${missing.length} key: ${missing.slice(0, 5).join(', ')}`).toEqual([])
   })
 
-  it('扫到 20+ key (sanity)', () => {
+  it('扫到 50+ key (sanity, v1.49.0 后增)', () => {
     const keys = scanTCalls()
-    expect(keys.size).toBeGreaterThanOrEqual(20)
+    // v1.49.0 W46 加 35 key, 总应达 96+ (v1.46 基数 96, 漏 +35)
+    expect(keys.size).toBeGreaterThanOrEqual(50)
   })
 
   it('zh/en 同 key 数量一致 (防漏翻)', () => {
@@ -64,5 +66,24 @@ describe('i18nKeyCoverage (v1.45.0-W45)', () => {
     setLocale('en')
     const enMiss = [...keys].filter(k => t(k, 'en') === k).length
     expect(zhMiss).toBe(enMiss)  // 漏翻应当一致
+  })
+
+  it('5 页面 namespace 全覆盖 (v1.49.0 W46)', () => {
+    const keys = scanTCalls()
+    // 5 页面 namespace 必须有 key (防 verifier1 P1-1 复现: 26 调用 0 key)
+    const requiredNamespaces = ['notebook.', 'wordlist.', 'worddetail.', 'errors.', 'listen.']
+    for (const ns of requiredNamespaces) {
+      const has = [...keys].some(k => k.startsWith(ns))
+      expect(has, `namespace "${ns}" 缺 key`).toBe(true)
+    }
+  })
+
+  it('Notebook/WordList/WordDetail/ErrorsPage/ListenPage 页面都用了 useTranslate', () => {
+    // 5 页面必须 import useTranslate (v1.49.0 W46 集成验证)
+    const pages = ['Notebook.tsx', 'WordList.tsx', 'WordDetail.tsx', 'ErrorsPage.tsx', 'ListenPage.tsx']
+    for (const p of pages) {
+      const content = readFileSync(`src/pages/${p}`, 'utf-8')
+      expect(content.includes("from '../lib/useTranslate'"), `${p} 缺 useTranslate import`).toBe(true)
+    }
   })
 })

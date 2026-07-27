@@ -2687,3 +2687,18 @@
 - 49 release tag / 700 测试
 - DICT 96 → 100 key (含 C subagent 加的 30+)
 - 0 P0/P1 维持
+
+---
+
+## [v1.50.0] - 2026-07-27
+
+### v1.50.0 W46 — i18n 2 页面补全 (30min)
+
+#### DailyPage + CalendarPage
+- DailyPage 2 t() (title + history)
+- CalendarPage 1 t() (title)
+- DICT 加 3 zh + 3 en = 6 key
+
+#### 累计
+- 50 release tag / 702 测试 / 101 DICT key
+- 0 P0/P1 维持

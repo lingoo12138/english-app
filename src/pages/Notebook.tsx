@@ -10,8 +10,11 @@ import { Modal } from '../components/Modal'
 import { addFavoritesToReview, downloadFavoritesCSV, selectAll as selectAllIds, invertSelection } from '../lib/notebookBulk'
 import { addTagsToWord, getAllTagsWithCount, buildWordTagMap, getTagColor, getWordIdsByTag, removeTagFromWord, renameTag, mergeTags } from '../lib/wordTags'
 import { toast } from '../components/Toast'
+import { useTranslate } from '../lib/useTranslate'
 
 export default function Notebook() {
+  // v1.49.0 W46: i18n
+  const { t } = useTranslate()
   const [words, setWords] = useState<Word[]>([])
   const [dueCount, setDueCount] = useState(0)
   const [loading, setLoading] = useState(true)
@@ -214,7 +217,7 @@ export default function Notebook() {
     <div className="space-y-4">
       <Modal
         open={pendingRemoveId !== null}
-        title="从生词本移除"
+        title={t('notebook.remove_title')}
         message="从生词本移除这个词?"
         variant="danger"
         confirmText="移除"
@@ -223,7 +226,7 @@ export default function Notebook() {
       />
       <Modal
         open={showBatchConfirm}
-        title="批量移除"
+        title={t('notebook.batch_remove_title')}
         message={`确定从生词本移除 ${selected.size} 个词?`}
         variant="danger"
         confirmText="全部移除"
@@ -268,8 +271,8 @@ export default function Notebook() {
       </Modal>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold mb-1">生词本</h1>
-          <p className="text-stone-500 dark:text-stone-400 text-sm">共 {words.length} 个词 {dueCount > 0 && `· ${dueCount} 个待复习`}</p>
+          <h1 className="text-2xl font-bold mb-1">{t('notebook.title')}</h1>
+          <p className="text-stone-500 dark:text-stone-400 text-sm">{t('notebook.count_summary').replace('N', String(words.length)).replace('M', String(dueCount))}</p>
           {/* v1.21.0: tag 过滤 */}
           {allTags.length > 0 && (
             <div className="mt-2 flex flex-wrap gap-1 items-center">
@@ -311,7 +314,7 @@ export default function Notebook() {
         {words.length > 0 && (
           <>
           <Link to="/cards" className="btn-primary text-sm">
-            🎴 卡片复习
+            {t('notebook.card_review')}
           </Link>
           <button
             onClick={() => setGroupBy(groupBy === 'none' ? 'letter' : 'none')}
@@ -321,7 +324,7 @@ export default function Notebook() {
           </button>
           {/* v0.22.9: Anki 风格卡片复习入口 */}
           <Link to="/cards" className="btn-primary text-sm">
-            🎴 卡片复习
+            {t('notebook.card_review')}
           </Link>
           <button
             onClick={() => {
@@ -334,7 +337,7 @@ export default function Notebook() {
             }}
             className={`btn-ghost text-sm ${batchMode ? 'bg-brand-100 dark:bg-brand-900/30' : ''}`}
           >
-            {batchMode ? `✓ 批量 (${selected.size})` : '☑ 批量管理'}
+            {batchMode ? t('notebook.batch_exit').replace('N', String(selected.size)) : t('notebook.batch_mode')}
           </button>
           {batchMode && (
             <div className="flex gap-2 flex-wrap">
@@ -378,7 +381,7 @@ export default function Notebook() {
           )}
           <details className="relative">
             <summary className="btn-ghost text-sm cursor-pointer list-none">
-              导出 ▾
+              {t('notebook.export_menu')}
             </summary>
             <div className="absolute right-0 mt-1 w-40 bg-white dark:bg-stone-800 rounded-lg shadow-lg border border-stone-200 dark:border-stone-700 z-10 overflow-hidden">
               <button
@@ -451,11 +454,11 @@ export default function Notebook() {
           <div className="flex items-center gap-3">
             <div className="text-3xl">📝</div>
             <div className="flex-1">
-              <h3 className="font-semibold">有 {dueCount} 个词该复习了</h3>
+              <h3 className="font-semibold">{t('notebook.review_prompt').replace('N', String(dueCount))}</h3>
               <p className="text-sm text-stone-500 dark:text-stone-400">按记忆曲线,科学复习记得更牢</p>
             </div>
             <Link to="/words" className="btn-primary text-sm">
-              开始复习
+              {t('notebook.review_cta')}
             </Link>
           </div>
         </div>
