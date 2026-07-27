@@ -1,6 +1,7 @@
 // AI 对话陪练页 - v0.11 → v1.1-W1: confirm → Modal
 // v1.13.0: B3 多角色对话 (5 角色 + "普通对话")
 import { useState, useRef, useEffect } from 'react'
+import { useTranslate } from '../lib/useTranslate'
 import { useStore } from '../store/useStore'
 import { chat as aiChat, reviewMessage, type ChatMessage, type ReviewResult, type CEFRLevel, assessUserLevel } from '../lib/aiChat'
 import { saveChat, getAllChats, deleteChat, addFavorite, isFavorite, saveWritingError, getAllWritingErrors, type ChatRecord } from '../lib/db'
@@ -35,6 +36,7 @@ const LEVELS: { id: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'; name: string }[] = 
 ]
 
 export default function AIChat() {
+  const { t } = useTranslate()
   const llmProviders = useStore(s => s.llmProviders)
   const llmProviderId = useStore(s => s.llmProviderId)
   const llmApiKeys = useStore(s => s.llmApiKeys)
@@ -452,7 +454,7 @@ export default function AIChat() {
       )}
       <div className="flex items-center justify-between mb-3">
         <div>
-          <h1 className="text-2xl font-bold">💬 AI 对话陪练</h1>
+          <h1 className="text-2xl font-bold">💬 {t('aichat.title')}</h1>
           <p className="text-stone-500 dark:text-stone-400 text-sm">
             {provider?.name || '未选择渠道'} · {SCENARIOS.find(s => s.id === scenario)?.name} · {LEVELS.find(l => l.id === level)?.name}
           </p>
@@ -563,7 +565,7 @@ export default function AIChat() {
       {showHistory && (
         <div className="card">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-sm font-semibold">📚 历史对话 ({chats.length})</h2>
+            <h2 className="text-sm font-semibold">📚 {t('aichat.history').replace('N', String(chats.length))}</h2>
             <button onClick={() => setShowHistory(false)} className="text-xs text-stone-500">关闭</button>
           </div>
           {/* v0.22.7: 搜索 + 场景过滤 */}

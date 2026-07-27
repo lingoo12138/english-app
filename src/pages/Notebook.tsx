@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getAllFavorites, getDueReviews, removeFavorite } from '../lib/db'
-import { getWord } from '../lib/words'
+import { getWord, loadWords } from '../lib/words'
 import { Link } from 'react-router-dom'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
@@ -42,7 +42,8 @@ export default function Notebook() {
       .filter(f => !f.wordId.startsWith('daily-') && !f.wordId.startsWith('scene:'))
       .map(f => f.wordId)
     // 一次拉取全词库,内存中过滤(修复 O(N*M) 慢加载)
-    const allWords = await import('../lib/words').then(m => m.loadWords())
+    // v1.52.0 W47: 静态 import (verifier4 P1-B 防回归)
+    const allWords = await loadWords()
     const wordMap = new Map<string, Word>()
     for (const w of allWords) wordMap.set(w.id, w)
     const list: Word[] = []

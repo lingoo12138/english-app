@@ -117,6 +117,14 @@ const DICT: Record<Locale, Record<string, string>> = {
     'daily.title': '每日一句',
     'daily.history': '历史精选',
     'calendar.title': '学习日历',
+    // v1.52.0 W47: AIChat/WritePage/Translate 7 key
+    'aichat.title': 'AI 对话陪练',
+    'aichat.history': '历史对话 (N)',
+    'write.title': '写作批改',
+    'write.corrected': '改正后',
+    'write.errors': '错误清单 (N)',
+    'translate.title': '翻译',
+    'custom.title': '自定义场景',
     // v1.49.0 W46: ListenPage 7 key
     'listen.title': '🎧 听力模式',
     'listen.subtitle': '5 篇真实场景短文 · TTS 播放 · 挖空听写 · 错词入生词本',
@@ -235,6 +243,14 @@ const DICT: Record<Locale, Record<string, string>> = {
     'daily.title': 'Daily',
     'daily.history': 'History',
     'calendar.title': 'Calendar',
+    // v1.52.0 W47: AIChat/WritePage/Translate 7 key
+    'aichat.title': 'AI Chat',
+    'aichat.history': 'History (N)',
+    'write.title': 'Writing',
+    'write.corrected': 'Corrected',
+    'write.errors': 'Errors (N)',
+    'translate.title': 'Translate',
+    'custom.title': 'Custom scenes',
     // v1.49.0 W46: ListenPage 7 key
     'listen.title': '🎧 Listening',
     'listen.subtitle': '5 real scenes · TTS · dictation · error-to-fav',

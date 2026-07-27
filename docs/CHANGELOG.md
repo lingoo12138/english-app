@@ -2718,3 +2718,22 @@
 - 51 release tag / 702 测试
 - 0 P0/P1 维持
 - verifier 累计 11 处真 bug
+
+---
+
+## [v1.52.0] - 2026-07-27
+
+### v1.52.0 W47 — i18n 3 页面 + 第 8 次大 review (~1h)
+
+#### i18n 3 页面
+- AIChat 2 t() / WritePage 3 t() / Translate 1 t()
+- DICT 加 7 zh + 7 en = 14 key
+
+#### 第 8 次大 review
+- big-review-v1.52.py: 8 维度 (新增 7 fire-and-forget 防回归)
+- 找到 1 P0: Notebook.tsx 动态 import (verifier4 P1-B 漏修)
+- 修: 改静态 import loadWords
+
+#### 累计
+- 52 release tag / 702 测试 / 108 DICT key
+- 0 P0/P1 维持

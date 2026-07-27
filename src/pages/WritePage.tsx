@@ -2,6 +2,7 @@
 // v0.23: 英文批改 (用户粘贴英文 → LLM 改错 → 标色 diff → 一键收藏错句)
 // v1.10.0-A: 加 "中译英" Tab (中文 → 英文翻译 + 等级 + 备选译法 + 注释)
 import { useState, useEffect } from 'react'
+import { useTranslate } from '../lib/useTranslate'
 // v1.37.0 W35-2: 写作模板
 import { WRITING_TEMPLATES, buildTemplatePrompt } from '../lib/writingTemplates'
 import { Link } from 'react-router-dom'
@@ -84,6 +85,7 @@ Only return valid JSON. Do NOT add explanations outside JSON.`
 const MAX_LEN = 500
 
 export default function WritePage() {
+  const { t } = useTranslate()
   const llmProviderId = useStore(s => s.llmProviderId)
   const llmProviders = useStore(s => s.llmProviders)
   const customLlmProviders = useStore(s => s.customLlmProviders)
@@ -373,7 +375,7 @@ export default function WritePage() {
         onSelect={(prompt) => { setInput(prompt); setShowTemplate(false) }}
       />
       <div>
-        <h1 className="text-2xl font-bold mb-1">✍️ 写作批改</h1>
+        <h1 className="text-2xl font-bold mb-1">✍️ {t('write.title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">
           粘贴或输入一段英文(≤{MAX_LEN} 字符),AI 帮你找出错误并改正 · 或中文翻译成英文
         </p>
@@ -462,7 +464,7 @@ export default function WritePage() {
             <>
               {/* 改后 */}
               <div className="card">
-                <h3 className="text-sm font-semibold mb-2">✅ 改正后</h3>
+                <h3 className="text-sm font-semibold mb-2">✅ {t('write.corrected')}</h3>
                 <p className="text-sm bg-emerald-50 dark:bg-emerald-900/20 p-3 rounded leading-relaxed">
                   {result.corrected}
                 </p>
@@ -472,7 +474,7 @@ export default function WritePage() {
               {result.errors.length > 0 ? (
                 <div className="card">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-sm font-semibold">📋 错误清单 ({result.errors.length})</h3>
+                    <h3 className="text-sm font-semibold">📋 {t('write.errors').replace('N', String(result.errors.length))}</h3>
                     <button
                       onClick={handleAddAllErrors}
                       className="btn-ghost text-xs"

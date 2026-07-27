@@ -1,11 +1,13 @@
 // 翻译页 - v0.11 多渠道版本
 import { useState } from 'react'
+import { useTranslate } from '../lib/useTranslate'
 import { useStore } from '../store/useStore'
 import { translate as doTranslate } from '../lib/translate'
 
 type Direction = 'auto' | 'en2zh' | 'zh2en'
 
 export default function Translate() {
+  const { t } = useTranslate()
   const translateProviders = useStore(s => s.translateProviders)
   const customTranslateProviders = useStore(s => s.customTranslateProviders)
   const allTranslateProviders = [...translateProviders, ...customTranslateProviders]
@@ -66,7 +68,7 @@ export default function Translate() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold mb-1">翻译</h1>
+        <h1 className="text-2xl font-bold mb-1">{t('translate.title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">多渠道翻译,选适合自己的</p>
       </div>
 
