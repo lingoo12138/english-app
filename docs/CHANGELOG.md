@@ -2522,3 +2522,25 @@
 - 639 → 657 单元测试 (+18)
 - 0 P0 + 0 P1 + 0 P2 维持
 - 1 commit + 1 tag (v1.41.0)
+
+---
+
+## [v1.42.0] - 2026-07-27
+
+### v1.42.0 W42 — 第 5 次大 review + streak UI 集成 (1.5h)
+
+#### W42-A: 大 review
+- 📊 `scripts/big-review-v1.42.py` 6 维度摸底
+- ✅ 0 P0 + 0 新 P1 + 0 P2 维持
+- ✅ 历史 review 修复 5/5 全部维持
+- 详见 `docs/REVIEW_v1.42.md`
+
+#### W42-B: streak UI 集成
+- 🏆 Home 加 streak 卡片: 当前/最长 streak + emoji + 下一里程碑 + 7 里程碑进度
+- 复用 v1.41 lib (getStreakWithMilestones + getStreakMessage)
+- 🔧 修 levelTrend 测试时间范围错 (用 now 而非 now-1day)
+
+#### 验证
+- 657 单元测试全过 (无新增, UI 集成)
+- 0 P0 + 0 P1 + 0 P2 维持
+- 1 commit + 1 tag (v1.42.0)

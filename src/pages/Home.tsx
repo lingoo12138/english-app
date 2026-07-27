@@ -15,11 +15,21 @@ import { useStats, useStore } from '../store/useStore'
 import { isFavorite, addFavorite, removeFavorite } from '../lib/db'
 import { getDueReviews, logAction } from '../lib/db'
 import { generateTodayPlan, markWordCompleted, type TodayPlan } from '../lib/plan'
+// v1.42.0 W42: streak UI 集成
+import { getStreakWithMilestones, getStreakMessage, type StreakMilestone } from '../lib/streak'
 
 export default function Home() {
   const [sentence, setSentence] = useState<DailySentence | null>(null)
   const [wordOfDay, setWordOfDay] = useState<Word | null>(null)
   const [fav, setFav] = useState(false)
+  // v1.42.0 W42: streak 状态
+  const [streakState, setStreakState] = useState<{
+    current: number
+    longest: number
+    milestones: StreakMilestone[]
+    nextMilestone: StreakMilestone | null
+    daysToNext: number
+  } | null>(null)
   const [dueReviewCount, setDueReviewCount] = useState(0)
   const [plan, setPlan] = useState<TodayPlan | null>(null)
   const [showShare, setShowShare] = useState(false)
@@ -52,6 +62,11 @@ export default function Home() {
       isFavorite(wordOfDay.id).then(setFav)
     }
   }, [wordOfDay])
+
+  // v1.42.0 W42: 加载 streak
+  useEffect(() => {
+    getStreakWithMilestones().then(setStreakState).catch(() => setStreakState(null))
+  }, [])
 
   // v0.22.3: 标记 plan 词为已完成
   const handleMarkPlanWord = async (wordId: string) => {
@@ -228,6 +243,53 @@ export default function Home() {
 
       {/* 复习提醒 */}
       <ReviewReminderCard dueCount={dueReviewCount} />
+
+      {/* v1.42.0 W42: streak 里程碑 */}
+      {streakState && (
+        <div className="card">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <div className="text-sm font-semibold">🏆 连续学习</div>
+              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+                {getStreakMessage(streakState.current).message}
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="text-3xl font-bold text-orange-600 dark:text-orange-400">
+                {getStreakMessage(streakState.current).emoji} {streakState.current}
+              </div>
+              <div className="text-[10px] text-stone-500">
+                天 (最长 {streakState.longest})
+              </div>
+            </div>
+          </div>
+
+          {/* 下一里程碑 */}
+          {streakState.nextMilestone && (
+            <div className="text-xs text-stone-600 dark:text-stone-400 bg-amber-50 dark:bg-amber-900/20 p-2 rounded mb-3">
+              下一里程碑: {streakState.nextMilestone.emoji} {streakState.nextMilestone.label} ({streakState.nextMilestone.days} 天) — 还有 {streakState.daysToNext} 天
+            </div>
+          )}
+
+          {/* 7 里程碑进度 */}
+          <div className="flex justify-between items-center gap-1">
+            {streakState.milestones.map(m => (
+              <div
+                key={m.days}
+                className={`flex-1 text-center text-xs py-1.5 rounded ${
+                  m.reached
+                    ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300'
+                    : 'bg-stone-100 dark:bg-stone-800 text-stone-400'
+                }`}
+                title={`${m.label} (${m.days} 天)${m.reached ? ' ✓' : ''}`}
+              >
+                <div className="text-base">{m.emoji}</div>
+                <div className="text-[9px]">{m.days}d</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* 学习日历 */}
       <div className="card">

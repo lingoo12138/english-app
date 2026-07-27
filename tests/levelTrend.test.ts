@@ -26,11 +26,11 @@ describe('levelTrend (v1.40.0-W38)', () => {
     })
 
     it('7 天有数据 算平均', async () => {
+      // 用今天 timestamp (本周内)
       const now = Date.now()
-      const dayStart = now - 1 * 86_400_000  // 1 天前
       // w-easy=1, w-mid=3, w-hard=5
-      await db.records.add({ wordId: 'w-easy', action: 'view', timestamp: dayStart })
-      await db.records.add({ wordId: 'w-hard', action: 'view', timestamp: dayStart })
+      await db.records.add({ wordId: 'w-easy', action: 'view', timestamp: now })
+      await db.records.add({ wordId: 'w-hard', action: 'view', timestamp: now })
       const r = await getLevelTrend()
       // (1+5)/2 = 3
       expect(r.weeklyAvg).toBe(3)
@@ -38,10 +38,9 @@ describe('levelTrend (v1.40.0-W38)', () => {
 
     it('distribution 正确', async () => {
       const now = Date.now()
-      const dayStart = now - 1 * 86_400_000
-      await db.records.add({ wordId: 'w-easy', action: 'view', timestamp: dayStart })
-      await db.records.add({ wordId: 'w-mid', action: 'view', timestamp: dayStart })
-      await db.records.add({ wordId: 'w-hard', action: 'view', timestamp: dayStart })
+      await db.records.add({ wordId: 'w-easy', action: 'view', timestamp: now })
+      await db.records.add({ wordId: 'w-mid', action: 'view', timestamp: now })
+      await db.records.add({ wordId: 'w-hard', action: 'view', timestamp: now })
       const r = await getLevelTrend()
       expect(r.distribution.A1).toBe(33)
       expect(r.distribution.B1).toBe(33)
