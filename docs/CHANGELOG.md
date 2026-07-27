@@ -2779,3 +2779,28 @@
 - 54 release tag / 702 测试 / 120 DICT key
 - 21 页面 i18n 覆盖
 - 0 P0/P1 维持
+
+---
+
+## [v1.55.0] - 2026-07-27
+
+### v1.55.0 W50 — i18n 全 25 页面覆盖 + 第 11 次大 review (30min)
+
+#### i18n 收尾
+- CustomSceneDetail 2 t() (review_status + original)
+- SceneDetail/PronounceCustom 跳过 (无硬编码中文或无标题)
+- WordDetail 已有 (C subagent 6 t())
+- DICT 加 3 zh + 3 en = 6 key
+
+#### 第 11 次大 review
+- big-review-v1.55.py: 8 维度
+- 0 P0 + 0 P1 维持
+
+#### 🎉 i18n 全 25 页面覆盖完成
+- 25/25 页面至少 1 处 t() 调用
+- DICT 123 key 完整
+- i18nKeyCoverage 0 missing
+
+#### 累计
+- 55 release tag / 702 测试 / 123 DICT key
+- 0 P0/P1 维持

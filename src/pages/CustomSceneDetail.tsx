@@ -1,6 +1,7 @@
 // CustomSceneDetail.tsx - v1.14.0 B4 自定义场景详情
 // 显示场景元数据 + 词列表 + 收藏/不收藏
 import { useState, useEffect } from 'react'
+import { useTranslate } from '../lib/useTranslate'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getCustomSceneById, type CustomScene } from '../lib/customScenes'
 import { addFavorite, removeFavorite, isFavorite } from '../lib/db'
@@ -8,6 +9,7 @@ import { getSceneReviewStatus, type SceneReviewStatus } from '../lib/sceneReview
 import { toast } from '../components/Toast'
 
 export default function CustomSceneDetail() {
+  const { t } = useTranslate()
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const [scene, setScene] = useState<CustomScene | null>(null)
@@ -107,7 +109,7 @@ export default function CustomSceneDetail() {
       {/* v1.16.0: 复习状态卡片 */}
       {reviewStatus && (
         <section className="card bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 border border-emerald-200 dark:border-emerald-800">
-          <h3 className="font-semibold mb-2 text-sm">📊 复习状态</h3>
+          <h3 className="font-semibold mb-2 text-sm">📊 {t('customdetail.review_status')}</h3>
           <div className="grid grid-cols-3 gap-2 text-center">
             <div>
               <div className="text-lg font-bold">{reviewStatus.totalWords}</div>
@@ -131,7 +133,7 @@ export default function CustomSceneDetail() {
 
       {/* 原文 */}
       <section className="card">
-        <h3 className="font-semibold mb-2">📄 原文</h3>
+        <h3 className="font-semibold mb-2">📄 {t('customdetail.original')}</h3>
         <div className="text-sm text-stone-700 dark:text-stone-300 whitespace-pre-wrap max-h-60 overflow-y-auto">
           {scene.sourceText}
         </div>

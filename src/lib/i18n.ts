@@ -139,6 +139,10 @@ const DICT: Record<Locale, Record<string, string>> = {
     'learnreport.scenes': '场景分布',
     'scenes.title': '场景专题课',
     'pronounce.back': '返回',
+    // v1.55.0 W50: CustomSceneDetail 3 key
+    'customdetail.review_status': '复习状态',
+    'customdetail.original': '原文',
+    'scenedetail.words': '场景词表',
     // v1.49.0 W46: ListenPage 7 key
     'listen.title': '🎧 听力模式',
     'listen.subtitle': '5 篇真实场景短文 · TTS 播放 · 挖空听写 · 错词入生词本',
@@ -279,6 +283,10 @@ const DICT: Record<Locale, Record<string, string>> = {
     'learnreport.scenes': 'Scenes',
     'scenes.title': 'Scenes',
     'pronounce.back': 'Back',
+    // v1.55.0 W50: CustomSceneDetail 3 key
+    'customdetail.review_status': 'Review status',
+    'customdetail.original': 'Original',
+    'scenedetail.words': 'Scene words',
     // v1.49.0 W46: ListenPage 7 key
     'listen.title': '🎧 Listening',
     'listen.subtitle': '5 real scenes · TTS · dictation · error-to-fav',
