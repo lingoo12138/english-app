@@ -1,5 +1,6 @@
 // Achievements.tsx - v1.3-F2 成就墙
 import { useEffect, useState } from 'react'
+import { useTranslate } from '../lib/useTranslate'
 import { Link } from 'react-router-dom'
 import {
   ACHIEVEMENTS,
@@ -20,6 +21,7 @@ const TYPE_META: Record<AchievementType, { label: string; emoji: string; color: 
 }
 
 export default function Achievements() {
+  const { t } = useTranslate()
   const [stats, setStats] = useState<AchievementStats | null>(null)
   const [activeType, setActiveType] = useState<AchievementType>('streak')
 
@@ -44,7 +46,7 @@ export default function Achievements() {
     <div className="space-y-6">
       {/* 顶部总览 */}
       <div>
-        <h1 className="text-2xl font-bold mb-1">🏆 成就墙</h1>
+        <h1 className="text-2xl font-bold mb-1">🏆 {t('achievements.title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">
           你的每一次坚持, 都解锁一个新徽章
         </p>

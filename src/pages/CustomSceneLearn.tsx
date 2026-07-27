@@ -1,6 +1,7 @@
 // CustomSceneLearn.tsx - v1.15.0 自定义场景学习流
 // 卡片翻页 + TTS + 释义/例句 + 收藏 toggle + 进度持久化
 import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useTranslate } from '../lib/useTranslate'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getCustomSceneById, type CustomScene } from '../lib/customScenes'
 import { isFavorite, addFavorite, removeFavorite } from '../lib/db'
@@ -11,6 +12,7 @@ import TTSButton from '../components/TTSButton'
 const PROGRESS_KEY = (id: number) => `customScene-${id}-progress`
 
 export default function CustomSceneLearn() {
+  const { t } = useTranslate()
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const [scene, setScene] = useState<CustomScene | null>(null)
@@ -163,7 +165,7 @@ export default function CustomSceneLearn() {
       <div className="space-y-4">
         <div className="text-center py-12">
           <div className="text-6xl mb-4">🎉</div>
-          <h1 className="text-2xl font-bold mb-2">学完啦!</h1>
+          <h1 className="text-2xl font-bold mb-2">{t('customlearn.done')}</h1>
           <p className="text-stone-500 dark:text-stone-400 mb-6">
             你已完成 <strong>{scene.title}</strong> 的 {scene.words.length} 个生词
           </p>

@@ -2,6 +2,7 @@
 // v1.18.0: 加文件上传 (TXT/MD)
 // 粘贴文本 / 上传文件 → AI 提取生词 → 保存为场景
 import { useState, useEffect, useRef } from 'react'
+import { useTranslate } from '../lib/useTranslate'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../store/useStore'
 import {
@@ -23,6 +24,7 @@ import { toast } from '../components/Toast'
 import { recordLLMCall, getLimitExceededMessage } from '../lib/llmUsage'
 
 export default function CustomScenes() {
+  const { t } = useTranslate()
   const navigate = useNavigate()
   const llmProviderId = useStore(s => s.llmProviderId)
   const llmApiKeys = useStore(s => s.llmApiKeys)
@@ -213,7 +215,7 @@ export default function CustomScenes() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold">📝 自定义场景</h1>
+        <h1 className="text-2xl font-bold">📝 {t('customscenes.title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">
           粘贴任意英文文本 (文章/对话/邮件), AI 自动提取生词, 保存为你的专属场景
         </p>
@@ -279,7 +281,7 @@ export default function CustomScenes() {
       {/* 提取结果 */}
       {extractedWords.length > 0 && (
         <section className="card">
-          <h3 className="font-semibold mb-2">📋 提取结果 ({extractedWords.length} 词)</h3>
+          <h3 className="font-semibold mb-2">📋 {t('customscenes.extracted').replace('N', String(extractedWords.length))}</h3>
           <input
             value={title}
             onChange={e => setTitle(e.target.value)}

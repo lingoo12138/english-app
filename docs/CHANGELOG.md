@@ -2737,3 +2737,24 @@
 #### 累计
 - 52 release tag / 702 测试 / 108 DICT key
 - 0 P0/P1 维持
+
+---
+
+## [v1.53.0] - 2026-07-27
+
+### v1.53.0 W48 — i18n 4 页面 + 第 9 次大 review (~1h)
+
+#### i18n 4 页面
+- CustomScenes/ReviewCenter/Achievements/CustomSceneLearn 加 useTranslate
+- 6 t() 调用
+- DICT 加 7 zh + 7 en = 14 key
+
+#### 第 9 次大 review
+- big-review-v1.53.py: 8 维度
+- 0 P0 + 0 P1 维持
+- 79 t() 调用 / 115 key / 0 missing
+
+#### 累计
+- 53 release tag / 702 测试 / 115 DICT key
+- 19 页面 i18n 覆盖
+- 0 P0/P1 维持

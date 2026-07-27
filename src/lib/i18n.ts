@@ -125,6 +125,14 @@ const DICT: Record<Locale, Record<string, string>> = {
     'write.errors': '错误清单 (N)',
     'translate.title': '翻译',
     'custom.title': '自定义场景',
+    // v1.53.0 W48: CustomScenes/ReviewCenter/Achievements/CustomSceneLearn 7 key
+    'customscenes.title': '📝 自定义场景',
+    'customscenes.extracted': '提取结果 (N 词)',
+    'review.empty': '没有待复习的词',
+    'review.done': '复习完成!',
+    'achievements.title': '成就墙',
+    'customlearn.done': '学完啦!',
+    'worddetail.back': '返回',
     // v1.49.0 W46: ListenPage 7 key
     'listen.title': '🎧 听力模式',
     'listen.subtitle': '5 篇真实场景短文 · TTS 播放 · 挖空听写 · 错词入生词本',
@@ -251,6 +259,14 @@ const DICT: Record<Locale, Record<string, string>> = {
     'write.errors': 'Errors (N)',
     'translate.title': 'Translate',
     'custom.title': 'Custom scenes',
+    // v1.53.0 W48: CustomScenes/ReviewCenter/Achievements/CustomSceneLearn 7 key
+    'customscenes.title': '📝 Custom Scenes',
+    'customscenes.extracted': 'Extracted (N words)',
+    'review.empty': 'No due reviews',
+    'review.done': 'Review complete!',
+    'achievements.title': 'Achievements',
+    'customlearn.done': 'Done!',
+    'worddetail.back': 'Back',
     // v1.49.0 W46: ListenPage 7 key
     'listen.title': '🎧 Listening',
     'listen.subtitle': '5 real scenes · TTS · dictation · error-to-fav',

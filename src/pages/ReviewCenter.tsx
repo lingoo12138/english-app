@@ -2,6 +2,7 @@
 // v1.11.0-B: 加智能排序 (按 due/难/新 算分数) + SortToggle 切换
 // v1.22.0: 加 tag 过滤 (复用 v1.21 wordTags)
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useTranslate } from '../lib/useTranslate'
 import { useNavigate } from 'react-router-dom'
 import { getDueReviews, reviewWord, logAction } from '../lib/db'
 // v1.43.0 W43-B: XP 游戏化
@@ -15,6 +16,7 @@ import TTSButton from '../components/TTSButton'
 import SortToggle from '../components/ReviewCenter/SortToggle'
 
 export default function ReviewCenter() {
+  const { t } = useTranslate()
   const navigate = useNavigate()
   const [queue, setQueue] = useState<Word[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -127,7 +129,7 @@ export default function ReviewCenter() {
     return (
       <div className="text-center py-20">
         <div className="text-5xl mb-4">🎉</div>
-        <h2 className="text-xl font-bold mb-2">没有待复习的词</h2>
+        <h2 className="text-xl font-bold mb-2">{t('review.empty')}</h2>
         <p className="text-stone-500 dark:text-stone-400 text-sm mb-6">
           标记"不认识"的词会在 1 天后再次出现<br />
           系统会按记忆曲线智能安排复习
@@ -150,7 +152,7 @@ export default function ReviewCenter() {
     return (
       <div className="text-center py-12">
         <div className="text-6xl mb-4">{accuracy >= 80 ? '🏆' : accuracy >= 60 ? '👍' : '💪'}</div>
-        <h2 className="text-2xl font-bold mb-2">复习完成!</h2>
+        <h2 className="text-2xl font-bold mb-2">{t('review.done')}</h2>
         <p className="text-stone-500 dark:text-stone-400 mb-6">
           本次复习 {total} 个词
         </p>
