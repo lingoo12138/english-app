@@ -2702,3 +2702,19 @@
 #### 累计
 - 50 release tag / 702 测试 / 101 DICT key
 - 0 P0/P1 维持
+
+---
+
+## [v1.51.0] - 2026-07-27
+
+### v1.51.0 W46 — verifier4 找到 P1-B Hotfix (30min)
+
+#### 修 P1-B: db.ts 静态 import addXP
+- v1.48 P1-A 改 plan.ts 但漏改 db.ts
+- db.ts addFavorite 内 await import().then() fire-and-forget
+- 改静态 import addXP + XP_REWARDS
+
+#### 累计
+- 51 release tag / 702 测试
+- 0 P0/P1 维持
+- verifier 累计 11 处真 bug

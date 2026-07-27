@@ -1,5 +1,7 @@
 // IndexedDB 存储: 生词本、学习记录、复习计划、跟读尝试
 import Dexie, { type Table } from 'dexie'
+// v1.51.0 W46: 静态 import addXP (verifier4 P1-B 修 fire-and-forget)
+import { addXP, XP_REWARDS } from './xpSystem'
 import type { Favorite, LearnRecord, ReviewItem, PronunciationAttempt } from '../types'
 
 // v1.0: export 供 migrate.ts 等使用
@@ -239,8 +241,8 @@ export async function addFavorite(wordId: string) {
     handleDbError(e, '添加收藏')
   }
   // v1.43.0 W43-B: 收藏 +1 XP (静默, 失败不阻塞主流程)
+  // v1.51.0 W46: 改静态 import (verifier4 P1-B 修, 避免 fire-and-forget)
   try {
-    const { addXP, XP_REWARDS } = await import('./xpSystem')
     await addXP(XP_REWARDS.FAVORITE, 'FAVORITE')
   } catch (e) {
     console.warn('db.ts: addXP(FAVORITE) 失败:', e)
