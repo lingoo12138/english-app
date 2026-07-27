@@ -10,8 +10,11 @@ import PronunciationPractice from '../components/PronunciationPractice'
 import { addFavorite, removeFavorite, isFavorite, logAction, reviewWord } from '../lib/db'
 import { markWordCompleted } from '../lib/plan'
 import { useStore } from '../store/useStore'
+import { useTranslate } from '../lib/useTranslate'
 
 export default function WordDetail() {
+  // v1.49.0 W46: i18n
+  const { t } = useTranslate()
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const [word, setWord] = useState<Word | null | 'loading'>('loading')
@@ -105,9 +108,9 @@ export default function WordDetail() {
     return (
       <div className="text-center py-12">
         <div className="text-5xl mb-3">🔍</div>
-        <p className="text-lg mb-1">找不到这个词</p>
+        <p className="text-lg mb-1">{t('worddetail.not_found')}</p>
         <p className="text-sm text-stone-500 dark:text-stone-400 mb-4">id: <code className="text-xs">{id}</code></p>
-        <button onClick={() => navigate('/words')} className="btn-primary">返回词库</button>
+        <button onClick={() => navigate('/words')} className="btn-primary">{t('worddetail.not_found_back')}</button>
       </div>
     )
   }
@@ -340,19 +343,19 @@ export default function WordDetail() {
 
       {/* 自评 */}
       <div className="card">
-        <h3 className="font-semibold mb-3">认识这个单词吗?</h3>
+        <h3 className="font-semibold mb-3">{t('worddetail.ask_known')}</h3>
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={() => handleReview(true)}
             className="btn bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 hover:bg-brand-200"
           >
-            ✓ 认识
+            {t('worddetail.known')}
           </button>
           <button
             onClick={() => handleReview(false)}
             className="btn bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200"
           >
-            ✗ 不认识
+            {t('worddetail.unknown')}
           </button>
         </div>
         <p className="text-xs text-stone-500 dark:text-stone-400 mt-3 text-center">

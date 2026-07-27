@@ -7,10 +7,13 @@ import { speak } from '../lib/tts'
 import { addFavorite, getAllWritingErrors } from '../lib/db'
 import { loadWords } from '../lib/words'
 import { recommendLessons } from '../lib/listeningRecommend'
+import { useTranslate } from '../lib/useTranslate'
 
 type Mode = 'overview' | 'lesson' | 'dictation' | 'questions' | 'result'
 
 export default function ListenPage() {
+  // v1.49.0 W46: i18n
+  const { t } = useTranslate()
   const [mode, setMode] = useState<Mode>('overview')
   const [currentLesson, setCurrentLesson] = useState<ListeningLesson | null>(null)
   const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set())
@@ -72,9 +75,9 @@ export default function ListenPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold mb-1">🎧 听力模式</h1>
+        <h1 className="text-2xl font-bold mb-1">{t('listen.title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">
-          5 篇真实场景短文 · TTS 播放 · 挖空听写 · 错词入生词本
+          {t('listen.subtitle')}
         </p>
       </div>
 
@@ -84,8 +87,8 @@ export default function ListenPage() {
           {recommendations.length > 0 && (
             <div className="card bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200 dark:border-amber-800">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-semibold text-amber-800 dark:text-amber-200">🎯 为你推荐</h3>
-                <span className="text-xs text-amber-600 dark:text-amber-400">根据你的错题</span>
+                <h3 className="text-sm font-semibold text-amber-800 dark:text-amber-200">{t('listen.recommend_title')}</h3>
+                <span className="text-xs text-amber-600 dark:text-amber-400">{t('listen.recommend_subtitle')}</span>
               </div>
               <div className="space-y-2">
                 {recommendations.map(({ lesson, score, matchedWords, isCompleted }) => {
@@ -225,6 +228,8 @@ function LessonView({
   onNext: () => void
   onBack: () => void
 }) {
+  // v1.49.0 W46: i18n
+  const { t } = useTranslate()
   const [playing, setPlaying] = useState(false)
   const [playbackRate, setPlaybackRate] = useState(1)
   const [showText, setShowText] = useState(false)
@@ -304,7 +309,7 @@ function LessonView({
       </div>
 
       <button onClick={onNext} className="btn-primary w-full">
-        下一关:挖空听写 →
+        {t('listen.next_dictation')}
       </button>
     </div>
   )
@@ -598,13 +603,15 @@ function ResultMode({
   onRestart: () => void
   onBackToOverview: () => void
 }) {
+  // v1.49.0 W46: i18n
+  const { t } = useTranslate()
   return (
     <div className="space-y-4">
       <div className="card text-center py-8">
         <div className="text-5xl mb-3">🎉</div>
-        <h3 className="text-lg font-semibold mb-2">完成!</h3>
+        <h3 className="text-lg font-semibold mb-2">{t('listen.complete_title')}</h3>
         <p className="text-sm text-stone-500 dark:text-stone-400">
-          {lesson.title} 已加入已完成列表
+          {t('listen.result_subtitle').replace('N', lesson.title)}
         </p>
       </div>
 

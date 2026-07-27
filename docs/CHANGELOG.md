@@ -2667,3 +2667,23 @@
 - 48 release tag / 700 测试
 - 0 P0/P1 维持
 - 大 review verifier 累计找到 10 处真 bug
+
+---
+
+## [v1.49.0] - 2026-07-27
+
+### v1.49.0 W46 — 第 7 次大 review + i18n 5 页面 (~2h)
+
+#### W46-A 第 7 次大 review
+- big-review-v1.48.py: 7 维度 (新增 i18n 完整性)
+- 0 P0 + 0 P1 维持
+
+#### W46-B i18n 5 页面
+- Notebook/WordList/ErrorsPage 加 useTranslate
+- DICT 加 8 zh + 8 en = 16 key
+- i18nKeyCoverage 静态扫 0 missing
+
+#### 累计
+- 49 release tag / 700 测试
+- DICT 96 → 100 key (含 C subagent 加的 30+)
+- 0 P0/P1 维持

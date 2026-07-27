@@ -11,10 +11,13 @@ import { Modal } from '../components/Modal'
 import { ErrorExplainButton } from '../components/ErrorExplainButton'
 import { addErrorWordsToFavorites } from '../lib/errorReview'
 import { toast } from '../components/Toast'
+import { useTranslate } from '../lib/useTranslate'
 
 type Tab = 'overview' | 'types' | 'top' | 'timeline'
 
 export default function ErrorsPage() {
+  // v1.49.0 W46: i18n
+  const { t } = useTranslate()
   const [errors, setErrors] = useState<WritingError[]>([])
   const [loading, setLoading] = useState(true)
   const [tab, setTab] = useState<Tab>('overview')
@@ -109,16 +112,16 @@ export default function ErrorsPage() {
     return (
       <div className="space-y-4">
         <div>
-          <h1 className="text-2xl font-bold mb-1">📕 改错本</h1>
+          <h1 className="text-2xl font-bold mb-1">{t('errors.title')}</h1>
           <p className="text-stone-500 dark:text-stone-400 text-sm">
             聚合写作批改和 AI 对话实时纠错中遇到的错误
           </p>
         </div>
         <div className="card text-center py-10">
           <div className="text-5xl mb-3">📝</div>
-          <p className="text-lg mb-1">还没有错误记录</p>
+          <p className="text-lg mb-1">{t('errors.empty_title')}</p>
           <p className="text-sm text-stone-500 dark:text-stone-400 mb-4">
-            去写一段英文,或在 AI 对话中让 AI 帮你纠错
+            {t('errors.empty_desc')}
           </p>
           <div className="flex justify-center gap-2">
             <Link to="/write" className="btn-primary">✍️ 去写作批改</Link>
@@ -141,7 +144,7 @@ export default function ErrorsPage() {
         onCancel={() => setPendingDelete(null)}
       />
       <div>
-        <h1 className="text-2xl font-bold mb-1">📕 改错本</h1>
+        <h1 className="text-2xl font-bold mb-1">{t('errors.title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">
           累计 {errors.length} 条记录,共 {stats.totalErrs} 个错误
         </p>
@@ -189,10 +192,10 @@ export default function ErrorsPage() {
       {/* Tabs */}
       <div className="flex gap-2 border-b border-stone-200 dark:border-stone-700">
         {[
-          ['overview', '📈 总览'],
-          ['types', '🏷 类型'],
-          ['top', '🔥 高频错词'],
-          ['timeline', '🕐 时间'],
+          ['overview', t('errors.tab_overview')],
+          ['types', t('errors.tab_types')],
+          ['top', t('errors.tab_top')],
+          ['timeline', t('errors.tab_timeline')],
         ].map(([k, label]) => (
           <button
             key={k}
