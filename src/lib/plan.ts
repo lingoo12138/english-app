@@ -12,6 +12,8 @@ import {
   type FSRSCard,
   type Rating,
 } from './fsrs'
+// v1.43.0 W43-A: 难度自适应
+import { getRecommendedWords, getAdaptiveLevel, type CEFRLevel } from './difficultyAdapter'
 import type { Word, ReviewItem } from '../types'
 
 export interface TodayPlan {
@@ -26,6 +28,8 @@ export interface TodayPlan {
   }
   isDone: boolean
   progressPct: number
+  /** v1.43.0 W43-A: 推荐难度 (CEFRLevel) */
+  difficulty?: CEFRLevel
 }
 
 // 今日 key 用 YYYY-MM-DD (Asia/Shanghai)
@@ -75,8 +79,15 @@ export function saveProgress(date: string, completed: Set<string>, goal: number)
 export function markWordCompleted(wordId: string, date?: string, goal?: number): Set<string> {
   const d = date || todayKey()
   const { completed, goal: storedGoal } = loadProgress(d)
+  const isNewCompletion = !completed.has(wordId)
   completed.add(wordId)
   saveProgress(d, completed, goal || storedGoal)
+  // v1.43.0 W43-B: 学词 +5 XP (仅新完成时, 防止重复)
+  if (isNewCompletion) {
+    void import('./xpSystem').then(m => m.addXP(m.XP_REWARDS.LEARN, 'LEARN').catch((e: unknown) => {
+      console.warn('plan.ts: addXP 失败:', e)
+    }))
+  }
   return completed
 }
 
@@ -136,9 +147,25 @@ export async function generateTodayPlan(dailyGoal: number, targetLevel: string):
     }
   } catch {}
 
-  // 3) targetLevel 新词 (按字母顺序取前 N)
-  const newWords = allWords
-    .filter(w => !seenIds.has(w.id))
+  // 3) v1.43.0 W43-A: 用 getRecommendedWords 推荐新词 (难度自适应)
+  //    - 优先推 adaptiveLevel ± 1 步词, 同 level 优先
+  //    - targetLevel 非 'all' 时再用用户原选 level 二次过滤
+  //    - 仍按字母顺序稳定排序
+  let adaptiveLevel: CEFRLevel = 'A2'
+  let recommended: Word[] = []
+  try {
+    adaptiveLevel = await getAdaptiveLevel()
+    recommended = await getRecommendedWords(adaptiveLevel, dailyGoal * 2, seenIds)
+  } catch (e) {
+    // catch (e: unknown) + Error 守卫, 与 v1.6 修复一致
+    const err = e instanceof Error ? e : new Error(String(e))
+    console.warn('plan.ts: getRecommendedWords 失败, 降级为字母序:', err.message)
+    recommended = allWords
+      .filter(w => !seenIds.has(w.id))
+      .filter(w => targetLevel === 'all' || w.level === targetLevel)
+  }
+  // targetLevel 二次过滤 (用户选了具体学段时, 仍尊重选择)
+  const newWords = recommended
     .filter(w => targetLevel === 'all' || w.level === targetLevel)
     .sort((a, b) => a.word.localeCompare(b.word))
   for (const w of newWords) {
@@ -163,6 +190,8 @@ export async function generateTodayPlan(dailyGoal: number, targetLevel: string):
     },
     isDone: completedCount >= words.length && words.length > 0,
     progressPct: words.length > 0 ? Math.round((completedCount / words.length) * 100) : 0,
+    // v1.43.0 W43-A: 暴露推荐难度
+    difficulty: adaptiveLevel,
   }
 }
 

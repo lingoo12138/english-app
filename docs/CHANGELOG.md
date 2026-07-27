@@ -2544,3 +2544,28 @@
 - 657 单元测试全过 (无新增, UI 集成)
 - 0 P0 + 0 P1 + 0 P2 维持
 - 1 commit + 1 tag (v1.42.0)
+
+---
+
+## [v1.43.0] - 2026-07-27
+
+### v1.43.0 W43 — 3 件齐干 冲刺 (~3h)
+
+#### W43-A 单词难度自适应
+- `src/lib/difficultyAdapter.ts` (213 行): analyzeUserPerformance + getAdaptiveLevel + getRecommendedWords (CEFR A1-C2)
+- `src/lib/plan.ts`: step 3 改用 getRecommendedWords, TodayPlan.difficulty 暴露给 UI
+- 错词率 >30% 降级, 掌握率 >80% 升级, 学词 <5 不调
+
+#### W43-B 学习游戏化 XP 体系
+- `src/lib/xpSystem.ts` (130 行): addXP + 10 等级 + XP_REWARDS (LEARN/REVIEW/STREAK/ANSWER/FAVORITE)
+- `src/lib/plan.ts` markWordCompleted 末尾 +5 XP
+- 升级时弹 toast
+
+#### W43-C i18n UI 迁移
+- `src/pages/CardReview.tsx` + `src/pages/ReportsPage.tsx` 加 useTranslate
+- `tests/i18nMigration.test.ts` (6 测试)
+
+#### 累计
+- 43 release tag / 702 单元测试 / 44 库 / 53 测试文件
+- 0 P0/P1 维持
+- 详见 `docs/REVIEW_v1.43.md`

@@ -4,6 +4,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getDueReviews, reviewWord, logAction } from '../lib/db'
+// v1.43.0 W43-B: XP 游戏化
+import { addXP, XP_REWARDS } from '../lib/xpSystem'
 import { getWord } from '../lib/words'
 import { sortReviewQueue, toReviewQueueItem } from '../lib/reviewQueue'
 import { getAllTagsWithReviewCount, getReviewsByTagWithScore } from '../lib/taggedReviews'
@@ -87,6 +89,16 @@ export default function ReviewCenter() {
     // 修复: 用 word.id (wordId 格式 'w-xxx') 不是 word.word
     await reviewWord(word.id, quality)
     await logAction(word.id, know ? 'known' : 'unknown')
+    // v1.43.0 W43-B: 复习 +3, 答对 +2
+    try {
+      await addXP(XP_REWARDS.REVIEW, 'REVIEW')
+      if (know) {
+        await addXP(XP_REWARDS.ANSWER, 'ANSWER')
+      }
+    } catch (e: unknown) {
+      const err = e instanceof Error ? e : new Error(String(e))
+      console.warn('ReviewCenter: addXP 失败:', err)
+    }
 
     if (know) {
       setCorrectCount(c => c + 1)

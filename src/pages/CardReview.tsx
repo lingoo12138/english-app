@@ -4,11 +4,15 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { getDueReviews, getAllReviews, getAllFavorites, reviewWord, logAction } from '../lib/db'
+// v1.43.0 W43-B: XP 游戏化
+import { addXP, XP_REWARDS } from '../lib/xpSystem'
 import { loadWords } from '../lib/words'
 import type { Word, ReviewItem } from '../types'
 import TTSButton from '../components/TTSButton'
 // v1.37.0 W35-3: 短语模式
 import { extractPhrasesFromWords, shuffleCards, getPhraseTTS, type PhraseCard } from '../lib/phraseCards'
+// v1.43.0 W43-C: i18n UI 完整迁移
+import { useTranslate } from '../lib/useTranslate'
 
 // SM-2 质量分(评级 -> quality)
 const QUALITY_MAP = {
@@ -27,6 +31,8 @@ interface ReviewWord {
 }
 
 export default function CardReview() {
+  // v1.43.0 W43-C: i18n
+  const { t } = useTranslate()
   const navigate = useNavigate()
   const [queue, setQueue] = useState<ReviewWord[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -139,6 +145,16 @@ export default function CardReview() {
     const quality = QUALITY_MAP[r]
     await reviewWord(item.word.id, quality)
     await logAction(item.word.id, quality >= 3 ? 'known' : 'unknown')
+    // v1.43.0 W43-B: 复习 +3, 答对 +2 (quality>=3)
+    try {
+      await addXP(XP_REWARDS.REVIEW, 'REVIEW')
+      if (quality >= 3) {
+        await addXP(XP_REWARDS.ANSWER, 'ANSWER')
+      }
+    } catch (e: unknown) {
+      const err = e instanceof Error ? e : new Error(String(e))
+      console.warn('CardReview: addXP 失败:', err)
+    }
     setRatings(prev => ({ ...prev, [r]: prev[r] + 1 }))
     setReviewedCount(c => c + 1)
     advance()
@@ -178,7 +194,7 @@ export default function CardReview() {
     return (
       <div className="text-center py-20 text-stone-500 dark:text-stone-400">
         <div className="text-4xl mb-3">⏳</div>
-        正在准备卡片...
+        {t('review.preparing')}
       </div>
     )
   }
@@ -188,16 +204,16 @@ export default function CardReview() {
     return (
       <div className="text-center py-20">
         <div className="text-5xl mb-4">🎴</div>
-        <h2 className="text-xl font-bold mb-2">还没有可复习的卡片</h2>
+        <h2 className="text-xl font-bold mb-2">{t('review.empty_title')}</h2>
         <p className="text-stone-500 dark:text-stone-400 text-sm mb-6">
-          先去收藏一些单词,然后回来翻卡复习
+          {t('review.empty_desc')}
         </p>
         <div className="space-y-2">
           <button onClick={() => navigate('/words')} className="btn-primary w-full">
-            去浏览词库
+            {t('review.empty_browse')}
           </button>
           <button onClick={() => navigate('/notebook')} className="btn-ghost w-full">
-            看看生词本
+            {t('review.empty_notebook')}
           </button>
         </div>
       </div>
@@ -209,25 +225,25 @@ export default function CardReview() {
     return (
       <div className="text-center py-12">
         <div className="text-6xl mb-4">🎉</div>
-        <h2 className="text-2xl font-bold mb-2">复习完成!</h2>
+        <h2 className="text-2xl font-bold mb-2">{t('review.done_title')}</h2>
         <p className="text-stone-500 dark:text-stone-400 mb-6">
-          今日 {reviewedCount} 个 · 累计卡片 {queue.length} 个
+          {t('review.done_subtitle').replace('N', String(reviewedCount)).replace('M', String(queue.length))}
         </p>
 
         {/* 评级分布 */}
         <div className="grid grid-cols-4 gap-2 mb-6">
-          <RatingStat label="Again" value={ratings.again} color="text-red-600" bg="bg-red-50 dark:bg-red-900/20" />
-          <RatingStat label="Hard" value={ratings.hard} color="text-orange-600" bg="bg-orange-50 dark:bg-orange-900/20" />
-          <RatingStat label="Good" value={ratings.good} color="text-green-600" bg="bg-green-50 dark:bg-green-900/20" />
-          <RatingStat label="Easy" value={ratings.easy} color="text-blue-600" bg="bg-blue-50 dark:bg-blue-900/20" />
+          <RatingStat label={t('review.again')} value={ratings.again} color="text-red-600" bg="bg-red-50 dark:bg-red-900/20" />
+          <RatingStat label={t('review.hard')} value={ratings.hard} color="text-orange-600" bg="bg-orange-50 dark:bg-orange-900/20" />
+          <RatingStat label={t('review.good')} value={ratings.good} color="text-green-600" bg="bg-green-50 dark:bg-green-900/20" />
+          <RatingStat label={t('review.easy')} value={ratings.easy} color="text-blue-600" bg="bg-blue-50 dark:bg-blue-900/20" />
         </div>
 
         <div className="space-y-2">
           <button onClick={() => navigate('/notebook')} className="btn-primary w-full">
-            返回生词本
+            {t('review.back_notebook')}
           </button>
           <button onClick={() => navigate('/')} className="btn-ghost w-full">
-            回到首页
+            {t('review.back_home')}
           </button>
         </div>
       </div>
@@ -247,7 +263,7 @@ export default function CardReview() {
       <div>
         <div className="flex items-center justify-between mb-2">
           <button onClick={() => navigate(-1)} className="btn-ghost text-sm" aria-label="退出复习">
-            ← 退出
+            {t('review.exit')}
           </button>
           <div className="flex items-center gap-2">
             {/* v1.37.0 W35-3: 模式切换 */}
@@ -255,7 +271,7 @@ export default function CardReview() {
               onClick={() => { setMode(mode === 'word' ? 'phrase' : 'word'); window.location.reload() }}
               className="text-xs px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
             >
-              {mode === 'word' ? '📚 切短语' : '📖 切单词'}
+              {mode === 'word' ? t('review.switch_phrase') : t('review.switch_word')}
             </button>
             <span className="text-sm text-stone-500 dark:text-stone-400">
               {mode === 'word' ? currentIndex + 1 : Math.min(currentIndex + 1, phraseQueue.length)} / {mode === 'word' ? queue.length : phraseQueue.length}
@@ -286,7 +302,7 @@ export default function CardReview() {
             {currentPhrase ? (
               <>
                 <div className="flex items-center gap-2 justify-center mb-3 text-xs text-stone-500">
-                  <span>出自词</span>
+                  <span>{t('review.from_word')}</span>
                   <span className="font-semibold text-brand-600 dark:text-brand-400">{currentPhrase.word}</span>
                 </div>
                 <h1 className="text-3xl font-bold mb-3 tracking-wide text-center break-words">
@@ -314,7 +330,7 @@ export default function CardReview() {
               <TTSButton text={currentPhrase ? currentPhrase.phrase : word.word} size="lg" />
             </div>
             <p className="text-stone-400 dark:text-stone-300 text-sm text-center">
-              {flipped ? '显示答案中...' : '点击卡片或按空格查看释义'}
+              {flipped ? t('review.flipping') : t('review.flip_hint')}
             </p>
           </div>
 
@@ -363,25 +379,25 @@ export default function CardReview() {
       {flipped ? (
         <div className="grid grid-cols-4 gap-2">
           <RatingButton
-            rating="again" label="Again" hint="1 分钟后"
+            rating="again" label={t('review.again')} hint={t('review.again_hint')}
             color="bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/50"
             onClick={() => rate('again')}
             kbd="1"
           />
           <RatingButton
-            rating="hard" label="Hard" hint="困难"
+            rating="hard" label={t('review.hard')} hint={t('review.hard_hint')}
             color="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-900/50"
             onClick={() => rate('hard')}
             kbd="2"
           />
           <RatingButton
-            rating="good" label="Good" hint="记得"
+            rating="good" label={t('review.good')} hint={t('review.good_hint')}
             color="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/50"
             onClick={() => rate('good')}
             kbd="3"
           />
           <RatingButton
-            rating="easy" label="Easy" hint="轻松"
+            rating="easy" label={t('review.easy')} hint={t('review.easy_hint')}
             color="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/50"
             onClick={() => rate('easy')}
             kbd="4"
@@ -392,14 +408,14 @@ export default function CardReview() {
           onClick={() => setFlipped(true)}
           className="btn-primary w-full py-4"
         >
-          翻卡 · 空格
+          {t('review.flip_btn')}
         </button>
       )}
 
       {/* 统计:本次复习 / 待复习 */}
       <div className="flex items-center justify-between text-xs text-stone-500 dark:text-stone-400 px-1 pt-1">
-        <span>本次复习 {reviewedCount} 个</span>
-        <span>待复习 {pendingDueCount} 个</span>
+        <span>{t('review.session_count').replace('N', String(reviewedCount))}</span>
+        <span>{t('review.due_count').replace('N', String(pendingDueCount))}</span>
       </div>
     </div>
   )

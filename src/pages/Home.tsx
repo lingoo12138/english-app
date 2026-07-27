@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import TTSButton from '../components/TTSButton'
 import Onboarding, { isOnboarded } from '../components/Onboarding'
@@ -17,6 +17,9 @@ import { getDueReviews, logAction } from '../lib/db'
 import { generateTodayPlan, markWordCompleted, type TodayPlan } from '../lib/plan'
 // v1.42.0 W42: streak UI 集成
 import { getStreakWithMilestones, getStreakMessage, type StreakMilestone } from '../lib/streak'
+// v1.43.0 W43-B: XP/level 游戏化
+import { getXPState, type XPCurrentState } from '../lib/xpSystem'
+import { toast } from '../components/Toast'
 
 export default function Home() {
   const [sentence, setSentence] = useState<DailySentence | null>(null)
@@ -36,6 +39,8 @@ export default function Home() {
   const [showOnboarding, setShowOnboarding] = useState(false)
   const [onboarded, setOnboarded] = useState<boolean>(() => isOnboarded())
   const [achievementStats, setAchievementStats] = useState<Awaited<ReturnType<typeof loadAchievementStats>> | null>(null)
+  // v1.43.0 W43-B: XP/level 状态
+  const [xpState, setXpState] = useState<XPCurrentState>(() => getXPState())
   const dailyGoal = useStore(s => s.dailyGoal)
   const stats = useStats()
   const targetLevel = useStore(s => s.targetLevel)
@@ -74,7 +79,18 @@ export default function Home() {
     await logAction(wordId, 'view')
     const newPlan = await generateTodayPlan(dailyGoal, targetLevel)
     setPlan(newPlan)
+    // v1.43.0 W43-B: 刷新 XP 状态 (addXP 由 plan.ts markWordCompleted 内部触发)
+    setXpState(getXPState())
   }
+
+  // v1.43.0 W43-B: 升级检测 — xpState.level 变化时弹 toast
+  const prevLevelRef = useRef<number>(xpState.level)
+  useEffect(() => {
+    if (xpState.level > prevLevelRef.current) {
+      toast.success(`🎉 升级到 Lv.${xpState.level} ${xpState.levelTitle}!`)
+    }
+    prevLevelRef.current = xpState.level
+  }, [xpState.level, xpState.levelTitle])
 
   const toggleFav = async () => {
     if (!wordOfDay) return
@@ -123,6 +139,31 @@ export default function Home() {
           </div>
         </button>
       )}
+
+      {/* v1.43.0 W43-B: XP/level 进度卡 */}
+      <div className="card bg-gradient-to-r from-violet-50 via-fuchsia-50 to-pink-50 dark:from-violet-900/20 dark:via-fuchsia-900/20 dark:to-pink-900/20 border border-violet-200 dark:border-violet-800">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <div className="text-3xl font-bold text-violet-600 dark:text-violet-400">Lv.{xpState.level}</div>
+            <div>
+              <div className="text-sm font-semibold">{xpState.levelTitle}</div>
+              <div className="text-[10px] text-stone-500 dark:text-stone-400">
+                {xpState.isMaxLevel ? '已满级' : `再 ${xpState.nextLevelXP} XP 升级`}
+              </div>
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="text-xs text-stone-500 dark:text-stone-400">总 XP</div>
+            <div className="text-lg font-bold text-fuchsia-600 dark:text-fuchsia-400">{xpState.totalXP}</div>
+          </div>
+        </div>
+        <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500 transition-all duration-500"
+            style={{ width: `${Math.round(xpState.progress * 100)}%` }}
+          />
+        </div>
+      </div>
 
       {/* v1.3-F2: 成就卡 */}
       {achievementStats && (

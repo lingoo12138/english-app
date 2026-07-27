@@ -238,6 +238,13 @@ export async function addFavorite(wordId: string) {
   } catch (e) {
     handleDbError(e, '添加收藏')
   }
+  // v1.43.0 W43-B: 收藏 +1 XP (静默, 失败不阻塞主流程)
+  try {
+    const { addXP, XP_REWARDS } = await import('./xpSystem')
+    await addXP(XP_REWARDS.FAVORITE, 'FAVORITE')
+  } catch (e) {
+    console.warn('db.ts: addXP(FAVORITE) 失败:', e)
+  }
 }
 
 export async function removeFavorite(wordId: string) {

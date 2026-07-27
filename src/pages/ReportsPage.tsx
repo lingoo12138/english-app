@@ -10,12 +10,14 @@ import {
   type WeeklyReport,
 } from '../lib/learningReport'
 import { toast } from '../components/Toast'
+import { useTranslate } from '../lib/useTranslate'
 
 type Tab = 'daily' | 'weekly'
 
 const WEEKDAY_LABELS = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
 
 export default function ReportsPage() {
+  const { t } = useTranslate()
   const [tab, setTab] = useState<Tab>('daily')
   const [daily, setDaily] = useState<DailyReport | null>(null)
   const [weekly, setWeekly] = useState<WeeklyReport | null>(null)
