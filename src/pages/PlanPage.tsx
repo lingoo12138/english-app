@@ -142,6 +142,12 @@ export default function PlanPage() {
       <div>
         <h1 className="text-2xl font-bold mb-1">📅 学习计划</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">每日目标 {dailyGoal} 词 · {targetLevel === 'all' ? '全部' : targetLevel}</p>
+        {/* v1.43.0 W43-A: 推荐难度 (CEFR) */}
+        {plan.difficulty && (
+          <div className="mt-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-xs">
+            🎯 推荐难度: <strong>{plan.difficulty}</strong>
+          </div>
+        )}
         {/* v1.37.0 W35-4: AI 定制计划 */}
         <button
           onClick={() => setShowAIPlan(true)}

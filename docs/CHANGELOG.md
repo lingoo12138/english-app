@@ -2569,3 +2569,25 @@
 - 43 release tag / 702 单元测试 / 44 库 / 53 测试文件
 - 0 P0/P1 维持
 - 详见 `docs/REVIEW_v1.43.md`
+
+---
+
+## [v1.44.0] - 2026-07-27
+
+### v1.44.0 W44 — 第 6 次大 review + UI 集成 (~2h)
+
+#### W44-A 大 review
+- 📊 `scripts/big-review-v1.43.py` 6 维度
+- ✅ 0 P0 + 0 新 P1 + 0 P2
+- 详见 `docs/REVIEW_v1.44.md`
+
+#### W44-B PlanPage UI 集成
+- 🎯 PlanPage 加 "推荐难度: B1" 标签
+- 复用 v1.43 plan.difficulty (CEFR)
+
+#### W44-C 4 文档同步 v1.43
+- FEATURES + ARCHITECTURE + README + ROADMAP
+
+#### 累计
+- 43 release tag / 702 测试 / 44 库 / 6 次大 review
+- 0 P0/P1 维持
