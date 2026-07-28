@@ -110,7 +110,7 @@ export default function Home() {
       {/* 顶部欢迎 */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold mb-1">你好 👋</h1>
+          <h1 className="text-2xl font-bold mb-1">👋 {t('home.welcome')}</h1>
           <p className="text-stone-500 dark:text-stone-400 text-sm">今天来学点新东西吧</p>
         </div>
         {/* v1.1-F1: 分享按钮 */}
@@ -293,6 +293,7 @@ export default function Home() {
           <div className="flex items-center justify-between mb-3">
             <div>
               <div className="text-sm font-semibold">🏆 {t('home.streak_title')}</div>
+              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">{t('home.streak_subtitle').replace('N', String(streakState?.current || 0))}</div>
               <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
                 {getStreakMessage(streakState.current).message}
               </div>

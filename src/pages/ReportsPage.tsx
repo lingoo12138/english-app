@@ -119,14 +119,14 @@ function Header({ onCopy }: { onCopy: () => void }) {
       <div>
         <h1 className="text-2xl font-bold">📊 {t('reports.page_title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm mt-0.5">
-          看看你今天/本周的成长足迹
+          看看你今天/本周的成长足迹 ({t('reports.total_words')} / {t('reports.total_sessions')} / {t('reports.avg_accuracy')})
         </p>
       </div>
       <button
         onClick={onCopy}
         className="text-xs px-3 py-1.5 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-sm hover:shadow-md active:scale-95 transition"
       >
-        📤 分享
+        📤 {t('reports.share')}
       </button>
     </div>
   )
@@ -158,6 +158,7 @@ function DailyCard({ daily }: { daily: DailyReport }) {
 }
 
 function WeeklyCard({ weekly }: { weekly: WeeklyReport }) {
+  const { t } = useTranslate()
   const maxDay = Math.max(1, ...weekly.dailyReports.map(d => d.wordsLearned))
   return (
     <div className="space-y-4 p-3">
@@ -173,7 +174,7 @@ function WeeklyCard({ weekly }: { weekly: WeeklyReport }) {
           {weekly.encouragement}
         </div>
         <div className="text-xs text-stone-500 dark:text-stone-400 mt-2">
-          本周 ({weekly.weekStart} 起) 共学 {weekly.totalWordsLearned} 词
+          {t('reports.this_week')} ({weekly.weekStart} 起) 共学 {weekly.totalWordsLearned} {t('reports.total_words').replace('Total words', '词')}
         </div>
       </div>
 
@@ -237,7 +238,7 @@ function WeeklyCard({ weekly }: { weekly: WeeklyReport }) {
       {weekly.totalWordsLearned === 0 && weekly.topErrors.length === 0 && (
         <div className="card text-center py-8 text-stone-500 dark:text-stone-400">
           <div className="text-4xl mb-2">🌱</div>
-          本周还没有学习数据,先学几个词再来看看?
+          {t('reports.this_week')}还没有学习数据,先学几个词再来看看?
         </div>
       )}
 

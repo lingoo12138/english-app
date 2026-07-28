@@ -293,7 +293,7 @@ export default function CardReview() {
         onClick={() => setFlipped(f => !f)}
         role="button"
         tabIndex={0}
-        aria-label={flipped ? '点击翻回正面' : '点击翻到背面'}
+        aria-label={flipped ? t('review.flip_back') : t('review.flip_hint')}
       >
         <div className={`card-inner ${flipped ? 'flipped' : ''}`}>
           {/* 正面:单词 + 音标 + TTS */}

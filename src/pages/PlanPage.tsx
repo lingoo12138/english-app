@@ -1,6 +1,7 @@
 // 计划页 - v0.22.5
 // 7 天完成曲线 + 当日统计 + 总结
 import { useState, useEffect } from 'react'
+import { useTranslate } from '../lib/useTranslate'
 import { useStore } from '../store/useStore'
 import { generateTodayPlan, markWordCompleted, type TodayPlan } from '../lib/plan'
 // v1.37.0 W35-4: AI 定制多日计划
@@ -19,6 +20,7 @@ interface DayProgress {
 }
 
 export default function PlanPage() {
+  const { t } = useTranslate()
   const dailyGoal = useStore(s => s.dailyGoal)
   // v1.37.0 W35-4: AI 计划 modal
   const [showAIPlan, setShowAIPlan] = useState(false)
@@ -173,7 +175,7 @@ export default function PlanPage() {
 
       {/* 7 天曲线 */}
       <div className="card">
-        <h2 className="font-semibold mb-3">📊 近 7 天</h2>
+        <h2 className="font-semibold mb-3">📊 {t('plan.week_summary')}</h2>
         <div className="flex items-end gap-2 h-32 mb-2">
           {history.map(d => {
             const today = d.date === history[history.length - 1]?.date
@@ -208,11 +210,11 @@ export default function PlanPage() {
       <div className="grid grid-cols-3 gap-3">
         <div className="card text-center">
           <div className="text-2xl font-bold text-brand-600">{streak}</div>
-          <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">连续天数 🔥</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">{t('plan.continue_streak')} 🔥</div>
         </div>
         <div className="card text-center">
           <div className="text-2xl font-bold text-brand-600">{completedDays}</div>
-          <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">完成 7 天中</div>
+          <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">{t('plan.completion_rate')}</div>
         </div>
         <div className="card text-center">
           <div className="text-2xl font-bold text-brand-600">{totalAll}</div>

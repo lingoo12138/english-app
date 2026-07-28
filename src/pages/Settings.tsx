@@ -45,6 +45,7 @@ export default function Settings() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold mb-1">{t('settings.page_title')}</h1>
+        <p className="text-stone-500 dark:text-stone-400 text-sm">{t('settings.theme')} · {t('settings.color')} · {t('settings.contrast')}</p>
         <p className="text-stone-500 dark:text-stone-400 text-sm">个性化你的学习体验</p>
         <p className="text-xs text-amber-600 dark:text-amber-400 mt-1.5">
           ⚠️ 所有 API Key 明文存于浏览器 localStorage, 公共电脑请勿填写
@@ -91,7 +92,7 @@ export default function Settings() {
             <button
               onClick={handleResetUsage}
               className="text-xs text-red-500 hover:underline"
-              aria-label="重置今日用量"
+              aria-label={t('settings.reset')}
             >
               重置
             </button>

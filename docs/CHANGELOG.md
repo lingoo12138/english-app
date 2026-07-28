@@ -2845,3 +2845,23 @@
 #### 累计
 - 57 release tag / 702 测试 / 148 DICT key
 - 0 P0/P1 维持
+
+---
+
+## [v1.58.0] - 2026-07-27
+
+### v1.58.0 W53 — 25 DICT key 用上 5 页面 + 第 14 次大 review (1.5h)
+
+#### 25 DICT key 实际用到 5 页面
+- Home 3 / PlanPage 3 / Settings 4 / CardReview 5 / ReportsPage 10
+- PlanPage 新加 useTranslate
+- ReportsPage WeeklyCard 补 useTranslate
+- 避免死 key (DICT 有但 0 引用)
+
+#### 第 14 次大 review
+- 9 维度 0 P0 + 0 P1
+- 14 次大 review 累计修 37 处
+
+#### 累计
+- 58 release tag / 702 测试
+- 0 P0/P1 维持
