@@ -2899,3 +2899,25 @@
 #### 累计
 - 60 release tag / 702 测试
 - 0 P0/P1 维持
+
+---
+
+## [v1.61.0] - 2026-07-27
+
+### v1.61.0 W55 — words.json level 8 档全分配 (5334 词重映射) (30min)
+
+#### 问题
+- 5334 词只有 2 个 level: 4190 cet4 + 1144 gaozhong
+- 缺 primary/junior/senior/cet6/kaoyan/daily (6 档)
+- v1.43 difficultyAdapter 8 档空跑, fallback 触发
+
+#### 修法
+- `scripts/remap-levels.py` 智能分配
+- 8 档全有词: primary 230 / junior 794 / senior 352 / gaozhong 1328 / cet4 743 / cet6 699 / kaoyan 500 / daily 688
+
+#### 累计
+- 61 release tag / 702 测试 / 8 档 level
+- 0 P0/P1 维持
+
+#### W56 候选
+- 阶段 2: 找开源词表加新词 (扩展 1.2 万+ 词)
