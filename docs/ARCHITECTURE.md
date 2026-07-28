@@ -44,7 +44,7 @@ db.version(6).stores({
 | 内容 | `daily.ts` `plan.ts` `achievements.ts` `streak.ts` | v1.0-1.3 |
 | 学习 | `errorReview.ts` `reviewQueue.ts` `fsrs.ts` `learningReport.ts` `learnReport.ts` `recorder.ts` | v1.0-1.11 |
 | 标签 | `wordTags.ts` `taggedReviews.ts` `notebookBulk.ts` | v1.20-1.22 |
-| i18n | `i18n.ts` `useTranslate.ts` | v1.41 (W41) |
+| i18n | `i18n.ts` `useTranslate.ts` | v1.41 (W41) / v1.49-1.55 全 25 页面覆盖 |
 | difficultyAdapter | `difficultyAdapter.ts` | v1.43 (W43) |
 | xpSystem | `xpSystem.ts` | v1.43 (W43) |
 | 场景 | `customScenes.ts` `sceneReview.ts` `fileUpload.ts` `pdfUpload.ts` `learningCalendar.ts` | v1.14-1.23 |
@@ -125,4 +125,4 @@ english-app/
 
 ---
 
-**最后更新**: 2026-07-27 (v1.52.0)
+**最后更新**: 2026-07-27 (v1.55.0)
