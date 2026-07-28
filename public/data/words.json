@@ -10305,7 +10305,21 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "alum",
+        "meaning": "明矾(拉丁)"
+      },
+      {
+        "root": "-in-",
+        "meaning": "化学元素"
+      },
+      {
+        "root": "-um",
+        "meaning": "金属后缀"
+      }
+    ]
   },
   {
     "id": "w-always",
@@ -10625,7 +10639,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "ambassad",
+        "meaning": "大使"
+      },
+      {
+        "root": "-ess",
+        "meaning": "女"
+      }
+    ]
   },
   {
     "id": "w-ambiguous",
@@ -11529,7 +11553,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "lys, lyt, -lyze",
+        "meaning": "break down, disintegrate"
+      },
+      {
+        "root": "ana-",
+        "meaning": "up; against; back"
+      }
+    ]
   },
   {
     "id": "w-ancestor",
@@ -11798,7 +11832,13 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "a-1, an-1",
+        "meaning": "not, without"
+      }
+    ]
   },
   {
     "id": "w-angel",
@@ -12750,7 +12790,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "anti-",
+        "meaning": "反；对面"
+      },
+      {
+        "root": "arct",
+        "meaning": "熊；北极"
+      }
+    ]
   },
   {
     "id": "w-anticipate",
@@ -23300,7 +23350,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "ball",
+        "meaning": "球"
+      },
+      {
+        "root": "point",
+        "meaning": "点"
+      }
+    ]
   },
   {
     "id": "w-bamboo",
@@ -23363,7 +23423,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "bamb",
+        "meaning": "竹(马来语)"
+      },
+      {
+        "root": "-oo",
+        "meaning": "植物"
+      }
+    ]
   },
   {
     "id": "w-ban",
@@ -23927,7 +23997,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "barb",
+        "meaning": "倒钩"
+      },
+      {
+        "root": "-ecue",
+        "meaning": "烧烤台"
+      }
+    ]
   },
   {
     "id": "w-barber",
@@ -23997,7 +24077,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "barber",
+        "meaning": "理发师"
+      },
+      {
+        "root": "shop",
+        "meaning": "店"
+      }
+    ]
   },
   {
     "id": "w-bare",
@@ -24880,7 +24970,17 @@
     ],
     "level": "kaoyan",
     "difficulty": 5,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "basket",
+        "meaning": "篮"
+      },
+      {
+        "root": "ball",
+        "meaning": "球"
+      }
+    ]
   },
   {
     "id": "w-bat",
@@ -25084,7 +25184,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "bath",
+        "meaning": "洗澡"
+      },
+      {
+        "root": "robe",
+        "meaning": "长袍"
+      }
+    ]
   },
   {
     "id": "w-bathroom",
@@ -25144,7 +25254,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bath",
+        "meaning": "洗澡"
+      },
+      {
+        "root": "room",
+        "meaning": "房间"
+      }
+    ]
   },
   {
     "id": "w-bathtub",
@@ -30427,7 +30547,17 @@
     ],
     "level": "kaoyan",
     "difficulty": 5,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "black",
+        "meaning": "黑"
+      },
+      {
+        "root": "board",
+        "meaning": "板"
+      }
+    ]
   },
   {
     "id": "w-blade",
@@ -32365,7 +32495,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "book",
+        "meaning": "书"
+      },
+      {
+        "root": "shelf",
+        "meaning": "架"
+      }
+    ]
   },
   {
     "id": "w-bookshop",
@@ -32402,7 +32542,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "book",
+        "meaning": "书"
+      },
+      {
+        "root": "shop",
+        "meaning": "店"
+      }
+    ]
   },
   {
     "id": "w-bookstore",
@@ -34799,7 +34949,17 @@
     ],
     "level": "kaoyan",
     "difficulty": 5,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "break",
+        "meaning": "打破；中断"
+      },
+      {
+        "root": "fast",
+        "meaning": "禁食；快"
+      }
+    ]
   },
   {
     "id": "w-breakthrough",
@@ -34846,7 +35006,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "break",
+        "meaning": "打破"
+      },
+      {
+        "root": "through",
+        "meaning": "通过"
+      }
+    ]
   },
   {
     "id": "w-breast",
@@ -37760,7 +37930,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "bunga",
+        "meaning": "孟加拉式"
+      },
+      {
+        "root": "low",
+        "meaning": "房屋"
+      }
+    ]
   },
   {
     "id": "w-burden",
@@ -39351,7 +39531,17 @@
     ],
     "level": "kaoyan",
     "difficulty": 5,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "café",
+        "meaning": "咖啡馆"
+      },
+      {
+        "root": "-teria",
+        "meaning": "场所"
+      }
+    ]
   },
   {
     "id": "w-cage",
@@ -42658,7 +42848,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "cass",
+        "meaning": "盒(法语)"
+      },
+      {
+        "root": "-ette",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-cast",
@@ -43071,7 +43271,13 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "cata-",
+        "meaning": "down; completely, thoroughly; against; according to"
+      }
+    ]
   },
   {
     "id": "w-catch",
@@ -48786,7 +48992,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "cigar",
+        "meaning": "雪茄"
+      },
+      {
+        "root": "-ette",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-cinema",
@@ -48842,7 +49058,13 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "cine, kine, kinet, kinemat",
+        "meaning": "motion"
+      }
+    ]
   },
   {
     "id": "w-circle",
@@ -48966,7 +49188,13 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "it, itiner",
+        "meaning": "journey, road"
+      }
+    ]
   },
   {
     "id": "w-circular",
@@ -69332,7 +69560,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "cuis",
+        "meaning": "烹饪(法语)"
+      },
+      {
+        "root": "-ine",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-cultivate",
@@ -71739,7 +71977,13 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "don, donat, dat",
+        "meaning": "give"
+      }
+    ]
   },
   {
     "id": "w-database",
@@ -73596,7 +73840,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "-ate1",
+        "meaning": "to make, cause, do"
+      },
+      {
+        "root": "dic, dict",
+        "meaning": "speak, declare"
+      }
+    ]
   },
   {
     "id": "w-deduce",
@@ -78384,7 +78638,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "gram",
+        "meaning": "write"
+      },
+      {
+        "root": "dia-, di-1",
+        "meaning": "across, apart, through, throughout"
+      }
+    ]
   },
   {
     "id": "w-dial",
@@ -79689,7 +79953,13 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "di-2, diplo-",
+        "meaning": "two, double"
+      }
+    ]
   },
   {
     "id": "w-diligent",
@@ -80172,7 +80442,13 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "di-2, diplo-",
+        "meaning": "two, double"
+      }
+    ]
   },
   {
     "id": "w-diplomatic",
@@ -80290,7 +80566,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "reg, rect, rig1",
+        "meaning": "king, rule, guide; straight"
+      },
+      {
+        "root": "di-3",
+        "meaning": "not, apart, reverse, negate"
+      }
+    ]
   },
   {
     "id": "w-direction",
@@ -97053,7 +97339,13 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "reg, rect, rig1",
+        "meaning": "king, rule, guide; straight"
+      }
+    ]
   },
   {
     "id": "w-error",
@@ -106738,7 +107030,13 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "-ite1",
+        "meaning": "in a state or condition (produced by the action denoted by the verb base)"
+      }
+    ]
   },
   {
     "id": "w-favour",
@@ -113286,7 +113584,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "foot",
+        "meaning": "脚"
+      },
+      {
+        "root": "ball",
+        "meaning": "球"
+      }
+    ]
   },
   {
     "id": "w-foothold",
@@ -117385,7 +117693,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "fro",
+        "meaning": "跳(原始日耳曼语)"
+      },
+      {
+        "root": "g",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-from",
@@ -117623,7 +117941,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "frow",
+        "meaning": "皱眉(法语)"
+      },
+      {
+        "root": "-n",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-fruit",
@@ -121961,7 +122289,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "giraf",
+        "meaning": "长颈鹿(阿拉伯语)"
+      },
+      {
+        "root": "-fe",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-girl",
@@ -122560,7 +122898,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "glob",
+        "meaning": "球(拉丁)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-gloomy",
@@ -122769,7 +123117,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "glo",
+        "meaning": "掌(原始日耳曼语)"
+      },
+      {
+        "root": "-ve",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-glow",
@@ -122817,7 +123175,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "glow",
+        "meaning": "发光(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-glue",
@@ -122880,7 +123248,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "glu",
+        "meaning": "胶(法语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-go",
@@ -123399,7 +123777,17 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "good",
+        "meaning": "好"
+      },
+      {
+        "root": "bye",
+        "meaning": "再见"
+      }
+    ]
   },
   {
     "id": "w-goodness",
@@ -123801,7 +124189,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "gow",
+        "meaning": "袍(法语)"
+      },
+      {
+        "root": "-n",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-grab",
@@ -125113,7 +125511,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "grap",
+        "meaning": "葡萄(法语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "植物"
+      }
+    ]
   },
   {
     "id": "w-graph",
@@ -126249,7 +126657,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "grief",
+        "meaning": "悲伤(法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-grieve",
@@ -126292,7 +126710,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "griev",
+        "meaning": "悲伤(法语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-grill",
@@ -126441,7 +126869,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "grip",
+        "meaning": "抓(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-groan",
@@ -127054,7 +127492,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "guarant",
+        "meaning": "保证(法语)"
+      },
+      {
+        "root": "-ee",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-guard",
@@ -127456,7 +127904,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "guilt",
+        "meaning": "罪(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-guilty",
@@ -128158,7 +128616,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "hair",
+        "meaning": "头发"
+      },
+      {
+        "root": "cut",
+        "meaning": "剪"
+      }
+    ]
   },
   {
     "id": "w-half",
@@ -130236,7 +130704,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "hast",
+        "meaning": "快(古法语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-hasten",
@@ -130434,7 +130912,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "hatch",
+        "meaning": "孵"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-hate",
@@ -130781,7 +131269,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "haz",
+        "meaning": "机会(阿拉伯语)"
+      },
+      {
+        "root": "-ard",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-he",
@@ -130939,7 +131437,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "head",
+        "meaning": "头"
+      },
+      {
+        "root": "ache",
+        "meaning": "痛"
+      }
+    ]
   },
   {
     "id": "w-heading",
@@ -131351,7 +131859,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "heal",
+        "meaning": "完整(原始日耳曼语)"
+      },
+      {
+        "root": "-th",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-healthy",
@@ -132101,7 +132619,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "heel",
+        "meaning": "跟(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-height",
@@ -132414,7 +132942,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "helm",
+        "meaning": "头盔"
+      },
+      {
+        "root": "-et",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-help",
@@ -132755,7 +133293,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "herb",
+        "meaning": "草(拉丁)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-herd",
@@ -132808,7 +133356,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "herd",
+        "meaning": "群(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-here",
@@ -133350,7 +133908,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "hid",
+        "meaning": "藏(原始日耳曼语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-high",
@@ -133641,7 +134209,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "hill",
+        "meaning": "山(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-hillside",
@@ -133815,7 +134393,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "him",
+        "meaning": "他"
+      },
+      {
+        "root": "self",
+        "meaning": "自己"
+      }
+    ]
   },
   {
     "id": "w-hinder",
@@ -133905,7 +134493,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "hint",
+        "meaning": "抓(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-hire",
@@ -134565,7 +135163,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "hol",
+        "meaning": "洞(原始日耳曼语)"
+      },
+      {
+        "root": "-ow",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-holy",
@@ -135326,7 +135934,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "hook",
+        "meaning": "钩(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-hooray",
@@ -136112,7 +136730,13 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "hosp, host1",
+        "meaning": "host, guest"
+      }
+    ]
   },
   {
     "id": "w-hostess",
@@ -136281,7 +136905,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "hot",
+        "meaning": "热"
+      },
+      {
+        "root": "dog",
+        "meaning": "狗"
+      }
+    ]
   },
   {
     "id": "w-hotel",
@@ -136343,7 +136977,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "hotel",
+        "meaning": "旅馆(法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-hour",
@@ -136880,7 +137524,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "hug",
+        "meaning": "抱(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-huge",
@@ -137162,7 +137816,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "humor",
+        "meaning": "液；幽默(拉丁)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-humorous",
@@ -137658,7 +138322,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "hurric",
+        "meaning": "风(加勒比语)"
+      },
+      {
+        "root": "-ane",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-hurry",
@@ -137878,7 +138552,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "hut",
+        "meaning": "小屋(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-hydrogen",
@@ -138497,7 +139181,13 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "idio",
+        "meaning": "particular or personal to; distinct"
+      }
+    ]
   },
   {
     "id": "w-idle",
@@ -150330,7 +151020,21 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "is",
+        "meaning": "出(法语)"
+      },
+      {
+        "root": "sue",
+        "meaning": "跟"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-it",
@@ -150537,7 +151241,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "item",
+        "meaning": "同样(拉丁)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-its",
@@ -150701,7 +151415,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "jack",
+        "meaning": "短外衣(法语)"
+      },
+      {
+        "root": "-et",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-jail",
@@ -150818,7 +151542,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "jam",
+        "meaning": "挤(拟声词)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-january",
@@ -151124,7 +151858,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "jaw",
+        "meaning": "颌(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-jazz",
@@ -151186,7 +151930,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "jazz",
+        "meaning": "性(俚语)"
+      },
+      {
+        "root": "-",
+        "meaning": "音乐"
+      }
+    ]
   },
   {
     "id": "w-jealous",
@@ -151374,7 +152128,13 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "ject, jet, jac",
+        "meaning": "throw; lie"
+      }
+    ]
   },
   {
     "id": "w-jewel",
@@ -151417,7 +152177,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "jew",
+        "meaning": "玩(古法语)"
+      },
+      {
+        "root": "-el",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "jewellery",
@@ -151579,7 +152349,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "job",
+        "meaning": "口(中古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-jog",
@@ -151608,7 +152388,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "jog",
+        "meaning": "推(拟声词)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-join",
@@ -151741,7 +152531,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "join",
+        "meaning": "连接"
+      },
+      {
+        "root": "-t",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-joke",
@@ -152265,7 +153065,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "-ment",
+        "meaning": "act, process, or instance of"
+      },
+      {
+        "root": "jud, jur, just",
+        "meaning": "justice, law; swear"
+      }
+    ]
   },
   {
     "id": "w-juice",
@@ -152713,7 +153523,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "junk",
+        "meaning": "旧缆绳(中古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-jury",
@@ -152841,7 +153661,13 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "jud, jur, just",
+        "meaning": "justice, law; swear"
+      }
+    ]
   },
   {
     "id": "w-justice",
@@ -153007,7 +153833,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "kangar",
+        "meaning": "袋鼠(澳洲土著语)"
+      },
+      {
+        "root": "-oo",
+        "meaning": "动物"
+      }
+    ]
   },
   {
     "id": "w-keen",
@@ -153407,7 +154243,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "key",
+        "meaning": "键"
+      },
+      {
+        "root": "board",
+        "meaning": "板"
+      }
+    ]
   },
   {
     "id": "w-kick",
@@ -153634,7 +154480,13 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "kilo",
+        "meaning": "thousand"
+      }
+    ]
   },
   {
     "id": "w-kilogram",
@@ -154429,7 +155281,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "knit",
+        "meaning": "打结(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-knob",
@@ -154484,7 +155346,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "knob",
+        "meaning": "瘤(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-knock",
@@ -154535,7 +155407,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "knock",
+        "meaning": "敲(拟声词)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-knot",
@@ -154584,7 +155466,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "knot",
+        "meaning": "结(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-know",
@@ -154809,7 +155701,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "lab",
+        "meaning": "垂(古法语)"
+      },
+      {
+        "root": "-el",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "labor",
@@ -154824,7 +155726,13 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "labor, laborat, lab",
+        "meaning": "to work"
+      }
+    ]
   },
   {
     "id": "w-laboratory",
@@ -155403,7 +156311,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "lak",
+        "meaning": "湖(古英语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-lamb",
@@ -155453,7 +156371,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "lamb",
+        "meaning": "羔羊(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-lame",
@@ -155493,7 +156421,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "lam",
+        "meaning": "跛(原始日耳曼语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-lamp",
@@ -155555,7 +156493,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "lamp",
+        "meaning": "灯(希腊)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-land",
@@ -155828,7 +156776,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "lan",
+        "meaning": "窄道(古英语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-language",
@@ -157025,7 +157983,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "lawn",
+        "meaning": "草地(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-lawyer",
@@ -157778,7 +158746,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "leak",
+        "meaning": "漏(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-lean",
@@ -157957,7 +158935,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "learn",
+        "meaning": "学(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-learned",
@@ -158146,7 +159134,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "les",
+        "meaning": "少"
+      },
+      {
+        "root": "-t",
+        "meaning": "最高级"
+      }
+    ]
   },
   {
     "id": "w-leather",
@@ -158276,7 +159274,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "leav",
+        "meaning": "留(古英语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-lecture",
@@ -158409,7 +159417,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "left",
+        "meaning": "左(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-leftover",
@@ -158890,7 +159908,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "lend",
+        "meaning": "借(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-length",
@@ -158950,7 +159978,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "leng",
+        "meaning": "长(古英语)"
+      },
+      {
+        "root": "-th",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-lengthy",
@@ -159456,7 +160494,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "lev",
+        "meaning": "平(古法语)"
+      },
+      {
+        "root": "-el",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-lever",
@@ -160934,7 +161982,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "limb",
+        "meaning": "肢(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-lime",
@@ -162613,7 +163671,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "loaf",
+        "meaning": "面包(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-loan",
@@ -163607,7 +164675,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "long",
+        "meaning": "长(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-look",
@@ -165133,7 +166211,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "lump",
+        "meaning": "块(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-lunch",
@@ -165194,7 +166282,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "lunch",
+        "meaning": "块(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "餐"
+      }
+    ]
   },
   {
     "id": "w-lung",
@@ -165254,7 +166352,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "lung",
+        "meaning": "肺(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-luxury",
@@ -166520,7 +167628,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "make",
+        "meaning": "做"
+      },
+      {
+        "root": "up",
+        "meaning": "上"
+      }
+    ]
   },
   {
     "id": "w-male",
@@ -168457,7 +169575,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "mask",
+        "meaning": "面罩(阿拉伯语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-mass",
@@ -168731,7 +169859,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "mat",
+        "meaning": "席(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-match",
@@ -168807,7 +169945,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "match",
+        "meaning": "火柴(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-mate",
@@ -169647,7 +170795,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "mead",
+        "meaning": "草(古英语)"
+      },
+      {
+        "root": "-ow",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-meal",
@@ -170661,7 +171819,13 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "medi",
+        "meaning": "middle"
+      }
+    ]
   },
   {
     "id": "w-medical",
@@ -171185,7 +172349,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "melt",
+        "meaning": "融(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-member",
@@ -171471,7 +172645,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "mend",
+        "meaning": "短(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-mental",
@@ -171719,7 +172903,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "men",
+        "meaning": "小(法语)"
+      },
+      {
+        "root": "-u",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-merchant",
@@ -172096,7 +173290,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "mer",
+        "meaning": "得(拉丁)"
+      },
+      {
+        "root": "-it",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-merry",
@@ -172573,7 +173777,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "meth",
+        "meaning": "后(希腊)"
+      },
+      {
+        "root": "-od",
+        "meaning": "路"
+      }
+    ]
   },
   {
     "id": "w-metre",
@@ -173459,7 +174673,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "mild",
+        "meaning": "温(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-mile",
@@ -173656,7 +174880,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "milk",
+        "meaning": "奶(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-mill",
@@ -175952,7 +177186,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "mod",
+        "meaning": "方式(拉丁)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-model",
@@ -176014,7 +177258,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "mod",
+        "meaning": "方式"
+      },
+      {
+        "root": "-el",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-modem",
@@ -176173,7 +177427,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "modern",
+        "meaning": "现在(拉丁)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-modest",
@@ -176212,7 +177476,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "mod",
+        "meaning": "适度"
+      },
+      {
+        "root": "-est",
+        "meaning": "最高级"
+      }
+    ]
   },
   {
     "id": "w-modify",
@@ -177126,7 +178400,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "mood",
+        "meaning": "心(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-moon",
@@ -178321,7 +179605,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "mott",
+        "meaning": "喃喃(意大利语)"
+      },
+      {
+        "root": "-o",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-mould",
@@ -178438,7 +179732,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "mount",
+        "meaning": "山(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-mountain",
@@ -178598,7 +179902,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "mourn",
+        "meaning": "悲(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-mouse",
@@ -178759,7 +180073,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "mouth",
+        "meaning": "口(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-mouthful",
@@ -179105,7 +180429,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "much",
+        "meaning": "大(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-mud",
@@ -179434,7 +180768,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "mumm",
+        "meaning": "蜡(波斯语)"
+      },
+      {
+        "root": "-y",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-murder",
@@ -179749,7 +181093,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "mush",
+        "meaning": "苔(古英语)"
+      },
+      {
+        "root": "room",
+        "meaning": "房"
+      }
+    ]
   },
   {
     "id": "w-music",
@@ -180365,7 +181719,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "my",
+        "meaning": "我"
+      },
+      {
+        "root": "self",
+        "meaning": "自己"
+      }
+    ]
   },
   {
     "id": "w-mysterious",
@@ -180492,7 +181856,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "myth",
+        "meaning": "神话(希腊)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-nail",
@@ -180772,7 +182146,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "nap",
+        "meaning": "打盹(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-narrow",
@@ -180835,7 +182219,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "narr",
+        "meaning": "窄(古英语)"
+      },
+      {
+        "root": "-ow",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-nasty",
@@ -181814,7 +183208,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "neat",
+        "meaning": "牛(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-necessarily",
@@ -182596,7 +184000,21 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "neigh",
+        "meaning": "近(古英语)"
+      },
+      {
+        "root": "bor",
+        "meaning": "住(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-neighborhood",
@@ -182846,7 +184264,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "neph",
+        "meaning": "孙(古法语)"
+      },
+      {
+        "root": "-ew",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-nerve",
@@ -182895,7 +184323,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "nerv",
+        "meaning": "筋(拉丁)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-nervous",
@@ -184002,7 +185440,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "nine",
+        "meaning": "九"
+      },
+      {
+        "root": "-th",
+        "meaning": "序数"
+      }
+    ]
   },
   {
     "id": "w-nitrogen",
@@ -185690,7 +187138,13 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "nov",
+        "meaning": "new"
+      }
+    ]
   },
   {
     "id": "w-novelist",
@@ -186755,7 +188209,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "oak",
+        "meaning": "橡(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-oar",
@@ -187956,7 +189420,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "odd",
+        "meaning": "三角(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-odour",
@@ -188201,7 +189675,13 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "of-",
+        "meaning": "towards; against; away"
+      }
+    ]
   },
   {
     "id": "w-offense",
@@ -191265,7 +192745,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "organis",
+        "meaning": "组织(英式)"
+      },
+      {
+        "root": "-ation",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-organise",
@@ -192055,7 +193545,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "ought",
+        "meaning": "欠(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "助动词"
+      }
+    ]
   },
   {
     "id": "w-ounce",
@@ -194429,7 +195929,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "ow",
+        "meaning": "欠(古英语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-owl",
@@ -194472,7 +195982,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "owl",
+        "meaning": "猫头鹰(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-own",
@@ -194696,7 +196216,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "ox",
+        "meaning": "牛(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动物"
+      }
+    ]
   },
   {
     "id": "w-oxygen",
@@ -195468,7 +196998,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "paint",
+        "meaning": "涂(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-painter",
@@ -195649,7 +197189,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "pair",
+        "meaning": "对(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-palace",
@@ -198120,7 +199670,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "past",
+        "meaning": "糊(古法语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-pat",
@@ -198694,7 +200254,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "pave",
+        "meaning": "铺(古法语)"
+      },
+      {
+        "root": "-ment",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-paw",
@@ -198721,7 +200291,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "paw",
+        "meaning": "爪(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-pay",
@@ -200598,7 +202178,21 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "per",
+        "meaning": "通过"
+      },
+      {
+        "root": "fum",
+        "meaning": "烟(拉丁)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-perhaps",
@@ -200705,7 +202299,13 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "peri",
+        "meaning": "around, surrounding"
+      }
+    ]
   },
   {
     "id": "w-permanent",
@@ -201394,7 +202994,17 @@
     ],
     "level": "kaoyan",
     "difficulty": 5,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "person",
+        "meaning": "人(法语)"
+      },
+      {
+        "root": "-nel",
+        "meaning": "集合"
+      }
+    ]
   },
   {
     "id": "w-perspective",
@@ -201623,7 +203233,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "pest",
+        "meaning": "瘟(拉丁)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-pet",
@@ -202171,7 +203791,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "phot",
+        "meaning": "光(希腊)"
+      },
+      {
+        "root": "-o",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-photograph",
@@ -202702,7 +204332,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "pian",
+        "meaning": "弱(意大利语)"
+      },
+      {
+        "root": "-o",
+        "meaning": "乐器"
+      }
+    ]
   },
   {
     "id": "w-pick",
@@ -203376,7 +205016,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "pill",
+        "meaning": "丸(拉丁)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-pillar",
@@ -203488,7 +205138,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "pill",
+        "meaning": "枕(古英语)"
+      },
+      {
+        "root": "-ow",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-pilot",
@@ -203550,7 +205210,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "pilot",
+        "meaning": "舵手(意大利语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-pin",
@@ -204035,7 +205705,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "pip",
+        "meaning": "管(古英语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-pit",
@@ -204349,7 +206029,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "plagu",
+        "meaning": "击(拉丁)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-plain",
@@ -206053,7 +207743,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "pock",
+        "meaning": "袋(古法语)"
+      },
+      {
+        "root": "-et",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-poem",
@@ -206288,7 +207988,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "point",
+        "meaning": "刺(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-pointless",
@@ -209275,7 +210985,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "pound",
+        "meaning": "磅(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "单位"
+      }
+    ]
   },
   {
     "id": "w-pour",
@@ -213072,7 +214792,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "print",
+        "meaning": "印(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-printer",
@@ -217404,7 +219134,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "pub",
+        "meaning": "酒馆(缩写)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-public",
@@ -217711,7 +219451,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "pull",
+        "meaning": "拉(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-pulse",
@@ -218586,7 +220336,21 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "pur",
+        "meaning": "前(拉丁)"
+      },
+      {
+        "root": "sue",
+        "meaning": "跟"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-push",
@@ -218717,7 +220481,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "put",
+        "meaning": "放(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-puzzle",
@@ -219314,7 +221088,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "quarr",
+        "meaning": "抱怨(古法语)"
+      },
+      {
+        "root": "-el",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-quarter",
@@ -219612,7 +221396,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "queue",
+        "meaning": "尾(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-quick",
@@ -219679,7 +221473,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "quick",
+        "meaning": "活(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-quiet",
@@ -219741,7 +221545,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "quiet",
+        "meaning": "静(拉丁)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-quilt",
@@ -220073,7 +221887,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "quot",
+        "meaning": "多少"
+      },
+      {
+        "root": "-e",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-rabbit",
@@ -220133,7 +221957,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rabbit",
+        "meaning": "兔(中古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-race",
@@ -220371,7 +222205,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rack",
+        "meaning": "架(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-radar",
@@ -220599,7 +222443,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "radi",
+        "meaning": "辐"
+      },
+      {
+        "root": "-o",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-radioactive",
@@ -220832,7 +222686,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rag",
+        "meaning": "碎布(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-rail",
@@ -220956,7 +222820,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rail",
+        "meaning": "轨"
+      },
+      {
+        "root": "road",
+        "meaning": "路"
+      }
+    ]
   },
   {
     "id": "w-railway",
@@ -221139,7 +223013,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rain",
+        "meaning": "雨"
+      },
+      {
+        "root": "bow",
+        "meaning": "弓"
+      }
+    ]
   },
   {
     "id": "w-raincoat",
@@ -221176,7 +223060,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "rain",
+        "meaning": "雨"
+      },
+      {
+        "root": "coat",
+        "meaning": "衣"
+      }
+    ]
   },
   {
     "id": "w-rainfall",
@@ -221235,7 +223129,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "rain",
+        "meaning": "雨"
+      },
+      {
+        "root": "fall",
+        "meaning": "落"
+      }
+    ]
   },
   {
     "id": "w-rainy",
@@ -221589,7 +223493,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "rank",
+        "meaning": "排(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-rapid",
@@ -222015,7 +223929,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rat",
+        "meaning": "算"
+      },
+      {
+        "root": "-io",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-rational",
@@ -222149,7 +224073,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "raw",
+        "meaning": "生(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-ray",
@@ -233483,7 +235417,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "rhym",
+        "meaning": "韵(古英语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-rhythm",
@@ -233542,7 +235486,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rhythm",
+        "meaning": "韵律(希腊)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-rib",
@@ -233596,7 +235550,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rib",
+        "meaning": "肋(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-ribbon",
@@ -233791,7 +235755,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "rich",
+        "meaning": "强(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-rid",
@@ -234426,7 +236400,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "riot",
+        "meaning": "暴动(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-riotous",
@@ -234497,7 +236481,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rip",
+        "meaning": "熟(原始日耳曼语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-ripen",
@@ -234660,7 +236654,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "risk",
+        "meaning": "险(意大利语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-rival",
@@ -234954,7 +236958,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "roast",
+        "meaning": "烤(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-rob",
@@ -234991,7 +237005,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "rob",
+        "meaning": "抢(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-robot",
@@ -235041,7 +237065,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rob",
+        "meaning": "奴(捷克语)"
+      },
+      {
+        "root": "-ot",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-rock",
@@ -235171,7 +237205,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "rock",
+        "meaning": "线轴(意大利语)"
+      },
+      {
+        "root": "-et",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-rod",
@@ -235230,7 +237274,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rod",
+        "meaning": "杆(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-role",
@@ -235357,7 +237411,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "roll",
+        "meaning": "卷(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-roller",
@@ -235606,7 +237670,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "roof",
+        "meaning": "顶(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-room",
@@ -235667,7 +237741,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "room",
+        "meaning": "空间(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-rooster",
@@ -235756,7 +237840,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "root",
+        "meaning": "根(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-rope",
@@ -235812,7 +237906,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "rope",
+        "meaning": "绳(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-rose",
@@ -236213,7 +238317,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rough",
+        "meaning": "粗(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-round",
@@ -236280,7 +238394,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "round",
+        "meaning": "圆(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-roundabout",
@@ -236320,7 +238444,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "round",
+        "meaning": "圆"
+      },
+      {
+        "root": "about",
+        "meaning": "周围"
+      }
+    ]
   },
   {
     "id": "w-rouse",
@@ -236489,7 +238623,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rout",
+        "meaning": "路"
+      },
+      {
+        "root": "-ine",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-routinely",
@@ -236589,7 +238733,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "row",
+        "meaning": "排(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-royal",
@@ -236822,7 +238976,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "rud",
+        "meaning": "粗(拉丁)"
+      },
+      {
+        "root": "-e",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-rug",
@@ -236865,7 +239029,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rug",
+        "meaning": "粗毯(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-rugby",
@@ -237402,7 +239576,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rush",
+        "meaning": "冲(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-russia",
@@ -237568,7 +239752,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "rust",
+        "meaning": "锈(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-sack",
@@ -237623,7 +239817,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "sack",
+        "meaning": "袋(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-sacred",
@@ -237804,7 +240008,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sad",
+        "meaning": "满足(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-saddle",
@@ -237970,7 +240184,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "saf",
+        "meaning": "安全(古法语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "safely",
@@ -238290,7 +240514,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "saint",
+        "meaning": "圣(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-sake",
@@ -238349,7 +240583,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "sak",
+        "meaning": "诉讼(古英语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-salad",
@@ -238408,7 +240652,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sal",
+        "meaning": "盐(古法语)"
+      },
+      {
+        "root": "-ad",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-salary",
@@ -238719,7 +240973,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "salt",
+        "meaning": "盐(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-salty",
@@ -239271,7 +241535,13 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "-fy, -ify, -efy",
+        "meaning": "make, cause to be, become"
+      }
+    ]
   },
   {
     "id": "w-saturday",
@@ -239603,7 +241873,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "sav",
+        "meaning": "救(古法语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-saw",
@@ -239664,7 +241944,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "saw",
+        "meaning": "锯(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-say",
@@ -240143,7 +242433,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "scarf",
+        "meaning": "袋(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-scatter",
@@ -240236,7 +242536,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "scen",
+        "meaning": "台(希腊)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-scenery",
@@ -240457,7 +242767,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "schem",
+        "meaning": "形(希腊)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-scholar",
@@ -241023,7 +243343,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "scold",
+        "meaning": "骂(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-scope",
@@ -241366,7 +243696,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "scout",
+        "meaning": "听(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-scrape",
@@ -241425,7 +243765,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "scrap",
+        "meaning": "刮"
+      },
+      {
+        "root": "-e",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-scratch",
@@ -241503,7 +243853,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "scratch",
+        "meaning": "抓(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-scream",
@@ -241798,7 +244158,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sea",
+        "meaning": "海(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-seagull",
@@ -241825,7 +244195,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sea",
+        "meaning": "海"
+      },
+      {
+        "root": "gull",
+        "meaning": "鸥"
+      }
+    ]
   },
   {
     "id": "w-seal",
@@ -241996,7 +244376,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "search",
+        "meaning": "搜(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-seashell",
@@ -242199,7 +244589,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "seat",
+        "meaning": "坐(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-seaweed",
@@ -242316,7 +244716,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "second",
+        "meaning": "第二(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-secondary",
@@ -242826,7 +245236,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "see",
+        "meaning": "看(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-seed",
@@ -242954,7 +245374,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "seek",
+        "meaning": "找(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-seem",
@@ -243007,7 +245437,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "seem",
+        "meaning": "适合(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-seemingly",
@@ -243507,7 +245947,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sell",
+        "meaning": "卖(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-semicircle",
@@ -243751,7 +246201,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "send",
+        "meaning": "送(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-senior",
@@ -244802,7 +247262,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "set",
+        "meaning": "放(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-setting",
@@ -245445,7 +247915,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "sew",
+        "meaning": "缝(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-sex",
@@ -245675,7 +248155,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "shad",
+        "meaning": "阴"
+      },
+      {
+        "root": "-ow",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-shake",
@@ -245736,7 +248226,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "shake",
+        "meaning": "摇(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-shall",
@@ -245787,7 +248287,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "shall",
+        "meaning": "应(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "助动词"
+      }
+    ]
   },
   {
     "id": "w-shallow",
@@ -245850,7 +248360,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "shall",
+        "meaning": "浅滩(古英语)"
+      },
+      {
+        "root": "-ow",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-shame",
@@ -245911,7 +248431,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "shame",
+        "meaning": "羞(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-shanghai",
@@ -246031,7 +248561,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "shape",
+        "meaning": "形(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-share",
@@ -246146,7 +248686,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "shark",
+        "meaning": "鲨(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-sharp",
@@ -246213,7 +248763,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sharp",
+        "meaning": "锐(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-sharpen",
@@ -246343,7 +248903,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "shave",
+        "meaning": "刮(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-shaver",
@@ -246572,7 +249142,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sheep",
+        "meaning": "羊(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-sheet",
@@ -246634,7 +249214,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "sheet",
+        "meaning": "布(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-shelf",
@@ -246694,7 +249284,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "shelf",
+        "meaning": "架(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-shelter",
@@ -246818,7 +249418,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "shield",
+        "meaning": "盾(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-shift",
@@ -246869,7 +249479,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "shift",
+        "meaning": "排(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-shine",
@@ -247059,7 +249679,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "shirt",
+        "meaning": "衬衣(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-shiver",
@@ -247157,7 +249787,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "shock",
+        "meaning": "撞(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-shoe",
@@ -247218,7 +249858,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "shoe",
+        "meaning": "鞋(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-shoot",
@@ -247281,7 +249931,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "shoot",
+        "meaning": "射(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-shooting",
@@ -247410,7 +250070,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "shop",
+        "meaning": "棚(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-shopkeeper",
@@ -247996,7 +250666,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "shot",
+        "meaning": "射(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-should",
@@ -248168,7 +250848,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "shout",
+        "meaning": "喊(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-show",
@@ -248229,7 +250919,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "show",
+        "meaning": "示(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-shower",
@@ -248370,7 +251070,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "shriek",
+        "meaning": "叫(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "shrink",
@@ -248385,7 +251095,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "shrink",
+        "meaning": "缩(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-shut",
@@ -248448,7 +251168,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "shut",
+        "meaning": "关(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-shuttle",
@@ -248639,7 +251369,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sick",
+        "meaning": "病(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-sickness",
@@ -248946,7 +251686,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sigh",
+        "meaning": "叹(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-sight",
@@ -249640,7 +252390,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "silk",
+        "meaning": "丝(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-silly",
@@ -250561,7 +253321,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sink",
+        "meaning": "沉(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-sir",
@@ -250604,7 +253374,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sir",
+        "meaning": "先生(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-sister",
@@ -250733,7 +253513,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sit",
+        "meaning": "坐(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-site",
@@ -251048,7 +253838,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "six",
+        "meaning": "六"
+      },
+      {
+        "root": "-th",
+        "meaning": "序数"
+      }
+    ]
   },
   {
     "id": "w-sixty",
@@ -251301,7 +254101,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "sketch",
+        "meaning": "草图(荷兰语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-ski",
@@ -251364,7 +254174,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "ski",
+        "meaning": "雪橇(挪威语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "skilful",
@@ -251438,7 +254258,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "skill",
+        "meaning": "技(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-skilled",
@@ -251645,7 +254475,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "skim",
+        "meaning": "掠(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-skin",
@@ -251752,7 +254592,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "skip",
+        "meaning": "跳(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-skirt",
@@ -251805,7 +254655,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "skirt",
+        "meaning": "边(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-sky",
@@ -251985,7 +254845,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "slam",
+        "meaning": "砰(拟声词)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-slave",
@@ -252014,7 +254884,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "slav",
+        "meaning": "斯拉夫(古法语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "人"
+      }
+    ]
   },
   {
     "id": "w-slavery",
@@ -252114,7 +254994,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sleep",
+        "meaning": "睡(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-sleepy",
@@ -252205,7 +255095,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "sleeve",
+        "meaning": "袖(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-slender",
@@ -252545,7 +255445,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "slim",
+        "meaning": "细(荷兰语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-slip",
@@ -252605,7 +255515,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "slip",
+        "meaning": "滑(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-slippery",
@@ -252708,7 +255628,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "slit",
+        "meaning": "撕(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-slope",
@@ -252769,7 +255699,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "slope",
+        "meaning": "斜(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-slow",
@@ -252834,7 +255774,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "slow",
+        "meaning": "慢(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-small",
@@ -252897,7 +255847,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "small",
+        "meaning": "小(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-smart",
@@ -253026,7 +255986,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "smell",
+        "meaning": "嗅(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-smelly",
@@ -253222,7 +256192,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "smoke",
+        "meaning": "烟(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-smoker",
@@ -253406,7 +256386,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "smooth",
+        "meaning": "平(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-snack",
@@ -253459,7 +256449,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "snack",
+        "meaning": "咬(荷兰语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-snake",
@@ -253515,7 +256515,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "snake",
+        "meaning": "蛇(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-snatch",
@@ -253550,7 +256560,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "snatch",
+        "meaning": "抓(中古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-sneaker",
@@ -253618,7 +256638,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sneeze",
+        "meaning": "喷嚏(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-sniff",
@@ -253662,7 +256692,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sniff",
+        "meaning": "嗅(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-snow",
@@ -253723,7 +256763,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "snow",
+        "meaning": "雪(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-snowball",
@@ -253981,7 +257031,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "soak",
+        "meaning": "浸(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-soap",
@@ -254042,7 +257102,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "soap",
+        "meaning": "皂(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-soar",
@@ -254126,7 +257196,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sob",
+        "meaning": "哭(中古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-soccer",
@@ -254553,7 +257633,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sock",
+        "meaning": "短袜(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-socket",
@@ -254604,7 +257694,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sock",
+        "meaning": "短袜"
+      },
+      {
+        "root": "-et",
+        "meaning": "孔"
+      }
+    ]
   },
   {
     "id": "w-sofa",
@@ -254647,7 +257747,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sofa",
+        "meaning": "沙发(阿拉伯语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-soft",
@@ -254710,7 +257820,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "soft",
+        "meaning": "软(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-softball",
@@ -255144,7 +258264,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "solemn",
+        "meaning": "庄严(拉丁)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-solid",
@@ -255371,7 +258501,13 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "solv, solu, solut",
+        "meaning": "loosen"
+      }
+    ]
   },
   {
     "id": "w-some",
@@ -255979,7 +259115,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "song",
+        "meaning": "歌(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-soon",
@@ -256403,7 +259549,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "soul",
+        "meaning": "魂(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-sound",
@@ -256476,7 +259632,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "sound",
+        "meaning": "声(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-soup",
@@ -256537,7 +259703,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "soup",
+        "meaning": "汤(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-sour",
@@ -256730,7 +259906,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "south",
+        "meaning": "南(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "southeast",
@@ -256745,7 +259931,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "south",
+        "meaning": "南"
+      },
+      {
+        "root": "east",
+        "meaning": "东"
+      }
+    ]
   },
   {
     "id": "w-southern",
@@ -256798,7 +259994,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "south",
+        "meaning": "南"
+      },
+      {
+        "root": "-ern",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-southwest",
@@ -256840,7 +260046,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "south",
+        "meaning": "南"
+      },
+      {
+        "root": "west",
+        "meaning": "西"
+      }
+    ]
   },
   {
     "id": "souvenir",
@@ -256855,7 +260071,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "souven",
+        "meaning": "记(法语)"
+      },
+      {
+        "root": "-ir",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-souvenirs",
@@ -256940,7 +260166,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "sow",
+        "meaning": "种(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-space",
@@ -258122,7 +261358,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "speech",
+        "meaning": "说话(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-speed",
@@ -258476,7 +261722,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "spill",
+        "meaning": "倒(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-spin",
@@ -258917,7 +262173,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "split",
+        "meaning": "裂(荷兰语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-spoil",
@@ -259609,7 +262875,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "spread",
+        "meaning": "展(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-spring",
@@ -260015,7 +263291,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "squir",
+        "meaning": "影(古法语)"
+      },
+      {
+        "root": "-rel",
+        "meaning": "动物"
+      }
+    ]
   },
   {
     "id": "w-stability",
@@ -260206,7 +263492,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "stack",
+        "meaning": "堆(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-stadium",
@@ -260331,7 +263627,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "staff",
+        "meaning": "棍(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-stage",
@@ -260635,7 +263941,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "stake",
+        "meaning": "桩(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-stale",
@@ -260746,7 +264062,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "stamp",
+        "meaning": "跺(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-stand",
@@ -260986,7 +264312,17 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "star",
+        "meaning": "星(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-stare",
@@ -261107,7 +264443,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "start",
+        "meaning": "跳(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-startle",
@@ -261187,7 +264533,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "start",
+        "meaning": "开"
+      },
+      {
+        "root": "up",
+        "meaning": "上"
+      }
+    ]
   },
   {
     "id": "w-starvation",
@@ -261273,7 +264629,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "starv",
+        "meaning": "死(古英语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-state",
@@ -261761,7 +265127,13 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "sta, stas, stat, stant, -stance",
+        "meaning": "stand, standing, stabilize"
+      }
+    ]
   },
   {
     "id": "w-status",
@@ -262028,7 +265400,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "steak",
+        "meaning": "烤(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-steal",
@@ -262149,7 +265531,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "steam",
+        "meaning": "汽(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-steamer",
@@ -262255,7 +265647,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "steel",
+        "meaning": "钢(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-steep",
@@ -262318,7 +265720,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "steep",
+        "meaning": "陡(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-steer",
@@ -262414,7 +265826,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "stem",
+        "meaning": "干(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-step",
@@ -262475,7 +265897,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "step",
+        "meaning": "步(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-stereotype",
@@ -262502,7 +265934,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "stere",
+        "meaning": "实"
+      },
+      {
+        "root": "type",
+        "meaning": "型"
+      }
+    ]
   },
   {
     "id": "w-steward",
@@ -262635,7 +266077,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "stick",
+        "meaning": "棒(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-sticky",
@@ -262753,7 +266205,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "stiff",
+        "meaning": "硬(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-still",
@@ -262820,7 +266282,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "still",
+        "meaning": "静(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-stimulate",
@@ -262962,7 +266434,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "stir",
+        "meaning": "动(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-stock",
@@ -263022,7 +266504,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "stock",
+        "meaning": "桩(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-stocking",
@@ -263150,7 +266642,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "stom",
+        "meaning": "口(希腊)"
+      },
+      {
+        "root": "-ach",
+        "meaning": "器官"
+      }
+    ]
   },
   {
     "id": "w-stomachache",
@@ -263240,7 +266742,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "stone",
+        "meaning": "石(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-stoop",
@@ -263280,7 +266792,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "stoop",
+        "meaning": "弯(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-stop",
@@ -263341,7 +266863,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "stop",
+        "meaning": "塞(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-stopwatch",
@@ -263766,7 +267298,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "stove",
+        "meaning": "炉(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-straight",
@@ -263829,7 +267371,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "straight",
+        "meaning": "直(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-straightforward",
@@ -263985,7 +267537,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "strait",
+        "meaning": "窄(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-strange",
@@ -264151,7 +267713,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "strap",
+        "meaning": "带(希腊)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-strategy",
@@ -264279,7 +267851,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "straw",
+        "meaning": "稻草(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-strawberry",
@@ -264406,7 +267988,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "stream",
+        "meaning": "流(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-street",
@@ -264467,7 +268059,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "street",
+        "meaning": "路(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-strength",
@@ -264526,7 +268128,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "streng",
+        "meaning": "强(古英语)"
+      },
+      {
+        "root": "-th",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-strengthen",
@@ -264760,7 +268372,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "stretch",
+        "meaning": "伸(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-strict",
@@ -265124,7 +268746,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "strok",
+        "meaning": "打(古英语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-strong",
@@ -265187,7 +268819,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "strong",
+        "meaning": "强(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-structural",
@@ -265567,7 +269209,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "studi",
+        "meaning": "学"
+      },
+      {
+        "root": "-o",
+        "meaning": "场所"
+      }
+    ]
   },
   {
     "id": "w-study",
@@ -265696,7 +269348,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "stuff",
+        "meaning": "料(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-stupid",
@@ -267043,7 +270705,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "such",
+        "meaning": "如此(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-suck",
@@ -267099,7 +270771,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "suck",
+        "meaning": "吸(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-sudden",
@@ -267493,7 +271175,21 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sug",
+        "meaning": "下"
+      },
+      {
+        "root": "gest",
+        "meaning": "带(拉丁)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-suggestion",
@@ -267624,7 +271320,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "suit",
+        "meaning": "跟(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-suitable",
@@ -268492,7 +272198,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sun",
+        "meaning": "日"
+      },
+      {
+        "root": "set",
+        "meaning": "落"
+      }
+    ]
   },
   {
     "id": "w-sunshine",
@@ -269316,7 +273032,17 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "supr",
+        "meaning": "上(拉丁)"
+      },
+      {
+        "root": "-eme",
+        "meaning": "最高级"
+      }
+    ]
   },
   {
     "id": "w-sure",
@@ -269435,7 +273161,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "surf",
+        "meaning": "浪(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-surface",
@@ -269884,7 +273620,21 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sur",
+        "meaning": "超"
+      },
+      {
+        "root": "round",
+        "meaning": "圆"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-surrounding",
@@ -270610,7 +274360,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "swallow",
+        "meaning": "燕(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-swap",
@@ -270666,7 +274426,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "swap",
+        "meaning": "换(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-sway",
@@ -270847,7 +274617,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sweat",
+        "meaning": "汗(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-sweater",
@@ -270948,7 +274728,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "sweep",
+        "meaning": "扫(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-sweet",
@@ -271009,7 +274799,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sweet",
+        "meaning": "甜(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-swell",
@@ -271059,7 +274859,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "swell",
+        "meaning": "胀(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-swift",
@@ -271127,7 +274937,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "swift",
+        "meaning": "快(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-swim",
@@ -271190,7 +275010,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "swim",
+        "meaning": "游(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-swimming",
@@ -271472,7 +275302,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "switch",
+        "meaning": "枝(荷兰语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-switzerland",
@@ -271639,7 +275479,13 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "sym-",
+        "meaning": "with, together with"
+      }
+    ]
   },
   {
     "id": "w-symbolize",
@@ -271935,7 +275781,13 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "sym-",
+        "meaning": "with, together with"
+      }
+    ]
   },
   {
     "id": "w-synthetic",
@@ -272051,7 +275903,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "system",
+        "meaning": "系(希腊)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-systematic",
@@ -272277,7 +276139,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tabl",
+        "meaning": "板"
+      },
+      {
+        "root": "-et",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-tackle",
@@ -272392,7 +276264,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "tag",
+        "meaning": "签(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tail",
@@ -272560,7 +276442,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "take",
+        "meaning": "拿(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-takeoff",
@@ -272587,7 +276479,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "take",
+        "meaning": "拿"
+      },
+      {
+        "root": "off",
+        "meaning": "离"
+      }
+    ]
   },
   {
     "id": "w-tale",
@@ -272783,7 +276685,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "talk",
+        "meaning": "谈(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-tall",
@@ -272846,7 +276758,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tall",
+        "meaning": "高(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-tame",
@@ -272873,7 +276795,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "tam",
+        "meaning": "驯(古英语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-tank",
@@ -272935,7 +276867,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "tank",
+        "meaning": "池(葡萄牙语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tanker",
@@ -273048,7 +276990,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "tap",
+        "meaning": "轻打(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-tape",
@@ -273109,7 +277061,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tape",
+        "meaning": "带(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-target",
@@ -273170,7 +277132,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "targ",
+        "meaning": "盾(原始日耳曼语)"
+      },
+      {
+        "root": "-et",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-task",
@@ -273236,7 +277208,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "task",
+        "meaning": "税(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-taste",
@@ -273297,7 +277279,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "tast",
+        "meaning": "触(古法语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tasteless",
@@ -273500,7 +277492,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "taxi",
+        "meaning": "计费(法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "taxpayer",
@@ -273588,7 +277590,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tea",
+        "meaning": "茶(闽南语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-teach",
@@ -273641,7 +277653,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "teach",
+        "meaning": "教(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-teacher",
@@ -273768,7 +277790,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "team",
+        "meaning": "队(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-teamwork",
@@ -273861,7 +277893,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "tear",
+        "meaning": "泪(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tease",
@@ -274091,7 +278133,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "techn",
+        "meaning": "技"
+      },
+      {
+        "root": "-ique",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-technology",
@@ -274624,7 +278676,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tell",
+        "meaning": "说(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-temperature",
@@ -274851,7 +278913,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "tempt",
+        "meaning": "试(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-temptation",
@@ -275239,7 +279311,13 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "ten, tin, tain",
+        "meaning": "to hold"
+      }
+    ]
   },
   {
     "id": "w-tense",
@@ -275573,7 +279651,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "term",
+        "meaning": "界(拉丁)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-terminal",
@@ -276274,7 +280362,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "thank",
+        "meaning": "谢(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-thankful",
@@ -276368,7 +280466,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "that",
+        "meaning": "那(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "代词"
+      }
+    ]
   },
   {
     "id": "w-the",
@@ -276407,7 +280515,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "the",
+        "meaning": "这(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "冠词"
+      }
+    ]
   },
   {
     "id": "theater",
@@ -276422,7 +280540,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "theat",
+        "meaning": "看(希腊)"
+      },
+      {
+        "root": "-er",
+        "meaning": "场所"
+      }
+    ]
   },
   {
     "id": "w-theatre",
@@ -276543,7 +280671,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "theft",
+        "meaning": "偷(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-their",
@@ -276682,7 +280820,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "them",
+        "meaning": "他们"
+      },
+      {
+        "root": "-",
+        "meaning": "代词"
+      }
+    ]
   },
   {
     "id": "w-theme",
@@ -276743,7 +280891,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "them",
+        "meaning": "题(希腊)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-themselves",
@@ -277485,7 +281643,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "thick",
+        "meaning": "厚(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-thickness",
@@ -277583,7 +281751,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "thief",
+        "meaning": "贼(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-thin",
@@ -277784,7 +281962,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "think",
+        "meaning": "想(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-thinking",
@@ -277915,7 +282103,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "thir",
+        "meaning": "三(古英语)"
+      },
+      {
+        "root": "-d",
+        "meaning": "序数"
+      }
+    ]
   },
   {
     "id": "w-thirst",
@@ -277976,7 +282174,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "thirst",
+        "meaning": "渴(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-thirsty",
@@ -278317,7 +282525,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "though",
+        "meaning": "虽然(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "连词"
+      }
+    ]
   },
   {
     "id": "w-thought",
@@ -278378,7 +282596,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "thought",
+        "meaning": "想(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-thoughtful",
@@ -278541,7 +282769,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "thread",
+        "meaning": "线(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-threat",
@@ -278596,7 +282834,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "threat",
+        "meaning": "威胁(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-threaten",
@@ -278704,7 +282952,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "three",
+        "meaning": "三(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "数"
+      }
+    ]
   },
   {
     "id": "w-thrill",
@@ -278743,7 +283001,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "thrill",
+        "meaning": "刺(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-thriller",
@@ -278883,7 +283151,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "throat",
+        "meaning": "喉(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-through",
@@ -278946,7 +283224,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "through",
+        "meaning": "通过(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "介词"
+      }
+    ]
   },
   {
     "id": "w-throughout",
@@ -278992,7 +283280,17 @@
     ],
     "level": "kaoyan",
     "difficulty": 5,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "through",
+        "meaning": "通"
+      },
+      {
+        "root": "out",
+        "meaning": "出"
+      }
+    ]
   },
   {
     "id": "w-throw",
@@ -279043,7 +283341,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "throw",
+        "meaning": "投(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-thrust",
@@ -279104,7 +283412,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "thrust",
+        "meaning": "推(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-thunder",
@@ -279407,7 +283725,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tick",
+        "meaning": "滴答(拟声词)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-ticket",
@@ -279468,7 +283796,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tick",
+        "meaning": "签(古法语)"
+      },
+      {
+        "root": "-et",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-tide",
@@ -279528,7 +283866,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "tid",
+        "meaning": "时(古英语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tidy",
@@ -279642,7 +283990,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tie",
+        "meaning": "结(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-tiger",
@@ -279870,7 +284228,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "till",
+        "meaning": "耕(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "介词"
+      }
+    ]
   },
   {
     "id": "w-time",
@@ -280156,7 +284524,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "tip",
+        "meaning": "尖(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tire",
@@ -280372,7 +284750,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "tissu",
+        "meaning": "织(古法语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-title",
@@ -280479,7 +284867,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "to",
+        "meaning": "到(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "介词"
+      }
+    ]
   },
   {
     "id": "w-toast",
@@ -280537,7 +284935,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "toast",
+        "meaning": "烤(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tobacco",
@@ -280715,7 +285123,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "toe",
+        "meaning": "趾(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-together",
@@ -280845,7 +285263,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "toil",
+        "meaning": "布(古法语)"
+      },
+      {
+        "root": "-et",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-tokyo",
@@ -281043,7 +285471,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tomat",
+        "meaning": "番茄(阿兹特克语)"
+      },
+      {
+        "root": "-o",
+        "meaning": "植物"
+      }
+    ]
   },
   {
     "id": "w-tomb",
@@ -281078,7 +285516,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tomb",
+        "meaning": "墓(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tomorrow",
@@ -281253,7 +285701,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "ton",
+        "meaning": "声(拉丁)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tongue",
@@ -281314,7 +285772,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tong",
+        "meaning": "舌(古英语)"
+      },
+      {
+        "root": "-ue",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tonight",
@@ -281419,7 +285887,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "too",
+        "meaning": "也(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "副词"
+      }
+    ]
   },
   {
     "id": "w-tool",
@@ -281480,7 +285958,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tool",
+        "meaning": "工具(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tooth",
@@ -281538,7 +286026,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tooth",
+        "meaning": "牙(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-toothache",
@@ -281571,7 +286069,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "tooth",
+        "meaning": "牙"
+      },
+      {
+        "root": "ache",
+        "meaning": "痛"
+      }
+    ]
   },
   {
     "id": "w-toothbrush",
@@ -281614,7 +286122,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tooth",
+        "meaning": "牙"
+      },
+      {
+        "root": "brush",
+        "meaning": "刷"
+      }
+    ]
   },
   {
     "id": "w-toothpaste",
@@ -281646,7 +286164,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tooth",
+        "meaning": "牙"
+      },
+      {
+        "root": "paste",
+        "meaning": "糊"
+      }
+    ]
   },
   {
     "id": "w-top",
@@ -281709,7 +286237,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "top",
+        "meaning": "顶(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-topic",
@@ -282100,7 +286638,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "touch",
+        "meaning": "触(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-tough",
@@ -282169,7 +286717,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "tough",
+        "meaning": "硬(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-tour",
@@ -282541,7 +287099,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "tow",
+        "meaning": "洗(古法语)"
+      },
+      {
+        "root": "-el",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tower",
@@ -282670,7 +287238,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "town",
+        "meaning": "镇(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-toy",
@@ -282880,7 +287458,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "track",
+        "meaning": "迹(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tractor",
@@ -283540,7 +288128,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "trait",
+        "meaning": "拉(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tram",
@@ -283575,7 +288173,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tram",
+        "meaning": "梁(荷兰语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-transaction",
@@ -284556,7 +289164,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "trap",
+        "meaning": "陷(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "travel",
@@ -284571,7 +289189,17 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "trav",
+        "meaning": "劳(古法语)"
+      },
+      {
+        "root": "-el",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-traveler",
@@ -284803,7 +289431,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "treat",
+        "meaning": "拉(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-treatment",
@@ -284998,7 +289636,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "tree",
+        "meaning": "树(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tremble",
@@ -285153,7 +289801,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "trend",
+        "meaning": "转(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-trial",
@@ -285662,7 +290320,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "trop",
+        "meaning": "群(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tropical",
@@ -285949,7 +290617,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "truck",
+        "meaning": "轮(希腊)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-true",
@@ -286170,7 +290848,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "trunk",
+        "meaning": "干(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-trust",
@@ -286233,7 +290921,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "trust",
+        "meaning": "信(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-truth",
@@ -286293,7 +290991,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "truth",
+        "meaning": "真(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-try",
@@ -286422,7 +291130,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "tube",
+        "meaning": "管(法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tuesday",
@@ -286640,7 +291358,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "tun",
+        "meaning": "声(古英语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-tunnel",
@@ -286699,7 +291427,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "tunn",
+        "meaning": "筒(古法语)"
+      },
+      {
+        "root": "-el",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-turbine",
@@ -286878,7 +291616,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "turn",
+        "meaning": "转(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-turning",
@@ -287145,7 +291893,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "twelf",
+        "meaning": "十二(古英语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "数"
+      }
+    ]
   },
   {
     "id": "w-twentieth",
@@ -287187,7 +291945,17 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "twenty",
+        "meaning": "二十"
+      },
+      {
+        "root": "-ieth",
+        "meaning": "序数"
+      }
+    ]
   },
   {
     "id": "w-twenty",
@@ -287515,7 +292283,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "two",
+        "meaning": "二(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "数"
+      }
+    ]
   },
   {
     "id": "w-type",
@@ -287578,7 +292356,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "typ",
+        "meaning": "型(希腊)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-typewriter",
@@ -288082,7 +292870,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "umbr",
+        "meaning": "阴(拉丁)"
+      },
+      {
+        "root": "-ella",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-un",
@@ -291378,7 +296176,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "up",
+        "meaning": "上"
+      },
+      {
+        "root": "on",
+        "meaning": "在"
+      }
+    ]
   },
   {
     "id": "w-upper",
@@ -292818,7 +297626,13 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "vag",
+        "meaning": "wander"
+      }
+    ]
   },
   {
     "id": "w-vain",
@@ -293259,7 +298073,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "vanill",
+        "meaning": "香草(西班牙语)"
+      },
+      {
+        "root": "-a",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-vanish",
@@ -294430,7 +299254,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "vess",
+        "meaning": "器(古法语)"
+      },
+      {
+        "root": "-el",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-vest",
@@ -294477,7 +299311,13 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "vest",
+        "meaning": "clothe; clothing"
+      }
+    ]
   },
   {
     "id": "w-veteran",
@@ -294945,7 +299785,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "view",
+        "meaning": "看(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-viewer",
@@ -295411,7 +300261,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "viol",
+        "meaning": "紫(拉丁)"
+      },
+      {
+        "root": "-et",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-violin",
@@ -295655,7 +300515,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "virt",
+        "meaning": "德"
+      },
+      {
+        "root": "-ue",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-virus",
@@ -297002,7 +301872,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "vot",
+        "meaning": "誓(拉丁)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-voyage",
@@ -297321,7 +302201,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wait",
+        "meaning": "等(古法语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-waiter",
@@ -297466,7 +302356,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wake",
+        "meaning": "醒(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-waken",
@@ -297568,7 +302468,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "walk",
+        "meaning": "走(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-walkman",
@@ -297665,7 +302575,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wall",
+        "meaning": "墙(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-wallet",
@@ -297702,7 +302622,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wall",
+        "meaning": "包(古英语)"
+      },
+      {
+        "root": "-et",
+        "meaning": "小"
+      }
+    ]
   },
   {
     "id": "w-walnut",
@@ -297749,7 +302679,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wal",
+        "meaning": "外国(古英语)"
+      },
+      {
+        "root": "nut",
+        "meaning": "坚果"
+      }
+    ]
   },
   {
     "id": "w-wander",
@@ -298153,7 +303093,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "warm",
+        "meaning": "暖(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-warmth",
@@ -298191,7 +303141,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "warm",
+        "meaning": "暖"
+      },
+      {
+        "root": "-th",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "warn",
@@ -298206,7 +303166,17 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "warn",
+        "meaning": "警(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-warning",
@@ -298337,7 +303307,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wash",
+        "meaning": "洗(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-washroom",
@@ -298427,7 +303407,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wast",
+        "meaning": "空(古法语)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-watch",
@@ -298488,7 +303478,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "watch",
+        "meaning": "守(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-water",
@@ -298671,7 +303671,17 @@
     ],
     "level": "kaoyan",
     "difficulty": 5,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "water",
+        "meaning": "水"
+      },
+      {
+        "root": "proof",
+        "meaning": "证"
+      }
+    ]
   },
   {
     "id": "w-wave",
@@ -298734,7 +303744,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "wave",
+        "meaning": "浪(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-wax",
@@ -298791,7 +303811,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "wax",
+        "meaning": "蜡(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-way",
@@ -298952,7 +303982,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "we",
+        "meaning": "我们(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "代词"
+      }
+    ]
   },
   {
     "id": "w-weak",
@@ -299011,7 +304051,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "weak",
+        "meaning": "弱(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-weaken",
@@ -299167,7 +304217,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wealth",
+        "meaning": "富(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-wealthy",
@@ -299460,7 +304520,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "weave",
+        "meaning": "织(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-web",
@@ -299516,7 +304586,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "web",
+        "meaning": "网(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-website",
@@ -299805,7 +304885,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "week",
+        "meaning": "周(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-weekday",
@@ -299902,7 +304992,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "week",
+        "meaning": "周"
+      },
+      {
+        "root": "end",
+        "meaning": "末"
+      }
+    ]
   },
   {
     "id": "w-weekly",
@@ -300016,7 +305116,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "weep",
+        "meaning": "哭(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-weigh",
@@ -300077,7 +305187,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "weigh",
+        "meaning": "称(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-weight",
@@ -300264,7 +305384,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "weld",
+        "meaning": "焊(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-welfare",
@@ -300468,7 +305598,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "west",
+        "meaning": "西(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-western",
@@ -300529,7 +305669,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "west",
+        "meaning": "西"
+      },
+      {
+        "root": "-ern",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-westerner",
@@ -300692,7 +305842,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wet",
+        "meaning": "湿(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-whale",
@@ -300809,7 +305969,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "what",
+        "meaning": "什么(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "代词"
+      }
+    ]
   },
   {
     "id": "w-whatever",
@@ -300913,7 +306083,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "wheat",
+        "meaning": "麦(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-wheel",
@@ -300974,7 +306154,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "wheel",
+        "meaning": "轮(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-when",
@@ -301284,7 +306474,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "which",
+        "meaning": "哪个(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "代词"
+      }
+    ]
   },
   {
     "id": "w-whichever",
@@ -301405,7 +306605,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "while",
+        "meaning": "时"
+      },
+      {
+        "root": "-st",
+        "meaning": "古英语"
+      }
+    ]
   },
   {
     "id": "w-whip",
@@ -301456,7 +306666,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "whip",
+        "meaning": "鞭(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-whisper",
@@ -301676,7 +306896,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "who",
+        "meaning": "谁(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "代词"
+      }
+    ]
   },
   {
     "id": "w-whole",
@@ -301831,7 +307061,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "who",
+        "meaning": "谁"
+      },
+      {
+        "root": "-m",
+        "meaning": "宾格"
+      }
+    ]
   },
   {
     "id": "w-whose",
@@ -302158,7 +307398,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "widow",
+        "meaning": "寡妇(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-width",
@@ -302217,7 +307467,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "wide",
+        "meaning": "宽"
+      },
+      {
+        "root": "-th",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-wife",
@@ -302276,7 +307536,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wife",
+        "meaning": "妻(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-wild",
@@ -302339,7 +307609,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wild",
+        "meaning": "野(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-wildlife",
@@ -302396,7 +307676,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wild",
+        "meaning": "野"
+      },
+      {
+        "root": "life",
+        "meaning": "生命"
+      }
+    ]
   },
   {
     "id": "w-will",
@@ -302459,7 +307749,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "will",
+        "meaning": "愿(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "助动词"
+      }
+    ]
   },
   {
     "id": "w-willing",
@@ -303160,7 +308460,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wipe",
+        "meaning": "擦(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-wire",
@@ -303458,7 +308768,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "wit",
+        "meaning": "智(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-with",
@@ -303519,7 +308839,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "with",
+        "meaning": "对(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "介词"
+      }
+    ]
   },
   {
     "id": "w-withdraw",
@@ -303575,7 +308905,13 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "with-",
+        "meaning": "back, away"
+      }
+    ]
   },
   {
     "id": "w-within",
@@ -303688,7 +309024,13 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "with-",
+        "meaning": "back, away"
+      }
+    ]
   },
   {
     "id": "w-withstand",
@@ -303861,7 +309203,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wolf",
+        "meaning": "狼(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-woman",
@@ -304160,7 +309512,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wood",
+        "meaning": "木(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-wooden",
@@ -304286,7 +309648,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "wool",
+        "meaning": "毛(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "woolen",
@@ -304301,7 +309673,13 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "roots": [
+      {
+        "root": "-en2",
+        "meaning": "made of"
+      }
+    ]
   },
   {
     "id": "w-woollen",
@@ -305703,7 +311081,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "woul",
+        "meaning": "愿(古英语)"
+      },
+      {
+        "root": "-d",
+        "meaning": "助动词"
+      }
+    ]
   },
   {
     "id": "w-wound",
@@ -305765,7 +311153,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "wound",
+        "meaning": "伤(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-wounded",
@@ -305891,7 +311289,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "wrap",
+        "meaning": "卷(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-wreck",
@@ -305936,7 +311344,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "wreck",
+        "meaning": "残骸(原始日耳曼语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-wrestle",
@@ -306274,7 +311692,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wrong",
+        "meaning": "歪(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-yard",
@@ -306340,7 +311768,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "yard",
+        "meaning": "院(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-yawn",
@@ -306376,7 +311814,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "yawn",
+        "meaning": "打呵欠(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-year",
@@ -306551,7 +311999,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "yell",
+        "meaning": "叫(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-yellow",
@@ -306614,7 +312072,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "yellow",
+        "meaning": "黄(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-yes",
@@ -306810,7 +312278,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "yet",
+        "meaning": "还(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "副词"
+      }
+    ]
   },
   {
     "id": "w-yield",
@@ -306862,7 +312340,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "yield",
+        "meaning": "付(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   },
   {
     "id": "w-yoghurt",
@@ -306946,7 +312434,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "you",
+        "meaning": "你(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "代词"
+      }
+    ]
   },
   {
     "id": "w-young",
@@ -307007,7 +312505,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "young",
+        "meaning": "年轻(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "形容词"
+      }
+    ]
   },
   {
     "id": "w-your",
@@ -307164,7 +312672,17 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "your",
+        "meaning": "你"
+      },
+      {
+        "root": "self",
+        "meaning": "自己"
+      }
+    ]
   },
   {
     "id": "w-yourselves",
@@ -307287,7 +312805,17 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "youth",
+        "meaning": "年轻(古英语)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-yummy",
@@ -307377,7 +312905,17 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "zebr",
+        "meaning": "斑马(刚果语)"
+      },
+      {
+        "root": "-a",
+        "meaning": "动物"
+      }
+    ]
   },
   {
     "id": "w-zero",
@@ -307433,7 +312971,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "zer",
+        "meaning": "零(阿拉伯语)"
+      },
+      {
+        "root": "-o",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-zip",
@@ -307476,7 +313024,17 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "zip",
+        "meaning": "拉链(拟声词)"
+      },
+      {
+        "root": "-",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-zipper",
@@ -307587,7 +313145,17 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "zon",
+        "meaning": "带(希腊)"
+      },
+      {
+        "root": "-e",
+        "meaning": "名词"
+      }
+    ]
   },
   {
     "id": "w-zoo",
@@ -307634,7 +313202,13 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "zo, zoo",
+        "meaning": "animal, life"
+      }
+    ]
   },
   {
     "id": "w-zoom",
@@ -307675,6 +313249,16 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "zoom",
+        "meaning": "嗡(拟声词)"
+      },
+      {
+        "root": "-",
+        "meaning": "动词"
+      }
+    ]
   }
 ]
