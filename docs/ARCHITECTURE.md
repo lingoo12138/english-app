@@ -126,3 +126,25 @@ english-app/
 ---
 
 **最后更新**: 2026-07-27 (v1.59.0)
+
+---
+
+## v1.62.0 W56 — 词表架构
+
+**8 档学段**:
+- primary 小学 (250 词)
+- junior 初中 (794 词)
+- senior 高中 (421 词)
+- gaozhong 高考 (1328 词)
+- cet4 CET4 (743 词)
+- cet6 CET6 (699 词)
+- kaoyan 考研 (500 词)
+- daily 日常 (688 词)
+
+**数据源**:
+- 主: 5334 词 kaoyan + CET4 双源 (v1.6)
+- 补: 89 词 kaCVanime/CEFR-VS-CN 6 学段 (v1.62)
+
+**部署**:
+- gh-pages 自动部署 main + dist → GitHub Pages
+- 用户: https://lingoo12138.github.io/english-app/
