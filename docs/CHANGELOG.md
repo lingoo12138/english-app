@@ -2822,3 +2822,26 @@
 #### 累计
 - 56 release tag / 702 测试 / 123 DICT key
 - 0 P0/P1 维持
+
+---
+
+## [v1.57.0] - 2026-07-27
+
+### v1.57.0 W52 — 5 验证脚本优化 + 5 页面 DICT 扩 + 第 13 次大 review (~1h)
+
+#### W52-A 5 验证脚本优化
+- big-review-v1.57.py: 9 维度 (新增 9 死代码扫描)
+- 误报过滤: 组件 (大写) + hook (use 开头)
+- 0 P0
+
+#### W52-B 5 页面 DICT 扩 25 key
+- Home/PlanPage/Settings/CardReview/ReportsPage 各加 5 key
+- DICT 123 → 148 key
+
+#### W52-C 第 13 次大 review
+- 累积 4 release (v1.53-v1.56) 0 P0 + 0 P1
+- 13 次大 review 累计修 37 处
+
+#### 累计
+- 57 release tag / 702 测试 / 148 DICT key
+- 0 P0/P1 维持
