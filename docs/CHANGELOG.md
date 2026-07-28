@@ -2884,3 +2884,18 @@
 #### 累计
 - 59 release tag / 702 测试
 - 0 P0/P1 维持
+
+---
+
+## [v1.60.0] - 2026-07-27
+
+### v1.60.0 W54 — 4 文档刷 v1.59.0 (5min)
+
+#### 4 文档同步
+- FEATURES/ARCHITECTURE/README/ROADMAP 显示 v1.59.0
+- 58→59 release tag
+- W53→W54 最后更新
+
+#### 累计
+- 60 release tag / 702 测试
+- 0 P0/P1 维持
