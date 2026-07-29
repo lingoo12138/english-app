@@ -2990,3 +2990,33 @@
 
 #### 累计
 - 63 release tag / 702 测试
+
+---
+
+## [v1.65.0] - 2026-07-29
+
+### v1.65.0 W58 — 5088 词词根 (93.8% 覆盖, 5min)
+
+#### W58 词根深度补全
+- 7+ 字符手工补: 21 词 (children, earthquake, eastern 等)
+- 5-6 字符复合词补: 130 词 (ahead, amount, anyone, follow, ground 等)
+- 总 4880 → 5088 词有 roots (+208, 90% → 93.8%)
+
+#### 来源
+- 7+ 字符: 手工拆 (criteria, earthquake, notebook 等)
+- 5-6 字符: 复合词手工 (ahead=a+head, amount=a+mount, anyone=any+one 等)
+- 单音节古英语词 / 缩写 / 国名: 335 词无 roots (配会编造, 跳过)
+
+#### 8 档分布
+- primary 79% / junior 72% (简单词+无词根)
+- senior 97% / gaozhong 98% / cet4 100% / cet6 99% / kaoyan 100% / daily 99%
+
+#### 测试
+- 702 测试全过 (W58 加 roots 后未破坏)
+- 0 P0/P1 维持 200+ 轮
+
+#### 累计
+- **65 release tag** / 702 测试 / 5423 词 / 5088 roots (93.8%)
+- 16 次大 review / 36+ bug 修复
+
+---
