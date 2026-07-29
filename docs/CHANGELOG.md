@@ -3088,3 +3088,15 @@
 #### 累计
 - 5423 词 / 4549 phrases (83.9%) / 5088 roots (93.8%)
 - 剩 874 词无 phrases
+
+## [v1.70.0] - 2026-07-29
+
+### v1.70.0 W63 — phrases 续补 56 词 (84.9%)
+
+#### W63 phrases P4
+- 7 字符 56 词 (CET4/6 高频): acquire/appoint/compete/crucial/dictate/diverse/enhance/exclude/exploit/explore/imitate/inherit/inspire/install/justify/mislead/predict/recruit/require/selfish/tremble/undergo/violate
+- 含常用短语: acquire knowledge, appoint as, compete with, deserve to, inherit from, install in, predict that, recruit from, require of, undergo surgery, violate law
+
+#### 累计
+- 5423 词 / 4605 phrases (84.9%) / 5088 roots (93.8%)
+- 剩 818 词无 phrases (8+ 字符为主)

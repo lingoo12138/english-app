@@ -3304,7 +3304,16 @@
       "取得；获得；学到",
       "获得；取得；学到；捕获"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "acquire knowledge",
+        "zh": "获得知识"
+      },
+      {
+        "en": "acquire skill",
+        "zh": "习得技能"
+      }
+    ],
     "examples": [
       {
         "en": "Manning hoped to acquire valuable works of art as cheaply as possible.",
@@ -3892,7 +3901,12 @@
     "translations": [
       "女演员"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "actress in",
+        "zh": "...的女演员"
+      }
+    ],
     "examples": [
       {
         "en": "She's not only a great dramatic actress but she's also very funny.",
@@ -9934,7 +9948,12 @@
       "早已，已经",
       "已经，早已；先前"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "already done",
+        "zh": "已完成"
+      }
+    ],
     "examples": [
       {
         "en": "The design of the new house is similar to those that have already been built.",
@@ -11314,7 +11333,12 @@
     "translations": [
       "放大，增强；扩大"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "amplify signal",
+        "zh": "放大信号"
+      }
+    ],
     "examples": [
       {
         "en": "an amplified guitar",
@@ -11529,7 +11553,12 @@
     "translations": [
       "分析，分解，解析"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "analyse data",
+        "zh": "分析数据"
+      }
+    ],
     "examples": [
       {
         "en": "She still needs to analyse the data.",
@@ -13238,7 +13267,12 @@
     "translations": [
       "任何人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "anybody who",
+        "zh": "任何人"
+      }
+    ],
     "examples": [
       {
         "en": "You should have a try, don't swallow anybody.",
@@ -14700,7 +14734,16 @@
       "任命，委任；约定",
       "任命；指定；约定"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "appoint as",
+        "zh": "任命为"
+      },
+      {
+        "en": "appoint to",
+        "zh": "委派到"
+      }
+    ],
     "examples": [
       {
         "en": "officials appointed by the government",
@@ -18923,7 +18966,12 @@
       "运动员；田径运动员",
       "运动员，体育家；身强力壮的人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "top athlete",
+        "zh": "顶尖运动员"
+      }
+    ],
     "examples": [
       {
         "en": "a professional athlete",
@@ -22062,7 +22110,12 @@
     "translations": [
       "令人畏惧的；很"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "awfully so",
+        "zh": "非常"
+      }
+    ],
     "examples": [
       {
         "en": "You have to become awfully large to be unaffordable -- there's lots of cash, lots of capital out there for acquisitions.",
@@ -22107,7 +22160,12 @@
       "笨拙的；尴尬的",
       "尴尬的；笨拙的；棘手的；不合适的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "awkward of",
+        "zh": "...的笨拙"
+      }
+    ],
     "examples": [
       {
         "en": "I hoped he would stop asking awkward questions .",
@@ -28264,7 +28322,12 @@
       "为…的爱的",
       "爱人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "beloved by",
+        "zh": "被...爱戴"
+      }
+    ],
     "examples": [
       {
         "en": "He never recovered from the death of his beloved daughter.",
@@ -28945,7 +29008,12 @@
       "此外；而且",
       "除…之外"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "besides of",
+        "zh": "除...之外"
+      }
+    ],
     "examples": [
       {
         "en": "I need the money. And besides, when I agree to do something, I do it.",
@@ -29795,7 +29863,12 @@
       "十亿",
       "十亿的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "a billion of",
+        "zh": "十亿"
+      }
+    ],
     "examples": [
       {
         "en": "The final cost could be as much as one billion dollars.",
@@ -30453,7 +30526,12 @@
       "(英)饼干；(美)软饼",
       "小点心，饼干"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "eat biscuit",
+        "zh": "吃饼干"
+      }
+    ],
     "examples": [
       {
         "en": "a packet of chocolate biscuits",
@@ -36685,7 +36763,12 @@
     "translations": [
       "脆的；易损坏的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "brittle of",
+        "zh": "...的脆"
+      }
+    ],
     "examples": [
       {
         "en": "But while our screens are brittle, theirs is flexible––at what they say is one tenth the price.",
@@ -39425,7 +39508,12 @@
       "屠杀",
       "屠夫"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "butcher shop",
+        "zh": "肉店"
+      }
+    ],
     "examples": [
       {
         "en": "Pigs were butchered, hams were hung to dry from the ceiling.",
@@ -41646,7 +41734,12 @@
       "小卖部；临时餐室",
       "食堂，小卖部；水壶"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "school canteen",
+        "zh": "学校食堂"
+      }
+    ],
     "examples": [
       {
         "en": "Rennie had eaten his supper in the canteen.",
@@ -49762,7 +49855,12 @@
     "translations": [
       "香烟，纸烟，卷烟"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "cigarette case",
+        "zh": "烟盒"
+      }
+    ],
     "examples": [
       {
         "en": "RA 7171 plows back annually 15 percent of cigaret excise tax revenues collected by the National Government to the virginia leaf producing provinces of Ilocos Sur, Ilocos Norte, La Union and Abra.",
@@ -50892,7 +50990,12 @@
       "澄清，阐明",
       "澄清；阐明"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "clarify that",
+        "zh": "澄清"
+      }
+    ],
     "examples": [
       {
         "en": "Reporters asked him to clarify his position (= say exactly what his beliefs are ) on welfare reform.",
@@ -55097,7 +55200,12 @@
       "安慰；舒适；安慰者",
       "安慰；使（痛苦等）缓和"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "comfort of",
+        "zh": "...的舒适"
+      }
+    ],
     "examples": [
       {
         "en": "I dress for comfort, not fashion.",
@@ -56899,7 +57007,12 @@
       "比赛；竞争；对抗",
       "竞争；比赛；对抗"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "compete for",
+        "zh": "为...竞争"
+      }
+    ],
     "examples": [
       {
         "en": "Me: What do you mean \"compete\"?",
@@ -64579,7 +64692,12 @@
     "translations": [
       "证明…有罪"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "convict of",
+        "zh": "判...有罪"
+      }
+    ],
     "examples": [
       {
         "en": "a convicted murderer",
@@ -69939,7 +70057,12 @@
     "translations": [
       "至关重要的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "crucial to",
+        "zh": "对...至关重要"
+      }
+    ],
     "examples": [
       {
         "en": "The conservation of tropical forests is of crucial importance .",
@@ -70079,7 +70202,12 @@
     "translations": [
       "残暴，残酷"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "cruelty to",
+        "zh": "对...的残忍"
+      }
+    ],
     "examples": [
       {
         "en": "The children had suffered cruelty and neglect.",
@@ -78071,7 +78199,12 @@
       "应受，值得",
       "应受，应得"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "deserve to",
+        "zh": "值得"
+      }
+    ],
     "examples": [
       {
         "en": "What have I done to deserve this?",
@@ -80145,7 +80278,12 @@
       "命令，规定",
       "口授；命令"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "dictate to",
+        "zh": "向...口授"
+      }
+    ],
     "examples": [
       {
         "en": "Federal funds have to be used as dictated by Washington.",
@@ -82110,7 +82248,12 @@
     "translations": [
       "使无能，使伤残"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "disable of",
+        "zh": "使...残疾"
+      }
+    ],
     "examples": [
       {
         "en": "Carter was permanently disabled in the war.",
@@ -85459,7 +85602,12 @@
       "不一样的，相异的",
       "不同的；多种多样的；变化多的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "diverse of",
+        "zh": "多样的"
+      }
+    ],
     "examples": [
       {
         "en": "subjects as diverse as pop music and archaeology",
@@ -87822,7 +87970,12 @@
     "translations": [
       "引人注目的，戏剧的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "dramatic of",
+        "zh": "戏剧性的"
+      }
+    ],
     "examples": [
       {
         "en": "the amateur dramatic society",
@@ -96747,7 +96900,12 @@
     "translations": [
       "提高；加强；增加"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "enhance with",
+        "zh": "用...增强"
+      }
+    ],
     "examples": [
       {
         "en": "Good lighting will enhance any room.",
@@ -97757,7 +97915,12 @@
       "使具有权利，使具有资格",
       "给…权利(或资格)"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "entitled to",
+        "zh": "有权..."
+      }
+    ],
     "examples": [
       {
         "en": "If the warranty is limited, the terms may entitle you to a replacement or refund.",
@@ -101892,7 +102055,12 @@
       "排除，不包括",
       "把…排除在外"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "exclude from",
+        "zh": "把...排除"
+      }
+    ],
     "examples": [
       {
         "en": "a special diet that excludes dairy products",
@@ -103778,7 +103946,12 @@
       "开发，开拓；剥削；开采",
       "勋绩；功绩"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "exploit of",
+        "zh": "剥削"
+      }
+    ],
     "examples": [
       {
         "en": "the urgent need to exploit the resources of the Irish Sea",
@@ -103819,7 +103992,12 @@
       "探险，探索",
       "探索；探测；探险"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "explore for",
+        "zh": "勘探"
+      }
+    ],
     "examples": [
       {
         "en": "Management need to explore ways of improving office security.",
@@ -137571,7 +137749,12 @@
       "诚实",
       "诚实，正直"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "honesty of",
+        "zh": "...的诚实"
+      }
+    ],
     "examples": [
       {
         "en": "a politician of rare honesty and courage",
@@ -142032,7 +142215,12 @@
       "模仿",
       "模仿，仿效；仿制"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "imitate from",
+        "zh": "模仿"
+      }
+    ],
     "examples": [
       {
         "en": "She was a splendid mimic and loved to imitate Winston Churchill.",
@@ -146108,7 +146296,12 @@
     "translations": [
       "膨胀"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "inflate with",
+        "zh": "充气"
+      }
+    ],
     "examples": [
       {
         "en": "It took us half an hour to inflate the dinghy.",
@@ -146635,7 +146828,12 @@
       "继承",
       "继承(传统等)"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "inherit from",
+        "zh": "从...继承"
+      }
+    ],
     "examples": [
       {
         "en": "inherited wealth",
@@ -148301,7 +148499,12 @@
       "鼓舞；给…以灵感",
       "激发；鼓舞；启示；产生；使生灵感"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "inspire to",
+        "zh": "激励"
+      }
+    ],
     "examples": [
       {
         "en": "We need someone who can inspire the team.",
@@ -148346,7 +148549,12 @@
       "安装",
       "安装，设置"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "install in",
+        "zh": "安装在"
+      }
+    ],
     "examples": [
       {
         "en": "They've installed the new computer network at last.",
@@ -155835,7 +156043,12 @@
       "证明……正当",
       "证明…是正当的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "justify with",
+        "zh": "用...证明"
+      }
+    ],
     "examples": [
       {
         "en": "Ministers must appear before Parliament and justify their actions.",
@@ -178491,7 +178704,12 @@
       "误导",
       "使误入岐途"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "mislead into",
+        "zh": "误导"
+      }
+    ],
     "examples": [
       {
         "en": "Don't be misled by appearances, he's a good worker.",
@@ -200290,7 +200508,12 @@
     "translations": [
       "悖论，自相矛盾"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "paradox of",
+        "zh": "...的悖论"
+      }
+    ],
     "examples": [
       {
         "en": "It's a paradox that in such a rich country there can be so much poverty.",
@@ -214576,7 +214799,12 @@
       "预言，预告，预测",
       "预报，预言；预知"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "predict that",
+        "zh": "预测"
+      }
+    ],
     "examples": [
       {
         "en": "Sales were five percent lower than predicted.",
@@ -220638,7 +220866,12 @@
     "translations": [
       "繁荣"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "prosper in",
+        "zh": "在...繁荣"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -221421,7 +221654,12 @@
     "translations": [
       "激起，挑起"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "provoke to",
+        "zh": "激起"
+      }
+    ],
     "examples": [
       {
         "en": "The novel has provoked fierce debate in the US.",
@@ -229214,7 +229452,12 @@
       "招募，吸收",
       "新兵，新成员"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "recruit from",
+        "zh": "招募"
+      }
+    ],
     "examples": [
       {
         "en": "We're having difficulty recruiting enough qualified staff.",
@@ -234396,7 +234639,12 @@
       "需要；要求，命令",
       "需要；要求；命令"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "require of",
+        "zh": "要求"
+      }
+    ],
     "examples": [
       {
         "en": "Campbell's broken leg will probably require surgery.",
@@ -248432,7 +248680,12 @@
       "自私的",
       "自私的；利己主义的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "selfish of",
+        "zh": "...的自私"
+      }
+    ],
     "examples": [
       {
         "en": "How can you be so selfish?",
@@ -263880,7 +264133,12 @@
       "指定，具体说明",
       "指定，详细说明"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "specify that",
+        "zh": "具体说明"
+      }
+    ],
     "examples": [
       {
         "en": "Payments will be made for a specified number of months.",
@@ -267150,7 +267408,12 @@
     "translations": [
       "吃惊"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "startle at",
+        "zh": "对...吃惊"
+      }
+    ],
     "examples": [
       {
         "en": "Sorry, I didn't mean to startle you.",
@@ -275666,7 +275929,12 @@
       "假设；认为；让（虚拟语气）；推想",
       "假使…结果会怎样"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "suppose that",
+        "zh": "假定"
+      }
+    ],
     "examples": [
       {
         "en": "There were many more deaths than was first supposed.",
@@ -280979,7 +281247,12 @@
       "单调沉闷的",
       "冗长乏味的，沉闷的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "tedious to",
+        "zh": "对...单调"
+      }
+    ],
     "examples": [
       {
         "en": "The audience coughed down the tedious speaker.",
@@ -292470,7 +292743,12 @@
       "发抖；战栗；焦虑；摇晃",
       "颤抖；战栗；摇晃"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "tremble with",
+        "zh": "因...颤抖"
+      }
+    ],
     "examples": [
       {
         "en": "His lip started to tremble and then he started to cry.",
@@ -296301,7 +296579,12 @@
       "承受",
       "经历，经受，忍受"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "undergo surgery",
+        "zh": "接受手术"
+      }
+    ],
     "examples": [
       {
         "en": "The country has undergone massive changes recently.",
@@ -302917,7 +303200,12 @@
       "违反",
       "违反；侵犯，妨碍；亵渎"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "violate law",
+        "zh": "违反法律"
+      }
+    ],
     "examples": [
       {
         "en": "34 protesters were arrested for violating criminal law.",
