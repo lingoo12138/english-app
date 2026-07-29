@@ -3112,3 +3112,14 @@
 #### 累计
 - 5423 词 / 4658 phrases (85.9%) / 5088 roots (93.8%)
 - 剩 765 词无 phrases (9+ 字符为主)
+
+## [v1.72.0] - 2026-07-29
+
+### v1.72.0 W65 — phrases 续补 41 词 (86.6%)
+
+#### W65 phrases P6
+- 9 字符 41 词 (CET4/6 + daily): ambitious/embarrass/emphasize/fascinate/highlight/miserable/precisely/privilege/professor/prominent/recognize/reference/register/reinforce/remarkable/resistant/restaurant/sacrifice/sensitive/skeptical/somewhat/specialty/spiritual/stability/strengthen/structure/struggle/suitable/surround/sympathy/systematic
+
+#### 累计
+- 5423 词 / 4699 phrases (86.6%) / 5088 roots (93.8%)
+- 剩 724 词无 phrases (10+ 字符)

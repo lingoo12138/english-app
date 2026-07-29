@@ -5918,7 +5918,12 @@
     "translations": [
       "逆境，不幸"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "in adversity",
+        "zh": "在逆境中"
+      }
+    ],
     "examples": [
       {
         "en": "his courage in the face of adversity",
@@ -6360,7 +6365,12 @@
     "translations": [
       "主张者，倡导者"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "advocator of",
+        "zh": "...的倡导者"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -10879,7 +10889,12 @@
     "translations": [
       "有雄心的，野心勃勃的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "ambitious for",
+        "zh": "对...有抱负"
+      }
+    ],
     "examples": [
       {
         "en": "Alfred was intensely ambitious, obsessed with the idea of becoming rich.",
@@ -22706,7 +22721,12 @@
     "translations": [
       "倒退，退步"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "backslide into",
+        "zh": "倒退"
+      }
+    ],
     "examples": [
       {
         "en": "But if you backslide, Hiram says, “Start over.",
@@ -42856,7 +42876,12 @@
     "translations": [
       "照料者"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "caregiver of",
+        "zh": "...的照料者"
+      }
+    ],
     "examples": [
       {
         "en": "In addition to fulfilling the traditional roles of caregiver and homemaker, many Orthodox women also assume the role of primary breadwinner so their husbands can pursue religious studies full time.",
@@ -43022,7 +43047,12 @@
       "木匠，木工",
       "当木匠，做木匠工作"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "carpenter of",
+        "zh": "...的木匠"
+      }
+    ],
     "examples": [
       {
         "en": "He is a carpenter by profession.",
@@ -50902,7 +50932,12 @@
     "translations": [
       "文明的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "civilized of",
+        "zh": "...的文明"
+      }
+    ],
     "examples": [
       {
         "en": "Such things should not happen in a civilized society.",
@@ -54250,7 +54285,12 @@
       "同事",
       "同事，同僚"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "colleague of",
+        "zh": "...的同事"
+      }
+    ],
     "examples": [
       {
         "en": "a colleague of mine from the bank",
@@ -71517,7 +71557,12 @@
     "translations": [
       "当前；一般地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "currently so",
+        "zh": "当前"
+      }
+    ],
     "examples": [
       {
         "en": "the products that are currently available",
@@ -79395,7 +79440,12 @@
       "决定；查明；决心",
       "（使）下决心，（使）做出决定"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "determine to",
+        "zh": "下决心"
+      }
+    ],
     "examples": [
       {
         "en": "The amount of available water determines the number of houses that can be built.",
@@ -83832,7 +83882,12 @@
     "translations": [
       "不诚实的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "dishonest of",
+        "zh": "不诚实"
+      }
+    ],
     "examples": [
       {
         "en": "dishonest traders",
@@ -91610,7 +91665,12 @@
     "translations": [
       "脾气随和的，温和的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "easygoing of",
+        "zh": "...的随和"
+      }
+    ],
     "examples": [
       {
         "en": "They thought she would be popular, warm and easygoing, but not demanding and difficult.",
@@ -94637,7 +94697,12 @@
       "使窘迫，使为难",
       "使局促不安；使困窘；阻碍"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "embarrass at",
+        "zh": "使尴尬"
+      }
+    ],
     "examples": [
       {
         "en": "He didn't want to embarrass her by asking questions.",
@@ -95333,7 +95398,12 @@
       "强调",
       "强调，着重"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "emphasize on",
+        "zh": "强调"
+      }
+    ],
     "examples": [
       {
         "en": "The report emphasizes the importance of improving safety standards.",
@@ -96377,7 +96447,12 @@
       "精力充沛的",
       "精力充沛的；积极的；有力的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "energetic of",
+        "zh": "...的精力充沛"
+      }
+    ],
     "examples": [
       {
         "en": "an energetic man",
@@ -107396,7 +107471,12 @@
     "translations": [
       "想象，幻想"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "fantasize about",
+        "zh": "幻想"
+      }
+    ],
     "examples": [
       {
         "en": "I fantasized about writing music.",
@@ -107900,7 +107980,12 @@
     "translations": [
       "强烈地吸引，迷住"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "fascinate with",
+        "zh": "迷住"
+      }
+    ],
     "examples": [
       {
         "en": "The idea of travelling through time fascinates me.",
@@ -116838,7 +116923,12 @@
     "translations": [
       "规定，制定"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "formulate of",
+        "zh": "制定"
+      }
+    ],
     "examples": [
       {
         "en": "By visualizing where you want to be, you start helping your mind formulate ways to achieve that next goal in your life.",
@@ -136282,7 +136372,12 @@
     "translations": [
       "照亮；突出；强调"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "highlight of",
+        "zh": "突出"
+      }
+    ],
     "examples": [
       {
         "en": "Your résumé should highlight your skills and achievements.",
@@ -137676,7 +137771,12 @@
     "translations": [
       "主妇"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "homemaker of",
+        "zh": "...的主妇"
+      }
+    ],
     "examples": [
       {
         "en": "Whether you are a carpenter or a therapist, a homemaker or a professor, it makes no difference.",
@@ -141668,7 +141768,12 @@
     "translations": [
       "无知，愚昧"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "ignorance of",
+        "zh": "...的无知"
+      }
+    ],
     "examples": [
       {
         "en": "Excuse my ignorance, but how does it actually work?",
@@ -147083,7 +147188,12 @@
     "translations": [
       "最初，起初"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "initially so",
+        "zh": "最初"
+      }
+    ],
     "examples": [
       {
         "en": "Stan initially wanted to go to medical school.",
@@ -158292,7 +158402,12 @@
     "translations": [
       "费力的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "laborious of",
+        "zh": "...的费劲"
+      }
+    ],
     "examples": [
       {
         "en": "the laborious business of drying the crops",
@@ -166958,7 +167073,12 @@
     "translations": [
       "合乎情理地，符合逻辑地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "logically so",
+        "zh": "合逻辑地"
+      }
+    ],
     "examples": [
       {
         "en": "The detective has to discover the murderer by logical deduction.",
@@ -171915,7 +172035,12 @@
     "translations": [
       "引起惊异的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "marvelous of",
+        "zh": "...的奇妙"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -172041,7 +172166,12 @@
     "translations": [
       "男性的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "masculine of",
+        "zh": "...的男性"
+      }
+    ],
     "examples": [
       {
         "en": "They're nice curtains, but I'd prefer something a little more masculine.",
@@ -178748,7 +178878,12 @@
       "痛苦的",
       "痛苦的，悲惨的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "miserable of",
+        "zh": "...的痛苦"
+      }
+    ],
     "examples": [
       {
         "en": "I've been so miserable since Pat left me.",
@@ -178841,7 +178976,12 @@
     "translations": [
       "被误导的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "misguided of",
+        "zh": "...的误导"
+      }
+    ],
     "examples": [
       {
         "en": "His parents still clung to the misguided belief that his common sense would keep him out of serious trouble.",
@@ -191122,7 +191262,12 @@
       "反对",
       "反对，异议；不喜欢"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "objection to",
+        "zh": "反对"
+      }
+    ],
     "examples": [
       {
         "en": "Her objection was that he was too young.",
@@ -198412,7 +198557,12 @@
     "translations": [
       "夸张，夸大"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "overstate of",
+        "zh": "夸大"
+      }
+    ],
     "examples": [
       {
         "en": "To say that all motorists speed in residential areas is overstating the case.",
@@ -202304,7 +202454,12 @@
     "translations": [
       "消极地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "passively so",
+        "zh": "被动地"
+      }
+    ],
     "examples": [
       {
         "en": "their passive acceptance of their fate",
@@ -216898,7 +217053,12 @@
     "translations": [
       "事先"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "previously so",
+        "zh": "以前"
+      }
+    ],
     "examples": [
       {
         "en": "Guyana's railways were previously owned by private companies.",
@@ -217086,7 +217246,12 @@
       "主要地，首先",
       "首先；主要地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "primarily so",
+        "zh": "主要地"
+      }
+    ],
     "examples": [
       {
         "en": "The advertisement is aimed primarily at children.",
@@ -219241,7 +219406,12 @@
     "translations": [
       "教授"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "professor of",
+        "zh": "...的教授"
+      }
+    ],
     "examples": [
       {
         "en": "The professor improvised a poem in the class.",
@@ -222017,6 +222187,12 @@
       {
         "root": "-logy",
         "meaning": "学问；学科"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "psychology of",
+        "zh": "...的心理学"
       }
     ]
   },
@@ -229197,7 +229373,12 @@
     "translations": [
       "认识，认出；承认"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "recognize of",
+        "zh": "认出"
+      }
+    ],
     "examples": [
       {
         "en": "I didn't recognize you in your uniform.",
@@ -233925,7 +234106,12 @@
     "translations": [
       "重复地；一再"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "repeatedly so",
+        "zh": "反复地"
+      }
+    ],
     "examples": [
       {
         "en": "Graham was repeatedly warned not to work so hard.",
@@ -234520,7 +234706,12 @@
       "复制, 再生",
       "繁殖，生殖"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "reproduce of",
+        "zh": "繁殖"
+      }
+    ],
     "examples": [
       {
         "en": "Klimt's artwork is reproduced in this exquisite book.",
@@ -236076,7 +236267,12 @@
     "translations": [
       "各自的，各个的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "respective of",
+        "zh": "...的各自"
+      }
+    ],
     "examples": [
       {
         "en": "We all went back to our respective homes to wait for news.",
@@ -257176,6 +257372,12 @@
         "root": "ept",
         "meaning": "含 ept 词根"
       }
+    ],
+    "phrases": [
+      {
+        "en": "skeptical of",
+        "zh": "...的怀疑"
+      }
     ]
   },
   {
@@ -262069,7 +262271,12 @@
       "一点儿",
       "有点"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "somewhat of",
+        "zh": "有点"
+      }
+    ],
     "examples": [
       {
         "en": "Things have changed somewhat since then.",
