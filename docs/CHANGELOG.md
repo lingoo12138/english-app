@@ -3186,3 +3186,16 @@
 - 5423 词 / 5164 phrases (95.2%) / 5088 roots (93.8%)
 - 5-8 字符 100% 配完
 - 剩 259 词无 phrases (4 字符以下为主)
+
+## [v1.78.0] - 2026-07-29
+
+### v1.78.0 W71 — phrases 续补 65 词 (96.4%)
+
+#### W71 phrases P12
+- 5-6 字符 65 词 (gaozhong 中频)
+- 涵盖: crayon/dampen/deceit/devise/digest/during/excite/expose/gently/induce/...
+
+#### 累计
+- 5423 词 / 5229 phrases (96.4%) / 5088 roots (93.8%)
+- 5-6 字符 100% 配完
+- 剩 194 词无 phrases (1-4 字符)
