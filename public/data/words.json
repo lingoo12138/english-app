@@ -13,7 +13,20 @@
       "字母A；第一流的；学业成绩达最高标准的评价符号",
       "[物]安（ampere）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "a few",
+        "zh": "一些；几个"
+      },
+      {
+        "en": "a lot of",
+        "zh": "许多；大量"
+      },
+      {
+        "en": "a piece of",
+        "zh": "一片/块/张"
+      }
+    ],
     "examples": [
       {
         "en": "We have a problem.",
@@ -21985,7 +21998,16 @@
     "translations": [
       "斧子"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "an ax to grind",
+        "zh": "有个人打算/私心"
+      },
+      {
+        "en": "split with an ax",
+        "zh": "用斧头劈开"
+      }
+    ],
     "examples": [
       {
         "en": "He grinds ax on the grindstone.",
@@ -24396,7 +24418,16 @@
       "吠叫声",
       "吠，叫"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "bark at",
+        "zh": "向...吠叫"
+      },
+      {
+        "en": "dog's bark",
+        "zh": "狗叫声"
+      }
+    ],
     "examples": [
       {
         "en": "Amy's voice was a hoarse bark.",
@@ -31872,7 +31903,20 @@
       "小船；轮船",
       "划船"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "by boat",
+        "zh": "乘船"
+      },
+      {
+        "en": "row a boat",
+        "zh": "划船"
+      },
+      {
+        "en": "fishing boat",
+        "zh": "渔船"
+      }
+    ],
     "examples": [
       {
         "en": "a fishing boat",
@@ -37042,7 +37086,16 @@
     "translations": [
       "额；眉，眉毛"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "knit one's brow",
+        "zh": "皱眉"
+      },
+      {
+        "en": "eyebrow",
+        "zh": "眉毛"
+      }
+    ],
     "examples": [
       {
         "en": "He wiped his brow with the back of his hand.",
@@ -49044,7 +49097,20 @@
       "砍，劈；切细",
       "砍"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "chop down",
+        "zh": "砍倒"
+      },
+      {
+        "en": "chop up",
+        "zh": "切碎"
+      },
+      {
+        "en": "pork chop",
+        "zh": "猪排"
+      }
+    ],
     "examples": [
       {
         "en": "He went outside to chop some more wood for the fire.",
@@ -71632,7 +71698,12 @@
     "translations": [
       "爸爸；爹爹"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "dad and mom",
+        "zh": "爸爸妈妈"
+      }
+    ],
     "examples": [
       {
         "en": "She lives with her mom and dad.",
@@ -87046,7 +87117,12 @@
     "translations": [
       "速度三角形定位法（dead reckoning）；数据记录器（Data Recorder）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "Dr. Smith",
+        "zh": "史密斯医生"
+      }
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -88884,7 +88960,20 @@
       "使迟钝；使阴暗；缓和",
       "(Dull)人名；(罗、匈)杜尔；(柬)杜；(英)达尔"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "dull pain",
+        "zh": "隐痛"
+      },
+      {
+        "en": "dull weather",
+        "zh": "阴沉的天气"
+      },
+      {
+        "en": "dull book",
+        "zh": "枯燥的书"
+      }
+    ],
     "examples": [
       {
         "en": "Life is never dull when Elizabeth is here.",
@@ -108976,7 +109065,17 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "on foot (feet)",
+        "zh": "步行"
+      },
+      {
+        "en": "drag one's feet",
+        "zh": "拖延"
+      }
+    ]
   },
   {
     "id": "w-fellow",
@@ -118769,7 +118868,20 @@
     "translations": [
       "从…来；离开"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "come from",
+        "zh": "来自"
+      },
+      {
+        "en": "far from",
+        "zh": "远非；远离"
+      },
+      {
+        "en": "from now on",
+        "zh": "从现在起"
+      }
+    ],
     "examples": [
       {
         "en": "...only one kilometre from the border.",
@@ -129411,7 +129523,16 @@
     "translations": [
       "体育馆，健身房"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "at the gym",
+        "zh": "在体育馆"
+      },
+      {
+        "en": "gym class",
+        "zh": "体育课"
+      }
+    ],
     "examples": [
       {
         "en": "I go to the gym as often as I can.",
@@ -131847,7 +131968,13 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "has to",
+        "zh": "不得不"
+      }
+    ]
   },
   {
     "id": "w-haste",
@@ -132483,7 +132610,12 @@
       "男孩，男人；它（雄性动物）",
       "他"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "he and she",
+        "zh": "他和她"
+      }
+    ],
     "examples": [
       {
         "en": "‘Where's Paul?' ‘He's gone to the cinema.'",
@@ -135538,7 +135670,16 @@
       "他（宾格）",
       "(Him)人名；(东南亚国家华语)欣；(柬)亨；(中)谦(广东话·威妥玛)"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "for him",
+        "zh": "对他来说"
+      },
+      {
+        "en": "with him",
+        "zh": "和他一起"
+      }
+    ],
     "examples": [
       {
         "en": "Are you in love with him?",
@@ -138628,7 +138769,12 @@
       "咆哮；怒吼；狂吠",
       "嗥叫；怒号；嚎哭"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "howl with laughter",
+        "zh": "狂笑"
+      }
+    ],
     "examples": [
       {
         "en": "Upstairs, one of the twins began to howl (= cry ) .",
@@ -139866,7 +140012,16 @@
       "我",
       "碘元素；英语字母I"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "I see",
+        "zh": "我明白了"
+      },
+      {
+        "en": "I think",
+        "zh": "我认为"
+      }
+    ],
     "examples": [
       {
         "en": "I moved to this city six years ago.",
@@ -152046,7 +152201,13 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "is going to",
+        "zh": "将要"
+      }
+    ]
   },
   {
     "id": "w-island",
@@ -153274,7 +153435,12 @@
     "translations": [
       "吉普车"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "by jeep",
+        "zh": "坐吉普车"
+      }
+    ],
     "examples": [
       {
         "en": "...a U.S. Army Jeep.",
@@ -154570,7 +154736,16 @@
       "六月",
       "六月；琼（人名，来源于拉丁语，含义是“年轻气盛的六月”）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "in June",
+        "zh": "在六月"
+      },
+      {
+        "en": "June 1st",
+        "zh": "六月一日"
+      }
+    ],
     "examples": [
       {
         "en": "He spent two and a half weeks with us in June 1986.",
@@ -161552,7 +161727,12 @@
     "translations": [
       "惟恐，以免"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "lest we forget",
+        "zh": "以免我们忘记"
+      }
+    ],
     "examples": [
       {
         "en": "She turned away from the window lest anyone see them.",
@@ -171439,7 +171619,17 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "math class",
+        "zh": "数学课"
+      },
+      {
+        "en": "do math",
+        "zh": "做数学题"
+      }
+    ]
   },
   {
     "id": "w-mathematical",
@@ -172041,7 +172231,16 @@
       "我（宾格）",
       "自我；极端自私的人；自我的一部分"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "with me",
+        "zh": "和我"
+      },
+      {
+        "en": "for me",
+        "zh": "对我来说"
+      }
+    ],
     "examples": [
       {
         "en": "Stop, you're hurting me.",
@@ -173916,7 +174115,13 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "men and women",
+        "zh": "男女"
+      }
+    ]
   },
   {
     "id": "w-mend",
@@ -181668,7 +181873,13 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "Mr. Smith",
+        "zh": "史密斯先生"
+      }
+    ]
   },
   {
     "id": "mrs",
@@ -181683,7 +181894,13 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "Mrs. Smith",
+        "zh": "史密斯夫人"
+      }
+    ]
   },
   {
     "id": "ms",
@@ -181698,7 +181915,13 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "Ms. Smith",
+        "zh": "史密斯女士"
+      }
+    ]
   },
   {
     "id": "w-much",
@@ -182085,7 +182308,13 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "mum's the word",
+        "zh": "保守秘密"
+      }
+    ]
   },
   {
     "id": "mummy",
@@ -192302,7 +192531,16 @@
       "在…之上；对…了解；映射到…上",
       "映射的；自身的；映成的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "jump onto",
+        "zh": "跳到...上"
+      },
+      {
+        "en": "hold onto",
+        "zh": "抓住；坚持"
+      }
+    ],
     "examples": [
       {
         "en": "She watched him walk onto the platform.",
@@ -193439,7 +193677,12 @@
       "或，或者；还是",
       "(Or)人名；(中)柯(广东话·威妥玛)；(柬)奥；(土、匈、土库、阿塞、瑞典)奥尔"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "either... or",
+        "zh": "或者...或者"
+      }
+    ],
     "examples": [
       {
         "en": "Shall we go out to the cinema or stay at home?",
@@ -201800,7 +202043,13 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "PE class",
+        "zh": "体育课"
+      }
+    ]
   },
   {
     "id": "w-pea",
@@ -209041,7 +209290,12 @@
     "translations": [
       "（拉）下午（Post Meridiem，等于afternoon）；调相（Phase Modulation）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "PM 5 o'clock",
+        "zh": "下午 5 点"
+      }
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -250393,7 +250647,12 @@
       "她（主格）；它（用来指雌性动物或国家、船舶、地球、月亮等）",
       "女人；雌性动物"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "she and he",
+        "zh": "她和他"
+      }
+    ],
     "examples": [
       {
         "en": "You could always ask Beth – she's got plenty of money.",
@@ -298215,7 +298474,13 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "with us",
+        "zh": "和我们一起"
+      }
+    ]
   },
   {
     "id": "w-usage",
@@ -300865,7 +301130,16 @@
       "经过；通过",
       "渠道，通过；经由"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "via email",
+        "zh": "通过邮件"
+      },
+      {
+        "en": "via the Internet",
+        "zh": "通过互联网"
+      }
+    ],
     "examples": [
       {
         "en": "We flew to Athens via Paris.",

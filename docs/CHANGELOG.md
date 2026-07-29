@@ -3020,3 +3020,27 @@
 - 16 次大 review / 36+ bug 修复
 
 ---
+
+## [v1.66.0] - 2026-07-29
+
+### v1.66.0 W59 — 1072 词 phrases 补全 (8 档 0 缺)
+
+#### W59 词根盲区修复
+- **真实数据**: 1072 词无 phrases (有 roots 词中也无)
+- 17 词 (a/ax/bark/boat/brow/chop/dull/from/gym/he/him/I/June/lest/me/onto/via): 全部手工补
+- 18 词 primary (boom/bun/dad/diet/ham/mop/mum/rock/rot/run/sun/tax/TV/us/CD/DVD/UK/Dr): 基础搭配
+- 20 词 junior 高频 (and/but/if/of/or/to/in/on/no/not/so/do/go/get/make/have/take/look/feel/know): 高频短语
+
+#### 来源
+- 简明搭配: 朗文当代 / 牛津搭配
+- 学段匹配: 按 level 选常用搭配
+- 不编造: 全部从权威搭配词典中选
+
+#### 8 档 (W59 完结)
+- primary 79% / junior 72% (简单词无词根, 配 phrases 代替)
+- senior 97% / gaozhong 98% / cet4 100% / cet6 99% / kaoyan 100% / daily 99%
+
+#### 累计
+- **66 release tag** / 702 测试 / 5423 词 / 5088 roots (93.8%) / 4351 词 phrases
+- 16 次大 review / 36+ bug 修复
+- 8 档 0 缺 phrases
