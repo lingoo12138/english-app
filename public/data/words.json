@@ -3395,7 +3395,12 @@
       "英亩(=607亩)",
       "土地，地产；英亩"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "50 acres",
+        "zh": "50英亩"
+      }
+    ],
     "examples": [
       {
         "en": "They own 200 acres of farmland.",
@@ -7614,7 +7619,16 @@
       "以前的；过去的",
       "(Ago)人名；(英、西、意、塞、瑞典)阿戈"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "long ago",
+        "zh": "很久以前"
+      },
+      {
+        "en": "a while ago",
+        "zh": "刚才"
+      }
+    ],
     "examples": [
       {
         "en": "They moved to a new house some time ago (=  a fairly long time ago  ) .",
@@ -11443,7 +11457,17 @@
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "an apple",
+        "zh": "一个苹果"
+      },
+      {
+        "en": "an hour",
+        "zh": "一小时"
+      }
+    ]
   },
   {
     "id": "w-analyse",
@@ -13104,7 +13128,16 @@
       "稍微；少许",
       "(Any)人名；(法、罗)阿尼"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "any more",
+        "zh": "再；更"
+      },
+      {
+        "en": "not any",
+        "zh": "一个也不"
+      }
+    ],
     "examples": [
       {
         "en": "We could not reason out which way the robbers escaped, because we were unable to find any trace of them.",
@@ -17501,7 +17534,16 @@
       "问，询问；要求；需要；邀请；讨价",
       "(Ask)人名；(芬、瑞典)阿斯克"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "ask for",
+        "zh": "请求；索要"
+      },
+      {
+        "en": "ask about",
+        "zh": "询问"
+      }
+    ],
     "examples": [
       {
         "en": "‘What's your name?' she asked.",
@@ -25722,7 +25764,13 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "500 BC",
+        "zh": "公元前500年"
+      }
+    ]
   },
   {
     "id": "w-be",
@@ -38756,7 +38804,12 @@
       "埋葬；隐藏",
       "(Bury)人名；(法)比里；(英、西)伯里；(德、意、罗、波、捷、匈)布里；(俄)布雷"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "bury in",
+        "zh": "埋在；沉浸于"
+      }
+    ],
     "examples": [
       {
         "en": "Electric cables are buried beneath the streets.",
@@ -48427,6 +48480,16 @@
       {
         "root": "-ren",
         "meaning": "复数(古英)"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "children's day",
+        "zh": "儿童节"
+      },
+      {
+        "en": "children's park",
+        "zh": "儿童公园"
       }
     ]
   },
@@ -77966,7 +78029,12 @@
     "translations": [
       "书桌，办公桌"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "at the desk",
+        "zh": "在书桌前"
+      }
+    ],
     "examples": [
       {
         "en": "a tidy desk",
@@ -82271,7 +82339,13 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "compact disc",
+        "zh": "光盘"
+      }
+    ]
   },
   {
     "id": "w-discard",
@@ -86230,7 +86304,12 @@
     "translations": [
       "宿舍"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "live in a dorm",
+        "zh": "住宿舍"
+      }
+    ],
     "examples": [
       {
         "en": "But I had no food in my dorm, so I had to go to canteen.",
@@ -93943,6 +94022,16 @@
         "root": "mail",
         "meaning": "邮"
       }
+    ],
+    "phrases": [
+      {
+        "en": "send an email",
+        "zh": "发邮件"
+      },
+      {
+        "en": "by email",
+        "zh": "通过邮件"
+      }
     ]
   },
   {
@@ -94364,7 +94453,12 @@
       "发出，排出",
       "散发；发射；发表"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "emit light",
+        "zh": "发光"
+      }
+    ],
     "examples": [
       {
         "en": "The kettle emitted a shrill whistle.",
@@ -106778,7 +106872,16 @@
       "远的；久远的",
       "远方"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "far away",
+        "zh": "远处"
+      },
+      {
+        "en": "so far",
+        "zh": "到目前为止"
+      }
+    ],
     "examples": [
       {
         "en": "We can walk to my house from here. It isn't far.",
@@ -107972,6 +108075,16 @@
       {
         "root": "-ite1",
         "meaning": "in a state or condition (produced by the action denoted by the verb base)"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "my favorite",
+        "zh": "我最喜欢的"
+      },
+      {
+        "en": "favorite color",
+        "zh": "最喜欢的颜色"
       }
     ]
   },
@@ -124975,6 +125088,12 @@
         "root": "bye",
         "meaning": "再见"
       }
+    ],
+    "phrases": [
+      {
+        "en": "say goodbye",
+        "zh": "告别"
+      }
     ]
   },
   {
@@ -129274,7 +129393,13 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "play guitar",
+        "zh": "弹吉他"
+      }
+    ]
   },
   {
     "id": "w-gulf",
@@ -134455,7 +134580,12 @@
       "母鸡，雌禽",
       "母鸡；女人；雌禽"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "mother hen",
+        "zh": "母鸡；婆婆妈妈的人"
+      }
+    ],
     "examples": [
       {
         "en": "The chickens gathered under the hen.",
@@ -134545,7 +134675,16 @@
       "她（she的宾格）；她的（she的所有格）；她（指某个国家；一艘船）",
       "（法）埃尔（人名）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "with her",
+        "zh": "和她一起"
+      },
+      {
+        "en": "for her",
+        "zh": "对她"
+      }
+    ],
     "examples": [
       {
         "en": "Jane? I don't really know her.",
@@ -135067,7 +135206,12 @@
       "喂！（引起注意等）；你好！（表示问候）",
       "干草（等于hay）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "hey there",
+        "zh": "嘿；你好"
+      }
+    ],
     "examples": [
       {
         "en": "Hey, wait a minute!",
@@ -135951,7 +136095,12 @@
       "他的",
       "(His)人名；(法)伊斯"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "his book",
+        "zh": "他的书"
+      }
+    ],
     "examples": [
       {
         "en": "He stated his views to me.",
@@ -139896,7 +140045,12 @@
     "translations": [
       "小屋，棚屋"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "wooden hut",
+        "zh": "小木屋"
+      }
+    ],
     "examples": [
       {
         "en": "a wooden hut",
@@ -153777,7 +153931,12 @@
       "慢跑；轻推；蹒跚行进；使颠簸",
       "慢跑；轻推，轻撞"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "go for a jog",
+        "zh": "去慢跑"
+      }
+    ],
     "examples": [
       {
         "en": "I go jogging every morning.",
@@ -155873,7 +156032,12 @@
     "translations": [
       "千克"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "a kilo of",
+        "zh": "一千克"
+      }
+    ],
     "examples": [
       {
         "en": "This kind of chocolate is retailed at one pound a kilo.",
@@ -156034,7 +156198,16 @@
       "种类；性质",
       "和蔼的；宽容的；令人感激的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "kind of",
+        "zh": "有点；某种"
+      },
+      {
+        "en": "a kind of",
+        "zh": "一种"
+      }
+    ],
     "examples": [
       {
         "en": "Get me a sandwich – any kind will do.",
@@ -162123,7 +162296,12 @@
     "translations": [
       "说谎的人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "a good liar",
+        "zh": "善于说谎的人"
+      }
+    ],
     "examples": [
       {
         "en": "Are you calling me a liar?",
@@ -178559,7 +178737,12 @@
       "呻吟声",
       "呻吟"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "moan about",
+        "zh": "抱怨"
+      }
+    ],
     "examples": [
       {
         "en": "She gave a little moan of pleasure.",
@@ -180349,7 +180532,12 @@
     "translations": [
       "莫斯科（俄罗斯首都）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "in Moscow",
+        "zh": "在莫斯科"
+      }
+    ],
     "examples": [
       {
         "en": "Must go... to Moscow!",
@@ -180378,7 +180566,12 @@
       "穆斯林的；伊斯兰教的；回教的",
       "穆斯林；穆罕默德信徒；伊斯兰"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "Moslem country",
+        "zh": "穆斯林国家"
+      }
+    ],
     "examples": [
       {
         "en": "She tells me that if the religious scholars say so, she will engage in Moslem operations: suicide attacks.",
@@ -183217,7 +183410,16 @@
       "哎呀（表示惊奇等）；喔唷",
       "(My)人名；(越)美；(老、柬)米"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "my friend",
+        "zh": "我的朋友"
+      },
+      {
+        "en": "my family",
+        "zh": "我的家人"
+      }
+    ],
     "examples": [
       {
         "en": "All my friends do not smoke.",
@@ -183405,7 +183607,12 @@
     "translations": [
       "神话"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "Greek myth",
+        "zh": "希腊神话"
+      }
+    ],
     "examples": [
       {
         "en": "a book of Greek myths",
@@ -187516,7 +187723,16 @@
       "决不，一点也不",
       "(None)人名；(葡、罗)诺内；(日)野根(姓)"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "none of",
+        "zh": "没有一个"
+      },
+      {
+        "en": "none but",
+        "zh": "只有"
+      }
+    ],
     "examples": [
       {
         "en": "I wish I could offer you some cake but there's none left.",
@@ -189148,7 +189364,12 @@
       "使麻木；使发愣；使失去感觉",
       "麻木的；发愣的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "numb with cold",
+        "zh": "冻僵了"
+      }
+    ],
     "examples": [
       {
         "en": "The cold had numbed her fingers.",
@@ -189806,7 +190027,12 @@
     "translations": [
       "浆，橹"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "row with oars",
+        "zh": "用桨划"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -191942,7 +192168,16 @@
     "translations": [
       "对，好"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "it's okay",
+        "zh": "没关系"
+      },
+      {
+        "en": "feel okay",
+        "zh": "感觉不错"
+      }
+    ],
     "examples": [
       {
         "en": "‘How was the film?' ‘It was okay, but not brilliant.'",
@@ -192063,7 +192298,13 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "Olympic Games",
+        "zh": "奥运会"
+      }
+    ]
   },
   {
     "id": "olympics",
@@ -192125,7 +192366,12 @@
     "translations": [
       "省略，省去；遗漏"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "omit from",
+        "zh": "省略；删去"
+      }
+    ],
     "examples": [
       {
         "en": "Please don't omit any details, no matter how trivial they may seem.",
@@ -192228,7 +192474,16 @@
       "一旦",
       "一次，一回"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "once a week",
+        "zh": "每周一次"
+      },
+      {
+        "en": "once upon a time",
+        "zh": "从前"
+      }
+    ],
     "examples": [
       {
         "en": "I've only met her once.",
@@ -195083,7 +195338,12 @@
       "扣环",
       "哎哟（突然疼痛时发出的声音）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "say ouch",
+        "zh": "喊痛"
+      }
+    ],
     "examples": [
       {
         "en": "Ouch! That hurt!",
@@ -195218,7 +195478,12 @@
     "translations": [
       "我们的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "our house",
+        "zh": "我们的家"
+      }
+    ],
     "examples": [
       {
         "en": "They partook of our triumph.",
@@ -195263,7 +195528,12 @@
       "我们的",
       "(Ours)人名；(法)乌尔斯"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "a friend of ours",
+        "zh": "我们的一个朋友"
+      }
+    ],
     "examples": [
       {
         "en": "I'll show you to your room. Ours is next door.",
@@ -197505,7 +197775,12 @@
       "欠；感激；应给予；应该把……归功于",
       "(Owe)人名；(瑞典、挪)奥弗"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "owe to",
+        "zh": "欠；感激"
+      }
+    ],
     "examples": [
       {
         "en": "How much do I owe you (= often used to show that you want to pay for something )?",
@@ -197808,7 +198083,12 @@
       "牛；公牛，阉牛",
       "牛；公牛"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "strong as an ox",
+        "zh": "壮如牛"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -198879,7 +199159,16 @@
     "translations": [
       "苍白的；浅的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "pale blue",
+        "zh": "淡蓝色"
+      },
+      {
+        "en": "turn pale",
+        "zh": "脸色变白"
+      }
+    ],
     "examples": [
       {
         "en": "Why do your face look like so pale?What wrong with you?",
@@ -201877,7 +202166,12 @@
     "translations": [
       "脚爪，爪子"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "cat's paw",
+        "zh": "猫爪；爪牙"
+      }
+    ],
     "examples": [
       {
         "en": "This month alone, my wife and I spent $600 on one Labrador retriever with a bladder infection who needed some kidney tests and $300 on the other one for an injured paw.",
@@ -201917,7 +202211,16 @@
       "工资，薪水；付款；报答",
       "收费的；需付费的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "pay for",
+        "zh": "付款"
+      },
+      {
+        "en": "pay back",
+        "zh": "偿还；回报"
+      }
+    ],
     "examples": [
       {
         "en": "How would you like to pay?",
@@ -202028,7 +202331,13 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "PC computer",
+        "zh": "个人电脑"
+      }
+    ]
   },
   {
     "id": "pe",
@@ -220743,7 +221052,12 @@
     "translations": [
       "酒馆；客栈"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "go to the pub",
+        "zh": "去酒吧"
+      }
+    ],
     "examples": [
       {
         "en": "Do you fancy going to the pub?",
@@ -225739,7 +226053,12 @@
     "translations": [
       "光线，射线，辐射线"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "a ray of",
+        "zh": "一线；一束"
+      }
+    ],
     "examples": [
       {
         "en": "The room darkened as a cloud hid the sun's rays.",
@@ -238518,7 +238837,12 @@
       "吼叫；呼喊",
       "吼"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "roar with laughter",
+        "zh": "放声大笑"
+      }
+    ],
     "examples": [
       {
         "en": "We heard a lion roar.",
@@ -238634,7 +238958,12 @@
     "translations": [
       "抢劫；使…丧失；非法剥夺"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "rob of",
+        "zh": "抢夺"
+      }
+    ],
     "examples": [
       {
         "en": "They killed four policemen while robbing a bank.",
@@ -240605,7 +240934,16 @@
       "粗鲁的；无礼的；狂暴的；未开化的",
       "(Rude)人名；(英、西、瑞典)鲁德；(法)吕德"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "it's rude",
+        "zh": "这不礼貌"
+      },
+      {
+        "en": "rude to",
+        "zh": "对...粗鲁"
+      }
+    ],
     "examples": [
       {
         "en": "a rude remark",
@@ -250746,7 +251084,16 @@
     "translations": [
       "流出；散发；脱落"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "shed tears",
+        "zh": "流泪"
+      },
+      {
+        "en": "shed light on",
+        "zh": "阐明"
+      }
+    ],
     "examples": [
       {
         "en": "He strode across the bathroom, shedding wet clothes as he went.",
@@ -255906,7 +256253,13 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "skilful at",
+        "zh": "擅长"
+      }
+    ]
   },
   {
     "id": "w-skill",
@@ -258839,7 +259192,12 @@
     "translations": [
       "猛增"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "soar above",
+        "zh": "高飞；飙升"
+      }
+    ],
     "examples": [
       {
         "en": "Her temperature soared.",
@@ -300408,7 +300766,13 @@
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": []
+    "pos": [],
+    "phrases": [
+      {
+        "en": "VCD player",
+        "zh": "VCD 播放机"
+      }
+    ]
   },
   {
     "id": "w-veal",

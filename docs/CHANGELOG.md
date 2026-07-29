@@ -3044,3 +3044,21 @@
 - **66 release tag** / 702 测试 / 5423 词 / 5088 roots (93.8%) / 4351 词 phrases
 - 16 次大 review / 36+ bug 修复
 - 8 档 0 缺 phrases
+
+## [v1.67.0] - 2026-07-29
+
+### v1.67.0 W60 — phrases 补 56 词 (81.3%)
+
+#### W60 phrases 续补
+- primary + junior + gaozhong 高频: 56 词 (an/any/ask/far/her/desk/email/favorite/...)
+- senior 国家/缩写: Egypt/Moscow/Tokyo/Russia/Olympic/disc 等
+
+#### 来源
+- 简明搭配词典: 朗文当代 + 牛津搭配
+- 学段匹配: 按 level 选常用搭配
+- 不编造: 全部权威
+
+#### 累计
+- 5423 词 / 4407 phrases (81.3%) / 5088 roots (93.8%)
+- 剩 1016 词无 phrases (translations + examples 已够)
+- 8 档: primary 95% / junior 88% phrases 覆盖
