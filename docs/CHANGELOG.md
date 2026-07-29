@@ -3199,3 +3199,20 @@
 - 5423 词 / 5229 phrases (96.4%) / 5088 roots (93.8%)
 - 5-6 字符 100% 配完
 - 剩 194 词无 phrases (1-4 字符)
+
+## [v1.79.0] - 2026-07-29
+
+### v1.79.0 W72 — 第 16 次大 review + 4 处 console 清
+
+#### 大 review (9 维度)
+- **0 P0 + 0 P1** ✓✓✓
+- catch any: 0 / 空 catch: 0 / setLoading: 0 / fire-and-forget: 0
+- 5 历史修复全健在 (v1.45/48/51/52/55)
+- 报告: `docs/REVIEW_v1.78.md`
+
+#### 修复
+- 4 处 console 残留加 `import.meta.env.DEV` 守卫
+- 生产环境 console 完全静默
+
+#### 不修项
+- 18 处 as any (P2): 8 处 vendor API 兜底 + 10 处 union mismatch, refactor 风险大

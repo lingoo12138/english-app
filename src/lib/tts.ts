@@ -147,7 +147,7 @@ export function speak(opts: SpeakOptions): void {
   stopSpeak()
 
   if (provider.type === 'mock') {
-    console.debug(`[TTS Mock] ${opts.text}`)
+    if (import.meta.env.DEV) console.debug(`[TTS Mock] ${opts.text}`)
     setTimeout(() => {
       window.dispatchEvent(new CustomEvent('tts-end'))
     }, 200)

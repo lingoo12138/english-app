@@ -38,7 +38,6 @@ export async function addSceneWordsToReview(
     await db.reviews.put(item)
     added++
   }
-  // console.log(`[sceneReview] 场景 "${sceneTitle}" 入复习: ${added} 新增, ${skipped} 跳过`)
   return { added, skipped }
 }
 

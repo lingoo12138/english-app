@@ -51,6 +51,6 @@ const updateSW = registerSW({
     }
   },
   onOfflineReady() {
-    console.debug('[PWA] 离线就绪,无网络也能用')
+    if (import.meta.env.DEV) console.debug('[PWA] 离线就绪,无网络也能用')
   },
 })
