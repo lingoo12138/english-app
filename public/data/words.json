@@ -1595,7 +1595,12 @@
       "口音；重音；强调；特点；重音符号",
       "强调；重读；带…口音讲话"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "speak with accent",
+        "zh": "带口音说话"
+      }
+    ],
     "examples": [
       {
         "en": "He had a strong Irish accent",
@@ -5830,7 +5835,12 @@
     "translations": [
       "副词"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "adverb of",
+        "zh": "...的副词"
+      }
+    ],
     "examples": [
       {
         "en": "Will you please compare the adverb “well”?",
@@ -6453,7 +6463,12 @@
       "影响；感染；感动；假装",
       "情感；引起感情的因素"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "affect on",
+        "zh": "影响"
+      }
+    ],
     "examples": [
       {
         "en": "the areas affected by the hurricane",
@@ -6586,7 +6601,12 @@
     "translations": [
       "断言，声明"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "affirm that",
+        "zh": "断言"
+      }
+    ],
     "examples": [
       {
         "en": "The general affirmed rumors of an attack.",
@@ -11203,7 +11223,12 @@
     "translations": [
       "安培"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "ampere of",
+        "zh": "...的安培"
+      }
+    ],
     "examples": [
       {
         "en": "And I prefer to an ampere meter being made of aluminum even though it has analog to another one.",
@@ -13258,7 +13283,12 @@
       "无论如何",
       "总之；无论如何；不管怎样"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "anyhow so",
+        "zh": "不管怎样"
+      }
+    ],
     "examples": [
       {
         "en": "You know nothing about her really, or about yourself in relation to her, and anyhow it's only one of those things and therefore it's of no importance.",
@@ -13301,7 +13331,12 @@
       "任何人",
       "任何人；任何一个"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "anyone who",
+        "zh": "任何人"
+      }
+    ],
     "examples": [
       {
         "en": "Anyone could win tonight.",
@@ -13416,7 +13451,12 @@
       "无论如何",
       "无论如何，不管怎样；总之"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "anyway so",
+        "zh": "不管怎样"
+      }
+    ],
     "examples": [
       {
         "en": "Catherine wasn't sure the book was the right one, but she bought it anyway.",
@@ -17874,7 +17914,12 @@
       "对(财产等)估价",
       "评定；估价；对…征税"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "assess at",
+        "zh": "估价为"
+      }
+    ],
     "examples": [
       {
         "en": "The test was to assess aptitude rather than academic achievement.",
@@ -19383,7 +19428,16 @@
     "translations": [
       "攻击，进攻"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "attack on",
+        "zh": "攻击"
+      },
+      {
+        "en": "heart attack",
+        "zh": "心脏病发作"
+      }
+    ],
     "examples": [
       {
         "en": "The king hight them to attack the castle.",
@@ -19429,7 +19483,12 @@
       "达到，实现；获得；到达",
       "成就"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "attain to",
+        "zh": "达到"
+      }
+    ],
     "examples": [
       {
         "en": "More women are attaining positions of power.",
@@ -20209,7 +20268,12 @@
       "威严的；令人敬畏的",
       "八月（简写为Aug）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "in August",
+        "zh": "在八月"
+      }
+    ],
     "examples": [
       {
         "en": "The world premiere took place in August 1956.",
@@ -21376,7 +21440,12 @@
     "translations": [
       "驾驶飞机"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "aviate over",
+        "zh": "飞行于"
+      }
+    ],
     "examples": [
       {
         "en": "There is long-distance medical system in the boat, aviate board has near one thousand square meters , can help many model copters rise and drop.",
@@ -24376,7 +24445,12 @@
     "translations": [
       "仅仅，几乎不"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "barely so",
+        "zh": "几乎不"
+      }
+    ],
     "examples": [
       {
         "en": "She was barely aware of his presence.",
@@ -27211,7 +27285,12 @@
     "translations": [
       "乞丐，穷人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "beggar at",
+        "zh": "乞丐"
+      }
+    ],
     "examples": [
       {
         "en": "the beggars on the streets",
@@ -30413,7 +30492,12 @@
     "translations": [
       "（基督教的）主教；（国际象棋的）象"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "bishop of",
+        "zh": "...的主教"
+      }
+    ],
     "examples": [
       {
         "en": "the Bishop of Durham",
@@ -31700,7 +31784,12 @@
       "使…宽松下垂",
       "宽松下垂"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "wear blouse",
+        "zh": "穿衬衫"
+      }
+    ],
     "examples": [
       {
         "en": "a silk blouse",
@@ -33135,7 +33224,12 @@
     "translations": [
       "边，边缘；边界"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "on the border",
+        "zh": "在边界上"
+      }
+    ],
     "examples": [
       {
         "en": "writing paper with a black border",
@@ -34887,7 +34981,12 @@
     "translations": [
       "白兰地酒"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "drink brandy",
+        "zh": "喝白兰地"
+      }
+    ],
     "examples": [
       {
         "en": "After a couple of brandies Michael started telling me his life story.",
@@ -37303,7 +37402,12 @@
     "translations": [
       "青肿，伤痕；擦伤"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "bruise on",
+        "zh": "...的擦伤"
+      }
+    ],
     "examples": [
       {
         "en": "minor cuts and bruises",
@@ -37347,7 +37451,12 @@
     "translations": [
       "早午餐"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "eat brunch",
+        "zh": "吃早午餐"
+      }
+    ],
     "examples": [
       {
         "en": "This morning I went to a restaurant famous for its brunch buffet.",
@@ -38383,7 +38492,12 @@
     "translations": [
       "捆，包，束；包袱"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "bundle of",
+        "zh": "...的一捆"
+      }
+    ],
     "examples": [
       {
         "en": "a small bundle containing mostly clothing",
@@ -44945,6 +45059,12 @@
       {
         "root": "centr",
         "meaning": "中心(拉丁词根)"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "in the center",
+        "zh": "在中心"
       }
     ]
   },
@@ -51707,7 +51827,12 @@
       "聪明的；机敏的",
       "聪明的；机灵的；熟练的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "clever at",
+        "zh": "擅长"
+      }
+    ],
     "examples": [
       {
         "en": "a clever man",
@@ -52474,7 +52599,12 @@
     "translations": [
       "给…穿衣服"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "clothe in",
+        "zh": "给...穿衣"
+      }
+    ],
     "examples": [
       {
         "en": "They could barely keep the family fed and clothed.",
@@ -52888,7 +53018,12 @@
       "笨拙的；愚笨的",
       "笨拙的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "clumsy at",
+        "zh": "笨拙于"
+      }
+    ],
     "examples": [
       {
         "en": "A clumsy waiter spilled wine all over her new skirt.",
@@ -56616,7 +56751,12 @@
       "强迫",
       "强迫，迫使屈服"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "compel to",
+        "zh": "强迫"
+      }
+    ],
     "examples": [
       {
         "en": "...the introduction of legislation to compel cyclists to wear a helmet.",
@@ -64380,7 +64520,12 @@
       "传送；运送；传播",
       "传达；运输；让与"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "convey to",
+        "zh": "传达给"
+      }
+    ],
     "examples": [
       {
         "en": "All this information can be conveyed in a simple diagram.",
@@ -66239,7 +66384,12 @@
     "translations": [
       "昂贵的；价值高的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "costly to",
+        "zh": "昂贵"
+      }
+    ],
     "examples": [
       {
         "en": "Such a database would be extremely costly to set up.",
@@ -67712,7 +67862,12 @@
     "translations": [
       "懦夫；胆怯者"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "coward at",
+        "zh": "...的懦夫"
+      }
+    ],
     "examples": [
       {
         "en": "Try it. Don't be such a coward.",
@@ -70582,7 +70737,12 @@
     "translations": [
       "狡猾的，狡诈的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "cunning of",
+        "zh": "...的狡猾"
+      }
+    ],
     "examples": [
       {
         "en": "a cunning opponent",
@@ -78510,7 +78670,12 @@
       "破坏；消灭；打破",
       "破坏；消灭；毁坏"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "destroy in",
+        "zh": "摧毁"
+      }
+    ],
     "examples": [
       {
         "en": "companies that are polluting and destroying the environment",
@@ -78775,7 +78940,12 @@
       "觉察;检测",
       "察觉，发觉；侦察"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "detect in",
+        "zh": "检测出"
+      }
+    ],
     "examples": [
       {
         "en": "Many forms of cancer can be cured if detected early.",
@@ -79372,7 +79542,12 @@
       "将…奉献，致力于",
       "致力于；奉献"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "devote to",
+        "zh": "献身于"
+      }
+    ],
     "examples": [
       {
         "en": "He decided to devote the rest of his life to scientific investigation.",
@@ -80798,7 +80973,12 @@
     "translations": [
       "尊严；高贵"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "dignity of",
+        "zh": "...的尊严"
+      }
+    ],
     "examples": [
       {
         "en": "an appearance of quiet dignity",
@@ -85789,7 +85969,12 @@
       "修理；篡改，伪造；为…治病；授以博士学位",
       "医生；博士"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "see a doctor",
+        "zh": "看医生"
+      }
+    ],
     "examples": [
       {
         "en": "She was treated by her local doctor.",
@@ -90804,7 +90989,12 @@
       "容易地；舒适的",
       "容易地；无疑地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "easily so",
+        "zh": "容易地"
+      }
+    ],
     "examples": [
       {
         "en": "They won quite easily.",
@@ -95271,7 +95461,12 @@
       "使能够……",
       "使能够，使可能"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "enable to",
+        "zh": "使能够"
+      }
+    ],
     "examples": [
       {
         "en": "The new test should enable doctors to detect the disease early.",
@@ -95808,7 +96003,12 @@
       "忍耐；容忍",
       "忍受；容忍"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "endure to",
+        "zh": "忍受"
+      }
+    ],
     "examples": [
       {
         "en": "It seemed impossible that anyone could endure such pain.",
@@ -104481,7 +104681,12 @@
     "translations": [
       "广度；范围；程度"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "extent of",
+        "zh": "...的程度"
+      }
+    ],
     "examples": [
       {
         "en": "It took us a while to realize the extent of the tragedy.",
@@ -106114,7 +106319,12 @@
       "相当地；公平地；简直",
       "(Fairly)人名；(英)费尔利"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "fairly so",
+        "zh": "公平地"
+      }
+    ],
     "examples": [
       {
         "en": "The house had a fairly large garden.",
@@ -106632,7 +106842,12 @@
     "translations": [
       "饥荒；严重的缺乏"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "famine in",
+        "zh": "饥荒"
+      }
+    ],
     "examples": [
       {
         "en": "the great potato famine in Ireland",
@@ -109015,7 +109230,12 @@
     "translations": [
       "虚弱的；微弱的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "feeble of",
+        "zh": "虚弱的"
+      }
+    ],
     "examples": [
       {
         "en": "His voice sounded feeble and far away.",
@@ -115092,7 +115312,12 @@
       "禁止，不许；阻止",
       "禁止；不准；不允许；〈正式〉严禁"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "forbid to",
+        "zh": "禁止"
+      }
+    ],
     "examples": [
       {
         "en": "Lack of space forbids listing the names of all those who contributed.",
@@ -116817,6 +117042,12 @@
       {
         "root": "oste",
         "meaning": "含 oste 词根"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "foster of",
+        "zh": "...的养育"
       }
     ]
   },
@@ -118700,7 +118931,12 @@
     "translations": [
       "电冰箱"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "in the fridge",
+        "zh": "在冰箱里"
+      }
+    ],
     "examples": [
       {
         "en": "Then all three of you sign the contract and post in on the fridge.",
@@ -119656,7 +119892,12 @@
     "translations": [
       "履行；满足；完成"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "fulfil of",
+        "zh": "履行"
+      }
+    ],
     "examples": [
       {
         "en": "There is little doubt that the scheme fulfils a need for our community.",
@@ -120952,7 +121193,12 @@
       "加仑",
       "加仑（容量单位）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "gallon of",
+        "zh": "...的加仑"
+      }
+    ],
     "examples": [
       {
         "en": "a 20 gallon fish tank",
@@ -125477,7 +125723,12 @@
       "管理；支配；统治；控制",
       "(Govern)人名；(英)戈文"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "govern of",
+        "zh": "治理"
+      }
+    ],
     "examples": [
       {
         "en": "the leaders who govern the country",
@@ -129001,7 +129252,12 @@
       "使极度疲劳；累垮",
       "稀粥"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "gruel of",
+        "zh": "...的粥"
+      }
+    ],
     "examples": [
       {
         "en": "This gruel is too thin.",

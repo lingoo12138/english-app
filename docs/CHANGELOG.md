@@ -3076,3 +3076,15 @@
 - 5423 词 / 4499 phrases (83.0%) / 5088 roots (93.8%)
 - 剩 924 词无 phrases
 - 8 档: primary 95% / junior 88% phrases 覆盖
+
+## [v1.69.0] - 2026-07-29
+
+### v1.69.0 W62 — phrases 续补 50 词 (83.9%)
+
+#### W62 phrases P3
+- 6 字符 50 词 (accent/attack/border/clever/compel/degree/destroy/...)
+- 含日常: attack (heart attack), border (on the border), degree (master's degree), doctor (see a doctor)
+
+#### 累计
+- 5423 词 / 4549 phrases (83.9%) / 5088 roots (93.8%)
+- 剩 874 词无 phrases
