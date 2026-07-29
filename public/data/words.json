@@ -1508,7 +1508,12 @@
       "(使)加快；促进",
       "使……加快；使……增速"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "accelerate the pace",
+        "zh": "加速步伐"
+      }
+    ],
     "examples": [
       {
         "en": "measures to accelerate the rate of economic growth",
@@ -2626,7 +2631,12 @@
       "堆积",
       "累积；积聚"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "accumulate wealth",
+        "zh": "积累财富"
+      }
+    ],
     "examples": [
       {
         "en": "It is unjust that a privileged few should continue to accumulate wealth.",
@@ -13026,7 +13036,12 @@
       "预感",
       "预料，预期，期望"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "anticipate that",
+        "zh": "预期"
+      }
+    ],
     "examples": [
       {
         "en": "Sales are better than anticipated.",
@@ -14903,7 +14918,16 @@
       "欣赏；领会；感谢",
       "欣赏；感激；领会；鉴别"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "appreciate it",
+        "zh": "感激"
+      },
+      {
+        "en": "appreciate the help",
+        "zh": "感谢帮助"
+      }
+    ],
     "examples": [
       {
         "en": "Thanks ever so much for your help, I really appreciate it.",
@@ -62229,7 +62253,12 @@
     "translations": [
       "不断地，时常地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "constantly so",
+        "zh": "不断地"
+      }
+    ],
     "examples": [
       {
         "en": "He talked constantly about his work.",
@@ -64003,7 +64032,12 @@
       "捐献，捐助；投稿",
       "贡献，出力；投稿；捐献"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "contribute to",
+        "zh": "贡献"
+      }
+    ],
     "examples": [
       {
         "en": "The three sons also contribute to the family business.",
@@ -67651,7 +67685,12 @@
     "translations": [
       "有勇气的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "courageous of",
+        "zh": "...的勇敢"
+      }
+    ],
     "examples": [
       {
         "en": "He was wrong, and courageous enough to admit it.",
@@ -68810,7 +68849,12 @@
     "translations": [
       "创造力"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "creativity of",
+        "zh": "...的创造力"
+      }
+    ],
     "examples": [
       {
         "en": "artistic creativity",
@@ -76674,7 +76718,12 @@
     "translations": [
       "高兴的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "delightful of",
+        "zh": "...的令人高兴"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -77855,7 +77904,12 @@
     "translations": [
       "令人沮丧的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "depressing of",
+        "zh": "...的令人沮丧"
+      }
+    ],
     "examples": [
       {
         "en": "It's a depressing thought.",
@@ -83229,7 +83283,12 @@
       "使泄气，使灰心",
       "阻止；使气馁"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "discourage from",
+        "zh": "使气馁"
+      }
+    ],
     "examples": [
       {
         "en": "It may be difficult to do at first. Don't let this discourage you.",
@@ -83960,7 +84019,12 @@
     "translations": [
       "洗碗机"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "dishwasher of",
+        "zh": "...的洗碗机"
+      }
+    ],
     "examples": [
       {
         "en": "I was a short-order cook and a dishwasher.",
@@ -84616,7 +84680,12 @@
       "不满意",
       "使不满，使不平"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "dissatisfy with",
+        "zh": "对...不满"
+      }
+    ],
     "examples": [
       {
         "en": "More or other, they still dissatisfy.",
@@ -84665,7 +84734,12 @@
     "translations": [
       "伤害，帮倒忙"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "disservice to",
+        "zh": "...的伤害"
+      }
+    ],
     "examples": [
       {
         "en": "He said the protesters were doing a disservice to the nation.",
@@ -85359,7 +85433,12 @@
       "分发，分送；分布",
       "分配；散布；分开；把…分类"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "distribute to",
+        "zh": "分发"
+      }
+    ],
     "examples": [
       {
         "en": "a man distributing leaflets to passers-by",
@@ -86701,7 +86780,12 @@
     "translations": [
       "主导"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "domination of",
+        "zh": "...的统治"
+      }
+    ],
     "examples": [
       {
         "en": "The imperialists use this ideology and culture as a lever for easily realizing their domination and subjugation, aggression and plunder of other countries.",
@@ -96662,7 +96746,12 @@
     "translations": [
       "约会"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "engagement to",
+        "zh": "...的婚约"
+      }
+    ],
     "examples": [
       {
         "en": "Their engagement was announced in the paper.",
@@ -101286,7 +101375,12 @@
       "夸张",
       "夸大，夸张"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "exaggerate of",
+        "zh": "夸大"
+      }
+    ],
     "examples": [
       {
         "en": "I couldn't sleep for three days – I'm not exaggerating.",
@@ -104039,7 +104133,12 @@
     "translations": [
       "直接地，明确地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "explicitly so",
+        "zh": "明确地"
+      }
+    ],
     "examples": [
       {
         "en": "You have to grant us control explicitly.",
@@ -105947,7 +106046,12 @@
     "translations": [
       "使便利，促进"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "facilitate of",
+        "zh": "促进"
+      }
+    ],
     "examples": [
       {
         "en": "The new airport will facilitate the development of tourism.",
@@ -115886,7 +115990,12 @@
     "translations": [
       "食指"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "forefinger of",
+        "zh": "...的食指"
+      }
+    ],
     "examples": [
       {
         "en": "He took the pen between his thumb and forefinger.",
@@ -123272,7 +123381,12 @@
     "translations": [
       "慷慨，大方"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "generosity of",
+        "zh": "...的慷慨"
+      }
+    ],
     "examples": [
       {
         "en": "an act of great generosity",
@@ -138969,7 +139083,12 @@
     "translations": [
       "热情友好的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "hospitable to",
+        "zh": "对...好客"
+      }
+    ],
     "examples": [
       {
         "en": "The local people were very kind and hospitable.",
@@ -144134,7 +144253,12 @@
     "translations": [
       "不足"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "inadequacy of",
+        "zh": "...的不足"
+      }
+    ],
     "examples": [
       {
         "en": "Unemployment can cause feelings of inadequacy and low self-esteem.",
@@ -144178,7 +144302,12 @@
     "translations": [
       "不足的，不够的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "inadequate to",
+        "zh": "...的不充分"
+      }
+    ],
     "examples": [
       {
         "en": "inadequate resources",
@@ -144943,7 +145072,12 @@
     "translations": [
       "不可思议的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "incredible of",
+        "zh": "...的难以置信"
+      }
+    ],
     "examples": [
       {
         "en": "It's incredible that he survived the fall.",
@@ -146171,7 +146305,12 @@
       "不可避免的",
       "不可避免的，必然的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "inevitable of",
+        "zh": "...的必然"
+      }
+    ],
     "examples": [
       {
         "en": "A further escalation of the crisis now seems inevitable.",
@@ -152126,7 +152265,12 @@
     "translations": [
       "不变地，一直"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "invariably so",
+        "zh": "不变地"
+      }
+    ],
     "examples": [
       {
         "en": "It invariably rains when I go there.",
@@ -169891,7 +170035,12 @@
     "translations": [
       "主流"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "mainstream of",
+        "zh": "...的主流"
+      }
+    ],
     "examples": [
       {
         "en": "Genet started as a rebel, but soon became part of the literary mainstream.",
@@ -190932,7 +191081,12 @@
     "translations": [
       "营养的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "nutritious of",
+        "zh": "...的有营养"
+      }
+    ],
     "examples": [
       {
         "en": "Wholemeal bread is more nutritious than white bread.",
@@ -191845,7 +191999,12 @@
     "translations": [
       "偶然的；临时的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "occasional of",
+        "zh": "...的偶尔"
+      }
+    ],
     "examples": [
       {
         "en": "He made occasional visits to London.",
@@ -198779,7 +198938,12 @@
     "translations": [
       "压倒，战胜"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "overwhelm with",
+        "zh": "压倒"
+      }
+    ],
     "examples": [
       {
         "en": "But the various pros and cons should not blindly overwhelm one another.",
@@ -214469,7 +214633,12 @@
     "translations": [
       "实际上；几乎"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "practically so",
+        "zh": "实际地"
+      }
+    ],
     "examples": [
       {
         "en": "I've read practically all of his books.",
@@ -219525,7 +219694,12 @@
     "translations": [
       "有利可图的，有益的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "profitable of",
+        "zh": "...的盈利"
+      }
+    ],
     "examples": [
       {
         "en": "The advertising campaign proved very profitable.",
@@ -244726,7 +244900,12 @@
     "translations": [
       "令人满意的，良好的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "satisfactory of",
+        "zh": "...的满意"
+      }
+    ],
     "examples": [
       {
         "en": "His progress this term has been satisfactory.",
@@ -248713,7 +248892,12 @@
     "translations": [
       "表面上看"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "seemingly so",
+        "zh": "表面上地"
+      }
+    ],
     "examples": [
       {
         "en": "seemingly unrelated bits of information",
@@ -267962,7 +268146,12 @@
     "translations": [
       "饿死；挨饿；绝食"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "starvation of",
+        "zh": "...的饥饿"
+      }
+    ],
     "examples": [
       {
         "en": "people dying of starvation",
@@ -286143,7 +286332,12 @@
     "translations": [
       "沉思的；体贴的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "thoughtful of",
+        "zh": "...的周到"
+      }
+    ],
     "examples": [
       {
         "en": "Paul is very thoughtful.",
@@ -286780,7 +286974,12 @@
       "自始至终，到处；全部",
       "贯穿，遍及"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "throughout so",
+        "zh": "贯穿"
+      }
+    ],
     "examples": [
       {
         "en": "a large organization with offices throughout the world",
@@ -288925,7 +289124,12 @@
       "忍受，容忍，宽恕",
       "忍受；默许；宽恕"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "tolerate of",
+        "zh": "容忍"
+      }
+    ],
     "examples": [
       {
         "en": "We simply will not tolerate vigilante groups on our streets.",
@@ -291360,7 +291564,12 @@
     "translations": [
       "悲剧；惨事，惨案"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "tragedy of",
+        "zh": "...的悲剧"
+      }
+    ],
     "examples": [
       {
         "en": "The tragedy happened as they were returning home from a night out.",
@@ -292761,7 +292970,12 @@
     "translations": [
       "旅行者；旅客；旅行推销员（等于traveller）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "traveler of",
+        "zh": "...的旅行者"
+      }
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -293262,7 +293476,12 @@
       "巨大的",
       "极大的，非常的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "tremendous of",
+        "zh": "...的巨大"
+      }
+    ],
     "examples": [
       {
         "en": "Suddenly, there was a tremendous bang, and the whole station shook.",
@@ -294038,7 +294257,12 @@
       "令人烦恼的；麻烦的",
       "麻烦的；讨厌的；使人苦恼的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "troublesome of",
+        "zh": "...的麻烦"
+      }
+    ],
     "examples": [
       {
         "en": "a troublesome child",
@@ -294325,7 +294549,12 @@
     "translations": [
       "喇叭，小号"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "trumpet of",
+        "zh": "...的喇叭"
+      }
+    ],
     "examples": [
       {
         "en": "I played the trumpet in the school orchestra.",
@@ -296349,7 +296578,12 @@
     "translations": [
       "最后，最终"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "ultimately so",
+        "zh": "最终"
+      }
+    ],
     "examples": [
       {
         "en": "Ultimately, the decision rests with the child's parents.",
@@ -296541,7 +296775,12 @@
     "translations": [
       "买不起的，负担不起的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "unaffordable of",
+        "zh": "...的负担不起"
+      }
+    ],
     "examples": [
       {
         "en": "You have to become awfully large to be unaffordable -- there's lots of cash, lots of capital out there for acquisitions.",
@@ -296787,7 +297026,12 @@
     "translations": [
       "不舒服的；不安的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "uncomfortable of",
+        "zh": "...的不舒适"
+      }
+    ],
     "examples": [
       {
         "en": "This sofa is so uncomfortable.",
@@ -297275,7 +297519,12 @@
     "translations": [
       "暗中破坏"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "undermine of",
+        "zh": "削弱"
+      }
+    ],
     "examples": [
       {
         "en": "The continued fighting threatens to undermine efforts to negotiate an agreement.",
@@ -297474,7 +297723,12 @@
       "从事；承担；保证",
       "承担，保证；从事；同意；试图"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "undertake to",
+        "zh": "承担"
+      }
+    ],
     "examples": [
       {
         "en": "He undertook to pay the money back in six months.",
@@ -298040,7 +298294,12 @@
     "translations": [
       "不幸的；令人遗憾的；不成功的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "unfortunate of",
+        "zh": "...的不幸"
+      }
+    ],
     "examples": [
       {
         "en": "When we entered the room, the teacher was yelling at some unfortunate student.",
@@ -298138,7 +298397,12 @@
     "translations": [
       "不快乐的；不幸福的；不适当的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "unhappy of",
+        "zh": "...的不高兴"
+      }
+    ],
     "examples": [
       {
         "en": "If you're so unhappy, why don't you change jobs?",
@@ -298302,7 +298566,12 @@
     "translations": [
       "不重要的；琐碎的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "unimportant of",
+        "zh": "...的不重要"
+      }
+    ],
     "examples": [
       {
         "en": "unimportant details",
@@ -299207,7 +299476,12 @@
     "translations": [
       "讨厌的；使人不愉快的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "unpleasant of",
+        "zh": "...的不愉快"
+      }
+    ],
     "examples": [
       {
         "en": "an unpleasant experience",
@@ -299342,7 +299616,12 @@
     "translations": [
       "不成功的；失败的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "unsuccessful of",
+        "zh": "...的不成功"
+      }
+    ],
     "examples": [
       {
         "en": "an unsuccessful attempt to climb Qomolangma",
@@ -299442,7 +299721,12 @@
     "translations": [
       "不真实的；不合标准的；不忠实的；不正当的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "untrue of",
+        "zh": "...的不真实"
+      }
+    ],
     "examples": [
       {
         "en": "allegations that are totally untrue",
@@ -299542,7 +299826,12 @@
       "不愿意的",
       "不愿意的；不情愿的；勉强的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "unwilling of",
+        "zh": "...的不愿意"
+      }
+    ],
     "examples": [
       {
         "en": "an unwilling helper",
@@ -300575,7 +300864,12 @@
     "translations": [
       "无用的；无效的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "useless of",
+        "zh": "...的没用"
+      }
+    ],
     "examples": [
       {
         "en": "The editor killed a few useless lines.",
@@ -300858,7 +301152,12 @@
     "translations": [
       "利用"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "utilize of",
+        "zh": "利用"
+      }
+    ],
     "examples": [
       {
         "en": "We must consider how best to utilize what resources we have.",
@@ -302938,7 +303237,12 @@
     "translations": [
       "老兵，老手"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "veteran of",
+        "zh": "...的老兵"
+      }
+    ],
     "examples": [
       {
         "en": "a Vietnam veteran",
@@ -303473,7 +303777,12 @@
     "translations": [
       "朝气蓬勃的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "vigorous of",
+        "zh": "...的有力"
+      }
+    ],
     "examples": [
       {
         "en": "Vigorous exercise increases oxygen consumption.",
@@ -304051,7 +304360,12 @@
       "几乎，差不多",
       "实际上，事实上"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "virtually so",
+        "zh": "实际上地"
+      }
+    ],
     "examples": [
       {
         "en": "Virtually all the children come to school by bus.",
@@ -307880,7 +308194,12 @@
       "富有的；充分的；丰裕的",
       "富人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "wealthy of",
+        "zh": "...的富有"
+      }
+    ],
     "examples": [
       {
         "en": "the wealthy nations of the world",
@@ -308546,7 +308865,12 @@
     "translations": [
       "平日，普通日；工作日"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "weekday of",
+        "zh": "...的工作日"
+      }
+    ],
     "examples": [
       {
         "en": "If you want to avoid the crowds, it's best to come on a weekday.",
@@ -310142,7 +310466,12 @@
       "任何一个；无论哪个",
       "无论哪个；无论哪些"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "whichever of",
+        "zh": "...的任何"
+      }
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -310938,7 +311267,12 @@
       "加宽",
       "变宽"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "widen of",
+        "zh": "...的加宽"
+      }
+    ],
     "examples": [
       {
         "en": "They're widening the road.",
@@ -310978,7 +311312,12 @@
       "普遍的，广泛的",
       "普遍的，广泛的；分布广的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "widespread of",
+        "zh": "...的广泛"
+      }
+    ],
     "examples": [
       {
         "en": "the widespread use of chemicals in agriculture",
@@ -311490,7 +311829,12 @@
     "translations": [
       "欣然地；愿意地，乐意地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "willingly so",
+        "zh": "乐意地"
+      }
+    ],
     "examples": [
       {
         "en": "I can't imagine a circumstance in which I would be willing to steal.",
@@ -313645,7 +313989,12 @@
     "translations": [
       "劳动力；工人总数，职工总数"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "workforce of",
+        "zh": "...的劳动力"
+      }
+    ],
     "examples": [
       {
         "en": "Women now represent almost 50% of the workforce.",
@@ -313689,7 +314038,12 @@
     "translations": [
       "工人，劳动者，工匠"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "workman of",
+        "zh": "...的工人"
+      }
+    ],
     "examples": [
       {
         "en": "In University Square workmen are building a steel fence.",
@@ -313767,7 +314121,12 @@
     "translations": [
       "工作场所；车间"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "workplace of",
+        "zh": "...的工作场所"
+      }
+    ],
     "examples": [
       {
         "en": "...the difficulties facing women in the workplace.",
@@ -314006,7 +314365,12 @@
       "全世界的",
       "在世界各地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "worldwide so",
+        "zh": "全世界地"
+      }
+    ],
     "examples": [
       {
         "en": "His books have sold more than 20 million copies worldwide.",
@@ -314341,7 +314705,12 @@
     "translations": [
       "（使）变得更坏"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "worsen of",
+        "zh": "...的恶化"
+      }
+    ],
     "examples": [
       {
         "en": "A lot of teachers expect the situation to worsen over the next few years.",
@@ -314579,7 +314948,12 @@
       "无价值的，无用的",
       "无价值的；不值钱的；卑微的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "worthless of",
+        "zh": "...的没有价值"
+      }
+    ],
     "examples": [
       {
         "en": "The house was full of worthless junk.",

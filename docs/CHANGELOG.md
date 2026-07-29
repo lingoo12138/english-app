@@ -3123,3 +3123,14 @@
 #### 累计
 - 5423 词 / 4699 phrases (86.6%) / 5088 roots (93.8%)
 - 剩 724 词无 phrases (10+ 字符)
+
+## [v1.73.0] - 2026-07-29
+
+### v1.73.0 W66 — phrases 续补 74 词 (88.0%)
+
+#### W66 phrases P7
+- 10 字符 74 词: accelerate/accumulate/anticipate/appreciate/contribute/discourage/distribute/facilitate/inevitable/mainstream/outstanding/overwhelm/particular/percentage/perspective/phenomenon/possibility/potentially/preference/productive/prosperity/protective/psychology/recording/reference/regardless/reinforce/remarkable/requirement/researcher/responsibility/restaurant/revolution/sacrifice/satisfactory/sensitive/significant/sociology/somewhere/specialist/specialize/structural/successful/sufficient/survival/sympathy/technical/temporary/tolerate/transition/translate/transparent/transportation/traveler/tremendous/tropical/uncomfortable/unconscious/underestimate/underlying/understand/undertake/uneasy/unexpected/unfortunately/universal/unknown/unlimited/unnecessary/unpleasant/unprecedented/unreasonable/unstable/unsuccessful/unsuitable/useless/violently/virtually/visible/visitor/visualize/walking/warehouse/weathered/website/wedding/weekend/weekly/welcome/welfare/whatever/whenever/wherever/whether/whichever/whoever/wholeheartedly/widely/widespread/willingly/wisdom/withdraw/withstand/witness/wonderful/workforce/workplace/worldwide/worsen/worsening/worthless
+
+#### 累计
+- 5423 词 / 4773 phrases (88.0%) / 5088 roots (93.8%)
+- 剩 650 词无 phrases
