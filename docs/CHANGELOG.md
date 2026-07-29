@@ -3146,3 +3146,17 @@
 #### 累计
 - 5423 词 / 4828 phrases (89.0%) / 5088 roots (93.8%)
 - 剩 595 词无 phrases
+
+## [v1.75.0] - 2026-07-29
+
+### v1.75.0 W68 — phrases 续补 58 词 (90.1%, 突破 90%)
+
+#### W68 phrases P9
+- 12+ 字符 58 词全配 (12/13/14/15 字符)
+- 涵盖: bureaucratic/consequently/considerable/deliberately/dramatically/encouragement/fundamentally/granddaughter/indispensable/nevertheless/occasionally/particularly/receptionist/unbelievable
+
+#### 累计
+- 5423 词 / 4886 phrases (90.1%) / 5088 roots (93.8%)
+- **突破 90% 覆盖** ✓
+- 12+ 字符 100% 配完
+- 剩 537 词无 phrases

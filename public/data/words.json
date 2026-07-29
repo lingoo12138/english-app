@@ -6616,7 +6616,12 @@
     "translations": [
       "深情的，柔情的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "affectionate toward",
+        "zh": "对...亲热"
+      }
+    ],
     "examples": [
       {
         "en": "an affectionate hug",
@@ -10809,6 +10814,12 @@
       {
         "root": "-ess",
         "meaning": "女"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "ambassadress of",
+        "zh": "...的女大使"
       }
     ]
   },
@@ -25941,7 +25952,12 @@
     "translations": [
       "战场"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "battleground of",
+        "zh": "...的战场"
+      }
+    ],
     "examples": [
       {
         "en": "But all too often, a relationship becomes a battleground where each partner becomes well schooled in the art of inflicting pain on the other.",
@@ -38907,7 +38923,12 @@
     "translations": [
       "官僚的；官僚政治的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "bureaucratic of",
+        "zh": "...的官僚"
+      }
+    ],
     "examples": [
       {
         "en": "Bureaucratic delays are inevitable.",
@@ -39461,7 +39482,12 @@
     "translations": [
       "女商人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "businesswoman of",
+        "zh": "...的女商人"
+      }
+    ],
     "examples": [
       {
         "en": "...a successful businesswoman who runs her own international cosmetics company.",
@@ -47121,7 +47147,12 @@
     "translations": [
       "以……特点"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "characterize as",
+        "zh": "描绘"
+      }
+    ],
     "examples": [
       {
         "en": "Bright colours characterize his paintings.",
@@ -60679,7 +60710,12 @@
       "祝贺；祝贺词",
       "祝贺；贺辞"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "congratulation on",
+        "zh": "祝贺"
+      }
+    ],
     "examples": [
       {
         "en": "letters of congratulation",
@@ -60954,7 +60990,12 @@
     "translations": [
       "连接，联系"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "connectivity of",
+        "zh": "...的连接"
+      }
+    ],
     "examples": [
       {
         "en": "a growing demand for high-speed connectivity",
@@ -61522,7 +61563,12 @@
       "结果",
       "因此，因而，所以"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "consequently so",
+        "zh": "因此"
+      }
+    ],
     "examples": [
       {
         "en": "Most computer users have never received any formal keyboard training. Consequently, their keyboard skills are inefficient.",
@@ -61787,7 +61833,12 @@
       "相当大(或多)的",
       "相当大的；重要的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "considerable of",
+        "zh": "...的相当多"
+      }
+    ],
     "examples": [
       {
         "en": "Michael has already spent considerable time in Barcelona.",
@@ -61836,7 +61887,12 @@
     "translations": [
       "相当地，非常地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "considerably so",
+        "zh": "相当大地"
+      }
+    ],
     "examples": [
       {
         "en": "It's considerably colder today.",
@@ -63880,7 +63936,12 @@
       "矛盾的；反对的；反驳的；抗辩的",
       "对立物；矛盾因素"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "contradictory of",
+        "zh": "...的矛盾"
+      }
+    ],
     "examples": [
       {
         "en": "Customs officials have made a series of contradictory statements about the equipment.",
@@ -64248,7 +64309,12 @@
     "translations": [
       "有争议的；有争论的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "controversial of",
+        "zh": "...的争议"
+      }
+    ],
     "examples": [
       {
         "en": "the controversial issue of welfare reform",
@@ -76458,7 +76524,12 @@
     "translations": [
       "故意地；谨慎地；慎重地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "deliberately so",
+        "zh": "故意地"
+      }
+    ],
     "examples": [
       {
         "en": "He deliberately upset her.",
@@ -82701,7 +82772,12 @@
     "translations": [
       "不一致；争论；意见不同"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "disagreement with",
+        "zh": "分歧"
+      }
+    ],
     "examples": [
       {
         "en": "We've had a few disagreements , but we're still good friends.",
@@ -82833,6 +82909,12 @@
         "root": "appoint",
         "meaning": "指定；任命"
       }
+    ],
+    "phrases": [
+      {
+        "en": "disappointed at",
+        "zh": "对...失望"
+      }
     ]
   },
   {
@@ -82847,7 +82929,12 @@
     "translations": [
       "令人失望的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "disappointing of",
+        "zh": "...的令人失望"
+      }
+    ],
     "examples": [
       {
         "en": "disappointing profit figures",
@@ -82891,7 +82978,12 @@
     "translations": [
       "失望；沮丧"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "disappointment of",
+        "zh": "...的失望"
+      }
+    ],
     "examples": [
       {
         "en": "He could see the disappointment in her eyes.",
@@ -88310,7 +88402,12 @@
     "translations": [
       "戏剧性地，引人注目地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "dramatically so",
+        "zh": "戏剧性地"
+      }
+    ],
     "examples": [
       {
         "en": "The population increased dramatically in the first half of the century.",
@@ -96111,7 +96208,12 @@
     "translations": [
       "鼓励"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "encouragement of",
+        "zh": "...的鼓励"
+      }
+    ],
     "examples": [
       {
         "en": "With encouragement, Sally is starting to play with the other children.",
@@ -104923,7 +105025,12 @@
     "translations": [
       "表达"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "expressiveness of",
+        "zh": "...的表现力"
+      }
+    ],
     "examples": [
       {
         "en": "Moreover, it offers the expressiveness which helps to “simplify complex tasks”.",
@@ -120861,7 +120968,12 @@
     "translations": [
       "根本上"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "fundamentally so",
+        "zh": "根本地"
+      }
+    ],
     "examples": [
       {
         "en": "The conclusions of the report are fundamentally wrong .",
@@ -123215,7 +123327,12 @@
     "translations": [
       "一般化"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "generalization of",
+        "zh": "...的概括"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -127448,7 +127565,12 @@
       "孙女，外孙女",
       "孙女；外孙女"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "granddaughter of",
+        "zh": "...的孙女"
+      }
+    ],
     "examples": [
       {
         "en": "...a drawing of my granddaughter Amelia.",
@@ -127654,7 +127776,12 @@
     "translations": [
       "祖父母（grandparent的复数）；外祖父母"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "grandparents of",
+        "zh": "...的祖父母"
+      }
+    ],
     "examples": [
       {
         "en": "Tammy was raised by her grandparents.",
@@ -129588,7 +129715,12 @@
     "translations": [
       "无缘无故地，无根据地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "groundlessly so",
+        "zh": "无根据地"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -131682,7 +131814,12 @@
       "手帕",
       "手帕；头巾，围巾"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "handkerchief of",
+        "zh": "...的手帕"
+      }
+    ],
     "examples": [
       {
         "en": "He flicked at spot with handkerchief.",
@@ -134166,7 +134303,12 @@
     "translations": [
       "女校长"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "headmistress of",
+        "zh": "...的女校长"
+      }
+    ],
     "examples": [
       {
         "en": "\"We've got life-size cutouts of William and Kate, \" boasts one headmistress, claiming: \"The children are really excited.\"",
@@ -142432,7 +142574,12 @@
     "translations": [
       "说明，图解；例证"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "illustration of",
+        "zh": "...的说明"
+      }
+    ],
     "examples": [
       {
         "en": "The book contains 62 pages of illustrations.",
@@ -142755,7 +142902,12 @@
     "translations": [
       "无法估量的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "immeasurable of",
+        "zh": "...的不可测"
+      }
+    ],
     "examples": [
       {
         "en": "The refugee problem has now reached immeasurable proportions.",
@@ -143247,7 +143399,12 @@
     "translations": [
       "非永久性"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "impermanency of",
+        "zh": "...的非永久"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -144990,7 +145147,12 @@
     "translations": [
       "无比的，无可匹敌的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "incomparable of",
+        "zh": "...的无与伦比"
+      }
+    ],
     "examples": [
       {
         "en": "an incomparable view of San Marco",
@@ -145158,7 +145320,12 @@
     "translations": [
       "日益，越来越多地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "increasingly so",
+        "zh": "越来越多地"
+      }
+    ],
     "examples": [
       {
         "en": "Marketing techniques are becoming increasingly sophisticated.",
@@ -146014,7 +146181,12 @@
       "必不可少的",
       "必不可少的，必需的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "indispensable to",
+        "zh": "对...必不可少"
+      }
+    ],
     "examples": [
       {
         "en": "Mobile phones have become an indispensable part of our lives.",
@@ -146279,7 +146451,12 @@
     "translations": [
       "使工业化"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "industrialize of",
+        "zh": "工业化"
+      }
+    ],
     "examples": [
       {
         "en": "Energy consumption rises as countries industrialize.",
@@ -150904,7 +151081,12 @@
     "translations": [
       "相互联系"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "interconnect of",
+        "zh": "互联"
+      }
+    ],
     "examples": [
       {
         "en": "In Freud's theory, the two areas of sexuality and violence are interconnected.",
@@ -150943,7 +151125,12 @@
     "translations": [
       "相互依靠"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "interdependence of",
+        "zh": "...的相互依赖"
+      }
+    ],
     "examples": [
       {
         "en": "...the interdependence of nations.",
@@ -153418,7 +153605,12 @@
     "translations": [
       "不合理地，无理性地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "irrationally so",
+        "zh": "不理性地"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -157550,7 +157742,12 @@
     "translations": [
       "幼儿园；幼稚园"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "kindergarten of",
+        "zh": "...的幼儿园"
+      }
+    ],
     "examples": [
       {
         "en": "To my kindergarten.",
@@ -174602,7 +174799,12 @@
     "translations": [
       "机械地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "mechanically so",
+        "zh": "机械地"
+      }
+    ],
     "examples": [
       {
         "en": "Never copy foreign things blindly or mechanically.",
@@ -177114,7 +177316,12 @@
       "微型计算机，微机",
       "微电脑；[计] 微型计算机"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "microcomputer of",
+        "zh": "...的微电脑"
+      }
+    ],
     "examples": [
       {
         "en": "The merchant sold electrical appliances, such as microcomputer, microphone, microprocessor and microwave ovens.",
@@ -179177,7 +179384,12 @@
     "translations": [
       "算错，误算"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "miscalculation of",
+        "zh": "...的计算错误"
+      }
+    ],
     "examples": [
       {
         "en": "KAPLAN: Well, there's always the risk of a miscalculation or an accident at sea.",
@@ -179941,7 +180153,12 @@
       "误解，误会，曲解",
       "误解；误会"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "misunderstand of",
+        "zh": "误解"
+      }
+    ],
     "examples": [
       {
         "en": "Rachel, you must have misunderstood her! Ellie would never say something like that.",
@@ -187963,7 +188180,12 @@
       "然而",
       "仍然"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "nevertheless so",
+        "zh": "尽管如此"
+      }
+    ],
     "examples": [
       {
         "en": "The news may be unexpected; nevertheless, it is true.",
@@ -192248,7 +192470,12 @@
     "translations": [
       "偶然；非经常地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "occasionally so",
+        "zh": "偶尔地"
+      }
+    ],
     "examples": [
       {
         "en": "Occasionally people confess to crimes they haven't committed just to get attention.",
@@ -196058,6 +196285,12 @@
         "root": "-ation",
         "meaning": "名词"
       }
+    ],
+    "phrases": [
+      {
+        "en": "organisation of",
+        "zh": "...的组织"
+      }
     ]
   },
   {
@@ -198548,7 +198781,12 @@
     "translations": [
       "对（数量）估计过高"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "overestimate of",
+        "zh": "高估"
+      }
+    ],
     "examples": [
       {
         "en": "He tends to overestimate his own abilities.",
@@ -202181,7 +202419,12 @@
     "translations": [
       "特别，尤其，格外"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "particularly so",
+        "zh": "特别地"
+      }
+    ],
     "examples": [
       {
         "en": "Steve was in a particularly bad mood when he got back.",
@@ -207293,7 +207536,12 @@
     "translations": [
       "摄影师；照相师"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "photographer of",
+        "zh": "...的摄影师"
+      }
+    ],
     "examples": [
       {
         "en": "a fashion photographer",
@@ -215799,7 +216047,12 @@
     "translations": [
       "优先地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "preferentially so",
+        "zh": "优先地"
+      }
+    ],
     "examples": [
       {
         "en": "Heterosexuals should not be treated preferentially when the state carries out that role.",
@@ -220437,7 +220690,12 @@
     "translations": [
       "过分地，非常地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "prohibitively so",
+        "zh": "禁止地"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -229409,7 +229667,12 @@
     "translations": [
       "接待员；传达员"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "receptionist of",
+        "zh": "...的接待员"
+      }
+    ],
     "examples": [
       {
         "en": "You tell the receptionist that you are expecting a call from this client and to put them through.",
@@ -236721,7 +236984,12 @@
       "各自地",
       "各自地，分别地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "respectively so",
+        "zh": "分别地"
+      }
+    ],
     "examples": [
       {
         "en": "The cups and saucers cost £5 and £3 respectively.",
@@ -271263,7 +271531,12 @@
       "简单的；坦率的；明确的；径直的",
       "直截了当地；坦率地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "straightforward of",
+        "zh": "...的简单明了"
+      }
+    ],
     "examples": [
       {
         "en": "This area of law is far from straightforward (= complicated ) .",
@@ -279884,7 +280157,12 @@
     "translations": [
       "有系统的；有计划的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "systematical of",
+        "zh": "...的系统"
+      }
+    ],
     "examples": [
       {
         "en": "Excellent ability of systematical management.",
@@ -287481,7 +287759,12 @@
     "translations": [
       "[气象] 雷暴；雷暴雨；大雷雨"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "thunderstorm of",
+        "zh": "...的雷暴"
+      }
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -297150,6 +297433,12 @@
         "root": "-able",
         "meaning": "能...的"
       }
+    ],
+    "phrases": [
+      {
+        "en": "unbelievable of",
+        "zh": "...的难以置信"
+      }
     ]
   },
   {
@@ -298608,7 +298897,12 @@
     "translations": [
       "不幸地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "unfortunately so",
+        "zh": "不幸地"
+      }
+    ],
     "examples": [
       {
         "en": "Unfortunately, you were out when we called.",
