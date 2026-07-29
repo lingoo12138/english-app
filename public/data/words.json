@@ -765,7 +765,12 @@
     "translations": [
       "突然地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "abruptly stop",
+        "zh": "突然停止"
+      }
+    ],
     "examples": [
       {
         "en": "The path ends off abruptly.",
@@ -2835,7 +2840,12 @@
     "translations": [
       "使习惯"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "accustom to",
+        "zh": "使习惯于"
+      }
+    ],
     "examples": [
       {
         "en": "She tried to accustom herself to the tight bandages.",
@@ -4027,7 +4037,12 @@
     "translations": [
       "实际上；竟然"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "actually so",
+        "zh": "实际上"
+      }
+    ],
     "examples": [
       {
         "en": "I've known Barbara for years. Since we were babies, actually.",
@@ -10183,7 +10198,12 @@
       "尽管，虽然",
       "尽管；虽然；但是；然而"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "although so",
+        "zh": "尽管"
+      }
+    ],
     "examples": [
       {
         "en": "Although in poor health, she continued to carry out her duties.",
@@ -10412,6 +10432,12 @@
       {
         "root": "-um",
         "meaning": "金属后缀"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "aluminum foil",
+        "zh": "铝箔"
       }
     ]
   },
@@ -10804,7 +10830,12 @@
       "野心，雄心；抱负，志向",
       "追求；有…野心"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "ambition to",
+        "zh": "雄心"
+      }
+    ],
     "examples": [
       {
         "en": "He was young and full of ambition.",
@@ -12420,7 +12451,12 @@
       "宣布，宣告，发表",
       "宣布；述说；预示；播报"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "announce to",
+        "zh": "宣布"
+      }
+    ],
     "examples": [
       {
         "en": "They announced their engagement in ‘The Times'.",
@@ -12718,7 +12754,12 @@
     "translations": [
       "每年，一年一次"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "annually so",
+        "zh": "每年"
+      }
+    ],
     "examples": [
       {
         "en": "This is a perennating rhizome from which flowering shoots arise annually.",
@@ -18698,7 +18739,12 @@
       "使惊讶，使吃惊",
       "使惊讶"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "astonish at",
+        "zh": "使惊讶"
+      }
+    ],
     "examples": [
       {
         "en": "Her reply astonished me.",
@@ -24906,6 +24952,12 @@
         "root": "ball",
         "meaning": "球"
       }
+    ],
+    "phrases": [
+      {
+        "en": "play baseball",
+        "zh": "打棒球"
+      }
     ]
   },
   {
@@ -27449,7 +27501,12 @@
     "translations": [
       "初学者，生手"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "beginner in",
+        "zh": "...的初学者"
+      }
+    ],
     "examples": [
       {
         "en": "an absolute beginner",
@@ -47693,7 +47750,12 @@
       "快乐的，愉快的",
       "快乐的；愉快的；高兴的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "cheerful of",
+        "zh": "...的快乐"
+      }
+    ],
     "examples": [
       {
         "en": "a bright cheerful Italian restaurant",
@@ -48738,7 +48800,12 @@
     "translations": [
       "孩子的；幼稚的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "childish of",
+        "zh": "...的幼稚"
+      }
+    ],
     "examples": [
       {
         "en": "a high childish laugh",
@@ -64738,7 +64805,12 @@
       "使确信，使信服",
       "说服；使确信，使信服"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "convince of",
+        "zh": "使相信"
+      }
+    ],
     "examples": [
       {
         "en": "Her arguments didn't convince everyone, but changes were made.",
@@ -65567,7 +65639,12 @@
     "translations": [
       "真诚的，诚恳的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "cordial in",
+        "zh": "...的真诚"
+      }
+    ],
     "examples": [
       {
         "en": "The talks were conducted in a cordial atmosphere.",
@@ -69549,7 +69626,12 @@
       "批评；评论",
       "批评；评论；非难"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "criticize for",
+        "zh": "因...批评"
+      }
+    ],
     "examples": [
       {
         "en": "Ron does nothing but criticize and complain all the time.",
@@ -77620,7 +77702,12 @@
     "translations": [
       "使沮丧；按下"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "depress of",
+        "zh": "使沮丧"
+      }
+    ],
     "examples": [
       {
         "en": "The thought of taking the exam again depressed him.",
@@ -80367,7 +80454,12 @@
     "translations": [
       "独裁者；专制者"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "dictator of",
+        "zh": "...的独裁者"
+      }
+    ],
     "examples": [
       {
         "en": "the downfall of the hated dictator",
@@ -83138,7 +83230,12 @@
       "发现；暴露，显示",
       "发现；发觉"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "discover of",
+        "zh": "发现"
+      }
+    ],
     "examples": [
       {
         "en": "The body was discovered in a field.",
@@ -84079,7 +84176,12 @@
     "translations": [
       "混乱，杂乱；骚乱"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "disorder of",
+        "zh": "...的混乱"
+      }
+    ],
     "examples": [
       {
         "en": "severe eating disorders such as bulimia and anorexia",
@@ -87275,7 +87377,12 @@
     "translations": [
       "（雨等的）大下特下"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "downfall of",
+        "zh": "...的垮台"
+      }
+    ],
     "examples": [
       {
         "en": "the downfall of the hated dictator",
@@ -87362,7 +87469,12 @@
     "translations": [
       "裁员"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "downsize of",
+        "zh": "裁员"
+      }
+    ],
     "examples": [
       {
         "en": "The airline has downsized its workforce by 30%.",
@@ -95929,7 +96041,12 @@
     "translations": [
       "危及，危害，濒临危险"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "endanger of",
+        "zh": "危及"
+      }
+    ],
     "examples": [
       {
         "en": "Smoking during pregnancy endangers your baby's life.",
@@ -97102,7 +97219,12 @@
       "巨大的",
       "巨大的，庞大的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "enormous of",
+        "zh": "巨大的"
+      }
+    ],
     "examples": [
       {
         "en": "an enormous bunch of flowers",
@@ -99625,7 +99747,12 @@
       "评价，估…的价",
       "评价；估价；求…的值"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "evaluate of",
+        "zh": "评价"
+      }
+    ],
     "examples": [
       {
         "en": "You should be able to evaluate your own work.",
@@ -115347,7 +115474,12 @@
     "translations": [
       "立足处（攀登时脚踩的地方）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "foothold in",
+        "zh": "...的立足点"
+      }
+    ],
     "examples": [
       {
         "en": "Businesses are investing millions of dollars to gain a foothold in this new market.",
@@ -119454,7 +119586,12 @@
       "使惊恐，吓唬",
       "使惊吓；吓唬…"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "frighten into",
+        "zh": "吓唬"
+      }
+    ],
     "examples": [
       {
         "en": "Don't stand so near the edge! You're frightening me.",
@@ -142601,7 +142738,12 @@
     "translations": [
       "稳定的，不变的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "immobile of",
+        "zh": "...的固定"
+      }
+    ],
     "examples": [
       {
         "en": "She could see a figure sitting immobile, facing the sea.",
@@ -145245,7 +145387,12 @@
       "标示，表示；表明",
       "表明；指出；预示；象征"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "indicate that",
+        "zh": "表明"
+      }
+    ],
     "examples": [
       {
         "en": "The study indicates a connection between poverty and crime.",
@@ -146985,7 +147132,12 @@
     "translations": [
       "开始，发起"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "initiate into",
+        "zh": "发起"
+      }
+    ],
     "examples": [
       {
         "en": "They have decided to initiate legal proceedings against the newspaper.",
@@ -147986,7 +148138,12 @@
     "translations": [
       "不安全的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "insecure of",
+        "zh": "不安全的"
+      }
+    ],
     "examples": [
       {
         "en": "Many of them work in low-paid insecure jobs.",
@@ -153028,7 +153185,12 @@
     "translations": [
       "激怒"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "irritate at",
+        "zh": "激怒"
+      }
+    ],
     "examples": [
       {
         "en": "It really irritates me when he doesn't help around the house.",
@@ -174944,7 +175106,12 @@
       "熟记，牢记",
       "记住，背熟；记忆"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "memorize as",
+        "zh": "熟记"
+      }
+    ],
     "examples": [
       {
         "en": "He studied his map, trying to memorize the way to Rose's street.",
@@ -178625,7 +178792,12 @@
     "translations": [
       "误导"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "misguide into",
+        "zh": "误导"
+      }
+    ],
     "examples": [
       {
         "en": "In addition, they will also misguide the innocent, which becomes a vicious circle.",
@@ -181715,7 +181887,12 @@
       "促动，激发，诱导",
       "促动；激励，激发"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "motivate to",
+        "zh": "激发"
+      }
+    ],
     "examples": [
       {
         "en": "A good teacher has to be able to motivate her students.",
@@ -194191,7 +194368,12 @@
       "对手",
       "对手，敌手；对抗者"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "opponent in",
+        "zh": "...的对手"
+      }
+    ],
     "examples": [
       {
         "en": "Graf's opponent in today's final will be Sukova.",
@@ -198280,7 +198462,12 @@
       "超车",
       "追上，赶上；压倒"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "overtake of",
+        "zh": "超过"
+      }
+    ],
     "examples": [
       {
         "en": "He pulled out to overtake the van.",
@@ -205776,7 +205963,12 @@
       "说服，劝说；使某人相信；劝某人做（不做）某事",
       "空闲的，有闲的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "persuade to",
+        "zh": "说服"
+      }
+    ],
     "examples": [
       {
         "en": "He was fairly easily persuaded .",
@@ -219207,7 +219399,12 @@
     "translations": [
       "深厚的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "profound of",
+        "zh": "...的深远"
+      }
+    ],
     "examples": [
       {
         "en": "a profound sense of guilt",
@@ -222407,7 +222604,12 @@
       "严守时刻的；准时的",
       "准时的，守时的；精确的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "punctual in",
+        "zh": "准时的"
+      }
+    ],
     "examples": [
       {
         "en": "She's always very punctual for appointments.",
@@ -228040,7 +228242,12 @@
     "translations": [
       "重新评估"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "reassess of",
+        "zh": "重新评估"
+      }
+    ],
     "examples": [
       {
         "en": "This has caused us to reassess the way we approach our planning.",
@@ -231271,7 +231478,12 @@
       "管理",
       "管理，控制；调整"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "regulate of",
+        "zh": "管理"
+      }
+    ],
     "examples": [
       {
         "en": "strict rules regulating the use of chemicals in food",
@@ -234908,7 +235120,12 @@
       "像，类似",
       "类似，像"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "resemble in",
+        "zh": "相似"
+      }
+    ],
     "examples": [
       {
         "en": "It's amazing how closely Brian and Steve resemble each other.",
@@ -236591,7 +236808,12 @@
       "vt限制，限定，约束",
       "限制；约束；限定"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "restrict to",
+        "zh": "限制"
+      }
+    ],
     "examples": [
       {
         "en": "The new law restricts the sale of hand guns.",
@@ -236877,7 +237099,12 @@
     "translations": [
       "零售商"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "retailer of",
+        "zh": "...的零售商"
+      }
+    ],
     "examples": [
       {
         "en": "Furniture and carpet retailers are among those reporting the sharpest annual decline in sales.",
@@ -239012,7 +239239,12 @@
     "translations": [
       "严格的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "rigorous of",
+        "zh": "...的严格"
+      }
+    ],
     "examples": [
       {
         "en": "a rigorous analysis of defence needs",
@@ -249342,7 +249574,12 @@
       "[语][计] 句子，命题；宣判，判决",
       "判决，宣判"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "sentence to",
+        "zh": "判处"
+      }
+    ],
     "examples": [
       {
         "en": "She received an eight-year prison sentence.",
@@ -254475,7 +254712,12 @@
       "向侧面地；向一旁",
       "向侧面的；一旁的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "sideways of",
+        "zh": "侧身"
+      }
+    ],
     "examples": [
       {
         "en": "They brought the piano sideways through the front door.",
@@ -255612,7 +255854,12 @@
       "简化，使单纯",
       "简化；使单纯；使简易"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "simplify of",
+        "zh": "简化"
+      }
+    ],
     "examples": [
       {
         "en": "an attempt to simplify the tax system",
@@ -258257,7 +258504,12 @@
     "translations": [
       "轻微地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "slightly of",
+        "zh": "轻微地"
+      }
+    ],
     "examples": [
       {
         "en": "His family then moved to a slightly larger house.",
@@ -282015,7 +282267,12 @@
     "translations": [
       "诱人的，吸引人的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "tempting of",
+        "zh": "...的诱人"
+      }
+    ],
     "examples": [
       {
         "en": "a tempting job offer",
@@ -282831,7 +283088,12 @@
     "translations": [
       "可怕地，非常"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "terribly of",
+        "zh": "可怕地"
+      }
+    ],
     "examples": [
       {
         "en": "I'm terribly sorry to have kept you waiting.",
@@ -285913,7 +286175,12 @@
       "威胁",
       "威胁，恐吓"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "threaten to",
+        "zh": "威胁"
+      }
+    ],
     "examples": [
       {
         "en": "Postal workers are threatening a strike if they don't receive a pay increase.",

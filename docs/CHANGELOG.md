@@ -3100,3 +3100,15 @@
 #### 累计
 - 5423 词 / 4605 phrases (84.9%) / 5088 roots (93.8%)
 - 剩 818 词无 phrases (8+ 字符为主)
+
+## [v1.71.0] - 2026-07-29
+
+### v1.71.0 W64 — phrases 续补 53 词 (85.9%)
+
+#### W64 phrases P5
+- 8 字符 53 词 (CET4/6 高频): abruptly/announce/convince/discover/endanger/evaluate/indicate/initiate/motivate/persuade/restrict/simplify/threaten
+- 含常用短语: convince of/discover that/indicate that/persuade to/restrict to/simplify of/threaten to
+
+#### 累计
+- 5423 词 / 4658 phrases (85.9%) / 5088 roots (93.8%)
+- 剩 765 词无 phrases (9+ 字符为主)
