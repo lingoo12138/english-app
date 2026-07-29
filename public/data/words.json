@@ -1914,7 +1914,12 @@
     "translations": [
       "同谋，从犯"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "accessary of",
+        "zh": "...的从犯"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -4755,7 +4760,12 @@
       "形容词",
       "形容词的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "adjective of",
+        "zh": "...的形容词"
+      }
+    ],
     "examples": [
       {
         "en": "In “the black cat” the adjective “black”modifies the noun “cat”.",
@@ -5049,7 +5059,12 @@
     "translations": [
       "令人钦佩的；极好的；值得赞扬的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "admirable of",
+        "zh": "...的令人钦佩"
+      }
+    ],
     "examples": [
       {
         "en": "an admirable achievement",
@@ -6168,7 +6183,12 @@
     "translations": [
       "明智的；可取的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "advisable of",
+        "zh": "...的可取"
+      }
+    ],
     "examples": [
       {
         "en": "I deem it advisable to buy property now.",
@@ -6414,7 +6434,12 @@
       "飞机",
       "飞机（等于airplane）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "aeroplane of",
+        "zh": "...的飞机"
+      }
+    ],
     "examples": [
       {
         "en": "The aeroplane landed us at the airport in Barcelona.",
@@ -6567,7 +6592,12 @@
       "慈爱，爱；爱慕",
       "喜爱，感情；影响；感染"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "affection for",
+        "zh": "...的爱"
+      }
+    ],
     "examples": [
       {
         "en": "She looked back on those days with affection .",
@@ -7134,7 +7164,12 @@
       "后来，以后",
       "以后，后来"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "afterward so",
+        "zh": "之后"
+      }
+    ],
     "examples": [
       {
         "en": "Shortly afterward, police arrested four suspects.",
@@ -7178,6 +7213,12 @@
       {
         "root": "-wards",
         "meaning": "表示方向"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "afterwards so",
+        "zh": "之后"
       }
     ]
   },
@@ -10342,7 +10383,12 @@
       "完全地；总共；总而言之",
       "整个；裸体"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "altogether so",
+        "zh": "完全地"
+      }
+    ],
     "examples": [
       {
         "en": "an old custom that has vanished altogether",
@@ -10835,7 +10881,12 @@
     "translations": [
       "模糊不清的；引起歧义的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "ambiguous of",
+        "zh": "...的含糊"
+      }
+    ],
     "examples": [
       {
         "en": "The language in the Minister's statement is highly ambiguous.",
@@ -13042,6 +13093,12 @@
         "root": "arct",
         "meaning": "熊；北极"
       }
+    ],
+    "phrases": [
+      {
+        "en": "Antarctic of",
+        "zh": "南极的"
+      }
     ]
   },
   {
@@ -13955,7 +14012,12 @@
     "translations": [
       "器械，仪器；器官"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "apparatus of",
+        "zh": "...的仪器"
+      }
+    ],
     "examples": [
       {
         "en": "Astronauts have special breathing apparatus.",
@@ -18461,7 +18523,12 @@
       "助手，助理，助教",
       "辅助的，助理的；有帮助的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "assistant to",
+        "zh": "...的助理"
+      }
+    ],
     "examples": [
       {
         "en": "a clerical assistant",
@@ -18849,7 +18916,12 @@
       "宇宙航行员，宇航员",
       "宇航员，航天员；太空旅行者"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "astronaut of",
+        "zh": "...的宇航员"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -19163,7 +19235,12 @@
     "translations": [
       "竞技；体育运动；田径运动"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "athletics of",
+        "zh": "...的体育"
+      }
+    ],
     "examples": [
       {
         "en": "...students who play intercollegiate athletics.",
@@ -19955,7 +20032,12 @@
     "translations": [
       "注意的；有礼貌的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "attentive to",
+        "zh": "对...注意"
+      }
+    ],
     "examples": [
       {
         "en": "an attentive audience",
@@ -20683,7 +20765,12 @@
     "translations": [
       "真正的，真实的；可信的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "authentic of",
+        "zh": "...的真实的"
+      }
+    ],
     "examples": [
       {
         "en": "an authentic account",
@@ -22906,6 +22993,12 @@
         "root": "-wards",
         "meaning": "表示方向"
       }
+    ],
+    "phrases": [
+      {
+        "en": "backwards of",
+        "zh": "向后地"
+      }
     ]
   },
   {
@@ -24513,7 +24606,12 @@
       "理发店",
       "有男声合唱之和声的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "barbershop of",
+        "zh": "...的理发店"
+      }
+    ],
     "examples": [
       {
         "en": "a barbershop quartet",
@@ -25171,7 +25269,12 @@
     "translations": [
       "基本上"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "basically so",
+        "zh": "基本上"
+      }
+    ],
     "examples": [
       {
         "en": "Basically, I'm just lazy.",
@@ -26941,7 +27044,12 @@
     "translations": [
       "床上用品；铺盖"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "bedclothes of",
+        "zh": "...的床上用品"
+      }
+    ],
     "examples": [
       {
         "en": "Momma was cleaning inside, changing the bedclothes.",
@@ -27891,6 +27999,12 @@
       {
         "root": "avi",
         "meaning": "含 avi 词根"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "behaviour of",
+        "zh": "...的行为"
       }
     ]
   },
@@ -30181,7 +30295,12 @@
     "translations": [
       "传记；档案；个人简介"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "biography of",
+        "zh": "...的传记"
+      }
+    ],
     "examples": [
       {
         "en": "...recent biographies of Stalin.",
@@ -30623,7 +30742,12 @@
     "translations": [
       "出生地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "birthplace of",
+        "zh": "...的出生地"
+      }
+    ],
     "examples": [
       {
         "en": "Stratford-upon-Avon was Shakespeare's birthplace.",
@@ -33085,7 +33209,12 @@
     "translations": [
       "书架"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "bookshelf of",
+        "zh": "...的书架"
+      }
+    ],
     "examples": [
       {
         "en": "She dusted all the books on the bookshelf.",
@@ -35889,7 +36018,12 @@
     "translations": [
       "喘不过气来的；停止呼吸的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "breathless from",
+        "zh": "因...气喘吁吁"
+      }
+    ],
     "examples": [
       {
         "en": "The long climb left Jan feeling breathless.",
@@ -36200,7 +36334,12 @@
     "translations": [
       "新郎"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "bridegroom of",
+        "zh": "...的新郎"
+      }
+    ],
     "examples": [
       {
         "en": "Take me for thy bridegroom, for I love thee.",
@@ -40399,7 +40538,12 @@
       "自助食堂",
       "自助餐厅"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "at the cafeteria",
+        "zh": "在自助餐厅"
+      }
+    ],
     "examples": [
       {
         "en": "the school cafeteria",
@@ -44420,7 +44564,12 @@
       "总教堂；大教堂",
       "大教堂"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "cathedral of",
+        "zh": "...的大教堂"
+      }
+    ],
     "examples": [
       {
         "en": "St Paul's Cathedral",
@@ -45397,6 +45546,12 @@
         "root": "meter",
         "meaning": "米；测量"
       }
+    ],
+    "phrases": [
+      {
+        "en": "centimeter of",
+        "zh": "...的厘米"
+      }
     ]
   },
   {
@@ -45412,7 +45567,12 @@
       "公分，厘米",
       "厘米；公分"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "centimetre of",
+        "zh": "...的厘米"
+      }
+    ],
     "examples": [
       {
         "en": "...a tiny fossil plant, only a few centimetres high.",
@@ -45820,7 +45980,12 @@
       "一定，必定；当然",
       "当然；行（用于回答）；必定"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "certainly so",
+        "zh": "当然地"
+      }
+    ],
     "examples": [
       {
         "en": "‘I'd like a beer, please.' ‘Certainly, sir.'",
@@ -46202,7 +46367,12 @@
     "translations": [
       "女主席；女议长"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "chairwoman of",
+        "zh": "...的女主席"
+      }
+    ],
     "examples": [
       {
         "en": "Primakov was in Japan meeting with the chairwoman of the Socialist Party there.",
@@ -46705,7 +46875,12 @@
     "translations": [
       "无常的；可改变的；易变的；不定的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "changeable of",
+        "zh": "...的多变"
+      }
+    ],
     "examples": [
       {
         "en": "changeable weather",
@@ -50388,7 +50563,12 @@
       "循环",
       "传播，流传；循环；流通"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "circulate of",
+        "zh": "循环"
+      }
+    ],
     "examples": [
       {
         "en": "Swimming helps to get the blood circulating through the muscles.",
@@ -51560,7 +51740,12 @@
     "translations": [
       "同班同学"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "classmate of",
+        "zh": "...的同学"
+      }
+    ],
     "examples": [
       {
         "en": "He acquainted his classmate with my sister.",
@@ -56482,7 +56667,12 @@
     "translations": [
       "共产主义"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "communism of",
+        "zh": "...的共产主义"
+      }
+    ],
     "examples": [
       {
         "en": "...the ultimate triumph of communism in the world.",
@@ -57907,7 +58097,12 @@
     "translations": [
       "十分，完全地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "completely so",
+        "zh": "完全地"
+      }
+    ],
     "examples": [
       {
         "en": "I completely forgot that it's his birthday today.",
@@ -58030,7 +58225,12 @@
     "translations": [
       "使复杂；使陷入"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "complicate of",
+        "zh": "使复杂"
+      }
+    ],
     "examples": [
       {
         "en": "If the answer to all of these questions is no, a framework will only complicate matters.",
@@ -64713,7 +64913,12 @@
     "translations": [
       "相反地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "conversely so",
+        "zh": "相反地"
+      }
+    ],
     "examples": [
       {
         "en": "American consumers prefer white eggs; conversely, British buyers like brown eggs.",
@@ -76104,7 +76309,12 @@
     "translations": [
       "一定地，明确地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "definitely so",
+        "zh": "明确地"
+      }
+    ],
     "examples": [
       {
         "en": "‘Do you reckon Margot will be there?' ‘ Definitely not .'",
@@ -78610,7 +78820,12 @@
     "translations": [
       "值得相望的；可取的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "desirable of",
+        "zh": "...的合乎需要"
+      }
+    ],
     "examples": [
       {
         "en": "The ability to speak a foreign language is highly desirable .",
@@ -78844,7 +79059,12 @@
       "拼死的；绝望的",
       "不顾一切的；令人绝望的；极度渴望的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "desperate of",
+        "zh": "...的绝望"
+      }
+    ],
     "examples": [
       {
         "en": "I had no money left and was desperate.",
@@ -80625,7 +80845,12 @@
       "口授笔录，听写",
       "听写；口述；命令"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "dictation of",
+        "zh": "...的口授"
+      }
+    ],
     "examples": [
       {
         "en": "There were no secretaries available to take dictation (= write down what someone is saying ) .",
@@ -82131,7 +82356,12 @@
     "translations": [
       "方向，方位；指导"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "direction of",
+        "zh": "...的方向"
+      }
+    ],
     "examples": [
       {
         "en": "If there are aspects of your life that displease you make you feel regret, this is an opportunity to change direction.",
@@ -82859,7 +83089,12 @@
       "使失望，使受挫折",
       "使失望"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "disappoint of",
+        "zh": "使失望"
+      }
+    ],
     "examples": [
       {
         "en": "I hated to disappoint her.",
@@ -84112,7 +84347,12 @@
     "translations": [
       "不光彩；丢脸的人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "dishonour of",
+        "zh": "...的耻辱"
+      }
+    ],
     "examples": [
       {
         "en": "I dare not quit my post, though an unfaithful sentinel, whose sure reward is death and dishonour, when his dreary watch shall come to an end!",
@@ -84603,7 +84843,12 @@
     "translations": [
       "使不愉快，使生气"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "displease of",
+        "zh": "使不高兴"
+      }
+    ],
     "examples": [
       {
         "en": "If there are aspects of your life that displease you make you feel regret, this is an opportunity to change direction.",
@@ -87543,7 +87788,12 @@
     "translations": [
       "无疑地；很可能"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "doubtless of",
+        "zh": "无疑的"
+      }
+    ],
     "examples": [
       {
         "en": "Doubtless there would be lots of rumours.",
@@ -91777,7 +92027,12 @@
       "向东方地",
       "向东方的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "eastwards so",
+        "zh": "向东地"
+      }
+    ],
     "examples": [
       {
         "en": "The ship continued sailing eastwards.",
@@ -94847,7 +95102,12 @@
     "translations": [
       "在别处，向别处"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "elsewhere so",
+        "zh": "在别处"
+      }
+    ],
     "examples": [
       {
         "en": "She is becoming famous in Australia and elsewhere.",
@@ -97284,7 +97544,12 @@
     "translations": [
       "英国男子"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "Englishman of",
+        "zh": "...的英国人"
+      }
+    ],
     "examples": [
       {
         "en": "He was the only Englishman present.",
@@ -97444,7 +97709,12 @@
     "translations": [
       "快乐的；有乐趣的；令人愉快的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "enjoyable of",
+        "zh": "...的愉快"
+      }
+    ],
     "examples": [
       {
         "en": "Games can make learning more enjoyable.",
@@ -98010,7 +98280,12 @@
     "translations": [
       "使欢乐；招待"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "entertain of",
+        "zh": "招待"
+      }
+    ],
     "examples": [
       {
         "en": "Mark usually does the cooking when we entertain.",
@@ -100184,7 +100459,12 @@
       "使蒸发",
       "蒸发"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "evaporate of",
+        "zh": "蒸发"
+      }
+    ],
     "examples": [
       {
         "en": "Most of the water had evaporated.",
@@ -100500,7 +100780,12 @@
       "终于；最后",
       "最后，终于"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "eventually so",
+        "zh": "最终地"
+      }
+    ],
     "examples": [
       {
         "en": "He eventually escaped and made his way back to England.",
@@ -100763,7 +101048,12 @@
       "每人，人人",
       "每个人；人人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "everybody of",
+        "zh": "...的每个人"
+      }
+    ],
     "examples": [
       {
         "en": "Everybody cheered when the firemen arrived.",
@@ -105943,7 +106233,12 @@
     "translations": [
       "目击者；见证人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "eyewitness of",
+        "zh": "...的目击者"
+      }
+    ],
     "examples": [
       {
         "en": "One eyewitness said he saw her talking to a man in a blue car.",
@@ -109285,7 +109580,12 @@
       "特别受喜爱的",
       "特别喜爱的人（或物）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "favourite of",
+        "zh": "...的最爱"
+      }
+    ],
     "examples": [
       {
         "en": "a child's favourite toy",
@@ -112272,7 +112572,12 @@
     "translations": [
       "手指甲"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "fingernail of",
+        "zh": "...的指甲"
+      }
+    ],
     "examples": [
       {
         "en": "It takes about 150 days to grow out a full length fingernail.",
@@ -112544,7 +112849,12 @@
     "translations": [
       "壁炉"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "fireplace of",
+        "zh": "...的壁炉"
+      }
+    ],
     "examples": [
       {
         "en": "In the evenings, we gathered around the fireplace and talked in hushed whispers.",
@@ -112670,6 +112980,12 @@
       {
         "root": "work",
         "meaning": "工作；制品"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "fireworks of",
+        "zh": "...的烟火"
       }
     ]
   },
@@ -112947,7 +113263,12 @@
       "渔民，渔夫，打鱼人",
       "渔夫；渔人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "fisherman of",
+        "zh": "...的渔夫"
+      }
+    ],
     "examples": [
       {
         "en": "The Algarve is a paradise for fishermen whether river anglers or deep-sea fishermen.",
@@ -113643,7 +113964,12 @@
     "translations": [
       "手电筒；闪光灯"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "flashlight of",
+        "zh": "...的手电筒"
+      }
+    ],
     "examples": [
       {
         "en": "Wicky peeked at John's flashlight.",
@@ -116324,7 +116650,12 @@
       "外国人",
       "外地人，外国人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "foreigner of",
+        "zh": "...的外国人"
+      }
+    ],
     "examples": [
       {
         "en": "Some of the local people are suspicious of foreigners.",
@@ -116685,7 +117016,12 @@
     "translations": [
       "健忘的；不注意的；疏忽的；使遗忘的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "forgetful of",
+        "zh": "...的健忘"
+      }
+    ],
     "examples": [
       {
         "en": "My mother has become very forgetful and confused.",
@@ -117335,7 +117671,12 @@
       "两星期，十四天",
       "两星期"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "fortnight of",
+        "zh": "...的两周"
+      }
+    ],
     "examples": [
       {
         "en": "a fortnight's holiday",
@@ -119225,7 +119566,12 @@
     "translations": [
       "法国人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "Frenchman of",
+        "zh": "...的法国人"
+      }
+    ],
     "examples": [
       {
         "en": "I knew him for a Frenchman.",
@@ -121400,7 +121746,12 @@
     "translations": [
       "家具；装置，设备"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "furniture of",
+        "zh": "...的家具"
+      }
+    ],
     "examples": [
       {
         "en": "I helped him choose the furniture for his house.",
@@ -125153,7 +125504,12 @@
     "translations": [
       "温室；暖房"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "glasshouse of",
+        "zh": "...的玻璃房"
+      }
+    ],
     "examples": [
       {
         "en": "BrightFarms, for example, together with a firm called Better Food Solutions, began constructing a large single-storey glasshouse on the roof of a big supermarket in October.",
@@ -127014,7 +127370,12 @@
       "逐渐地，逐步地",
       "逐步地；渐渐地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "gradually so",
+        "zh": "逐渐地"
+      }
+    ],
     "examples": [
       {
         "en": "Jill gradually became aware of an awful smell.",
@@ -127530,7 +127891,12 @@
     "translations": [
       "孙子；孙女；外孙；外孙女"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "grandchild of",
+        "zh": "...的孙子"
+      }
+    ],
     "examples": [
       {
         "en": "Mary loves her grandchildren.",
@@ -130820,7 +131186,12 @@
     "translations": [
       "黑色火药；有烟火药"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "gunpowder of",
+        "zh": "...的火药"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -130924,7 +131295,12 @@
     "translations": [
       "体育馆，健身房"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "gymnasium of",
+        "zh": "...的体育馆"
+      }
+    ],
     "examples": [
       {
         "en": "I have found a new gymnasium.",
@@ -131527,7 +131903,12 @@
       "汉堡包，牛肉饼",
       "汉堡包，火腿汉堡；牛肉饼，肉饼；碎牛肉"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "hamburger of",
+        "zh": "...的汉堡包"
+      }
+    ],
     "examples": [
       {
         "en": "The whole stadium stink of the hamburger.",
@@ -131993,7 +132374,12 @@
     "translations": [
       "手推车"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "handtruck of",
+        "zh": "...的手推车"
+      }
+    ],
     "examples": [
       {
         "en": "Hydra selected the step ladder/handtruck.",
@@ -134259,7 +134645,12 @@
     "translations": [
       "校长"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "headmaster of",
+        "zh": "...的校长"
+      }
+    ],
     "examples": [
       {
         "en": "This headmaster is very modest.",
@@ -135457,7 +135848,12 @@
       "[航] 乘直升飞机",
       "由直升机运送"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "helicopter of",
+        "zh": "...的直升机"
+      }
+    ],
     "examples": [
       {
         "en": "You can helicopter to the island.",
@@ -136545,7 +136941,12 @@
     "translations": [
       "过冬；（动物）冬眠；（人等）避寒"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "hibernate of",
+        "zh": "冬眠"
+      }
+    ],
     "examples": [
       {
         "en": "Dormice hibernate from October to May.",
@@ -138652,7 +139053,12 @@
     "translations": [
       "诚实的；光荣的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "honourable of",
+        "zh": "...的光荣"
+      }
+    ],
     "examples": [
       {
         "en": "My father didn't think acting was an honorable profession.",
@@ -140024,7 +140430,12 @@
     "translations": [
       "家庭主妇"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "housewife of",
+        "zh": "...的家庭主妇"
+      }
+    ],
     "examples": [
       {
         "en": "Married at nineteen, she was a traditional housewife and mother of four children.",
@@ -143355,7 +143766,12 @@
     "translations": [
       "不耐烦的，急躁的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "impatient of",
+        "zh": "...的不耐烦"
+      }
+    ],
     "examples": [
       {
         "en": "The impatient drivers were beeping their horns.",
@@ -144186,7 +144602,12 @@
     "translations": [
       "给人印象深刻的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "impressive of",
+        "zh": "...的令人印象深"
+      }
+    ],
     "examples": [
       {
         "en": "The figures certainly look impressive.",
@@ -146080,7 +146501,12 @@
     "translations": [
       "愤慨的，义愤的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "indignant of",
+        "zh": "...的愤慨"
+      }
+    ],
     "examples": [
       {
         "en": "an indignant reply",
@@ -147511,7 +147937,12 @@
     "translations": [
       "居民，住户"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "inhabitant of",
+        "zh": "...的居民"
+      }
+    ],
     "examples": [
       {
         "en": "a city of six million inhabitants",
@@ -149601,7 +150032,12 @@
     "translations": [
       "立即，即刻"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "instantly so",
+        "zh": "立即地"
+      }
+    ],
     "examples": [
       {
         "en": "All four victims died instantly.",
@@ -155244,6 +155680,12 @@
         "root": "-lery",
         "meaning": "名词"
       }
+    ],
+    "phrases": [
+      {
+        "en": "jewellery of",
+        "zh": "...的珠宝"
+      }
     ]
   },
   {
@@ -155768,7 +156210,12 @@
       "记者，新闻工作者",
       "新闻工作者；报人；记日志者"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "journalist of",
+        "zh": "...的新闻记者"
+      }
+    ],
     "examples": [
       {
         "en": "a well-known journalist and broadcaster",
@@ -157616,6 +158063,12 @@
       {
         "root": "meter",
         "meaning": "米"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "kilometer of",
+        "zh": "...的千米"
       }
     ]
   },
@@ -164060,7 +164513,12 @@
       "图书馆馆长",
       "图书馆员；图书管理员"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "librarian of",
+        "zh": "...的图书管理员"
+      }
+    ],
     "examples": [
       {
         "en": "The new librarian is a friend of mine.",
@@ -172517,7 +172975,12 @@
     "translations": [
       "奇迹般的；了不起的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "marvellous of",
+        "zh": "...的奇妙"
+      }
+    ],
     "examples": [
       {
         "en": "‘How was your holiday?' ‘Marvellous!'",
@@ -178266,6 +178729,12 @@
         "root": "meter",
         "meaning": "米"
       }
+    ],
+    "phrases": [
+      {
+        "en": "millimeter of",
+        "zh": "...的毫米"
+      }
     ]
   },
   {
@@ -178280,7 +178749,12 @@
     "translations": [
       "毫米"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "millimetre of",
+        "zh": "...的毫米"
+      }
+    ],
     "examples": [
       {
         "en": "The creature is a tiny centipede, just 10 millimetres long.",
@@ -178830,7 +179304,12 @@
     "translations": [
       "超短裙；迷你短裙"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "miniskirt of",
+        "zh": "...的超短裙"
+      }
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -182477,7 +182956,12 @@
     "translations": [
       "祖国；母国"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "motherland of",
+        "zh": "...的祖国"
+      }
+    ],
     "examples": [
       {
         "en": "They are willing to die for the motherland.",
@@ -182825,7 +183309,12 @@
     "translations": [
       "摩托车"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "motorbike of",
+        "zh": "...的摩托车"
+      }
+    ],
     "examples": [
       {
         "en": "The motorbike is supposed to make annoying noise.",
@@ -183355,7 +183844,12 @@
     "translations": [
       "小胡子；髭；触须"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "moustache of",
+        "zh": "...的胡子"
+      }
+    ],
     "examples": [
       {
         "en": "He's shaved off his moustache.",
@@ -185148,7 +185642,12 @@
     "translations": [
       "神秘的；难以理解的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "mysterious of",
+        "zh": "...的神秘"
+      }
+    ],
     "examples": [
       {
         "en": "The police are investigating the mysterious deaths of children at the hospital.",
@@ -185888,7 +186387,12 @@
       "全国范围的；全国性的",
       "在全国"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "nationwide so",
+        "zh": "全国性地"
+      }
+    ],
     "examples": [
       {
         "en": "a nationwide search for a missing British tourist",
@@ -186075,7 +186579,12 @@
     "translations": [
       "自然地；天然地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "naturally so",
+        "zh": "自然地"
+      }
+    ],
     "examples": [
       {
         "en": "Naturally, you'll want to discuss this with your wife.",
@@ -187519,7 +188028,12 @@
       "邻接",
       "邻居的；邻近的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "neighbour of",
+        "zh": "...的邻居"
+      }
+    ],
     "examples": [
       {
         "en": "One of the neighbors complained about the noise from the party.",
@@ -189822,7 +190336,12 @@
       "东北的；向东北的；来自东北的",
       "向东北；来自东北"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "northeast of",
+        "zh": "...的东北"
+      }
+    ],
     "examples": [
       {
         "en": "...the warm waters of Salt Springs Island to the northeast.",
@@ -189934,7 +190453,12 @@
     "translations": [
       "向北"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "northwards so",
+        "zh": "向北地"
+      }
+    ],
     "examples": [
       {
         "en": "We sailed northwards.",
@@ -190432,7 +190956,12 @@
     "translations": [
       "显而易见的；重要的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "noticeable of",
+        "zh": "...的显著"
+      }
+    ],
     "examples": [
       {
         "en": "Alcohol has a noticeable effect on the body.",
@@ -192310,7 +192839,12 @@
     "translations": [
       "明显地，显然地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "obviously so",
+        "zh": "明显地"
+      }
+    ],
     "examples": [
       {
         "en": "We're obviously going to need more help.",
@@ -195848,7 +196382,12 @@
     "translations": [
       "管弦乐队"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "orchestra of",
+        "zh": "...的管弦乐队"
+      }
+    ],
     "examples": [
       {
         "en": "He directed an orchestra.",
@@ -196333,7 +196872,12 @@
     "translations": [
       "组织者；发起人；形成体（等于organizer）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "organiser of",
+        "zh": "...的组织者"
+      }
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -198146,7 +198690,12 @@
     "translations": [
       "坦率的，直言不讳的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "outspoken of",
+        "zh": "...的坦率"
+      }
+    ],
     "examples": [
       {
         "en": "an outspoken critic of the education reforms",
@@ -198651,7 +199200,12 @@
     "translations": [
       "向……多收费"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "overcharge of",
+        "zh": "索价过高"
+      }
+    ],
     "examples": [
       {
         "en": "Rural medics get an average stipend of $65 a year, leading some to overcharge their patients.",
@@ -199037,7 +199591,12 @@
     "translations": [
       "一夜；突然"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "overnight of",
+        "zh": "...的一夜"
+      }
+    ],
     "examples": [
       {
         "en": "He became a millionaire overnight.",
@@ -199327,7 +199886,12 @@
       "使负担过重",
       "超重"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "overweight of",
+        "zh": "...的超重"
+      }
+    ],
     "examples": [
       {
         "en": "I wonder if this letter is overweight.",
@@ -201345,7 +201909,12 @@
     "translations": [
       "文书工作"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "paperwork of",
+        "zh": "...的文书工作"
+      }
+    ],
     "examples": [
       {
         "en": "Police work involves so much paperwork these days.",
@@ -203685,7 +204254,12 @@
     "translations": [
       "耐心地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "patiently so",
+        "zh": "耐心地"
+      }
+    ],
     "examples": [
       {
         "en": "The teacher told him to weigh this matter patiently.",
@@ -204912,7 +205486,12 @@
       "穿过",
       "穿入"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "penetrate of",
+        "zh": "穿透"
+      }
+    ],
     "examples": [
       {
         "en": "bullets that penetrate thick armour plating",
@@ -205740,7 +206319,12 @@
     "translations": [
       "演出者；执行者；演奏者"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "performer of",
+        "zh": "...的表演者"
+      }
+    ],
     "examples": [
       {
         "en": "circus performers",
@@ -210442,7 +211026,12 @@
       "操场，运动场",
       "运动场，操场；游乐场"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "playground of",
+        "zh": "...的操场"
+      }
+    ],
     "examples": [
       {
         "en": "children shouting and running in the playground",
@@ -210872,7 +211461,12 @@
     "translations": [
       "丰富的，富裕的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "plentiful of",
+        "zh": "...的丰富"
+      }
+    ],
     "examples": [
       {
         "en": "a plentiful supply of food",
@@ -211680,7 +212274,12 @@
     "translations": [
       "无意义的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "pointless of",
+        "zh": "...的无意义"
+      }
+    ],
     "examples": [
       {
         "en": "Life just seemed pointless to me.",
@@ -212053,6 +212652,12 @@
         "root": "pol",
         "meaning": "含 pol 词根"
       }
+    ],
+    "phrases": [
+      {
+        "en": "policewoman of",
+        "zh": "...的女警察"
+      }
     ]
   },
   {
@@ -212327,7 +212932,12 @@
       "政治家；政客",
       "政治家，政客"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "politician of",
+        "zh": "...的政治家"
+      }
+    ],
     "examples": [
       {
         "en": "politicians who are trying to get the minority vote",
@@ -215539,7 +216149,12 @@
     "translations": [
       "在前的；在先的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "preceding of",
+        "zh": "...的先前"
+      }
+    ],
     "examples": [
       {
         "en": "As we saw in the preceding chapter, groups can be powerful agents of socialization.",
@@ -215930,7 +216545,12 @@
     "translations": [
       "更可取的，更好的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "preferable of",
+        "zh": "...的更可取"
+      }
+    ],
     "examples": [
       {
         "en": "For this dish, fresh herbs and garlic are preferable.",
@@ -216881,7 +217501,12 @@
     "translations": [
       "一会儿；目前"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "presently so",
+        "zh": "目前地"
+      }
+    ],
     "examples": [
       {
         "en": "The doctor will be here presently.",
@@ -223040,7 +223665,12 @@
     "translations": [
       "宣布"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "publicize of",
+        "zh": "宣传"
+      }
+    ],
     "examples": [
       {
         "en": "television's failure to publicize the unemployment issue",
@@ -223476,7 +224106,12 @@
     "translations": [
       "不时打断；强调；加标点于"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "punctuate of",
+        "zh": "加标点"
+      }
+    ],
     "examples": [
       {
         "en": "The silence was occasionally punctuated by laughter.",
@@ -226126,7 +226761,12 @@
     "translations": [
       "完全地，彻底地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "radically so",
+        "zh": "根本地"
+      }
+    ],
     "examples": [
       {
         "en": "plans to radically reform the tax system",
@@ -228894,7 +229534,12 @@
     "translations": [
       "重新安排"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "rearrange of",
+        "zh": "重新安排"
+      }
+    ],
     "examples": [
       {
         "en": "She set about rearranging the furniture in the living room.",
@@ -229916,7 +230561,12 @@
     "translations": [
       "认出；承认，认可；识别"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "recognise of",
+        "zh": "认出"
+      }
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -231219,7 +231869,12 @@
     "translations": [
       "反射；映象；反映"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "reflexion of",
+        "zh": "...的反射"
+      }
+    ],
     "examples": [
       {
         "en": "Maxwell equations: Lorentz force, plane electromagnetic waves, radiation, light waves, reflexion, refraction, Huyghens principle, diffraction, interference phenomena.",
@@ -232261,7 +232916,12 @@
     "translations": [
       "定期地，有规律地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "regularly so",
+        "zh": "有规律地"
+      }
+    ],
     "examples": [
       {
         "en": "We meet regularly, once a month.",
@@ -236148,7 +236808,12 @@
     "translations": [
       "水库；蓄水池"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "reservior of",
+        "zh": "...的储水池"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -236880,7 +237545,12 @@
     "translations": [
       "有礼貌的，尊重的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "respectful of",
+        "zh": "...的尊敬"
+      }
+    ],
     "examples": [
       {
         "en": "They listened in respectful silence.",
@@ -239867,7 +240537,12 @@
       "荒谬的，可笑的",
       "可笑的；荒谬的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "ridiculous of",
+        "zh": "...的荒谬"
+      }
+    ],
     "examples": [
       {
         "en": "That's a ridiculous idea!",
@@ -242526,7 +243201,12 @@
     "translations": [
       "例行公事地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "routinely so",
+        "zh": "例行地"
+      }
+    ],
     "examples": [
       {
         "en": "This vaccine is already routinely used.",
@@ -244713,7 +245393,12 @@
     "translations": [
       "女售货员，女店员"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "salesgirl of",
+        "zh": "...的女售货员"
+      }
+    ],
     "examples": [
       {
         "en": "The new salesgirl was read out of the shop.",
@@ -244793,7 +245478,12 @@
     "translations": [
       "[贸易] 女售货员；[贸易] 女店员"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "saleswoman of",
+        "zh": "...的女售货员"
+      }
+    ],
     "examples": [
       {
         "en": "...an insurance saleswoman.",
@@ -246527,7 +247217,12 @@
     "translations": [
       "怀疑的；怀疑论的；习惯怀疑的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "sceptical of",
+        "zh": "...的怀疑"
+      }
+    ],
     "examples": [
       {
         "en": "Others here are more sceptical about the chances for justice being done.",
@@ -246871,7 +247566,12 @@
     "translations": [
       "书包"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "schoolbag of",
+        "zh": "...的书包"
+      }
+    ],
     "examples": [
       {
         "en": "She ran back to the classroom to get her schoolbag.",
@@ -246919,6 +247619,12 @@
         "root": "boy",
         "meaning": "男孩"
       }
+    ],
+    "phrases": [
+      {
+        "en": "schoolboy of",
+        "zh": "...的男学生"
+      }
     ]
   },
   {
@@ -246944,6 +247650,12 @@
         "root": "girl",
         "meaning": "女孩"
       }
+    ],
+    "phrases": [
+      {
+        "en": "schoolgirl of",
+        "zh": "...的女学生"
+      }
     ]
   },
   {
@@ -246958,7 +247670,12 @@
     "translations": [
       "同学；同窗"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "schoolmate of",
+        "zh": "...的同学"
+      }
+    ],
     "examples": [
       {
         "en": "He started the magazine with a schoolmate.",
@@ -248732,7 +249449,12 @@
       "二手的；旧的；间接获得的；做旧货生意的",
       "间接地；间接听来；以旧货"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "secondhand of",
+        "zh": "...的二手"
+      }
+    ],
     "examples": [
       {
         "en": "They could afford a secondhand car, she thought.",
@@ -249910,7 +250632,12 @@
     "translations": [
       "半圆，半圆形"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "semicircle of",
+        "zh": "...的半圆"
+      }
+    ],
     "examples": [
       {
         "en": "They sit cross-legged in a semicircle and share stories.",
@@ -250682,7 +251409,12 @@
     "translations": [
       "九月"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "in September",
+        "zh": "在九月"
+      }
+    ],
     "examples": [
       {
         "en": "Her son, Jerome, was born in September.",
@@ -251559,7 +252291,12 @@
       "十七岁的；十七的，十七个的",
       "十七"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "seventeen of",
+        "zh": "...的十七"
+      }
+    ],
     "examples": [
       {
         "en": "a group of seventeen American military officers",
@@ -254062,7 +254799,12 @@
     "translations": [
       "店主，老板"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "shopkeeper of",
+        "zh": "...的店主"
+      }
+    ],
     "examples": [
       {
         "en": "The girl had only worked for the shopkeeper for three days when she packed him in.",
@@ -256577,7 +257319,12 @@
     "translations": [
       "类似地，相似地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "similarly so",
+        "zh": "相似地"
+      }
+    ],
     "examples": [
       {
         "en": "The first letter she wrote me was less than a page long, and her second letter was similarly brief.",
@@ -257776,7 +258523,12 @@
       "第十六；十六分之一",
       "第十六的；十六分之一的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "sixteenth of",
+        "zh": "...的第十六"
+      }
+    ],
     "examples": [
       {
         "en": "But in the course of history, we settled beginning in the sixteenth and seventeenth century, down into just two patterns: what we call the major pattern and the minor pattern.",
@@ -258030,7 +258782,12 @@
       "溜冰板",
       "用滑板滑行"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "skateboard of",
+        "zh": "...的滑板"
+      }
+    ],
     "examples": [
       {
         "en": "He has long hair.He has a black skateboard.Who is he?",
@@ -258429,7 +259186,12 @@
     "translations": [
       "巧妙地；精巧地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "skillfully so",
+        "zh": "熟练地"
+      }
+    ],
     "examples": [
       {
         "en": "With a skillful movement he rounded the small fishing-boat.",
@@ -258776,7 +259538,12 @@
     "translations": [
       "突升，猛涨"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "skyrocket of",
+        "zh": "...的火箭"
+      }
+    ],
     "examples": [
       {
         "en": "The trade deficit has skyrocketed.",
@@ -258808,7 +259575,12 @@
     "translations": [
       "摩天楼，超高层大楼；特别高的东西"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "skyscraper of",
+        "zh": "...的摩天大楼"
+      }
+    ],
     "examples": [
       {
         "en": "The skyscraper towers into the clouds.",
@@ -261538,7 +262310,12 @@
     "translations": [
       "交往，联谊"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "socialize of",
+        "zh": "社交"
+      }
+    ],
     "examples": [
       {
         "en": "...an open meeting, where members socialized and welcomed any new members.",
@@ -262912,7 +263689,12 @@
     "translations": [
       "有时，间或"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "sometimes so",
+        "zh": "有时"
+      }
+    ],
     "examples": [
       {
         "en": "I sometimes have to work late.",
@@ -264012,6 +264794,12 @@
         "root": "east",
         "meaning": "东"
       }
+    ],
+    "phrases": [
+      {
+        "en": "southeast of",
+        "zh": "...的东南"
+      }
     ]
   },
   {
@@ -264460,7 +265248,12 @@
     "translations": [
       "意大利式细面条"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "spaghetti of",
+        "zh": "...的意大利面"
+      }
+    ],
     "examples": [
       {
         "en": "As the sun sets over Tokyo, another case is about to reach its climax on a bridge across a spaghetti of railway lines.",
@@ -266398,6 +267191,12 @@
         "root": "man",
         "meaning": "人"
       }
+    ],
+    "phrases": [
+      {
+        "en": "spokesman of",
+        "zh": "...的发言人"
+      }
     ]
   },
   {
@@ -266422,6 +267221,12 @@
       {
         "root": "woman",
         "meaning": "女人"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "spokeswoman of",
+        "zh": "...的女发言人"
       }
     ]
   },
@@ -266728,7 +267533,12 @@
     "translations": [
       "运动员"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "sportsman of",
+        "zh": "...的运动员"
+      }
+    ],
     "examples": [
       {
         "en": "He's a very keen sportsman .",
@@ -268896,7 +269706,12 @@
     "translations": [
       "政治家；国务活动家"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "statesman of",
+        "zh": "...的政治家"
+      }
+    ],
     "examples": [
       {
         "en": "a respected elder statesman",
@@ -268940,6 +269755,12 @@
       {
         "root": "woman",
         "meaning": "女人"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "stateswoman of",
+        "zh": "...的女政治家"
       }
     ]
   },
@@ -270028,7 +270849,12 @@
     "translations": [
       "老套，固定模式"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "stereotype of",
+        "zh": "...的刻板印象"
+      }
+    ],
     "examples": [
       {
         "en": "There's always been a stereotype about successful businessmen.",
@@ -271007,7 +271833,12 @@
       "码表；跑表",
       "用秒表测定时间"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "stopwatch of",
+        "zh": "...的秒表"
+      }
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -273995,7 +274826,12 @@
     "translations": [
       "订阅；捐款；认购；赞成；签署"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "subscribe to",
+        "zh": "订阅"
+      }
+    ],
     "examples": [
       {
         "en": "My main reason for subscribing to New Scientist is to keep abreast of advances in science.",
@@ -274093,7 +274929,12 @@
     "translations": [
       "提供补贴"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "subsidize of",
+        "zh": "补贴"
+      }
+    ],
     "examples": [
       {
         "en": "Around the world, governments have subsidized the housing of middle- and upper-income groups.",
@@ -275821,7 +276662,12 @@
     "translations": [
       "概括，概述，总结"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "summarize of",
+        "zh": "总结"
+      }
+    ],
     "examples": [
       {
         "en": "The authors summarize their views in the introduction.",
@@ -276110,7 +276956,12 @@
     "translations": [
       "太阳镜；凸透镜（sunglass的复数）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "sunglasses of",
+        "zh": "...的太阳镜"
+      }
+    ],
     "examples": [
       {
         "en": "She slipped on a pair of sunglasses.",
@@ -278292,7 +279143,12 @@
     "translations": [
       "怀疑，疑心，猜疑"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "suspicion of",
+        "zh": "...的怀疑"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -279673,7 +280529,12 @@
     "translations": [
       "象征"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "symbolize of",
+        "zh": "象征"
+      }
+    ],
     "examples": [
       {
         "en": "Crime often symbolizes a wider social problem.",
@@ -281488,7 +282349,12 @@
       "无味的",
       "无味的；无鉴赏力的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "tasteless of",
+        "zh": "...的乏味"
+      }
+    ],
     "examples": [
       {
         "en": "The fish was mushy and tasteless.",
@@ -285575,7 +286441,12 @@
       "因此，所以",
       "因此；所以"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "therefore so",
+        "zh": "因此"
+      }
+    ],
     "examples": [
       {
         "en": "Their car was bigger and therefore more comfortable.",
@@ -290331,7 +291202,12 @@
       "牙痛，牙疼",
       "[口腔] 牙痛"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "toothache of",
+        "zh": "...的牙痛"
+      }
+    ],
     "examples": [
       {
         "en": "I've got toothache .",
@@ -290426,7 +291302,12 @@
     "translations": [
       "牙膏"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "toothpaste of",
+        "zh": "...的牙膏"
+      }
+    ],
     "examples": [
       {
         "en": "Shaving supplies, toothpaste, and soap were found inside.",
@@ -293553,6 +294434,12 @@
         "root": "tra",
         "meaning": "含 tra 词根"
       }
+    ],
+    "phrases": [
+      {
+        "en": "traveller of",
+        "zh": "...的旅行者"
+      }
     ]
   },
   {
@@ -294600,6 +295487,12 @@
       {
         "root": "bus",
         "meaning": "公共汽车"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "trolleybus of",
+        "zh": "...的无轨电车"
       }
     ]
   },
@@ -298029,7 +298922,12 @@
       "强调；在…下面划线；预告",
       "下划线；下期节目预告"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "underline of",
+        "zh": "...的下划线"
+      }
+    ],
     "examples": [
       {
         "en": "This tragic incident underlines the need for immediate action.",
@@ -298107,7 +299005,12 @@
     "translations": [
       "在下面，在底下"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "underneath so",
+        "zh": "在下面"
+      }
+    ],
     "examples": [
       {
         "en": "He has on his jeans and a long-sleeved blue denim shirt with a white T-shirt underneath.",
@@ -298311,7 +299214,12 @@
     "translations": [
       "低估"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "undervalue of",
+        "zh": "低估"
+      }
+    ],
     "examples": [
       {
         "en": "Society undervalues staying at home and looking after children.",
@@ -299174,7 +300082,12 @@
     "translations": [
       "意想不到的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "unintended of",
+        "zh": "...的非故意"
+      }
+    ],
     "examples": [
       {
         "en": "...the unintended consequences of human action.",
@@ -299996,7 +300909,12 @@
       "[法] 未婚的；单身的；独身的",
       "离婚（unmarry的过去分词）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "unmarried of",
+        "zh": "...的未婚"
+      }
+    ],
     "examples": [
       {
         "en": "unmarried mothers",
@@ -300496,7 +301414,12 @@
     "translations": [
       "养育，培养，教养"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "upbringing of",
+        "zh": "...的教养"
+      }
+    ],
     "examples": [
       {
         "en": "Mike had had a strict upbringing.",
@@ -304183,7 +305106,12 @@
     "translations": [
       "电视电话"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "videophone of",
+        "zh": "...的可视电话"
+      }
+    ],
     "examples": [
       {
         "en": "Perhaps as soon as 2007, these assistants will hover over an astronaut's shoulder, serving as an all-in-one PDA, videophone, and air monitor.",
@@ -304818,7 +305746,12 @@
     "translations": [
       "小提琴演奏者，小提琴家"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "violinist of",
+        "zh": "...的小提琴手"
+      }
+    ],
     "examples": [
       {
         "en": "Rose's father was a talented violinist.",
@@ -308950,7 +309883,12 @@
     "translations": [
       "气象员；天气预报员"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "weatherman of",
+        "zh": "...的天气预报员"
+      }
+    ],
     "examples": [
       {
         "en": "In just 50 weeks Dan tried everything from being a lobster catcher, a jazz conductor, a TV weatherman and even a Las Vegas wedding planner.",
@@ -310213,7 +311151,12 @@
     "translations": [
       "西方人，欧美人；美国西部的人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "westerner of",
+        "zh": "...的西方人"
+      }
+    ],
     "examples": [
       {
         "en": "It's the first time a Westerner has been convicted for a drug-related offence in recent years in China.",
@@ -310274,7 +311217,12 @@
       "向西",
       "向西的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "westwards so",
+        "zh": "向西地"
+      }
+    ],
     "examples": [
       {
         "en": "He sailed westward from Palos de la Frontera.",
@@ -315563,7 +316511,12 @@
       "值得花时间的",
       "值得做的，值得花时间的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "worthwhile of",
+        "zh": "...的值得"
+      }
+    ],
     "examples": [
       {
         "en": "He wanted to do a worthwhile job.",

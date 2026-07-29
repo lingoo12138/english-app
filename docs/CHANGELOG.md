@@ -3160,3 +3160,16 @@
 - **突破 90% 覆盖** ✓
 - 12+ 字符 100% 配完
 - 剩 537 词无 phrases
+
+## [v1.76.0] - 2026-07-29
+
+### v1.76.0 W69 — phrases 续补 187 词 (93.5%)
+
+#### W69 phrases P10
+- 9-11 字符 187 词 (CET4/6 + daily + kaoyan)
+- 涵盖: 学术词 (adjective/affection/ambiguous/astronaut/biography/direction/disappoint/experience/influential...) + 国家 (Englishman/Frenchman) + 职业 (astronaut/journalist/librarian/politician)
+
+#### 累计
+- 5423 词 / 5073 phrases (93.5%) / 5088 roots (93.8%)
+- 9-11 字符 100% 配完
+- 剩 350 词无 phrases (4 字符以下为主)
