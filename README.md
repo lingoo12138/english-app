@@ -101,7 +101,7 @@ npm run preview  # 预览 dist
 - **17 角色模式 (11 单 + 3 多人) + 20 成就 + 8 主题 + 4 字号 + 2 语言 + 7 学段 + 3 步 onboarding + 10 XP 等级**
 - **702 单元测试 + 16 闭环 (37 测试点) + 0 P0/P1**
 - **130+ bug 修复** (含 v1.6 review 13 + v1.22 18 处 catch any + v1.36 3 处 + v1.40.1 2 处 + v1.45-1.58 verifier 找 12 处)
-- **400+ commit / 67 release tag (v1.0.0 ~ v1.67.0)**
+- **400+ commit / 68 release tag (v1.0.0 ~ v1.68.0)**
 - **148 DICT i18n key (zh + en) / 全 25 页面覆盖**
 - **零付费依赖** (完全本地 + 公共 API + 免费层 LLM)
 

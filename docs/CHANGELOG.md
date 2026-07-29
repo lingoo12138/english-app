@@ -3062,3 +3062,17 @@
 - 5423 词 / 4407 phrases (81.3%) / 5088 roots (93.8%)
 - 剩 1016 词无 phrases (translations + examples 已够)
 - 8 档: primary 95% / junior 88% phrases 覆盖
+
+## [v1.68.0] - 2026-07-29
+
+### v1.68.0 W61 — phrases 续补 92 词 (83.0%)
+
+#### W61 phrases P2
+- 5 字符以下 92 词手工 (从朗文搭配 + 牛津)
+- 涵盖: 5 字符以下真常用 (adore/alike/amaze/annoy/check/chart/drama/guilt/hobby/idiom/labor/meter/orbit/...)
+- 含: 法郎 (franc)、图表 (chart)、戏剧 (drama)、冰冻 (frost)、独木舟 (canoe) 等
+
+#### 累计
+- 5423 词 / 4499 phrases (83.0%) / 5088 roots (93.8%)
+- 剩 924 词无 phrases
+- 8 档: primary 95% / junior 88% phrases 覆盖

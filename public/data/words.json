@@ -5386,7 +5386,16 @@
       "崇拜；爱慕；喜爱；极喜欢",
       "(Adore)人名；(法)阿多尔"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "adore doing",
+        "zh": "喜爱做"
+      },
+      {
+        "en": "adore at",
+        "zh": "崇拜"
+      }
+    ],
     "examples": [
       {
         "en": "Betty adores her grandchildren.",
@@ -9023,7 +9032,16 @@
       "相似的；相同的",
       "以同样的方式；类似于"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "look alike",
+        "zh": "看起来像"
+      },
+      {
+        "en": "alike in",
+        "zh": "在...相似"
+      }
+    ],
     "examples": [
       {
         "en": "My mother and I are alike in many ways.",
@@ -10543,7 +10561,12 @@
       "使吃惊",
       "使惊奇，使惊愕"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "amaze at",
+        "zh": "对...惊讶"
+      }
+    ],
     "examples": [
       {
         "en": "Dave amazed his friends by suddenly getting married.",
@@ -12489,7 +12512,16 @@
       "骚扰；惹恼；打搅",
       "烦恼（等于annoyance）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "annoy at",
+        "zh": "对...恼火"
+      },
+      {
+        "en": "annoy with",
+        "zh": "对...不耐烦"
+      }
+    ],
     "examples": [
       {
         "en": "Try making a note of the things that annoy you.",
@@ -20261,7 +20293,12 @@
     "translations": [
       "耳的，听觉的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "aural skills",
+        "zh": "听力技能"
+      }
+    ],
     "examples": [
       {
         "en": "an aural stimulus",
@@ -21482,7 +21519,12 @@
     "translations": [
       "等候，期待"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "await doing",
+        "zh": "等待"
+      }
+    ],
     "examples": [
       {
         "en": "Several men are awaiting trial for robbery.",
@@ -29766,7 +29808,12 @@
     "translations": [
       "宾戈游戏"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "play bingo",
+        "zh": "玩宾果"
+      }
+    ],
     "examples": [
       {
         "en": "Vera won £20 at bingo.",
@@ -32121,7 +32168,12 @@
     "translations": [
       "假冒的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "bogus claim",
+        "zh": "虚假主张"
+      }
+    ],
     "examples": [
       {
         "en": "bogus insurance claims",
@@ -33913,7 +33965,12 @@
     "translations": [
       "树枝"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "oak bough",
+        "zh": "橡树枝"
+      }
+    ],
     "examples": [
       {
         "en": "I rested my fishing rod against a pine bough.",
@@ -36310,7 +36367,16 @@
     "translations": [
       "活泼的；清新的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "brisk walk",
+        "zh": "轻快的散步"
+      },
+      {
+        "en": "brisk trade",
+        "zh": "兴旺的贸易"
+      }
+    ],
     "examples": [
       {
         "en": "a brisk walk",
@@ -41426,7 +41492,12 @@
     "translations": [
       "独木舟，皮艇，划子"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "paddle a canoe",
+        "zh": "划独木舟"
+      }
+    ],
     "examples": [
       {
         "en": "At a summer job working as park naturalists that year, I flipped the canoe Air and I were paddling and we had to push it to shore.",
@@ -46934,7 +47005,16 @@
       "图表；海图；图纸；排行榜",
       "绘制…的图表；在海图上标出；详细计划；记录；记述；跟踪（进展或发展"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "flow chart",
+        "zh": "流程图"
+      },
+      {
+        "en": "chart out",
+        "zh": "制定计划"
+      }
+    ],
     "examples": [
       {
         "en": "a chart showing last year's sales",
@@ -47225,7 +47305,16 @@
       "检查，核对；制止，抑制；在…上打勾",
       "<美>支票；制止，抑制；检验，核对"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "check in",
+        "zh": "登记入住"
+      },
+      {
+        "en": "check up",
+        "zh": "检查"
+      }
+    ],
     "examples": [
       {
         "en": "Check the tiles carefully before you buy them.",
@@ -48124,7 +48213,12 @@
       "小鸡；小鸟；少妇",
       "胆小的；懦弱的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "baby chick",
+        "zh": "小鸡"
+      }
+    ],
     "examples": [
       {
         "en": "a mother hen with her chicks",
@@ -48984,7 +49078,12 @@
       "唱诗班；合唱队；舞蹈队",
       "合唱"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "choir practice",
+        "zh": "合唱团练习"
+      }
+    ],
     "examples": [
       {
         "en": "He joined a church choir at the age of eight.",
@@ -50712,7 +50811,12 @@
     "translations": [
       "扣子，钩子；别针"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "clasp hands",
+        "zh": "握手"
+      }
+    ],
     "examples": [
       {
         "en": "...the clasp of her handbag.",
@@ -54969,7 +55073,12 @@
     "translations": [
       "逗号；停顿"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "use a comma",
+        "zh": "用逗号"
+      }
+    ],
     "examples": [
       {
         "en": "The two clauses are separated by a comma.",
@@ -65080,7 +65189,12 @@
       "珊瑚；珊瑚虫",
       "珊瑚的；珊瑚色的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "coral reef",
+        "zh": "珊瑚礁"
+      }
+    ],
     "examples": [
       {
         "en": "The seas around Bermuda are full of colourful corals and fantastic fish.",
@@ -71813,6 +71927,12 @@
       {
         "root": "-y",
         "meaning": "名词"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "daddy's girl",
+        "zh": "爸爸的宝贝女儿"
       }
     ]
   },
@@ -87461,7 +87581,16 @@
     "translations": [
       "一出戏剧，剧本"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "soap drama",
+        "zh": "肥皂剧"
+      },
+      {
+        "en": "drama club",
+        "zh": "戏剧社"
+      }
+    ],
     "examples": [
       {
         "en": "the great traditions of ancient Greek drama",
@@ -89589,7 +89718,12 @@
     "translations": [
       "落满灰尘的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "dusty road",
+        "zh": "尘土飞扬的路"
+      }
+    ],
     "examples": [
       {
         "en": "Adrian cycled along the dusty road.",
@@ -98318,7 +98452,12 @@
     "translations": [
       "建造；使竖立"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "erect a statue",
+        "zh": "竖立雕像"
+      }
+    ],
     "examples": [
       {
         "en": "an imposing town hall, erected in 1892",
@@ -98423,7 +98562,12 @@
     "translations": [
       "爆发；喷出；发疹；长牙"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "volcano erupt",
+        "zh": "火山喷发"
+      }
+    ],
     "examples": [
       {
         "en": "Violence erupted after police shot a student during the demonstration.",
@@ -104977,7 +105121,12 @@
     "translations": [
       "寓言；虚构的故事"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "fable story",
+        "zh": "寓言故事"
+      }
+    ],
     "examples": [
       {
         "en": "the fable of the fox and the crow",
@@ -109850,6 +109999,12 @@
         "root": "fiber",
         "meaning": "纤维(法语)"
       }
+    ],
+    "phrases": [
+      {
+        "en": "dietary fiber",
+        "zh": "膳食纤维"
+      }
     ]
   },
   {
@@ -110242,7 +110397,12 @@
       "五十；五十个；编号为50的东西",
       "五十的；五十个的；众多的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "fifty percent",
+        "zh": "百分之五十"
+      }
+    ],
     "examples": [
       {
         "en": "Standards of living rose in the fifties.",
@@ -114131,7 +114291,12 @@
     "translations": [
       "有雾的；模糊的，朦胧的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "foggy day",
+        "zh": "有雾的一天"
+      }
+    ],
     "examples": [
       {
         "en": "a foggy day in November",
@@ -117504,6 +117669,12 @@
         "root": "franc",
         "meaning": "法郎(法语)"
       }
+    ],
+    "phrases": [
+      {
+        "en": "Swiss franc",
+        "zh": "瑞士法郎"
+      }
     ]
   },
   {
@@ -119164,7 +119335,16 @@
       "结霜于；冻坏",
       "霜；冰冻，严寒；冷淡"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "frost on",
+        "zh": "结霜"
+      },
+      {
+        "en": "frost bite",
+        "zh": "冻伤"
+      }
+    ],
     "examples": [
       {
         "en": "the risk of frost damage to crops",
@@ -120470,7 +120650,12 @@
     "translations": [
       "大惊小怪的，小题大做的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "don't be fussy",
+        "zh": "别挑剔"
+      }
+    ],
     "examples": [
       {
         "en": "A lot of small children are fussy eaters (= they dislike many types of food ) .",
@@ -124037,7 +124222,12 @@
       "滑动；消逝",
       "滑行"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "glide over",
+        "zh": "滑过"
+      }
+    ],
     "examples": [
       {
         "en": "Waiters glide between tightly packed tables bearing trays of pasta.",
@@ -125576,7 +125766,16 @@
     "translations": [
       "优美，文雅；雅致"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "say grace",
+        "zh": "饭前祷告"
+      },
+      {
+        "en": "with grace",
+        "zh": "优雅地"
+      }
+    ],
     "examples": [
       {
         "en": "Lena moved with the grace of a dancer.",
@@ -128071,7 +128270,16 @@
       "烧，烤；",
       "烤架，铁格子；烤肉"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "grill on",
+        "zh": "烤"
+      },
+      {
+        "en": "grilled fish",
+        "zh": "烤鱼"
+      }
+    ],
     "examples": [
       {
         "en": "Grill the bacon until crisp.",
@@ -128242,7 +128450,12 @@
       "哼，呻吟",
       "呻吟"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "groan with pain",
+        "zh": "痛苦地呻吟"
+      }
+    ],
     "examples": [
       {
         "en": "The kids all groaned when I switched off the TV.",
@@ -129278,7 +129491,12 @@
     "translations": [
       "有罪，犯罪行为"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "feel guilt",
+        "zh": "感到内疚"
+      }
+    ],
     "examples": [
       {
         "en": "He did not deny his guilt.",
@@ -132208,7 +132426,12 @@
     "translations": [
       "急速的；仓促的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "hasty decision",
+        "zh": "草率的决定"
+      }
+    ],
     "examples": [
       {
         "en": "He soon regretted his hasty decision.",
@@ -136383,7 +136606,12 @@
       "业余爱好，癖好",
       "嗜好；业余爱好"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "have a hobby",
+        "zh": "有爱好"
+      }
+    ],
     "examples": [
       {
         "en": "What are your hobbies?",
@@ -139337,6 +139565,12 @@
         "root": "-",
         "meaning": "名词"
       }
+    ],
+    "phrases": [
+      {
+        "en": "sense of humor",
+        "zh": "幽默感"
+      }
     ]
   },
   {
@@ -140693,7 +140927,12 @@
       "习语，成语",
       "成语，习语；土话"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "English idiom",
+        "zh": "英语习语"
+      }
+    ],
     "examples": [
       {
         "en": "the new musical idiom",
@@ -142327,7 +142566,12 @@
       "意味；暗示",
       "暗示，意指"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "imply that",
+        "zh": "暗示"
+      }
+    ],
     "examples": [
       {
         "en": "an implied threat",
@@ -145436,7 +145680,12 @@
     "translations": [
       "推论，推断；猜想"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "infer from",
+        "zh": "从...推断"
+      }
+    ],
     "examples": [
       {
         "en": "I inferred from what she said that you have not been well.",
@@ -157322,6 +157571,16 @@
         "root": "labor, laborat, lab",
         "meaning": "to work"
       }
+    ],
+    "phrases": [
+      {
+        "en": "hard labor",
+        "zh": "苦工"
+      },
+      {
+        "en": "labor force",
+        "zh": "劳动力"
+      }
     ]
   },
   {
@@ -164581,7 +164840,12 @@
     "translations": [
       "升(容量单位)"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "one liter",
+        "zh": "一升"
+      }
+    ],
     "examples": [
       {
         "en": "So this is moles per liter per second, right? It's disappearance of some concentration for time.",
@@ -164755,7 +165019,12 @@
     "translations": [
       "[计量] 公升（米制容量单位）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "half a litre",
+        "zh": "半升"
+      }
+    ],
     "examples": [
       {
         "en": "the Ford's 2.8 litre engine",
@@ -167458,7 +167727,12 @@
     "translations": [
       "忠诚的，忠心的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "be loyal to",
+        "zh": "对...忠诚"
+      }
+    ],
     "examples": [
       {
         "en": "a loyal supporter of the team",
@@ -169728,7 +170002,12 @@
     "translations": [
       "男子气概的，果断的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "manly behavior",
+        "zh": "男子气概"
+      }
+    ],
     "examples": [
       {
         "en": "a deep manly voice",
@@ -172306,7 +172585,12 @@
       "也许；可能；大概",
       "可能性；不确定性"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "maybe so",
+        "zh": "也许吧"
+      }
+    ],
     "examples": [
       {
         "en": "Maybe it's all just a big misunderstanding.",
@@ -184017,7 +184301,12 @@
     "translations": [
       "龌龊的；淫猥的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "nasty trick",
+        "zh": "卑鄙的诡计"
+      }
+    ],
     "examples": [
       {
         "en": "a nasty temper",
@@ -232480,7 +232769,12 @@
       "更新",
       "使更新"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "renew visa",
+        "zh": "续签签证"
+      }
+    ],
     "examples": [
       {
         "en": "Local people have renewed their efforts to save the school.",
@@ -238476,7 +238770,12 @@
     "translations": [
       "使成熟"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "ripen into",
+        "zh": "成熟为"
+      }
+    ],
     "examples": [
       {
         "en": "The apples were ripening on the trees.",
@@ -241220,7 +241519,12 @@
     "translations": [
       "尺；统治者；[测] 划线板，划线的人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "ruler of",
+        "zh": "...的统治者"
+      }
+    ],
     "examples": [
       {
         "en": "a 12-inch ruler",
@@ -244415,7 +244719,12 @@
       "围巾；嵌接，嵌接处；头巾领巾",
       "披嵌接；用围巾围"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "wear a scarf",
+        "zh": "戴围巾"
+      }
+    ],
     "examples": [
       {
         "en": "He reached up to loosen the scarf around his neck.",
@@ -245336,7 +245645,12 @@
       "责骂；叱责",
       "责骂；爱责骂的人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "scold for",
+        "zh": "因...责骂"
+      }
+    ],
     "examples": [
       {
         "en": "Do not scold the puppy, but simply and firmly say ‘no'.",
@@ -255910,7 +256224,12 @@
     "translations": [
       "六十；六十个"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "sixty years old",
+        "zh": "六十岁"
+      }
+    ],
     "examples": [
       {
         "en": "sixty years ago",
@@ -258680,7 +258999,12 @@
       "打喷嚏",
       "喷嚏"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "sneeze at",
+        "zh": "打喷嚏"
+      }
+    ],
     "examples": [
       {
         "en": "She started coughing and sneezing.",
@@ -260555,7 +260879,12 @@
       "解决",
       "解答，解释，解决"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "solve problem",
+        "zh": "解决问题"
+      }
+    ],
     "examples": [
       {
         "en": "Charlie thinks money will solve all his problems.",
@@ -261407,7 +261736,12 @@
       "悲伤；懊悔；伤心事",
       "懊悔；遗憾；感到悲伤"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "feel sorrow",
+        "zh": "感到悲伤"
+      }
+    ],
     "examples": [
       {
         "en": "the family's joys and sorrows",
@@ -264442,7 +264776,12 @@
       "赞助者；主办者；保证人",
       "赞助；发起"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "sponsor for",
+        "zh": "赞助"
+      }
+    ],
     "examples": [
       {
         "en": "Dozens of companies, including Hewlett-Packard, are sponsoring the event.",
@@ -266043,7 +266382,12 @@
       "乏味的，没有新意的",
       "陈腐的；走了气的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "stale bread",
+        "zh": "不新鲜的面包"
+      }
+    ],
     "examples": [
       {
         "en": "French bread goes stale (= becomes stale ) very quickly.",
@@ -266398,6 +266742,12 @@
       {
         "root": "-",
         "meaning": "名词"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "movie star",
+        "zh": "电影明星"
       }
     ]
   },
@@ -268435,7 +268785,12 @@
       "刺；刺痛",
       "刺"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "sting of",
+        "zh": "...的刺痛"
+      }
+    ],
     "examples": [
       {
         "en": "He was stung by a bee.",
@@ -269128,7 +269483,12 @@
     "translations": [
       "(层)楼"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "two storey",
+        "zh": "两层的"
+      }
+    ],
     "examples": [
       {
         "en": "...long brick buildings, two storeys high.",
@@ -269312,7 +269672,12 @@
       "结实的；矮胖的；勇敢的；激烈的",
       "矮胖子；烈性啤酒"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "stout heart",
+        "zh": "勇敢"
+      }
+    ],
     "examples": [
       {
         "en": "a stout pair of shoes",
@@ -271463,7 +271828,12 @@
       "愚蠢的；麻木的；乏味的",
       "傻瓜，笨蛋"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "stupid mistake",
+        "zh": "愚蠢的错误"
+      }
+    ],
     "examples": [
       {
         "en": "stupid mistakes",
@@ -278881,7 +279251,12 @@
     "translations": [
       "驯服的；顺从的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "tame animal",
+        "zh": "驯服的动物"
+      }
+    ],
     "examples": [
       {
         "en": "tame elephants",
@@ -279444,7 +279819,12 @@
       "美味的；高雅的；有趣的",
       "可口的东西；引人入胜的东西"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "tasty food",
+        "zh": "美味的食物"
+      }
+    ],
     "examples": [
       {
         "en": "a simple but tasty meal",
@@ -280002,6 +280382,16 @@
         "root": "-",
         "meaning": "名词"
       }
+    ],
+    "phrases": [
+      {
+        "en": "tear down",
+        "zh": "拆除"
+      },
+      {
+        "en": "tear up",
+        "zh": "撕毁"
+      }
     ]
   },
   {
@@ -280018,7 +280408,12 @@
       "取笑；戏弄；梳理；欺负；强求；使起毛",
       "戏弄；爱纠缠的小孩；挑逗者；卖弄风骚的女孩"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "tease about",
+        "zh": "取笑"
+      }
+    ],
     "examples": [
       {
         "en": "Don't get upset. I was only teasing .",
@@ -281416,6 +281811,12 @@
         "root": "ten, tin, tain",
         "meaning": "to hold"
       }
+    ],
+    "phrases": [
+      {
+        "en": "play tennis",
+        "zh": "打网球"
+      }
     ]
   },
   {
@@ -282591,7 +282992,12 @@
       "这；那",
       "更加（用于比较级，最高级前）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "the more",
+        "zh": "越...越..."
+      }
+    ],
     "examples": [
       {
         "en": "He described the scene to me.",
@@ -282796,7 +283202,12 @@
       "他们的，她们的；它们的",
       "(Their)人名；(英)蒂尔；(芬、瑞典)泰尔"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "their own",
+        "zh": "他们自己的"
+      }
+    ],
     "examples": [
       {
         "en": "They talked her round to their position.",
@@ -283649,7 +284060,12 @@
     "translations": [
       "他们；它们；她们"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "they say",
+        "zh": "据说"
+      }
+    ],
     "examples": [
       {
         "en": "Bob and Sue said they wouldn't be able to come.",
@@ -283827,7 +284243,12 @@
     "translations": [
       "小偷，贼"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "thief of",
+        "zh": "...的贼"
+      }
+    ],
     "examples": [
       {
         "en": "Thieves broke into the offices and stole $150,000's worth of computer equipment.",
@@ -284438,7 +284859,12 @@
       "这样地；这么",
       "(This)人名；(法)蒂斯"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "this is",
+        "zh": "这是"
+      }
+    ],
     "examples": [
       {
         "en": "The table's about this high and this wide.",
@@ -286304,7 +286730,12 @@
       "直到为止",
       "耕种；犁"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "till then",
+        "zh": "到那时"
+      }
+    ],
     "examples": [
       {
         "en": "You keep as much money as you need in the till to run your operations.",
@@ -288840,7 +289271,12 @@
     "translations": [
       "旅行，游历"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "tour of",
+        "zh": "...的旅行"
+      }
+    ],
     "examples": [
       {
         "en": "He devilled her during the tour.",
@@ -296186,7 +296622,12 @@
       "解开，打开；取消",
       "取消；解开；破坏；扰乱"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "undo knot",
+        "zh": "解结"
+      }
+    ],
     "examples": [
       {
         "en": "The screws can be undone by hand.",
@@ -298301,6 +298742,12 @@
         "root": "on",
         "meaning": "在"
       }
+    ],
+    "phrases": [
+      {
+        "en": "upon my word",
+        "zh": "我敢保证"
+      }
     ]
   },
   {
@@ -298720,7 +299167,12 @@
       "力劝，催促；驱策，推进",
       "强烈的欲望，迫切要求；推动力"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "urge on",
+        "zh": "鼓励"
+      }
+    ],
     "examples": [
       {
         "en": "The charity urged quick action.",
@@ -299486,7 +299938,12 @@
     "translations": [
       "完全的，彻底的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "utter a word",
+        "zh": "说一句话"
+      }
+    ],
     "examples": [
       {
         "en": "That's utter nonsense!",
@@ -299729,7 +300186,12 @@
       "模糊的；含糊的；不明确的；暧昧的",
       "(Vague)人名；(法)瓦格；(英)韦格"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "vague idea",
+        "zh": "模糊的想法"
+      }
+    ],
     "examples": [
       {
         "en": "The governor gave only a vague outline of his tax plan.",
@@ -300661,7 +301123,12 @@
     "translations": [
       "瓶；花瓶"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "flower vase",
+        "zh": "花瓶"
+      }
+    ],
     "examples": [
       {
         "en": "...a vase of red roses.",
@@ -303672,7 +304139,12 @@
     "translations": [
       "伏特，伏"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "volt meter",
+        "zh": "电压表"
+      }
+    ],
     "examples": [
       {
         "en": "That is one electron volt.",
@@ -305312,6 +305784,12 @@
         "root": "-",
         "meaning": "动词"
       }
+    ],
+    "phrases": [
+      {
+        "en": "warn of",
+        "zh": "警告"
+      }
     ]
   },
   {
@@ -306095,7 +306573,12 @@
       "我们（主格）；笔者，本人（作者或演讲人使用）；朕，寡人",
       "(We)人名；(缅)韦"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "we all",
+        "zh": "我们所有人"
+      }
+    ],
     "examples": [
       {
         "en": "‘Did you go into the supermarket?' ‘No, we didn't.'",
@@ -308320,7 +308803,12 @@
       "那时；什么时侯",
       "时间，时候；日期；场合"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "when to",
+        "zh": "何时"
+      }
+    ],
     "examples": [
       {
         "en": "When are we leaving?",
@@ -309174,7 +309662,12 @@
     "translations": [
       "谁（who的宾格）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "to whom",
+        "zh": "对谁"
+      }
+    ],
     "examples": [
       {
         "en": "From whom shall I get comfort?",
@@ -309317,7 +309810,12 @@
     "translations": [
       "坏的；令人厌恶的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "wicked of",
+        "zh": "...的邪恶"
+      }
+    ],
     "examples": [
       {
         "en": "the wicked stepmother in ‘Hansel and Gretel'",
@@ -310333,7 +310831,12 @@
       "酒，葡萄酒；紫红色",
       "喝酒"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "wine bar",
+        "zh": "酒吧"
+      }
+    ],
     "examples": [
       {
         "en": "a glass of wine",
@@ -310435,7 +310938,12 @@
     "translations": [
       "胜利者"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "winner of",
+        "zh": "...的获胜者"
+      }
+    ],
     "examples": [
       {
         "en": "Five lucky winners will each receive a signed copy of the album.",
@@ -312766,7 +313274,12 @@
       "更糟；更坏；更恶劣地；更坏地",
       "更坏的事；更恶劣的事"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "worse than",
+        "zh": "比...更糟"
+      }
+    ],
     "examples": [
       {
         "en": "The traffic is much worse after five o'clock.",
@@ -313942,7 +314455,12 @@
       "哈欠；裂口",
       "打哈欠；裂开"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "yawn at",
+        "zh": "对...打哈欠"
+      }
+    ],
     "examples": [
       {
         "en": "Alan stretched and yawned.",
