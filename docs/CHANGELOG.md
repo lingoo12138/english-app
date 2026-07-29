@@ -3134,3 +3134,15 @@
 #### 累计
 - 5423 词 / 4773 phrases (88.0%) / 5088 roots (93.8%)
 - 剩 650 词无 phrases
+
+## [v1.74.0] - 2026-07-29
+
+### v1.74.0 W67 — phrases 续补 55 词 (89.0%)
+
+#### W67 phrases P8
+- 11 字符 55 词: demonstrate/efficiently/essentially/influential/inspiration/magnificent/masterpiece/pessimistic/scholarship/standardize/supermarket/Switzerland/willingness
+- 涵盖: 学术词 (demonstrate/standardize/influential) + 职业 (businessman/firefighter/philosopher) + 国家 (Switzerland)
+
+#### 累计
+- 5423 词 / 4828 phrases (89.0%) / 5088 roots (93.8%)
+- 剩 595 词无 phrases
