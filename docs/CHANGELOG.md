@@ -3173,3 +3173,16 @@
 - 5423 词 / 5073 phrases (93.5%) / 5088 roots (93.8%)
 - 9-11 字符 100% 配完
 - 剩 350 词无 phrases (4 字符以下为主)
+
+## [v1.77.0] - 2026-07-29
+
+### v1.77.0 W70 — phrases 续补 91 词 (95.2%)
+
+#### W70 phrases P11
+- 5-8 字符 91 词 (CET4/6 + daily + kaoyan)
+- 涵盖: 学术词 (academic/management/...) + 日常 (february/january/october/...) + 抽象 (ideal/value/...)
+
+#### 累计
+- 5423 词 / 5164 phrases (95.2%) / 5088 roots (93.8%)
+- 5-8 字符 100% 配完
+- 剩 259 词无 phrases (4 字符以下为主)

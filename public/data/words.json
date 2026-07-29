@@ -11265,7 +11265,12 @@
     "translations": [
       "在…之中(=among)"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "amongst of",
+        "zh": "在...之中"
+      }
+    ],
     "examples": [
       {
         "en": "Here in Trinity it is right that I should give you an account of how he lived amongst you during these years of his greatest achievement.",
@@ -59114,7 +59119,12 @@
       "同志，亲密的同伴",
       "同志；伙伴"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "comrade of",
+        "zh": "同志"
+      }
+    ],
     "examples": [
       {
         "en": "Comrades, please support this motion.",
@@ -59153,7 +59163,12 @@
     "translations": [
       "把…隐藏起来"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "conceal from",
+        "zh": "隐藏"
+      }
+    ],
     "examples": [
       {
         "en": "The shadows concealed her as she crept up to the house.",
@@ -59852,7 +59867,12 @@
       "谴责，指责；判刑",
       "谴责；判刑，定罪；声讨"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "condemn for",
+        "zh": "谴责"
+      }
+    ],
     "examples": [
       {
         "en": "Politicians were quick to condemn the bombing.",
@@ -60217,7 +60237,12 @@
     "translations": [
       "供认，承认；坦白"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "confess to",
+        "zh": "承认"
+      }
+    ],
     "examples": [
       {
         "en": "Occasionally people confess to crimes they haven't committed just to get attention.",
@@ -60469,7 +60494,12 @@
     "translations": [
       "限制；禁闭"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "confine to",
+        "zh": "限制"
+      }
+    ],
     "examples": [
       {
         "en": "Vaughan is confined to a wheelchair .",
@@ -69648,7 +69678,12 @@
     "translations": [
       "跛子；残废的人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "cripple of",
+        "zh": "跛子"
+      }
+    ],
     "examples": [
       {
         "en": "She has gone from being a healthy, fit, and sporty young woman to being a cripple.",
@@ -69759,6 +69794,12 @@
       {
         "root": "-ia",
         "meaning": "名词(希腊)"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "criteria of",
+        "zh": "标准"
       }
     ]
   },
@@ -74881,7 +74922,12 @@
     "translations": [
       "十二月"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "in December",
+        "zh": "在十二月"
+      }
+    ],
     "examples": [
       {
         "en": "In the dark of December.",
@@ -75515,6 +75561,12 @@
       {
         "root": "dic, dict",
         "meaning": "speak, declare"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "dedicate to",
+        "zh": "献身于"
       }
     ]
   },
@@ -79113,7 +79165,12 @@
     "translations": [
       "鄙视，蔑视"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "despise for",
+        "zh": "鄙视"
+      }
+    ],
     "examples": [
       {
         "en": "She despised her neighbours.",
@@ -83536,7 +83593,12 @@
     "translations": [
       "揭开，揭发；透露"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "disclose to",
+        "zh": "透露"
+      }
+    ],
     "examples": [
       {
         "en": "Some companies have already voluntarily disclosed similar information .",
@@ -86525,7 +86587,12 @@
       "离婚，离异",
       "离婚"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "divorce from",
+        "zh": "与...离婚"
+      }
+    ],
     "examples": [
       {
         "en": "Why doesn't she get a divorce ?",
@@ -92774,7 +92841,12 @@
     "translations": [
       "教育；培养；训练"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "educate of",
+        "zh": "教育"
+      }
+    ],
     "examples": [
       {
         "en": "The Ormerod School educates handicapped children.",
@@ -93584,7 +93656,12 @@
       "十八个的，十八的",
       "十八"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "eighteen of",
+        "zh": "十八"
+      }
+    ],
     "examples": [
       {
         "en": "At least eighteen bullets were fired.",
@@ -96331,7 +96408,12 @@
     "translations": [
       "围住，圈起；附上"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "enclose in",
+        "zh": "围住"
+      }
+    ],
     "examples": [
       {
         "en": "Please enclose a cheque with your order.",
@@ -101161,7 +101243,12 @@
       "每个人；人人",
       "每个人"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "everyone of",
+        "zh": "每个人"
+      }
+    ],
     "examples": [
       {
         "en": "If everyone is ready, I'll begin.",
@@ -101767,7 +101854,12 @@
       "确切地；恰恰正是",
       "恰好地；正是；精确地；正确地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "exactly so",
+        "zh": "精确地"
+      }
+    ],
     "examples": [
       {
         "en": "It's exactly half past five.",
@@ -102758,7 +102850,12 @@
     "translations": [
       "呼喊；惊叫"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "exclaim at",
+        "zh": "呼喊"
+      }
+    ],
     "examples": [
       {
         "en": "‘No!' she exclaimed in shock.",
@@ -110037,7 +110134,12 @@
     "translations": [
       "二月"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "in February",
+        "zh": "在二月"
+      }
+    ],
     "examples": [
       {
         "en": "He joined the Army in February 1943.",
@@ -112107,7 +112209,12 @@
     "translations": [
       "最后；不可更改的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "finally so",
+        "zh": "最后地"
+      }
+    ],
     "examples": [
       {
         "en": "After several delays we finally took off at six o'clock.",
@@ -112810,7 +112917,12 @@
     "translations": [
       "消防队员；司炉工"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "fireman of",
+        "zh": "消防队员"
+      }
+    ],
     "examples": [
       {
         "en": "Would you like to be a fireman?",
@@ -116000,7 +116112,12 @@
       "愚蠢的；鲁莽的",
       "愚蠢的；傻的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "foolish of",
+        "zh": "愚蠢"
+      }
+    ],
     "examples": [
       {
         "en": "I've never heard anything so foolish in all my life.",
@@ -147229,7 +147346,12 @@
     "translations": [
       "传染；感染"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "infect with",
+        "zh": "感染"
+      }
+    ],
     "examples": [
       {
         "en": "People with the virus may feel perfectly well, but they can still infect others.",
@@ -152969,7 +153091,12 @@
       "侵入，侵略",
       "入侵，侵略；侵袭"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "invade of",
+        "zh": "入侵"
+      }
+    ],
     "examples": [
       {
         "en": "The Romans invaded Britain 2,000 years ago.",
@@ -171698,7 +171825,12 @@
       "人类",
       "人类；男性"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "mankind of",
+        "zh": "人类"
+      }
+    ],
     "examples": [
       {
         "en": "Since earliest times, mankind has been fascinated by fire.",
@@ -176950,7 +177082,12 @@
       "仅仅，只不过",
       "仅仅，只不过；只是"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "merely so",
+        "zh": "仅仅地"
+      }
+    ],
     "examples": [
       {
         "en": "He's merely a boy – you can't expect him to understand.",
@@ -181267,7 +181404,12 @@
       "谦虚的，谦逊的；适度的；端庄的；羞怯的",
       "(Modest)人名；(罗)莫代斯特；(德)莫德斯特；(俄)莫杰斯特"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "modest of",
+        "zh": "谦虚"
+      }
+    ],
     "examples": [
       {
         "en": "You're too modest! You've been a huge help to us.",
@@ -181314,7 +181456,12 @@
     "translations": [
       "更改，修改；修饰"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "modify of",
+        "zh": "修改"
+      }
+    ],
     "examples": [
       {
         "en": "The feedback will be used to modify the course for next year.",
@@ -182060,7 +182207,12 @@
       "每月的",
       "每月"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "monthly of",
+        "zh": "每月"
+      }
+    ],
     "examples": [
       {
         "en": "The mortgage is payable in monthly instalments.",
@@ -182486,7 +182638,12 @@
     "translations": [
       "再者，加之，此外"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "moreover so",
+        "zh": "此外"
+      }
+    ],
     "examples": [
       {
         "en": "The rent is reasonable and, moreover, the location is perfect.",
@@ -182843,7 +183000,12 @@
     "translations": [
       "主要的，大部分"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "mostly so",
+        "zh": "主要地"
+      }
+    ],
     "examples": [
       {
         "en": "Green teas are mostly from China or Japan.",
@@ -185984,7 +186146,12 @@
     "translations": [
       "即，也就是"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "namely so",
+        "zh": "即"
+      }
+    ],
     "examples": [
       {
         "en": "Three students were mentioned, namely John, Sarah and Sylvia.",
@@ -187003,7 +187170,12 @@
       "附近的，邻近的",
       "在…附近"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "nearby of",
+        "zh": "附近"
+      }
+    ],
     "examples": [
       {
         "en": "Lucy was staying in the nearby town of Hamilton.",
@@ -187949,6 +188121,12 @@
         "root": "-",
         "meaning": "名词"
       }
+    ],
+    "phrases": [
+      {
+        "en": "neighbor of",
+        "zh": "邻居"
+      }
     ]
   },
   {
@@ -188186,7 +188364,12 @@
       "侄子，外甥",
       "侄子；外甥"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "nephew of",
+        "zh": "侄子"
+      }
+    ],
     "examples": [
       {
         "en": "I am planning a 25th birthday party for my nephew.",
@@ -189107,7 +189290,12 @@
       "侄女，外甥女",
       "外甥女，侄女"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "niece of",
+        "zh": "侄女"
+      }
+    ],
     "examples": [
       {
         "en": "...his niece, the daughter of his eldest sister.",
@@ -192472,7 +192660,12 @@
     "translations": [
       "迫使；施恩惠于"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "oblige to",
+        "zh": "迫使"
+      }
+    ],
     "examples": [
       {
         "en": "The storm got worse and worse. Finally, I was obliged to abandon the car and continue on foot.",
@@ -192795,7 +192988,12 @@
       "明显的，显而易见的",
       "明显的；显著的；平淡无奇的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "obvious of",
+        "zh": "明显"
+      }
+    ],
     "examples": [
       {
         "en": "The obvious way of reducing pollution is to use cars less.",
@@ -193976,7 +194174,12 @@
     "translations": [
       "官员的；官方的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "official of",
+        "zh": "官员"
+      }
+    ],
     "examples": [
       {
         "en": "According to official records, five people were killed last year near that road junction.",
@@ -195754,7 +195957,12 @@
       "反对；反抗",
       "反对；对抗，抗争"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "oppose to",
+        "zh": "反对"
+      }
+    ],
     "examples": [
       {
         "en": "Congress is continuing to oppose the President's health care budget.",
@@ -195865,7 +196073,12 @@
     "translations": [
       "压迫，压制；压抑"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "oppress of",
+        "zh": "压迫"
+      }
+    ],
     "examples": [
       {
         "en": "native tribes oppressed by the authorities",
@@ -197033,7 +197246,12 @@
     "translations": [
       "组织，编组"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "organize of",
+        "zh": "组织"
+      }
+    ],
     "examples": [
       {
         "en": "The course was organized by a training company.",
@@ -197317,7 +197535,12 @@
     "translations": [
       "装饰物；装饰"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "ornament of",
+        "zh": "装饰"
+      }
+    ],
     "examples": [
       {
         "en": "a shelf covered with books and ornaments",
@@ -197356,7 +197579,12 @@
     "translations": [
       "孤儿"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "orphan of",
+        "zh": "孤儿"
+      }
+    ],
     "examples": [
       {
         "en": "The war has left thousands of children as orphans.",
@@ -199552,7 +199780,12 @@
       "忽略；俯瞰；远眺；检查；高耸于…之上",
       "忽视；眺望"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "overlook of",
+        "zh": "眺望"
+      }
+    ],
     "examples": [
       {
         "en": "It is easy to overlook a small detail like that.",
@@ -213120,7 +213353,12 @@
       "弄脏，污染，沾污",
       "污染；玷污；败坏"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "pollute of",
+        "zh": "污染"
+      }
+    ],
     "examples": [
       {
         "en": "beaches polluted by raw sewage",
@@ -217904,7 +218142,12 @@
       "假装，伪装，佯装",
       "假装的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "pretend of",
+        "zh": "假装"
+      }
+    ],
     "examples": [
       {
         "en": "Let's pretend we're on the moon.",
@@ -223749,7 +223992,12 @@
       "公布；发表；出版",
       "出版；发表；公布"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "publish of",
+        "zh": "出版"
+      }
+    ],
     "examples": [
       {
         "en": "The first edition was published in 1765.",
@@ -226525,7 +226773,12 @@
     "translations": [
       "种族上地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "racially so",
+        "zh": "种族地"
+      }
+    ],
     "examples": [
       {
         "en": "Mr. Obama is the first president since Richard M. Nixon to be elected while living in a city neighborhood, in his case, Chicago's racially and economically diverse Hyde Park.",
@@ -231982,7 +232235,12 @@
     "translations": [
       "重新装裱"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "reframe of",
+        "zh": "重新装裱"
+      }
+    ],
     "examples": [
       {
         "en": "How could you reframe them?",
@@ -238147,7 +238405,12 @@
     "translations": [
       "重新进货，再储存"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "restock of",
+        "zh": "重新进货"
+      }
+    ],
     "examples": [
       {
         "en": "I have to restock the freezer.",
@@ -238677,7 +238940,12 @@
       "保留,留用",
       "保持，保留，保有"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "retain of",
+        "zh": "保留"
+      }
+    ],
     "examples": [
       {
         "en": "You have the right to retain possession of the goods.",
@@ -238887,7 +239155,12 @@
     "translations": [
       "再教育；再训练"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "retrain of",
+        "zh": "再训练"
+      }
+    ],
     "examples": [
       {
         "en": "One solution is to retrain the long-term unemployed.",
@@ -240378,7 +240651,12 @@
       "解谜；给出谜；充满于",
       "谜语；粗筛；谜一般的人、东西、事情等"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "riddle of",
+        "zh": "谜语"
+      }
+    ],
     "examples": [
       {
         "en": "See if you can solve this riddle .",
@@ -245642,7 +245920,12 @@
       "致敬，欢迎；敬礼",
       "行礼致敬，欢迎"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "salute of",
+        "zh": "敬礼"
+      }
+    ],
     "examples": [
       {
         "en": "As they left, the corporal gave them a respectful salute.",
@@ -247060,7 +247343,12 @@
     "translations": [
       "使消散；撒；散播"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "scatter of",
+        "zh": "散开"
+      }
+    ],
     "examples": [
       {
         "en": "The sound of gunfire made the crowd scatter in all directions.",
@@ -247925,7 +248213,12 @@
       "剪刀；剪式跳法",
       "剪开；删除（scissor的第三人称单数）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "scissors of",
+        "zh": "剪刀"
+      }
+    ],
     "examples": [
       {
         "en": "a pair of scissors",
@@ -252698,7 +252991,12 @@
     "translations": [
       "破旧的；卑鄙的；吝啬的；低劣的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "shabby of",
+        "zh": "破旧"
+      }
+    ],
     "examples": [
       {
         "en": "Hugh's jacket was old and shabby.",
@@ -254410,7 +254708,12 @@
       "颤抖，哆嗦",
       "冷颤"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "shiver of",
+        "zh": "发抖"
+      }
+    ],
     "examples": [
       {
         "en": "Jake stood shivering in the cold air.",
@@ -255778,7 +256081,12 @@
       "尖声喊叫",
       "尖叫声"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "shriek of",
+        "zh": "尖叫"
+      }
+    ],
     "examples": [
       {
         "en": "They were dragged from their homes, shrieking and weeping.",
@@ -255830,6 +256138,12 @@
       {
         "root": "-",
         "meaning": "动词"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "shrink of",
+        "zh": "收缩"
       }
     ]
   },
@@ -266521,7 +266835,12 @@
       "球体, 范围",
       "球，圆体；范围"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "sphere of",
+        "zh": "球体"
+      }
+    ],
     "examples": [
       {
         "en": "Because the earth spins, it is not a perfect sphere.",
@@ -266944,7 +267263,12 @@
     "translations": [
       "辉煌的；灿烂的；极好的；杰出的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "splendid of",
+        "zh": "辉煌"
+      }
+    ],
     "examples": [
       {
         "en": "a splendid idea",
@@ -276780,6 +277104,12 @@
         "root": "mer",
         "meaning": "含 mer 词根"
       }
+    ],
+    "phrases": [
+      {
+        "en": "summer of",
+        "zh": "夏天"
+      }
     ]
   },
   {
@@ -277368,7 +277698,12 @@
       "极好的；华丽的；宏伟的",
       "(Superb)人名；(罗)苏佩尔布"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "superb of",
+        "zh": "极好"
+      }
+    ],
     "examples": [
       {
         "en": "The food was superb.",
@@ -279667,7 +280002,12 @@
       "厚运动衫，毛线衫",
       "毛线衣，运动衫；大量出汗的人，发汗剂"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "sweater of",
+        "zh": "毛衣"
+      }
+    ],
     "examples": [
       {
         "en": "Somebody pinched my sweater.",
@@ -281506,7 +281846,12 @@
     "translations": [
       "起飞"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "takeoff of",
+        "zh": "起飞"
+      }
+    ],
     "examples": [
       {
         "en": "What time is takeoff?",
@@ -282903,7 +283248,12 @@
     "translations": [
       "茶壶"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "teapot of",
+        "zh": "茶壶"
+      }
+    ],
     "examples": [
       {
         "en": "She upped and threw the teapot at him.",
@@ -283348,7 +283698,12 @@
     "translations": [
       "十几岁的青少年；十三岁到十九岁的少年"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "teenager of",
+        "zh": "青少年"
+      }
+    ],
     "examples": [
       {
         "en": "a TV sex education series aimed at teenagers",
@@ -284937,7 +285292,12 @@
     "translations": [
       "恐吓；使恐怖；使害怕"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "terrify of",
+        "zh": "恐吓"
+      }
+    ],
     "examples": [
       {
         "en": "Her husband's violence terrified her.",
@@ -285246,7 +285606,12 @@
     "translations": [
       "教科书，课本"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "textbook of",
+        "zh": "教科书"
+      }
+    ],
     "examples": [
       {
         "en": "a biology textbook",
@@ -285645,6 +286010,12 @@
       {
         "root": "-er",
         "meaning": "场所"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "theater of",
+        "zh": "剧院"
       }
     ]
   },
@@ -286406,7 +286777,12 @@
     "translations": [
       "因此，从而，由此"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "thereby of",
+        "zh": "因此"
+      }
+    ],
     "examples": [
       {
         "en": "Our bodies can sweat, thereby losing heat by evaporation.",
@@ -287362,7 +287738,12 @@
       "十三",
       "十三的；十三个的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "thirteen of",
+        "zh": "十三"
+      }
+    ],
     "examples": [
       {
         "en": "They've only sold thirteen tickets so far.",
@@ -287505,7 +287886,12 @@
       "彻底的；详尽的",
       "彻底的；十分的；周密的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "thorough of",
+        "zh": "彻底"
+      }
+    ],
     "examples": [
       {
         "en": "The doctor gave him a thorough check-up.",
@@ -288109,7 +288495,12 @@
       "激动；震颤；紧张",
       "使…颤动；使…紧张；使…感到兴奋或激动"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "thrill of",
+        "zh": "激动"
+      }
+    ],
     "examples": [
       {
         "en": "Winning first place must have been quite a thrill.",
@@ -289820,7 +290211,12 @@
     "translations": [
       "烦人的，无聊的；令人讨厌的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "tiresome of",
+        "zh": "烦人"
+      }
+    ],
     "examples": [
       {
         "en": "the whole tiresome business of filling out the forms",
@@ -290949,7 +291345,12 @@
       "在今晚",
       "今晚"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "tonight of",
+        "zh": "今晚"
+      }
+    ],
     "examples": [
       {
         "en": "I think I'll go to bed early tonight.",
@@ -291576,7 +291977,12 @@
       "拷问；折磨",
       "拷打"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "torture of",
+        "zh": "折磨"
+      }
+    ],
     "examples": [
       {
         "en": "He died after five days of excruciating torture.",
@@ -292213,6 +292619,12 @@
       {
         "root": "wards",
         "meaning": "方向"
+      }
+    ],
+    "phrases": [
+      {
+        "en": "towards of",
+        "zh": "朝"
       }
     ]
   },
@@ -297654,7 +298066,12 @@
     "translations": [
       "[气象] 台风"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "typhoon of",
+        "zh": "台风"
+      }
+    ],
     "examples": [
       {
         "en": "The typhoon had spent its fury.",
@@ -297761,7 +298178,12 @@
       "打字员",
       "打字员，打字者"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "typist of",
+        "zh": "打字员"
+      }
+    ],
     "examples": [
       {
         "en": "I'm a slow typist.",
@@ -300779,7 +301201,12 @@
       "不同的，不相似的",
       "和…不同，不像"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "unlike of",
+        "zh": "不同"
+      }
+    ],
     "examples": [
       {
         "en": "Now I see that, unlike her, they were my positive models.",
@@ -300818,7 +301245,12 @@
     "translations": [
       "未必的，未必可能的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "unlikely of",
+        "zh": "不可能"
+      }
+    ],
     "examples": [
       {
         "en": "Donna might be able to come tomorrow, but it's very unlikely.",
@@ -300868,7 +301300,12 @@
       "卸(货)",
       "卸货"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "unload of",
+        "zh": "卸"
+      }
+    ],
     "examples": [
       {
         "en": "Unload everything from the boat and clean it thoroughly.",
@@ -305369,7 +305806,12 @@
     "translations": [
       "乡村居民，村民"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "villager of",
+        "zh": "村民"
+      }
+    ],
     "examples": [
       {
         "en": "Soon the villagers couldn't afford to buy food for themselves.",
@@ -308031,7 +308473,12 @@
     "translations": [
       "钱包，皮夹"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "wallet of",
+        "zh": "钱包"
+      }
+    ],
     "examples": [
       {
         "en": "He took a credit card out of his wallet.",
@@ -308550,7 +308997,12 @@
       "暖和，温暖；热烈",
       "温暖；热情；激动"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "warmth of",
+        "zh": "温暖"
+      }
+    ],
     "examples": [
       {
         "en": "She went further into the room, drawn by the warmth of the fire.",
@@ -309520,7 +309972,12 @@
       "削弱",
       "变弱"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "weaken of",
+        "zh": "削弱"
+      }
+    ],
     "examples": [
       {
         "en": "Over the last two years the president's position has weakened.",
@@ -312076,7 +312533,12 @@
     "translations": [
       "当…的时候"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "en": "whilst of",
+        "zh": "当...时"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
