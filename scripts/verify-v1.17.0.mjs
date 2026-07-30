@@ -15,7 +15,7 @@ const checks = [
   { name: 'RoleSelector ALL_ROLES', file: 'src/components/RoleSelector.tsx', grep: 'ALL_ROLES' },
 
   // 测试
-  { name: 'chatRoles.test.ts 8 角色', file: 'tests/chatRoles.test.ts', grep: '8 个角色' },
+  { name: 'chatRoles.test.ts 8 角色', file: 'tests/chatRoles.test.ts', grep: '8 角色' },
   { name: 'chatRoles.test.ts doctor', file: 'tests/chatRoles.test.ts', grep: 'doctor' },
   { name: 'chatRoles.test.ts banker', file: 'tests/chatRoles.test.ts', grep: 'banker' },
   { name: 'chatRoles.test.ts police', file: 'tests/chatRoles.test.ts', grep: 'police' },

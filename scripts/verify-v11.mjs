@@ -71,10 +71,11 @@ async function main() {
   await page.goto(URL + '/', { waitUntil: 'networkidle' })
   await page.waitForTimeout(800)
   await page.screenshot({ path: `${OUT}/v11-mobile-home.png`, fullPage: true })
-  const aiTab = await page.locator('nav button:has-text("AI")').count()
+  const aiTab = await page.locator('nav a:has-text("AI")').count()
   console.log(`底部 AI tab: ${aiTab > 0 ? '✅' : '❌'}`)
 
-  // AI 对话模拟对话(Mock)
+  // AI 对话模拟对话(Mock) - 切回 desktop 避免 mobile nav 拦截
+  await page.setViewportSize({ width: 1280, height: 800 })
   await page.goto(URL + '/chat', { waitUntil: 'networkidle' })
   await page.waitForTimeout(500)
   const input = page.locator('input[placeholder*="英文"]')

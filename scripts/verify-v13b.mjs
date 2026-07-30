@@ -37,7 +37,7 @@ console.log('\n=== P1-2 baseUrl 校验 ===')
 // 自定义 LLM 在第 2 个 + 添加(translate 1 个, llm 1 个, ...)
 const addBtns = await page.locator('text=+ 添加').all()
 console.log(`+ 添加 按钮数: ${addBtns.length}`)
-await addBtns[1].click()  // LLM
+await addBtns[2].click()  // LLM (TTS=0, Translate=1, LLM=2)
 await page.waitForTimeout(500)
 
 // 填非法 baseUrl

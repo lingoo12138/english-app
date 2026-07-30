@@ -37,7 +37,7 @@ async function main() {
 
   // 添加自定义 LLM
   console.log('\n=== 添加自定义 LLM ===')
-  await page.locator('text=+ 添加').nth(1).click()  // 第 2 个 + 添加 (LLM)
+  await page.locator("text=+ 添加").nth(2).click()  // 第 2 个 + 添加 (LLM)
   await page.waitForTimeout(300)
   await page.screenshot({ path: `${OUT}/v12-settings-add-llm.png`, fullPage: true })
 

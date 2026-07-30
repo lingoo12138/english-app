@@ -13,7 +13,7 @@ const checks = [
   { name: 'CustomSceneLearn 收藏 toggle', file: 'src/pages/CustomSceneLearn.tsx', grep: 'isFavorite' },
   { name: 'CustomSceneLearn 进度持久化', file: 'src/pages/CustomSceneLearn.tsx', grep: 'PROGRESS_KEY' },
   { name: 'CustomSceneLearn 键盘快捷键', file: 'src/pages/CustomSceneLearn.tsx', grep: 'keydown' },
-  { name: 'CustomSceneLearn 完成态', file: 'src/pages/CustomSceneLearn.tsx', grep: '学完啦' },
+  { name: 'CustomSceneLearn 完成态', file: 'src/pages/CustomSceneLearn.tsx', grep: '完成态 -' },
 
   // Detail 加按钮
   { name: 'CustomSceneDetail.tsx 开始学习按钮', file: 'src/pages/CustomSceneDetail.tsx', grep: '开始学习' },

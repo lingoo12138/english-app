@@ -10,13 +10,22 @@ page.on('console', m => { if (m.type() === 'error') console.log(`err ${m.text().
 console.log('=== 真实验证(加 3 生词)===')
 // 1. 词库收藏
 await page.goto('http://127.0.0.1:4173/english-app/words', { waitUntil: 'networkidle' })
-await page.waitForTimeout(2000)
-const favBtns = page.locator('button:has-text("☆")')
+await page.waitForTimeout(3000)
+// 点击字母 A 让词库加载 (activeLetter 初始为空)
+try { await page.locator('button:has-text("A")').first().click({ timeout: 1000 }); await page.waitForTimeout(800) } catch (e) {}
+await page.waitForSelector('text="☆"', { timeout: 5000 }).catch(() => {})
+const favBtns = page.locator('text="☆"')
 const c = await favBtns.count()
 console.log(`  词库 ☆: ${c}`)
+// 直接调 React onClick via JS evaluate (避免 React Link 跳走)
 for (let i = 0; i < 3; i++) {
-  await favBtns.nth(i).click()
-  await page.waitForTimeout(300)
+  const ok = await page.evaluate(() => {
+    const btn = document.querySelector('button[class*="hover:bg-stone-100"]')
+    if (btn) { btn.click(); return true }
+    return false
+  })
+  if (!ok) break
+  await page.waitForTimeout(400)
 }
 
 // 2. Notebook 入口

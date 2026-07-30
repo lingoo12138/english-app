@@ -18,10 +18,10 @@ console.log(`  Google AI Studio: ${hasGoogle ? '✅' : '❌'}`)
 console.log(`  Mistral AI: ${hasMistral ? '✅' : '❌'}`)
 
 // 选 Google AI Studio
-const llmSel = page.locator('select').nth(2)  // 第一个是 Preferences, 第二个 TTS, 第三个 LLM
+const llmSel = page.locator('select').nth(3)  // 第一个是 Preferences, 第二个 TTS, 第三个 LLM
 // 实际上 TTS 是 select, LLM 也是 select, 不确定顺序
 // 用 label 选
-const llmSelect = page.locator('select').filter({ hasText: /OpenAI|Google|Mistral/ }).first()
+const llmSelect = page.locator('select').filter({ hasText: /OpenAI|Google|Mistral/ }).nth(3)
 const llmCount = await llmSelect.count()
 console.log(`  LLM select 找到: ${llmCount}`)
 
@@ -36,7 +36,7 @@ await page.screenshot({ path: '/workspace/english-app/screenshots/v22-4-llm.png'
 
 // 选 Gemini 测 model select
 if (llmCount > 0) {
-  await llmSelect.selectOption({ label: /Google AI/ })
+  await llmSelect.selectOption({ value: "google-ai" })
   await page.waitForTimeout(1500)
   // 找 model select
   const modelSel = page.locator('select').filter({ hasText: /gemini/ }).first()
