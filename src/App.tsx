@@ -11,6 +11,7 @@ const DailyPage = lazy(() => import('./pages/DailyPage'))
 const Translate = lazy(() => import('./pages/Translate'))
 const Notebook = lazy(() => import('./pages/Notebook'))
 const Settings = lazy(() => import('./pages/Settings'))
+const DocsPage = lazy(() => import('./pages/DocsPage'))
 const ReviewCenter = lazy(() => import('./pages/ReviewCenter'))
 const CardReview = lazy(() => import('./pages/CardReview'))
 const WeakWords = lazy(() => import('./pages/WeakWords'))
@@ -152,6 +153,7 @@ function App() {
         <Route path="custom-scenes/:id" element={<CustomSceneDetail />} />
         <Route path="custom-scenes/:id/learn" element={<CustomSceneLearn />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="docs" element={<DocsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

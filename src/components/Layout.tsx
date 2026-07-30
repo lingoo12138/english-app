@@ -18,6 +18,7 @@ const desktopNav = [
   { to: '/notebook', label: '生词本', icon: '⭐' },
   { to: '/achievements', label: '成就', icon: '🏆' },
   { to: '/settings', label: '设置', icon: '⚙️' },
+  { to: '/docs', label: '文档', icon: '📚' },
 ]
 
 // 移动端底部 Tab — 5 个核心(已加 每日一句 + 翻译,避免埋在首页快捷区)
