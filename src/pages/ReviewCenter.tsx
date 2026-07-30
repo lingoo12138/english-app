@@ -36,26 +36,31 @@ export default function ReviewCenter() {
   // v1.22.0: 支持 tag 过滤
   const loadQueue = useCallback(async () => {
     setLoading(true)
-    let sorted: ReturnType<typeof toReviewQueueItem>[] = []
-    if (filterTag) {
-      // v1.22.0: 按 tag 加载
-      sorted = await getReviewsByTagWithScore(filterTag, true, smartSort)
-    } else {
-      const due = await getDueReviews()
-      const queueItems = due.map(toReviewQueueItem)
-      sorted = sortReviewQueue(queueItems, Date.now(), { smartSort })
+    try {
+      let sorted: ReturnType<typeof toReviewQueueItem>[] = []
+      if (filterTag) {
+        // v1.22.0: 按 tag 加载
+        sorted = await getReviewsByTagWithScore(filterTag, true, smartSort)
+      } else {
+        const due = await getDueReviews()
+        const queueItems = due.map(toReviewQueueItem)
+        sorted = sortReviewQueue(queueItems, Date.now(), { smartSort })
+      }
+      const wordList: Word[] = []
+      for (const item of sorted) {
+        const w = await getWord(item.id)
+        if (w) wordList.push(w)
+      }
+      setQueue(wordList)
+      setCurrentIndex(0)
+      setSessionDone(false)
+      setCorrectCount(0)
+      setWrongCount(0)
+    } catch (e) {
+      console.error('[ReviewCenter] loadQueue failed:', e)
+    } finally {
+      setLoading(false)
     }
-    const wordList: Word[] = []
-    for (const item of sorted) {
-      const w = await getWord(item.id)
-      if (w) wordList.push(w)
-    }
-    setQueue(wordList)
-    setCurrentIndex(0)
-    setSessionDone(false)
-    setCorrectCount(0)
-    setWrongCount(0)
-    setLoading(false)
   }, [smartSort, filterTag])
 
   // v1.22.0: 加载 tag 统计

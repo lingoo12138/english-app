@@ -1,6 +1,6 @@
 // 多渠道翻译
 // 内置: 浏览器内置(无 API) / MyMemory(免费) / 百度翻译 / 谷歌翻译(非官方) / Mock
-import { BUILTIN_LLM_PROVIDERS, LLMProvider } from './providers/llm'
+import { BUILTIN_LLM_PROVIDERS, type LLMProvider } from './providers/llm'
 
 export type TranslateProviderType = 'mymemory' | 'baidu' | 'google' | 'youdao' | 'deepl' | 'tencent' | 'custom' | 'llm' | 'mock'
 

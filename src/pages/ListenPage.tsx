@@ -1,7 +1,6 @@
 // 听力模式 - v0.26 + v1.7.0 B 听力自适应
 // 5 篇精选短文 + TTS 播放 + 挖空听写 + 错词入生词本 + 错题推课
-import { useState, useEffect, useRef } from 'react'
-import { useStore } from '../store/useStore'
+import { useState, useEffect } from 'react'
 import { LISTENING_LESSONS, type ListeningLesson } from '../data/listening'
 import { speak } from '../lib/tts'
 import { addFavorite, getAllWritingErrors } from '../lib/db'

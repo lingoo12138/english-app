@@ -38,9 +38,14 @@ export default function ErrorsPage() {
 
   const loadAll = async () => {
     setLoading(true)
-    const list = await getAllWritingErrors()
-    setErrors(list.reverse())  // 最新在前
-    setLoading(false)
+    try {
+      const list = await getAllWritingErrors()
+      setErrors(list.reverse())  // 最新在前
+    } catch (e) {
+      console.error('[ErrorsPage] loadAll failed:', e)
+    } finally {
+      setLoading(false)
+    }
   }
 
   // 统计

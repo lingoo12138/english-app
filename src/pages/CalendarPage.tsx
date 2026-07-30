@@ -24,10 +24,10 @@ export default function CalendarPage() {
 
   useEffect(() => {
     setLoading(true)
-    getCalendarMonth(year, month).then(d => {
-      setData(d)
-      setLoading(false)
-    })
+    getCalendarMonth(year, month)
+      .then(d => setData(d))
+      .catch(e => console.error('[CalendarPage] load failed:', e))
+      .finally(() => setLoading(false))
   }, [year, month])
 
   const handlePrev = () => {

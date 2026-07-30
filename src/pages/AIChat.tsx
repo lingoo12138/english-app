@@ -14,7 +14,7 @@ import { addErrorWordsToFavorites } from '../lib/errorReview'
 import { toast } from '../components/Toast'
 import { loadWords } from '../lib/words'
 import { translate as translateText, BUILTIN_TRANSLATE_PROVIDERS } from '../lib/translate'
-import { getRoleById, getGreetingForRole, getFallbackReply, NONE_ROLE, type ChatRole, parseMultiRoleReply } from '../lib/chatRoles'
+import { getRoleById, getGreetingForRole, parseMultiRoleReply } from '../lib/chatRoles'
 import RoleSelector from '../components/RoleSelector'
 import MultiRoleSelector from '../components/MultiRoleSelector'
 
@@ -124,9 +124,6 @@ export default function AIChat() {
   const [pendingDelete, setPendingDelete] = useState<number | null>(null)
   const [showResetConfirm, setShowResetConfirm] = useState(false)
 
-  // 自动保存需要在 useState 之前声明依赖(loading 等)
-  // 实际: 把 loading 声明提前到这里
-  const [loadingEarly, setLoadingEarly] = useState(false)
   const [messages, setMessages] = useState<ChatMessage[]>([])
   // W2-A: 实时纠错结果, key=msgId
   const [reviews, setReviews] = useState<Record<string, ReviewResult>>({})

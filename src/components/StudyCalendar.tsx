@@ -19,15 +19,20 @@ export default function StudyCalendar({ days = 84, compact = false }: CalendarPr
 
   async function loadData() {
     setLoading(true)
-    const [dayStats, streakCount, totalD] = await Promise.all([
-      getDailyStats(days),
-      getStreak(),
-      getTotalDays(),
-    ])
-    setStats(dayStats)
-    setStreak(streakCount)
-    setTotalDays(totalD)
-    setLoading(false)
+    try {
+      const [dayStats, streakCount, totalD] = await Promise.all([
+        getDailyStats(days),
+        getStreak(),
+        getTotalDays(),
+      ])
+      setStats(dayStats)
+      setStreak(streakCount)
+      setTotalDays(totalD)
+    } catch (e) {
+      console.error('[StudyCalendar] loadData failed:', e)
+    } finally {
+      setLoading(false)
+    }
   }
 
   // 计算网格(7 列 = 一周,每天一行)

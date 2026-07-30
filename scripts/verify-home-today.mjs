@@ -1,0 +1,16 @@
+import { chromium } from 'playwright'
+const BASE = 'http://localhost:4173'
+const browser = await chromium.launch()
+const page = await browser.newPage()
+await page.goto(BASE + '/', { waitUntil: 'networkidle' })
+await page.waitForTimeout(1500)
+const h2 = await page.locator('h2:has-text("今日学习计划")').count()
+const text = await page.locator('text=今日学习计划').count()
+const html = await page.content()
+console.log('h2:has-text count:', h2)
+console.log('text= count:', text)
+console.log('html contains 今日学习计划:', html.includes('今日学习计划'))
+console.log('html contains 📅:', html.includes('📅'))
+const card = await page.locator('.card').count()
+console.log('.card count:', card)
+await browser.close()

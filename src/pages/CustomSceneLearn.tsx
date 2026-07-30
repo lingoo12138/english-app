@@ -26,33 +26,35 @@ export default function CustomSceneLearn() {
     if (!id) return
     setLoading(true)
     const sceneId = parseInt(id, 10)
-    getCustomSceneById(sceneId).then(async (s) => {
-      if (!s) {
-        toast.error('场景不存在')
-        navigate('/custom-scenes')
-        return
-      }
-      setScene(s)
-      // 恢复进度
-      try {
-        const saved = localStorage.getItem(PROGRESS_KEY(sceneId))
-        if (saved) {
-          const idx = parseInt(saved, 10)
-          if (!isNaN(idx) && idx >= 0 && idx < s.words.length) {
-            setCurrentIdx(idx)
-          }
+    getCustomSceneById(sceneId)
+      .then(async (s) => {
+        if (!s) {
+          toast.error('场景不存在')
+          navigate('/custom-scenes')
+          return
         }
-      } catch (e) {
-        // ignore
-      }
-      // 检查收藏状态
-      const fav: Record<string, boolean> = {}
-      for (const w of s.words) {
-        fav[w.word] = await isFavorite(w.word)
-      }
-      setFavMap(fav)
-      setLoading(false)
-    })
+        setScene(s)
+        // 恢复进度
+        try {
+          const saved = localStorage.getItem(PROGRESS_KEY(sceneId))
+          if (saved) {
+            const idx = parseInt(saved, 10)
+            if (!isNaN(idx) && idx >= 0 && idx < s.words.length) {
+              setCurrentIdx(idx)
+            }
+          }
+        } catch (e) {
+          // ignore
+        }
+        // 检查收藏状态
+        const fav: Record<string, boolean> = {}
+        for (const w of s.words) {
+          fav[w.word] = await isFavorite(w.word)
+        }
+        setFavMap(fav)
+      })
+      .catch(e => console.error('[CustomSceneLearn] load failed:', e))
+      .finally(() => setLoading(false))
   }, [id, navigate])
 
   // 持久化进度

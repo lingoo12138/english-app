@@ -11,7 +11,7 @@ import {
   type ReminderSettings,
 } from '../../lib/reminder'
 // v1.24.0: 动态预览
-import { buildReminderBody, estimateMinutes } from '../../lib/reminderContent'
+import { buildReminderBody } from '../../lib/reminderContent'
 // v1.34.0: iOS 兑底
 import { shouldUseInAppReminder } from '../../lib/inAppReminder'
 

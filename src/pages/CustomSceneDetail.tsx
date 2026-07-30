@@ -21,24 +21,26 @@ export default function CustomSceneDetail() {
   useEffect(() => {
     if (!id) return
     setLoading(true)
-    getCustomSceneById(parseInt(id, 10)).then(async (s) => {
-      if (!s) {
-        toast.error('场景不存在')
-        navigate('/custom-scenes')
-        return
-      }
-      setScene(s)
-      // 检查每个词的收藏状态
-      const fav: Record<string, boolean> = {}
-      for (const w of s.words) {
-        fav[w.word] = await isFavorite(w.word)
-      }
-      setFavMap(fav)
-      // v1.16.0: 加载复习状态
-      const status = await getSceneReviewStatus(s.words)
-      setReviewStatus(status)
-      setLoading(false)
-    })
+    getCustomSceneById(parseInt(id, 10))
+      .then(async (s) => {
+        if (!s) {
+          toast.error('场景不存在')
+          navigate('/custom-scenes')
+          return
+        }
+        setScene(s)
+        // 检查每个词的收藏状态
+        const fav: Record<string, boolean> = {}
+        for (const w of s.words) {
+          fav[w.word] = await isFavorite(w.word)
+        }
+        setFavMap(fav)
+        // v1.16.0: 加载复习状态
+        const status = await getSceneReviewStatus(s.words)
+        setReviewStatus(status)
+      })
+      .catch(e => console.error('[CustomSceneDetail] load failed:', e))
+      .finally(() => setLoading(false))
   }, [id, navigate])
 
   // v1.16.0: 刷新复习状态 (从 learn 返回时)

@@ -7,7 +7,7 @@ import { generateTodayPlan, markWordCompleted, type TodayPlan } from '../lib/pla
 // v1.37.0 W35-4: AI 定制多日计划
 import { generateAIPlan, type AIPlan } from '../lib/aiPlanGenerator'
 import { Link } from 'react-router-dom'
-import { levelColor, levelLabel } from '../lib/learnReport'
+import { levelColor } from '../lib/learnReport'
 import { BUILTIN_LLM_PROVIDERS } from '../lib/providers/llm'
 import { toast } from '../components/Toast'
 import { getXPState, type XPCurrentState } from '../lib/xpSystem'

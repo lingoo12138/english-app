@@ -15,7 +15,7 @@ import {
 // v1.43.0 W43-B: XP 系统
 import { addXP, XP_REWARDS } from './xpSystem'
 // v1.43.0 W43-A: 难度自适应
-import { getRecommendedWords, getAdaptiveLevel, type CEFRLevel, type WordLevel } from './difficultyAdapter'
+import { getRecommendedWords, getAdaptiveLevel, type WordLevel } from './difficultyAdapter'
 import type { Word, ReviewItem } from '../types'
 
 export interface TodayPlan {

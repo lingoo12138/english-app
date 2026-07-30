@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { explainError, type ErrorExplanation } from '../lib/llmTutor'
 import { getOrCreateExplanation } from '../lib/db'
 import { useStore } from '../store/useStore'
-import { BUILTIN_LLM_PROVIDERS, type LLMProvider } from '../lib/providers/llm'
+import { BUILTIN_LLM_PROVIDERS } from '../lib/providers/llm'
 import { toast } from './Toast'
 
 interface Props {

@@ -1,7 +1,7 @@
 // 场景详情页 - 学习该场景的句子
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { SCENES, type Scene, getSentenceId } from '../data/scenes'
+import { SCENES, getSentenceId } from '../data/scenes'
 import TTSButton from '../components/TTSButton'
 import { logAction, db } from '../lib/db'
 

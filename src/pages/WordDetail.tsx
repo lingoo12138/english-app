@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { getWord, loadWords } from '../lib/words'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'

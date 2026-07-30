@@ -1,7 +1,6 @@
 // errorStats.ts - v1.35.0 W33 错题本升级
 // 错题按类型分组 + 高频词统计 + 7/30 天趋势
 import { db } from './db'
-import type { WritingError } from './db'
 
 /** 错题按类型分组统计 */
 export interface ErrorTypeStat {

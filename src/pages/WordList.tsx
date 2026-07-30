@@ -33,13 +33,13 @@ export default function WordList() {
 
   useEffect(() => {
     setLoading(true)
-    loadWords().then((words) => {
-      setAllWords(words)
-      setLoading(false)
-    })
-    getAllFavorites().then(favs => {
-      setFavSet(new Set(favs.map(f => f.wordId)))
-    })
+    loadWords()
+      .then((words) => setAllWords(words))
+      .catch(e => console.error('[WordList] loadWords failed:', e))
+      .finally(() => setLoading(false))
+    getAllFavorites()
+      .then(favs => setFavSet(new Set(favs.map(f => f.wordId))))
+      .catch(e => console.error('[WordList] getAllFavorites failed:', e))
   }, [])
 
   useEffect(() => {

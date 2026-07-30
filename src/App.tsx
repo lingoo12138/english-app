@@ -2,8 +2,6 @@ import { useEffect } from 'react'
 import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
-import { ErrorBoundary } from './components/ErrorBoundary'
-import InstallPrompt from './components/InstallPrompt'
 // v1.38.0 W36: iOS in-app 提醒 banner
 import InAppBanner from './components/InAppBanner'
 const Home = lazy(() => import('./pages/Home'))

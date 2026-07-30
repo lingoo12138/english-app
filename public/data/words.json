@@ -4052,12 +4052,7 @@
     "translations": [
       "实际上；竟然"
     ],
-    "phrases": [
-      {
-        "en": "actually so",
-        "zh": "实际上"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "I've known Barbara for years. Since we were babies, actually.",
@@ -7164,12 +7159,7 @@
       "后来，以后",
       "以后，后来"
     ],
-    "phrases": [
-      {
-        "en": "afterward so",
-        "zh": "之后"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Shortly afterward, police arrested four suspects.",
@@ -7215,12 +7205,7 @@
         "meaning": "表示方向"
       }
     ],
-    "phrases": [
-      {
-        "en": "afterwards so",
-        "zh": "之后"
-      }
-    ]
+    "phrases": []
   },
   {
     "id": "w-again",
@@ -8371,7 +8356,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "estim",
+        "meaning": "estimate, value",
+        "origin": "Latin"
+      }
+    ]
   },
   {
     "id": "w-air",
@@ -8432,7 +8424,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "aer",
+        "meaning": "air",
+        "origin": "Greek"
+      }
+    ]
   },
   {
     "id": "w-aircraft",
@@ -10274,12 +10273,7 @@
       "尽管，虽然",
       "尽管；虽然；但是；然而"
     ],
-    "phrases": [
-      {
-        "en": "although so",
-        "zh": "尽管"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Although in poor health, she continued to carry out her duties.",
@@ -10383,12 +10377,7 @@
       "完全地；总共；总而言之",
       "整个；裸体"
     ],
-    "phrases": [
-      {
-        "en": "altogether so",
-        "zh": "完全地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "an old custom that has vanished altogether",
@@ -12084,7 +12073,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "and",
+        "meaning": "against, toward",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-anecdote",
@@ -12166,7 +12162,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "angel",
+        "meaning": "angel, messenger",
+        "origin": "Greek"
+      }
+    ]
   },
   {
     "id": "w-anger",
@@ -12856,12 +12859,7 @@
     "translations": [
       "每年，一年一次"
     ],
-    "phrases": [
-      {
-        "en": "annually so",
-        "zh": "每年"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "This is a perennating rhizome from which flowering shoots arise annually.",
@@ -13471,12 +13469,7 @@
       "无论如何",
       "总之；无论如何；不管怎样"
     ],
-    "phrases": [
-      {
-        "en": "anyhow so",
-        "zh": "不管怎样"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "You know nothing about her really, or about yourself in relation to her, and anyhow it's only one of those things and therefore it's of no importance.",
@@ -13639,12 +13632,7 @@
       "无论如何",
       "无论如何，不管怎样；总之"
     ],
-    "phrases": [
-      {
-        "en": "anyway so",
-        "zh": "不管怎样"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Catherine wasn't sure the book was the right one, but she bought it anyway.",
@@ -20081,12 +20069,7 @@
     "translations": [
       "注意地；聚精会神地；周到地"
     ],
-    "phrases": [
-      {
-        "en": "attentively so",
-        "zh": "注意地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "an attentive audience",
@@ -20537,7 +20520,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "aug",
+        "meaning": "increase, Augustus",
+        "origin": "Latin"
+      }
+    ]
   },
   {
     "id": "w-aunt",
@@ -20589,7 +20579,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "amit",
+        "meaning": "aunt",
+        "origin": "Latin"
+      }
+    ]
   },
   {
     "id": "w-aural",
@@ -22313,12 +22310,7 @@
     "translations": [
       "令人畏惧的；很"
     ],
-    "phrases": [
-      {
-        "en": "awfully so",
-        "zh": "非常"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "You have to become awfully large to be unaffordable -- there's lots of cash, lots of capital out there for acquisitions.",
@@ -23220,7 +23212,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bhed",
+        "meaning": "dig, penetrate",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-badly",
@@ -23405,7 +23404,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bag",
+        "meaning": "bag, bundle",
+        "origin": "Old Norse"
+      }
+    ]
   },
   {
     "id": "w-baggage",
@@ -23511,7 +23517,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bak",
+        "meaning": "bake, warm",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-bakery",
@@ -23726,7 +23739,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "ball",
+        "meaning": "ball, dance",
+        "origin": "Old High German"
+      }
+    ]
   },
   {
     "id": "w-ballet",
@@ -24263,7 +24283,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bang",
+        "meaning": "bang, hammer",
+        "origin": "Old Norse"
+      }
+    ]
   },
   {
     "id": "w-bank",
@@ -24324,7 +24351,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bank",
+        "meaning": "bank, bench",
+        "origin": "Old High German"
+      }
+    ]
   },
   {
     "id": "w-bankrupt",
@@ -24722,12 +24756,7 @@
     "translations": [
       "仅仅，几乎不"
     ],
-    "phrases": [
-      {
-        "en": "barely so",
-        "zh": "几乎不"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "She was barely aware of his presence.",
@@ -24875,7 +24904,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bark",
+        "meaning": "bark, ship",
+        "origin": "Old Norse"
+      }
+    ]
   },
   {
     "id": "w-barn",
@@ -24913,7 +24949,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "barn",
+        "meaning": "barn, storehouse",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-barrel",
@@ -25274,12 +25317,7 @@
     "translations": [
       "基本上"
     ],
-    "phrases": [
-      {
-        "en": "basically so",
-        "zh": "基本上"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Basically, I'm just lazy.",
@@ -25634,7 +25672,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bat",
+        "meaning": "club, stick",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-bath",
@@ -25695,7 +25740,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bath",
+        "meaning": "bathe, warm",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-bathe",
@@ -31191,7 +31243,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "black",
+        "meaning": "black, burn",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-blackboard",
@@ -31362,7 +31421,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "blas",
+        "meaning": "blame, blaspheme",
+        "origin": "Greek"
+      }
+    ]
   },
   {
     "id": "w-blank",
@@ -31426,7 +31492,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "blank",
+        "meaning": "blank, white",
+        "origin": "Old High German"
+      }
+    ]
   },
   {
     "id": "w-blanket",
@@ -31559,7 +31632,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "blast",
+        "meaning": "blast, blow",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-blaze",
@@ -31839,7 +31919,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "blind",
+        "meaning": "blind, dazzle",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-block",
@@ -31980,7 +32067,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "blood",
+        "meaning": "blood, flow",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-bloom",
@@ -32034,7 +32128,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bloom",
+        "meaning": "bloom, flower",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-blossom",
@@ -32239,7 +32340,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bhel",
+        "meaning": "blow, swell",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-blue",
@@ -32303,7 +32411,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "blu",
+        "meaning": "blue, lead",
+        "origin": "Old French"
+      }
+    ]
   },
   {
     "id": "w-board",
@@ -32462,7 +32577,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bat",
+        "meaning": "boat",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-boating",
@@ -32736,7 +32858,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bold",
+        "meaning": "bold, strong",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-bolt",
@@ -32797,7 +32926,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bolt",
+        "meaning": "bolt, arrow",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-bomb",
@@ -32869,7 +33005,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bomb",
+        "meaning": "bomb, deep sound",
+        "origin": "Greek"
+      }
+    ]
   },
   {
     "id": "w-bond",
@@ -32993,7 +33136,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bon",
+        "meaning": "bone",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-bonus",
@@ -33122,7 +33272,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bok",
+        "meaning": "book, beech",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-bookcase",
@@ -33405,7 +33562,14 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "boom",
+        "meaning": "boom, hum",
+        "origin": "Dutch"
+      }
+    ]
   },
   {
     "id": "w-boost",
@@ -33505,7 +33669,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "boot",
+        "meaning": "boot, shoe",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-booth",
@@ -34185,7 +34356,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "both",
+        "meaning": "both",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-bother",
@@ -34681,7 +34859,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "bug",
+        "meaning": "bend, bow",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-bowl",
@@ -34742,7 +34927,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bowl",
+        "meaning": "bowl, bubble",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-bowling",
@@ -34871,7 +35063,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bux",
+        "meaning": "box tree, box",
+        "origin": "Greek"
+      }
+    ]
   },
   {
     "id": "w-boxing",
@@ -35177,7 +35376,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "break",
+        "meaning": "break, breakable",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-branch",
@@ -35311,7 +35517,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "brand",
+        "meaning": "brand, burn",
+        "origin": "Old Norse"
+      }
+    ]
   },
   {
     "id": "w-brandy",
@@ -35469,7 +35682,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "brave",
+        "meaning": "brave, wild",
+        "origin": "Italian"
+      }
+    ]
   },
   {
     "id": "w-bravery",
@@ -35569,7 +35789,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bread",
+        "meaning": "bread, brew",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-breadth",
@@ -35682,7 +35909,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "break",
+        "meaning": "break",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-breakfast",
@@ -38127,7 +38361,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bud",
+        "meaning": "bud, sprout",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-buddhism",
@@ -39264,7 +39505,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "burn",
+        "meaning": "burn, heat",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-burst",
@@ -39501,7 +39749,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "bush",
+        "meaning": "bush, shrub",
+        "origin": "Old Norse"
+      }
+    ]
   },
   {
     "id": "w-business",
@@ -39783,7 +40038,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "but",
+        "meaning": "outside, without",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-butcher",
@@ -40239,7 +40501,14 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "cap",
+        "meaning": "head, take",
+        "origin": "Latin"
+      }
+    ]
   },
   {
     "id": "w-cabbage",
@@ -40690,7 +40959,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "cake",
+        "meaning": "cake, flat bread",
+        "origin": "Old Norse"
+      }
+    ]
   },
   {
     "id": "w-calculate",
@@ -40972,7 +41248,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "cal",
+        "meaning": "call, shout",
+        "origin": "Latin"
+      }
+    ]
   },
   {
     "id": "w-calm",
@@ -41034,7 +41317,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "calm",
+        "meaning": "calm, heat",
+        "origin": "Greek"
+      }
+    ]
   },
   {
     "id": "w-camel",
@@ -43895,7 +44185,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "cash",
+        "meaning": "cash, box",
+        "origin": "Latin"
+      }
+    ]
   },
   {
     "id": "w-cassette",
@@ -44227,7 +44524,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "cat",
+        "meaning": "cat",
+        "origin": "Latin"
+      }
+    ]
   },
   {
     "id": "w-catalog",
@@ -45273,7 +45577,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "cell",
+        "meaning": "cell, small room",
+        "origin": "Latin"
+      }
+    ]
   },
   {
     "id": "w-cellar",
@@ -45985,12 +46296,7 @@
       "一定，必定；当然",
       "当然；行（用于回答）；必定"
     ],
-    "phrases": [
-      {
-        "en": "certainly so",
-        "zh": "当然地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "‘I'd like a beer, please.' ‘Certainly, sir.'",
@@ -47714,7 +48020,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "chat",
+        "meaning": "chat, chatter",
+        "origin": "Middle English"
+      }
+    ]
   },
   {
     "id": "w-cheap",
@@ -47892,7 +48205,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "check",
+        "meaning": "check, chess",
+        "origin": "Arabic"
+      }
+    ]
   },
   {
     "id": "w-cheek",
@@ -48254,7 +48574,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "chef",
+        "meaning": "chief, head",
+        "origin": "Latin"
+      }
+    ]
   },
   {
     "id": "w-chemical",
@@ -49860,7 +50187,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "chop",
+        "meaning": "chop, cut",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-chopsticks",
@@ -50153,7 +50487,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "kyri",
+        "meaning": "lord, church",
+        "origin": "Greek"
+      }
+    ]
   },
   {
     "id": "w-cigar",
@@ -53416,7 +53757,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "club",
+        "meaning": "club, mass",
+        "origin": "Old Norse"
+      }
+    ]
   },
   {
     "id": "w-clue",
@@ -53472,7 +53820,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "clew",
+        "meaning": "clew, ball",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-clumsy",
@@ -58102,12 +58457,7 @@
     "translations": [
       "十分，完全地"
     ],
-    "phrases": [
-      {
-        "en": "completely so",
-        "zh": "完全地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "I completely forgot that it's his birthday today.",
@@ -61793,12 +62143,7 @@
       "结果",
       "因此，因而，所以"
     ],
-    "phrases": [
-      {
-        "en": "consequently so",
-        "zh": "因此"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Most computer users have never received any formal keyboard training. Consequently, their keyboard skills are inefficient.",
@@ -62117,12 +62462,7 @@
     "translations": [
       "相当地，非常地"
     ],
-    "phrases": [
-      {
-        "en": "considerably so",
-        "zh": "相当大地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "It's considerably colder today.",
@@ -62564,12 +62904,7 @@
     "translations": [
       "不断地，时常地"
     ],
-    "phrases": [
-      {
-        "en": "constantly so",
-        "zh": "不断地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "He talked constantly about his work.",
@@ -64943,12 +65278,7 @@
     "translations": [
       "相反地"
     ],
-    "phrases": [
-      {
-        "en": "conversely so",
-        "zh": "相反地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "American consumers prefer white eggs; conversely, British buyers like brown eggs.",
@@ -70148,7 +70478,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "crop",
+        "meaning": "crop, top",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-cross",
@@ -71055,7 +71392,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "cub",
+        "meaning": "cube, lie down",
+        "origin": "Greek"
+      }
+    ]
   },
   {
     "id": "w-cubic",
@@ -71464,7 +71808,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "cup",
+        "meaning": "cup, hollow",
+        "origin": "Latin"
+      }
+    ]
   },
   {
     "id": "w-cupboard",
@@ -71948,12 +72299,7 @@
     "translations": [
       "当前；一般地"
     ],
-    "phrases": [
-      {
-        "en": "currently so",
-        "zh": "当前"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "the products that are currently available",
@@ -72709,7 +73055,14 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "dad",
+        "meaning": "father",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "daddy",
@@ -73485,7 +73838,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "dark",
+        "meaning": "dark",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-darkness",
@@ -76381,12 +76741,7 @@
     "translations": [
       "一定地，明确地"
     ],
-    "phrases": [
-      {
-        "en": "definitely so",
-        "zh": "明确地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "‘Do you reckon Margot will be there?' ‘ Definitely not .'",
@@ -76806,12 +77161,7 @@
     "translations": [
       "故意地；谨慎地；慎重地"
     ],
-    "phrases": [
-      {
-        "en": "deliberately so",
-        "zh": "故意地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "He deliberately upset her.",
@@ -81139,7 +81489,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "dye",
+        "meaning": "die, play",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-diet",
@@ -81200,7 +81557,14 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "diet",
+        "meaning": "diet, way of life",
+        "origin": "Greek"
+      }
+    ]
   },
   {
     "id": "w-differ",
@@ -81597,7 +81961,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "dig",
+        "meaning": "dig",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-digest",
@@ -82722,7 +83093,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "dirt",
+        "meaning": "dirt, excrement",
+        "origin": "Old Norse"
+      }
+    ]
   },
   {
     "id": "w-dirty",
@@ -87688,7 +88066,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "dot",
+        "meaning": "dot, point",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-double",
@@ -88754,12 +89139,7 @@
     "translations": [
       "戏剧性地，引人注目地"
     ],
-    "phrases": [
-      {
-        "en": "dramatically so",
-        "zh": "戏剧性地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The population increased dramatically in the first half of the century.",
@@ -90229,7 +90609,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "de",
+        "meaning": "from, of, away",
+        "origin": "Latin"
+      }
+    ]
   },
   {
     "id": "w-dull",
@@ -90615,12 +91002,7 @@
       "在…的时候，在…的期间",
       "(During)人名；(法)迪兰；(瑞典、利比)杜林"
     ],
-    "phrases": [
-      {
-        "en": "during so",
-        "zh": "在...期间"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "During the summer she worked as a lifeguard.",
@@ -90753,7 +91135,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "dust",
+        "meaning": "dust",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-dustbin",
@@ -91887,12 +92276,7 @@
       "容易地；舒适的",
       "容易地；无疑地"
     ],
-    "phrases": [
-      {
-        "en": "easily so",
-        "zh": "容易地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "They won quite easily.",
@@ -91986,7 +92370,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "east",
+        "meaning": "east, dawn",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-easter",
@@ -92134,12 +92525,7 @@
       "向东方地",
       "向东方的"
     ],
-    "phrases": [
-      {
-        "en": "eastwards so",
-        "zh": "向东地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The ship continued sailing eastwards.",
@@ -92344,7 +92730,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "ed",
+        "meaning": "eat",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-echo",
@@ -93298,12 +93691,7 @@
     "translations": [
       "有效地"
     ],
-    "phrases": [
-      {
-        "en": "efficiently so",
-        "zh": "高效地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "This oil lubricates efficiently.",
@@ -93476,7 +93864,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "egg",
+        "meaning": "egg",
+        "origin": "Old Norse"
+      }
+    ]
   },
   {
     "id": "w-eggplant",
@@ -95234,12 +95629,7 @@
     "translations": [
       "在别处，向别处"
     ],
-    "phrases": [
-      {
-        "en": "elsewhere so",
-        "zh": "在别处"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "She is becoming famous in Australia and elsewhere.",
@@ -100070,12 +100460,7 @@
     "translations": [
       "本质上地；必须的"
     ],
-    "phrases": [
-      {
-        "en": "essentially so",
-        "zh": "本质上地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Ballet is essentially a middle-class interest.",
@@ -100273,7 +100658,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "estim",
+        "meaning": "estimate, value",
+        "origin": "Latin"
+      }
+    ]
   },
   {
     "id": "w-estimate",
@@ -100922,12 +101314,7 @@
       "终于；最后",
       "最后，终于"
     ],
-    "phrases": [
-      {
-        "en": "eventually so",
-        "zh": "最终地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "He eventually escaped and made his way back to England.",
@@ -101914,12 +102301,7 @@
       "确切地；恰恰正是",
       "恰好地；正是；精确地；正确地"
     ],
-    "phrases": [
-      {
-        "en": "exactly so",
-        "zh": "精确地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "It's exactly half past five.",
@@ -102330,12 +102712,7 @@
     "translations": [
       "极端地，非常"
     ],
-    "phrases": [
-      {
-        "en": "exceedingly so",
-        "zh": "非常地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Thank you. You've been exceedingly kind.",
@@ -103014,12 +103391,7 @@
     "translations": [
       "专门地"
     ],
-    "phrases": [
-      {
-        "en": "exclusively so",
-        "zh": "专门地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "These are not involved as exclusively as ministers in \"soul-work,\" but they certainly cultivate the inner life more than the third group.",
@@ -104747,12 +105119,7 @@
     "translations": [
       "直接地，明确地"
     ],
-    "phrases": [
-      {
-        "en": "explicitly so",
-        "zh": "明确地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "You have to grant us control explicitly.",
@@ -105730,12 +106097,7 @@
     "translations": [
       "广泛地"
     ],
-    "phrases": [
-      {
-        "en": "extensively so",
-        "zh": "广泛地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The new rocket was extensively tested and debugged by the army.",
@@ -106340,7 +106702,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "oq",
+        "meaning": "eye",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-eyesight",
@@ -107437,12 +107806,7 @@
       "相当地；公平地；简直",
       "(Fairly)人名；(英)费尔利"
     ],
-    "phrases": [
-      {
-        "en": "fairly so",
-        "zh": "公平地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The house had a fairly large garden.",
@@ -109072,7 +109436,14 @@
     ],
     "level": "primary",
     "difficulty": 2,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "fat",
+        "meaning": "fat, suckle",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-fatal",
@@ -111346,7 +111717,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "pau",
+        "meaning": "few, little",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "fiber",
@@ -112279,12 +112657,7 @@
     "translations": [
       "最后；不可更改的"
     ],
-    "phrases": [
-      {
-        "en": "finally so",
-        "zh": "最后地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "After several delays we finally took off at six o'clock.",
@@ -113251,12 +113624,7 @@
     "translations": [
       "坚定地，坚决地；坚固地，稳固地"
     ],
-    "phrases": [
-      {
-        "en": "firmly so",
-        "zh": "坚定地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "I grasped his arm firmly and led him away.",
@@ -113603,7 +113971,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "fit",
+        "meaning": "fit, suitable",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-fitness",
@@ -117974,12 +118349,7 @@
       "幸运地",
       "幸运地，幸亏"
     ],
-    "phrases": [
-      {
-        "en": "fortunately so",
-        "zh": "幸运地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Fortunately, everything worked out all right in the end.",
@@ -118794,7 +119164,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "fok",
+        "meaning": "fox",
+        "origin": "Old English"
+      }
+    ]
   },
   {
     "id": "w-fraction",
@@ -119759,7 +120136,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "frank",
+        "meaning": "free, Frank",
+        "origin": "Germanic"
+      }
+    ]
   },
   {
     "id": "w-frenchman",
@@ -121306,7 +121690,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "fun",
+        "meaning": "fun, joke",
+        "origin": "Middle English"
+      }
+    ]
   },
   {
     "id": "w-function",
@@ -121521,12 +121912,7 @@
     "translations": [
       "根本上"
     ],
-    "phrases": [
-      {
-        "en": "fundamentally so",
-        "zh": "根本地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The conclusions of the report are fundamentally wrong .",
@@ -122075,12 +122461,7 @@
     "translations": [
       "而且，此外"
     ],
-    "phrases": [
-      {
-        "en": "furthermore so",
-        "zh": "此外"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "He is old and unpopular. Furthermore, he has at best only two years of political life ahead of him.",
@@ -122753,7 +123134,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "gap",
+        "meaning": "gap, opening",
+        "origin": "Old Norse"
+      }
+    ]
   },
   {
     "id": "w-garage",
@@ -124460,12 +124848,7 @@
     "translations": [
       "有礼貌地；柔和地"
     ],
-    "phrases": [
-      {
-        "en": "gently so",
-        "zh": "柔和地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "‘You go back to bed now,' he said gently.",
@@ -125038,7 +125421,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "get",
+        "meaning": "get, obtain",
+        "origin": "Old Norse"
+      }
+    ]
   },
   {
     "id": "w-ghost",
@@ -127607,12 +127997,7 @@
       "逐渐地，逐步地",
       "逐步地；渐渐地"
     ],
-    "phrases": [
-      {
-        "en": "gradually so",
-        "zh": "逐渐地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Jill gradually became aware of an awful smell.",
@@ -129171,7 +129556,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "great",
+        "meaning": "great, coarse",
+        "origin": "PIE"
+      }
+    ]
   },
   {
     "id": "w-greatly",
@@ -129185,12 +129577,7 @@
     "translations": [
       "大大地，非常"
     ],
-    "phrases": [
-      {
-        "en": "greatly so",
-        "zh": "大大地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "All offers of help will be greatly appreciated .",
@@ -130338,12 +130725,7 @@
     "translations": [
       "无缘无故地，无根据地"
     ],
-    "phrases": [
-      {
-        "en": "groundlessly so",
-        "zh": "无根据地"
-      }
-    ],
+    "phrases": [],
     "examples": [],
     "tags": [
       "CET4"
@@ -131252,6 +131634,13 @@
         "en": "play guitar",
         "zh": "弹吉他"
       }
+    ],
+    "roots": [
+      {
+        "root": "guitar",
+        "meaning": "guitar, lyre",
+        "origin": "Greek"
+      }
     ]
   },
   {
@@ -131429,7 +131818,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "gun",
+        "meaning": "gun, ball",
+        "origin": "Old Norse"
+      }
+    ]
   },
   {
     "id": "w-gunpowder",
@@ -131538,7 +131934,14 @@
     ],
     "level": "junior",
     "difficulty": 2,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "gym",
+        "meaning": "gymnasium, exercise",
+        "origin": "Greek"
+      }
+    ]
   },
   {
     "id": "w-gymnasium",
@@ -132922,12 +133325,7 @@
     "translations": [
       "快乐地；幸福地；幸运地；恰当地"
     ],
-    "phrases": [
-      {
-        "en": "happily so",
-        "zh": "快乐地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Michelle smiled happily.",
@@ -139467,12 +139865,7 @@
       "呼万岁",
       "万岁"
     ],
-    "phrases": [
-      {
-        "en": "hooray so",
-        "zh": "万岁"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "If that worked, hooray! If not, soldier on to the next step.",
@@ -140897,12 +141290,7 @@
       "无论如何；不管怎样（接副词或形容词）；然而；可是",
       "无论以何种方式; 不管怎样"
     ],
-    "phrases": [
-      {
-        "en": "however so",
-        "zh": "然而"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "This is a cheap and simple process. However, there are dangers.",
@@ -146085,12 +146473,7 @@
     "translations": [
       "日益，越来越多地"
     ],
-    "phrases": [
-      {
-        "en": "increasingly so",
-        "zh": "越来越多地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Marketing techniques are becoming increasingly sophisticated.",
@@ -146200,12 +146583,7 @@
       "的确；实在；真正地；甚至",
       "真的（表示惊讶、怀疑、讽刺等）"
     ],
-    "phrases": [
-      {
-        "en": "indeed so",
-        "zh": "确实"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The blood tests prove that Vince is indeed the father.",
@@ -148454,12 +148832,7 @@
     "translations": [
       "最初，起初"
     ],
-    "phrases": [
-      {
-        "en": "initially so",
-        "zh": "最初"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Stan initially wanted to go to medical school.",
@@ -150406,12 +150779,7 @@
     "translations": [
       "立即，即刻"
     ],
-    "phrases": [
-      {
-        "en": "instantly so",
-        "zh": "立即地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "All four victims died instantly.",
@@ -153432,12 +153800,7 @@
     "translations": [
       "不变地，一直"
     ],
-    "phrases": [
-      {
-        "en": "invariably so",
-        "zh": "不变地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "It invariably rains when I go there.",
@@ -154430,12 +154793,7 @@
     "translations": [
       "不合理地，无理性地"
     ],
-    "phrases": [
-      {
-        "en": "irrationally so",
-        "zh": "不理性地"
-      }
-    ],
+    "phrases": [],
     "examples": [],
     "tags": [
       "CET4"
@@ -161003,12 +161361,7 @@
     "translations": [
       "大部分；大量地"
     ],
-    "phrases": [
-      {
-        "en": "largely so",
-        "zh": "大部分"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The state of Nevada is largely desert.",
@@ -161258,12 +161611,7 @@
     "translations": [
       "最近，不久前"
     ],
-    "phrases": [
-      {
-        "en": "lately so",
-        "zh": "最近"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "What have you been doing lately?",
@@ -165677,12 +166025,7 @@
     "translations": [
       "轻轻地，轻松地"
     ],
-    "phrases": [
-      {
-        "en": "lightly so",
-        "zh": "轻轻地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "I knocked lightly on the door.",
@@ -165939,12 +166282,7 @@
     "translations": [
       "同样地；也，又"
     ],
-    "phrases": [
-      {
-        "en": "likewise so",
-        "zh": "同样"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Nanny put on a shawl and told the girls to do likewise.",
@@ -168487,12 +168825,7 @@
     "translations": [
       "合乎情理地，符合逻辑地"
     ],
-    "phrases": [
-      {
-        "en": "logically so",
-        "zh": "合逻辑地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The detective has to discover the murderer by logical deduction.",
@@ -170556,7 +170889,14 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "mach",
+        "meaning": "machine, contrivance",
+        "origin": "Greek"
+      }
+    ]
   },
   {
     "id": "w-mad",
@@ -170751,7 +171091,14 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "magaz",
+        "meaning": "storehouse, magazine",
+        "origin": "Arabic"
+      }
+    ]
   },
   {
     "id": "w-magic",
@@ -174805,12 +175152,7 @@
       "也许；可能；大概",
       "可能性；不确定性"
     ],
-    "phrases": [
-      {
-        "en": "maybe so",
-        "zh": "也许吧"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Maybe it's all just a big misunderstanding.",
@@ -175722,12 +176064,7 @@
     "translations": [
       "机械地"
     ],
-    "phrases": [
-      {
-        "en": "mechanically so",
-        "zh": "机械地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Never copy foreign things blindly or mechanically.",
@@ -177410,12 +177747,7 @@
       "仅仅，只不过",
       "仅仅，只不过；只是"
     ],
-    "phrases": [
-      {
-        "en": "merely so",
-        "zh": "仅仅地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "He's merely a boy – you can't expect him to understand.",
@@ -182966,12 +183298,7 @@
     "translations": [
       "再者，加之，此外"
     ],
-    "phrases": [
-      {
-        "en": "moreover so",
-        "zh": "此外"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The rent is reasonable and, moreover, the location is perfect.",
@@ -183328,12 +183655,7 @@
     "translations": [
       "主要的，大部分"
     ],
-    "phrases": [
-      {
-        "en": "mostly so",
-        "zh": "主要地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Green teas are mostly from China or Japan.",
@@ -186474,12 +186796,7 @@
     "translations": [
       "即，也就是"
     ],
-    "phrases": [
-      {
-        "en": "namely so",
-        "zh": "即"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Three students were mentioned, namely John, Sarah and Sylvia.",
@@ -186882,12 +187199,7 @@
       "全国范围的；全国性的",
       "在全国"
     ],
-    "phrases": [
-      {
-        "en": "nationwide so",
-        "zh": "全国性地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "a nationwide search for a missing British tourist",
@@ -187074,12 +187386,7 @@
     "translations": [
       "自然地；天然地"
     ],
-    "phrases": [
-      {
-        "en": "naturally so",
-        "zh": "自然地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Naturally, you'll want to discuss this with your wife.",
@@ -187656,12 +187963,7 @@
     "translations": [
       "必然，必定"
     ],
-    "phrases": [
-      {
-        "en": "necessarily so",
-        "zh": "必要地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The care of old people necessarily involves quite a lot of heavy lifting.",
@@ -189205,12 +189507,7 @@
       "然而",
       "仍然"
     ],
-    "phrases": [
-      {
-        "en": "nevertheless so",
-        "zh": "尽管如此"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The news may be unexpected; nevertheless, it is true.",
@@ -190969,12 +191266,7 @@
     "translations": [
       "向北"
     ],
-    "phrases": [
-      {
-        "en": "northwards so",
-        "zh": "向北地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "We sailed northwards.",
@@ -193365,12 +193657,7 @@
     "translations": [
       "明显地，显然地"
     ],
-    "phrases": [
-      {
-        "en": "obviously so",
-        "zh": "明显地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "We're obviously going to need more help.",
@@ -193530,12 +193817,7 @@
     "translations": [
       "偶然；非经常地"
     ],
-    "phrases": [
-      {
-        "en": "occasionally so",
-        "zh": "偶尔地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Occasionally people confess to crimes they haven't committed just to get attention.",
@@ -203549,12 +203831,7 @@
     "translations": [
       "特别，尤其，格外"
     ],
-    "phrases": [
-      {
-        "en": "particularly so",
-        "zh": "特别地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Steve was in a particularly bad mood when he got back.",
@@ -204191,12 +204468,7 @@
     "translations": [
       "消极地"
     ],
-    "phrases": [
-      {
-        "en": "passively so",
-        "zh": "被动地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "their passive acceptance of their fate",
@@ -204815,12 +205087,7 @@
     "translations": [
       "耐心地"
     ],
-    "phrases": [
-      {
-        "en": "patiently so",
-        "zh": "耐心地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The teacher told him to weigh this matter patiently.",
@@ -216267,12 +216534,7 @@
     "translations": [
       "实际上；几乎"
     ],
-    "phrases": [
-      {
-        "en": "practically so",
-        "zh": "实际地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "I've read practically all of his books.",
@@ -217233,12 +217495,7 @@
     "translations": [
       "优先地"
     ],
-    "phrases": [
-      {
-        "en": "preferentially so",
-        "zh": "优先地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Heterosexuals should not be treated preferentially when the state carries out that role.",
@@ -218067,12 +218324,7 @@
     "translations": [
       "一会儿；目前"
     ],
-    "phrases": [
-      {
-        "en": "presently so",
-        "zh": "目前地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The doctor will be here presently.",
@@ -218891,12 +219143,7 @@
     "translations": [
       "事先"
     ],
-    "phrases": [
-      {
-        "en": "previously so",
-        "zh": "以前"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Guyana's railways were previously owned by private companies.",
@@ -219084,12 +219331,7 @@
       "主要地，首先",
       "首先；主要地"
     ],
-    "phrases": [
-      {
-        "en": "primarily so",
-        "zh": "主要地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The advertisement is aimed primarily at children.",
@@ -221886,12 +222128,7 @@
     "translations": [
       "过分地，非常地"
     ],
-    "phrases": [
-      {
-        "en": "prohibitively so",
-        "zh": "禁止地"
-      }
-    ],
+    "phrases": [],
     "examples": [],
     "tags": [
       "CET4"
@@ -227101,12 +227338,7 @@
     "translations": [
       "种族上地"
     ],
-    "phrases": [
-      {
-        "en": "racially so",
-        "zh": "种族地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Mr. Obama is the first president since Richard M. Nixon to be elected while living in a city neighborhood, in his case, Chicago's racially and economically diverse Hyde Park.",
@@ -227342,12 +227574,7 @@
     "translations": [
       "完全地，彻底地"
     ],
-    "phrases": [
-      {
-        "en": "radically so",
-        "zh": "根本地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "plans to radically reform the tax system",
@@ -233502,12 +233729,7 @@
     "translations": [
       "定期地，有规律地"
     ],
-    "phrases": [
-      {
-        "en": "regularly so",
-        "zh": "有规律地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "We meet regularly, once a month.",
@@ -236009,12 +236231,7 @@
     "translations": [
       "重复地；一再"
     ],
-    "phrases": [
-      {
-        "en": "repeatedly so",
-        "zh": "反复地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Graham was repeatedly warned not to work so hard.",
@@ -238240,12 +238457,7 @@
       "各自地",
       "各自地，分别地"
     ],
-    "phrases": [
-      {
-        "en": "respectively so",
-        "zh": "分别地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The cups and saucers cost £5 and £3 respectively.",
@@ -243807,12 +244019,7 @@
     "translations": [
       "例行公事地"
     ],
-    "phrases": [
-      {
-        "en": "routinely so",
-        "zh": "例行地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "This vaccine is already routinely used.",
@@ -250733,12 +250940,7 @@
     "translations": [
       "表面上看"
     ],
-    "phrases": [
-      {
-        "en": "seemingly so",
-        "zh": "表面上地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "seemingly unrelated bits of information",
@@ -253817,7 +254019,14 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "shang",
+        "meaning": "upon, sea",
+        "origin": "Chinese"
+      }
+    ]
   },
   {
     "id": "w-shape",
@@ -257961,12 +258170,7 @@
     "translations": [
       "类似地，相似地"
     ],
-    "phrases": [
-      {
-        "en": "similarly so",
-        "zh": "相似地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "The first letter she wrote me was less than a page long, and her second letter was similarly brief.",
@@ -259442,7 +259646,14 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "skat, board",
+        "meaning": "slide, plank",
+        "origin": "Dutch+English"
+      }
+    ]
   },
   {
     "id": "skeptical",
@@ -259626,6 +259837,13 @@
       {
         "en": "skilful at",
         "zh": "擅长"
+      }
+    ],
+    "roots": [
+      {
+        "root": "skill",
+        "meaning": "skill, discernment",
+        "origin": "Old Norse"
       }
     ]
   },
@@ -259828,12 +260046,7 @@
     "translations": [
       "巧妙地；精巧地"
     ],
-    "phrases": [
-      {
-        "en": "skillfully so",
-        "zh": "熟练地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "With a skillful movement he rounded the small fishing-boat.",
@@ -264331,12 +264544,7 @@
     "translations": [
       "有时，间或"
     ],
-    "phrases": [
-      {
-        "en": "sometimes so",
-        "zh": "有时"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "I sometimes have to work late.",
@@ -287145,12 +287353,7 @@
       "因此，所以",
       "因此；所以"
     ],
-    "phrases": [
-      {
-        "en": "therefore so",
-        "zh": "因此"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Their car was bigger and therefore more comfortable.",
@@ -289102,12 +289305,7 @@
       "自始至终，到处；全部",
       "贯穿，遍及"
     ],
-    "phrases": [
-      {
-        "en": "throughout so",
-        "zh": "贯穿"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "a large organization with offices throughout the world",
@@ -298764,12 +298962,7 @@
     "translations": [
       "最后，最终"
     ],
-    "phrases": [
-      {
-        "en": "ultimately so",
-        "zh": "最终"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Ultimately, the decision rests with the child's parents.",
@@ -299755,12 +299948,7 @@
     "translations": [
       "在下面，在底下"
     ],
-    "phrases": [
-      {
-        "en": "underneath so",
-        "zh": "在下面"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "He has on his jeans and a long-sleeved blue denim shirt with a white T-shirt underneath.",
@@ -300141,12 +300329,7 @@
       "无疑",
       "无容置疑，肯定地"
     ],
-    "phrases": [
-      {
-        "en": "undoubtedly so",
-        "zh": "无疑地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "This is undoubtedly important.",
@@ -300555,12 +300738,7 @@
     "translations": [
       "不幸地"
     ],
-    "phrases": [
-      {
-        "en": "unfortunately so",
-        "zh": "不幸地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Unfortunately, you were out when we called.",
@@ -306622,12 +306800,7 @@
       "几乎，差不多",
       "实际上，事实上"
     ],
-    "phrases": [
-      {
-        "en": "virtually so",
-        "zh": "实际上地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "Virtually all the children come to school by bus.",
@@ -312002,12 +312175,7 @@
       "向西",
       "向西的"
     ],
-    "phrases": [
-      {
-        "en": "westwards so",
-        "zh": "向西地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "He sailed westward from Palos de la Frontera.",
@@ -314126,12 +314294,7 @@
     "translations": [
       "欣然地；愿意地，乐意地"
     ],
-    "phrases": [
-      {
-        "en": "willingly so",
-        "zh": "乐意地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "I can't imagine a circumstance in which I would be willing to steal.",
@@ -316672,12 +316835,7 @@
       "全世界的",
       "在世界各地"
     ],
-    "phrases": [
-      {
-        "en": "worldwide so",
-        "zh": "全世界地"
-      }
-    ],
+    "phrases": [],
     "examples": [
       {
         "en": "His books have sold more than 20 million copies worldwide.",

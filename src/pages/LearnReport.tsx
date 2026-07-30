@@ -21,10 +21,15 @@ export default function LearnReport() {
 
   const refresh = async () => {
     setLoading(true)
-    const chats = await getAllChats()
-    const r = await generateLearnReport(chats)
-    setReport(r)
-    setLoading(false)
+    try {
+      const chats = await getAllChats()
+      const r = await generateLearnReport(chats)
+      setReport(r)
+    } catch (e) {
+      console.error('[LearnReport] refresh failed:', e)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleExport = () => {

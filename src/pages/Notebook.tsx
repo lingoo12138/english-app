@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getAllFavorites, getDueReviews, removeFavorite } from '../lib/db'
-import { getWord, loadWords } from '../lib/words'
+import { loadWords } from '../lib/words'
 import { Link } from 'react-router-dom'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
@@ -36,33 +36,38 @@ export default function Notebook() {
 
   const loadFavorites = async () => {
     setLoading(true)
-    const favs = await getAllFavorites()
-    // 过滤掉非单词 ID
-    const wordIds = favs
-      .filter(f => !f.wordId.startsWith('daily-') && !f.wordId.startsWith('scene:'))
-      .map(f => f.wordId)
-    // 一次拉取全词库,内存中过滤(修复 O(N*M) 慢加载)
-    // v1.52.0 W47: 静态 import (verifier4 P1-B 防回归)
-    const allWords = await loadWords()
-    const wordMap = new Map<string, Word>()
-    for (const w of allWords) wordMap.set(w.id, w)
-    const list: Word[] = []
-    for (const id of wordIds) {
-      const w = wordMap.get(id)
-      if (w) list.push(w)
-    }
-    setWords(list)
+    try {
+      const favs = await getAllFavorites()
+      // 过滤掉非单词 ID
+      const wordIds = favs
+        .filter(f => !f.wordId.startsWith('daily-') && !f.wordId.startsWith('scene:'))
+        .map(f => f.wordId)
+      // 一次拉取全词库,内存中过滤(修复 O(N*M) 慢加载)
+      // v1.52.0 W47: 静态 import (verifier4 P1-B 防回归)
+      const allWords = await loadWords()
+      const wordMap = new Map<string, Word>()
+      for (const w of allWords) wordMap.set(w.id, w)
+      const list: Word[] = []
+      for (const id of wordIds) {
+        const w = wordMap.get(id)
+        if (w) list.push(w)
+      }
+      setWords(list)
 
-    const due = await getDueReviews()
-    setDueCount(due.length)
-    // v1.21.0: 加载 tag 数据
-    const [tags, wtagMap] = await Promise.all([
-      getAllTagsWithCount(),
-      buildWordTagMap(),
-    ])
-    setAllTags(tags)
-    setWordTagMap(wtagMap)
-    setLoading(false)
+      const due = await getDueReviews()
+      setDueCount(due.length)
+      // v1.21.0: 加载 tag 数据
+      const [tags, wtagMap] = await Promise.all([
+        getAllTagsWithCount(),
+        buildWordTagMap(),
+      ])
+      setAllTags(tags)
+      setWordTagMap(wtagMap)
+    } catch (e) {
+      console.error('[Notebook] loadFavorites failed:', e)
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {

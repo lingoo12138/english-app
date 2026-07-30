@@ -1,7 +1,6 @@
 // 翻译设置 - v0.22.2 → v1.1-W1: confirm → Modal
 import { useState } from 'react'
 import { useStore } from '../../store/useStore'
-import { BUILTIN_TRANSLATE_PROVIDERS } from '../../lib/translate'
 import { AddCustomTranslateForm } from './CustomForms'
 import { Modal } from '../Modal'
 import { toast } from '../Toast'

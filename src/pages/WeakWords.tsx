@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { getWeakWords } from '../lib/streak'
-import { getWord, loadWords } from '../lib/words'
+import { getWord } from '../lib/words'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
 import { removeFavorite, reviewWord, logAction, db } from '../lib/db'
@@ -27,24 +27,29 @@ export default function WeakWords() {
 
   async function loadData() {
     setLoading(true)
-    const weak = await getWeakWords(100)
-    const list: WeakWordItem[] = []
-    for (const w of weak) {
-      // 跳过 daily- 开头的
-      if (w.wordId.startsWith('daily-')) continue
-      const word = await getWord(w.wordId)
-      if (word) {
-        // 获取最近一次 unknown 时间(取时间戳最大,不用 reverse+sortBy)
-        const unknowns = await db.records
-          .where('wordId').equals(w.wordId)
-          .and(r => r.action === 'unknown')
-          .toArray()
-        const lastTime = unknowns.reduce((max, r) => Math.max(max, r.timestamp), 0)
-        list.push({ word, wrongCount: w.count, lastWrong: lastTime })
+    try {
+      const weak = await getWeakWords(100)
+      const list: WeakWordItem[] = []
+      for (const w of weak) {
+        // 跳过 daily- 开头的
+        if (w.wordId.startsWith('daily-')) continue
+        const word = await getWord(w.wordId)
+        if (word) {
+          // 获取最近一次 unknown 时间(取时间戳最大,不用 reverse+sortBy)
+          const unknowns = await db.records
+            .where('wordId').equals(w.wordId)
+            .and(r => r.action === 'unknown')
+            .toArray()
+          const lastTime = unknowns.reduce((max, r) => Math.max(max, r.timestamp), 0)
+          list.push({ word, wrongCount: w.count, lastWrong: lastTime })
+        }
       }
+      setItems(list)
+    } catch (e) {
+      console.error('[WeakWords] loadData failed:', e)
+    } finally {
+      setLoading(false)
     }
-    setItems(list)
-    setLoading(false)
   }
 
   // 标记掌握:把 quality=5 喂给 SM-2(让复习时间拉长),并清掉 unknown 记录

@@ -1,7 +1,6 @@
 // wordTags.ts - v1.21.0 B11 生词本标签
 // 用户给收藏的词打标签, 按 tag 分类管理/复习
 import { db, addWordTag, getWordTags, getWordsByTag, getAllWordTags, removeWordTag, removeAllTagsForWord } from './db'
-import type { WordTag } from './db'
 import type { Favorite } from '../types'
 
 /** Tag 长度上限 */

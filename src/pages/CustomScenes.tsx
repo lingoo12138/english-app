@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom'
 import { useStore } from '../store/useStore'
 import {
   MAX_TEXT_LEN,
-  MAX_WORDS,
   truncateText,
   extractWordsFromText,
   autoExtractTitle,

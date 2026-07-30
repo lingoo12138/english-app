@@ -10,7 +10,7 @@ import { loadWords } from '../lib/words'
 import type { Word, ReviewItem } from '../types'
 import TTSButton from '../components/TTSButton'
 // v1.37.0 W35-3: 短语模式
-import { extractPhrasesFromWords, shuffleCards, getPhraseTTS, type PhraseCard } from '../lib/phraseCards'
+import { extractPhrasesFromWords, shuffleCards, type PhraseCard } from '../lib/phraseCards'
 // v1.43.0 W43-C: i18n UI 完整迁移
 import { useTranslate } from '../lib/useTranslate'
 
@@ -63,11 +63,12 @@ export default function CardReview() {
     setSessionDone(false)
     setReviewedCount(0)
     setRatings({ again: 0, hard: 0, good: 0, easy: 0 })
-    const [favs, due, allReviews] = await Promise.all([
-      getAllFavorites(),
-      getDueReviews(),
-      getAllReviews(),
-    ])
+    try {
+      const [favs, due, allReviews] = await Promise.all([
+        getAllFavorites(),
+        getDueReviews(),
+        getAllReviews(),
+      ])
 
     // 过滤掉非单词 ID
     const favIds = favs
@@ -125,7 +126,11 @@ export default function CardReview() {
       setPhraseQueue(shuffleCards(phraseList).slice(0, 20))
     }
     setPendingDueCount(list.filter(x => x.isDue).length)
-    setLoading(false)
+    } catch (e) {
+      console.error('[CardReview] loadQueue failed:', e)
+    } finally {
+      setLoading(false)
+    }
   }
 
   // 翻下一张

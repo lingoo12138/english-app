@@ -3216,3 +3216,40 @@
 
 #### 不修项
 - 18 处 as any (P2): 8 处 vendor API 兜底 + 10 处 union mismatch, refactor 风险大
+
+## [v1.81.0] - 2026-07-30
+
+### v1.81.0 W74 — 第 17 次大 review (3 个独立 verifier)
+
+#### 大 review (3 个独立 verifier 并行, 19 min)
+- **Verifier A** 静态代码: 0 P0 / **11 P1 (新发现, producer 漏判)** / 26 死代码 / 1 死 state
+- **Verifier B** 60 闭环 e2e: 52 pass / 8 fail (全 UI 脚本稳定性, 1 个是脚本假设错)
+- **Verifier C** 数据完整性: schema/数字/IDB 全过 / **103 "X so" 无意义短语 (新发现)**
+
+#### 修复
+1. **11 P1 setLoading finally 漏洞** (Verifier A 关键发现):
+   - src/components/StudyCalendar.tsx
+   - src/pages/CalendarPage.tsx
+   - src/pages/CardReview.tsx
+   - src/pages/CustomSceneDetail.tsx
+   - src/pages/CustomSceneLearn.tsx
+   - src/pages/ErrorsPage.tsx
+   - src/pages/LearnReport.tsx
+   - src/pages/Notebook.tsx
+   - src/pages/ReviewCenter.tsx
+   - src/pages/WeakWords.tsx
+   - src/pages/WordList.tsx (缺 .catch 也补了)
+2. **26 死代码清理**: 删未用 import (App/AIChat/Camera/CardReview/CustomScenes/Home/ListenPage/Notebook/PlanPage/SceneDetail/WeakWords/WordDetail + 7 lib + 3 components)
+3. **1 死 state 删**: src/pages/AIChat.tsx `loadingEarly/setLoadingEarly`
+4. **100 "X so" 无意义短语清**: 来自 w64/w65 批量脚本模板错 (Verifier C 找的)
+
+#### producer vs verifier 关键分歧
+- producer (v1.79 大 review): "setLoading 缺 false = 0" (file-level 简单 grep)
+- verifier A: "**11 处 setLoading(false) 不在 try/finally 内**" (per-context 深度检查)
+- **producer 漏判真 P1 bug** → 异步抛错会卡死页面
+
+#### 累计
+- 5423 词 / 5182 roots (95.6%) / **5129 phrases (94.6%)**
+- 702 单元测试
+- 17 release tag 收尾 (v0.1-v1.81, 80 周)
+- 16+1 次大 review 累计修 50+ 处

@@ -1,7 +1,6 @@
 // synonyms.ts - v1.10.0-B 同义词辨析
 // 复用 D2 (llmTutor) 模式 + errorExplanations 缓存
 import { chatCompletion, type LLMProvider } from './providers/llm'
-import { getOrCreateExplanation } from './db'
 
 export interface Synonym {
   word: string         // 同义词

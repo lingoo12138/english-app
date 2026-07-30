@@ -1,6 +1,6 @@
 // 拍照识物页 - v0.11 多 LLM 渠道版本
 // v1.12.0-A: 加多场景 prompt (general/office/food/animal/plant/furniture/tool)
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TTSButton from '../components/TTSButton'
 import { recognizeImage, recognizeImageWithScene, type RecognizedItem, type ImageScene, SCENE_OPTIONS } from '../lib/imageRecog'
