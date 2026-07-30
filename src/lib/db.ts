@@ -91,12 +91,17 @@ export interface WritingError {
   errors: Array<{
     original: string
     suggestion: string
-    type: 'grammar' | 'vocab' | 'spelling' | 'style' | 'tense' | 'preposition' | 'article' | 'other'
+    type: WritingErrorType
     explanation: string
     severity: number  // 0-1
   }>
   ts: number
 }
+
+/** 错题类型 (v1.82 提取为共享 type) */
+export type WritingErrorType =
+  | 'grammar' | 'vocab' | 'spelling' | 'style'
+  | 'tense' | 'preposition' | 'article' | 'other'
 
 export interface ChatRecord {
   id?: number
@@ -223,7 +228,7 @@ export async function deleteChat(id: number): Promise<void> {
 
 /** 统一处理 IDB 写入错误(quota exceeded 等) */
 function handleDbError(e: unknown, context: string): never {
-  const err = e as any
+  const err = e as { name?: string; code?: number; message?: string }
   if (err?.name === 'QuotaExceededError' || err?.code === 22) {
     throw new Error(`${context}: 存储空间已满,请清理数据后再试`)
   }

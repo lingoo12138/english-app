@@ -3253,3 +3253,36 @@
 - 702 单元测试
 - 17 release tag 收尾 (v0.1-v1.81, 80 周)
 - 16+1 次大 review 累计修 50+ 处
+
+## [v1.82.0] - 2026-07-30
+
+### v1.82.0 W75 — 修 19 wrong roots + 9 业务 as any
+
+#### W75-A wrong roots 修正 (19 词)
+**根因**: 词根生成脚本 (w58-roots-compound.py / w73-roots.py) 直接将 substring 当词根, 拉丁/希腊 affix 数据库对原生英语词不适用
+
+**修正 19 词**:
+- chain/forgive/vase/annoy/mosquito/Marxism/favor/sideways/huge/heal/bed/human/chorus/cheap/born/carbon/waggon/FALSE/tempting
+- 全部改用正确 etymology (Latin/Old English/Greek 实际词源)
+
+#### W75-B 业务 as any 清 (9 处, 全业务类型)
+1. `src/lib/db.ts:226` - `e as any` → `as {name?, code?, message?}` (error 守卫)
+2. `src/lib/db.ts:94` - 提取 `WritingErrorType` 为共享 export
+3. `src/lib/chatRoles.ts:485` - `level as any` → `as CEFRLevel`
+4. `src/lib/learnReport.ts:103` - `matched?.level as any` → `as VocabUsage['level']`
+5. `src/components/settings/PreferencesSection.tsx:18` - `e.target.value as any` → `as WordLevel | 'all'`
+6. `src/pages/AIChat.tsx:77` - `chat.level as any` → `as CEFRLevel`
+7. `src/pages/AIChat.tsx:97` - `er.type as any` → `as WritingErrorType`
+8. `src/pages/AIChat.tsx:151` - `m.role as any` → `as 'user' | 'assistant'`
+9. `src/pages/WritePage.tsx:190,200,202` - `e.type as any` → `as WritingErrorType` (×3)
+
+#### 剩 7 处 as any (全部 vendor API 兜底, 不修)
+- InstallPrompt.tsx:37 - `navigator.standalone` (PWA)
+- TTSButton.tsx:74 - `window.Audio` (检测)
+- recorder.ts:38,42,101,192 - `MediaRecorder/MSStream/webkitAudioContext` (Web Audio API)
+- stt.ts:29 - `SpeechRecognition` (Web Speech API)
+
+#### 累计
+- 5423 词 / 5182 roots (95.6%) / 5129 phrases (94.6%)
+- 702 测试 / 0 P0 / 0 P1 (业务) / 7 vendor as any
+- 82 release tag

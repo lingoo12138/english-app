@@ -1,5 +1,6 @@
 // 学习偏好 - v0.22.2
 import { useStore } from '../../store/useStore'
+import type { WordLevel } from '../../lib/difficultyAdapter'
 
 export default function PreferencesSection() {
   const targetLevel = useStore(s => s.targetLevel)
@@ -15,7 +16,7 @@ export default function PreferencesSection() {
           <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">目标学段</label>
           <select
             value={targetLevel}
-            onChange={(e) => setTargetLevel(e.target.value as any)}
+            onChange={(e) => setTargetLevel(e.target.value as WordLevel | 'all')}
             className="input"
           >
             <option value="all">全部</option>

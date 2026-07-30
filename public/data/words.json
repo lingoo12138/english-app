@@ -12762,14 +12762,9 @@
     "frequency": 5,
     "roots": [
       {
-        "root": "-y",
-        "meaning": "充满...的/有...倾向",
-        "type": "suffix"
-      },
-      {
-        "root": "ann",
-        "meaning": "年",
-        "type": "root"
+        "root": "in odio",
+        "meaning": "annoy, hate",
+        "origin": "Latin in odio"
       }
     ]
   },
@@ -27083,9 +27078,9 @@
     "frequency": 3,
     "roots": [
       {
-        "root": "be-",
-        "meaning": "使/在/加强",
-        "type": "prefix"
+        "root": "bedd",
+        "meaning": "bed, sleeping place",
+        "origin": "Old English bedd"
       }
     ]
   },
@@ -34040,9 +34035,9 @@
     "frequency": 3,
     "roots": [
       {
-        "root": "or",
-        "meaning": "说",
-        "type": "root"
+        "root": "beran",
+        "meaning": "born, carry",
+        "origin": "Old English beran"
       }
     ]
   },
@@ -43091,9 +43086,9 @@
     "frequency": 3,
     "roots": [
       {
-        "root": "-on",
-        "meaning": "名词(阳性)",
-        "type": "suffix"
+        "root": "carbo",
+        "meaning": "carbon, coal",
+        "origin": "Latin carbo"
       }
     ]
   },
@@ -46525,9 +46520,9 @@
     "frequency": 3,
     "roots": [
       {
-        "root": "-in",
-        "meaning": "不/否定",
-        "type": "suffix"
+        "root": "catena",
+        "meaning": "chain, fetter",
+        "origin": "Latin catena"
       }
     ]
   },
@@ -48091,8 +48086,9 @@
     "frequency": 3,
     "roots": [
       {
-        "root": "cheap",
-        "meaning": "贱买(古英)"
+        "root": "ceap",
+        "meaning": "cheap, bargain",
+        "origin": "Old English ceap"
       }
     ]
   },
@@ -50286,9 +50282,9 @@
     "frequency": 2,
     "roots": [
       {
-        "root": "or",
-        "meaning": "说",
-        "type": "root"
+        "root": "choros",
+        "meaning": "chorus, dance + song",
+        "origin": "Greek choros"
       }
     ]
   },
@@ -108120,9 +108116,9 @@
     "frequency": 3,
     "roots": [
       {
-        "root": "-se",
-        "meaning": "动词(法语)",
-        "type": "suffix"
+        "root": "falsus",
+        "meaning": "false, deceptive",
+        "origin": "Latin falsus"
       }
     ]
   },
@@ -109867,9 +109863,9 @@
     "frequency": 5,
     "roots": [
       {
-        "root": "-or",
-        "meaning": "动作执行者",
-        "type": "suffix"
+        "root": "favor",
+        "meaning": "favor, goodwill",
+        "origin": "Latin favor"
       }
     ]
   },
@@ -117655,9 +117651,9 @@
     "frequency": 3,
     "roots": [
       {
-        "root": "-ive",
-        "meaning": "有...倾向的",
-        "type": "suffix"
+        "root": "for-, give",
+        "meaning": "forgive, give up resentment",
+        "origin": "Old English forgiefan"
       }
     ]
   },
@@ -135567,9 +135563,9 @@
     "frequency": 3,
     "roots": [
       {
-        "root": "-al",
-        "meaning": "...的(形容词)",
-        "type": "suffix"
+        "root": "helan",
+        "meaning": "heal, make whole",
+        "origin": "Old English helan"
       }
     ]
   },
@@ -141519,9 +141515,9 @@
     "frequency": 3,
     "roots": [
       {
-        "root": "-ge",
-        "meaning": "名词",
-        "type": "suffix"
+        "root": "ahuge",
+        "meaning": "huge, large",
+        "origin": "Old French ahuge"
       }
     ]
   },
@@ -141589,9 +141585,9 @@
     "frequency": 3,
     "roots": [
       {
-        "root": "man",
-        "meaning": "手",
-        "type": "root"
+        "root": "humanus",
+        "meaning": "human, man",
+        "origin": "Latin humanus"
       }
     ]
   },
@@ -173910,9 +173906,9 @@
     "frequency": 3,
     "roots": [
       {
-        "root": "mar",
-        "meaning": "海",
-        "type": "root"
+        "root": "Marx + -ism",
+        "meaning": "Marx + -ism",
+        "origin": "Named after Karl Marx"
       }
     ]
   },
@@ -183561,9 +183557,9 @@
     "frequency": 3,
     "roots": [
       {
-        "root": "quit",
-        "meaning": "退出",
-        "type": "root"
+        "root": "mosca",
+        "meaning": "mosquito, little fly",
+        "origin": "Spanish mosca"
       }
     ]
   },
@@ -257224,9 +257220,9 @@
     "frequency": 5,
     "roots": [
       {
-        "root": "-s",
-        "meaning": "复数/动词第三人称",
-        "type": "suffix"
+        "root": "side + -way",
+        "meaning": "sideways, side + -way",
+        "origin": "Old English"
       }
     ]
   },
@@ -284989,9 +284985,9 @@
     "frequency": 5,
     "roots": [
       {
-        "root": "temp",
-        "meaning": "时间",
-        "type": "root"
+        "root": "temptare",
+        "meaning": "tempting, try",
+        "origin": "Latin temptare"
       }
     ]
   },
@@ -304891,9 +304887,9 @@
     "frequency": 2,
     "roots": [
       {
-        "root": "vas-",
-        "meaning": "走",
-        "type": "root"
+        "root": "vas",
+        "meaning": "vessel, container",
+        "origin": "Latin vas"
       }
     ]
   },
@@ -308445,9 +308441,9 @@
     "frequency": 3,
     "roots": [
       {
-        "root": "-on",
-        "meaning": "名词(阳性)",
-        "type": "suffix"
+        "root": "wagen",
+        "meaning": "waggon, wagon",
+        "origin": "Dutch wagen"
       }
     ]
   },

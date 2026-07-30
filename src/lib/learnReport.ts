@@ -100,7 +100,7 @@ export async function generateLearnReport(chats: ChatRecord[]): Promise<LearnRep
           const matched = wordMap.get(word) || null
           usage.set(word, {
             word,
-            level: matched?.level as any,
+            level: matched?.level as VocabUsage['level'],
             count: 1,
             matched,
             firstUsed: m.ts,

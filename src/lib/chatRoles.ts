@@ -482,7 +482,7 @@ export function buildMultiRoleSystemPrompt(roleIds: ChatRoleId[], level?: string
   lines.push('')
   lines.push('说话风格 / 场景 / 问候语请遵循每个角色原本的 system prompt:')
   for (const r of roles) {
-    const basePrompt = getRoleSystemPrompt(r, level as any)
+    const basePrompt = getRoleSystemPrompt(r, level as CEFRLevel)
     if (basePrompt) {
       lines.push(`--- ${r.name} ---`)
       lines.push(basePrompt)

@@ -187,7 +187,7 @@ export default function WritePage() {
         source: 'write',
         original: text,
         corrected: parsed.corrected,
-        errors: parsed.errors.map(e => ({ ...e, type: e.type as any })),
+        errors: parsed.errors.map(e => ({ ...e, type: e.type as WritingErrorType })),
         ts: Date.now(),
       })
 
@@ -197,9 +197,9 @@ export default function WritePage() {
           source: 'write',
           original: text,
           corrected: parsed.corrected,
-          errors: parsed.errors.map(e => ({ ...e, type: e.type as any })),
+          errors: parsed.errors.map(e => ({ ...e, type: e.type as WritingErrorType })),
           ts: Date.now(),
-        } as any)
+        } as Omit<WritingError, 'id'>)
         if (added.length > 0) {
           toast.success(`已加入 ${added.length} 个错词到复习队列`)
         }

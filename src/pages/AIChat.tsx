@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useTranslate } from '../lib/useTranslate'
 import { useStore } from '../store/useStore'
 import { chat as aiChat, reviewMessage, type ChatMessage, type ReviewResult, type CEFRLevel, assessUserLevel } from '../lib/aiChat'
-import { saveChat, getAllChats, deleteChat, addFavorite, isFavorite, saveWritingError, getAllWritingErrors, type ChatRecord } from '../lib/db'
+import { saveChat, getAllChats, deleteChat, addFavorite, isFavorite, saveWritingError, getAllWritingErrors, type ChatRecord, type WritingErrorType } from '../lib/db'
 import { exportAllChats, downloadChatJson, exportChat } from '../lib/exportChat'
 import TTSButton from '../components/TTSButton'
 import { STTController, isSTTSupported } from '../lib/stt'
@@ -74,7 +74,7 @@ export default function AIChat() {
     setCurrentChatId(chat.id ?? null)
     setMessages(chat.messages.map(m => ({ id: m.id, role: m.role as 'user' | 'assistant', content: m.content, ts: m.ts })))
     setScenario(chat.scenario)
-    setLevel(chat.level as any)
+    setLevel(chat.level as CEFRLevel)
     setShowHistory(false)
     // P1 修复: 加载历史对话时, 从 writingErrors 表补上 reviews (source: 'chat')
     try {
@@ -94,7 +94,7 @@ export default function AIChat() {
             errors: match.errors.map(er => ({
               original: er.original,
               fixed: er.suggestion,
-              type: er.type as any,
+              type: er.type as WritingErrorType,
               why: er.explanation,
               severity: er.severity,
             })),
@@ -148,7 +148,7 @@ export default function AIChat() {
         scenario,
         level,
         title,
-        messages: messages.map(m => ({ id: m.id, role: m.role as any, content: m.content, ts: m.ts })),
+        messages: messages.map(m => ({ id: m.id, role: m.role as 'user' | 'assistant', content: m.content, ts: m.ts })),
         createdAt: currentChatId ? (chats.find(c => c.id === currentChatId)?.createdAt ?? Date.now()) : Date.now(),
         updatedAt: Date.now(),
       }
