@@ -1,20 +1,19 @@
-// 课文 (Textbook) - 5 篇主题短文
-// v1.85.0: 旅行 / 工作 / 生活 / 情感 / 科技
-// 每篇 80-150 词, 词汇表 5-10 个 word.json 中已收录的词
-// 适合 A2-B1 学习者做主题阅读
+// src/data/textbook.ts - 5 篇主题短文 (v1.86 修 P1 内容质量)
+//
+// 设计原则:
+// - 每篇 80-150 词
+// - 词汇表词都在 words.json (5,423 词)
+// - 跨课复用率 5-10 词 (触类旁通 + 复习)
+// - 词汇表中的词 在 body 中完整命中 (单数匹配, 不需要复数变形)
 
 export interface Lesson {
   id: string
   title: string
   emoji: string
   level: 'primary' | 'junior' | 'senior' | 'gaozhong' | 'cet4' | 'cet6' | 'kaoyan' | 'daily'
-  /** 简介 */
   summary: string
-  /** 正文 (80-150 词, 简单句, 复用 vocabulary 中的词) */
   body: string
-  /** 词汇表 (5-10 个 word.json 中已收录的词) */
   vocabulary: string[]
-  /** 阅读时长估算 (分钟) */
   estimatedMinutes: number
 }
 
@@ -30,8 +29,8 @@ export const LESSONS: Lesson[] = [
 
 After a long flight, we arrived at a small hotel near the beach. The room was clean and had a wonderful view of the sea. I put my bag down and went out to see the beach right away.
 
-For three days, we walked along the beach, ate fresh fish, and took many photos. The weather was warm and sunny every day. I will always remember this wonderful trip with my family.`,
-    vocabulary: ['airport', 'hotel', 'ticket', 'trip', 'luggage', 'passport', 'flight', 'beach', 'room', 'family'],
+For three days, we walked along the beach, ate fresh fish, and took many photos. The weather was warm and sunny every day. I will always remember this happy trip with my family.`,
+    vocabulary: ['airport', 'hotel', 'ticket', 'trip', 'luggage', 'passport', 'flight', 'beach', 'room', 'family', 'happy'],
     estimatedMinutes: 3,
   },
 
@@ -44,10 +43,10 @@ For three days, we walked along the beach, ate fresh fish, and took many photos.
     summary: '早会、项目讨论、邮件回复, 办公室的普通一天。',
     body: `My morning always starts at the office with a short meeting. Our manager talks about the day's plan and the project we are working on. After the meeting, I sit at my desk and check my email. There are usually many messages to read.
 
-In the middle of the day, the team gets together to share ideas and solve problems. We use the computer to write reports and send documents. I like working with my team because we help each other.
+In the middle of the day, the team gets together to share ideas and solve problems. We use the computer to write a report and send a document. I like working with my team because we help each other.
 
-In the afternoon, I feel a little tired, so I take a short rest. Then I go back to my work and finish my tasks. Before I leave the office, I feel happy because the day's work is done.`,
-    vocabulary: ['office', 'meeting', 'project', 'team', 'manager', 'email', 'computer', 'report', 'document', 'task'],
+In the afternoon, I feel a little tired, so I take a short rest. Then I go back to my work and finish my task. Before I leave the office, I feel happy because the day's work is done.`,
+    vocabulary: ['office', 'meeting', 'project', 'team', 'manager', 'email', 'computer', 'report', 'document', 'task', 'work', 'help'],
     estimatedMinutes: 3,
   },
 
@@ -62,8 +61,8 @@ In the afternoon, I feel a little tired, so I take a short rest. Then I go back 
 
 I buy some apples, a little rice, and a box of tea. The price is not cheap, but the food is good. I pay with my card and walk back home.
 
-In the afternoon, I meet my friend at the park. We sit on a bench, eat bread, and talk about life. The sun is warm, and the air is fresh. I feel very happy and relaxed on a day like this.`,
-    vocabulary: ['shop', 'store', 'buy', 'price', 'pay', 'card', 'park', 'friend', 'meet', 'family'],
+In the afternoon, I meet my friend at the park. We sit on a bench, eat bread, and talk about life. The sun is warm, and the air is fresh. I feel very happy and relaxed on a day like this. I see my family in the evening and we have dinner together.`,
+    vocabulary: ['shop', 'store', 'buy', 'price', 'pay', 'card', 'park', 'friend', 'meet', 'family', 'happy'],
     estimatedMinutes: 3,
   },
 
@@ -79,7 +78,7 @@ In the afternoon, I meet my friend at the park. We sit on a bench, eat bread, an
 On Wednesday, something wonderful happened. My friend gave me a small gift. I felt so happy and amazed! I smiled all day and laughed with my friends.
 
 On Friday, I felt calm and peaceful. I sat in the park, read a book, and watched the sky. I think life is full of different feelings, and that is what makes every day special. I am glad to be alive.`,
-    vocabulary: ['feel', 'happy', 'sad', 'amaze', 'worried', 'peace', 'calm', 'wonderful', 'friend', 'life'],
+    vocabulary: ['feel', 'happy', 'sad', 'amaze', 'wonderful', 'calm', 'friend', 'life', 'book', 'read'],
     estimatedMinutes: 3,
   },
 
@@ -90,12 +89,12 @@ On Friday, I felt calm and peaceful. I sat in the park, read a book, and watched
     emoji: '📱',
     level: 'cet4',
     summary: '智能手机、AI 助手、在线学习, 科技让生活更方便。',
-    body: `Today, almost everyone has a smartphone. We use it to send messages, take photos, and search for information. The internet connects people around the world. We can learn new things on the web at any time.
+    body: `Today, almost everyone has a smartphone. We use it to send a message, take a photo, and search for information. The internet connects people around the world. We can learn new things on the web at any time.
 
-Smart apps help us in many ways. Some apps can translate words, play music, or help us find a road. There are also AI tools that can answer questions and help us study English.
+Smart apps help us in many ways. Some apps can translate words, play music, or help us find a road. There are also AI tools that can answer questions and help us learn English.
 
 However, I try not to use my phone too much. I leave it on the desk when I read a book or talk with my family. Technology is useful, but real life is more important. A good balance makes life better.`,
-    vocabulary: ['phone', 'message', 'photo', 'search', 'internet', 'web', 'tool', 'learn', 'study', 'family'],
+    vocabulary: ['phone', 'message', 'photo', 'search', 'internet', 'web', 'tool', 'learn', 'read', 'family', 'life', 'book'],
     estimatedMinutes: 3,
   },
 ]

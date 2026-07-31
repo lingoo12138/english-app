@@ -197,13 +197,43 @@ describe('fillblank (v1.85.0-C)', () => {
       expect(q!.blanks[0].answer).toBe('take')
     })
 
-    it('Hint 不空 (短句给翻译, 长句给提示)', () => {
+    it('Hint 不空 (短句给挖空词翻译, 长句给提示)', () => {
       const w = sampleWords[1]  // make
       const shortQ = buildQuestion(w, 'She decided to make a cake for her birthday party tomorrow.', 'short', sampleWords, makeRng(5))
-      expect(shortQ!.blanks[0].hint).toBe('做, 制作')
+      // v1.86 修 P0: hint 应该是挖空词的翻译, 不是主词
+      expect(shortQ!.blanks[0].hint.length).toBeGreaterThan(0)
+      // 如果挖的是 make, hint = '做, 制作'
+      // 如果挖的是其他词, hint = 该词翻译
+      // 测试: hint 不应该是主词翻译 (除非挖的就是主词)
+      if (shortQ!.blanks[0].answer === 'make') {
+        expect(shortQ!.blanks[0].hint).toBe('做, 制作')
+      } else {
+        // 挖空 ≠ 主词, hint 不应该跟主词翻译 (主词是 make='做, 制作')
+        expect(shortQ!.blanks[0].hint).not.toBe('做, 制作')
+      }
 
       const longQ = buildQuestion(w, 'We need to make sure that everyone in our team understands the importance of this project.', 'long', sampleWords, makeRng(5))
       expect(longQ!.blanks[0].hint.length).toBeGreaterThan(0)
+    })
+
+    it('P0 修复: hint 必须是挖空词的翻译 (不能是主词翻译)', () => {
+      // 构造: 主词 "take", 句子里有多个非主词词 (please, important, package, post, office, me, right, now)
+      const w = sampleWords[0]  // take
+      const sentence = 'Could you please take this important package to the post office for me right now?'
+      // 跑多次 (不同 seed) 找 hint 与 answer 不一致的
+      let mismatchFound = false
+      for (let seed = 1; seed <= 20; seed++) {
+        const q = buildQuestion(w, sentence, 'short', sampleWords, makeRng(seed))
+        if (!q) continue
+        const blank = q.blanks[0]
+        // hint 应该是挖空词本身的翻译
+        if (blank.answer !== 'take' && blank.hint === '拿, 取') {
+          // 错误: 挖的不是 take, 但 hint 是 take 的翻译
+          mismatchFound = true
+          break
+        }
+      }
+      expect(mismatchFound).toBe(false)
     })
 
     it('空句 / 全标点返回 null', () => {
@@ -268,5 +298,46 @@ describe('fillblank (v1.85.0-C)', () => {
         }
       }
     })
+  })
+})
+
+describe('P1 修复回归 (v1.86)', () => {
+  it('P1-1: 多空长句, 答案不重复', () => {
+    const w = sampleWords[0]  // take
+    const sentence = 'I take a take bag, take a take book, take a take pen.'
+    // 跑多次看是否有重复
+    for (let seed = 1; seed <= 30; seed++) {
+      const q = buildQuestion(w, sentence, 'long', sampleWords, makeRng(seed))
+      if (!q) continue
+      const answers = q.blanks.map(b => b.answer)
+      const set = new Set(answers)
+      expect(set.size).toBe(answers.length)
+    }
+  })
+
+  it('P1-2: 长句不会挖短语动词前半 (call → 不会单挖 call 留下 up)', () => {
+    const w = sampleWords[0]
+    // 强制构造短语动词
+    const sentence = 'Please call up your friend before you get on the bus.'
+    for (let seed = 1; seed <= 30; seed++) {
+      const q = buildQuestion(w, sentence, 'long', sampleWords, makeRng(seed))
+      if (!q) continue
+      // 不应单挖 "call" (因为后面是 "up" 短语动词)
+      const calls = q.blanks.filter(b => b.answer === 'call')
+      expect(calls.length).toBe(0)
+    }
+  })
+
+  it('P1-3: 4 选 1 干扰项长度与答案差异 ≤60%', () => {
+    const w = sampleWords[0]  // take (4 字符)
+    const sentence = 'I always take a shower before breakfast in the morning.'
+    for (let seed = 1; seed <= 30; seed++) {
+      const q = buildQuestion(w, sentence, 'short', sampleWords, makeRng(seed))
+      if (!q || q.type !== 'short') continue
+      const aLen = q.blanks[0].answer.length
+      for (const opt of q.blanks[0].options) {
+        expect(Math.abs(opt.length - aLen)).toBeLessThanOrEqual(Math.max(3, Math.ceil(aLen * 0.6)))
+      }
+    }
   })
 })

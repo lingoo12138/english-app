@@ -172,9 +172,16 @@ export async function getRelatedSynonym(word: string): Promise<string[]> {
     setCached('synonym', word, [])
     return []
   }
+  // v1.86: 不过滤, 全部返 (同义词是"参考词"功能, 用户可看可学, UI 区分可点/不可点)
   const result = [...group.synonyms]
   setCached('synonym', word, result)
   return result
+}
+
+/** v1.86: 检查词是否在 words.json (用于 UI 区分可点/不可点) */
+export async function isInWordList(word: string): Promise<boolean> {
+  const allWords = await loadWords()
+  return allWords.some(w => w.word.toLowerCase() === word.toLowerCase())
 }
 
 // ─── 3. 反义词 ──────────────────────────────────────────────
@@ -191,17 +198,21 @@ export async function getRelatedAntonym(word: string): Promise<string[]> {
   if (cached) return cached
   const target = norm(word)
   // 1. 直接查 (主词 → 反义词)
-  let pair = ANTONYM_PAIRS[target]
-  // 2. 反向查 (反义词 → 主词): 处理 输入词是 反义词 的情况
-  if (!pair) {
-    const reverseWord = ANTONYM_REVERSE[target]
-    if (reverseWord) {
-      pair = ANTONYM_PAIRS[reverseWord]
-    }
+  const direct = ANTONYM_PAIRS[target]
+  if (direct) {
+    const result = [direct.antonym]
+    setCached('antonym', word, result)
+    return result
   }
-  const result = pair ? [pair.antonym] : []
-  setCached('antonym', word, result)
-  return result
+  // 2. 反向查 (反义值 → 主词): 输入是"反义值"时, 主词本身就是反义
+  const reverseWord = ANTONYM_REVERSE[target]
+  if (reverseWord) {
+    const result = [reverseWord]
+    setCached('antonym', word, result)
+    return result
+  }
+  setCached('antonym', word, [])
+  return []
 }
 
 // ─── 4. 搭配 ────────────────────────────────────────────────

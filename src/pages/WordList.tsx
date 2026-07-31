@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useRef, useCallback, Fragment } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { loadWords, LEVELS } from '../lib/words'
 import type { Word } from '../types'
 import WordCard from '../components/WordCard'
@@ -18,7 +19,9 @@ export default function WordList() {
   // v1.49.0 W46: i18n
   const { t } = useTranslate()
   const [allWords, setAllWords] = useState<Word[]>([])
-  const [query, setQuery] = useState('')
+  // v1.86: 从 URL ?q= 读初始 query (触类旁通跳转用)
+  const [searchParams] = useSearchParams()
+  const [query, setQuery] = useState(searchParams.get('q') || '')
   const [debouncedQuery, setDebouncedQuery] = useState('')  // 修复: 搜索 debounce 300ms
   const [level, setLevel] = useState<string>('all')
   const [favSet, setFavSet] = useState<Set<string>>(new Set())

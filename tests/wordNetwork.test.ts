@@ -130,6 +130,7 @@ import {
   isNetworkType,
   wordExists,
   findWordByName,
+  isInWordList,
   type NetworkType,
 } from '../src/lib/wordNetwork'
 import { SYNONYM_GROUPS, SYNONYM_KEYS } from '../src/data/synonyms'
@@ -280,6 +281,20 @@ describe('wordNetwork (v1.85-A)', () => {
     it('双向反查: 输入反义词也能查回主词', async () => {
       const result = await getRelatedAntonym('cold')  // cold 是 hot 的反义
       expect(result).toContain('hot')
+    })
+
+    // v1.86: 修 P0 bug — 反查路径返自身 (覆盖只主词/纯反义值 两种 case)
+    it('P0 修复: 纯反义值 (after/before) 应返主词 (before/after)', async () => {
+      expect(await getRelatedAntonym('after')).toContain('before')
+      expect(await getRelatedAntonym('before')).toContain('after')
+    })
+    it('P0 修复: 纯反义值 (cheap/expensive)', async () => {
+      expect(await getRelatedAntonym('cheap')).toContain('expensive')
+      expect(await getRelatedAntonym('expensive')).toContain('cheap')
+    })
+    it('P0 修复: 纯反义值 (sad/happy, dead/alive)', async () => {
+      expect(await getRelatedAntonym('sad')).toContain('happy')
+      expect(await getRelatedAntonym('dead')).toContain('alive')
     })
 
     it('未知词应返空', async () => {
@@ -462,5 +477,20 @@ describe('NetworkType 编译期检查', () => {
   it('应接受 4 个 type', () => {
     const types: NetworkType[] = ['root', 'synonym', 'antonym', 'collocation']
     expect(types).toHaveLength(4)
+  })
+})
+
+describe('isInWordList (v1.86)', () => {
+  it('在词库中的词应返 true', async () => {
+    expect(await isInWordList('happy')).toBe(true)
+    expect(await isInWordList('inspect')).toBe(true)
+  })
+  it('不在词库中的词应返 false', async () => {
+    expect(await isInWordList('languid')).toBe(false)
+    expect(await isInWordList('notorious')).toBe(false)
+  })
+  it('大小写不敏感', async () => {
+    expect(await isInWordList('Happy')).toBe(true)
+    expect(await isInWordList('HAPPY')).toBe(true)
   })
 })

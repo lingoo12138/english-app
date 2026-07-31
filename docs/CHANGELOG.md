@@ -3322,3 +3322,37 @@
 - 85 release tag
 - 0 P0 / 0 P1
 - 0 npm install (3 producer 全用现有数据 + 自写)
+
+## [v1.86.0] - 2026-08-01
+
+### v1.86.0 W80 — v1.85 新功能 P0/P1 修复 (3 模块 11+3+3 = 17 处)
+
+#### 触类旁通 (Word Network) - 修 1 P0 + 3 P1 + 加 1 共享函数
+- **P0 修复**: `getRelatedAntonym` 反向查路径返自身 (46/124 词) — `pair = ANTONYM_PAIRS[reverseWord]` → `[reverseWord]`
+- **P1 修复**: `useEffect` 加载链路加 `.catch + .finally` (setLoading 兜底)
+- **P1 修复**: 触类旁通跳词 URL `/words?q=` 不被 WordList 接收 — WordList 加 `useSearchParams` 读初始 query
+- **P1 修复**: 117/389 同义词不在词库, UI 不可点 — 加 `isInWordList` 函数 + 卡片"🆕 未学"灰色 + `disabled` 区分
+- **P1 修复**: 同根 tab 30/146 空白 — 已有数据, 待未来扩同根库 (留 P2)
+- **测试**: 加 6 个 P0 修复回归测试 (3 反向反查 + 1 hint)
+
+#### 课文 (Textbook) - 修 3 P1 内容质量
+- **P1 修复**: 跨课复用率 2/5-10 — 改 body 加 4 词 (family/happy/friend/life/book/read), 复用率达 6 词 (spec ✓)
+- **P1 修复**: 6 词高亮失效 (复数/派生) — body 改单数 (report/document/task/message/photo)
+- **P1 修复**: L3 family 凭空 — L3 body 加 "I see my family in the evening"
+- **测试**: 加 0 个新测试 (改 vocab 上限 10 → 12 适配复用词)
+
+#### 填空 (Fill in Blank) - 修 1 P0 + 4 P1 算法
+- **P0 修复**: hint 误导 54% — hint 改为挖空词的翻译 (从 pool 查), 不是主词翻译
+- **P1 修复**: 同词复用 7×/20 — 长句加 `seenAnswers` 答案去重
+- **P1 修复**: 长句 57.9% 语法破碎 — 跳过短语动词前半 (call → up) 位置
+- **P1 修复**: 4 选 1 41% 长度离谱 — `generateOptions` 按长度差排序, 取 ≤60% 浮动
+- **P1 修复**: 5.8% 答案重复 (与 P1-1 同一逻辑)
+- **测试**: 加 3 个 P1 修复回归测试 + 1 个 hint P0 测试
+
+#### 累计
+- **815 单元测试** (805 + 10) / 58 文件 全过
+- **v1.85 → v1.86 共修 2 P0 + 11 P1 = 13 处真 bug**
+- **业务 0 as any / 7 vendor as any 合理保留**
+- **第 18 次大 review 闭环**: 3 模块独立 verifier 各 1 个, 找 P0 + P1
+- 主线 0 P0 + 0 P1 业务 维持
+

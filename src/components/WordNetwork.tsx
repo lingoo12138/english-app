@@ -9,6 +9,7 @@ import {
   getRelatedAntonym,
   getRelatedCollocation,
   findWordByName,
+  isInWordList,
   type NetworkType,
 } from '../lib/wordNetwork'
 
@@ -39,11 +40,13 @@ function WordGrid({
   color,
   emptyHint,
   onPick,
+  inWordList,
 }: {
   words: string[]
   color: string
   emptyHint: string
   onPick: (w: string) => void
+  inWordList: Set<string>
 }) {
   if (words.length === 0) {
     return (
@@ -54,20 +57,26 @@ function WordGrid({
   }
   return (
     <div className="flex flex-wrap gap-2">
-      {words.map((w) => (
-        <button
-          key={w}
-          onClick={() => onPick(w)}
-          className={`px-3 py-1.5 text-sm rounded-lg bg-${color}-50 dark:bg-${color}-900/20
-            text-${color}-700 dark:text-${color}-300
-            hover:bg-${color}-100 dark:hover:bg-${color}-900/40
-            border border-${color}-200 dark:border-${color}-800
-            transition-colors font-mono`}
-          title={`跳转到 ${w}`}
-        >
-          {w}
-        </button>
-      ))}
+      {words.map((w) => {
+        // v1.86: 区分可点 (在词库) / 不可点 (仅参考, 灰色 + cursor-not-allowed)
+        const known = inWordList.has(w.toLowerCase())
+        return (
+          <button
+            key={w}
+            onClick={() => onPick(w)}
+            className={`px-3 py-1.5 text-sm rounded-lg font-mono transition-colors ${
+              known
+                ? `bg-${color}-50 dark:bg-${color}-900/20 text-${color}-700 dark:text-${color}-300 hover:bg-${color}-100 dark:hover:bg-${color}-900/40 border border-${color}-200 dark:border-${color}-800`
+                : 'bg-stone-100 dark:bg-stone-800 text-stone-400 dark:text-stone-500 border border-stone-200 dark:border-stone-700 cursor-not-allowed line-through'
+            }`}
+            title={known ? `跳转到 ${w}` : `${w} (未学, 仅参考)`}
+            disabled={!known}
+          >
+            {w}
+            {!known && <span className="ml-1 text-[9px]">🆕</span>}
+          </button>
+        )
+      })}
     </div>
   )
 }
@@ -83,6 +92,8 @@ export function WordNetwork({ word }: Props) {
   })
   const [loading, setLoading] = useState(false)
   const [loadedTabs, setLoadedTabs] = useState<Set<NetworkType>>(new Set())
+  // v1.86: 词库中有的词集合 (用于 UI 区分可点/不可点)
+  const [inWordList, setInWordList] = useState<Set<string>>(new Set())
 
   // v1.85-A: 加载所有 4 类 (并行, 用 getFullNetwork 简化)
   // 注: 用单个 useEffect 避免 4 个 tab 各自加载的重复
@@ -95,12 +106,29 @@ export function WordNetwork({ word }: Props) {
       getRelatedSynonym(word),
       getRelatedAntonym(word),
       getRelatedCollocation(word),
-    ]).then(([root, synonym, antonym, collocation]) => {
-      if (cancelled) return
-      setData({ root, synonym, antonym, collocation })
-      setLoadedTabs(new Set<NetworkType>(['root', 'synonym', 'antonym', 'collocation']))
-      setLoading(false)
-    })
+    ])
+      .then(([root, synonym, antonym, collocation]) => {
+        if (cancelled) return
+        setData({ root, synonym, antonym, collocation })
+        setLoadedTabs(new Set<NetworkType>(['root', 'synonym', 'antonym', 'collocation']))
+        // v1.86: 一次性计算 inWordList (4 类合并)
+        const all = [...root, ...synonym, ...antonym, ...collocation]
+        Promise.all(all.map(w => isInWordList(w)))
+          .then(results => {
+            if (cancelled) return
+            const set = new Set<string>()
+            all.forEach((w, i) => { if (results[i]) set.add(w.toLowerCase()) })
+            setInWordList(set)
+          })
+          .catch(e => console.error('[WordNetwork] isInWordList failed:', e))
+      })
+      .catch((e) => {
+        if (cancelled) return
+        console.error('[WordNetwork] load failed:', e)
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
     return () => { cancelled = true }
   }, [word])
 
@@ -174,6 +202,7 @@ export function WordNetwork({ word }: Props) {
                 color={tab.color}
                 emptyHint="暂无相关词"
                 onPick={handlePick}
+                inWordList={inWordList}
               />
             ) : (
               <div className="text-center py-6 text-sm text-stone-400">加载中...</div>

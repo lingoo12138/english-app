@@ -119,6 +119,7 @@ export function joinTokens(tokens: string[]): string {
 }
 
 /** 生成 4 选 1 选项: 正确答案 + 3 干扰项 (从其他词库抽) */
+// v1.86 P1-填空-3: 长度匹配 (|len - answer| ≤ 3), 否则干扰项离谱
 function generateOptions(
   answer: string,
   pool: Word[],
@@ -127,15 +128,24 @@ function generateOptions(
 ): string[] {
   const distractors = new Set<string>()
   const candidates = pool.filter(w => w.id !== excludeWordId)
-  // 随机洗牌
-  const shuffled = [...candidates]
-  for (let i = shuffled.length - 1; i > 0; i--) {
+  // v1.86: 长度匹配 (优选 |len - answer| ≤ 3)
+  const aLen = answer.length
+  const sorted = [...candidates].sort((a, b) => {
+    const da = Math.abs(a.word.length - aLen)
+    const db = Math.abs(b.word.length - aLen)
+    return da - db
+  })
+  // 随机洗牌 (Fisher-Yates with rng)
+  for (let i = sorted.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));
-    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+    ;[sorted[i], sorted[j]] = [sorted[j], sorted[i]]
   }
-  for (const w of shuffled) {
+  // v1.86: 答案去重 + 长度合理
+  const MAX_DIST = Math.max(3, Math.ceil(aLen * 0.6))  // 60% 浮动
+  for (const w of sorted) {
     if (distractors.size >= 3) break
     if (w.word.toLowerCase() === answer.toLowerCase()) continue
+    if (Math.abs(w.word.length - aLen) > MAX_DIST) continue
     distractors.add(w.word)
   }
   // fallback: 用随机字符补足
@@ -168,10 +178,18 @@ export function buildQuestion(
 
   // 找出所有可挖位置 (非 stop word, 非纯标点)
   const candidatePositions: number[] = []
+  // 短语动词副词/介词列表 (call up, get on, take off, put on, give up, look up, find out...)
+  const PV_ADV = new Set(['up', 'down', 'in', 'out', 'on', 'off', 'away', 'back', 'over', 'along', 'through'])
   for (let i = 0; i < tokens.length; i++) {
     const t = tokens[i]
     if (/^[.,!?;:()\[\]"]+$/.test(t)) continue
     if (STOP_WORDS.has(t.toLowerCase().replace(/[^a-z'-]/g, ''))) continue
+    // v1.86 P1-填空-2: 跳过短语动词位置 — 后面紧跟介副词的动词, 单独挖会破坏短语 (call → up)
+    if (i + 1 < tokens.length && PV_ADV.has(tokens[i + 1].toLowerCase())) {
+      continue
+    }
+    // 前面紧跟介副词的 (call up 整体被跳过, 但 call 也跳过只挖 up 也不对)
+    // 只跳过前半 (call) 即可
     candidatePositions.push(i)
   }
   if (candidatePositions.length === 0) return null
@@ -184,27 +202,39 @@ export function buildQuestion(
   const blankCount = type === 'short' ? 1 : (rng() < 0.5 ? 2 : 3)
   const pickedPositions = candidatePositions.slice(0, Math.min(blankCount, candidatePositions.length))
 
-  // 构建 blanks
+  // v1.86 P1-填空-1: 答案去重 (同一空句同一词不挖 2 次)
+  const seenAnswers = new Set<string>()
+  const dedupedPositions = pickedPositions.filter((pos) => {
+    const t = tokens[pos].replace(/[^a-zA-Z'-]/g, '').toLowerCase()
+    if (seenAnswers.has(t)) return false
+    seenAnswers.add(t)
+    return true
+  })
+
+  // 构建 blanks (hint 应该是挖空的词/翻译, 不是主词)
   const blanks: Blank[] = []
-  pickedPositions.forEach((pos, idx) => {
+  dedupedPositions.forEach((pos, idx) => {
     const answer = tokens[pos].replace(/[^a-zA-Z'-]/g, '').toLowerCase()
     if (!answer) return  // 跳过无字母的
     const isChoice = type === 'short'
+    // 找挖空词本身的翻译 (从 pool 查)
+    const answerWord = pool.find(w => w.word.toLowerCase() === answer)
+    const answerHint = answerWord?.translations?.[0] || answer
     if (isChoice) {
       blanks.push({
         position: pos,
         answer,
         options: generateOptions(answer, pool, source.id, rng),
-        hint: source.translations[0] || '',
+        hint: answerHint,  // 挖空词的翻译, 不是主词
         type: 'choice',
       })
     } else {
-      // 长句 input
+      // 长句 input: 多个空, 第一个给翻译, 后面给 "第 N 个词"
       blanks.push({
         position: pos,
         answer,
         options: [],
-        hint: idx === 0 ? (source.translations[0] || '') : `第 ${idx + 1} 个词`,
+        hint: idx === 0 ? answerHint : `第 ${idx + 1} 个词 (${answerHint})`,
         type: 'input',
       })
     }
