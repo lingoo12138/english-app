@@ -19,6 +19,8 @@ class EnglishAppDB extends Dexie {
   customScenes!: Table<CustomScene, number>
   // v1.21.0: 生词标签表
   wordTags!: Table<{ wordId: string; tag: string; addedAt: number }, [string, string]>
+  // v1.87 W81-D: 听写错题
+  dictationErrors!: Table<DictationError, number>
 
   constructor() {
     super('EnglishAppDB')
@@ -77,6 +79,19 @@ class EnglishAppDB extends Dexie {
       customScenes: '++id, updatedAt, createdAt, title',
       wordTags: '[wordId+tag], wordId, tag, addedAt',
     })
+    // v1.87 W81-D: 听写错题表
+    this.version(7).stores({
+      favorites: 'wordId, addedAt',
+      records: '++id, wordId, action, timestamp',
+      reviews: 'wordId, nextReview',
+      pronunciationAttempts: '++id, wordId, ts, score',
+      chats: '++id, scenario, level, updatedAt, createdAt, title',
+      writingErrors: '++id, ts, source',
+      errorExplanations: 'key, ts',
+      customScenes: '++id, updatedAt, createdAt, title',
+      wordTags: '[wordId+tag], wordId, tag, addedAt',
+      dictationErrors: '++id, wordId, ts, score, difficulty',
+    })
   }
 }
 
@@ -103,6 +118,22 @@ export type WritingErrorType =
   | 'grammar' | 'vocab' | 'spelling' | 'style'
   | 'tense' | 'preposition' | 'article' | 'other'
 
+/** v1.87 W81-D: 听写错题记录 */
+export interface DictationError {
+  id?: number
+  wordId: string
+  /** 听写难度 */
+  difficulty: 'easy' | 'medium' | 'hard'
+  /** 用户口述 */
+  transcript: string
+  /** 目标文本 */
+  target: string
+  /** 0-100 得分 */
+  score: number
+  /** 时间戳 */
+  ts: number
+}
+
 export interface ChatRecord {
   id?: number
   scenario: string
@@ -128,6 +159,19 @@ export async function getAllWritingErrors(): Promise<WritingError[]> {
 
 export async function deleteWritingError(id: number): Promise<void> {
   return db.writingErrors.delete(id)
+}
+
+// v1.87 W81-D: 听写错题 helpers
+export async function saveDictationError(err: Omit<DictationError, 'id' | 'ts'>): Promise<number> {
+  return db.dictationErrors.add({ ...err, ts: Date.now() })
+}
+
+export async function getAllDictationErrors(): Promise<DictationError[]> {
+  return db.dictationErrors.orderBy('ts').reverse().toArray()
+}
+
+export async function getDictationErrorsByWord(wordId: string): Promise<DictationError[]> {
+  return db.dictationErrors.where('wordId').equals(wordId).toArray()
 }
 
 // === 错题解释缓存 (v1.2-D2) ===

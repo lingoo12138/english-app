@@ -19,6 +19,7 @@ const desktopNav = [
   { to: '/achievements', label: '成就', icon: '🏆' },
   { to: '/textbook', label: '课文', icon: '📖' },
   { to: '/fill-blank', label: '填空', icon: '✏️' },
+  { to: '/dictation', label: '听写', icon: '🎧' },
   { to: '/settings', label: '设置', icon: '⚙️' },
   { to: '/docs', label: '文档', icon: '📚' },
 ]
