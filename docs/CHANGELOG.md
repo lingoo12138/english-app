@@ -3286,3 +3286,39 @@
 - 5423 词 / 5182 roots (95.6%) / 5129 phrases (94.6%)
 - 702 测试 / 0 P0 / 0 P1 (业务) / 7 vendor as any
 - 82 release tag
+
+## [v1.85.0] - 2026-07-31
+
+### v1.85.0 W78-W79 — 3 大新功能 (触类旁通 / 课文 / 填空)
+
+#### v1.85-A 触类旁通 (Word Network)
+- **src/lib/wordNetwork.ts** (282 行): 4 函数 getRelatedByRoot/Synonym/Antonym/Collocation + cache
+- **src/components/WordNetwork.tsx** (192 行): 4 tab (根/近/反/配) 卡片网格
+- **src/data/synonyms.ts** (801 行): 100+ 同义词
+- **src/data/antonyms.ts** (465 行): 60+ 反义词
+- **src/pages/WordDetail.tsx** 集成
+- **47 单元测试** 全过
+
+#### v1.85-B 课文 (Textbook)
+- **src/data/textbook.ts** (101 行): 5 篇主题 (travel/work/daily/emotion/tech)
+- **src/lib/textbook.ts** (135 行): getAllLessons / getLessonById / getLessonVocabWords
+- **src/pages/TextbookPage.tsx**: 列表 + 词汇数 + 等级
+- **src/pages/LessonDetailPage.tsx**: 词汇高亮 + 释义 + 完读进度
+- **20 单元测试** 全过
+
+#### v1.85-C 填空 (Fill in Blank, 1-N 词)
+- **src/lib/fillblank.ts** (297 行): generateQuestions 算法 (短句 1 词 + 长句 2-3 词)
+- **src/pages/FillBlankPage.tsx** (464 行): 4 选 1 / 拖拽 / hint 提示 / 错题入复习
+- **20 单元测试** 全过
+
+#### 路由 / 集成
+- /words/:id 集成 WordNetwork
+- /textbook 列表 + /textbook/:id 详情
+- /fill-blank 答题
+- 桌面/移动 nav 都加 "课文"/"填空" 链接
+
+#### 累计
+- 805 单元测试 (718+87)
+- 85 release tag
+- 0 P0 / 0 P1
+- 0 npm install (3 producer 全用现有数据 + 自写)

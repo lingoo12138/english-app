@@ -4,6 +4,7 @@ import { getWord, loadWords } from '../lib/words'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
 import { UsageButton } from '../components/UsageButton'
+import { WordNetwork } from '../components/WordNetwork'
 import { GrammarButton } from '../components/GrammarButton'
 import { SynonymsButton } from '../components/SynonymsButton'
 import PronunciationPractice from '../components/PronunciationPractice'
@@ -266,6 +267,9 @@ export default function WordDetail() {
           translation={word.translations[0] || ''}
         />
       </div>
+
+      {/* v1.85-A: 触类旁通 (同根/同义/反义/搭配) */}
+      <WordNetwork word={word.word} />
 
       {/* v1.8-A: D3 LLM Tutor 2.0 完整版 (语法讲解) */}
       <div className="card">
