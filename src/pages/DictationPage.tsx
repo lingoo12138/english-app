@@ -53,13 +53,18 @@ export function DictationPage() {
   // 加载后生成第一题
   useEffect(() => {
     if (words.length > 0 && !item) {
-      const it = buildItem(words, difficulty, used)
+      const freshUsed = new Set<string>()
+      const it = buildItem(words, difficulty, freshUsed)
       if (it) {
         setItem(it)
+        freshUsed.add(it.sourceWord!.id)
+        setUsed(freshUsed)
         setTimeout(() => playTarget(it.target), 300)
       }
     }
-  }, [words, item, difficulty, used])
+    // v1.87 W81-D P1 修: 依赖稳定, buildItem 内部 mutate used 已重构
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [words.length, item, difficulty])
 
   const playTarget = useCallback((text: string) => {
     setStatus('🔊 正在播放...')
@@ -121,18 +126,22 @@ export function DictationPage() {
     setTranscript('')
     setFeedback(null)
     setStatus('')
-    const it = buildItem(words, difficulty, used)
+    // v1.87 W81-D P1 修: 用 functional update, 避免直接 mutate state
+    let newUsed: Set<string> = new Set(used)
+    const it = buildItem(words, difficulty, newUsed)
     if (it) {
       setItem(it)
-      used.add(it.sourceWord!.id)
+      newUsed.add(it.sourceWord!.id)
+      setUsed(newUsed)
       setTimeout(() => playTarget(it.target), 200)
     } else {
       // 用完一轮, 重置
-      setUsed(new Set())
-      const it2 = buildItem(words, difficulty, new Set())
+      const freshUsed = new Set<string>()
+      const it2 = buildItem(words, difficulty, freshUsed)
       if (it2) {
         setItem(it2)
-        setUsed(new Set([it2.sourceWord!.id]))
+        freshUsed.add(it2.sourceWord!.id)
+        setUsed(freshUsed)
         setTimeout(() => playTarget(it2.target), 200)
       }
     }

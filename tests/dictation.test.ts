@@ -105,7 +105,8 @@ describe('dictation (v1.87-D)', () => {
       expect(it).not.toBeNull()
       expect(it!.target.split(' ').length).toBeGreaterThanOrEqual(5)
     })
-    it('不重复主词 (used 集合)', () => {
+    it('不重复主词 (caller 维护 used)', () => {
+      // v1.87 P1 修: buildItem 不再 mutate used, 由 caller 负责
       const used = new Set<string>()
       const seen = new Set<string>()
       for (let i = 0; i < 10; i++) {
@@ -113,6 +114,7 @@ describe('dictation (v1.87-D)', () => {
         if (it) {
           expect(seen.has(it.sourceWord!.id)).toBe(false)
           seen.add(it.sourceWord!.id)
+          used.add(it.sourceWord!.id)  // caller 维护
         }
       }
     })

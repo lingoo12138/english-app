@@ -124,9 +124,10 @@ export function makeShortSentence(words: Word[], anchor: Word): string {
 
 /** 生成 DictationItem */
 export function buildItem(words: Word[], difficulty: Difficulty, used: Set<string>, seed: number = Date.now()): DictationItem | null {
+  // v1.87 W81-D P1 修: 不再 mutate used, 改由 caller 处理 add. 避免外部 state mutation 副作用
   const w = pickWord(words, used, seed)
   if (!w) return null
-  used.add(w.id)
+  // 注: caller 负责 used.add(w.id) 后 setUsed(new Set(...))
 
   if (difficulty === 'easy') {
     return { target: w.word, sourceWord: w, difficulty }
