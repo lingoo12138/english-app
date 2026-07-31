@@ -31,9 +31,9 @@ function makeWord(id: string, w: string): Word {
 
 describe('textbook lib', () => {
   describe('getAllLessons', () => {
-    it('应返回 5 篇课文', () => {
+    it('应返回 10+ 篇课文 (v1.85 5 篇 + v1.87 P2 7 篇)', () => {
       const lessons = getAllLessons()
-      expect(lessons.length).toBe(5)
+      expect(lessons.length).toBeGreaterThanOrEqual(10)
     })
 
     it('每篇课文都应有 id / title / body / vocabulary / level', () => {
