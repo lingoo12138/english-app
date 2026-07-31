@@ -1,14 +1,16 @@
 // 课文 (Textbook) - 业务逻辑层
 // v1.85.0: 查询 + 词汇表解析 + 完成状态
 // v1.87 W81-B: 合并 P2 (校园/食物/健康/购物/交通/家庭/节日)
+// v1.88 W82-A: 合并 P3 (季节/天气/旅行/文化/职业/爱好/历史/自然)
 import { LESSONS, type Lesson } from '../data/textbook'
 import { LESSONS_P2 } from '../data/textbook-p2'
+import { LESSONS_P3 } from '../data/textbook-p3'
 import type { Word } from '../types'
 import { isFavorite, addFavorite, removeFavorite, getAllFavorites } from './db'
 
-/** 返回所有课文 (v1.87: P1 + P2) */
+/** 返回所有课文 (v1.88: P1 + P2 + P3) */
 export function getAllLessons(): Lesson[] {
-  return [...LESSONS, ...LESSONS_P2]
+  return [...LESSONS, ...LESSONS_P2, ...LESSONS_P3]
 }
 
 /** 按 id 查课文, 没找到返 null */

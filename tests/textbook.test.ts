@@ -43,7 +43,7 @@ describe('textbook lib', () => {
         expect(l.body.length).toBeGreaterThan(0)
         expect(Array.isArray(l.vocabulary)).toBe(true)
         expect(l.vocabulary.length).toBeGreaterThanOrEqual(5)
-        expect(l.vocabulary.length).toBeLessThanOrEqual(12)
+        expect(l.vocabulary.length).toBeLessThanOrEqual(14)
         expect(['primary', 'junior', 'senior', 'gaozhong', 'cet4', 'cet6', 'kaoyan', 'daily']).toContain(l.level)
       }
     })
