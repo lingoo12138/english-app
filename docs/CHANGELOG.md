@@ -3356,3 +3356,42 @@
 - **第 18 次大 review 闭环**: 3 模块独立 verifier 各 1 个, 找 P0 + P1
 - 主线 0 P0 + 0 P1 业务 维持
 
+
+## [v1.87.0] - 2026-08-01
+
+### v1.87.0 W81 — 3 模块并行 (内容续补 + 课文扩展 + 听写功能)
+
+#### 内容续补 (W81-A)
+- 207 词 1-4 字符 root 补全 (a/I/am/an/is/of/so/he/me/we/hi/OK 等极简词)
+- 总体词根覆盖率 95.6% → **99.37%**
+- 1-4 字符子集 **100%** 覆盖
+- scripts/w81-content-1to4.py (持久化)
+- 5 个覆盖率测试 (tests/content-coverage.test.ts)
+
+#### 课文扩展 (W81-B)
+- 5 → **12 篇** (P1+P2)
+- 新 7 篇主题: 校园/食物/健康/购物/交通/家庭/节日
+- 跨课复用 **21 词** (happy×9, family×6, friend/life/book/read/home/food×4)
+- body 词汇 100% 命中 (单数)
+- 7 个 P2 测试 (tests/textbook-p2.test.ts)
+
+#### 听写功能 (W81-D, 全新)
+- src/lib/dictation.ts: normalize / scoreAnswer / diffWords / buildItem
+- src/pages/DictationPage.tsx: UI (TTS 播放 / STT 录音 / 评分 / 下一题)
+- IDB **v7 加 dictationErrors 表** (兼容 v6)
+- 算法: 字符相似度 60% + 词命中率 40%, 4 档 100/80/50/20/0
+- 难度: easy (1 词) / medium (4 词短句) / hard (8+ 词长句)
+- 22 测试 (tests/dictation.test.ts)
+- 路由: /dictation, nav 链接
+
+#### 主人 3 维 review 修 2 P1
+- **P1 修**: buildItem 不再 mutate `used` 状态 (React state 不变原则)
+- **P1 修**: 1539 旧 root 缺 `type` 字段, 统一加 `type='root'`
+- 详见 docs/REVIEW_v1.87.md
+
+#### 累计
+- **849 单元测试** (815 + 34) / 61 文件 全过
+- **3 producer 主人接管** (sub-agent timeout, 跟 v1.85 W78-W79 一样)
+- **0 P0 + 0 P1 业务** 维持
+- 87 release tag / 17 周 / 18 次大 review
+
