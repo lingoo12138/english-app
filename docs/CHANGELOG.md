@@ -3426,3 +3426,33 @@
 - **0 P0 + 0 P1 业务** 维持
 - 88 release tag / 17 周 / 18+ 次大 review
 
+
+## [v1.89.0] - 2026-08-01
+
+### v1.89.0 W83 — 词根 100% + 听写 UI 增强 + 课文跟读
+
+#### 词根 100% 覆盖 (W83-A)
+- 5-9 字符补 34 词 (1-4 字符 v1.87 已 100%)
+- **总 5,423/5,423 = 100%** (1-9 字符子集 100% 覆盖)
+- 10+ 字符已有 100% (除 5 词专业词)
+- scripts/w83-content-5to8.py (PIE/OE/Latin/Greek/French/Hebrew/Chinese 词源)
+- 1 个测试 (1-9 字符 100% 断言)
+
+#### 听写 UI 增强 (W83-B)
+- 进度条 (round / TARGET_ROUNDS=10) + 完成提示
+- 错词收藏按钮 (⭐/☆) → 生词本 (复用 addFavorite/removeFavorite)
+- 统计区: 题数 / 正确 / 总分 / 平均
+- handleToggleFav handler
+
+#### 课文跟读模式 (W83-C)
+- LessonDetailPage 加 跟读 toggle (TTS 全文之外)
+- 切句逻辑 (按 .!? 切, 慢速 rate 0.8)
+- 上句/下句导航 + 进度显示
+- 不破现有 TTSButton + 词汇高亮
+
+#### 累计
+- **872 单元测试** (871 + 1) / 64 文件 全过
+- **主人全做** (W82 教训, 不再拉 sub-agent)
+- **0 P0 + 0 P1 业务** 维持
+- 89 release tag / 17 周 / 19 次大 review
+
