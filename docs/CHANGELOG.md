@@ -3476,3 +3476,27 @@
 - 0 P0 + 0 P1 业务
 - 90 release tag / 17 周 / 20 次大 review
 
+
+## [v1.91.0] - 2026-08-01
+
+### v1.91.0 W85 — 释义收藏 + 错题合并
+
+#### 释义收藏
+- IDB v8: translationFavs 表 ([wordId+index] 复合 key)
+- src/lib/db.ts: addTranslationFav / removeTranslationFav / getTranslationFavs / getAllTranslationFavs
+- src/pages/WordDetail.tsx: 每条释义 ⭐/☆ 收藏
+- 8 个测试 (vi.mock IDB)
+
+#### 错题合并
+- DictationError.source: 'dictation' | 'spelling'
+- Spelling 错入 dictationErrors (source='spelling')
+- Dictation 显式 source='dictation'
+- ErrorsPage 合并 getAllWritingErrors + getAllDictationErrors
+- UnifiedError type (5 source: write/chat/chinese/dictation/spelling)
+- 5 tab filter (听写/拼写/写作/对话/全部)
+
+#### 累计
+- 894 单元测试 (886 + 8) / 66 文件
+- 0 P0 + 0 P1 业务
+- 91 release tag / 17 周 / 20+ 次大 review
+
