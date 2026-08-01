@@ -3500,3 +3500,27 @@
 - 0 P0 + 0 P1 业务
 - 91 release tag / 17 周 / 20+ 次大 review
 
+
+## [v1.92.0] - 2026-08-01
+
+### v1.92.0 W86 — 跟读评分 + 错题导出 CSV
+
+#### 跟读评分
+- src/lib/followRead.ts: 跟读评分核心 (字符 60% + 词 40%, 5 档 100/80/50/20/0)
+- src/pages/LessonDetailPage.tsx: 跟读模式加 STT 录音 + 评分区
+- 复用 src/lib/stt STTController
+- DictationError.source 加 'follow-read'
+- 12 个测试
+
+#### 错题导出 CSV
+- src/lib/exportErrors.ts: writingErrorToCSV / dictationErrorToCSV / allErrorsToCSV / downloadCSV
+- 写作 + 听写 + 拼写 + 跟读 全部合并导出
+- ErrorsPage '📥 导出 CSV' 按钮
+- BOM UTF-8 (Excel 中文兼容)
+- 11 个测试
+
+#### 累计
+- 917 单元测试 (894 + 23) / 68 文件
+- 0 P0 + 0 P1 业务
+- 92 release tag / 17 周 / 21 次大 review
+
