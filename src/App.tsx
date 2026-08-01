@@ -35,6 +35,7 @@ const FillBlankPage = lazy(() => import('./pages/FillBlankPage'))
 const TextbookPage = lazy(() => import('./pages/TextbookPage'))
 const LessonDetailPage = lazy(() => import('./pages/LessonDetailPage'))
 const DictationPage = lazy(() => import('./pages/DictationPage'))
+const SpellingPage = lazy(() => import('./pages/SpellingPage'))
 import { useStore, useStats } from './store/useStore'
 import { getTodayCount, getTotalLearned, getAllFavorites } from './lib/db'
 import { getTheme, applyTheme, applyFontSize, applyContrastFix } from './lib/themes'
@@ -154,6 +155,7 @@ function App() {
         <Route path="calendar" element={<CalendarPage />} />
         <Route path="fill-blank" element={<FillBlankPage />} />
         <Route path="dictation" element={<DictationPage />} />
+        <Route path="spelling" element={<SpellingPage />} />
         <Route path="textbook" element={<TextbookPage />} />
         <Route path="textbook/:id" element={<LessonDetailPage />} />
         <Route path="pronounce-custom" element={<PronounceCustom />} />
