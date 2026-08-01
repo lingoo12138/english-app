@@ -53,4 +53,13 @@ describe('W81-A 内容覆盖率', () => {
     const ratio = withRoots.length / WORDS.length
     expect(ratio).toBeGreaterThanOrEqual(0.95)
   })
+
+  it('W83: 1-9 字符词 100% 有 roots (v1.89)', () => {
+    for (const w of WORDS) {
+      if (w.word.length <= 9) {
+        expect(w.roots, `${w.word} (${w.word.length} 字符) 缺 roots`).toBeDefined()
+        expect(w.roots!.length).toBeGreaterThan(0)
+      }
+    }
+  })
 })

@@ -1,5 +1,6 @@
 // 课文详情页 (LessonDetailPage) - v1.85.0
 // 渲染单篇课文 + 词汇高亮 + 释义 tooltip + 进度条 + 完读状态
+// v1.89 W83-C: 加 跟读模式 (逐句朗读)
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import {
@@ -15,6 +16,7 @@ import { loadWords } from '../lib/words'
 import type { Word } from '../types'
 import type { VocabRange } from '../lib/textbook'
 import TTSButton from '../components/TTSButton'
+import { speak } from '../lib/tts'
 import { toast } from '../components/Toast'
 
 export default function LessonDetailPage() {
@@ -36,6 +38,9 @@ export default function LessonDetailPage() {
   const [tooltipWord, setTooltipWord] = useState<Word | null>(null)
   // 切换"已学"中 (防止双击)
   const [togglingLearned, setTogglingLearned] = useState(false)
+  // v1.89 W83-C: 跟读模式
+  const [followMode, setFollowMode] = useState(false)
+  const [currentSentence, setCurrentSentence] = useState(0)
   // 离开页面时通知列表页
   useEffect(() => {
     return () => {
@@ -182,9 +187,29 @@ export default function LessonDetailPage() {
             <p className="text-sm opacity-90 mt-1">{lesson.summary}</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 mt-2">
+        <div className="flex items-center gap-2 mt-2 flex-wrap">
           <TTSButton text={lesson.body} />
           <span className="text-xs opacity-80">点击朗读全文</span>
+          {/* v1.89 W83-C: 跟读模式 toggle */}
+          <button
+            onClick={() => {
+              const newMode = !followMode
+              setFollowMode(newMode)
+              setCurrentSentence(0)
+              if (newMode) {
+                // 立即播放第一句
+                const sentences = lesson.body.split(/[.!?]+\s+/).filter(Boolean)
+                if (sentences[0]) speak({ text: sentences[0], rate: 0.8 })
+              }
+            }}
+            className={`px-2 py-1 rounded text-xs font-medium ${
+              followMode
+                ? 'bg-amber-400 text-stone-900'
+                : 'bg-white/20 text-white hover:bg-white/30'
+            }`}
+          >
+            {followMode ? '🎤 跟读中' : '🎤 跟读模式'}
+          </button>
         </div>
       </div>
 
@@ -193,6 +218,30 @@ export default function LessonDetailPage() {
         <h3 className="font-semibold mb-3 flex items-center gap-2">
           <span>📄</span>
           <span>正文</span>
+          {followMode && (() => {
+            const sentences = lesson.body.split(/[.!?]+\s+/).filter(Boolean)
+            return (
+              <span className="ml-auto flex items-center gap-1 text-xs">
+                <button
+                  onClick={() => {
+                    const next = Math.max(0, currentSentence - 1)
+                    setCurrentSentence(next)
+                    if (sentences[next]) speak({ text: sentences[next], rate: 0.8 })
+                  }}
+                  className="px-2 py-1 bg-stone-100 dark:bg-stone-700 rounded text-xs"
+                >← 上句</button>
+                <span className="text-stone-500">{currentSentence + 1} / {sentences.length}</span>
+                <button
+                  onClick={() => {
+                    const next = Math.min(sentences.length - 1, currentSentence + 1)
+                    setCurrentSentence(next)
+                    if (sentences[next]) speak({ text: sentences[next], rate: 0.8 })
+                  }}
+                  className="px-2 py-1 bg-stone-100 dark:bg-stone-700 rounded text-xs"
+                >下句 →</button>
+              </span>
+            )
+          })()}
         </h3>
         <div className="text-base leading-loose text-stone-800 dark:text-stone-200 whitespace-pre-line">
           {segments.map((seg, i) => {

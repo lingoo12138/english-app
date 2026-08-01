@@ -1,10 +1,12 @@
 // src/pages/DictationPage.tsx - v1.87 W81-D 听写 UI
 // v1.88 W82-C: 加复习模式 toggle
+// v1.89 W83-B: 加进度条 + 错词收藏
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { speak } from '../lib/tts'
 import { isSTTSupported, STTController } from '../lib/stt'
 import { saveDictationError, getDictationErrorWordIds } from '../lib/db'
+import { addFavorite, removeFavorite, isFavorite } from '../lib/db'
 import {
   buildItem,
   scoreAnswer,
@@ -43,6 +45,11 @@ export function DictationPage() {
   } | null>(null)
   const [totalScore, setTotalScore] = useState(0)
   const [round, setRound] = useState(0)
+  // v1.89 W83-B: 进度条
+  const [correctCount, setCorrectCount] = useState(0)
+  // v1.89 W83-B: 错词收藏
+  const [favSet, setFavSet] = useState<Set<string>>(new Set())
+  const TARGET_ROUNDS = 10  // 一轮 10 题
   const [sttSupported, setSttSupported] = useState(false)
   // v1.88 W82-C: 复习模式
   const [reviewMode, setReviewMode] = useState(false)
@@ -137,6 +144,7 @@ export function DictationPage() {
     setFeedback({ score, diff })
     setTotalScore(s => s + score)
     setRound(r => r + 1)
+    if (score === 100) setCorrectCount(c => c + 1)
     // 错题入错题本 (v1.87 W81-D: dictationErrors 表)
     if (score < 100 && item.sourceWord) {
       saveDictationError({
@@ -148,6 +156,17 @@ export function DictationPage() {
       }).catch(e => console.error('[Dictation] saveDictationError:', e))
     }
   }, [item, transcript])
+
+  // v1.89 W83-B: 收藏错词
+  const handleToggleFav = useCallback(async (wordId: string) => {
+    if (favSet.has(wordId)) {
+      await removeFavorite(wordId)
+      setFavSet(s => { const n = new Set(s); n.delete(wordId); return n })
+    } else {
+      await addFavorite(wordId)
+      setFavSet(s => new Set([...s, wordId]))
+    }
+  }, [favSet])
 
   const handleNext = useCallback(() => {
     setTranscript('')
@@ -307,6 +326,19 @@ export function DictationPage() {
                   <div className="text-stone-400 text-xs">已加入错题本</div>
                 )}
               </div>
+              {/* v1.89 W83-B: 错词收藏按钮 */}
+              {item.sourceWord && feedback.score < 100 && (
+                <button
+                  onClick={() => handleToggleFav(item.sourceWord!.id)}
+                  className={`w-full px-4 py-2 rounded-lg text-sm font-medium ${
+                    favSet.has(item.sourceWord.id)
+                      ? 'bg-rose-500 text-white'
+                      : 'bg-stone-100 dark:bg-stone-700 text-stone-600 dark:text-stone-300'
+                  }`}
+                >
+                  {favSet.has(item.sourceWord.id) ? '⭐ 已收藏 (生词本)' : '☆ 收藏到生词本'}
+                </button>
+              )}
               <button
                 onClick={handleNext}
                 className="w-full px-4 py-2 bg-brand-500 text-white rounded-lg text-sm font-medium hover:bg-brand-600"
@@ -318,6 +350,25 @@ export function DictationPage() {
         </div>
       )}
 
+      {/* v1.89 W83-B: 进度条 */}
+      <div className="bg-white dark:bg-stone-800 rounded-xl p-3 border border-stone-200 dark:border-stone-700">
+        <div className="flex items-center justify-between text-sm mb-2">
+          <span className="text-stone-600 dark:text-stone-300">进度</span>
+          <span className="text-stone-500">{round} / {TARGET_ROUNDS}</span>
+        </div>
+        <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-brand-500 transition-all"
+            style={{ width: `${Math.min(100, (round / TARGET_ROUNDS) * 100)}%` }}
+          />
+        </div>
+        {round >= TARGET_ROUNDS && (
+          <div className="mt-2 text-center text-sm text-emerald-600 font-medium">
+            🎉 一轮完成! 正确 {correctCount}/{round} ({Math.round(correctCount / round * 100)}%)
+          </div>
+        )}
+      </div>
+
       {/* 统计 */}
       <div className="flex justify-around bg-white dark:bg-stone-800 rounded-xl p-3 border border-stone-200 dark:border-stone-700 text-sm">
         <div>
@@ -325,12 +376,16 @@ export function DictationPage() {
           <div className="text-2xl font-bold text-brand-600">{round}</div>
         </div>
         <div>
+          <div className="text-stone-500">正确</div>
+          <div className="text-2xl font-bold text-emerald-600">{correctCount}</div>
+        </div>
+        <div>
           <div className="text-stone-500">总分</div>
-          <div className="text-2xl font-bold text-emerald-600">{totalScore}</div>
+          <div className="text-2xl font-bold text-amber-600">{totalScore}</div>
         </div>
         <div>
           <div className="text-stone-500">平均</div>
-          <div className="text-2xl font-bold text-amber-600">
+          <div className="text-2xl font-bold text-purple-600">
             {round > 0 ? Math.round(totalScore / round) : 0}
           </div>
         </div>

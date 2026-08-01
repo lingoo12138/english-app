@@ -31800,7 +31800,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "OE blæse",
+        "meaning": "火焰, PIE *bhel- 燃烧/闪光",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-bleed",
@@ -32646,7 +32653,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "ME bosten",
+        "meaning": "吹嘘, 拟声",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-boat",
@@ -33740,7 +33754,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "ME bosten",
+        "meaning": "推/升, 拟声",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-boot",
@@ -33858,7 +33879,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "ON buð",
+        "meaning": "临时居所, PIE *bheu- 居住/存在",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-border",
@@ -34288,7 +34316,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "OE bōsm",
+        "meaning": "胸, PIE *bheu- 膨胀/鼓起",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-boss",
@@ -34735,7 +34770,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "OE bōg",
+        "meaning": "树枝, PIE *bheug- 弯/弓",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-bounce",
@@ -34860,7 +34902,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "ON bunðinn",
+        "meaning": "准备好的, 拟声",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-boundary",
@@ -50011,7 +50060,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "Sanskrit Cīna",
+        "meaning": "中国, 梵语 秦",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-chinese",
@@ -87078,7 +87134,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "OE dīc",
+        "meaning": "沟, PIE *dheigw- 挖/堤",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-dive",
@@ -94587,7 +94650,14 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "Gk Aigyptos",
+        "meaning": "埃及, 希腊语",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-egyptian",
@@ -101430,7 +101500,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "Gk Europe",
+        "meaning": "欧洲, 希腊神话 Europa 腓尼基公主",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-european",
@@ -130775,7 +130852,14 @@
     ],
     "level": "gaozhong",
     "difficulty": 3,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "L Graecus",
+        "meaning": "希腊人, L Graecia 希腊",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-green",
@@ -173126,7 +173210,14 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "mail + box",
+        "meaning": "邮箱, OE mæl 袋 + OE box 盒",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-main",
@@ -185222,7 +185313,14 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "Russian Moskva",
+        "meaning": "莫斯科, 俄语 (古斯拉夫)",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-moslem",
@@ -185261,7 +185359,14 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "Arabic muslim",
+        "meaning": "穆斯林, 阿语 muslim 顺从者",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-mosquito",
@@ -197014,7 +197119,14 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "oil + field",
+        "meaning": "油田, OE olie 油 + OE feld 田",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-ok",
@@ -197236,6 +197348,13 @@
         "en": "Olympic Games",
         "zh": "奥运会"
       }
+    ],
+    "roots": [
+      {
+        "root": "Gk Olympos",
+        "meaning": "奥林匹亚, 希腊山名",
+        "type": "root"
+      }
     ]
   },
   {
@@ -197285,7 +197404,14 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "F omelette",
+        "meaning": "煎蛋, L lamella 小薄片",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-omit",
@@ -197572,7 +197698,14 @@
     ],
     "level": "cet4",
     "difficulty": 4,
-    "frequency": 3
+    "frequency": 3,
+    "roots": [
+      {
+        "root": "one + self",
+        "meaning": "自己, OE ān 一 + OE self 自身",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-onion",
@@ -200318,7 +200451,14 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "Algonquian",
+        "meaning": "渥太华, 阿尔冈昆语 adawe 贸易",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-ouch",
@@ -218744,7 +218884,14 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "F prairie",
+        "meaning": "大草原, L pratum 草地",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-praise",
@@ -247184,7 +247331,14 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "Russian Rus",
+        "meaning": "俄罗斯, 罗斯 维京人",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-russian",
@@ -248410,7 +248564,14 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sale + girl",
+        "meaning": "女售货员, OE sala 卖 + OE gyrl 女孩",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-salesman",
@@ -250612,7 +250773,14 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "school + bag",
+        "meaning": "书包, OE scōl 学校 + ON baggi 袋",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "schoolboy",
@@ -252100,7 +252268,14 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sea + shell",
+        "meaning": "海贝, OE sǣ 海 + OE sciell 贝壳",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-seaside",
@@ -262742,7 +262917,14 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "sky + rocket",
+        "meaning": "冲天火箭, ON ský 云 + It rocchetta 线轴",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-skyscraper",
@@ -268543,7 +268725,14 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "It spago",
+        "meaning": "意大利面, It spago 绳/线",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-spain",
@@ -271394,7 +271583,14 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 5
+    "frequency": 5,
+    "roots": [
+      {
+        "root": "OE cwȳsan",
+        "meaning": "挤压, PIE *gweus- 压/拧",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-squid",
@@ -275188,7 +275384,14 @@
     ],
     "level": "daily",
     "difficulty": 5,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "stop + watch",
+        "meaning": "秒表, ME stoppen 停 + OE wæcce 守夜",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-storage",
@@ -280270,7 +280473,14 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "sun + burnt",
+        "meaning": "晒伤, OE sunne 太阳 + OE byrnan 燃烧",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-sunday",
@@ -292352,7 +292562,14 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "Tibetan",
+        "meaning": "西藏, 藏语 bod",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-tibetan",
@@ -294070,7 +294287,14 @@
     ],
     "level": "senior",
     "difficulty": 3,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "Japanese",
+        "meaning": "东京, 日语 とうきょう (东京都)",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-tolerance",
@@ -300770,7 +300994,14 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "OE twelfta",
+        "meaning": "第十二, OE twelf 十二 + -tha 序数",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-twelve",
@@ -312588,7 +312819,14 @@
     ],
     "level": "cet6",
     "difficulty": 4,
-    "frequency": 2
+    "frequency": 2,
+    "roots": [
+      {
+        "root": "wash + room",
+        "meaning": "洗手间, OE wascan 洗 + OE rūm 空间",
+        "type": "root"
+      }
+    ]
   },
   {
     "id": "w-waste",
