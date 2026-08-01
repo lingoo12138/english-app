@@ -3456,3 +3456,23 @@
 - **0 P0 + 0 P1 业务** 维持
 - 89 release tag / 17 周 / 19 次大 review
 
+
+## [v1.90.0] - 2026-08-01
+
+### v1.90.0 W84 — 单词卡 (Spelling Card, 新功能)
+
+#### 单词卡
+- src/lib/spelling.ts: pickSpellingWord / spellingDiff / scoreSpelling / renderSpellingHint
+- src/pages/SpellingPage.tsx: UI (TTS 播放 + 键盘输入 + 字符级 diff + 进度 + 统计)
+- 路由: /spelling
+- nav 链接: 拼写 ✏️
+- 难度: easy 1-4 / medium 5-6 / hard 7-12 字符
+- 字符级 diff: LCS 算法, missing / wrong / extra 位置
+- 键盘 Enter 提交 + 下一题
+- 14 个测试
+
+#### 累计
+- **886 单元测试** (872 + 14) / 65 文件 全过
+- 0 P0 + 0 P1 业务
+- 90 release tag / 17 周 / 20 次大 review
+
