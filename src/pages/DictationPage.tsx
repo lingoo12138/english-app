@@ -146,10 +146,12 @@ export function DictationPage() {
     setRound(r => r + 1)
     if (score === 100) setCorrectCount(c => c + 1)
     // 错题入错题本 (v1.87 W81-D: dictationErrors 表)
+    // v1.91 W85: 加 source 字段
     if (score < 100 && item.sourceWord) {
       saveDictationError({
         wordId: item.sourceWord.id,
         difficulty: item.difficulty,
+        source: 'dictation',
         transcript,
         target: item.target,
         score,

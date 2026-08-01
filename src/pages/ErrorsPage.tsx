@@ -1,8 +1,14 @@
 // 改错本 - v0.25
 // 聚合 W1-A 写作批改 + W2-A 实时纠错的错误
+// v1.91 W85: 加 听写/拼写 错题 (source='dictation' | 'spelling')
 import { useEffect, useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { getAllWritingErrors, deleteWritingError, type WritingError } from '../lib/db'
+import { getAllWritingErrors, deleteWritingError, getAllDictationErrors, type WritingError, type DictationError } from '../lib/db'
+
+/** v1.91 W85: 统一错题 (写作/对话/听写/拼写) */
+type ErrorSource = 'write' | 'chat' | 'chinese' | 'dictation' | 'spelling'
+type UnifiedError = WritingError & { source: ErrorSource }
+
 // v1.37.0 W35-1: errorStats 集成
 import { getErrorSummary, ERROR_TYPE_LABELS, getErrorTypeColor, type ErrorSummary } from '../lib/errorStats'
 import { addFavorite } from '../lib/db'
@@ -18,12 +24,12 @@ type Tab = 'overview' | 'types' | 'top' | 'timeline'
 export default function ErrorsPage() {
   // v1.49.0 W46: i18n
   const { t } = useTranslate()
-  const [errors, setErrors] = useState<WritingError[]>([])
+  const [errors, setErrors] = useState<UnifiedError[]>([])
   const [loading, setLoading] = useState(true)
   const [tab, setTab] = useState<Tab>('overview')
   const [addedWords, setAddedWords] = useState<Set<string>>(new Set())
   const [pendingDelete, setPendingDelete] = useState<number | null>(null)
-  const [filter, setFilter] = useState<'all' | 'write' | 'chat'>('all')
+  const [filter, setFilter] = useState<'all' | ErrorSource>('all')
   // v1.37.0 W35-1: errorStats 集成
   const [errorSummary, setErrorSummary] = useState<ErrorSummary | null>(null)
 
@@ -39,8 +45,24 @@ export default function ErrorsPage() {
   const loadAll = async () => {
     setLoading(true)
     try {
-      const list = await getAllWritingErrors()
-      setErrors(list.reverse())  // 最新在前
+      // v1.91 W85: 合并听写/拼写/写作 错题
+      const [writeList, dictList] = await Promise.all([
+        getAllWritingErrors(),
+        getAllDictationErrors(),
+      ])
+      // 听写/拼写 写进 errors (伪 WritingError 形式, source=...)
+      const synth = dictList.map(d => ({
+        id: -d.id!,  // 负数避免冲突
+        source: (d.source || 'dictation') as WritingError['source'],
+        original: d.target,
+        corrected: d.transcript,
+        errors: d.source === 'spelling'
+          ? [{ original: d.transcript, suggestion: d.target, type: 'spelling' as const, explanation: `拼写错 (${d.difficulty})`, severity: 1 - d.score / 100 }]
+          : [{ original: d.transcript, suggestion: d.target, type: 'vocab' as const, explanation: `听写错 (${d.difficulty})`, severity: 1 - d.score / 100 }],
+        ts: d.ts,
+      } as UnifiedError))
+      const combined: UnifiedError[] = [...writeList, ...synth].sort((a, b) => b.ts - a.ts)
+      setErrors(combined)
     } catch (e) {
       console.error('[ErrorsPage] loadAll failed:', e)
     } finally {
@@ -173,7 +195,7 @@ export default function ErrorsPage() {
       )}
 
       {/* 过滤器 */}
-      <div className="flex gap-2 text-sm">
+      <div className="flex gap-2 text-sm flex-wrap">
         <button
           onClick={() => setFilter('all')}
           className={`px-2 py-0.5 rounded ${filter === 'all' ? 'bg-brand-500 text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
@@ -191,6 +213,19 @@ export default function ErrorsPage() {
           className={`px-2 py-0.5 rounded ${filter === 'chat' ? 'bg-brand-500 text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
         >
           💬 对话 ({errors.filter(e => e.source === 'chat').length})
+        </button>
+        {/* v1.91 W85: 听写 + 拼写 filter */}
+        <button
+          onClick={() => setFilter('dictation')}
+          className={`px-2 py-0.5 rounded ${(filter as string) === 'dictation' ? 'bg-brand-500 text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
+        >
+          🎧 听写 ({errors.filter(e => e.source === ('dictation' as any)).length})
+        </button>
+        <button
+          onClick={() => setFilter('spelling')}
+          className={`px-2 py-0.5 rounded ${(filter as string) === 'spelling' ? 'bg-brand-500 text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
+        >
+          ✏️ 拼写 ({errors.filter(e => e.source === ('spelling' as any)).length})
         </button>
       </div>
 
@@ -392,7 +427,7 @@ export default function ErrorsPage() {
           {stats.filtered.length === 0 ? (
             <div className="card text-center py-6">
               <div className="text-3xl mb-2" aria-hidden="true">📭</div>
-              <p className="text-sm text-stone-500">没有 {filter === 'all' ? '' : (filter === 'write' ? '写作' : '对话')} 记录</p>
+              <p className="text-sm text-stone-500">没有 {filter === 'all' ? '' : (filter === 'write' ? '写作' : filter === 'chat' ? '对话' : filter === 'dictation' ? '听写' : '拼写')} 记录</p>
             </div>
           ) : (
             stats.filtered.map(item => (

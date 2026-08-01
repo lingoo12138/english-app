@@ -1,7 +1,9 @@
 // src/pages/SpellingPage.tsx - v1.90 W84 单词卡 (Spelling Card) UI
+// v1.91 W85: 错题入统一表 (source='spelling')
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { speak } from '../lib/tts'
+import { saveDictationError } from '../lib/db'
 import {
   pickSpellingWord,
   spellingDiff,
@@ -77,7 +79,18 @@ export function SpellingPage() {
     setTotalScore(s => s + score)
     setRound(r => r + 1)
     if (score === 100) setCorrectCount(c => c + 1)
-  }, [target, user])
+    // v1.91 W85: 错题入统一表 (source='spelling')
+    if (score < 100 && target) {
+      saveDictationError({
+        wordId: target.id,
+        difficulty,
+        source: 'spelling',
+        transcript: user,
+        target: target.word,
+        score,
+      }).catch(e => console.error('[Spelling] saveDictationError:', e))
+    }
+  }, [target, user, difficulty])
 
   const handleNext = useCallback(() => {
     setUser('')

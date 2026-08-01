@@ -8,7 +8,7 @@ import { WordNetwork } from '../components/WordNetwork'
 import { GrammarButton } from '../components/GrammarButton'
 import { SynonymsButton } from '../components/SynonymsButton'
 import PronunciationPractice from '../components/PronunciationPractice'
-import { addFavorite, removeFavorite, isFavorite, logAction, reviewWord } from '../lib/db'
+import { addFavorite, removeFavorite, isFavorite, logAction, reviewWord, addTranslationFav, removeTranslationFav, getTranslationFavs } from '../lib/db'
 import { markWordCompleted } from '../lib/plan'
 import { useStore } from '../store/useStore'
 import { useTranslate } from '../lib/useTranslate'
@@ -20,6 +20,8 @@ export default function WordDetail() {
   const navigate = useNavigate()
   const [word, setWord] = useState<Word | null | 'loading'>('loading')
   const [fav, setFav] = useState(false)
+  // v1.91 W85: 释义收藏状态 (Set<index>)
+  const [savedTranslations, setSavedTranslations] = useState<Set<number>>(new Set())
   // v1.10.0-C: 跟读弹窗状态 — 用动态文本而非 boolean,支持单词 / 例句
   const [pronounceText, setPronounceText] = useState<string>('')
   const [showAllExamples, setShowAllExamples] = useState(false)
@@ -37,6 +39,10 @@ export default function WordDetail() {
       if (w) {
         isFavorite(w.id).then(f => {
           if (!cancelled) setFav(f)
+        })
+        // v1.91 W85: 加载释义收藏状态
+        getTranslationFavs(w.id).then(favs => {
+          if (!cancelled) setSavedTranslations(new Set(favs.map(f => f.index)))
         })
         logAction(w.id, 'view')
         // v0.22.5: 访问词详情时自动标记今日计划完成
@@ -205,6 +211,40 @@ export default function WordDetail() {
             <span className="text-sm text-stone-400 dark:text-stone-300 ml-1">+{word.translations.length - 3} 个义项</span>
           )}
         </p>
+
+        {/* v1.91 W85: 释义收藏 (每条释义可单独收藏) */}
+        {word.translations.length > 0 && (
+          <div className="mb-4 space-y-1">
+            {word.translations.slice(0, 5).map((trans, i) => (
+              <div key={i} className="flex items-start gap-2 text-sm">
+                <button
+                  onClick={async () => {
+                    if (savedTranslations.has(i)) {
+                      await removeTranslationFav(word.id, i)
+                      setSavedTranslations(s => {
+                        const n = new Set(s)
+                        n.delete(i)
+                        return n
+                      })
+                    } else {
+                      await addTranslationFav(word.id, i, trans)
+                      setSavedTranslations(s => new Set([...s, i]))
+                    }
+                  }}
+                  className={`mt-0.5 flex-shrink-0 text-base ${
+                    savedTranslations.has(i)
+                      ? 'text-amber-500'
+                      : 'text-stone-300 dark:text-stone-600 hover:text-amber-400'
+                  }`}
+                  title={savedTranslations.has(i) ? '已收藏' : '收藏此义项'}
+                >
+                  {savedTranslations.has(i) ? '⭐' : '☆'}
+                </button>
+                <span className="text-stone-700 dark:text-stone-300">{trans}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* 词根词缀 */}

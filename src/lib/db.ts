@@ -21,6 +21,8 @@ class EnglishAppDB extends Dexie {
   wordTags!: Table<{ wordId: string; tag: string; addedAt: number }, [string, string]>
   // v1.87 W81-D: 听写错题
   dictationErrors!: Table<DictationError, number>
+  // v1.91 W85: 释义收藏
+  translationFavs!: Table<TranslationFav, [string, number]>
 
   constructor() {
     super('EnglishAppDB')
@@ -92,6 +94,20 @@ class EnglishAppDB extends Dexie {
       wordTags: '[wordId+tag], wordId, tag, addedAt',
       dictationErrors: '++id, wordId, ts, score, difficulty',
     })
+    // v1.91 W85: 释义收藏表
+    this.version(8).stores({
+      favorites: 'wordId, addedAt',
+      records: '++id, wordId, action, timestamp',
+      reviews: 'wordId, nextReview',
+      pronunciationAttempts: '++id, wordId, ts, score',
+      chats: '++id, scenario, level, updatedAt, createdAt, title',
+      writingErrors: '++id, ts, source',
+      errorExplanations: 'key, ts',
+      customScenes: '++id, updatedAt, createdAt, title',
+      wordTags: '[wordId+tag], wordId, tag, addedAt',
+      dictationErrors: '++id, wordId, ts, score, difficulty',
+      translationFavs: '[wordId+index], wordId, index, addedAt',
+    })
   }
 }
 
@@ -118,13 +134,17 @@ export type WritingErrorType =
   | 'grammar' | 'vocab' | 'spelling' | 'style'
   | 'tense' | 'preposition' | 'article' | 'other'
 
-/** v1.87 W81-D: 听写错题记录 */
+/** v1.87 W81-D: 听写错题记录
+ * v1.91 W85: 加 source 字段 (dictation | spelling), 统一错题本
+ */
 export interface DictationError {
   id?: number
   wordId: string
   /** 听写难度 */
   difficulty: 'easy' | 'medium' | 'hard'
-  /** 用户口述 */
+  /** 来源 (v1.91: 拼写错也入此表) */
+  source?: 'dictation' | 'spelling'
+  /** 用户口述/拼写 */
   transcript: string
   /** 目标文本 */
   target: string
@@ -179,6 +199,32 @@ export async function getDictationErrorWordIds(): Promise<string[]> {
   const errors = await db.dictationErrors.toArray()
   const ids = new Set(errors.map(e => e.wordId))
   return [...ids]
+}
+
+/** v1.91 W85: 释义收藏 */
+export interface TranslationFav {
+  wordId: string
+  /** 释义在 word.translations 中的索引 */
+  index: number
+  /** 释义内容 (快照, 避免 word 改后失效) */
+  text: string
+  addedAt: number
+}
+
+export async function addTranslationFav(wordId: string, index: number, text: string): Promise<void> {
+  await db.translationFavs.put({ wordId, index, text, addedAt: Date.now() })
+}
+
+export async function removeTranslationFav(wordId: string, index: number): Promise<void> {
+  await db.translationFavs.delete([wordId, index])
+}
+
+export async function getTranslationFavs(wordId: string): Promise<TranslationFav[]> {
+  return db.translationFavs.where('wordId').equals(wordId).toArray()
+}
+
+export async function getAllTranslationFavs(): Promise<TranslationFav[]> {
+  return db.translationFavs.toArray()
 }
 
 // === 错题解释缓存 (v1.2-D2) ===
