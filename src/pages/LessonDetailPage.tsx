@@ -1,6 +1,7 @@
 // 课文详情页 (LessonDetailPage) - v1.85.0
 // 渲染单篇课文 + 词汇高亮 + 释义 tooltip + 进度条 + 完读状态
 // v1.89 W83-C: 加 跟读模式 (逐句朗读)
+// v1.92 W86-A: 加 跟读评分 (STT 录音 + 评分)
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import {
@@ -17,6 +18,9 @@ import type { Word } from '../types'
 import type { VocabRange } from '../lib/textbook'
 import TTSButton from '../components/TTSButton'
 import { speak } from '../lib/tts'
+import { isSTTSupported, STTController } from '../lib/stt'
+import { saveDictationError } from '../lib/db'
+import { evaluateFollowRead, splitSentences } from '../lib/followRead'
 import { toast } from '../components/Toast'
 
 export default function LessonDetailPage() {
@@ -41,6 +45,12 @@ export default function LessonDetailPage() {
   // v1.89 W83-C: 跟读模式
   const [followMode, setFollowMode] = useState(false)
   const [currentSentence, setCurrentSentence] = useState(0)
+  // v1.92 W86-A: 跟读评分 (STT 录音 + 评分)
+  const [followTranscript, setFollowTranscript] = useState('')
+  const [followScore, setFollowScore] = useState<{ score: number; missing: string[]; extra: string[]; wrong: { target: string; got: string }[] } | null>(null)
+  const sttRef = useRef<STTController | null>(null)
+  const [listening, setListening] = useState(false)
+  const [sttSupported, setSttSupported] = useState(false)
   // 离开页面时通知列表页
   useEffect(() => {
     return () => {
@@ -88,6 +98,14 @@ export default function LessonDetailPage() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [loading])
+
+  // v1.92 W86-A: 组件卸载时停录音 + 检 STT 支持
+  useEffect(() => {
+    setSttSupported(isSTTSupported())
+    return () => {
+      sttRef.current?.stop()
+    }
+  }, [])
 
   // 找 body 中所有词汇位置
   const ranges = useMemo<VocabRange[]>(() => {
@@ -219,13 +237,16 @@ export default function LessonDetailPage() {
           <span>📄</span>
           <span>正文</span>
           {followMode && (() => {
-            const sentences = lesson.body.split(/[.!?]+\s+/).filter(Boolean)
+            const sentences = splitSentences(lesson.body)
+            const currentText = sentences[currentSentence] || ''
             return (
-              <span className="ml-auto flex items-center gap-1 text-xs">
+              <span className="ml-auto flex items-center gap-1 text-xs flex-wrap">
                 <button
                   onClick={() => {
                     const next = Math.max(0, currentSentence - 1)
                     setCurrentSentence(next)
+                    setFollowTranscript('')
+                    setFollowScore(null)
                     if (sentences[next]) speak({ text: sentences[next], rate: 0.8 })
                   }}
                   className="px-2 py-1 bg-stone-100 dark:bg-stone-700 rounded text-xs"
@@ -235,6 +256,8 @@ export default function LessonDetailPage() {
                   onClick={() => {
                     const next = Math.min(sentences.length - 1, currentSentence + 1)
                     setCurrentSentence(next)
+                    setFollowTranscript('')
+                    setFollowScore(null)
                     if (sentences[next]) speak({ text: sentences[next], rate: 0.8 })
                   }}
                   className="px-2 py-1 bg-stone-100 dark:bg-stone-700 rounded text-xs"
@@ -298,6 +321,131 @@ export default function LessonDetailPage() {
           })}
         </div>
       </div>
+
+      {/* v1.92 W86-A: 跟读评分区 */}
+      {followMode && (() => {
+        const sentences = splitSentences(lesson.body)
+        const currentText = sentences[currentSentence] || ''
+        return (
+          <div className="card bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-300 dark:border-amber-700">
+            <h3 className="font-semibold mb-3 flex items-center gap-2">
+              <span>🎤</span>
+              <span>跟读当前句 ({currentSentence + 1}/{sentences.length})</span>
+            </h3>
+            <div className="bg-white dark:bg-stone-800 rounded-lg p-3 mb-3 text-base font-mono leading-relaxed">
+              {currentText}
+            </div>
+            {/* 录音 + 评分 */}
+            <div className="space-y-2">
+              {!followScore && (
+                <>
+                  <div className="flex items-center gap-2">
+                    {!listening ? (
+                      <button
+                        onClick={() => {
+                          if (!sttSupported) {
+                            toast.warning('浏览器不支持语音识别, 请在下方输入')
+                            return
+                          }
+                          setListening(true)
+                          sttRef.current = new STTController({
+                            onResult: (text, isFinal) => {
+                              setFollowTranscript(text)
+                              if (isFinal) {
+                                setListening(false)
+                              }
+                            },
+                            onError: (err) => {
+                              setListening(false)
+                              toast.error(`录音错误: ${err}`)
+                            },
+                            onEnd: () => setListening(false),
+                          })
+                          sttRef.current.start({ lang: 'en-US' })
+                        }}
+                        className="px-3 py-1.5 bg-rose-500 text-white rounded text-sm font-medium hover:bg-rose-600"
+                      >
+                        🎤 开始录音
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          sttRef.current?.stop()
+                          setListening(false)
+                        }}
+                        className="px-3 py-1.5 bg-stone-500 text-white rounded text-sm font-medium"
+                      >
+                        ⏹ 停止
+                      </button>
+                    )}
+                  </div>
+                  <textarea
+                    value={followTranscript}
+                    onChange={e => setFollowTranscript(e.target.value)}
+                    placeholder="或在此输入跟读内容..."
+                    className="w-full px-3 py-2 border border-stone-300 dark:border-stone-600 rounded bg-white dark:bg-stone-900 text-sm"
+                    rows={2}
+                  />
+                  <button
+                    onClick={() => {
+                      if (!followTranscript.trim()) return
+                      const result = evaluateFollowRead(currentText, followTranscript)
+                      setFollowScore({
+                        score: result.score,
+                        missing: result.missing,
+                        extra: result.extra,
+                        wrong: result.wrong,
+                      })
+                      if (result.score < 100) {
+                        saveDictationError({
+                          wordId: lesson.id,
+                          difficulty: 'medium',
+                          source: 'follow-read',
+                          transcript: followTranscript,
+                          target: currentText,
+                          score: result.score,
+                        }).catch(e => console.error('[FollowRead] save:', e))
+                      }
+                    }}
+                    disabled={!followTranscript.trim()}
+                    className="w-full px-3 py-2 bg-emerald-500 text-white rounded text-sm font-medium hover:bg-emerald-600 disabled:opacity-50"
+                  >
+                    评分
+                  </button>
+                </>
+              )}
+              {followScore && (
+                <div className="bg-white dark:bg-stone-800 rounded-lg p-3 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-stone-500">得分</span>
+                    <span className={`text-2xl font-bold ${
+                      followScore.score === 100 ? 'text-emerald-500' :
+                      followScore.score >= 50 ? 'text-amber-500' : 'text-rose-500'
+                    }`}>
+                      {followScore.score}
+                    </span>
+                  </div>
+                  {followScore.missing.length > 0 && (
+                    <div className="text-xs text-rose-500">漏: {followScore.missing.join(', ')}</div>
+                  )}
+                  {followScore.extra.length > 0 && (
+                    <div className="text-xs text-amber-500">多: {followScore.extra.join(', ')}</div>
+                  )}
+                  <button
+                    onClick={() => {
+                      setFollowScore(null)
+                      setFollowTranscript('')
+                    }}
+                    className="w-full px-3 py-1.5 bg-brand-500 text-white rounded text-sm"
+                  >
+                    再读一次
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      })()}
 
       {/* 词汇表 */}
       <div className="card">

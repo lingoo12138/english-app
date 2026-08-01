@@ -142,8 +142,8 @@ export interface DictationError {
   wordId: string
   /** 听写难度 */
   difficulty: 'easy' | 'medium' | 'hard'
-  /** 来源 (v1.91: 拼写错也入此表) */
-  source?: 'dictation' | 'spelling'
+  /** 来源 (v1.91: 拼写错也入此表, v1.92: 跟读错也入此表) */
+  source?: 'dictation' | 'spelling' | 'follow-read'
   /** 用户口述/拼写 */
   transcript: string
   /** 目标文本 */

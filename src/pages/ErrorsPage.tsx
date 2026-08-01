@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { getAllWritingErrors, deleteWritingError, getAllDictationErrors, type WritingError, type DictationError } from '../lib/db'
 
 /** v1.91 W85: 统一错题 (写作/对话/听写/拼写) */
-type ErrorSource = 'write' | 'chat' | 'chinese' | 'dictation' | 'spelling'
+type ErrorSource = 'write' | 'chat' | 'chinese' | 'dictation' | 'spelling' | 'follow-read'
 type UnifiedError = WritingError & { source: ErrorSource }
 
 // v1.37.0 W35-1: errorStats 集成
@@ -175,6 +175,25 @@ export default function ErrorsPage() {
         <p className="text-stone-500 dark:text-stone-400 text-sm">
           累计 {errors.length} 条记录,共 {stats.totalErrs} 个错误
         </p>
+        {/* v1.92 W86-B: 错题导出 CSV */}
+        <button
+          onClick={async () => {
+            const { allErrorsToCSV, downloadCSV } = await import('../lib/exportErrors')
+            const { getAllWritingErrors, getAllDictationErrors } = await import('../lib/db')
+            const [w, d] = await Promise.all([getAllWritingErrors(), getAllDictationErrors()])
+            if (w.length === 0 && d.length === 0) {
+              toast.warning('暂无错题可导出')
+              return
+            }
+            const csv = allErrorsToCSV(w, d)
+            const date = new Date().toISOString().slice(0, 10)
+            downloadCSV(`errors-${date}.csv`, csv)
+            toast.success(`导出 ${w.length + d.length} 条错题`)
+          }}
+          className="mt-2 px-3 py-1.5 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 rounded text-sm"
+        >
+          📥 导出 CSV
+        </button>
       </div>
 
       {/* v1.1-D1: 全部错词加入复习 */}
