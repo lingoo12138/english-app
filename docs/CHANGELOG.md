@@ -3395,3 +3395,34 @@
 - **0 P0 + 0 P1 业务** 维持
 - 87 release tag / 17 周 / 18 次大 review
 
+
+## [v1.88.0] - 2026-08-01
+
+### v1.88.0 W82 — 3 模块并行 (课文 8 + 同义词 98 + 听写增强)
+
+#### 课文扩展 (W82-A)
+- 12 → **20 篇** (P1+P2+P3, +8 P3 篇)
+- P3 新 8 篇主题: 季节/天气/旅行详情/文化/职业/爱好/历史/自然
+- 跨课复用 **36 词** (happy×14, family×10, life×9, friend×8, read×7)
+- body 词汇 100% 命中 (0 miss)
+- 7 个 P3 测试
+
+#### 同义词补全 (W82-B)
+- 146 → **244 同义词组** (P1 + P3, +98)
+- src/data/synonyms-p3.ts: 244 词, 朗文/牛津/柯林斯源
+- src/lib/wordNetwork.ts: 合并 P1+P3
+- 6 个 synonyms P3 测试
+
+#### 听写增强 (W82-C)
+- **难度细分**: easy 1-3 / medium 4-5 / hard 6-7 字符
+- **复习模式**: toggle UI, 从 dictationErrors 抽 wordId → reviewPool
+- buildItem 加 reviewMode + reviewPool 参数
+- getReviewWords / getDictationErrorWordIds helpers
+- 9 个 dictation P2 测试
+
+#### 累计
+- **871 单元测试** (849 + 22) / 64 文件 全过
+- **2 sub-agent producer 主人接管** (3 次连失, 跟 v1.85/v1.87 一样)
+- **0 P0 + 0 P1 业务** 维持
+- 88 release tag / 17 周 / 18+ 次大 review
+
