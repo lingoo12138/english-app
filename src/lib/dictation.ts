@@ -102,15 +102,42 @@ export function diffWords(target: string, transcript: string): {
   return { missing, extra, wrong }
 }
 
-/** 随机选词 (不重复, from 高频词库) */
-export function pickWord(words: Word[], used: Set<string>, seed: number = Date.now()): Word | null {
+/** 随机选词 (不重复, from 高频词库)
+ * v1.88 W82-C: 加 difficulty 参数, 细分字符数:
+ * - easy: 1-3 字符
+ * - medium: 4-5 字符
+ * - hard: 6-7 字符
+ */
+export function pickWord(
+  words: Word[],
+  used: Set<string>,
+  seed: number = Date.now(),
+  difficulty?: Difficulty,
+): Word | null {
+  const range = difficulty === 'easy' ? [1, 3]
+    : difficulty === 'medium' ? [4, 5]
+    : difficulty === 'hard' ? [6, 7]
+    : [3, 7]
+  const [minLen, maxLen] = range
   const candidates = words
-    .filter(w => !used.has(w.id) && w.word.length >= 3 && w.word.length <= 7)
+    .filter(w =>
+      !used.has(w.id)
+      && w.word.length >= minLen
+      && w.word.length <= maxLen,
+    )
     .sort((a, b) => (b.frequency || 0) - (a.frequency || 0))
   if (candidates.length === 0) return null
-  // 用 seed 取 random
   const idx = seed % candidates.length
   return candidates[idx]
+}
+
+/** v1.88 W82-C: 复习模式 - 从 dictationErrors 抽 wordId 对应 words */
+export function getReviewWords(
+  errorWordIds: string[],
+  words: Word[],
+): Word[] {
+  const idSet = new Set(errorWordIds)
+  return words.filter(w => idSet.has(w.id))
 }
 
 /** 生成短句 (3-5 词) 从 word 库 */
@@ -122,10 +149,22 @@ export function makeShortSentence(words: Word[], anchor: Word): string {
   return `${a} ${adjWord.word} ${anchor.word} for me`
 }
 
-/** 生成 DictationItem */
-export function buildItem(words: Word[], difficulty: Difficulty, used: Set<string>, seed: number = Date.now()): DictationItem | null {
+/** 生成 DictationItem
+ * v1.88 W82-C: 加 reviewMode + reviewPool 参数
+ * - reviewMode=true: 从 reviewPool 选词 (复习模式)
+ * - difficulty 细分字符数 (1-3 / 4-5 / 6-7)
+ */
+export function buildItem(
+  words: Word[],
+  difficulty: Difficulty,
+  used: Set<string>,
+  seed: number = Date.now(),
+  reviewMode: boolean = false,
+  reviewPool?: Word[],
+): DictationItem | null {
   // v1.87 W81-D P1 修: 不再 mutate used, 改由 caller 处理 add. 避免外部 state mutation 副作用
-  const w = pickWord(words, used, seed)
+  const pool = reviewMode && reviewPool && reviewPool.length > 0 ? reviewPool : words
+  const w = pickWord(pool, used, seed, difficulty)
   if (!w) return null
   // 注: caller 负责 used.add(w.id) 后 setUsed(new Set(...))
 
@@ -133,7 +172,7 @@ export function buildItem(words: Word[], difficulty: Difficulty, used: Set<strin
     return { target: w.word, sourceWord: w, difficulty }
   }
   if (difficulty === 'medium') {
-    return { target: makeShortSentence(words, w), sourceWord: w, difficulty }
+    return { target: makeShortSentence(pool, w), sourceWord: w, difficulty }
   }
   // hard: 模板句
   const templates = [

@@ -174,6 +174,13 @@ export async function getDictationErrorsByWord(wordId: string): Promise<Dictatio
   return db.dictationErrors.where('wordId').equals(wordId).toArray()
 }
 
+/** v1.88 W82-C: 复习模式 - 返所有错题 wordId 去重 */
+export async function getDictationErrorWordIds(): Promise<string[]> {
+  const errors = await db.dictationErrors.toArray()
+  const ids = new Set(errors.map(e => e.wordId))
+  return [...ids]
+}
+
 // === 错题解释缓存 (v1.2-D2) ===
 export async function getExplanation(key: string) {
   return db.errorExplanations.get(key)

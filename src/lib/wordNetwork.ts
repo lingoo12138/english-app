@@ -13,6 +13,10 @@
 import { loadWords } from './words'
 import type { Word } from '../types'
 import { SYNONYM_GROUPS } from '../data/synonyms'
+import { SYNONYM_GROUPS_P3 } from '../data/synonyms-p3'
+
+/** v1.88 W82-B: 合并 P1 (146) + P3 (90+) = 236+ 同义词组 */
+const ALL_SYNONYM_GROUPS: Record<string, typeof SYNONYM_GROUPS[string]> = { ...SYNONYM_GROUPS, ...SYNONYM_GROUPS_P3 }
 import { ANTONYM_PAIRS, ANTONYM_REVERSE } from '../data/antonyms'
 
 // ─── 类型 ──────────────────────────────────────────────────
@@ -167,7 +171,7 @@ export async function getRelatedSynonym(word: string): Promise<string[]> {
   const cached = getCached('synonym', word)
   if (cached) return cached
   const target = norm(word)
-  const group = SYNONYM_GROUPS[target]
+  const group = ALL_SYNONYM_GROUPS[target]
   if (!group) {
     setCached('synonym', word, [])
     return []

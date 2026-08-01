@@ -1,14 +1,16 @@
 // src/pages/DictationPage.tsx - v1.87 W81-D 听写 UI
+// v1.88 W82-C: 加复习模式 toggle
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { speak } from '../lib/tts'
 import { isSTTSupported, STTController } from '../lib/stt'
-import { saveDictationError } from '../lib/db'
+import { saveDictationError, getDictationErrorWordIds } from '../lib/db'
 import {
   buildItem,
   scoreAnswer,
   diffWords,
   normalize,
+  getReviewWords,
   type Difficulty,
   type DictationItem,
 } from '../lib/dictation'
@@ -42,6 +44,9 @@ export function DictationPage() {
   const [totalScore, setTotalScore] = useState(0)
   const [round, setRound] = useState(0)
   const [sttSupported, setSttSupported] = useState(false)
+  // v1.88 W82-C: 复习模式
+  const [reviewMode, setReviewMode] = useState(false)
+  const [reviewPool, setReviewPool] = useState<Word[]>([])
   const sttRef = useRef<STTController | null>(null)
   const [status, setStatus] = useState<string>('')
 
@@ -50,21 +55,43 @@ export function DictationPage() {
     loadWords().then(setWords).catch(e => console.error('[Dictation] loadWords:', e))
   }, [])
 
+  // v1.88 W82-C: 切复习模式时加载 reviewPool
+  useEffect(() => {
+    if (!reviewMode) {
+      setReviewPool([])
+      return
+    }
+    getDictationErrorWordIds()
+      .then(ids => {
+        const pool = getReviewWords(ids, words)
+        setReviewPool(pool)
+        if (pool.length === 0) {
+          setStatus('📚 暂无错词, 自动关闭复习模式')
+          setReviewMode(false)
+        } else {
+          setStatus(`📚 复习模式: 还有 ${pool.length} 词要复习`)
+        }
+      })
+      .catch(e => console.error('[Dictation] getDictationErrorWordIds:', e))
+  }, [reviewMode, words])
+
   // 加载后生成第一题
   useEffect(() => {
-    if (words.length > 0 && !item) {
-      const freshUsed = new Set<string>()
-      const it = buildItem(words, difficulty, freshUsed)
-      if (it) {
-        setItem(it)
-        freshUsed.add(it.sourceWord!.id)
-        setUsed(freshUsed)
-        setTimeout(() => playTarget(it.target), 300)
-      }
+    if (words.length === 0) return
+    if (item) return
+    // 复习模式但 pool 还没加载或为空, 跳过
+    if (reviewMode && reviewPool.length === 0) return
+    const freshUsed = new Set<string>()
+    const it = buildItem(words, difficulty, freshUsed, Date.now(), reviewMode, reviewPool)
+    if (it) {
+      setItem(it)
+      freshUsed.add(it.sourceWord!.id)
+      setUsed(freshUsed)
+      setTimeout(() => playTarget(it.target), 300)
     }
-    // v1.87 W81-D P1 修: 依赖稳定, buildItem 内部 mutate used 已重构
+    // v1.87 W81-D P1 修 + v1.88 加 reviewMode, reviewPool
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [words.length, item, difficulty])
+  }, [words.length, item, difficulty, reviewMode, reviewPool.length])
 
   const playTarget = useCallback((text: string) => {
     setStatus('🔊 正在播放...')
@@ -128,7 +155,7 @@ export function DictationPage() {
     setStatus('')
     // v1.87 W81-D P1 修: 用 functional update, 避免直接 mutate state
     let newUsed: Set<string> = new Set(used)
-    const it = buildItem(words, difficulty, newUsed)
+    const it = buildItem(words, difficulty, newUsed, Date.now(), reviewMode, reviewPool)
     if (it) {
       setItem(it)
       newUsed.add(it.sourceWord!.id)
@@ -137,7 +164,7 @@ export function DictationPage() {
     } else {
       // 用完一轮, 重置
       const freshUsed = new Set<string>()
-      const it2 = buildItem(words, difficulty, freshUsed)
+      const it2 = buildItem(words, difficulty, freshUsed, Date.now(), reviewMode, reviewPool)
       if (it2) {
         setItem(it2)
         freshUsed.add(it2.sourceWord!.id)
@@ -145,7 +172,7 @@ export function DictationPage() {
         setTimeout(() => playTarget(it2.target), 200)
       }
     }
-  }, [words, difficulty, used, playTarget])
+  }, [words, difficulty, used, playTarget, reviewMode, reviewPool])
 
   return (
     <div className="max-w-2xl mx-auto p-4 space-y-4">
@@ -175,6 +202,26 @@ export function DictationPage() {
             {DIFF_EMOJI[d]} {DIFF_LABELS[d]}
           </button>
         ))}
+      </div>
+
+      {/* v1.88 W82-C: 复习模式 toggle */}
+      <div className="flex items-center justify-between bg-white dark:bg-stone-800 rounded-lg p-2 border border-stone-200 dark:border-stone-700">
+        <span className="text-sm text-stone-600 dark:text-stone-300">📚 复习模式</span>
+        <button
+          onClick={() => {
+            setReviewMode(!reviewMode)
+            setItem(null)
+            setFeedback(null)
+            setUsed(new Set())
+          }}
+          className={`px-3 py-1 rounded-md text-xs font-medium ${
+            reviewMode
+              ? 'bg-amber-500 text-white'
+              : 'bg-stone-200 dark:bg-stone-700 text-stone-600 dark:text-stone-300'
+          }`}
+        >
+          {reviewMode ? '✓ 开启' : '关闭'}
+        </button>
       </div>
 
       {/* 状态 */}
