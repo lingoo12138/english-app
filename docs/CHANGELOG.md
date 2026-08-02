@@ -3582,3 +3582,46 @@
 - 0 P0 + 0 P1 业务
 - 93 release tag / 17 周 / 22 次大 review
 
+
+## [v1.94.0] - 2026-08-01
+
+### v1.94.0 W88 — 跟读趋势 + 释义收藏列表 + session 持久化 + 短语补全
+
+#### 跟读评分趋势图 (W88-A)
+- src/lib/followReadScore.ts: MAX_SCORES=1000 FIFO, aggregateScores 纯函数
+- src/pages/FollowReadProgressPage.tsx: SVG 折线图 + 统计 + 过滤 + lessonTitle 反查
+- 路由 /follow-read/progress, Layout nav 入口
+- 9 个测试
+
+#### 释义收藏列表页 (W88-B)
+- src/pages/TranslationFavsPage.tsx: 按 word 分组 + 搜索 + 删除
+- 路由 /translation-favs, Layout nav 入口, WordDetail 入口
+- 8 个测试
+
+#### 错题复习 session 持久化 (W88-C, 修 v1 全修)
+- src/lib/errorReviewSession.ts: saveSession/loadSession/clearSession
+- 修 v1: 真存 cardIds 逐 ID 校验 (matchRatio >= 0.5)
+- 修 v1: 错题被删时 toast 提示
+- 修 v1: 时间戳显示 + 返回按钮
+- 6 个测试
+
+#### 短语补全 (W88-D)
+- scripts/w88-phrases.py: 19 词手工补
+- 5.4% → 5.1%
+
+#### 修 v1 (verifier A+B 抗审查 1 P0 + 18 P1)
+- P0-1 CARD_KEYS_KEY 死代码 + 粗粒度校验
+- P1-1 跟读记录无上限 (MAX_SCORES=1000)
+- P1-4 幽灵错题 (cardIds 校验)
+- P1-9 路由无入口 (Layout nav + 详情页)
+- B P1-2 静默清 session (toast)
+- B P1-3 3 列 grid 移动端 (响应式)
+- B P1-4 lessonId 不可读 (title 反查)
+- B P1-5 取消收藏 ☆ 语义反向 (✕)
+- B P1-6 不显示时间戳 (formatTimeAgo)
+
+#### 累计
+- 962 单元测试 (939 + 23) / 71 文件
+- 0 P0 + 0 P1 业务
+- 94 release tag / 17 周 / 23 次大 review
+
