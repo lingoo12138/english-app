@@ -62,3 +62,34 @@ describe('W88-C 错题复习 session 持久化', () => {
     expect(loadSession()).toBe(null)
   })
 })
+
+  // R1: 验证 saveSession 真存 cardIds
+  describe('cardIds 字段 (verifier 验证 v1)', () => {
+    it('saveSession 存 session.remaining.id + history.cardId 去重', () => {
+      const sessionWithIds: ReviewSession = {
+        total: 3,
+        remaining: [
+          { id: 'a', source: 'write', prompt: 'p1', answer: 'a1', ts: 1 },
+          { id: 'b', source: 'write', prompt: 'p2', answer: 'a2', ts: 2 },
+        ],
+        correct: 1, wrong: 0,
+        history: [{ cardId: 'a', score: 100, grade: 'perfect' }],
+      }
+      saveSession(sessionWithIds)
+      const raw = localStorage.getItem('errorReviewSession')!
+      const data = JSON.parse(raw)
+      expect(data.cardIds).toEqual(['a', 'b'])  // 重复 a 去重
+    })
+
+    it('loadSession 返 cardIds', () => {
+      const session: ReviewSession = {
+        total: 1,
+        remaining: [{ id: 'x', source: 'write', prompt: 'p', answer: 'a', ts: 1 }],
+        correct: 0, wrong: 0, history: [],
+      }
+      saveSession(session)
+      const loaded = loadSession()
+      expect(loaded).not.toBe(null)
+      expect(loaded!.cardIds).toEqual(['x'])
+    })
+  })

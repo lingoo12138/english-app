@@ -95,3 +95,27 @@ describe('W88-A 跟读评分趋势', () => {
     })
   })
 })
+
+  // R2: 验证 MAX_SCORES=1000 FIFO 边界
+  describe('MAX_SCORES=1000 FIFO (verifier 验证 v1)', () => {
+    beforeEach(() => {
+      localStorage.clear()
+    })
+    it('1500 条入, 读出 = 1000 (末 1000 条)', () => {
+      for (let i = 0; i < 1500; i++) {
+        saveFollowReadScore({ lessonId: 'L1', sentenceIndex: i, score: 50, ts: i })
+      }
+      const all = getFollowReadScores()
+      expect(all.length).toBe(1000)
+      // 末 1000 条: ts 500-1499
+      expect(all[0].ts).toBe(1499)  // desc 排, 最新在 0
+      expect(all[999].ts).toBe(500)
+    })
+
+    it('未超上限 1000 不截断', () => {
+      for (let i = 0; i < 100; i++) {
+        saveFollowReadScore({ lessonId: 'L1', sentenceIndex: i, score: 50, ts: i })
+      }
+      expect(getFollowReadScores().length).toBe(100)
+    })
+  })
