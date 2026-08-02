@@ -176,24 +176,32 @@ export default function ErrorsPage() {
           累计 {errors.length} 条记录,共 {stats.totalErrs} 个错误
         </p>
         {/* v1.92 W86-B: 错题导出 CSV */}
-        <button
-          onClick={async () => {
-            const { allErrorsToCSV, downloadCSV } = await import('../lib/exportErrors')
-            const { getAllWritingErrors, getAllDictationErrors } = await import('../lib/db')
-            const [w, d] = await Promise.all([getAllWritingErrors(), getAllDictationErrors()])
-            if (w.length === 0 && d.length === 0) {
-              toast.warning('暂无错题可导出')
-              return
-            }
-            const csv = allErrorsToCSV(w, d)
-            const date = new Date().toISOString().slice(0, 10)
-            downloadCSV(`errors-${date}.csv`, csv)
-            toast.success(`导出 ${w.length + d.length} 条错题`)
-          }}
-          className="mt-2 px-3 py-1.5 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 rounded text-sm"
-        >
-          📥 导出 CSV
-        </button>
+        <div className="mt-2 flex flex-wrap gap-2">
+          <Link
+            to="/errors/review"
+            className="px-3 py-1.5 bg-brand-500 text-white rounded text-sm hover:bg-brand-600"
+          >
+            🔁 复习模式
+          </Link>
+          <button
+            onClick={async () => {
+              const { allErrorsToCSV, downloadCSV } = await import('../lib/exportErrors')
+              const { getAllWritingErrors, getAllDictationErrors } = await import('../lib/db')
+              const [w, d] = await Promise.all([getAllWritingErrors(), getAllDictationErrors()])
+              if (w.length === 0 && d.length === 0) {
+                toast.warning('暂无错题可导出')
+                return
+              }
+              const csv = allErrorsToCSV(w, d)
+              const date = new Date().toISOString().slice(0, 10)
+              downloadCSV(`errors-${date}.csv`, csv)
+              toast.success(`导出 ${w.length + d.length} 条错题`)
+            }}
+            className="px-3 py-1.5 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 rounded text-sm"
+          >
+            📥 导出 CSV
+          </button>
+        </div>
       </div>
 
       {/* v1.1-D1: 全部错词加入复习 */}
