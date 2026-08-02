@@ -91641,7 +91641,10 @@
       "在…的时候，在…的期间",
       "(During)人名；(法)迪兰；(瑞典、利比)杜林"
     ],
-    "phrases": [],
+    "phrases": [
+      "during the day",
+      "during which time"
+    ],
     "examples": [
       {
         "en": "During the summer she worked as a lifeguard.",
@@ -92954,7 +92957,10 @@
       "容易地；舒适的",
       "容易地；无疑地"
     ],
-    "phrases": [],
+    "phrases": [
+      "easily accessible",
+      "more easily than"
+    ],
     "examples": [
       {
         "en": "They won quite easily.",
@@ -108536,7 +108542,11 @@
       "相当地；公平地；简直",
       "(Fairly)人名；(英)费尔利"
     ],
-    "phrases": [],
+    "phrases": [
+      "fairly good",
+      "fairly often",
+      "fairly easy"
+    ],
     "examples": [
       {
         "en": "The house had a fairly large garden.",
@@ -129065,7 +129075,10 @@
       "逐渐地，逐步地",
       "逐步地；渐渐地"
     ],
-    "phrases": [],
+    "phrases": [
+      "gradually disappear",
+      "gradually become"
+    ],
     "examples": [
       {
         "en": "Jill gradually became aware of an awful smell.",
@@ -129723,7 +129736,10 @@
     "translations": [
       "奶奶；外婆"
     ],
-    "phrases": [],
+    "phrases": [
+      "grandma and grandpa",
+      "dear grandma"
+    ],
     "examples": [
       {
         "en": "Grandma was from Scotland.",
@@ -148000,7 +148016,10 @@
       "的确；实在；真正地；甚至",
       "真的（表示惊讶、怀疑、讽刺等）"
     ],
-    "phrases": [],
+    "phrases": [
+      "yes indeed",
+      "thank you indeed"
+    ],
     "examples": [
       {
         "en": "The blood tests prove that Vince is indeed the father.",
@@ -179546,7 +179565,11 @@
       "仅仅，只不过",
       "仅仅，只不过；只是"
     ],
-    "phrases": [],
+    "phrases": [
+      "merely a",
+      "not merely",
+      "merely because"
+    ],
     "examples": [
       {
         "en": "He's merely a boy – you can't expect him to understand.",
@@ -188709,7 +188732,11 @@
     "translations": [
       "即，也就是"
     ],
-    "phrases": [],
+    "phrases": [
+      "namely the",
+      "namely because",
+      "namely this"
+    ],
     "examples": [
       {
         "en": "Three students were mentioned, namely John, Sarah and Sylvia.",
@@ -232426,7 +232453,11 @@
     "translations": [
       "真正地；实在"
     ],
-    "phrases": [],
+    "phrases": [
+      "really good",
+      "really want",
+      "do you really"
+    ],
     "examples": [
       {
         "en": "His apartment is in a really good location.",
@@ -233013,7 +233044,11 @@
       "收到；得到；接待",
       "收到；接待；接纳"
     ],
-    "phrases": [],
+    "phrases": [
+      "receive a",
+      "receive from",
+      "receive an email"
+    ],
     "examples": [
       {
         "en": "All the children will receive a small gift.",
@@ -249302,6 +249337,11 @@
         "meaning": "make, cause to be, become",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "satisfy with",
+      "satisfy needs",
+      "satisfy requirements"
     ]
   },
   {
@@ -254944,7 +254984,11 @@
     "translations": [
       "为…服务；招待"
     ],
-    "phrases": [],
+    "phrases": [
+      "serve as",
+      "serve the",
+      "serve dinner"
+    ],
     "examples": [
       {
         "en": "There was only one girl serving customers .",
@@ -260539,7 +260583,11 @@
     "translations": [
       "银；银子；银器"
     ],
-    "phrases": [],
+    "phrases": [
+      "silver and gold",
+      "silver medal",
+      "silver bullet"
+    ],
     "examples": [
       {
         "en": "She had a purple dress on with a silver-white necklace.",
@@ -263037,7 +263085,11 @@
       "奴隶；从动装置",
       "苦干；拼命工作"
     ],
-    "phrases": [],
+    "phrases": [
+      "slave to",
+      "slave trade",
+      "former slave"
+    ],
     "examples": [
       {
         "en": "a slave to fashion",
@@ -266968,7 +267020,11 @@
     "translations": [
       "有人，某人"
     ],
-    "phrases": [],
+    "phrases": [
+      "someone and",
+      "someone else",
+      "someone to"
+    ],
     "examples": [
       {
         "en": "What would you do if someone tried to rob you in the street?",
@@ -267123,7 +267179,11 @@
     "translations": [
       "有时，间或"
     ],
-    "phrases": [],
+    "phrases": [
+      "sometimes and",
+      "sometimes the",
+      "sometimes wonder"
+    ],
     "examples": [
       {
         "en": "I sometimes have to work late.",
@@ -298266,6 +298326,11 @@
         "meaning": "动词",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "travel and",
+      "travel around",
+      "travel abroad"
     ]
   },
   {
@@ -305108,7 +305173,11 @@
       "在…以前；直到…时",
       "在…以前；到…为止"
     ],
-    "phrases": [],
+    "phrases": [
+      "until and",
+      "until the",
+      "until you"
+    ],
     "examples": [
       {
         "en": "The ticket is valid until March.",
@@ -316671,7 +316740,11 @@
     "translations": [
       "谁的（疑问代词）"
     ],
-    "phrases": [],
+    "phrases": [
+      "whose and",
+      "whose car",
+      "whose idea"
+    ],
     "examples": [
       {
         "en": "The word “dentist”denotes a doctor whose work is the care of teeth.",
