@@ -3524,3 +3524,36 @@
 - 0 P0 + 0 P1 业务
 - 92 release tag / 17 周 / 21 次大 review
 
+
+## [v1.93.0] - 2026-08-01
+
+### v1.93.0 W87-A — 错题复习模式 (Flashcard, 修 v1)
+
+#### 错题复习
+- src/lib/errorReview.ts: 队列模型 (答对 shift, 答错 push 末尾, 偷看 0)
+- scoreAnswer 字符 60% + 词 40% (multiset 去空格, 跟 dictation 对齐)
+- 10 个新测试 (修 v1)
+
+#### 修 v1 (verifier A+B 抗审查 4 P0 + 12 P1)
+- P0-1 答对移出: remaining.shift
+- P0-2 答错留: shift + push 末尾
+- P0-3 偷看 0 分: peeked=true → 0 + push 末尾
+- P0-4 完成 summary: useEffect 触发 toast
+- P1-1 字符权重 0.6/0.4 (跟 dictation 一致)
+- P1-2 字符 multiset (替代 Set)
+- P1-3 字符去空格
+- P1-4 写错多错 hint 全显
+- P1-5 答完 autoFocus 下一题 (useEffect)
+- P1-6 答题历史展开 (details)
+- P1-7 toReviewCards ts desc 排序
+- P1-8 'ok' 算 partial
+- P1-9 4 入口空态 (写作/听写/拼写/跟读)
+- P1-10 加载错误态 (不弹'暂无错题')
+- P1-11 混合对错 session 测试 (5 题 2 对 3 错)
+- P1-12 字符 multiset 边界 (mississippi)
+
+#### 累计
+- 939 单元测试 (917 + 22) / 68 文件
+- 0 P0 + 0 P1 业务
+- 93 release tag / 17 周 / 22 次大 review
+
