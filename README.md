@@ -1,48 +1,38 @@
-# 句刻 · 即时英语学习 v1.23.0
+# 句刻 · 即时英语学习 v1.93.0
 
 > 让你在"想用英语的瞬间就能用上"——把英语嵌进真实生活场景里。
 >
 > **极简本地版** —— 无后端、无云服务、无账号,所有数据存在你本地的浏览器里。
 
 [🌐 在线预览](https://lingoo12138.github.io/english-app/) ·
-[📖 开发日志](./docs/DEV_LOG.md) ·
-[🗺️ 路线图](./docs/ROADMAP.md) ·
 [📝 更新日志](./docs/CHANGELOG.md) ·
+[🗺️ 路线图](./docs/ROADMAP.md) ·
 [✨ 核心特性](./docs/FEATURES.md) ·
 [🏗️ 技术架构](./docs/ARCHITECTURE.md) ·
-[💬 AI 对话进阶需求](./docs/AI_CHAT_ROADMAP.md) ·
-[🔍 v1.6 Review Report](./docs/REVIEW_v1.6.md) ·
-[🔍 v1.22.0 Review Report](./docs/REVIEW_v1.22.0.md)
+[💬 AI 对话进阶需求](./docs/AI_CHAT_ROADMAP.md)
 
 ---
 
-## 🎯 当前进度 (v1.23.0)
+## 🎯 当前进度 (v1.93.0)
 
-✅ **24 个版本量产** (v1.1.0 ~ v1.23.0, 3 producer 并行 1d 干完 3-6d 计划 × 17 轮)
+✅ **93 release tag** (v0.1.0 ~ v1.93.0) / 17 周 / **22 次大 review** (含 2 verifier 抗审查)
+
+### 最近 10 版本速览
 
 | 版本 | 重点 | 状态 |
 |------|------|------|
-| v1.6.0 | 🐛 4 核心功能深 review + **修 13 个 P0/P1** | ✅ |
-| v1.7.0 | 🎧 B 听力自适应 + LLM Tutor 2.0 | ✅ |
-| v1.8.0 | 🚀 首启 onboarding + 难度自适应 + 3 小优化 | ✅ |
-| v1.9.0 | 💬 自由话题 + 难度自适应增强 | ✅ |
-| v1.10.0 | 🌐 中译英 + 同义词 + 例句跟读 | ✅ |
-| v1.11.0 | 📅 FSRS + 复习智能队列 + 日报/周报 | ✅ |
-| v1.12.0 | 🛠️ 错误恢复 + 拍照场景 + LLM 日限 | ✅ |
-| v1.13.0 | 🎭 多角色对话 (5 角色) | ✅ |
-| v1.14.0 | 📝 自定义场景课 (粘贴文本) | ✅ |
-| v1.15.0 | 📚 自定义场景学习流 (卡片) | ✅ |
-| v1.16.0 | 🔗 多场景关联 (入复习队列) | ✅ |
-| v1.17.0 | 🎭 多角色扩展 (5→8 角色) | ✅ |
-| v1.18.0 | 📁 文件上传 (.txt / .md) | ✅ |
-| v1.19.0 | 📅 学习日历 (月历热力图) | ✅ |
-| v1.20.0 | 📚 生词本批量操作 (入复习/导出/全选) | ✅ |
-| v1.21.0 | 🏷️ 生词本标签 (7 类启发式) | ✅ |
-| v1.22.0 | 🔍 复习按 tag 过滤 | ✅ |
-| v1.22.0 review | 🛠️ 大 review 修 18 处 catch (e: any) | ✅ |
-| v1.23.0 | 📄 **PDF 上传** (懒加载 pdfjs) | ✅ |
+| v1.84.0 | 🔧 大 review 修 11 P1 (触类旁通/课文/填空 4 算法) | ✅ |
+| v1.85.0 | 🎧 听写 + 🃏 单词卡 + 8 闭环 (60/60 PASS) | ✅ |
+| v1.86.0 | 🐛 修 v1.85 11 P1 + 触类旁通/课文/填空 | ✅ |
+| v1.87.0 | 📚 内容 99.37% + 📖 课文 12 + 🎧 听写 22 测试 | ✅ |
+| v1.88.0 | 📖 课文 20 篇 + 📝 同义词 244 + 🎧 听写增强 | ✅ |
+| v1.89.0 | 🌱 词根 100% (1-9 字符) + 听写 UI + 跟读 | ✅ |
+| v1.90.0 | 🃏 单词卡 (Spelling Card) + 字符级 diff | ✅ |
+| v1.91.0 | ⭐ 释义收藏 + 错题合并 (5 tab) | ✅ |
+| v1.92.0 | 🎤 跟读评分 + 📥 错题导出 CSV | ✅ |
+| **v1.93.0** | 🔁 **错题复习模式 (Flashcard, verifier 抗审查)** | ✅ |
 
-详细变更请看 [CHANGELOG.md](./docs/CHANGELOG.md) · 各版本详情见 `docs/RELEASE_v*.md`
+详细变更请看 [CHANGELOG.md](./docs/CHANGELOG.md) · 各版本详情见 `docs/RELEASE_v*.md` · `docs/SUMMARY_v*.md`
 
 ---
 
@@ -50,12 +40,12 @@
 
 句刻把英语嵌进真实生活场景里:
 
-- 🍽️ **场景对话** — 5 个真实场景 (咖啡店/机场/购物/酒店/会议) + 6 个难度 (A1-C2) + **8 个角色** (面试官/咖啡师/前台/导游/服务员/医生/银行柜员/警察)
-- 📝 **自定义场景** — 粘贴文本 / 上传 .txt / .md / **PDF** → AI 提取生词 → 卡片流 → 入复习队列
-- 📷 **拍照识物** — 7 场景 prompt 池 (general/office/food/animal/plant/furniture/tool)
-- ⭐ **生词本 + 标签** — 7 类启发式 + 自定义 tag + 复习按 tag 过滤 + 一键入复习/导出 CSV
-- 📊 **学习日历 + 报告** — 月历热力图 + 日报/周报 + 错题分析
-- 🤖 **10 个 AI 渠道** (LLM/TTS/翻译) + 自定义端点
+- 📚 **5,423 高频词 / 100% 词根** (1-9 字符子集) / 5,129 词含短语 (94.6%)
+- 🗣️ **20 篇课文** (P1 5 + P2 7 + P3 8) + 244 同义词组
+- 🎧 **听写 + 🃏 拼写 + 🎤 跟读评分 + 🔁 错题复习 + ⭐ 释义收藏** 6 大激活功能
+- 🍽️ **场景对话** (5 场景 / 6 难度 / 8 角色) + 📝 自定义场景 + 📷 拍照识物
+- ⭐ **生词本 + 标签** (7 类启发式) + 🔁 复习按 tag 过滤 + 📥 错题导出 CSV
+- 📊 **学习日历 + 报告** (月历热力图 + 日报/周报) + 🤖 **10 LLM + 8 TTS + 8 翻译**
 
 **完整功能列表** → [FEATURES.md](./docs/FEATURES.md)
 
@@ -66,9 +56,10 @@
 ```
 Vite 5 + React 18 + TypeScript 5 + Tailwind 3 + Zustand 4 + Dexie 3
 ├─ PWA 离线 (vite-plugin-pwa, 30 天 CacheFirst)
-├─ 数据: IndexedDB 本地 (零云)
-├─ 测试: Vitest 4 (526 单元测试 + 16 闭环)
-└─ 静态审查: verify-v*.mjs + review-v*.py (0 P0/P1 维持)
+├─ 主题: CSS 变量驱动, 8 主题 0 延迟切换
+├─ 数据: IndexedDB 本地 (零云) — IDB v8 (translationFavs 表)
+├─ 测试: Vitest 4 (939 单元测试 / 68 文件 / +10 W87)
+└─ 静态审查: verify-v*.mjs + review-v*.py + **2 verifier 抗审查 (W87+)**
 ```
 
 **完整架构** → [ARCHITECTURE.md](./docs/ARCHITECTURE.md)
@@ -79,31 +70,60 @@ Vite 5 + React 18 + TypeScript 5 + Tailwind 3 + Zustand 4 + Dexie 3
 
 ```bash
 npm install
-npm run dev      # 开发模式
+npm run dev      # 开发模式 (http://localhost:5173)
 npm run build    # 生产构建 → dist/
 npm run preview  # 预览 dist
+npm test         # 跑全套测试 (vitest)
 ```
 
-### 添加新词
-编辑 `scripts/expand-examples.mjs`,运行后 `public/data/words.json` 自动更新。
-
 ### 部署到 GitHub Pages
-1. push 到 main
-2. GitHub Actions 自动 build + deploy (workflow `.github/workflows/main.yml`)
+
+```bash
+git push origin main                    # 推代码
+npm run build                            # 打包
+git worktree add /tmp/gh-pages gh-pages  # 切换 gh-pages 分支
+cp -r dist/. /tmp/gh-pages/
+git push origin gh-pages --force         # 强制推 gh-pages
+```
 
 ---
 
-## 📊 累计数据 (截至 v1.59.0)
+## 📊 累计数据 (截至 v1.93.0)
 
-- **25 页面 + 32 组件 + 44 库 + 13000+ 行代码**
-- **5334 词 + 465 词根 (全量 80.4% / Top 2k 86.3%) + 13234 例句 + 5 场景 + 5 听力 + 100 每日一句**
-- **10 LLM (含 OpenRouter free) + 8 TTS (4 口音) + 8 翻译 + 3 自定义端点**
-- **17 角色模式 (11 单 + 3 多人) + 20 成就 + 8 主题 + 4 字号 + 2 语言 + 7 学段 + 3 步 onboarding + 10 XP 等级**
-- **702 单元测试 + 16 闭环 (37 测试点) + 0 P0/P1**
-- **130+ bug 修复** (含 v1.6 review 13 + v1.22 18 处 catch any + v1.36 3 处 + v1.40.1 2 处 + v1.45-1.58 verifier 找 12 处)
-- **400+ commit / 93 release tag (v1.0.0 ~ v1.93.0)**
-- **148 DICT i18n key (zh + en) / 全 25 页面覆盖**
+- **93 release tag** (v0.1.0 ~ v1.93.0) / 17 周 / **22 次大 review** (含 2 verifier 抗审查)
+- **939 单元测试 / 68 文件** (v1.85 805 → v1.86 815 → v1.87 871 → v1.88 872 → v1.89 872 → v1.90 886 → v1.91 894 → v1.92 917 → v1.93 939)
+- **5,423 词 / 100% 词根** (1-9 字符) / 5,129 词含短语 (94.6%)
+- **20 篇课文** (跨课复用 36 词) / **244 同义词组** (P1 146 + P3 98)
+- **6 大激活功能**: 触类旁通 / 听写 / 拼写 / 跟读评分 / 释义收藏 / 错题复习
+- **27 页面 + 32 组件 + 50 库 + 450+ commit**
+- **17 角色模式** (11 单 + 3 多人 + 3 复盘) / **10 LLM** / **8 TTS** / **8 翻译** / **8 主题** / **4 字号**
+- **10 XP 等级 + 7 streak 里程碑**
+- **130+ bug 修复** (含 verifier 抗审查 4 P0 + 12 P1 在 v1.93 已修)
+- **0 P0 + 0 P1 业务** 维持 (200+ 轮)
 - **零付费依赖** (完全本地 + 公共 API + 免费层 LLM)
+
+---
+
+## 🔁 最近 3 大关键功能 (W85-W87)
+
+### 1. 错题复习模式 (v1.93.0 W87-A) 🔁
+
+错题变 Flashcard, 队列模型:
+- 答对: 移出复习池
+- 答错: 推回末尾, 下次再出 (Anki 风格)
+- 偷看: 0 分 + 标 peeked (审计友好)
+- 字符 60% + 词 40% 综合评分 (multiset, 跟听写算法对齐)
+
+路由: `/errors/review` · 数据: `getAllWritingErrors` + `getAllDictationErrors` 合并
+
+### 2. 释义收藏 + 错题合并 (v1.91.0 W85) ⭐
+
+- **释义收藏**: IDB v8 `translationFavs` 表 ([wordId+index] 复合 key), 每条释义独立收藏
+- **错题合并**: DictationError 加 `source` 字段 ('dictation' | 'spelling' | 'follow-read'), ErrorsPage 5 tab filter
+
+### 3. 跟读评分 (v1.92.0 W86-A) 🎤
+
+W83 跟读模式 (TTS 逐句朗读) + STT 录音 + 字符/词级评分. 错入 dictationErrors (source='follow-read').
 
 ---
 

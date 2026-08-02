@@ -1,6 +1,6 @@
 # 🏗️ 技术架构
 
-> v1.23.0 快照 · 详情见 [CHANGELOG.md](./CHANGELOG.md)
+> v1.93.0 快照 · 详情见 [CHANGELOG.md](./CHANGELOG.md)
 
 ## 技术栈
 
@@ -8,143 +8,119 @@
 Vite 5 + React 18 + TypeScript 5 + Tailwind 3 + Zustand 4 + Dexie 3
 ├─ PWA 离线 (vite-plugin-pwa, 30 天 CacheFirst)
 ├─ 主题: CSS 变量驱动, 8 主题 0 延迟切换
-├─ 数据: IndexedDB 本地存储 (零云)
-└─ 多 LLM/TTS/翻译渠道: 统一抽象 + 独立 verifier 保障质量
+├─ 数据: IndexedDB v8 本地存储 (11 张表, 零云)
+├─ AI 抽象层: 10 LLM / 8 TTS / 8 翻译 (统一接口 + 自动降级)
+├─ 学习算法: FSRS 间隔重复 + 字符相似度 (multiset) + LCS diff
+└─ 跟读 STT: Web Speech API (浏览器原生) + 评分算法
+```
+
+### IDB v8 表结构 (11 张)
+
+```typescript
+words           // 5,423 词主表
+favorites       // 生词本
+translationFavs // 释义收藏 (W85 新, [wordId+index] 复合 key)
+writingErrors   // 写作错题 (write/chat/chinese)
+dictationErrors // 听写/拼写/跟读错题 (v1.92 source: 'dictation'|'spelling'|'follow-read')
+reviewQueue     // 复习队列 (FSRS)
+vocabCache      // 词汇缓存
+settings        // 用户设置
+streak          // 连续学习
+xp              // 经验值
+notes           // 笔记
 ```
 
 ### 测试栈
-- **Vitest 4** 单元测试 (54 文件 / 702 测试)
-- **自定义 verify-v*.mjs** 静态检查 (16 闭环)
-- **自定义 review-v*.py** P0/P1/P2 审查 (14 版本)
-- **大 review 机制**: 类似 v1.6 13 bug 修复 / v1.22 18 处 catch (e: any) → unknown
 
-## 数据模型 (IndexedDB v6)
-
-```ts
-db.version(6).stores({
-  favorites:        'wordId,addedAt',                        // 生词本
-  records:          '++id,wordId,ts',                        // 学习记录
-  reviews:          'wordId,easeFactor,nextReview',          // 复习队列 (FSRS)
-  pronunciationAttempts: '++id,wordId,ts',                   // 跟读评测
-  chats:            '++id,ts',                              // AI 对话
-  writingErrors:    '++id,wordId,ts',                        // 写作错题
-  errorExplanations:'wordId',                                // 错题解释缓存
-  customScenes:     'id,createdAt',                          // 自定义场景 (v1.14)
-  wordTags:         '[wordId+tag],wordId,tag',               // 生词标签 (v1.21)
-})
-```
-
-## 模块清单 (v1.23.0)
-
-**42 库** (`src/lib/`):
-
-| 分类 | 模块 | 版本 |
-|-----|------|------|
-| 基础 | `db.ts` `store/useStore.ts` `themes.ts` `utils.ts` `words.ts` `migrate.ts` | v1.0 |
-| 内容 | `daily.ts` `plan.ts` `achievements.ts` `streak.ts` | v1.0-1.3 |
-| 学习 | `errorReview.ts` `reviewQueue.ts` `fsrs.ts` `learningReport.ts` `learnReport.ts` `recorder.ts` | v1.0-1.11 |
-| 标签 | `wordTags.ts` `taggedReviews.ts` `notebookBulk.ts` | v1.20-1.22 |
-| i18n | `i18n.ts` `useTranslate.ts` | v1.41 (W41) / v1.49-1.55 全 25 页面覆盖 |
-| difficultyAdapter | `difficultyAdapter.ts` | v1.43 (W43) |
-| xpSystem | `xpSystem.ts` | v1.43 (W43) |
-| 场景 | `customScenes.ts` `sceneReview.ts` `fileUpload.ts` `pdfUpload.ts` `learningCalendar.ts` | v1.14-1.23 |
-| AI | `aiChat.ts` `llmTutor.ts` `llmFallback.ts` `llmUsage.ts` `imageRecog.ts` `chatRoles.ts` `stt.ts` | v1.0-1.13 |
-| 渠道 | `providers/llm.ts` `tts.ts` `translate.ts` `synonyms.ts` | v1.0-1.10 |
-| 工具 | `export.ts` `exportChat.ts` `reminder.ts` `listeningRecommend.ts` | v0-1.7 |
-
-**26 页面** (`src/pages/`): Home/WordList/WordDetail/AIChat/ListenPage/WritePage/Translate/Notebook/WeakWords/ReviewCenter/ErrorsPage/CardReview/PronounceCustom/Scenes/SceneDetail/Camera/PlanPage/LearnReport/ReportsPage/Settings/Achievements/CustomScenes/CustomSceneDetail/CustomSceneLearn/CalendarPage/DailyPage
-
-**32 组件** (`src/components/`): Layout/Modal/Toast/ShareCard/ShareModal/Onboarding/ErrorBoundary/Skeleton/InstallPrompt/ErrorExplainButton/UsageButton/GrammarButton/SynonymsButton/RoleSelector/TTSButton/WordCard/StudyCalendar/PronunciationPractice + home/(3) + settings/(9) + ReviewCenter/(1)
+- **Vitest 4** 单元测试 (**68 文件 / 939 测试**)
+- **自定义 verify-v*.mjs** 静态检查 (60 闭环, 8 个已修)
+- **自定义 review-v*.py** P0/P1/P2 审查 (14 版本历史)
+- **大 review 机制** (类似 v1.6 13 bug / v1.22 18 处 catch any / v1.36 3 处 / v1.40.1 2 处 / v1.45-1.58 verifier 找 12 处)
+- **verifier 抗审查 (W87+)** — 2-3 独立 verifier sub-agent 并行, 找对抗性 bug (W87 找 4 P0 + 12 P1)
+- **0 P0 + 0 P1 业务** 维持 (200+ 轮)
 
 ## 目录结构
 
 ```
-english-app/
-├─ src/
-│  ├─ lib/                       # 38 业务库
-│  ├─ pages/                     # 26 路由页面
-│  ├─ components/                # 32 组件 (含 home/settings/ReviewCenter 子目录)
-│  ├─ store/                     # Zustand 全局状态
-│  ├─ types/                     # TS 类型
-│  ├─ data/                      # 静态数据
-│  ├─ App.tsx                    # 25 路由 (React.lazy 按需加载)
-│  └─ main.tsx
-├─ tests/                        # 29 测试文件 / 526 单元测试
-├─ scripts/                      # verify-v*.mjs (16) + review-v*.py (14)
-├─ docs/                         # DEV_LOG / ROADMAP / CHANGELOG / FEATURES / ARCHITECTURE / AI_CHAT_ROADMAP / REVIEW / RELEASE
-├─ public/data/                  # words.json 80.4% 词根 / daily.json 100 句
-├─ .mavis/plans/                 # Mavis 任务 plan
-└─ vite.config.ts + vitest.config.ts
+src/
+├── lib/                  # 50 库 (核心算法 + 抽象层)
+│   ├── wordNetwork.ts    # 同义词/反义词/词根网络 (W71-W82)
+│   ├── textbook.ts       # 课文核心 (W78-W82)
+│   ├── dictation.ts      # 听写核心 (W81-W83)
+│   ├── spelling.ts       # 拼写 LCS (W84)
+│   ├── followRead.ts     # 跟读评分 (W86)
+│   ├── errorReview.ts    # 错题复习 (W87, 队列模型)
+│   ├── exportErrors.ts   # 错题导出 CSV (W86)
+│   ├── db.ts             # IDB v8 schema
+│   ├── tts.ts / stt.ts   # TTS/STT 抽象
+│   ├── llm.ts            # LLM 抽象 (10 渠道)
+│   ├── md.ts             # Markdown 解析
+│   └── ...
+├── pages/                # 27 页面
+│   ├── WordList.tsx / WordDetail.tsx  # 单词
+│   ├── TextbookPage.tsx / LessonDetailPage.tsx  # 课文 (跟读评分集成)
+│   ├── DictationPage.tsx / SpellingPage.tsx  # 听写/拼写
+│   ├── ErrorReviewPage.tsx  # 错题复习 (W87 新)
+│   ├── ErrorsPage.tsx       # 改错本 (5 tab filter)
+│   ├── WritePage.tsx / AIChat.tsx  # 写作/AI
+│   └── ...
+├── components/           # 32 组件
+│   ├── TTSButton.tsx / PronunciationPractice.tsx
+│   ├── Toast.tsx / ...
+│   └── ...
+├── data/                 # 数据文件
+│   ├── synonyms.ts (146) / synonyms-p3.ts (98)  # W71+W82 合并 244
+│   ├── textbook.ts / textbook-p2.ts / textbook-p3.ts  # 20 篇
+│   └── ...
+├── store/                # Zustand store
+└── types/                # TypeScript 类型
+
+tests/                    # 68 文件, 939 测试
+docs/                     # 文档
+scripts/                  # 17+ 脚本 (内容补全 / 大 review)
+public/data/words.json    # 5,423 词主数据
 ```
 
-## 关键设计决策
+## 关键算法
 
-### 1. 零后端 / 零云 / 零账号
-- 所有数据 IndexedDB 本地
-- LLM 走浏览器直连 (OpenRouter free 默认, 零成本)
-- PWA 离线 30 天
+### 听写 / 拼写 / 跟读评分 (统一)
 
-### 2. OpenAI 协议统一
-- LLM 全部走 `chat/completions` 风格
-- 自定义端点填 baseUrl 接 vLLM/ollama/LM Studio
-- 1 个 verifier 测试所有渠道
+```
+scoreAnswer(answer, user):
+  charScore (multiset 去空格)  = matched_chars / total_chars × 100
+  wordScore (按词匹配)        = matched_words / total_words × 100
+  final                     = charScore × 0.6 + wordScore × 0.4
 
-### 3. 错误恢复
-- `llmFallback.ts` 6 类错误分类 (network/rate_limit/auth/invalid/timeout/unknown)
-- 自动重试 + 友好提示
+grade: 95+ perfect / 70-94 good / 40-69 ok / 1-39 bad / 0 wrong
+```
 
-### 4. LLM 日限
-- write 20 / chat 50 / explain 30
-- Settings 卡片显示用量
+### 错题复习 (W87 队列模型)
 
-### 5. 间隔重复 FSRS 简化版
-- 自实现 (WONTFIX 引入 fsrs npm, 怕依赖)
-- 4 档评级: Again / Hard / Good / Easy
+```
+answerInSession(session, userAnswer, peeked):
+  card = session.remaining[0]
+  session.remaining.shift()  // 弹出当前
+  if (!correct || peeked):
+    session.remaining.push(card)  // 错题留, 下次再出
+  correct = (grade in [perfect, good])
+```
 
-### 6. PDF 懒加载
-- `pdfjs-dist@^6.1.200` (open source, 0 成本)
-- 动态 import, 不增初始 bundle (~470KB 懒)
-- `disableFontFace: true` 提速 3-5x
+### FSRS 间隔重复
 
-### 7. 静态审查 + 大 review
-- 每次新版本: `verify-v*.mjs` (静态) + `review-v*.py` (P0/P1/P2)
-- 每 N 版本累积: 大 review 修 5 维度遗留 (v1.6 修 13 bug / v1.22 修 18 处 catch any)
+```
+next_review = now + stability × difficulty_factor
+difficulty_factor = 0.8 if hard / 1.0 if ok / 1.3 if easy
+```
 
-### 8. 单 producer 1d 干完 1-4d 计划
-- 17 轮 (v1.7-v1.23) 稳定
-- subagent 失败降级: 静态审查 + 单元测试 + 主人接管
+## 部署架构
 
-## 数据规模
+```
+main 分支        ← 代码 (450+ commit)
+gh-pages 分支   ← dist/ 静态文件 (69 entries, ~2.4MB)
 
-- **5334 高频词** + **465 词根** (80.4% 词根覆盖, Top 2k 86.3%)
-- **13234 真实例句** + 5 场景 + 5 听力 + 100 每日一句
-- **10 LLM** + **8 TTS** (含 4 口音) + **8 翻译** + **3 自定义端点**
-- **11 单角色** + **3 多人场景** = 17 角色模式
-- **8 主题** + **4 字号** + **2 语言** (中/英)
-- **IDB v6** (9 表)
+GitHub Pages CDN → https://lingoo12138.github.io/english-app/
 
----
-
-**最后更新**: 2026-07-27 (v1.59.0)
-
----
-
-## v1.62.0 W56 — 词表架构
-
-**8 档学段**:
-- primary 小学 (250 词)
-- junior 初中 (794 词)
-- senior 高中 (421 词)
-- gaozhong 高考 (1328 词)
-- cet4 CET4 (743 词)
-- cet6 CET6 (699 词)
-- kaoyan 考研 (500 词)
-- daily 日常 (688 词)
-
-**数据源**:
-- 主: 5334 词 kaoyan + CET4 双源 (v1.6)
-- 补: 89 词 kaCVanime/CEFR-VS-CN 6 学段 (v1.62)
-
-**部署**:
-- gh-pages 自动部署 main + dist → GitHub Pages
-- 用户: https://lingoo12138.github.io/english-app/
+PWA CacheFirst (30 天):
+  └─ index.html / assets/* / data/words.json
+  └─ 离线完整可用
+```
