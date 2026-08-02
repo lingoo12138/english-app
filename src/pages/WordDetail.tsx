@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getWord, loadWords } from '../lib/words'
 import type { Word } from '../types'
 import TTSButton from '../components/TTSButton'
@@ -210,6 +210,13 @@ export default function WordDetail() {
           {word.translations.length > 3 && (
             <span className="text-sm text-stone-400 dark:text-stone-300 ml-1">+{word.translations.length - 3} 个义项</span>
           )}
+          {/* v1.94 W88-B: 查看所有释义收藏入口 */}
+          <Link
+            to="/translation-favs"
+            className="ml-2 text-sm text-brand-500 hover:underline"
+          >
+            ⭐ 我的收藏
+          </Link>
         </p>
 
         {/* v1.91 W85: 释义收藏 (每条释义可单独收藏) */}

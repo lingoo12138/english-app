@@ -23,7 +23,9 @@ export default function ErrorReviewPage() {
   const [peeked, setPeeked] = useState(false)
   const [lastResult, setLastResult] = useState<{ score: number; grade: string; card: ReviewCard; userAnswer: string; peeked: boolean; isCorrect: boolean; isLast: boolean } | null>(null)
   const [showHistory, setShowHistory] = useState(false)
-  const [hasSavedSession, setHasSavedSession] = useState<{ correct: number; wrong: number; remaining: number; total: number } | null>(null)
+  const [hasSavedSession, setHasSavedSession] = useState<{
+    correct: number; wrong: number; remaining: number; total: number; ts: number; matchCount: number
+  } | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const nextButtonRef = useRef<HTMLButtonElement>(null)
   const navigate = useNavigate()
@@ -40,22 +42,46 @@ export default function ErrorReviewPage() {
         if (cancelled) return
         const cs = toReviewCards(w, d)
         setCards(cs)
-        // 如果有未完成 session 且 cards 数量 >= session.total (避免错题被删后 session 失效)
-        if (saved && saved.session.remaining.length > 0 && cs.length >= saved.session.total) {
-          setHasSavedSession({
-            correct: saved.session.correct,
-            wrong: saved.session.wrong,
-            remaining: saved.session.remaining.length,
-            total: saved.session.total,
-          })
-          // 暂不创建新 session, 等用户选 继续/重新开始
-        } else {
-          if (saved && saved.session.remaining.length > 0) {
-            // 错题被删/减少, 清掉
+        // 修 v1: 用 cardIds 逐 ID 校验 (避免粗粒度 cs.length 误判)
+        if (saved && saved.session.remaining.length > 0 && saved.cardIds.length > 0) {
+          const currentCardIds = new Set(cs.map(c => c.id))
+          const matchCount = saved.cardIds.filter(id => currentCardIds.has(id)).length
+          const matchRatio = matchCount / saved.cardIds.length
+          if (matchRatio >= 0.5) {
+            // 至少 50% 卡还在, 继续上次
+            setHasSavedSession({
+              correct: saved.session.correct,
+              wrong: saved.session.wrong,
+              remaining: saved.session.remaining.length,
+              total: saved.session.total,
+              ts: saved.ts,
+              matchCount,
+            })
+            // 暂不创建新 session, 等用户选 继续/重新开始
+            return
+          } else {
+            // 错题被删/减少, 清掉 + 提示
             clearSession()
+            toast.warning('上次复习的部分错题已删除, 已重新开始')
           }
-          setSession(newReviewSession(cs))
+        } else if (saved && saved.session.remaining.length > 0) {
+          // 旧版 session (无 cardIds), 用粗粒度兜底
+          if (cs.length >= saved.session.total) {
+            setHasSavedSession({
+              correct: saved.session.correct,
+              wrong: saved.session.wrong,
+              remaining: saved.session.remaining.length,
+              total: saved.session.total,
+              ts: saved.ts,
+              matchCount: 0,
+            })
+            return
+          } else {
+            clearSession()
+            toast.warning('上次复习的错题已减少, 已重新开始')
+          }
         }
+        setSession(newReviewSession(cs))
         setLoading(false)
       })
       .catch(e => {
@@ -190,9 +216,13 @@ export default function ErrorReviewPage() {
         <div className="card text-center py-10">
           <div className="text-5xl mb-3">📋</div>
           <p className="text-lg mb-1">发现上次未完成的复习</p>
-          <p className="text-sm text-stone-500 mb-4">
+          <p className="text-sm text-stone-500 mb-1">
             已答 {hasSavedSession.correct + hasSavedSession.wrong} / {hasSavedSession.total} 题
             (✓ {hasSavedSession.correct} ✗ {hasSavedSession.wrong}, 还剩 {hasSavedSession.remaining} 题)
+          </p>
+          <p className="text-xs text-stone-400 mb-4">
+            上次复习于 {formatTimeAgo(hasSavedSession.ts)}
+            {hasSavedSession.matchCount > 0 && ` · ${hasSavedSession.matchCount} 张卡还在`}
           </p>
           <div className="flex flex-col gap-2 max-w-xs mx-auto">
             <button onClick={handleResume} className="btn-primary">
@@ -200,6 +230,9 @@ export default function ErrorReviewPage() {
             </button>
             <button onClick={handleStartFresh} className="btn-ghost">
               🔁 重新开始
+            </button>
+            <button onClick={() => navigate(-1)} className="btn-ghost text-sm">
+              ← 返回
             </button>
           </div>
         </div>
@@ -390,4 +423,17 @@ export default function ErrorReviewPage() {
       )}
     </div>
   )
+}
+
+/** 格式化时间为 "x 分钟/小时/天前" */
+function formatTimeAgo(ts: number): string {
+  const diffMs = Date.now() - ts
+  const minutes = Math.floor(diffMs / 60_000)
+  if (minutes < 1) return '刚刚'
+  if (minutes < 60) return `${minutes} 分钟前`
+  const hours = Math.floor(minutes / 60)
+  if (hours < 24) return `${hours} 小时前`
+  const days = Math.floor(hours / 24)
+  if (days < 7) return `${days} 天前`
+  return new Date(ts).toLocaleDateString('zh-CN')
 }

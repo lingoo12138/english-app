@@ -1,20 +1,28 @@
-// src/lib/errorReviewSession.ts - v1.94 W88-C 错题复习 session 持久化
+// src/lib/errorReviewSession.ts - v1.94 W88-C 错题复习 session 持久化 (修 v1: 删死代码 + cardIds 校验)
 import type { ReviewSession, ReviewCard } from './errorReview'
 
 const KEY = 'errorReviewSession'
-const CARD_KEYS_KEY = 'errorReviewCardIds'  // 保存卡 id 列表, 验证与 IDB 一致
+const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000  // 7 天过期
 
 interface PersistedSession {
   session: ReviewSession
-  cardIds: string[]   // 收藏的卡 id (从 IDB 加载时验证)
+  cardIds: string[]  // 收藏的卡 id, 错题被删时验证
   ts: number
+}
+
+/** 提取 session 当前的卡 id 列表 (剩余 + 历史) */
+function extractCardIds(session: ReviewSession): string[] {
+  const all = new Set<string>()
+  for (const c of session.remaining) all.add(c.id)
+  for (const h of session.history) all.add(h.cardId)
+  return Array.from(all)
 }
 
 export function saveSession(session: ReviewSession): void {
   try {
     const data: PersistedSession = {
       session,
-      cardIds: [],  // 不存 cardIds, 用 session.remaining.id 即可
+      cardIds: extractCardIds(session),
       ts: Date.now(),
     }
     localStorage.setItem(KEY, JSON.stringify(data))
@@ -23,17 +31,16 @@ export function saveSession(session: ReviewSession): void {
   }
 }
 
-export function loadSession(): { session: ReviewSession; ts: number } | null {
+export function loadSession(): { session: ReviewSession; cardIds: string[]; ts: number } | null {
   try {
     const raw = localStorage.getItem(KEY)
     if (!raw) return null
     const data: PersistedSession = JSON.parse(raw)
-    // 7 天过期清掉
-    if (Date.now() - data.ts > 7 * 24 * 60 * 60 * 1000) {
+    if (Date.now() - data.ts > SESSION_TTL_MS) {
       clearSession()
       return null
     }
-    return { session: data.session, ts: data.ts }
+    return { session: data.session, cardIds: data.cardIds, ts: data.ts }
   } catch (e) {
     console.warn('[errorReviewSession] load failed:', e)
     return null

@@ -22,6 +22,8 @@ const PlanPage = lazy(() => import('./pages/PlanPage'))
 const WritePage = lazy(() => import('./pages/WritePage'))
 const ErrorsPage = lazy(() => import('./pages/ErrorsPage'))
 const ErrorReviewPage = lazy(() => import('./pages/ErrorReviewPage'))
+const FollowReadProgressPage = lazy(() => import('./pages/FollowReadProgressPage'))
+const TranslationFavsPage = lazy(() => import('./pages/TranslationFavsPage'))
 const ListenPage = lazy(() => import('./pages/ListenPage'))
 const Achievements = lazy(() => import('./pages/Achievements'))
 const SceneDetail = lazy(() => import('./pages/SceneDetail'))
@@ -150,6 +152,8 @@ function App() {
         <Route path="write" element={<WritePage />} />
         <Route path="errors" element={<ErrorsPage />} />
         <Route path="errors/review" element={<ErrorReviewPage />} />
+        <Route path="follow-read/progress" element={<FollowReadProgressPage />} />
+        <Route path="translation-favs" element={<TranslationFavsPage />} />
         <Route path="listen" element={<ListenPage />} />
         <Route path="achievements" element={<Achievements />} />
         <Route path="report" element={<LearnReport />} />

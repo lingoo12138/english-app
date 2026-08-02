@@ -21,6 +21,7 @@ import { speak } from '../lib/tts'
 import { isSTTSupported, STTController } from '../lib/stt'
 import { saveDictationError } from '../lib/db'
 import { evaluateFollowRead, splitSentences } from '../lib/followRead'
+import { saveFollowReadScore } from '../lib/followReadScore'
 import { toast } from '../components/Toast'
 
 export default function LessonDetailPage() {
@@ -228,6 +229,13 @@ export default function LessonDetailPage() {
           >
             {followMode ? '🎤 跟读中' : '🎤 跟读模式'}
           </button>
+          <Link
+            to="/follow-read/progress"
+            className="px-2 py-1 rounded text-xs font-medium bg-white/20 text-white hover:bg-white/30"
+            title="查看跟读趋势"
+          >
+            📊 趋势
+          </Link>
         </div>
       </div>
 
@@ -395,6 +403,13 @@ export default function LessonDetailPage() {
                         missing: result.missing,
                         extra: result.extra,
                         wrong: result.wrong,
+                      })
+                      // v1.94 W88-A: 保存跟读分数到趋势
+                      saveFollowReadScore({
+                        lessonId: lesson.id,
+                        sentenceIndex: currentSentence,
+                        score: result.score,
+                        ts: Date.now(),
                       })
                       if (result.score < 100) {
                         saveDictationError({
