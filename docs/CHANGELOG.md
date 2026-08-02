@@ -3647,3 +3647,25 @@
 - 0 P0 + 0 P1 业务
 - 95 release tag / 17 周 / 24 次大 review
 
+
+## [v1.96.0] - 2026-08-01
+
+### v1.96.0 W89-B — 错题难度自适应 + 评分历史
+
+#### 错题难度自适应
+- src/lib/errorDifficulty.ts: 4 档 mastered/easy/medium/hard
+  - 🌟 mastered: 答对 >= 80 次数 >= 3 → 移出复习池
+  - 🔴 hard: 答错 < 40 次数 >= 2 → 推末尾加深
+- src/pages/ErrorReviewPage.tsx: 题目区难度标签 + 池中统计
+- 12 个测试
+
+#### 评分历史
+- 题目区显示 '📊 最近 N 次分数' + best/worst + 趋势 (↑↓→)
+- 颜色按分数 (绿≥80 / 琥珀≥40 / 红<40)
+- 趋势阈值: 最近 3 次 avg vs 前 3 次 avg, 差 10+ 分
+
+#### 累计
+- 986 单元测试 (974 + 12) / 73 文件
+- 0 P0 + 0 P1 业务
+- 96 release tag / 17 周 / 24 次大 review
+
