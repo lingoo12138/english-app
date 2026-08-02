@@ -49,6 +49,8 @@ export default function LessonDetailPage() {
   // v1.92 W86-A: 跟读评分 (STT 录音 + 评分)
   const [followTranscript, setFollowTranscript] = useState('')
   const [followScore, setFollowScore] = useState<{ score: number; missing: string[]; extra: string[]; wrong: { target: string; got: string }[] } | null>(null)
+  // v1.95 W89-A: 每句最好分 (按句 idx 存)
+  const [sentenceScores, setSentenceScores] = useState<Record<number, number>>({})
   const sttRef = useRef<STTController | null>(null)
   const [listening, setListening] = useState(false)
   const [sttSupported, setSttSupported] = useState(false)
@@ -343,10 +345,51 @@ export default function LessonDetailPage() {
             <div className="bg-white dark:bg-stone-800 rounded-lg p-3 mb-3 text-base font-mono leading-relaxed">
               {currentText}
             </div>
+            {/* v1.95 W89-A: 每句最好分指示器 */}
+            {Object.keys(sentenceScores).length > 0 && (
+              <div className="mb-3 flex flex-wrap gap-1">
+                {sentences.map((_, idx) => {
+                  const s = sentenceScores[idx]
+                  if (s === undefined) return (
+                    <span key={idx} className="px-1.5 py-0.5 rounded text-xs bg-stone-200 dark:bg-stone-700 text-stone-500">
+                      {idx + 1}
+                    </span>
+                  )
+                  const color = s >= 70 ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300' :
+                    s >= 40 ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300' :
+                    'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300'
+                  return (
+                    <span key={idx} className={`px-1.5 py-0.5 rounded text-xs font-bold ${color}`} title={`第 ${idx + 1} 句最好 ${s} 分`}>
+                      {idx + 1}:{s}
+                    </span>
+                  )
+                })}
+              </div>
+            )}
             {/* 录音 + 评分 */}
             <div className="space-y-2">
               {!followScore && (
                 <>
+                  {/* v1.95 W89-A: 重听原音 + 全部重听 */}
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => speak({ text: currentText, rate: 0.8 })}
+                      className="px-3 py-1.5 bg-blue-500 text-white rounded text-sm font-medium hover:bg-blue-600"
+                    >
+                      🔊 重听原音
+                    </button>
+                    <button
+                      onClick={() => {
+                        sentences.forEach((s, idx) => {
+                          setTimeout(() => speak({ text: s, rate: 0.8 }), idx * 4000)
+                        })
+                        toast.success(`正在播放 ${sentences.length} 句, 共 ${sentences.length * 4}秒`)
+                      }}
+                      className="px-3 py-1.5 bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-300 rounded text-sm"
+                    >
+                      ▶️ 全部重听
+                    </button>
+                  </div>
                   <div className="flex items-center gap-2">
                     {!listening ? (
                       <button
@@ -403,6 +446,11 @@ export default function LessonDetailPage() {
                         missing: result.missing,
                         extra: result.extra,
                         wrong: result.wrong,
+                      })
+                      // v1.95 W89-A: 更新当前句最好分
+                      setSentenceScores(prev => {
+                        const cur = prev[currentSentence] || 0
+                        return { ...prev, [currentSentence]: Math.max(cur, result.score) }
                       })
                       // v1.94 W88-A: 保存跟读分数到趋势
                       saveFollowReadScore({
