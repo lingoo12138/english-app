@@ -3625,3 +3625,25 @@
 - 0 P0 + 0 P1 业务
 - 94 release tag / 17 周 / 23 次大 review
 
+
+## [v1.95.0] - 2026-08-01
+
+### v1.95.0 W89-A — 跟读评分增强 (重听原音 + 全部重听 + 每句最好分)
+
+#### 跟读评分增强
+- src/pages/LessonDetailPage.tsx:
+  - 🔊 重听原音 (TTS rate=0.8)
+  - ▶️ 全部重听 (setTimeout 链式 TTS, 4s/句)
+  - 每句最好分指示器 (sentenceScores: Record<number, number>)
+  - 颜色按分数 (绿≥70 / 琥珀≥40 / 红<40)
+- 8 个测试 (computeBestScores + colorForScore)
+
+#### Verifier 验证 v1
+- Verifier A 跑 W88 修 v1 验证: **PASS** (11/11 项)
+- 加 R1 cardIds 字段测试 + R2 MAX_SCORES 边界测试 (verifier 建议)
+
+#### 累计
+- 974 单元测试 (962 + 12) / 72 文件
+- 0 P0 + 0 P1 业务
+- 95 release tag / 17 周 / 24 次大 review
+
