@@ -11,6 +11,7 @@ import {
   type ReviewSession,
   type ReviewCard,
 } from '../lib/errorReview'
+import { saveSession, loadSession, clearSession } from '../lib/errorReviewSession'
 import { toast } from '../components/Toast'
 
 export default function ErrorReviewPage() {
@@ -22,6 +23,7 @@ export default function ErrorReviewPage() {
   const [peeked, setPeeked] = useState(false)
   const [lastResult, setLastResult] = useState<{ score: number; grade: string; card: ReviewCard; userAnswer: string; peeked: boolean; isCorrect: boolean; isLast: boolean } | null>(null)
   const [showHistory, setShowHistory] = useState(false)
+  const [hasSavedSession, setHasSavedSession] = useState<{ correct: number; wrong: number; remaining: number; total: number } | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const nextButtonRef = useRef<HTMLButtonElement>(null)
   const navigate = useNavigate()
@@ -31,12 +33,29 @@ export default function ErrorReviewPage() {
     let cancelled = false
     setLoading(true)
     setLoadError(null)
+    // 检测是否有未完成 session
+    const saved = loadSession()
     Promise.all([getAllWritingErrors(), getAllDictationErrors()])
       .then(([w, d]) => {
         if (cancelled) return
         const cs = toReviewCards(w, d)
         setCards(cs)
-        setSession(newReviewSession(cs))
+        // 如果有未完成 session 且 cards 数量 >= session.total (避免错题被删后 session 失效)
+        if (saved && saved.session.remaining.length > 0 && cs.length >= saved.session.total) {
+          setHasSavedSession({
+            correct: saved.session.correct,
+            wrong: saved.session.wrong,
+            remaining: saved.session.remaining.length,
+            total: saved.session.total,
+          })
+          // 暂不创建新 session, 等用户选 继续/重新开始
+        } else {
+          if (saved && saved.session.remaining.length > 0) {
+            // 错题被删/减少, 清掉
+            clearSession()
+          }
+          setSession(newReviewSession(cs))
+        }
         setLoading(false)
       })
       .catch(e => {
@@ -47,6 +66,33 @@ export default function ErrorReviewPage() {
       })
     return () => { cancelled = true }
   }, [])
+
+  // 每次 session 变化自动持久化
+  useEffect(() => {
+    if (session && session.remaining.length > 0) {
+      saveSession(session)
+    } else if (session && session.remaining.length === 0) {
+      // 完成清掉
+      clearSession()
+    }
+  }, [session])
+
+  // 恢复上次
+  const handleResume = useCallback(() => {
+    const saved = loadSession()
+    if (saved) {
+      setSession(saved.session)
+      setHasSavedSession(null)
+      toast.success(`已恢复: ${saved.session.correct} 对 / ${saved.session.wrong} 错`)
+    }
+  }, [])
+
+  // 重新开始
+  const handleStartFresh = useCallback(() => {
+    clearSession()
+    setHasSavedSession(null)
+    setSession(newReviewSession(cards))
+  }, [cards])
 
   // 当前题 = remaining[0]
   const currentCard = session && session.remaining.length > 0 ? session.remaining[0] : null
@@ -130,6 +176,31 @@ export default function ErrorReviewPage() {
             <button onClick={() => navigate('/dictation')} className="btn-primary text-sm">🎧 听写</button>
             <button onClick={() => navigate('/spelling')} className="btn-primary text-sm">🔤 拼写</button>
             <button onClick={() => navigate('/listen')} className="btn-primary text-sm">🎤 跟读</button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (!session && hasSavedSession) {
+    // 等待用户选 继续/重新开始
+    return (
+      <div className="space-y-4 max-w-2xl mx-auto">
+        <h1 className="text-2xl font-bold">🔁 错题复习</h1>
+        <div className="card text-center py-10">
+          <div className="text-5xl mb-3">📋</div>
+          <p className="text-lg mb-1">发现上次未完成的复习</p>
+          <p className="text-sm text-stone-500 mb-4">
+            已答 {hasSavedSession.correct + hasSavedSession.wrong} / {hasSavedSession.total} 题
+            (✓ {hasSavedSession.correct} ✗ {hasSavedSession.wrong}, 还剩 {hasSavedSession.remaining} 题)
+          </p>
+          <div className="flex flex-col gap-2 max-w-xs mx-auto">
+            <button onClick={handleResume} className="btn-primary">
+              ▶️ 继续上次
+            </button>
+            <button onClick={handleStartFresh} className="btn-ghost">
+              🔁 重新开始
+            </button>
           </div>
         </div>
       </div>
