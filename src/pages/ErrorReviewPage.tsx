@@ -12,6 +12,7 @@ import {
   type ReviewCard,
 } from '../lib/errorReview'
 import { saveSession, loadSession, clearSession } from '../lib/errorReviewSession'
+import { analyzeCard, updateCardDifficulty, difficultyStyle, trendArrow, countByDifficulty } from '../lib/errorDifficulty'
 import { toast } from '../components/Toast'
 
 export default function ErrorReviewPage() {
@@ -142,7 +143,11 @@ export default function ErrorReviewPage() {
   const handleSubmit = useCallback(() => {
     if (!session || !currentCard || lastResult) return
     const result = answerInSession(session, userAnswer, peeked)
-    setSession(result.session)
+    // W89-B: 应用难度自适应 (mastered 移出 / hard 加深)
+    const sessionWithDifficulty = updateCardDifficulty(result.session, currentCard, result.score)
+    // 重新算 isLast
+    const newIsLast = sessionWithDifficulty.remaining.length === 0
+    setSession(sessionWithDifficulty)
     setLastResult({
       score: result.score,
       grade: result.grade,
@@ -150,7 +155,7 @@ export default function ErrorReviewPage() {
       userAnswer,
       peeked,
       isCorrect: result.grade === 'perfect' || result.grade === 'good',
-      isLast: result.isLast,
+      isLast: newIsLast,
     })
     setPeeked(false)  // 重置 peek 状态
   }, [session, currentCard, lastResult, userAnswer, peeked])
@@ -264,6 +269,18 @@ export default function ErrorReviewPage() {
             <span className="text-amber-500 text-xs">({session.remaining.length} 待重答)</span>
           )}
         </div>
+        {/* W89-B: 池中难度统计 */}
+        {(() => {
+          const counts = countByDifficulty(session, session.remaining)
+          return (
+            <div className="flex items-center gap-2 text-xs text-stone-500 mb-2">
+              <span>🌟 掌握 {counts.mastered}</span>
+              <span>🟢 易 {counts.easy}</span>
+              <span>🟡 中 {counts.medium}</span>
+              <span>🔴 难 {counts.hard}</span>
+            </div>
+          )
+        })()}
         <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-emerald-400 to-brand-500 transition-all"
@@ -294,6 +311,17 @@ export default function ErrorReviewPage() {
         <div className="card">
           <div className="flex items-center gap-2 mb-3 text-sm flex-wrap">
             <span className="px-2 py-0.5 bg-stone-100 dark:bg-stone-700 rounded">{currentCard.source}</span>
+            {/* W89-B: 难度标签 */}
+            {(() => {
+              const analysis = analyzeCard(session!, currentCard)
+              const style = difficultyStyle(analysis.difficulty)
+              if (analysis.attempts === 0) return null
+              return (
+                <span className={`px-2 py-0.5 rounded text-xs font-medium ${style.color} bg-stone-100 dark:bg-stone-800`}>
+                  {style.emoji} {style.label} (avg {analysis.avgScore}, {analysis.attempts}次{analysis.trend !== 'flat' ? ` ${trendArrow(analysis.trend)}` : ''})
+                </span>
+              )
+            })()}
             {currentCard.hint && (
               <span className="px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded text-xs">
                 💡 {currentCard.hint}
@@ -302,12 +330,35 @@ export default function ErrorReviewPage() {
           </div>
 
           {/* 题目 */}
-          <div className="bg-rose-50 dark:bg-rose-900/20 rounded-lg p-4 mb-4">
+          <div className="bg-rose-50 dark:bg-rose-900/20 rounded-lg p-4 mb-3">
             <div className="text-xs text-stone-500 mb-1">你之前答错的是:</div>
             <div className="text-lg font-mono text-rose-700 dark:text-rose-300">
               {currentCard.prompt}
             </div>
           </div>
+
+          {/* W89-B: 评分历史 (最近 5 次) */}
+          {(() => {
+            const analysis = analyzeCard(session!, currentCard)
+            if (analysis.recentScores.length === 0) return null
+            return (
+              <div className="mb-4 p-2 bg-stone-50 dark:bg-stone-800 rounded text-xs">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-stone-500">📊 最近 {analysis.recentScores.length} 次分数</span>
+                  <span className="text-stone-400">best {analysis.bestScore} · worst {analysis.worstScore}</span>
+                </div>
+                <div className="flex gap-1">
+                  {analysis.recentScores.map((s, i) => (
+                    <span key={i} className={`px-1.5 py-0.5 rounded font-bold ${
+                      s >= 80 ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700' :
+                      s >= 40 ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700' :
+                      'bg-rose-100 dark:bg-rose-900/30 text-rose-700'
+                    }`}>{s}</span>
+                  ))}
+                </div>
+              </div>
+            )
+          })()}
 
           {/* 答题区 */}
           {!lastResult ? (
