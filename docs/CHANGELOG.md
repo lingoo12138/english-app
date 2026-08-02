@@ -3690,3 +3690,21 @@
 - 0 P0 + 0 P1 业务
 - 97 release tag / 17 周 / 24 次大 review
 
+
+## [v1.98.0] - 2026-08-01
+
+### v1.98.0 W89-D — 跟读进度面板 (按句/按课 横向条形图)
+
+#### 跟读进度面板
+- src/lib/followReadByLesson.ts: groupBySentence/groupByLesson/sentenceStats/lessonStats
+- src/pages/FollowReadProgressPage.tsx: 3 视图切换
+  - 📈 时间 (折线图, W88-A)
+  - 📚 课文 (横向条形图, 每课一行)
+  - 📝 句子 (横向条形图, 每句一行, max-h-96 滚动)
+- 8 个测试
+
+#### 累计
+- **1006 单元测试** (998 + 8) / 75 文件 ⭐ **突破 1000 测试**
+- 0 P0 + 0 P1 业务
+- 98 release tag / 17 周 / 24 次大 review
+
