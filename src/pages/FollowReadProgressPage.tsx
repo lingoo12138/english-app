@@ -3,11 +3,14 @@
 import { useEffect, useState, useMemo } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { getFollowReadScores, aggregateScores, type FollowReadScore } from '../lib/followReadScore'
+import { lessonStats, sentenceStats } from '../lib/followReadByLesson'
 import { LESSONS } from '../data/textbook'
 
 export default function FollowReadProgressPage() {
   const [scores, setScores] = useState<FollowReadScore[]>([])
   const [filterLesson, setFilterLesson] = useState<string>('all')
+  // v1.98 W89-D: 视图模式
+  const [viewMode, setViewMode] = useState<'time' | 'lesson' | 'sentence'>('time')
   const navigate = useNavigate()
 
   // 修 v1: lessonId → title 反查
@@ -164,30 +167,131 @@ export default function FollowReadProgressPage() {
             )}
           </div>
 
-          {/* 最近记录 */}
-          {agg.recent.length > 0 && (
-            <div className="card">
-              <h3 className="font-semibold mb-3">📋 最近 20 条</h3>
-              <div className="space-y-1 max-h-80 overflow-y-auto">
-                {agg.recent.map(s => (
-                  <div key={s.id} className="flex items-center justify-between text-sm py-1 border-b border-stone-100 dark:border-stone-800">
-                    <span className="text-stone-500">
-                      {new Date(s.ts).toLocaleString('zh-CN')}
-                    </span>
-                    <span className="text-stone-400 text-xs">{s.lessonId}</span>
-                    <span className={`font-bold ${
-                      s.score >= 70 ? 'text-emerald-500' :
-                      s.score >= 40 ? 'text-amber-500' : 'text-rose-500'
-                    }`}>
-                      {s.score}
-                    </span>
-                  </div>
-                ))}
-              </div>
+          {/* v1.98 W89-D: 视图切换 */}
+          <div className="card">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-sm text-stone-500">视图:</span>
+              {(['time', 'lesson', 'sentence'] as const).map(m => (
+                <button
+                  key={m}
+                  onClick={() => setViewMode(m)}
+                  className={`px-3 py-1 rounded text-sm ${
+                    viewMode === m ? 'bg-brand-500 text-white' : 'bg-stone-100 dark:bg-stone-800'
+                  }`}
+                >
+                  {m === 'time' ? '📈 时间' : m === 'lesson' ? '📚 课文' : '📝 句子'}
+                </button>
+              ))}
             </div>
-          )}
+
+            {/* 时间视图: 折线图 + 最近 20 */}
+            {viewMode === 'time' && (
+              <>
+                {agg.recent.length > 0 && (
+                  <div>
+                    <h3 className="font-semibold mb-2 text-sm">📋 最近 20 条</h3>
+                    <div className="space-y-1 max-h-60 overflow-y-auto">
+                      {agg.recent.map(s => (
+                        <div key={s.id} className="flex items-center justify-between text-sm py-1 border-b border-stone-100 dark:border-stone-800">
+                          <span className="text-stone-500">
+                            {new Date(s.ts).toLocaleString('zh-CN')}
+                          </span>
+                          <span className="text-stone-400 text-xs">{s.lessonId}</span>
+                          <span className={`font-bold ${
+                            s.score >= 70 ? 'text-emerald-500' :
+                            s.score >= 40 ? 'text-amber-500' : 'text-rose-500'
+                          }`}>
+                            {s.score}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* 课文视图: 横向条形图 */}
+            {viewMode === 'lesson' && (
+              <LessonBarChart scores={filtered} lessonTitleMap={lessonTitleMap} />
+            )}
+
+            {/* 句子视图: 横向条形图 */}
+            {viewMode === 'sentence' && (
+              <SentenceBarChart scores={filtered} lessonTitleMap={lessonTitleMap} />
+            )}
+          </div>
         </>
       )}
+    </div>
+  )
+}
+
+/** 课文横向条形图 */
+function LessonBarChart({ scores, lessonTitleMap }: { scores: FollowReadScore[]; lessonTitleMap: Map<string, string> }) {
+  const stats = lessonStats(scores)
+  if (stats.length === 0) {
+    return <p className="text-sm text-stone-500">此过滤下无数据</p>
+  }
+  return (
+    <div className="space-y-2">
+      <h3 className="font-semibold text-sm">📚 按课文 ({stats.length})</h3>
+      {stats.map(s => {
+        const title = lessonTitleMap.get(s.lessonId) || s.lessonId
+        const color = s.avg >= 70 ? 'bg-emerald-500' : s.avg >= 40 ? 'bg-amber-500' : 'bg-rose-500'
+        return (
+          <div key={s.lessonId} className="flex items-center gap-2 text-sm">
+            <div className="w-32 truncate text-stone-700 dark:text-stone-300" title={title}>{title}</div>
+            <div className="flex-1 h-6 bg-stone-200 dark:bg-stone-700 rounded relative">
+              <div
+                className={`h-full ${color} rounded transition-all`}
+                style={{ width: `${s.avg}%` }}
+              />
+              <div className="absolute inset-0 flex items-center justify-center text-xs font-bold text-stone-800 dark:text-stone-100">
+                {s.avg} ({s.count}次, {s.sentenceCount}句)
+              </div>
+            </div>
+            <span className="text-xs text-stone-500 w-16 text-right">
+              best {s.best}
+            </span>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+/** 句子横向条形图 */
+function SentenceBarChart({ scores, lessonTitleMap }: { scores: FollowReadScore[]; lessonTitleMap: Map<string, string> }) {
+  const stats = sentenceStats(scores)
+  if (stats.length === 0) {
+    return <p className="text-sm text-stone-500">此过滤下无数据</p>
+  }
+  return (
+    <div className="space-y-2">
+      <h3 className="font-semibold text-sm">📝 按句子 ({stats.length})</h3>
+      <div className="max-h-96 overflow-y-auto space-y-1">
+        {stats.map(s => {
+          const title = lessonTitleMap.get(s.lessonId) || s.lessonId
+          const color = s.avg >= 70 ? 'bg-emerald-500' : s.avg >= 40 ? 'bg-amber-500' : 'bg-rose-500'
+          return (
+            <div key={`${s.lessonId}-${s.sentenceIndex}`} className="flex items-center gap-2 text-xs">
+              <div className="w-24 truncate text-stone-600 dark:text-stone-400" title={title}>{title}</div>
+              <div className="w-8 text-stone-400">#{s.sentenceIndex + 1}</div>
+              <div className="flex-1 h-5 bg-stone-200 dark:bg-stone-700 rounded relative">
+                <div
+                  className={`h-full ${color} rounded transition-all`}
+                  style={{ width: `${s.avg}%` }}
+                />
+                <div className="absolute inset-0 flex items-center justify-center font-bold text-stone-800 dark:text-stone-100">
+                  {s.avg} ({s.count}次)
+                </div>
+              </div>
+              <span className="text-stone-500 w-12 text-right">{s.best}</span>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
