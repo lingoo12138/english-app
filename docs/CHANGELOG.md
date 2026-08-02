@@ -3669,3 +3669,24 @@
 - 0 P0 + 0 P1 业务
 - 96 release tag / 17 周 / 24 次大 review
 
+
+## [v1.97.0] - 2026-08-01
+
+### v1.97.0 W89-C — 释义收藏增强 (统计/时间/词性/JSON 导出/视图切换)
+
+#### 释义收藏增强
+- src/lib/translationFavFilter.ts: 5 大功能核心
+  - groupByTime / groupByPos / filterFavs / computeFavStats / exportFavsAsJson
+- src/pages/TranslationFavsPage.tsx: 5 大功能集成
+  - 📊 统计卡片 (总数/单词数/本周/今日)
+  - ⏰ 时间过滤 (今天/本周/本月/更早)
+  - 🏷️ 词性过滤 (名词/动词/形容词/副词)
+  - 📥 JSON 导出 (UTF-8, version=1)
+  - 👀 视图切换 (按单词/按时间)
+- 12 个测试
+
+#### 累计
+- 998 单元测试 (986 + 12) / 74 文件
+- 0 P0 + 0 P1 业务
+- 97 release tag / 17 周 / 24 次大 review
+
