@@ -404,7 +404,10 @@
     "translations": [
       "废除，废止；取消，革除"
     ],
-    "phrases": [],
+    "phrases": [
+      "abolish slavery",
+      "abolish death penalty"
+    ],
     "examples": [
       {
         "en": "Slavery was abolished in the US in the 19th century.",
@@ -4059,7 +4062,10 @@
     "translations": [
       "实际上；竟然"
     ],
-    "phrases": [],
+    "phrases": [
+      "actually do",
+      "not actually"
+    ],
     "examples": [
       {
         "en": "I've known Barbara for years. Since we were babies, actually.",
@@ -7166,7 +7172,10 @@
       "后来，以后",
       "以后，后来"
     ],
-    "phrases": [],
+    "phrases": [
+      "soon afterward",
+      "shortly afterward"
+    ],
     "examples": [
       {
         "en": "Shortly afterward, police arrested four suspects.",
@@ -8761,7 +8770,10 @@
     "translations": [
       "空域；领空；空间"
     ],
-    "phrases": [],
+    "phrases": [
+      "violate airspace",
+      "enter airspace"
+    ],
     "examples": [
       {
         "en": "Canadian airspace",
@@ -10286,7 +10298,9 @@
       "尽管，虽然",
       "尽管；虽然；但是；然而"
     ],
-    "phrases": [],
+    "phrases": [
+      "although ... yet"
+    ],
     "examples": [
       {
         "en": "Although in poor health, she continued to carry out her duties.",
@@ -12133,7 +12147,10 @@
     "translations": [
       "轶事；奇闻；秘史"
     ],
-    "phrases": [],
+    "phrases": [
+      "personal anecdote",
+      "funny anecdote"
+    ],
     "examples": [
       {
         "en": "The book is full of amusing anecdotes about his life in Japan.",
@@ -12896,7 +12913,10 @@
     "translations": [
       "每年，一年一次"
     ],
-    "phrases": [],
+    "phrases": [
+      "annually every year",
+      "held annually"
+    ],
     "examples": [
       {
         "en": "This is a perennating rhizome from which flowering shoots arise annually.",
@@ -13508,7 +13528,9 @@
       "无论如何",
       "总之；无论如何；不管怎样"
     ],
-    "phrases": [],
+    "phrases": [
+      "anyhow let's go"
+    ],
     "examples": [
       {
         "en": "You know nothing about her really, or about yourself in relation to her, and anyhow it's only one of those things and therefore it's of no importance.",
@@ -13675,7 +13697,10 @@
       "无论如何",
       "无论如何，不管怎样；总之"
     ],
-    "phrases": [],
+    "phrases": [
+      "anyway let's start",
+      "anyway it doesn't matter"
+    ],
     "examples": [
       {
         "en": "Catherine wasn't sure the book was the right one, but she bought it anyway.",
@@ -14527,7 +14552,10 @@
     "translations": [
       "赞同；称赞；向…喝彩"
     ],
-    "phrases": [],
+    "phrases": [
+      "applaud loudly",
+      "applaud the decision"
+    ],
     "examples": [
       {
         "en": "I applaud the decision to install more security cameras.",
@@ -16508,7 +16536,10 @@
       "扶手椅，单人沙发",
       "不切实际的"
     ],
-    "phrases": [],
+    "phrases": [
+      "sit in armchair",
+      "leather armchair"
+    ],
     "examples": [
       {
         "en": "She was sitting in an armchair with blankets wrapped around her.",
@@ -22263,7 +22294,10 @@
     "translations": [
       "令人敬畏的；使人畏惧的；可怕的；极好的"
     ],
-    "phrases": [],
+    "phrases": [
+      "awesome view",
+      "totally awesome"
+    ],
     "examples": [
       {
         "en": "an awesome responsibility",
@@ -22362,7 +22396,10 @@
     "translations": [
       "令人畏惧的；很"
     ],
-    "phrases": [],
+    "phrases": [
+      "awfully sorry",
+      "awfully hot"
+    ],
     "examples": [
       {
         "en": "You have to become awfully large to be unaffordable -- there's lots of cash, lots of capital out there for acquisitions.",
@@ -22805,7 +22842,10 @@
     "translations": [
       "背痛；腰痛"
     ],
-    "phrases": [],
+    "phrases": [
+      "suffer from backache",
+      "have a backache"
+    ],
     "examples": [
       {
         "en": "Many workers go home from their first day on the job with either a bad headache or a backache—undoubtedly the result of nervous tension.",
@@ -24833,7 +24873,10 @@
     "translations": [
       "仅仅，几乎不"
     ],
-    "phrases": [],
+    "phrases": [
+      "barely enough",
+      "barely noticeable"
+    ],
     "examples": [
       {
         "en": "She was barely aware of his presence.",
@@ -25399,7 +25442,10 @@
     "translations": [
       "基本上"
     ],
-    "phrases": [],
+    "phrases": [
+      "basically correct",
+      "basically speaking"
+    ],
     "examples": [
       {
         "en": "Basically, I'm just lazy.",
@@ -25906,7 +25952,10 @@
     "translations": [
       "浴衣；睡衣"
     ],
-    "phrases": [],
+    "phrases": [
+      "wear a bathrobe",
+      "silk bathrobe"
+    ],
     "examples": [
       {
         "en": "Without bothering to dry off, I pulled on my bathrobe.",
@@ -26027,7 +26076,10 @@
     "translations": [
       "浴缸"
     ],
-    "phrases": [],
+    "phrases": [
+      "in the bathtub",
+      "fill the bathtub"
+    ],
     "examples": [
       {
         "en": "Clean out the bathtub when you are done.",
@@ -27490,7 +27542,10 @@
     "translations": [
       "蜂窝；蜂箱"
     ],
-    "phrases": [],
+    "phrases": [
+      "like a beehive",
+      "busy as a beehive"
+    ],
     "examples": [
       {
         "en": "If they wanted to eat something sweet, they had tolocate a beehive, smoke out the bees and retrieve the honey, often byclimbing up a tree or chopping it down.",
@@ -28181,7 +28236,9 @@
     "translations": [
       "行为"
     ],
-    "phrases": [],
+    "phrases": [
+      "behavious problem"
+    ],
     "examples": [
       {
         "en": "Although some behavious don't hurt anyone, they hurt our society.",
@@ -28382,7 +28439,10 @@
     "translations": [
       "比利时（西欧国家，首都布鲁塞尔Brussels）"
     ],
-    "phrases": [],
+    "phrases": [
+      "in Belgium",
+      "Brussels Belgium"
+    ],
     "examples": [
       {
         "en": "I remember watching one of my tapes from 1991 when I went to Belgium and looked at myself speaking English.",
@@ -30731,7 +30791,10 @@
     "translations": [
       "鸟笼；鸟笼状物；信号灯；宿舍"
     ],
-    "phrases": [],
+    "phrases": [
+      "hang a birdcage",
+      "wooden birdcage"
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -33434,7 +33497,10 @@
     "translations": [
       "[家具] 书柜，书架"
     ],
-    "phrases": [],
+    "phrases": [
+      "wooden bookcase",
+      "bookcase full of books"
+    ],
     "examples": [
       {
         "en": "This bookcase has five shelves.",
@@ -33478,7 +33544,10 @@
     "translations": [
       "书签（等于bookmarker）；标记"
     ],
-    "phrases": [],
+    "phrases": [
+      "place a bookmark",
+      "bookmark a page"
+    ],
     "examples": [
       {
         "en": "This makes it extremely simple to save what you find with an electronic bookmark so you can return to it later.",
@@ -33566,7 +33635,10 @@
     "translations": [
       "书店"
     ],
-    "phrases": [],
+    "phrases": [
+      "at the bookshop",
+      "secondhand bookshop"
+    ],
     "examples": [
       {
         "en": "His friends live above the bookshop.",
@@ -35409,7 +35481,10 @@
       "联合抵制；拒绝参加",
       "联合抵制"
     ],
-    "phrases": [],
+    "phrases": [
+      "boycott products",
+      "call for a boycott"
+    ],
     "examples": [
       {
         "en": "We boycott all products tested on animals.",
@@ -35897,7 +35972,10 @@
     "translations": [
       "勇敢；勇气"
     ],
-    "phrases": [],
+    "phrases": [
+      "act of bravery",
+      "show bravery"
+    ],
     "examples": [
       {
         "en": "an act of great bravery",
@@ -39407,7 +39485,10 @@
     "translations": [
       "平房；小屋"
     ],
-    "phrases": [],
+    "phrases": [
+      "beach bungalow",
+      "small bungalow"
+    ],
     "examples": [
       {
         "en": "I remember changing cars twice when visiting her bungalow in New Delhi in 1998.",
@@ -43127,7 +43208,10 @@
       "标题；字幕；说明；逮捕",
       "加上说明；加上标题"
     ],
-    "phrases": [],
+    "phrases": [
+      "photo caption",
+      "subtitle caption"
+    ],
     "examples": [
       {
         "en": "The local paper featured me standing on a stepladder with a caption, \"Wendy climbs the ladder to success.\"",
@@ -46635,7 +46719,10 @@
       "一定，必定；当然",
       "当然；行（用于回答）；必定"
     ],
-    "phrases": [],
+    "phrases": [
+      "certainly not",
+      "certainly will"
+    ],
     "examples": [
       {
         "en": "‘I'd like a beer, please.' ‘Certainly, sir.'",
@@ -51886,7 +51973,10 @@
     "translations": [
       "使文明；教育"
     ],
-    "phrases": [],
+    "phrases": [
+      "civilize people",
+      "civilize the world"
+    ],
     "examples": [
       {
         "en": "Ellis was credited with civilizing the Texas prison system.",
@@ -72737,7 +72827,10 @@
     "translations": [
       "当前；一般地"
     ],
-    "phrases": [],
+    "phrases": [
+      "currently working",
+      "currently unavailable"
+    ],
     "examples": [
       {
         "en": "the products that are currently available",
@@ -73439,7 +73532,10 @@
     "translations": [
       "骑自行车的人"
     ],
-    "phrases": [],
+    "phrases": [
+      "professional cyclist",
+      "bike cyclist"
+    ],
     "examples": [
       {
         "en": "...better protection for pedestrians and cyclists.",
@@ -78531,7 +78627,10 @@
     "translations": [
       "牙科医生"
     ],
-    "phrases": [],
+    "phrases": [
+      "go to the dentist",
+      "see the dentist"
+    ],
     "examples": [
       {
         "en": "Visit your dentist twice a year for a checkup.",
@@ -82970,7 +83069,10 @@
     "translations": [
       "恐龙；过时、落伍的人或事物"
     ],
-    "phrases": [],
+    "phrases": [
+      "fossil dinosaur",
+      "extinct dinosaur"
+    ],
     "examples": [
       {
         "en": "lengthy speeches by some of the party's dinosaurs",
@@ -89825,7 +89927,10 @@
     "translations": [
       "缺点，不利条件；退税"
     ],
-    "phrases": [],
+    "phrases": [
+      "major drawback",
+      "have a drawback"
+    ],
     "examples": [
       {
         "en": "It's a great city – the only drawback is the weather.",
@@ -91806,7 +91911,10 @@
     "translations": [
       "垃圾箱；吃货"
     ],
-    "phrases": [],
+    "phrases": [
+      "in the dustbin",
+      "empty the dustbin"
+    ],
     "examples": [
       {
         "en": "A bomb planted in a dustbin exploded early today.",
@@ -93212,7 +93320,10 @@
       "向东方地",
       "向东方的"
     ],
-    "phrases": [],
+    "phrases": [
+      "travel eastwards",
+      "move eastwards"
+    ],
     "examples": [
       {
         "en": "The ship continued sailing eastwards.",
@@ -94075,7 +94186,10 @@
     "translations": [
       "教育家；教育工作者；教师"
     ],
-    "phrases": [],
+    "phrases": [
+      "experienced educator",
+      "professional educator"
+    ],
     "examples": [
       {
         "en": "What more could an educator hope for than a student's desire to learn.",
@@ -94583,7 +94697,10 @@
       "茄子",
       "深紫色的"
     ],
-    "phrases": [],
+    "phrases": [
+      "purple eggplant",
+      "slice eggplant"
+    ],
     "examples": [
       {
         "en": "Spinach and eggplant.",
@@ -96337,7 +96454,10 @@
     "translations": [
       "在别处，向别处"
     ],
-    "phrases": [],
+    "phrases": [
+      "go elsewhere",
+      "live elsewhere"
+    ],
     "examples": [
       {
         "en": "She is becoming famous in Australia and elsewhere.",
@@ -96504,7 +96624,10 @@
     "translations": [
       "大使馆；大使馆全体人员"
     ],
-    "phrases": [],
+    "phrases": [
+      "at the embassy",
+      "Chinese embassy"
+    ],
     "examples": [
       {
         "en": "the American Embassy in Paris",
@@ -103034,7 +103157,10 @@
       "确切地；恰恰正是",
       "恰好地；正是；精确地；正确地"
     ],
-    "phrases": [],
+    "phrases": [
+      "exactly right",
+      "not exactly"
+    ],
     "examples": [
       {
         "en": "It's exactly half past five.",
@@ -113477,7 +113603,10 @@
     "translations": [
       "最后；不可更改的"
     ],
-    "phrases": [],
+    "phrases": [
+      "finally arrived",
+      "finally decided"
+    ],
     "examples": [
       {
         "en": "After several delays we finally took off at six o'clock.",
@@ -114263,7 +114392,10 @@
     "translations": [
       "柴火；木柴"
     ],
-    "phrases": [],
+    "phrases": [
+      "chop firewood",
+      "stack firewood"
+    ],
     "examples": [
       {
         "en": "Young Geoffrey made money by chopping and selling firewood.",
@@ -114455,7 +114587,10 @@
     "translations": [
       "坚定地，坚决地；坚固地，稳固地"
     ],
-    "phrases": [],
+    "phrases": [
+      "hold firmly",
+      "believe firmly"
+    ],
     "examples": [
       {
         "en": "I grasped his arm firmly and led him away.",
@@ -117709,7 +117844,10 @@
     "translations": [
       "脚步；脚步声；足迹"
     ],
-    "phrases": [],
+    "phrases": [
+      "follow in footsteps",
+      "loud footsteps"
+    ],
     "examples": [
       {
         "en": "He heard someone's footsteps in the hall.",
@@ -122347,7 +122485,10 @@
     "translations": [
       "多产的；肥沃的"
     ],
-    "phrases": [],
+    "phrases": [
+      "fruitful discussion",
+      "fruitful year"
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -124334,7 +124475,10 @@
     "translations": [
       "园丁，花匠"
     ],
-    "phrases": [],
+    "phrases": [
+      "professional gardener",
+      "part-time gardener"
+    ],
     "examples": [
       {
         "en": "She employed a gardener.",
@@ -125847,7 +125991,10 @@
     "translations": [
       "有礼貌地；柔和地"
     ],
-    "phrases": [],
+    "phrases": [
+      "speak gently",
+      "hold gently"
+    ],
     "examples": [
       {
         "en": "‘You go back to bed now,' he said gently.",
@@ -129828,7 +129975,10 @@
     "translations": [
       "爷爷；外公"
     ],
-    "phrases": [],
+    "phrases": [
+      "my grandpa",
+      "dear grandpa"
+    ],
     "examples": [
       {
         "en": "Grandpa was not yet back from the war.",
@@ -129907,7 +130057,10 @@
       "孙子，外孙子",
       "孙子；外孙"
     ],
-    "phrases": [],
+    "phrases": [
+      "her grandson",
+      "elder grandson"
+    ],
     "examples": [
       {
         "en": "My grandson's birthday was on Tuesday.",
@@ -130675,7 +130828,10 @@
     "translations": [
       "大大地，非常"
     ],
-    "phrases": [],
+    "phrases": [
+      "greatly appreciate",
+      "greatly improve"
+    ],
     "examples": [
       {
         "en": "All offers of help will be greatly appreciated .",
@@ -134520,7 +134676,10 @@
     "translations": [
       "快乐地；幸福地；幸运地；恰当地"
     ],
-    "phrases": [],
+    "phrases": [
+      "live happily",
+      "happily married"
+    ],
     "examples": [
       {
         "en": "Michelle smiled happily.",
@@ -135963,7 +136122,10 @@
     "translations": [
       "可恨的，可恶的"
     ],
-    "phrases": [],
+    "phrases": [
+      "hateful remark",
+      "hateful attitude"
+    ],
     "examples": [
       {
         "en": "It was all the fault of that hateful man!",
@@ -139425,7 +139587,10 @@
       "(小山)山腰，山坡",
       "山坡，山腹；山腰"
     ],
-    "phrases": [],
+    "phrases": [
+      "on the hillside",
+      "steep hillside"
+    ],
     "examples": [
       {
         "en": "The airplane crashed on a hillside.",
@@ -141226,7 +141391,10 @@
       "呼万岁",
       "万岁"
     ],
-    "phrases": [],
+    "phrases": [
+      "hooray for",
+      "hip hooray"
+    ],
     "examples": [
       {
         "en": "If that worked, hooray! If not, soldier on to the next step.",
@@ -141385,7 +141553,10 @@
     "translations": [
       "没有希望的，绝望的"
     ],
-    "phrases": [],
+    "phrases": [
+      "hopeless situation",
+      "feel hopeless"
+    ],
     "examples": [
       {
         "en": "We tried to stop the flames from spreading, but we knew it was hopeless.",
@@ -141607,7 +141778,10 @@
     "translations": [
       "可怕的；极讨厌的"
     ],
-    "phrases": [],
+    "phrases": [
+      "horrible dream",
+      "horrible weather"
+    ],
     "examples": [
       {
         "en": "The weather has been really horrible all week.",
@@ -142677,7 +142851,10 @@
       "无论如何；不管怎样（接副词或形容词）；然而；可是",
       "无论以何种方式; 不管怎样"
     ],
-    "phrases": [],
+    "phrases": [
+      "however ... still",
+      "however much"
+    ],
     "examples": [
       {
         "en": "This is a cheap and simple process. However, there are dangers.",
@@ -148896,7 +149073,10 @@
     "translations": [
       "在室内，在屋里"
     ],
-    "phrases": [],
+    "phrases": [
+      "stay indoors",
+      "keep indoors"
+    ],
     "examples": [
       {
         "en": "Let's go indoors and have something to eat.",
@@ -150268,7 +150448,10 @@
     "translations": [
       "最初，起初"
     ],
-    "phrases": [],
+    "phrases": [
+      "initially planned",
+      "initially appeared"
+    ],
     "examples": [
       {
         "en": "Stan initially wanted to go to medical school.",
@@ -151609,7 +151792,10 @@
       "检查，审查；检阅",
       "检查；视察；检阅"
     ],
-    "phrases": [],
+    "phrases": [
+      "inspect carefully",
+      "inspect the damage"
+    ],
     "examples": [
       {
         "en": "I got out of the car to inspect the damage.",
@@ -152215,7 +152401,10 @@
     "translations": [
       "立即，即刻"
     ],
-    "phrases": [],
+    "phrases": [
+      "instantly recognized",
+      "disappear instantly"
+    ],
     "examples": [
       {
         "en": "All four victims died instantly.",
@@ -156321,7 +156510,10 @@
     "translations": [
       "灌溉；冲洗；使清新"
     ],
-    "phrases": [],
+    "phrases": [
+      "irrigate farmland",
+      "irrigate the field"
+    ],
     "examples": [
       {
         "en": "The water in Lake Powell is used to irrigate the area.",
@@ -157976,7 +158168,10 @@
     "translations": [
       "犹太人的"
     ],
-    "phrases": [],
+    "phrases": [
+      "Jewish community",
+      "Jewish culture"
+    ],
     "examples": [
       {
         "en": "...the Jewish festival of Passover.",
@@ -159673,7 +159868,10 @@
     "translations": [
       "敏锐地"
     ],
-    "phrases": [],
+    "phrases": [
+      "keenly aware",
+      "keenly interested"
+    ],
     "examples": [
       {
         "en": "He observes keenly but says very little.",
@@ -160286,7 +160484,10 @@
       "千克，公斤",
       "公斤；千克"
     ],
-    "phrases": [],
+    "phrases": [
+      "per kilogram",
+      "half kilogram"
+    ],
     "examples": [
       {
         "en": "By comparison, one kilogram of tomatoes requires 160 litres of water.",
@@ -161768,7 +161969,10 @@
     "translations": [
       "劳动者；劳工"
     ],
-    "phrases": [],
+    "phrases": [
+      "farm labourer",
+      "manual labourer"
+    ],
     "examples": [
       {
         "en": "a farm labourer",
@@ -162529,7 +162733,10 @@
     "translations": [
       "女房东；女地主"
     ],
-    "phrases": [],
+    "phrases": [
+      "my landlady",
+      "strict landlady"
+    ],
     "examples": [
       {
         "en": "There was a note under the door from my landlady.",
@@ -162936,7 +163143,10 @@
     "translations": [
       "大部分；大量地"
     ],
-    "phrases": [],
+    "phrases": [
+      "largely true",
+      "largely depends on"
+    ],
     "examples": [
       {
         "en": "The state of Nevada is largely desert.",
@@ -163193,7 +163403,10 @@
     "translations": [
       "最近，不久前"
     ],
-    "phrases": [],
+    "phrases": [
+      "lately been",
+      "what have you been doing lately"
+    ],
     "examples": [
       {
         "en": "What have you been doing lately?",
@@ -165778,7 +165991,10 @@
     "translations": [
       "柠檬水"
     ],
-    "phrases": [],
+    "phrases": [
+      "a glass of lemonade",
+      "lemonade stand"
+    ],
     "examples": [
       {
         "en": "a glass of lemonade",
@@ -167676,7 +167892,10 @@
     "translations": [
       "轻轻地，轻松地"
     ],
-    "phrases": [],
+    "phrases": [
+      "touch lightly",
+      "rain lightly"
+    ],
     "examples": [
       {
         "en": "I knocked lightly on the door.",
@@ -167940,7 +168159,10 @@
     "translations": [
       "同样地；也，又"
     ],
-    "phrases": [],
+    "phrases": [
+      "likewise ... too",
+      "do likewise"
+    ],
     "examples": [
       {
         "en": "Nanny put on a shawl and told the girls to do likewise.",
@@ -170494,7 +170716,10 @@
     "translations": [
       "合乎情理地，符合逻辑地"
     ],
-    "phrases": [],
+    "phrases": [
+      "logically follow",
+      "logically sound"
+    ],
     "examples": [
       {
         "en": "The detective has to discover the murderer by logical deduction.",
@@ -172769,6 +172994,10 @@
         "meaning": "女主人",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "Madame Curie",
+      "Madame President"
     ]
   },
   {
@@ -173369,7 +173598,10 @@
     "translations": [
       "主要地，大体上"
     ],
-    "phrases": [],
+    "phrases": [
+      "mainly because",
+      "mainly used for"
+    ],
     "examples": [
       {
         "en": "Her illness was caused mainly by stress.",
@@ -175692,7 +175924,10 @@
     "translations": [
       "马克思主义的"
     ],
-    "phrases": [],
+    "phrases": [
+      "Marxist theory",
+      "Marxist philosophy"
+    ],
     "examples": [
       {
         "en": "a Marxist perspective",
@@ -176929,7 +177164,10 @@
       "也许；可能；大概",
       "可能性；不确定性"
     ],
-    "phrases": [],
+    "phrases": [
+      "maybe not",
+      "maybe later"
+    ],
     "examples": [
       {
         "en": "Maybe it's all just a big misunderstanding.",
@@ -179357,7 +179595,10 @@
     "translations": [
       "仁慈的；慈悲的；宽容的"
     ],
-    "phrases": [],
+    "phrases": [
+      "merciful God",
+      "merciful to"
+    ],
     "examples": [
       {
         "en": "Merciful God, save us.",
@@ -179924,7 +180165,10 @@
     "translations": [
       "凌乱的，散乱的；肮脏的，污秽的；麻烦的"
     ],
-    "phrases": [],
+    "phrases": [
+      "messy room",
+      "messy hair"
+    ],
     "examples": [
       {
         "en": "a messy room",
@@ -181829,7 +182073,10 @@
       "面包车（等于microbus）；小型公共汽车；中客车",
       "乘中客车"
     ],
-    "phrases": [],
+    "phrases": [
+      "school minibus",
+      "take a minibus"
+    ],
     "examples": [
       {
         "en": "He was then taken by minibus to the military base.",
@@ -183186,7 +183433,10 @@
     "translations": [
       "先生"
     ],
-    "phrases": [],
+    "phrases": [
+      "Mister Smith",
+      "Mister President"
+    ],
     "examples": [
       {
         "en": "Look, Mister, we know our job, so don't try to tell us what to do.",
@@ -183220,7 +183470,10 @@
     "translations": [
       "女主人；夫人"
     ],
-    "phrases": [],
+    "phrases": [
+      "be mistress of",
+      "old mistress"
+    ],
     "examples": [
       {
         "en": "The maid looked nervously at her mistress.",
@@ -184314,7 +184567,10 @@
     "translations": [
       "妈咪"
     ],
-    "phrases": [],
+    "phrases": [
+      "Mommy dear",
+      "Mommy and daddy"
+    ],
     "examples": [
       {
         "en": "Be very good and very quiet and help your mommy.",
@@ -185162,7 +185418,10 @@
     "translations": [
       "再者，加之，此外"
     ],
-    "phrases": [],
+    "phrases": [
+      "moreover ...",
+      "and moreover"
+    ],
     "examples": [
       {
         "en": "The rent is reasonable and, moreover, the location is perfect.",
@@ -185534,7 +185793,10 @@
     "translations": [
       "主要的，大部分"
     ],
-    "phrases": [],
+    "phrases": [
+      "mostly clear",
+      "mostly used for"
+    ],
     "examples": [
       {
         "en": "Green teas are mostly from China or Japan.",
@@ -186660,7 +186922,10 @@
       "满口，一口，少量",
       "一口，满口"
     ],
-    "phrases": [],
+    "phrases": [
+      "a mouthful of",
+      "take a mouthful"
+    ],
     "examples": [
       {
         "en": "Michael told his story between mouthfuls.",
@@ -186780,7 +187045,10 @@
       "动作，活动；移动",
       "运动；活动；运转；乐章"
     ],
-    "phrases": [],
+    "phrases": [
+      "political movement",
+      "freedom movement"
+    ],
     "examples": [
       {
         "en": "It's part of a broader nationalist movement that's gaining strength throughout the country.",
@@ -187396,6 +187664,10 @@
         "meaning": "名词",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "Egyptian mummy",
+      "mummy and daddy"
     ]
   },
   {
@@ -187491,7 +187763,10 @@
     "translations": [
       "杀人犯，凶手"
     ],
-    "phrases": [],
+    "phrases": [
+      "serial murderer",
+      "catch the murderer"
+    ],
     "examples": [
       {
         "en": "a convicted murderer",
@@ -187873,7 +188148,10 @@
       "音乐家；作曲家",
       "音乐家"
     ],
-    "phrases": [],
+    "phrases": [
+      "talented musician",
+      "famous musician"
+    ],
     "examples": [
       {
         "en": "a talented young musician",
@@ -188078,7 +188356,10 @@
     "translations": [
       "轻声低语；抱怨"
     ],
-    "phrases": [],
+    "phrases": [
+      "mutter to oneself",
+      "mutter under breath"
+    ],
     "examples": [
       {
         "en": "Elsie muttered something I couldn't catch and walked off.",
@@ -189330,7 +189611,10 @@
     "translations": [
       "自然地；天然地"
     ],
-    "phrases": [],
+    "phrases": [
+      "naturally occur",
+      "naturally talented"
+    ],
     "examples": [
       {
         "en": "Naturally, you'll want to discuss this with your wife.",
@@ -189446,7 +189730,10 @@
     "translations": [
       "顽皮的，淘气的"
     ],
-    "phrases": [],
+    "phrases": [
+      "naughty child",
+      "naughty boy"
+    ],
     "examples": [
       {
         "en": "You're a very naughty boy! Look what you've done!",
@@ -190196,7 +190483,10 @@
     "translations": [
       "领带"
     ],
-    "phrases": [],
+    "phrases": [
+      "wear a necktie",
+      "silk necktie"
+    ],
     "examples": [
       {
         "en": "Really? I should untie the necktie right now.",
@@ -190381,7 +190671,10 @@
     "translations": [
       "不需要的"
     ],
-    "phrases": [],
+    "phrases": [
+      "needless to say",
+      "needless worry"
+    ],
     "examples": [
       {
         "en": "The report caused needless anxiety to women who have attended the clinic.",
@@ -191569,7 +191862,10 @@
     "translations": [
       "新近，最近"
     ],
-    "phrases": [],
+    "phrases": [
+      "newly built",
+      "newly married"
+    ],
     "examples": [
       {
         "en": "She was young at the time, and newly married.",
@@ -192059,7 +192355,10 @@
       "十九，十九个",
       "十九"
     ],
-    "phrases": [],
+    "phrases": [
+      "nineteen years old",
+      "in nineteen ninety"
+    ],
     "examples": [
       {
         "en": "It was nineteen minutes past seven.",
@@ -192105,7 +192404,10 @@
       "九十",
       "九十的；九十岁的"
     ],
-    "phrases": [],
+    "phrases": [
+      "ninety percent",
+      "in the nineties"
+    ],
     "examples": [
       {
         "en": "America was far richer in the nineties.",
@@ -192587,7 +192889,10 @@
     "translations": [
       "吵闹地，喧闹地"
     ],
-    "phrases": [],
+    "phrases": [
+      "eat noisily",
+      "talk noisily"
+    ],
     "examples": [
       {
         "en": "It's a colorful scene - laborers unload noisily, and small groups of women haggle for the pots of crabs and sardines to sell at village markets.",
@@ -192731,7 +193036,10 @@
     "translations": [
       "胡说，废话"
     ],
-    "phrases": [],
+    "phrases": [
+      "absolute nonsense",
+      "talk nonsense"
+    ],
     "examples": [
       {
         "en": "‘I'm a prisoner in my own home.' ‘Nonsense!'",
@@ -193927,7 +194235,10 @@
     "translations": [
       "小说家"
     ],
-    "phrases": [],
+    "phrases": [
+      "famous novelist",
+      "American novelist"
+    ],
     "examples": [
       {
         "en": "The key to success as a romantic novelist is absolute belief in your story.",
@@ -193966,7 +194277,10 @@
     "translations": [
       "十一月"
     ],
-    "phrases": [],
+    "phrases": [
+      "in November",
+      "November weather"
+    ],
     "examples": [
       {
         "en": "And again in November.",
@@ -194082,7 +194396,10 @@
       "现今；时下",
       "当今"
     ],
-    "phrases": [],
+    "phrases": [
+      "nowadays people",
+      "modern nowadays"
+    ],
     "examples": [
       {
         "en": "Nowadays people are rarely shocked by the sex they see on television.",
@@ -194468,7 +194785,10 @@
     "translations": [
       "为数众多的；许多"
     ],
-    "phrases": [],
+    "phrases": [
+      "numerous times",
+      "numerous reasons"
+    ],
     "examples": [
       {
         "en": "Numerous attempts have been made to hide the truth.",
@@ -195665,7 +195985,10 @@
     "translations": [
       "明显地，显然地"
     ],
-    "phrases": [],
+    "phrases": [
+      "obviously true",
+      "obviously wrong"
+    ],
     "examples": [
       {
         "en": "We're obviously going to need more help.",
@@ -196056,7 +196379,10 @@
     "translations": [
       "海洋；洋"
     ],
-    "phrases": [],
+    "phrases": [
+      "Pacific Ocean",
+      "deep ocean"
+    ],
     "examples": [
       {
         "en": "The cape extends far into the ocean.",
@@ -196100,7 +196426,10 @@
     "translations": [
       "大洋洲"
     ],
-    "phrases": [],
+    "phrases": [
+      "in Oceania",
+      "Oceania region"
+    ],
     "examples": [
       {
         "en": "The Mummies Of The World exhibition brings together a collection of mummies and related artefacts from South America, Europe, Asia, Oceania and Egypt.",
@@ -196266,7 +196595,10 @@
     "translations": [
       "气味，香气；味道"
     ],
-    "phrases": [],
+    "phrases": [
+      "strong odour",
+      "bad odour"
+    ],
     "examples": [
       {
         "en": "...the lingering odour of car exhaust.",
@@ -197128,7 +197460,10 @@
     "translations": [
       "油田"
     ],
-    "phrases": [],
+    "phrases": [
+      "North Sea oilfield",
+      "oilfield worker"
+    ],
     "examples": [
       {
         "en": "Systems engineering has been widely applied in the oilfield exploitation and construction.",
@@ -197404,6 +197739,11 @@
         "meaning": "含 ics 词根",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "the Olympics",
+      "Olympic Games",
+      "win the Olympics"
     ]
   },
   {
@@ -197418,7 +197758,10 @@
     "translations": [
       "煎蛋卷"
     ],
-    "phrases": [],
+    "phrases": [
+      "cheese omelette",
+      "make an omelette"
+    ],
     "examples": [
       {
         "en": "a cheese omelette",
@@ -199414,7 +199757,10 @@
     "translations": [
       "整洁的；有秩序的"
     ],
-    "phrases": [],
+    "phrases": [
+      "orderly manner",
+      "orderly fashion"
+    ],
     "examples": [
       {
         "en": "She needs to organize her ideas in a more orderly way.",
@@ -199759,7 +200105,10 @@
     "translations": [
       "组织起来；组织工会"
     ],
-    "phrases": [],
+    "phrases": [
+      "organise an event",
+      "organise a meeting"
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -201019,7 +201368,10 @@
       "户外",
       "户外的（等于outdoor）"
     ],
-    "phrases": [],
+    "phrases": [
+      "go outdoors",
+      "enjoy outdoors"
+    ],
     "examples": [
       {
         "en": "It's warm enough to eat outdoors tonight.",
@@ -201602,7 +201954,10 @@
     "translations": [
       "外边，郊区"
     ],
-    "phrases": [],
+    "phrases": [
+      "on the outskirts",
+      "outskirts of town"
+    ],
     "examples": [
       {
         "en": "Mianyang Nanjiao Airport is seated in southern outskirt of Minayang city proper, operating flights to Beijing, Shanghai and Guangzhou.",
@@ -202186,7 +202541,10 @@
       "外衣，大衣",
       "大衣，外套"
     ],
-    "phrases": [],
+    "phrases": [
+      "wear an overcoat",
+      "winter overcoat"
+    ],
     "examples": [
       {
         "en": "I sprang 400 pounds for  her overcoat.",
@@ -202396,7 +202754,10 @@
     "translations": [
       "在头顶上的；架空的"
     ],
-    "phrases": [],
+    "phrases": [
+      "overhead bridge",
+      "overhead cost"
+    ],
     "examples": [
       {
         "en": "The fireworks cracked overhead.",
@@ -204579,7 +204940,10 @@
       "平坠着陆；平展",
       "使平坠著陆；使平展"
     ],
-    "phrases": [],
+    "phrases": [
+      "make pancakes",
+      "eat pancakes"
+    ],
     "examples": [
       {
         "en": "The countryside near there is flat as a pancake (= very flat ) .",
@@ -205610,7 +205974,10 @@
       "鹦鹉；学舌者，应声虫；机械模仿别人的人",
       "机械地模仿"
     ],
-    "phrases": [],
+    "phrases": [
+      "African parrot",
+      "parrot cage"
+    ],
     "examples": [
       {
         "en": "We recited poems parrot fashion.",
@@ -206593,7 +206960,10 @@
     "translations": [
       "消极地"
     ],
-    "phrases": [],
+    "phrases": [
+      "passively accept",
+      "respond passively"
+    ],
     "examples": [
       {
         "en": "their passive acceptance of their fate",
@@ -207221,7 +207591,10 @@
     "translations": [
       "耐心地"
     ],
-    "phrases": [],
+    "phrases": [
+      "wait patiently",
+      "listen patiently"
+    ],
     "examples": [
       {
         "en": "The teacher told him to weigh this matter patiently.",
@@ -207407,6 +207780,10 @@
         "meaning": "名词",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "on the pavement",
+      "side pavement"
     ]
   },
   {
@@ -208383,6 +208760,10 @@
         "meaning": "便士(古英)",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "fifty pence",
+      "cost a few pence"
     ]
   },
   {
@@ -208716,7 +209097,10 @@
       "胡椒；辣椒；胡椒粉",
       "加胡椒粉于；使布满"
     ],
-    "phrases": [],
+    "phrases": [
+      "black pepper",
+      "red pepper"
+    ],
     "examples": [
       {
         "en": "salt and pepper",
@@ -209413,7 +209797,10 @@
       "或许；（表示不确定）也许；（用于粗略的估计）或许；（表示勉强同意或其实不赞成）也许；可能",
       "假定；猜想；未定之事"
     ],
-    "phrases": [],
+    "phrases": [
+      "perhaps not",
+      "perhaps later"
+    ],
     "examples": [
       {
         "en": "Perhaps she's next door.",
@@ -211485,7 +211872,10 @@
     "translations": [
       "钢琴家；钢琴演奏者"
     ],
-    "phrases": [],
+    "phrases": [
+      "concert pianist",
+      "famous pianist"
+    ],
     "examples": [
       {
         "en": "She was an accomplished pianist, a superb swimmer, and a gifted artist.",
@@ -211658,7 +212048,10 @@
     "translations": [
       "挑剔的"
     ],
-    "phrases": [],
+    "phrases": [
+      "picky eater",
+      "picky about"
+    ],
     "examples": [
       {
         "en": "He's a very picky eater .",
@@ -214075,7 +214468,10 @@
     "translations": [
       "玩伴；游伴"
     ],
-    "phrases": [],
+    "phrases": [
+      "childhood playmate",
+      "be playmates with"
+    ],
     "examples": [
       {
         "en": "The young girl loved to play with her playmates.",
@@ -214109,7 +214505,10 @@
     "translations": [
       "游戏室；娱乐室"
     ],
-    "phrases": [],
+    "phrases": [
+      "children playroom",
+      "in the playroom"
+    ],
     "examples": [
       {
         "en": "The playroom is designed for recreational purpose.",
@@ -216545,7 +216944,10 @@
     "translations": [
       "爆米花，爆玉米花"
     ],
-    "phrases": [],
+    "phrases": [
+      "butter popcorn",
+      "eat popcorn"
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -216948,7 +217350,10 @@
       "搬运工人",
       "门房；服务员；行李搬运工；守门人"
     ],
-    "phrases": [],
+    "phrases": [
+      "hotel porter",
+      "carry for the porter"
+    ],
     "examples": [
       {
         "en": "Our taxi pulled up at Old Delhi station and a porter sprinted to the door.",
@@ -217545,7 +217950,10 @@
       "可能地；也许",
       "可能地；也许；大概"
     ],
-    "phrases": [],
+    "phrases": [
+      "possibly true",
+      "possibly the best"
+    ],
     "examples": [
       {
         "en": "This last task is possibly the most difficult.",
@@ -217715,7 +218123,10 @@
     "translations": [
       "邮箱"
     ],
-    "phrases": [],
+    "phrases": [
+      "red postbox",
+      "post a letter in postbox"
+    ],
     "examples": [
       {
         "en": "I was so certain that it had happened, that I wrote a letter to my parents that same night and put it in the postbox at the corner of the street.",
@@ -217799,7 +218210,10 @@
     "translations": [
       "（英）邮政编码；邮区号"
     ],
-    "phrases": [],
+    "phrases": [
+      "enter postcode",
+      "postal code"
+    ],
     "examples": [
       {
         "en": "Type your street address and postcode.",
@@ -217950,7 +218364,10 @@
       "邮递员",
       "邮递员；邮差"
     ],
-    "phrases": [],
+    "phrases": [
+      "the postman",
+      "postman delivers mail"
+    ],
     "examples": [
       {
         "en": "That postman is in charge of this route.",
@@ -218000,7 +218417,10 @@
       "延迟，推迟，延缓",
       "使…延期；把…放在次要地位；把…放在后面"
     ],
-    "phrases": [],
+    "phrases": [
+      "postpone the meeting",
+      "postpone indefinitely"
+    ],
     "examples": [
       {
         "en": "The match had to be postponed until next week.",
@@ -218844,7 +219264,10 @@
     "translations": [
       "练习，实习，训练"
     ],
-    "phrases": [],
+    "phrases": [
+      "practise daily",
+      "practise speaking"
+    ],
     "examples": [
       {
         "en": "They moved the furniture back to practise their dance routine.",
@@ -219475,7 +219898,10 @@
     "translations": [
       "序言，前言，引语"
     ],
-    "phrases": [],
+    "phrases": [
+      "write a preface",
+      "preface to the book"
+    ],
     "examples": [
       {
         "en": "...the preface to Kelman's novel.",
@@ -220529,7 +220955,10 @@
     "translations": [
       "一会儿；目前"
     ],
-    "phrases": [],
+    "phrases": [
+      "presently working",
+      "presently available"
+    ],
     "examples": [
       {
         "en": "The doctor will be here presently.",
@@ -221536,7 +221965,10 @@
       "主要地，首先",
       "首先；主要地"
     ],
-    "phrases": [],
+    "phrases": [
+      "primarily because",
+      "primarily for"
+    ],
     "examples": [
       {
         "en": "The advertisement is aimed primarily at children.",
@@ -222924,7 +223356,10 @@
     "translations": [
       "或许，大概"
     ],
-    "phrases": [],
+    "phrases": [
+      "probably right",
+      "probably the best"
+    ],
     "examples": [
       {
         "en": "She will probably be scarred for life .",
@@ -226139,7 +226574,10 @@
     "translations": [
       "以…为条件"
     ],
-    "phrases": [],
+    "phrases": [
+      "provided that",
+      "provided enough"
+    ],
     "examples": [
       {
         "en": "The teacher provided some different materials and left the children to experiment.",
@@ -226723,7 +227161,10 @@
     "translations": [
       "公然地；以公众名义"
     ],
-    "phrases": [],
+    "phrases": [
+      "publicly announce",
+      "publicly available"
+    ],
     "examples": [
       {
         "en": "She and her family agreed never to discuss the matter publicly.",
@@ -228197,7 +228638,10 @@
       "震动；颤抖",
       "地震；颤抖"
     ],
-    "phrases": [],
+    "phrases": [
+      "earth quake",
+      "quake area"
+    ],
     "examples": [
       {
         "en": "Richmond was quaking with fury.",
@@ -229570,7 +230014,10 @@
     "translations": [
       "种族上地"
     ],
-    "phrases": [],
+    "phrases": [
+      "racially mixed",
+      "racially motivated"
+    ],
     "examples": [
       {
         "en": "Mr. Obama is the first president since Richard M. Nixon to be elected while living in a city neighborhood, in his case, Chicago's racially and economically diverse Hyde Park.",
@@ -229808,7 +230255,10 @@
     "translations": [
       "完全地，彻底地"
     ],
-    "phrases": [],
+    "phrases": [
+      "radically change",
+      "radically different"
+    ],
     "examples": [
       {
         "en": "plans to radically reform the tax system",
@@ -229987,7 +230437,10 @@
     "translations": [
       "[化学] 镭（88号元素符号Ra）"
     ],
-    "phrases": [],
+    "phrases": [
+      "radium therapy",
+      "discover radium"
+    ],
     "examples": [
       {
         "en": "Madame Curie discovered radium.",
@@ -230496,7 +230949,10 @@
     "translations": [
       "（美）雨衣"
     ],
-    "phrases": [],
+    "phrases": [
+      "wear a raincoat",
+      "yellow raincoat"
+    ],
     "examples": [
       {
         "en": "He dipped in his raincoat pocket.",
@@ -232253,6 +232709,10 @@
         "meaning": "含 ise 词根",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "realise dream",
+      "realise truth"
     ]
   },
   {
@@ -232879,7 +233339,10 @@
     "translations": [
       "重建；改造，重新组装；复原"
     ],
-    "phrases": [],
+    "phrases": [
+      "rebuild after",
+      "rebuild from scratch"
+    ],
     "examples": [
       {
         "en": "The church was completely rebuilt in the last century.",
@@ -233604,7 +234067,10 @@
     "translations": [
       "背诵；叙述；列举"
     ],
-    "phrases": [],
+    "phrases": [
+      "recite a poem",
+      "recite from memory"
+    ],
     "examples": [
       {
         "en": "She recited a poem that she had learnt at school.",
@@ -234112,7 +234578,10 @@
     "translations": [
       "重获；痊愈，恢复"
     ],
-    "phrases": [],
+    "phrases": [
+      "economic recovery",
+      "make a recovery"
+    ],
     "examples": [
       {
         "en": "Hopes of economic recovery are fading.",
@@ -234458,7 +234927,10 @@
       "再直接的",
       "再直接询问"
     ],
-    "phrases": [],
+    "phrases": [
+      "redirect traffic",
+      "redirect funds"
+    ],
     "examples": [
       {
         "en": "The flight was redirected to Cleveland.",
@@ -235293,7 +235765,10 @@
     "translations": [
       "（给）加油，加燃料"
     ],
-    "phrases": [],
+    "phrases": [
+      "refuel at",
+      "refuel plane"
+    ],
     "examples": [
       {
         "en": "The plane was refuelled in Dubai.",
@@ -235998,7 +236473,10 @@
     "translations": [
       "定期地，有规律地"
     ],
-    "phrases": [],
+    "phrases": [
+      "regularly attend",
+      "regularly check"
+    ],
     "examples": [
       {
         "en": "We meet regularly, once a month.",
@@ -238381,7 +238859,10 @@
     "translations": [
       "再铺，重新铺砌"
     ],
-    "phrases": [],
+    "phrases": [
+      "repave road",
+      "repave street"
+    ],
     "examples": [
       {
         "en": "Therefore, lots of pavements need to repair in large. scale even repave wholly after using a long time, which will bring large numbers of waste asphalt mixture.",
@@ -241175,7 +241656,10 @@
     "translations": [
       "不安定的，焦虑的"
     ],
-    "phrases": [],
+    "phrases": [
+      "restless night",
+      "feel restless"
+    ],
     "examples": [
       {
         "en": "After a few weeks in Marseille, I grew restless and decided to move on.",
@@ -241808,7 +242292,10 @@
     "translations": [
       "复述；再讲；重述"
     ],
-    "phrases": [],
+    "phrases": [
+      "retell story",
+      "retell the tale"
+    ],
     "examples": [
       {
         "en": "Lucilla often asks her sisters to retell the story.",
@@ -242527,7 +243014,10 @@
     "translations": [
       "评论者，评论家"
     ],
-    "phrases": [],
+    "phrases": [
+      "book reviewer",
+      "film reviewer"
+    ],
     "examples": [
       {
         "en": "...the reviewer for Atlantic Monthly.",
@@ -242916,7 +243406,10 @@
       "重绕；倒带器",
       "倒回；重绕"
     ],
-    "phrases": [],
+    "phrases": [
+      "rewind tape",
+      "rewind the film"
+    ],
     "examples": [
       {
         "en": "You first must create the buffer, fill it, then rewind the position to the beginning so you can read from the start.",
@@ -242957,7 +243450,10 @@
       "改写；重写",
       "重写或改写的文稿；改写的作品"
     ],
-    "phrases": [],
+    "phrases": [
+      "rewrite history",
+      "rewrite the rules"
+    ],
     "examples": [
       {
         "en": "I'll have to rewrite most of the essay.",
@@ -244060,7 +244556,10 @@
     "translations": [
       "狂暴的"
     ],
-    "phrases": [],
+    "phrases": [
+      "riotous behaviour",
+      "riotous party"
+    ],
     "examples": [
       {
         "en": "Their riotous behaviour led to their arrest.",
@@ -245450,7 +245949,10 @@
     "translations": [
       "公鸡；狂妄自负的人"
     ],
-    "phrases": [],
+    "phrases": [
+      "farm rooster",
+      "rooster crows"
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -245805,7 +246307,10 @@
       "旋转",
       "使旋转"
     ],
-    "phrases": [],
+    "phrases": [
+      "rotate crops",
+      "rotate shifts"
+    ],
     "examples": [
       {
         "en": "The Earth rotates on its axis once every 24 hours.",
@@ -246351,7 +246856,10 @@
     "translations": [
       "例行公事地"
     ],
-    "phrases": [],
+    "phrases": [
+      "routinely check",
+      "routinely do"
+    ],
     "examples": [
       {
         "en": "This vaccine is already routinely used.",
@@ -247839,7 +248347,10 @@
     "translations": [
       "悲哀"
     ],
-    "phrases": [],
+    "phrases": [
+      "deep sadness",
+      "feel sadness"
+    ],
     "examples": [
       {
         "en": "There was a touch of sadness in his voice (= he sounded a little sad ) .",
@@ -247969,6 +248480,10 @@
         "meaning": "副词",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "arrive safely",
+      "keep safely"
     ]
   },
   {
@@ -249577,7 +250092,10 @@
       "未开化的人；粗鲁的人；残暴成性的人",
       "乱咬；粗暴的对待"
     ],
-    "phrases": [],
+    "phrases": [
+      "savage attack",
+      "savage criticism"
+    ],
     "examples": [
       {
         "en": "a savage dog",
@@ -251509,7 +252027,10 @@
       "苏格兰的；苏格兰人的；苏格兰语的",
       "苏格兰人；苏格兰语"
     ],
-    "phrases": [],
+    "phrases": [
+      "Scottish accent",
+      "Scottish Highlands"
+    ],
     "examples": [
       {
         "en": "These cases are dealt with by the Foreign Office, while Hague cases go through the Ministry of Justice in England and Wales, and the Scottish and Northern Irish court services.",
@@ -252073,7 +252594,10 @@
     "translations": [
       "海鸥"
     ],
-    "phrases": [],
+    "phrases": [
+      "sea seagull",
+      "seagull cry"
+    ],
     "examples": [
       {
         "en": "Before he learned this, however, he found that moving more than one feather at that speed will spin you like a rifle ball... and Jonathan had flown the first aerobatics of any seagull on earth.",
@@ -252295,7 +252819,10 @@
     "translations": [
       "海贝，贝壳；海贝壳"
     ],
-    "phrases": [],
+    "phrases": [
+      "collect seashells",
+      "seashell necklace"
+    ],
     "examples": [
       {
         "en": "jewelry made out of seashells",
@@ -253378,7 +253905,10 @@
     "translations": [
       "表面上看"
     ],
-    "phrases": [],
+    "phrases": [
+      "seemingly simple",
+      "seemingly impossible"
+    ],
     "examples": [
       {
         "en": "seemingly unrelated bits of information",
@@ -254019,6 +254549,10 @@
         "meaning": "含 min 词根",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "attend a seminar",
+      "business seminar"
     ]
   },
   {
@@ -255452,7 +255986,10 @@
     "translations": [
       "移居者；殖民者"
     ],
-    "phrases": [],
+    "phrases": [
+      "early settler",
+      "white settler"
+    ],
     "examples": [
       {
         "en": "early settlers in Australia",
@@ -255674,7 +256211,10 @@
       "七十的；七十个的；七十岁的",
       "七十"
     ],
-    "phrases": [],
+    "phrases": [
+      "seventy percent",
+      "in the seventies"
+    ],
     "examples": [
       {
         "en": "We lost touch during the seventies.",
@@ -259627,6 +260167,10 @@
         "meaning": "含 sid 词根",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "side road",
+      "turn onto sideroad"
     ]
   },
   {
@@ -259654,6 +260198,10 @@
         "meaning": "走；步行",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "on the sidewalk",
+      "sidewalk cafe"
     ]
   },
   {
@@ -259672,7 +260220,10 @@
       "斜地里",
       "旁边的；向侧面的（等于sideways）"
     ],
-    "phrases": [],
+    "phrases": [
+      "sideway glance",
+      "sideway movement"
+    ],
     "examples": [
       {
         "en": "The key design concept of the space is that the suspended rooms are connected with suspended bridges and sideway aisles.",
@@ -260695,7 +261246,10 @@
     "translations": [
       "类似地，相似地"
     ],
-    "phrases": [],
+    "phrases": [
+      "similarly named",
+      "similarly situated"
+    ],
     "examples": [
       {
         "en": "The first letter she wrote me was less than a page long, and her second letter was similarly brief.",
@@ -261864,7 +262418,10 @@
       "十六的，十六个的",
       "十六"
     ],
-    "phrases": [],
+    "phrases": [
+      "sixteen years old",
+      "sweet sixteen"
+    ],
     "examples": [
       {
         "en": "But it contained one very interesting piece of data: in 2008, for the first time in sixteen years, the finance and insurance industry shrank.",
@@ -263128,7 +263685,10 @@
     "translations": [
       "奴役；奴隶制度；奴隶身份"
     ],
-    "phrases": [],
+    "phrases": [
+      "abolish slavery",
+      "end slavery"
+    ],
     "examples": [
       {
         "en": "attempts to abolish slavery",
@@ -264253,7 +264813,10 @@
     "translations": [
       "有臭味的，发臭的"
     ],
-    "phrases": [],
+    "phrases": [
+      "smelly cheese",
+      "smelly feet"
+    ],
     "examples": [
       {
         "en": "smelly feet",
@@ -264844,7 +265407,10 @@
     "translations": [
       "运动鞋；卑鄙者；鬼鬼祟祟做事的人"
     ],
-    "phrases": [],
+    "phrases": [
+      "wear sneakers",
+      "pair of sneakers"
+    ],
     "examples": [
       {
         "en": "a pair of white sneakers",
@@ -265060,7 +265626,10 @@
       "雪球",
       "掷雪球；滚雪球般增大"
     ],
-    "phrases": [],
+    "phrases": [
+      "snowball fight",
+      "throw snowballs"
+    ],
     "examples": [
       {
         "en": "We had a massive snowball fight .",
@@ -266153,7 +266722,10 @@
     "translations": [
       "垒球；垒球运动"
     ],
-    "phrases": [],
+    "phrases": [
+      "play softball",
+      "softball team"
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -266508,7 +267080,10 @@
     "translations": [
       "单独地，唯一地"
     ],
-    "phrases": [],
+    "phrases": [
+      "solely responsible",
+      "not solely"
+    ],
     "examples": [
       {
         "en": "Scholarships are given solely on the basis of financial need.",
@@ -267140,7 +267715,10 @@
     "translations": [
       "在某一时候；从前"
     ],
-    "phrases": [],
+    "phrases": [
+      "sometime next week",
+      "sometime soon"
+    ],
     "examples": [
       {
         "en": "The sales figures won't be released until sometime next month.",
@@ -268447,6 +269025,10 @@
         "meaning": "名词",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "buy souvenirs",
+      "souvenir shop"
     ]
   },
   {
@@ -270965,7 +271547,10 @@
     "translations": [
       "一匙；一匙的量"
     ],
-    "phrases": [],
+    "phrases": [
+      "a spoonful of",
+      "two spoonfuls"
+    ],
     "examples": [
       {
         "en": "He took a spoonful of the stew and ate it.",
@@ -274053,7 +274638,10 @@
     "translations": [
       "轮船，汽船"
     ],
-    "phrases": [],
+    "phrases": [
+      "ocean steamer",
+      "steamer trunk"
+    ],
     "examples": [
       {
         "en": "The steamer touched at 3 ports.",
@@ -274475,7 +275063,10 @@
       "当服务员；当管事",
       "管理"
     ],
-    "phrases": [],
+    "phrases": [
+      "flight steward",
+      "chief steward"
+    ],
     "examples": [
       {
         "en": "race stewards",
@@ -278363,7 +278954,10 @@
       "浸没",
       "潜入水中"
     ],
-    "phrases": [],
+    "phrases": [
+      "submerge in water",
+      "submerge under"
+    ],
     "examples": [
       {
         "en": "Alice submerged herself in work to try and forget about Tom.",
@@ -280034,7 +280628,10 @@
     "translations": [
       "[轻] 手提箱；衣箱"
     ],
-    "phrases": [],
+    "phrases": [
+      "pack a suitcase",
+      "carry a suitcase"
+    ],
     "examples": [
       {
         "en": "It did not take Andrew long to pack a suitcase.",
@@ -285105,7 +285702,10 @@
       "裁制衣服",
       "剪裁；使合适"
     ],
-    "phrases": [],
+    "phrases": [
+      "tailor made",
+      "go to the tailor"
+    ],
     "examples": [
       {
         "en": "We can tailor the programme to the patient's needs.",
@@ -286329,6 +286929,10 @@
         "meaning": "支付",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "British taxpayer",
+      "taxpayer money"
     ]
   },
   {
@@ -286622,7 +287226,10 @@
     "translations": [
       "团队合作；协力"
     ],
-    "phrases": [],
+    "phrases": [
+      "good teamwork",
+      "teamwork spirit"
+    ],
     "examples": [
       {
         "en": "We want to encourage good teamwork and communication.",
@@ -287744,7 +288351,10 @@
     "translations": [
       "引诱，诱惑；吸引"
     ],
-    "phrases": [],
+    "phrases": [
+      "tempt fate",
+      "tempted to"
+    ],
     "examples": [
       {
         "en": "If you leave valuables in your car it will tempt thieves.",
@@ -289643,7 +290253,10 @@
     "translations": [
       "他们的；她们的；它们的"
     ],
-    "phrases": [],
+    "phrases": [
+      "is theirs",
+      "a friend of theirs"
+    ],
     "examples": [
       {
         "en": "When our washing machine broke, our neighbours let us use theirs.",
@@ -290251,7 +290864,10 @@
       "因此，所以",
       "因此；所以"
     ],
-    "phrases": [],
+    "phrases": [
+      "therefore decide",
+      "therefore necessary"
+    ],
     "examples": [
       {
         "en": "Their car was bigger and therefore more comfortable.",
@@ -291129,7 +291745,10 @@
     "translations": [
       "口渴的，口干的；渴望的，热望的"
     ],
-    "phrases": [],
+    "phrases": [
+      "feel thirsty",
+      "thirsty for knowledge"
+    ],
     "examples": [
       {
         "en": "Can I have a glass of water? I'm really thirsty.",
@@ -291225,7 +291844,10 @@
       "三十",
       "三十个的"
     ],
-    "phrases": [],
+    "phrases": [
+      "thirty years old",
+      "in the thirties"
+    ],
     "examples": [
       {
         "en": "In the thirties, air travel really began to take off.",
@@ -291998,7 +292620,10 @@
     "translations": [
       "惊险小说；使人毛骨悚然的东西；使人毛骨悚然的小说"
     ],
-    "phrases": [],
+    "phrases": [
+      "psychological thriller",
+      "crime thriller"
+    ],
     "examples": [
       {
         "en": "...a tense psychological thriller.",
@@ -292510,7 +293135,10 @@
     "translations": [
       "星期四"
     ],
-    "phrases": [],
+    "phrases": [
+      "on Thursday",
+      "Thursday morning"
+    ],
     "examples": [
       {
         "en": "She was working Thursday.",
@@ -302656,7 +303284,10 @@
     "translations": [
       "揭开…的盖子"
     ],
-    "phrases": [],
+    "phrases": [
+      "uncover truth",
+      "uncover the plot"
+    ],
     "examples": [
       {
         "en": "When the seedlings sprout, uncover the tray.",
@@ -303702,7 +304333,10 @@
       "不适宜的；不合格的；不健康的",
       "使不合格；使不相宜；使不胜任"
     ],
-    "phrases": [],
+    "phrases": [
+      "unfit for",
+      "unfit to"
+    ],
     "examples": [
       {
         "en": "She never gets any exercise – she must be really unfit.",
@@ -303736,7 +304370,10 @@
     "translations": [
       "打开；呈现"
     ],
-    "phrases": [],
+    "phrases": [
+      "unfold the map",
+      "events unfold"
+    ],
     "examples": [
       {
         "en": "As the story unfolds, we learn more about Max's childhood.",
@@ -305896,6 +306533,10 @@
         "meaning": "表示方向",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "look upwards",
+      "move upwards"
     ]
   },
   {
@@ -306562,7 +307203,10 @@
     "translations": [
       "通常，经常"
     ],
-    "phrases": [],
+    "phrases": [
+      "usually do",
+      "usually means"
+    ],
     "examples": [
       {
         "en": "Women usually live longer than men.",
@@ -308867,7 +309511,10 @@
       "使颤动",
       "颤动"
     ],
-    "phrases": [],
+    "phrases": [
+      "vibrate with",
+      "phone vibrates"
+    ],
     "examples": [
       {
         "en": "The floor was vibrating to the beat of the music.",
@@ -309921,7 +310568,10 @@
       "几乎，差不多",
       "实际上，事实上"
     ],
-    "phrases": [],
+    "phrases": [
+      "virtually impossible",
+      "virtually all"
+    ],
     "examples": [
       {
         "en": "Virtually all the children come to school by bus.",
@@ -311567,7 +312217,10 @@
     "translations": [
       "四轮运货马车"
     ],
-    "phrases": [],
+    "phrases": [
+      "wagon train",
+      "covered wagon"
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -311791,7 +312444,10 @@
       "女服务员；女侍者",
       "做女服务生"
     ],
-    "phrases": [],
+    "phrases": [
+      "friendly waitress",
+      "waitress brings"
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -312006,7 +312662,10 @@
     "translations": [
       "随身听（商标名称）"
     ],
-    "phrases": [],
+    "phrases": [
+      "listen on walkman",
+      "Sony walkman"
+    ],
     "examples": [
       {
         "en": "I like music, and I like this walkman, too.",
@@ -312875,7 +313534,10 @@
     "translations": [
       "洗手间；盥洗室；厕所"
     ],
-    "phrases": [],
+    "phrases": [
+      "public washroom",
+      "go to washroom"
+    ],
     "examples": [
       {
         "en": "The landlord pays cleaners who come daily, and there is a dingy shared washroom where residents can clean their belongings.",
@@ -315355,6 +316017,10 @@
         "meaning": "向...的方向",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "westward expansion",
+      "move westward"
     ]
   },
   {
@@ -315371,7 +316037,10 @@
       "向西",
       "向西的"
     ],
-    "phrases": [],
+    "phrases": [
+      "travel westwards",
+      "head westwards"
+    ],
     "examples": [
       {
         "en": "He sailed westward from Palos de la Frontera.",
@@ -317524,7 +318193,10 @@
     "translations": [
       "欣然地；愿意地，乐意地"
     ],
-    "phrases": [],
+    "phrases": [
+      "willingly do",
+      "willingly accept"
+    ],
     "examples": [
       {
         "en": "I can't imagine a circumstance in which I would be willing to steal.",
@@ -319022,6 +319694,10 @@
         "meaning": "复数",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "women's rights",
+      "working women"
     ]
   },
   {
@@ -319419,6 +320095,10 @@
         "meaning": "made of",
         "type": "root"
       }
+    ],
+    "phrases": [
+      "woolen sweater",
+      "woolen blanket"
     ]
   },
   {
@@ -319613,7 +320293,10 @@
       "工作日",
       "日常的，工作日的；平凡的"
     ],
-    "phrases": [],
+    "phrases": [
+      "eight-hour workday",
+      "long workday"
+    ],
     "examples": [
       {
         "en": "a 10-hour workday",
@@ -319801,7 +320484,10 @@
     "translations": [
       "同事；工友"
     ],
-    "phrases": [],
+    "phrases": [
+      "chat with workmate",
+      "friendly workmate"
+    ],
     "examples": [
       {
         "en": "More than 80% of unfaithful people have affairs with someone who'd started out as “just a friend, ” very often a workmate.",
@@ -320089,7 +320775,10 @@
       "全世界的",
       "在世界各地"
     ],
-    "phrases": [],
+    "phrases": [
+      "worldwide fame",
+      "worldwide web"
+    ],
     "examples": [
       {
         "en": "His books have sold more than 20 million copies worldwide.",
@@ -322166,7 +322855,10 @@
     "translations": [
       "酸奶（等于yoghourt）；酸乳酪"
     ],
-    "phrases": [],
+    "phrases": [
+      "eat yoghurt",
+      "fruit yoghurt"
+    ],
     "examples": [
       {
         "en": "a pot of strawberry yogurt",
@@ -322641,7 +323333,10 @@
       "好吃的；美味的；愉快的",
       "美味的东西；令人喜爱的东西"
     ],
-    "phrases": [],
+    "phrases": [
+      "yummy food",
+      "looks yummy"
+    ],
     "examples": [
       {
         "en": "This cake is really yummy.",
