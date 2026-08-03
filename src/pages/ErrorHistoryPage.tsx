@@ -144,7 +144,7 @@ export default function ErrorHistoryPage() {
                 src === 'chinese' ? '🇨🇳 中译英' :
                 src === 'dictation' ? '🎧 听写' :
                 src === 'spelling' ? '🔤 拼写' :
-                '🎤 跟读'} {n}
+                '🎤 跟读'} {(n as number)}
             </span>
           ))}
         </div>
