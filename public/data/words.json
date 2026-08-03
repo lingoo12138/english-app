@@ -7241,7 +7241,20 @@
         "type": "root"
       }
     ],
-    "phrases": []
+    "phrases": [
+      {
+        "phrase": "soon afterwards",
+        "translation": "不久之后"
+      },
+      {
+        "phrase": "shortly afterwards",
+        "translation": "随后"
+      },
+      {
+        "phrase": "afterwards came",
+        "translation": "后来来了"
+      }
+    ]
   },
   {
     "id": "w-again",
@@ -10431,7 +10444,20 @@
       "完全地；总共；总而言之",
       "整个；裸体"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "altogether different",
+        "translation": "完全不同"
+      },
+      {
+        "phrase": "not altogether",
+        "translation": "不完全是"
+      },
+      {
+        "phrase": "altogether too",
+        "translation": "总共太"
+      }
+    ],
     "examples": [
       {
         "en": "an old custom that has vanished altogether",
@@ -20203,7 +20229,16 @@
     "translations": [
       "注意地；聚精会神地；周到地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "listen attentively",
+        "translation": "专心听"
+      },
+      {
+        "phrase": "watch attentively",
+        "translation": "专心看"
+      }
+    ],
     "examples": [
       {
         "en": "an attentive audience",
@@ -59135,7 +59170,20 @@
     "translations": [
       "十分，完全地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "completely different",
+        "translation": "完全不同"
+      },
+      {
+        "phrase": "completely forgot",
+        "translation": "完全忘记"
+      },
+      {
+        "phrase": "completely understand",
+        "translation": "完全理解"
+      }
+    ],
     "examples": [
       {
         "en": "I completely forgot that it's his birthday today.",
@@ -62821,7 +62869,16 @@
       "结果",
       "因此，因而，所以"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "consequently lose",
+        "translation": "结果失去"
+      },
+      {
+        "phrase": "consequently fail",
+        "translation": "结果失败"
+      }
+    ],
     "examples": [
       {
         "en": "Most computer users have never received any formal keyboard training. Consequently, their keyboard skills are inefficient.",
@@ -63140,7 +63197,16 @@
     "translations": [
       "相当地，非常地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "considerably better",
+        "translation": "好得多"
+      },
+      {
+        "phrase": "considerably more",
+        "translation": "多得多"
+      }
+    ],
     "examples": [
       {
         "en": "It's considerably colder today.",
@@ -63582,7 +63648,16 @@
     "translations": [
       "不断地，时常地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "constantly change",
+        "translation": "不断变化"
+      },
+      {
+        "phrase": "constantly worry",
+        "translation": "不断担心"
+      }
+    ],
     "examples": [
       {
         "en": "He talked constantly about his work.",
@@ -65956,7 +66031,16 @@
     "translations": [
       "相反地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "conversely true",
+        "translation": "反过来是真的"
+      },
+      {
+        "phrase": "conversely ...",
+        "translation": "相反地"
+      }
+    ],
     "examples": [
       {
         "en": "American consumers prefer white eggs; conversely, British buyers like brown eggs.",
@@ -77507,7 +77591,20 @@
     "translations": [
       "一定地，明确地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "definitely will",
+        "translation": "一定会"
+      },
+      {
+        "phrase": "definitely not",
+        "translation": "肯定不会"
+      },
+      {
+        "phrase": "definitely know",
+        "translation": "明确知道"
+      }
+    ],
     "examples": [
       {
         "en": "‘Do you reckon Margot will be there?' ‘ Definitely not .'",
@@ -77927,7 +78024,16 @@
     "translations": [
       "故意地；谨慎地；慎重地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "deliberately ignored",
+        "translation": "故意忽视"
+      },
+      {
+        "phrase": "deliberately slow",
+        "translation": "故意慢"
+      }
+    ],
     "examples": [
       {
         "en": "He deliberately upset her.",
@@ -90021,7 +90127,16 @@
     "translations": [
       "戏剧性地，引人注目地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "dramatically increase",
+        "translation": "显著增加"
+      },
+      {
+        "phrase": "dramatically different",
+        "translation": "显著不同"
+      }
+    ],
     "examples": [
       {
         "en": "The population increased dramatically in the first half of the century.",
@@ -94737,7 +94852,16 @@
     "translations": [
       "有效地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "work efficiently",
+        "translation": "高效工作"
+      },
+      {
+        "phrase": "use efficiently",
+        "translation": "有效使用"
+      }
+    ],
     "examples": [
       {
         "en": "This oil lubricates efficiently.",
@@ -101556,7 +101680,16 @@
     "translations": [
       "本质上地；必须的"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "essentially different",
+        "translation": "本质不同"
+      },
+      {
+        "phrase": "essentially the same",
+        "translation": "本质相同"
+      }
+    ],
     "examples": [
       {
         "en": "Ballet is essentially a middle-class interest.",
@@ -102425,7 +102558,20 @@
       "终于；最后",
       "最后，终于"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "eventually become",
+        "translation": "最终变成"
+      },
+      {
+        "phrase": "eventually decided",
+        "translation": "最终决定"
+      },
+      {
+        "phrase": "eventually found",
+        "translation": "最终找到"
+      }
+    ],
     "examples": [
       {
         "en": "He eventually escaped and made his way back to England.",
@@ -103832,7 +103978,16 @@
     "translations": [
       "极端地，非常"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "exceedingly rare",
+        "translation": "极其罕见"
+      },
+      {
+        "phrase": "exceedingly difficult",
+        "translation": "极其困难"
+      }
+    ],
     "examples": [
       {
         "en": "Thank you. You've been exceedingly kind.",
@@ -104511,7 +104666,16 @@
     "translations": [
       "专门地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "used exclusively",
+        "translation": "专门使用"
+      },
+      {
+        "phrase": "exclusively for",
+        "translation": "专用于"
+      }
+    ],
     "examples": [
       {
         "en": "These are not involved as exclusively as ministers in \"soul-work,\" but they certainly cultivate the inner life more than the third group.",
@@ -106239,7 +106403,20 @@
     "translations": [
       "直接地，明确地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "explicitly state",
+        "translation": "明确陈述"
+      },
+      {
+        "phrase": "explicitly say",
+        "translation": "明确说"
+      },
+      {
+        "phrase": "explicitly forbid",
+        "translation": "明确禁止"
+      }
+    ],
     "examples": [
       {
         "en": "You have to grant us control explicitly.",
@@ -107217,7 +107394,16 @@
     "translations": [
       "广泛地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "extensively used",
+        "translation": "广泛使用"
+      },
+      {
+        "phrase": "extensively studied",
+        "translation": "广泛研究"
+      }
+    ],
     "examples": [
       {
         "en": "The new rocket was extensively tested and debugged by the army.",
@@ -119708,7 +119894,16 @@
       "幸运地",
       "幸运地，幸亏"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "fortunately for me",
+        "translation": "对我来说幸运"
+      },
+      {
+        "phrase": "fortunately no one",
+        "translation": "幸运无人"
+      }
+    ],
     "examples": [
       {
         "en": "Fortunately, everything worked out all right in the end.",
@@ -123330,7 +123525,16 @@
     "translations": [
       "根本上"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "fundamentally different",
+        "translation": "根本不同"
+      },
+      {
+        "phrase": "fundamentally change",
+        "translation": "根本改变"
+      }
+    ],
     "examples": [
       {
         "en": "The conclusions of the report are fundamentally wrong .",
@@ -123879,7 +124083,16 @@
     "translations": [
       "而且，此外"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "furthermore ...",
+        "translation": "此外"
+      },
+      {
+        "phrase": "and furthermore",
+        "translation": "而且"
+      }
+    ],
     "examples": [
       {
         "en": "He is old and unpopular. Furthermore, he has at best only two years of political life ahead of him.",
@@ -132338,7 +132551,16 @@
     "translations": [
       "无缘无故地，无根据地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "groundlessly accuse",
+        "translation": "无端指责"
+      },
+      {
+        "phrase": "groundlessly claim",
+        "translation": "无端声称"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -133515,7 +133737,16 @@
       "灰色（gray）；圭亚那（Guyana）",
       "戈瑞"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "gray/yellow",
+        "translation": "灰/黄"
+      },
+      {
+        "phrase": "gray",
+        "translation": "灰色"
+      }
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -144169,7 +144400,16 @@
     "translations": [
       "飓风（hurricane）"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "hurricane",
+        "translation": "飓风"
+      },
+      {
+        "phrase": "HURRICANE WARNING",
+        "translation": "飓风警报"
+      }
+    ],
     "examples": [],
     "tags": [
       "高考"
@@ -148467,7 +148707,16 @@
     "translations": [
       "日益，越来越多地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "increasingly difficult",
+        "translation": "越来越难"
+      },
+      {
+        "phrase": "increasingly popular",
+        "translation": "越来越流行"
+      }
+    ],
     "examples": [
       {
         "en": "Marketing techniques are becoming increasingly sophisticated.",
@@ -155839,7 +156088,16 @@
     "translations": [
       "不变地，一直"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "invariably true",
+        "translation": "总是对的"
+      },
+      {
+        "phrase": "invariably leads to",
+        "translation": "总是导致"
+      }
+    ],
     "examples": [
       {
         "en": "It invariably rains when I go there.",
@@ -156832,7 +157090,16 @@
     "translations": [
       "不合理地，无理性地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "act irrationally",
+        "translation": "不理智地行动"
+      },
+      {
+        "phrase": "behave irrationally",
+        "translation": "表现得无理"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -178607,7 +178874,16 @@
     "translations": [
       "机械地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "mechanically repeat",
+        "translation": "机械地重复"
+      },
+      {
+        "phrase": "mechanically move",
+        "translation": "机械地移动"
+      }
+    ],
     "examples": [
       {
         "en": "Never copy foreign things blindly or mechanically.",
@@ -184244,7 +184520,16 @@
       "毫米（millimeter）",
       "缅甸的域名"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "millimeter",
+        "translation": "毫米"
+      },
+      {
+        "phrase": "mm Hg",
+        "translation": "毫米汞柱"
+      }
+    ],
     "examples": [
       {
         "en": "We have full stereo sound, video, 35 mm slides.",
@@ -190036,7 +190321,20 @@
       "全国范围的；全国性的",
       "在全国"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "nationwide strike",
+        "translation": "全国性罢工"
+      },
+      {
+        "phrase": "nationwide survey",
+        "translation": "全国调查"
+      },
+      {
+        "phrase": "nationwide network",
+        "translation": "全国网络"
+      }
+    ],
     "examples": [
       {
         "en": "a nationwide search for a missing British tourist",
@@ -190820,7 +191118,16 @@
     "translations": [
       "必然，必定"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "not necessarily",
+        "translation": "不一定"
+      },
+      {
+        "phrase": "necessarily true",
+        "translation": "必然正确"
+      }
+    ],
     "examples": [
       {
         "en": "The care of old people necessarily involves quite a lot of heavy lifting.",
@@ -192390,7 +192697,16 @@
       "然而",
       "仍然"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "nevertheless true",
+        "translation": "尽管如此还是对的"
+      },
+      {
+        "phrase": "nevertheless decided",
+        "translation": "尽管如此还是决定"
+      }
+    ],
     "examples": [
       {
         "en": "The news may be unexpected; nevertheless, it is true.",
@@ -194217,7 +194533,16 @@
     "translations": [
       "向北"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "travel northwards",
+        "translation": "向北旅行"
+      },
+      {
+        "phrase": "move northwards",
+        "translation": "向北移动"
+      }
+    ],
     "examples": [
       {
         "en": "We sailed northwards.",
@@ -196844,7 +197169,16 @@
     "translations": [
       "偶然；非经常地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "occasionally meet",
+        "translation": "偶尔见面"
+      },
+      {
+        "phrase": "occasionally see",
+        "translation": "偶尔看到"
+      }
+    ],
     "examples": [
       {
         "en": "Occasionally people confess to crimes they haven't committed just to get attention.",
@@ -207106,7 +207440,16 @@
     "translations": [
       "特别，尤其，格外"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "particularly important",
+        "translation": "特别重要"
+      },
+      {
+        "phrase": "particularly good",
+        "translation": "特别好"
+      }
+    ],
     "examples": [
       {
         "en": "Steve was in a particularly bad mood when he got back.",
@@ -220037,7 +220380,16 @@
     "translations": [
       "实际上；几乎"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "practically impossible",
+        "translation": "几乎不可能"
+      },
+      {
+        "phrase": "practically speaking",
+        "translation": "实际上说"
+      }
+    ],
     "examples": [
       {
         "en": "I've read practically all of his books.",
@@ -221023,7 +221375,16 @@
     "translations": [
       "优先地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "preferentially treat",
+        "translation": "优先对待"
+      },
+      {
+        "phrase": "preferentially select",
+        "translation": "优先选择"
+      }
+    ],
     "examples": [
       {
         "en": "Heterosexuals should not be treated preferentially when the state carries out that role.",
@@ -222680,7 +223041,16 @@
     "translations": [
       "事先"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "previously mentioned",
+        "translation": "之前提到"
+      },
+      {
+        "phrase": "previously worked",
+        "translation": "之前工作过"
+      }
+    ],
     "examples": [
       {
         "en": "Guyana's railways were previously owned by private companies.",
@@ -225685,7 +226055,16 @@
     "translations": [
       "过分地，非常地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "prohibitively expensive",
+        "translation": "贵得买不起"
+      },
+      {
+        "phrase": "prohibitively high",
+        "translation": "高得吓人"
+      }
+    ],
     "examples": [],
     "tags": [
       "CET4"
@@ -240004,7 +240383,16 @@
     "translations": [
       "重复地；一再"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "repeatedly asked",
+        "translation": "反复问"
+      },
+      {
+        "phrase": "repeatedly warned",
+        "translation": "反复警告"
+      }
+    ],
     "examples": [
       {
         "en": "Graham was repeatedly warned not to work so hard.",
@@ -242230,7 +242618,16 @@
       "各自地",
       "各自地，分别地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "A and B respectively",
+        "translation": "A 和 B 分别"
+      },
+      {
+        "phrase": "respectively equal",
+        "translation": "各自相等"
+      }
+    ],
     "examples": [
       {
         "en": "The cups and saucers cost £5 and £3 respectively.",
@@ -264340,7 +264737,16 @@
     "translations": [
       "巧妙地；精巧地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "skillfully crafted",
+        "translation": "精巧制作"
+      },
+      {
+        "phrase": "skillfully avoided",
+        "translation": "巧妙避开"
+      }
+    ],
     "examples": [
       {
         "en": "With a skillful movement he rounded the small fishing-boat.",
@@ -294207,7 +294613,20 @@
       "自始至终，到处；全部",
       "贯穿，遍及"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "throughout the world",
+        "translation": "遍及世界"
+      },
+      {
+        "phrase": "throughout history",
+        "translation": "贯穿历史"
+      },
+      {
+        "phrase": "throughout the year",
+        "translation": "全年"
+      }
+    ],
     "examples": [
       {
         "en": "a large organization with offices throughout the world",
@@ -304034,7 +304453,20 @@
     "translations": [
       "最后，最终"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "ultimately decided",
+        "translation": "最终决定"
+      },
+      {
+        "phrase": "ultimately responsible",
+        "translation": "最终负责"
+      },
+      {
+        "phrase": "ultimately fail",
+        "translation": "最终失败"
+      }
+    ],
     "examples": [
       {
         "en": "Ultimately, the decision rests with the child's parents.",
@@ -305034,7 +305466,16 @@
     "translations": [
       "在下面，在底下"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "underneath the table",
+        "translation": "在桌子下面"
+      },
+      {
+        "phrase": "underneath it all",
+        "translation": "在这一切之下"
+      }
+    ],
     "examples": [
       {
         "en": "He has on his jeans and a long-sleeved blue denim shirt with a white T-shirt underneath.",
@@ -305415,7 +305856,16 @@
       "无疑",
       "无容置疑，肯定地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "undoubtedly true",
+        "translation": "毫无疑问正确"
+      },
+      {
+        "phrase": "undoubtedly the best",
+        "translation": "无疑是最好的"
+      }
+    ],
     "examples": [
       {
         "en": "This is undoubtedly important.",
@@ -305842,7 +306292,16 @@
     "translations": [
       "不幸地"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "unfortunately true",
+        "translation": "不幸是真的"
+      },
+      {
+        "phrase": "unfortunately lost",
+        "translation": "不幸丢失"
+      }
+    ],
     "examples": [
       {
         "en": "Unfortunately, you were out when we called.",
@@ -310148,7 +310607,20 @@
     "translations": [
       "小牛（等于vealer）；小牛肉"
     ],
-    "phrases": [],
+    "phrases": [
+      {
+        "phrase": "veal chop",
+        "translation": "小牛排"
+      },
+      {
+        "phrase": "veal cutlet",
+        "translation": "小牛肉片"
+      },
+      {
+        "phrase": "milk-fed veal",
+        "translation": "乳饲小牛肉"
+      }
+    ],
     "examples": [
       {
         "en": "...a veal cutlet.",

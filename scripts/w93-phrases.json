@@ -1,0 +1,410 @@
+{
+  "phrases": {
+    "gy": [
+      "gray/yellow",
+      "gray"
+    ],
+    "mm": [
+      "millimeter",
+      "mm Hg"
+    ],
+    "hur": [
+      "hurricane",
+      "HURRICANE WARNING"
+    ],
+    "veal": [
+      "veal chop",
+      "veal cutlet",
+      "milk-fed veal"
+    ],
+    "afterwards": [
+      "soon afterwards",
+      "shortly afterwards",
+      "afterwards came"
+    ],
+    "altogether": [
+      "altogether different",
+      "not altogether",
+      "altogether too"
+    ],
+    "completely": [
+      "completely different",
+      "completely forgot",
+      "completely understand"
+    ],
+    "constantly": [
+      "constantly change",
+      "constantly worry"
+    ],
+    "conversely": [
+      "conversely true",
+      "conversely ..."
+    ],
+    "definitely": [
+      "definitely will",
+      "definitely not",
+      "definitely know"
+    ],
+    "eventually": [
+      "eventually become",
+      "eventually decided",
+      "eventually found"
+    ],
+    "explicitly": [
+      "explicitly state",
+      "explicitly say",
+      "explicitly forbid"
+    ],
+    "invariably": [
+      "invariably true",
+      "invariably leads to"
+    ],
+    "nationwide": [
+      "nationwide strike",
+      "nationwide survey",
+      "nationwide network"
+    ],
+    "northwards": [
+      "travel northwards",
+      "move northwards"
+    ],
+    "previously": [
+      "previously mentioned",
+      "previously worked"
+    ],
+    "repeatedly": [
+      "repeatedly asked",
+      "repeatedly warned"
+    ],
+    "skillfully": [
+      "skillfully crafted",
+      "skillfully avoided"
+    ],
+    "throughout": [
+      "throughout the world",
+      "throughout history",
+      "throughout the year"
+    ],
+    "ultimately": [
+      "ultimately decided",
+      "ultimately responsible",
+      "ultimately fail"
+    ],
+    "underneath": [
+      "underneath the table",
+      "underneath it all"
+    ],
+    "attentively": [
+      "listen attentively",
+      "watch attentively"
+    ],
+    "efficiently": [
+      "work efficiently",
+      "use efficiently"
+    ],
+    "essentially": [
+      "essentially different",
+      "essentially the same"
+    ],
+    "exceedingly": [
+      "exceedingly rare",
+      "exceedingly difficult"
+    ],
+    "exclusively": [
+      "used exclusively",
+      "exclusively for"
+    ],
+    "extensively": [
+      "extensively used",
+      "extensively studied"
+    ],
+    "fortunately": [
+      "fortunately for me",
+      "fortunately no one"
+    ],
+    "furthermore": [
+      "furthermore ...",
+      "and furthermore"
+    ],
+    "necessarily": [
+      "not necessarily",
+      "necessarily true"
+    ],
+    "practically": [
+      "practically impossible",
+      "practically speaking"
+    ],
+    "undoubtedly": [
+      "undoubtedly true",
+      "undoubtedly the best"
+    ],
+    "consequently": [
+      "consequently lose",
+      "consequently fail"
+    ],
+    "considerably": [
+      "considerably better",
+      "considerably more"
+    ],
+    "deliberately": [
+      "deliberately ignored",
+      "deliberately slow"
+    ],
+    "dramatically": [
+      "dramatically increase",
+      "dramatically different"
+    ],
+    "groundlessly": [
+      "groundlessly accuse",
+      "groundlessly claim"
+    ],
+    "increasingly": [
+      "increasingly difficult",
+      "increasingly popular"
+    ],
+    "irrationally": [
+      "act irrationally",
+      "behave irrationally"
+    ],
+    "mechanically": [
+      "mechanically repeat",
+      "mechanically move"
+    ],
+    "nevertheless": [
+      "nevertheless true",
+      "nevertheless decided"
+    ],
+    "occasionally": [
+      "occasionally meet",
+      "occasionally see"
+    ],
+    "particularly": [
+      "particularly important",
+      "particularly good"
+    ],
+    "respectively": [
+      "A and B respectively",
+      "respectively equal"
+    ],
+    "fundamentally": [
+      "fundamentally different",
+      "fundamentally change"
+    ],
+    "prohibitively": [
+      "prohibitively expensive",
+      "prohibitively high"
+    ],
+    "unfortunately": [
+      "unfortunately true",
+      "unfortunately lost"
+    ],
+    "preferentially": [
+      "preferentially treat",
+      "preferentially select"
+    ]
+  },
+  "zh": {
+    "gy": {
+      "gray/yellow": "灰/黄",
+      "gray": "灰色"
+    },
+    "mm": {
+      "millimeter": "毫米",
+      "mm Hg": "毫米汞柱"
+    },
+    "hur": {
+      "hurricane": "飓风",
+      "HURRICANE WARNING": "飓风警报"
+    },
+    "veal": {
+      "veal chop": "小牛排",
+      "veal cutlet": "小牛肉片",
+      "milk-fed veal": "乳饲小牛肉"
+    },
+    "afterwards": {
+      "soon afterwards": "不久之后",
+      "shortly afterwards": "随后",
+      "afterwards came": "后来来了"
+    },
+    "altogether": {
+      "altogether different": "完全不同",
+      "not altogether": "不完全是",
+      "altogether too": "总共太"
+    },
+    "completely": {
+      "completely different": "完全不同",
+      "completely forgot": "完全忘记",
+      "completely understand": "完全理解"
+    },
+    "constantly": {
+      "constantly change": "不断变化",
+      "constantly worry": "不断担心"
+    },
+    "conversely": {
+      "conversely true": "反过来是真的",
+      "conversely ...": "相反地"
+    },
+    "definitely": {
+      "definitely will": "一定会",
+      "definitely not": "肯定不会",
+      "definitely know": "明确知道"
+    },
+    "eventually": {
+      "eventually become": "最终变成",
+      "eventually decided": "最终决定",
+      "eventually found": "最终找到"
+    },
+    "explicitly": {
+      "explicitly state": "明确陈述",
+      "explicitly say": "明确说",
+      "explicitly forbid": "明确禁止"
+    },
+    "invariably": {
+      "invariably true": "总是对的",
+      "invariably leads to": "总是导致"
+    },
+    "nationwide": {
+      "nationwide strike": "全国性罢工",
+      "nationwide survey": "全国调查",
+      "nationwide network": "全国网络"
+    },
+    "northwards": {
+      "travel northwards": "向北旅行",
+      "move northwards": "向北移动"
+    },
+    "previously": {
+      "previously mentioned": "之前提到",
+      "previously worked": "之前工作过"
+    },
+    "repeatedly": {
+      "repeatedly asked": "反复问",
+      "repeatedly warned": "反复警告"
+    },
+    "skillfully": {
+      "skillfully crafted": "精巧制作",
+      "skillfully avoided": "巧妙避开"
+    },
+    "throughout": {
+      "throughout the world": "遍及世界",
+      "throughout history": "贯穿历史",
+      "throughout the year": "全年"
+    },
+    "ultimately": {
+      "ultimately decided": "最终决定",
+      "ultimately responsible": "最终负责",
+      "ultimately fail": "最终失败"
+    },
+    "underneath": {
+      "underneath the table": "在桌子下面",
+      "underneath it all": "在这一切之下"
+    },
+    "attentively": {
+      "listen attentively": "专心听",
+      "watch attentively": "专心看"
+    },
+    "efficiently": {
+      "work efficiently": "高效工作",
+      "use efficiently": "有效使用"
+    },
+    "essentially": {
+      "essentially different": "本质不同",
+      "essentially the same": "本质相同"
+    },
+    "exceedingly": {
+      "exceedingly rare": "极其罕见",
+      "exceedingly difficult": "极其困难"
+    },
+    "exclusively": {
+      "used exclusively": "专门使用",
+      "exclusively for": "专用于"
+    },
+    "extensively": {
+      "extensively used": "广泛使用",
+      "extensively studied": "广泛研究"
+    },
+    "fortunately": {
+      "fortunately for me": "对我来说幸运",
+      "fortunately no one": "幸运无人"
+    },
+    "furthermore": {
+      "furthermore ...": "此外",
+      "and furthermore": "而且"
+    },
+    "necessarily": {
+      "not necessarily": "不一定",
+      "necessarily true": "必然正确"
+    },
+    "practically": {
+      "practically impossible": "几乎不可能",
+      "practically speaking": "实际上说"
+    },
+    "undoubtedly": {
+      "undoubtedly true": "毫无疑问正确",
+      "undoubtedly the best": "无疑是最好的"
+    },
+    "consequently": {
+      "consequently lose": "结果失去",
+      "consequently fail": "结果失败"
+    },
+    "considerably": {
+      "considerably better": "好得多",
+      "considerably more": "多得多"
+    },
+    "deliberately": {
+      "deliberately ignored": "故意忽视",
+      "deliberately slow": "故意慢"
+    },
+    "dramatically": {
+      "dramatically increase": "显著增加",
+      "dramatically different": "显著不同"
+    },
+    "groundlessly": {
+      "groundlessly accuse": "无端指责",
+      "groundlessly claim": "无端声称"
+    },
+    "increasingly": {
+      "increasingly difficult": "越来越难",
+      "increasingly popular": "越来越流行"
+    },
+    "irrationally": {
+      "act irrationally": "不理智地行动",
+      "behave irrationally": "表现得无理"
+    },
+    "mechanically": {
+      "mechanically repeat": "机械地重复",
+      "mechanically move": "机械地移动"
+    },
+    "nevertheless": {
+      "nevertheless true": "尽管如此还是对的",
+      "nevertheless decided": "尽管如此还是决定"
+    },
+    "occasionally": {
+      "occasionally meet": "偶尔见面",
+      "occasionally see": "偶尔看到"
+    },
+    "particularly": {
+      "particularly important": "特别重要",
+      "particularly good": "特别好"
+    },
+    "respectively": {
+      "A and B respectively": "A 和 B 分别",
+      "respectively equal": "各自相等"
+    },
+    "fundamentally": {
+      "fundamentally different": "根本不同",
+      "fundamentally change": "根本改变"
+    },
+    "prohibitively": {
+      "prohibitively expensive": "贵得买不起",
+      "prohibitively high": "高得吓人"
+    },
+    "unfortunately": {
+      "unfortunately true": "不幸是真的",
+      "unfortunately lost": "不幸丢失"
+    },
+    "preferentially": {
+      "preferentially treat": "优先对待",
+      "preferentially select": "优先选择"
+    }
+  }
+}
