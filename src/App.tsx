@@ -22,6 +22,7 @@ const PlanPage = lazy(() => import('./pages/PlanPage'))
 const WritePage = lazy(() => import('./pages/WritePage'))
 const ErrorsPage = lazy(() => import('./pages/ErrorsPage'))
 const ErrorReviewPage = lazy(() => import('./pages/ErrorReviewPage'))
+const ErrorHistoryPage = lazy(() => import('./pages/ErrorHistoryPage'))
 const FollowReadProgressPage = lazy(() => import('./pages/FollowReadProgressPage'))
 const TranslationFavsPage = lazy(() => import('./pages/TranslationFavsPage'))
 const ListenPage = lazy(() => import('./pages/ListenPage'))
@@ -152,6 +153,7 @@ function App() {
         <Route path="write" element={<WritePage />} />
         <Route path="errors" element={<ErrorsPage />} />
         <Route path="errors/review" element={<ErrorReviewPage />} />
+        <Route path="errors/history" element={<ErrorHistoryPage />} />
         <Route path="follow-read/progress" element={<FollowReadProgressPage />} />
         <Route path="translation-favs" element={<TranslationFavsPage />} />
         <Route path="listen" element={<ListenPage />} />

@@ -183,6 +183,13 @@ export default function ErrorsPage() {
           >
             🔁 复习模式
           </Link>
+          {/* v1.99 W90: 错题统计入口 */}
+          <Link
+            to="/errors/history"
+            className="px-3 py-1.5 bg-amber-500 text-white rounded text-sm hover:bg-amber-600"
+          >
+            📊 错题统计
+          </Link>
           <button
             onClick={async () => {
               const { allErrorsToCSV, downloadCSV } = await import('../lib/exportErrors')
