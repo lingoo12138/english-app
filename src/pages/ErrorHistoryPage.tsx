@@ -149,7 +149,7 @@ export default function ErrorHistoryPage() {
             {/* 修 v1 (P1-6): 拆错题卡数 (stats.total) + 复习次数 (errors 聚合 scores.length) */}
             <div className="text-xl font-bold text-brand-500">{stats.total}</div>
             <div className="text-xs text-stone-500">错题卡数</div>
-            <div className="text-xs text-stone-400">复习 {totalReviews} 次</div>
+            <div className="text-xs text-stone-400">复习 {stats.totalReviews} 次</div>
           </div>
           <div>
             <div className="text-xl font-bold text-emerald-500">{stats.mastered}</div>
