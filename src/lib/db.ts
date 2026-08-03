@@ -133,7 +133,7 @@ class EnglishAppDB extends Dexie {
       wordTags: '[wordId+tag], wordId, tag, addedAt',
       dictationErrors: '++id, wordId, ts, score, difficulty',
       translationFavs: '[wordId+index], wordId, index, addedAt',
-      errorReviewHistory: '++id, cardId, ts, score, source',
+      errorReviewHistory: '++id, cardId, ts',
     })
   }
 }
@@ -518,7 +518,11 @@ export async function getBestAttempt(wordId: string): Promise<PronunciationAttem
 }
 
 export async function addErrorReviewScore(s: Omit<ErrorReviewScore, 'id'>): Promise<number> {
-  return db.errorReviewHistory.add(s)
+  try {
+    return await db.errorReviewHistory.add(s)
+  } catch (e) {
+    handleDbError(e, '保存错题评分')
+  }
 }
 
 export async function getAllErrorReviewScores(): Promise<ErrorReviewScore[]> {

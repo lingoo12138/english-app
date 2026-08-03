@@ -1,7 +1,7 @@
 // src/pages/ErrorHistoryPage.tsx - v1.99 W90 错题复习统计页 (修 v1: 接 session 真数据 + useMemo 缓存 + Layout nav 入口)
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { getAllWritingErrors, getAllDictationErrors, getAllErrorReviewScores, type WritingError, type DictationError } from '../lib/db'
+import { getAllWritingErrors, getAllDictationErrors, getAllErrorReviewScores, clearErrorReviewScores, type WritingError, type DictationError } from '../lib/db'
 import {
   toUnifiedErrors,
   computeErrorStats,
@@ -30,19 +30,11 @@ export default function ErrorHistoryPage() {
         getAllDictationErrors(),
         getAllErrorReviewScores(),  // v2.0 W91: 永久 IDB 持久化
       ])
-      // 修 v2: IDB reviews 优先, fallback session (兼容)
-      const saved = loadSession()
+      // 修 v1: IDB 是 source of truth, 不再 fallback session (避免双倍计数 P0)
       const idbHistoryMap: Record<string, number[]> = {}
       for (const r of reviews) {
         if (!idbHistoryMap[r.cardId]) idbHistoryMap[r.cardId] = []
         idbHistoryMap[r.cardId].push(r.score)
-      }
-      // session 兼容 (旧版 session 还没持久化到 IDB)
-      if (saved) {
-        for (const h of saved.session.history) {
-          if (!idbHistoryMap[h.cardId]) idbHistoryMap[h.cardId] = []
-          idbHistoryMap[h.cardId].push(h.score)
-        }
       }
       const unified = toUnifiedErrors(w, d, idbHistoryMap)
       setErrors(unified)
@@ -124,9 +116,27 @@ export default function ErrorHistoryPage() {
     <div className="space-y-4 max-w-3xl mx-auto">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">📊 错题统计 ({errors.length})</h1>
-        <button onClick={() => navigate('/errors')} className="text-stone-500 hover:text-stone-700">
-          ← 改错本
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={async () => {
+              if (!window.confirm('确定清除所有错题复习历史? 此操作不可撤销。')) return
+              try {
+                await clearErrorReviewScores()
+                toast.success('已清除复习历史')
+                await load()
+              } catch (e) {
+                toast.error('清除失败')
+              }
+            }}
+            className="text-stone-400 hover:text-rose-500 text-sm"
+            title="清除所有复习历史"
+          >
+            🗑️ 清除历史
+          </button>
+          <button onClick={() => navigate('/errors')} className="text-stone-500 hover:text-stone-700">
+            ← 改错本
+          </button>
+        </div>
       </div>
 
       {/* 统计卡片 */}

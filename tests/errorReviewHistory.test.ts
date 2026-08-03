@@ -1,51 +1,43 @@
 // errorReviewHistory.test.ts - v2.0 W91 错题复习 IDB 持久化测试
-import { describe, it, expect, beforeEach } from 'vitest'
-import {
-  addErrorReviewScore,
-  getAllErrorReviewScores,
-  getErrorReviewScoresByCard,
-  clearErrorReviewScores,
-  type ErrorReviewScore,
-} from '../src/lib/db'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import type { ErrorReviewScore } from '../src/lib/db'
 
-/** mock IDB */
-let _store: ErrorReviewScore[] = []
+const _mockStore: ErrorReviewScore[] = []
 let _nextId = 1
 
 vi.mock('../src/lib/db', async () => {
   const actual = await vi.importActual<typeof import('../src/lib/db')>('../src/lib/db')
   return {
     ...actual,
-    // 覆盖 IDB 相关函数
     addErrorReviewScore: vi.fn(async (s: Omit<ErrorReviewScore, 'id'>) => {
       const id = _nextId++
-      _store.push({ id, ...s })
+      _mockStore.push({ id, ...s })
       return id
     }),
     getAllErrorReviewScores: vi.fn(async () => {
-      return [..._store].sort((a, b) => b.ts - a.ts)
+      return [..._mockStore].sort((a, b) => b.ts - a.ts)
     }),
     getErrorReviewScoresByCard: vi.fn(async (cardId: string) => {
-      return _store.filter(s => s.cardId === cardId).sort((a, b) => a.ts - b.ts)
+      return _mockStore.filter(s => s.cardId === cardId).sort((a, b) => a.ts - b.ts)
     }),
     clearErrorReviewScores: vi.fn(async () => {
-      _store = []
+      _mockStore.length = 0
       _nextId = 1
     }),
   }
 })
 
+import { addErrorReviewScore, getAllErrorReviewScores, getErrorReviewScoresByCard, clearErrorReviewScores } from '../src/lib/db'
+
 describe('W91 错题复习 IDB 持久化', () => {
   beforeEach(() => {
-    _store = []
+    _mockStore.length = 0
     _nextId = 1
   })
 
   describe('addErrorReviewScore', () => {
     it('存一条 + 返 id', async () => {
-      const id = await addErrorReviewScore({
-        cardId: 'w-1', source: 'write', score: 80, ts: Date.now(),
-      })
+      const id = await addErrorReviewScore({ cardId: 'w-1', source: 'write', score: 80, ts: Date.now() })
       expect(id).toBe(1)
     })
     it('多条累加', async () => {
@@ -90,15 +82,21 @@ describe('W91 错题复习 IDB 持久化', () => {
     })
   })
 
-  describe('W91 永久持久化 (关键业务)', () => {
-    it('session 完成后不清空 (区别于 localStorage)', async () => {
-      // 模拟答完一轮
-      await addErrorReviewScore({ cardId: 'w-1', source: 'write', score: 80, ts: 1 })
-      await addErrorReviewScore({ cardId: 'w-1', source: 'write', score: 90, ts: 2 })
-      await addErrorReviewScore({ cardId: 'w-1', source: 'write', score: 100, ts: 3 })
-      // 不调 clear (跟 W88-C clearSession 不同), 数据保留
+  describe('W91 修 v1 关键业务', () => {
+    it('同 cardId 多次 add 不合并 (业务关键)', async () => {
+      for (let i = 0; i < 5; i++) {
+        await addErrorReviewScore({ cardId: 'a', source: 'write', score: 80, ts: i * 1000 })
+      }
       const all = await getAllErrorReviewScores()
-      expect(all.length).toBe(3)  // 永久保留
+      expect(all.length).toBe(5)
+    })
+    it('getAll 返 ts desc 排序 (业务关键)', async () => {
+      await addErrorReviewScore({ cardId: 'b', source: 'write', score: 50, ts: 1000 })
+      await addErrorReviewScore({ cardId: 'b', source: 'write', score: 90, ts: 5000 })
+      await addErrorReviewScore({ cardId: 'b', source: 'write', score: 70, ts: 3000 })
+      const all = await getAllErrorReviewScores()
+      expect(all[0].score).toBe(90)
+      expect(all[2].score).toBe(50)
     })
   })
 })
