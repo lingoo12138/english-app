@@ -85,6 +85,7 @@ export function analyzeUnifiedError(e: UnifiedError): ErrorCardAnalysis {
   // 修 v1: 用纯函数 analyzeScores, 不再 mock session
   const base = analyzeScores(e.cardId, e.scores)
   return {
+    cardId: e.cardId,
     ...base,
     original: e.original,
     corrected: e.corrected,

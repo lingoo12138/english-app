@@ -137,7 +137,7 @@ export default function ErrorHistoryPage() {
         </div>
         {/* 按 source 分组 */}
         <div className="flex flex-wrap gap-2 text-xs justify-center">
-          {Object.entries(stats.bySource).filter(([_, n]) => n > 0).map(([src, n]) => (
+          {Object.entries(stats.bySource).filter(([_, n]) => (n as number) > 0).map(([src, n]) => (
             <span key={src} className="px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800">
               {src === 'write' ? '✍️ 写作' :
                 src === 'chat' ? '💬 对话' :
