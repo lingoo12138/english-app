@@ -1,10 +1,9 @@
 // src/pages/ErrorHistoryPage.tsx - v1.99 W90 错题复习统计页 (修 v1: 接 session 真数据 + useMemo 缓存 + Layout nav 入口)
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { getAllWritingErrors, getAllDictationErrors, type WritingError, type DictationError } from '../lib/db'
+import { getAllWritingErrors, getAllDictationErrors, getAllErrorReviewScores, type WritingError, type DictationError } from '../lib/db'
 import {
   toUnifiedErrors,
-  extractHistoryMap,
   computeErrorStats,
   sortByDifficulty,
   analyzeUnifiedError,
@@ -26,11 +25,26 @@ export default function ErrorHistoryPage() {
 
   const load = useCallback(async () => {
     try {
-      const [w, d] = await Promise.all([getAllWritingErrors(), getAllDictationErrors()])
-      // 修 v1: 拉 session history 合并 (不只是 IDB 错题)
+      const [w, d, reviews] = await Promise.all([
+        getAllWritingErrors(),
+        getAllDictationErrors(),
+        getAllErrorReviewScores(),  // v2.0 W91: 永久 IDB 持久化
+      ])
+      // 修 v2: IDB reviews 优先, fallback session (兼容)
       const saved = loadSession()
-      const historyMap = saved ? extractHistoryMap(saved.session.history) : {}
-      const unified = toUnifiedErrors(w, d, historyMap)
+      const idbHistoryMap: Record<string, number[]> = {}
+      for (const r of reviews) {
+        if (!idbHistoryMap[r.cardId]) idbHistoryMap[r.cardId] = []
+        idbHistoryMap[r.cardId].push(r.score)
+      }
+      // session 兼容 (旧版 session 还没持久化到 IDB)
+      if (saved) {
+        for (const h of saved.session.history) {
+          if (!idbHistoryMap[h.cardId]) idbHistoryMap[h.cardId] = []
+          idbHistoryMap[h.cardId].push(h.score)
+        }
+      }
+      const unified = toUnifiedErrors(w, d, idbHistoryMap)
       setErrors(unified)
       setLoading(false)
     } catch (e) {

@@ -12,6 +12,7 @@ import {
   type ReviewCard,
 } from '../lib/errorReview'
 import { saveSession, loadSession, clearSession } from '../lib/errorReviewSession'
+import { addErrorReviewScore } from '../lib/db'
 import { analyzeCard, updateCardDifficulty, difficultyStyle, trendArrow, countByDifficulty } from '../lib/errorDifficulty'
 import { toast } from '../components/Toast'
 
@@ -157,6 +158,13 @@ export default function ErrorReviewPage() {
       isCorrect: result.grade === 'perfect' || result.grade === 'good',
       isLast: newIsLast,
     })
+    // v2.0 W91: 永久 IDB 持久化 (修 verifier 找的 localStorage 架构缺陷)
+    addErrorReviewScore({
+      cardId: currentCard.id,
+      source: currentCard.source,
+      score: result.score,
+      ts: Date.now(),
+    }).catch(e => console.error('[ErrorReview] IDB save:', e))
     setPeeked(false)  // 重置 peek 状态
   }, [session, currentCard, lastResult, userAnswer, peeked])
 

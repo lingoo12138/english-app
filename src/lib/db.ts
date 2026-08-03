@@ -7,6 +7,16 @@ import type { Favorite, LearnRecord, ReviewItem, PronunciationAttempt } from '..
 // v1.0: export 供 migrate.ts 等使用
 export type { Favorite as FavoriteRecord, PronunciationAttempt }
 
+/** v2.0 W91: 错题复习历史 (永久 IDB 持久化) */
+export interface ErrorReviewScore {
+  id?: number
+  cardId: string
+  /** 错题来源: writing/dictation/spelling/follow-read */
+  source: 'write' | 'chat' | 'chinese' | 'dictation' | 'spelling' | 'follow-read'
+  score: number         // 0-100
+  ts: number
+}
+
 class EnglishAppDB extends Dexie {
   favorites!: Table<Favorite, string>
   records!: Table<LearnRecord, number>
@@ -23,6 +33,8 @@ class EnglishAppDB extends Dexie {
   dictationErrors!: Table<DictationError, number>
   // v1.91 W85: 释义收藏
   translationFavs!: Table<TranslationFav, [string, number]>
+  // v2.0 W91: 错题复习历史 (IDB 永久持久化)
+  errorReviewHistory!: Table<ErrorReviewScore, number>
 
   constructor() {
     super('EnglishAppDB')
@@ -107,6 +119,21 @@ class EnglishAppDB extends Dexie {
       wordTags: '[wordId+tag], wordId, tag, addedAt',
       dictationErrors: '++id, wordId, ts, score, difficulty',
       translationFavs: '[wordId+index], wordId, index, addedAt',
+    })
+    // v2.0 W91: 错题复习历史表 (IDB 永久持久化, 修 verifier 找的 localStorage 架构缺陷)
+    this.version(9).stores({
+      favorites: 'wordId, addedAt',
+      records: '++id, wordId, action, timestamp',
+      reviews: 'wordId, nextReview',
+      pronunciationAttempts: '++id, wordId, ts, score',
+      chats: '++id, scenario, level, updatedAt, createdAt, title',
+      writingErrors: '++id, ts, source',
+      errorExplanations: 'key, ts',
+      customScenes: '++id, updatedAt, createdAt, title',
+      wordTags: '[wordId+tag], wordId, tag, addedAt',
+      dictationErrors: '++id, wordId, ts, score, difficulty',
+      translationFavs: '[wordId+index], wordId, index, addedAt',
+      errorReviewHistory: '++id, cardId, ts, score, source',
     })
   }
 }
@@ -483,11 +510,25 @@ export async function getAttemptsByWord(wordId: string): Promise<PronunciationAt
 // 取某词最佳一次尝试(按 score 倒序)
 export async function getBestAttempt(wordId: string): Promise<PronunciationAttempt | undefined> {
   try {
-    const all = await db.pronunciationAttempts.where('wordId').equals(wordId).toArray()
-    if (all.length === 0) return undefined
-    return all.reduce((best, cur) => (cur.score > best.score ? cur : best))
+    return db.pronunciationAttempts.where('wordId').equals(wordId).reverse().sortBy('score').then(arr => arr[0])
   } catch (e) {
-    console.warn('读取最佳跟读记录失败', e)
+    console.warn('取最佳尝试失败', e)
     return undefined
   }
+}
+
+export async function addErrorReviewScore(s: Omit<ErrorReviewScore, 'id'>): Promise<number> {
+  return db.errorReviewHistory.add(s)
+}
+
+export async function getAllErrorReviewScores(): Promise<ErrorReviewScore[]> {
+  return db.errorReviewHistory.orderBy('ts').reverse().toArray()
+}
+
+export async function getErrorReviewScoresByCard(cardId: string): Promise<ErrorReviewScore[]> {
+  return db.errorReviewHistory.where('cardId').equals(cardId).sortBy('ts')
+}
+
+export async function clearErrorReviewScores(): Promise<void> {
+  return db.errorReviewHistory.clear()
 }
