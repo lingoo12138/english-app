@@ -81,10 +81,11 @@ describe('W89-B 错题难度自适应', () => {
   describe('updateCardDifficulty', () => {
     it('mastered: 3 次 >= 80 后移出 remaining', () => {
       const session = makeSession([makeCard('a'), makeCard('b')], [
+        { cardId: 'a', score: 80 },
         { cardId: 'a', score: 90 },
         { cardId: 'a', score: 100 },
       ])
-      const updated = updateCardDifficulty(session, makeCard('a'), 90)  // 第 3 次
+      const updated = updateCardDifficulty(session, makeCard('a'), 0)  // 修 v1 (P0-2): 信任 caller 已 append, 0 避免再 append
       expect(updated.remaining.length).toBe(1)  // a 移出
       expect(updated.remaining[0].id).toBe('b')
       expect(updated.history.length).toBe(3)
@@ -92,15 +93,18 @@ describe('W89-B 错题难度自适应', () => {
     it('hard: 2 次 < 40 推末尾', () => {
       const session = makeSession([makeCard('a'), makeCard('b')], [
         { cardId: 'a', score: 20 },
+        { cardId: 'a', score: 30 },
       ])
-      const updated = updateCardDifficulty(session, makeCard('a'), 20)  // 第 2 次
+      const updated = updateCardDifficulty(session, makeCard('a'), 0)  // 修 v1 (P0-2): caller 已 append
       expect(updated.remaining.length).toBe(2)  // 长度不变
       expect(updated.remaining[0].id).toBe('b')  // b 在前
       expect(updated.remaining[1].id).toBe('a')  // a 推末尾
     })
     it('普通 medium: 正常操作 (无移出/加深)', () => {
-      const session = makeSession([makeCard('a'), makeCard('b')], [])
-      const updated = updateCardDifficulty(session, makeCard('a'), 60)
+      const session = makeSession([makeCard('a'), makeCard('b')], [
+        { cardId: 'a', score: 60 },
+      ])
+      const updated = updateCardDifficulty(session, makeCard('a'), 0)  // 修 v1 (P0-2): caller 已 append
       expect(updated.remaining.length).toBe(2)
       expect(updated.history.length).toBe(1)
     })

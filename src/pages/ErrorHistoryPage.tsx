@@ -63,14 +63,17 @@ export default function ErrorHistoryPage() {
       dictation: 0, spelling: 0, 'follow-read': 0,
     }
     let withSomeCorrect = 0
+    let totalReviews = 0
     for (const e of errors) {
       const a = analyzedMap.get(e.cardId)!
       byDifficulty[a.difficulty]++
+      totalReviews += a.attempts  // 修 v1 (P1-6): 复习次数 = 所有 attempts 累加
       bySource[e.source]++
       if (a.correctCount > 0) withSomeCorrect++
     }
     return {
       total: errors.length,
+      totalReviews,  // 修 v1 (P1-6)
       byDifficulty: byDifficulty as any,
       bySource: bySource as any,
       withSomeCorrect,
@@ -143,8 +146,10 @@ export default function ErrorHistoryPage() {
       <div className="card text-sm">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center mb-3">
           <div>
+            {/* 修 v1 (P1-6): 拆错题卡数 (stats.total) + 复习次数 (errors 聚合 scores.length) */}
             <div className="text-xl font-bold text-brand-500">{stats.total}</div>
-            <div className="text-xs text-stone-500">总数</div>
+            <div className="text-xs text-stone-500">错题卡数</div>
+            <div className="text-xs text-stone-400">复习 {totalReviews} 次</div>
           </div>
           <div>
             <div className="text-xl font-bold text-emerald-500">{stats.mastered}</div>

@@ -126,12 +126,12 @@ export function analyzeCard(session: ReviewSession, card: ReviewCard): CardAnaly
 }
 
 /** 答完一题后, 检查是否应该自动掌握或标难 */
+// 修 v1 (W91 P0-2): 信任 caller 已 append, 不再二次 append
+// answerInSession (errorReview.ts:177) 已 append 一次, updateCardDifficulty 仅改 remaining
 export function updateCardDifficulty(session: ReviewSession, card: ReviewCard, score: number): ReviewSession {
-  // 直接 append 到 history
-  const newHistory = [...session.history, { cardId: card.id, score, grade: score >= 80 ? 'good' : score >= 40 ? 'ok' : 'bad' }]
   // mastered 不再留在 remaining
-  const correctCount = newHistory.filter(h => h.cardId === card.id && h.score >= 80).length
-  const wrongCount = newHistory.filter(h => h.cardId === card.id && h.score < 40).length
+  const correctCount = session.history.filter(h => h.cardId === card.id && h.score >= 80).length
+  const wrongCount = session.history.filter(h => h.cardId === card.id && h.score < 40).length
 
   let newRemaining = session.remaining
   if (correctCount >= MASTERY_THRESHOLD) {
@@ -149,7 +149,6 @@ export function updateCardDifficulty(session: ReviewSession, card: ReviewCard, s
 
   return {
     ...session,
-    history: newHistory,
     remaining: newRemaining,
   }
 }

@@ -141,10 +141,11 @@ export default function ErrorReviewPage() {
     }
   }, [session, lastResult, cards.length])
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
     if (!session || !currentCard || lastResult) return
     const result = answerInSession(session, userAnswer, peeked)
     // W89-B: 应用难度自适应 (mastered 移出 / hard 加深)
+    // 修 v1 (P0-2): 信任 answerInSession 已 append history, updateCardDifficulty 仅改 remaining
     const sessionWithDifficulty = updateCardDifficulty(result.session, currentCard, result.score)
     // 重新算 isLast
     const newIsLast = sessionWithDifficulty.remaining.length === 0
@@ -161,12 +162,18 @@ export default function ErrorReviewPage() {
     // v2.0 W91: 永久 IDB 持久化 (修 verifier 找的 localStorage 架构缺陷)
     // 修 v1: 偷看 (peeked=true) 不入 IDB, 0 分会污染 wrongCount 难词判定
     if (!peeked) {
-      addErrorReviewScore({
-        cardId: currentCard.id,
-        source: currentCard.source,
-        score: result.score,
-        ts: Date.now(),
-      }).catch(e => console.error('[ErrorReview] IDB save:', e))
+      // 修 v1 (P1-2): 加 try/catch + toast, 失败时用户感知
+      try {
+        await addErrorReviewScore({
+          cardId: currentCard.id,
+          source: currentCard.source,
+          score: result.score,
+          ts: Date.now(),
+        })
+      } catch (e) {
+        toast.error('错题评分保存失败, 请稍后重试')
+        console.error('[ErrorReview] IDB save:', e)
+      }
     }
     setPeeked(false)  // 重置 peek 状态
   }, [session, currentCard, lastResult, userAnswer, peeked])
@@ -217,7 +224,8 @@ export default function ErrorReviewPage() {
             <button onClick={() => navigate('/write')} className="btn-primary text-sm">✍️ 写作</button>
             <button onClick={() => navigate('/dictation')} className="btn-primary text-sm">🎧 听写</button>
             <button onClick={() => navigate('/spelling')} className="btn-primary text-sm">🔤 拼写</button>
-            <button onClick={() => navigate('/listen')} className="btn-primary text-sm">🎤 跟读</button>
+            {/* 修 v1 (P2-2): 跟读功能在 /textbook (LessonDetailPage), 改路由 */}
+            <button onClick={() => navigate('/textbook')} className="btn-primary text-sm">🎤 跟读</button>
           </div>
         </div>
       </div>
@@ -315,6 +323,7 @@ export default function ErrorReviewPage() {
           )}
           <div className="flex justify-center gap-2 mt-4">
             <button onClick={handleRestart} className="btn-primary">🔁 再来一轮</button>
+            <button onClick={() => navigate('/errors/history')} className="btn-ghost">📊 错题统计</button>
             <button onClick={() => navigate('/errors')} className="btn-ghost">📋 改错本</button>
           </div>
         </div>

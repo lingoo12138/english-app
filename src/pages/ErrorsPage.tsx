@@ -128,6 +128,9 @@ export default function ErrorsPage() {
     const id = pendingDelete
     setPendingDelete(null)
     await deleteWritingError(id)
+    // 修 v1 (P1-5): 级联清理 errorReviewHistory 孤儿记录
+    const { db } = await import('../lib/db')
+    await db.errorReviewHistory.where('cardId').equals(`w-${id}`).delete()
     await loadAll()
   }
 
