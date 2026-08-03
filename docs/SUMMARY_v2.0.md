@@ -83,3 +83,21 @@ W92 候选:
 - 课文评分 (跨课复用 36 词掌握度)
 - 错题复习答题模式 (Anki 风格: 用户抄写答案)
 - 1100 测试冲刺 (新功能 + 覆盖率)
+
+## 部署状态 (2026-08-03 11:53)
+
+- **main 分支**: 6ab7fcf v2.0.0 (5 commit W91 + 修 v1 + 修 v2 + 文档 + 修 tsc)
+- **gh-pages 分支**: 5d29927 v2.0.0 (build 2026-08-03 11:42)
+- **预览**: https://lingoo12138.github.io/english-app/ (5min CDN 缓存后可用)
+- **1031 单元测试 / 77 文件 全过**
+- **0 P0 + 0 P1 业务**
+
+## W91 commit 链
+
+1. b6f09ed - W91 主 commit (IDB v9 schema + 4 helpers)
+2. ed8290f - W91 修 v1 (verifier A: 1 P0 + 4 P1/P2)
+3. 6f71ec7 - W91 修 v2 (verifier B: 1 P0 + 6 P1/P2)
+4. 9e26739 - docs W91 (SUMMARY + README + ROADMAP + CHANGELOG)
+5. 6ab7fcf - fix: tsc totalReviews 引用
+
+**总计 5 commit, 2 verifier 抗审查完整循环 (W91), 9 P0 + 8 P1/P2 全修**
