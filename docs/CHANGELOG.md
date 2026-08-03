@@ -3708,3 +3708,26 @@
 - 0 P0 + 0 P1 业务
 - 98 release tag / 17 周 / 24 次大 review
 
+
+## [v1.99.0] - 2026-08-01
+
+### v1.99.0 W90 — 错题复习统计页 (横向条形图 + 难度分布 + verifier 抗审查)
+
+#### 错题复习统计页
+- 路由 /errors/history
+- 4 大统计卡片 + 按 source 分组 + 3 排序 + 过滤 + 横向条形图
+- Layout desktopNav 加 '错题统计' 入口 (P0-3)
+- 17 个测试 (+11 修前 +6 修后)
+
+#### 修 v1 (verifier A+B 抗审查 3 P0 + 多 P1)
+- P0-1 业务塌方: 拉 session 真数据 (loadSession + extractHistoryMap)
+- P0-2 类型债: 拆 analyzeScores 纯函数, 删 mockSession as any
+- P0-3 UX 阻断: Layout nav 加入口
+- P1 性能: useMemo analyzedMap 缓存
+- P2-2 截断: 50 字符加 …
+
+#### 累计
+- **1023 单元测试** (1006 + 17) / 76 文件
+- 0 P0 + 0 P1 业务
+- 99 release tag / 17 周 / 25 次大 review
+
