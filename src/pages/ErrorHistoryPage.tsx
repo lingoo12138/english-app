@@ -1,16 +1,18 @@
-// src/pages/ErrorHistoryPage.tsx - v1.99 W90 错题复习统计页
-// 显示全部错题 + 难度分布 + 横向条形图 (按卡)
+// src/pages/ErrorHistoryPage.tsx - v1.99 W90 错题复习统计页 (修 v1: 接 session 真数据 + useMemo 缓存 + Layout nav 入口)
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { getAllWritingErrors, getAllDictationErrors, type WritingError, type DictationError } from '../lib/db'
 import {
   toUnifiedErrors,
+  extractHistoryMap,
   computeErrorStats,
   sortByDifficulty,
   analyzeUnifiedError,
   type UnifiedError,
+  type ErrorCardAnalysis,
 } from '../lib/errorHistory'
 import { difficultyStyle } from '../lib/errorDifficulty'
+import { loadSession } from '../lib/errorReviewSession'
 import { toast } from '../components/Toast'
 
 type SortKey = 'difficulty' | 'recent' | 'count'
@@ -25,11 +27,10 @@ export default function ErrorHistoryPage() {
   const load = useCallback(async () => {
     try {
       const [w, d] = await Promise.all([getAllWritingErrors(), getAllDictationErrors()])
-      // 错题本身没有 scores (从 IDB), 需要从 localStorage 读
-      // W89-B 错题复习 session 不持久化 scores, 所以现在用 IDB ts 排序, scores=空
-      // 简化: 暂不读 session history, 全部 scores=[]
-      // 后期可加: 跟读评分历史 / 听写错误记录 已经存 IDB, 可读
-      const unified = toUnifiedErrors(w, d, {})
+      // 修 v1: 拉 session history 合并 (不只是 IDB 错题)
+      const saved = loadSession()
+      const historyMap = saved ? extractHistoryMap(saved.session.history) : {}
+      const unified = toUnifiedErrors(w, d, historyMap)
       setErrors(unified)
       setLoading(false)
     } catch (e) {
@@ -41,12 +42,41 @@ export default function ErrorHistoryPage() {
 
   useEffect(() => { load() }, [load])
 
-  const stats = useMemo(() => computeErrorStats(errors), [errors])
+  // 修 v1: useMemo 缓存分析 (避免 N×logN 次重复)
+  const analyzedMap = useMemo(() => {
+    const m = new Map<string, ErrorCardAnalysis>()
+    for (const e of errors) m.set(e.cardId, analyzeUnifiedError(e))
+    return m
+  }, [errors])
+
+  const stats = useMemo(() => {
+    // 修 v1: 从 analyzedMap 算 stats, 不再调 analyzeUnifiedError
+    const byDifficulty: Record<string, number> = { easy: 0, medium: 0, hard: 0, mastered: 0 }
+    const bySource: Record<string, number> = {
+      write: 0, chat: 0, chinese: 0,
+      dictation: 0, spelling: 0, 'follow-read': 0,
+    }
+    let withSomeCorrect = 0
+    for (const e of errors) {
+      const a = analyzedMap.get(e.cardId)!
+      byDifficulty[a.difficulty]++
+      bySource[e.source]++
+      if (a.correctCount > 0) withSomeCorrect++
+    }
+    return {
+      total: errors.length,
+      byDifficulty: byDifficulty as any,
+      bySource: bySource as any,
+      withSomeCorrect,
+      hard: byDifficulty.hard,
+      mastered: byDifficulty.mastered,
+    }
+  }, [errors, analyzedMap])
 
   const sorted = useMemo(() => {
     let list = errors
     if (!showMastered) {
-      list = list.filter(e => analyzeUnifiedError(e).difficulty !== 'mastered')
+      list = list.filter(e => analyzedMap.get(e.cardId)!.difficulty !== 'mastered')
     }
     if (sortKey === 'difficulty') {
       return sortByDifficulty(list)
@@ -56,7 +86,7 @@ export default function ErrorHistoryPage() {
       // count: 历次评分多 → 难 → 排前
       return [...list].sort((a, b) => b.scores.length - a.scores.length)
     }
-  }, [errors, sortKey, showMastered])
+  }, [errors, analyzedMap, sortKey, showMastered])
 
   if (loading) {
     return <div className="text-center py-20 text-stone-500">加载错题中...</div>
@@ -149,7 +179,7 @@ export default function ErrorHistoryPage() {
       {/* 列表 - 横向条形图 (按卡) */}
       <div className="space-y-2">
         {sorted.map(e => {
-          const a = analyzeUnifiedError(e)
+          const a = analyzedMap.get(e.cardId)!
           const style = difficultyStyle(a.difficulty)
           // 进度条颜色
           const barColor = a.avgScore >= 70 ? 'bg-emerald-500' :
@@ -173,8 +203,12 @@ export default function ErrorHistoryPage() {
                 </span>
               </div>
               <div className="text-sm text-stone-700 dark:text-stone-300 mb-2">
-                <div className="line-through text-stone-400">{e.original.slice(0, 50)}</div>
-                <div className="text-emerald-600 dark:text-emerald-400">{e.corrected.slice(0, 50)}</div>
+                <div className="line-through text-stone-400">
+                  {e.original.length > 50 ? e.original.slice(0, 50) + '…' : e.original}
+                </div>
+                <div className="text-emerald-600 dark:text-emerald-400">
+                  {e.corrected.length > 50 ? e.corrected.slice(0, 50) + '…' : e.corrected}
+                </div>
               </div>
               {/* 进度条 */}
               {a.attempts > 0 ? (

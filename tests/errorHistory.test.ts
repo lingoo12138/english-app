@@ -135,3 +135,32 @@ describe('W90 错题复习统计', () => {
     })
   })
 })
+
+  // W90 修 v1: extractHistoryMap 实际场景
+  describe('extractHistoryMap (W90 修 v1 业务用例)', () => {
+    it('同 cardId 多次 append (W90 修 v1 关键路径)', () => {
+      const map = extractHistoryMap([
+        { cardId: 'a', score: 80 },
+        { cardId: 'a', score: 90 },
+        { cardId: 'a', score: 100 },
+        { cardId: 'b', score: 50 },
+      ])
+      expect(map['a']).toEqual([80, 90, 100])
+      expect(map['b']).toEqual([50])
+    })
+    it('toUnifiedErrors 合并后分析 = mastered', () => {
+      const w: WritingError = {
+        id: 1, source: 'write', original: 'a', corrected: 'b',
+        errors: [], ts: 100,
+      }
+      const historyMap = extractHistoryMap([
+        { cardId: 'w-1', score: 80 },
+        { cardId: 'w-1', score: 90 },
+        { cardId: 'w-1', score: 100 },
+      ])
+      const result = toUnifiedErrors([w], [], historyMap)
+      const analysis = analyzeUnifiedError(result[0])
+      expect(analysis.difficulty).toBe('mastered')  // 真数据驱动
+      expect(analysis.attempts).toBe(3)
+    })
+  })

@@ -1,6 +1,7 @@
 // errorDifficulty.test.ts - v1.95 W89-B 错题难度自适应测试
+// v1.99 W90 修 v1: 加 analyzeScores 纯函数
 import { describe, it, expect } from 'vitest'
-import {
+import { analyzeScores,
   analyzeCard,
   updateCardDifficulty,
   difficultyStyle,
@@ -142,3 +143,29 @@ describe('W89-B 错题难度自适应', () => {
     })
   })
 })
+
+  // W90 修 v1: 纯函数 analyzeScores
+  describe('analyzeScores (W90 纯函数版)', () => {
+    it('空 scores = medium, 全 0', () => {
+      const r = analyzeScores('a', [])
+      expect(r.attempts).toBe(0)
+      expect(r.avgScore).toBe(0)
+      expect(r.difficulty).toBe('medium')
+      expect(r.recentScores).toEqual([])
+    })
+    it('3 次 >= 80 = mastered', () => {
+      const r = analyzeScores('a', [80, 90, 100])
+      expect(r.difficulty).toBe('mastered')
+      expect(r.correctCount).toBe(3)
+      expect(r.avgScore).toBe(90)
+    })
+    it('2 次 < 40 = hard', () => {
+      const r = analyzeScores('a', [20, 30])
+      expect(r.difficulty).toBe('hard')
+      expect(r.wrongCount).toBe(2)
+    })
+    it('trend up', () => {
+      const r = analyzeScores('a', [40, 40, 40, 80, 90])
+      expect(r.trend).toBe('up')
+    })
+  })

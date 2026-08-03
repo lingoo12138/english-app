@@ -1,8 +1,6 @@
-// src/lib/errorHistory.ts - v1.99 W90 错题复习统计核心
-// 错题 (writing + dictation + spelling + follow-read) + 复习 session history
-// 合并算每张卡的 历次评分 + 难度 + 趋势
+// src/lib/errorHistory.ts - v1.99 W90 错题复习统计核心 (修 v1: 接 session 真数据 + 纯函数 analyzeScores)
 import type { WritingError, DictationError } from './db'
-import { analyzeCard, type CardAnalysis, type Difficulty } from './errorDifficulty'
+import { analyzeScores, type CardAnalysis, type Difficulty } from './errorDifficulty'
 
 /** 错题来源 (写错 / 听写 / 拼写 / 跟读) */
 export type ErrorSource = 'write' | 'chat' | 'chinese' | 'dictation' | 'spelling' | 'follow-read'
@@ -75,7 +73,7 @@ export function extractHistoryMap(history: { cardId: string; score: number }[]):
   return map
 }
 
-/** 卡分析 (用 ErrorReviewPage 相同的 analyzeCard) */
+/** 卡分析 (用 ErrorReviewPage 相同的 analyzeScores, 修 v1 删 mockSession as any) */
 export interface ErrorCardAnalysis extends CardAnalysis {
   original: string
   corrected: string
@@ -84,20 +82,8 @@ export interface ErrorCardAnalysis extends CardAnalysis {
 }
 
 export function analyzeUnifiedError(e: UnifiedError): ErrorCardAnalysis {
-  // 模拟 session 结构
-  const mockSession = {
-    total: e.scores.length,
-    remaining: [],
-    correct: 0, wrong: 0,
-    history: e.scores.map(s => ({ cardId: e.cardId, score: s, grade: 'ok' })),
-  }
-  const base = analyzeCard(mockSession as any, {
-    id: e.cardId,
-    source: e.source,
-    prompt: e.original,
-    answer: e.corrected,
-    ts: e.addedAt,
-  })
+  // 修 v1: 用纯函数 analyzeScores, 不再 mock session
+  const base = analyzeScores(e.cardId, e.scores)
   return {
     ...base,
     original: e.original,

@@ -23,6 +23,52 @@ const HARD_THRESHOLD = 2      // 答错 < 40 次数 >= 2 = hard
 const EASY_AVG = 80           // avg >= 80 = easy
 const HARD_AVG = 40           // avg < 40 = hard
 
+/** v1.99 W90 修 v1: 纯函数版 analyzeScores (无 mock session) */
+export function analyzeScores(cardId: string, scores: number[]): Omit<CardAnalysis, 'cardId'> {
+  const attempts = scores.length
+  const correctCount = scores.filter(s => s >= 80).length
+  const wrongCount = scores.filter(s => s < 40).length
+  const avgScore = attempts > 0 ? Math.round(scores.reduce((s, x) => s + x, 0) / attempts) : 0
+  const bestScore = attempts > 0 ? Math.max(...scores) : 0
+  const worstScore = attempts > 0 ? Math.min(...scores) : 0
+  const recentScores = scores.slice(-5)
+
+  let trend: 'up' | 'down' | 'flat' = 'flat'
+  if (recentScores.length >= 3) {
+    const recent = recentScores.slice(-3)
+    const prev = scores.slice(0, -3)
+    if (prev.length >= 2) {
+      const recentAvg = recent.reduce((s, x) => s + x, 0) / recent.length
+      const prevAvg = prev.reduce((s, x) => s + x, 0) / prev.length
+      if (recentAvg - prevAvg > 10) trend = 'up'
+      else if (prevAvg - recentAvg > 10) trend = 'down'
+    }
+  }
+
+  let difficulty: Difficulty
+  if (correctCount >= MASTERY_THRESHOLD) {
+    difficulty = 'mastered'
+  } else if (wrongCount >= HARD_THRESHOLD || (attempts > 0 && avgScore < HARD_AVG)) {
+    difficulty = 'hard'
+  } else if (attempts > 0 && avgScore >= EASY_AVG) {
+    difficulty = 'easy'
+  } else {
+    difficulty = 'medium'
+  }
+
+  return {
+    difficulty,
+    attempts,
+    avgScore,
+    bestScore,
+    worstScore,
+    correctCount,
+    wrongCount,
+    recentScores,
+    trend,
+  }
+}
+
 /** 从 session.history 提取某卡的尝试分数 (旧 → 新) */
 function extractScores(session: ReviewSession, cardId: string): number[] {
   return session.history
