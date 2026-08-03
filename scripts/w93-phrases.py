@@ -23,49 +23,58 @@ with open(DATA_FILE) as f:
 
 words = data['words'] if isinstance(data, dict) and 'words' in data else data
 
-filled = 0
-updated = 0
-for w in words:
-    if not isinstance(w, dict):
-        continue
-    word = w.get('word', '')
-    phrases = w.get('phrases', [])
-    if not phrases and word in PHRASES:
-        # 新填
-        new_phrases = []
-        for p in PHRASES[word]:
-            if isinstance(p, str):
-                new_phrases.append({'phrase': p, 'translation': get_translation(word, p)})
-            elif isinstance(p, dict):
+def main():
+    """W93 主逻辑"""
+    with open(DATA_FILE) as f:
+        data = json.load(f)
+
+    words = data['words'] if isinstance(data, dict) and 'words' in data else data
+
+    filled = 0
+    updated = 0
+    for w in words:
+        if not isinstance(w, dict):
+            continue
+        word = w.get('word', '')
+        phrases = w.get('phrases', [])
+        if not phrases and word in PHRASES:
+            new_phrases = []
+            for p in PHRASES[word]:
+                if isinstance(p, str):
+                    new_phrases.append({'phrase': p, 'translation': get_translation(word, p)})
+                elif isinstance(p, dict):
+                    new_phrases.append(p)
+            w['phrases'] = new_phrases
+            filled += 1
+        elif phrases and word in ZH:
+            new_phrases = []
+            for p in phrases:
+                if isinstance(p, dict) and p.get('phrase') and not p.get('translation', '').strip():
+                    p['translation'] = get_translation(word, p['phrase'])
+                    updated += 1
                 new_phrases.append(p)
-        w['phrases'] = new_phrases
-        filled += 1
-    elif phrases and word in ZH:
-        # 补翻译
-        new_phrases = []
-        for p in phrases:
-            if isinstance(p, dict) and p.get('phrase') and not p.get('translation', '').strip():
-                p['translation'] = get_translation(word, p['phrase'])
-                updated += 1
-            new_phrases.append(p)
-        w['phrases'] = new_phrases
+            w['phrases'] = new_phrases
 
-print(f'W93 补短语: {filled} 词')
-print(f'W93 补翻译: {updated} 条')
+    print(f'W93 补短语: {filled} 词')
+    print(f'W93 补翻译: {updated} 条')
 
-with open(DATA_FILE, 'w') as f:
-    json.dump(data, f, ensure_ascii=False, indent=2)
+    with open(DATA_FILE, 'w') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
-# 验证
-with open(DATA_FILE) as f:
-    data2 = json.load(f)
-words2 = data2['words'] if isinstance(data2, dict) and 'words' in data2 else data2
-total = len(words2)
-missing2 = sum(1 for w in words2 if isinstance(w, dict) and not w.get('phrases'))
-with_phrase = sum(1 for w in words2 if isinstance(w, dict) and w.get('phrases'))
+    # 验证
+    with open(DATA_FILE) as f:
+        data2 = json.load(f)
+    words2 = data2['words'] if isinstance(data2, dict) and 'words' in data2 else data2
+    total = len(words2)
+    missing2 = sum(1 for w in words2 if isinstance(w, dict) and not w.get('phrases'))
+    with_phrase = sum(1 for w in words2 if isinstance(w, dict) and w.get('phrases'))
 
-print(f'\n=== W93 完结 ===')
-print(f'总词: {total}')
-print(f'有短语: {with_phrase} ({with_phrase/total*100:.1f}%)')
-print(f'缺短语: {missing2}')
-print(f'短语覆盖率: {(total-missing2)/total*100:.1f}%')
+    print(f'\n=== W93 完结 ===')
+    print(f'总词: {total}')
+    print(f'有短语: {with_phrase} ({with_phrase/total*100:.1f}%)')
+    print(f'缺短语: {missing2}')
+    print(f'短语覆盖率: {(total-missing2)/total*100:.1f}%')
+
+
+if __name__ == '__main__':
+    main()

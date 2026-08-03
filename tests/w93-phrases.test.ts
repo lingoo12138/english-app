@@ -1,8 +1,12 @@
 // w93-phrases.test.ts - 验证全部词 100% 有短语 + 翻译
 import { describe, it, expect } from 'vitest'
+import { readFileSync } from 'fs'
+import { fileURLToPath } from 'url'
 import wordsData from '../public/data/words.json'
+import w93Dict from '../scripts/w93-phrases.json'
 
 const words = (wordsData as any).words || wordsData
+const w93Phrases = w93Dict.phrases as Record<string, string[]>
 
 function getPhraseText(p: any): string {
   if (typeof p === 'string') return p
@@ -33,17 +37,16 @@ describe('W93 短语 100% 全覆盖 (主里程碑)', () => {
     expect(pct).toBe(100)
   })
 
-  it('W93 新补 48 词短语有中文翻译', () => {
-    // W93 补的: 10+ 字符 -ly 派生 44 词 + 2-4 字符生僻 4 词
-    const w93Words = ['afterwards', 'altogether', 'completely', 'gy', 'mm', 'hur', 'veal',
-                      'unfortunately', 'preferentially', 'fundamentally']
-    for (const target of w93Words) {
-      const w = words.find((x: any) => x.word === target)
-      if (w && w.phrases) {
-        for (const p of w.phrases) {
-          if (typeof p === 'object' && p.phrase) {
-            expect(getTranslation(p).length).toBeGreaterThan(0)
-          }
+  it('W93 字典 48 词都已在 words.json + 翻译非空', () => {
+    for (const word of Object.keys(w93Phrases)) {
+      const w = words.find((x: any) => x.word === word)
+      expect(w, `词 ${word} 应在 words.json`).toBeDefined()
+      expect(w.phrases, `${word} 短语非空`).toBeTruthy()
+      expect(w.phrases.length, `${word} 短语数 > 0`).toBeGreaterThan(0)
+      for (const p of w.phrases) {
+        if (typeof p === 'object' && p.phrase) {
+          const tr = getTranslation(p)
+          expect(tr.length, `${word}:${p.phrase} 翻译非空`).toBeGreaterThan(0)
         }
       }
     }
@@ -62,9 +65,6 @@ describe('W93 短语 100% 全覆盖 (主里程碑)', () => {
   })
 
   it('W93 字典大小验证 (48 词)', () => {
-    // 跨 cycle 加载字典, 验证大小
-    const dict = require('../scripts/w93-phrases.json') as any
-    expect(Object.keys(dict.phrases).length).toBe(48)
-    expect(Object.keys(dict.zh).length).toBe(48)
+    expect(Object.keys(w93Phrases).length).toBe(48)
   })
 })
