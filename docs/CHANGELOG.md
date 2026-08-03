@@ -4,7 +4,7 @@
 
 ---
 
-## 📊 摘要 (v0.1.0 ~ v1.93.0)
+## 📊 摘要 (v0.1.0 ~ v2.0.0)
 
 | 阶段 | 范围 | 主要交付 |
 |------|------|---------|
@@ -15,15 +15,15 @@
 | **内容扩充** | v1.29-v1.79 | 短语 9 轮 (W42-W57) / 触类旁通 / 课文 / 填空 |
 | **收官** | v1.80-v1.85 | 3 verifier 找 11 P1 / 60 闭环 PASS / 3 大新功能 |
 | **持续修** | v1.86-v1.91 | 11 P1 / 内容 99.37% / 释义收藏 / 错题合并 |
-| **错题复习** | v1.92-v1.93 | 跟读评分 / 错题导出 CSV / Flashcard 复习 (verifier 抗审查) |
+| **错题复习** | v1.92-v2.0 | 跟读评分 / Flashcard / 统计页 / **IDB 永久持久化** (3 verifier 抗审查 W87+W90+W91) |
 
-**累计 (v1.93.0)**:
-- 93 release tag / 17 周 / 22 次大 review
-- 939 单元测试 / 68 文件
-- 5,423 词 / 100% 词根 / 5,129 短语 (94.6%)
-- 20 篇课文 / 244 同义词组
-- 6 大激活功能
-- 27 页面 / 32 组件 / 50 库
+**累计 (v2.0.0)**:
+- **100 release tag** / 17+ 周 / **25 次大 review** (含 3 verifier 抗审查)
+- **1031 单元测试 / 77 文件** ⭐ 稳定 1000+
+- 5,423 词 / 100% 词根 / 5,129 短语 (94.9%)
+- 20 篇课文 / 244 同义词组 / 78 反义词
+- **7 大激活功能** (含 永久 IDB 错题复习)
+- 28 页面 / 32 组件 / 50 库
 - 0 P0 + 0 P1 业务
 
 ---
@@ -3707,6 +3707,42 @@
 - **1006 单元测试** (998 + 8) / 75 文件 ⭐ **突破 1000 测试**
 - 0 P0 + 0 P1 业务
 - 98 release tag / 17 周 / 24 次大 review
+
+
+## [v2.0.0] - 2026-08-03
+
+### v2.0.0 W91 — 错题复习 IDB 永久持久化 (修 verifier 架构缺陷 + 3 verifier 抗审查完整循环)
+
+**业务承诺**: W90 verifier B 找出 P0-2 localStorage 架构缺陷 (session 完成后清空, 全部历史丢失). v2.0 解决: IDB 永久, session 仅做"继续上次/重新开始", 跨 session 累计.
+
+**核心改动**:
+- IDB **v9 schema** 新表 `errorReviewHistory` (++id, cardId, ts, score, source)
+- `ErrorReviewScore` interface + 4 helpers (addErrorReviewScore / getAll / getByCard / clear)
+- `ErrorReviewPage.handleSubmit` 永久存 IDB (async + try/catch + toast)
+- `ErrorHistoryPage` 优先 IDB, 拆错题卡数 + 复习次数 (语义)
+- `updateCardDifficulty` 修 v1 (P0-2): 信任 caller 已 append, 不再二次 append
+- `ErrorHistoryPage` 加 '🗑️ 清除历史' 按钮 (二次确认)
+- `ErrorsPage.doDelete` 级联清理 errorReviewHistory 孤儿记录
+- 答完 summary 加 '📊 错题统计' 入口
+- 跟读按钮 /listen → /textbook (路由修正)
+
+**3 verifier 抗审查完整循环 (W91)**:
+- **verifier A (算法)**: FAIL, 找到 1 P0 + 多 P1/P2 (双倍计数 / 无 try/catch / 索引浪费 / 死代码)
+- **verifier B (业务)**: FAIL, 找到 1 P0 (W89-B 历史 bug 叠加) + 6 P1/P2
+- 修 v1 + 修 v2 全修, 验证 PASS
+
+**测试**:
+- 1031 单元测试 (1023 → 1031) / 77 文件
+- tests/errorReviewHistory.test.ts 改 fake-indexeddb 真测 (删 vi.mock)
+- 加 v8→v9 schema 升级测试
+- tests/errorDifficulty.test.ts 修 v1: caller 负责 append, updateCardDifficulty 仅改 remaining
+
+**累计 (v2.0.0)**:
+- 100 release tag / 17+ 周 / 25 次大 review (含 3 verifier 抗审查)
+- 1031 测试 (894 → 1031) / 77 文件
+- 0 P0 + 0 P1 业务
+- 7 大激活功能 (含 永久 IDB 错题复习)
+
 
 
 ## [v1.99.0] - 2026-08-01
