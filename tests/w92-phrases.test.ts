@@ -1,4 +1,4 @@
-// w92-phrases.test.ts - 验证 5-9 字符词全部有短语
+// w92-phrases.test.ts - 验证 5-9 字符词全部有短语 + 翻译
 import { describe, it, expect } from 'vitest'
 import wordsData from '../public/data/words.json'
 
@@ -10,7 +10,12 @@ function getPhraseText(p: any): string {
   return ''
 }
 
-describe('W92 短语 5-9 字符全覆盖', () => {
+function getTranslation(p: any): string {
+  if (p && typeof p === 'object') return p.translation || p.zh || ''
+  return ''
+}
+
+describe('W92 短语 5-9 字符全覆盖 + 翻译', () => {
   it('5-9 字符词 100% 有短语', () => {
     const noPhrase = words
       .filter((w: any) => !w.phrases && 5 <= w.word.length && w.word.length <= 9)
@@ -28,7 +33,24 @@ describe('W92 短语 5-9 字符全覆盖', () => {
     expect(pct).toBeGreaterThanOrEqual(99)
   })
 
-  it('每个补的短语为 str/dict, phrase 字段 3-50 字符', () => {
+  it('5-9 字符短语 100% 有中文翻译 (W92 修 v2)', () => {
+    const noZh: string[] = []
+    for (const w of words) {
+      if (w.phrases && 5 <= w.word.length && w.word.length <= 9) {
+        for (const p of w.phrases) {
+          if (typeof p === 'object' && p.phrase && !getTranslation(p).trim()) {
+            noZh.push(`${w.word}: ${p.phrase}`)
+          }
+        }
+      }
+    }
+    if (noZh.length > 0) {
+      console.log('5-9 字符短语空翻译:', noZh.slice(0, 10))
+    }
+    expect(noZh.length).toBe(0)
+  })
+
+  it('每个短语 3-60 字符', () => {
     const newlyFilled = words.filter((w: any) => w.phrases && w.phrases.length > 0 && 5 <= w.word.length && w.word.length <= 9)
     expect(newlyFilled.length).toBeGreaterThanOrEqual(220)
     for (const w of newlyFilled) {
