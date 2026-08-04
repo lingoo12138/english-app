@@ -7221,14 +7221,22 @@
     "translations": [
       "后来；以后；之后"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "We had dinner and afterwards we watched a movie.",
+        "zh": "我们吃了晚饭, 然后看了电影。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "adv"
+    ],
     "roots": [
       {
         "root": "after",
@@ -10562,14 +10570,22 @@
     "translations": [
       "铝(化学元素)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The ladder is made of aluminum.",
+        "zh": "这个梯子是铝制的。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "alum",
@@ -10924,14 +10940,22 @@
     "translations": [
       "女大使；女特使"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The ambassadress hosted a reception.",
+        "zh": "这位女大使举办了一场招待会。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "ambassad",
@@ -11740,14 +11764,22 @@
       "一(个)；每一(个)",
       "字母A"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I need an umbrella.",
+        "zh": "我需要一把雨伞。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "art"
+    ],
     "phrases": [
       {
         "en": "an apple",
@@ -13201,14 +13233,23 @@
     "translations": [
       "南极的；南极地区的"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The Antarctic ice is melting fast.",
+        "zh": "南极的冰融化得很快。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "adj",
+      "n"
+    ],
     "roots": [
       {
         "root": "anti-",
@@ -23185,14 +23226,22 @@
     "translations": [
       "向后地；倒退地"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She stepped backwards.",
+        "zh": "她向后退了一步。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "adv"
+    ],
     "roots": [
       {
         "root": "back",
@@ -25393,14 +25442,22 @@
     "translations": [
       "棒球(运动)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "He plays baseball every weekend.",
+        "zh": "他每个周末打棒球。",
+        "scene": "sport"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "base",
@@ -26502,14 +26559,22 @@
     "translations": [
       "公元前(Before Christ)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The city was founded in 300 BC.",
+        "zh": "这座城市建于公元前300年。",
+        "scene": "history"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "abbr"
+    ],
     "phrases": [
       {
         "en": "500 BC",
@@ -28345,14 +28410,22 @@
     "translations": [
       "行为；表现；举止"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "His behaviour was excellent.",
+        "zh": "他的表现非常出色。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "avi",
@@ -46382,14 +46455,23 @@
     "translations": [
       "中心；中央；中心点"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The hotel is in the city center.",
+        "zh": "酒店位于市中心。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n",
+      "v"
+    ],
     "roots": [
       {
         "root": "centr",
@@ -46466,14 +46548,22 @@
     "translations": [
       "厘米(长度单位)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The ruler is 30 centimeters long.",
+        "zh": "这把尺子30厘米长。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "cent",
@@ -50110,14 +50200,22 @@
     "translations": [
       "儿童；孩子们(child的复数)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The children are playing outside.",
+        "zh": "孩子们在外面玩。",
+        "scene": "family"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "child",
@@ -70881,14 +70979,22 @@
     "translations": [
       "标准；条件(criterion的复数)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "What are the criteria for the job?",
+        "zh": "这份工作的标准是什么？",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "criter",
@@ -73886,14 +73992,22 @@
     "translations": [
       "爸爸；父亲"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Daddy, can I have some juice?",
+        "zh": "爸爸, 我能喝点果汁吗？",
+        "scene": "family"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "dad",
@@ -76773,14 +76887,22 @@
     "translations": [
       "致力；献身；奉献"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She dedicated her life to helping others.",
+        "zh": "她毕生致力于帮助他人。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "v"
+    ],
     "roots": [
       {
         "root": "-ate1",
@@ -84515,14 +84637,22 @@
     "translations": [
       "失望的；沮丧的"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I was disappointed with the result.",
+        "zh": "我对结果感到失望。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "adj"
+    ],
     "roots": [
       {
         "root": "dis-",
@@ -84723,14 +84853,22 @@
     "translations": [
       "圆盘；唱片；椎间盘"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Please insert the disc.",
+        "zh": "请插入光盘。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "phrases": [
       {
         "en": "compact disc",
@@ -96863,14 +97001,23 @@
     "translations": [
       "电子邮件；电子信函"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I sent her an email yesterday.",
+        "zh": "我昨天给她发了一封邮件。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n",
+      "v"
+    ],
     "roots": [
       {
         "root": "e-",
@@ -111286,14 +111433,23 @@
       "最喜欢的；特别喜爱的",
       "受喜爱的人(或事物)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Pizza is my favorite food.",
+        "zh": "比萨是我最爱的食物。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "adj",
+      "n"
+    ],
     "roots": [
       {
         "root": "-ite1",
@@ -112432,14 +112588,22 @@
     "translations": [
       "脚(foot的复数)；英尺"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "My feet are cold.",
+        "zh": "我的脚很冷。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "phrases": [
       {
         "en": "on foot (feet)",
@@ -113116,14 +113280,22 @@
     "translations": [
       "纤维；光纤；质地"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Eat more fiber for better digestion.",
+        "zh": "多吃纤维有助于消化。",
+        "scene": "health"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "fiber",
@@ -114941,14 +115113,22 @@
     "translations": [
       "烟火；烟花"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The fireworks lit up the sky.",
+        "zh": "烟花照亮了天空。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "fire",
@@ -120203,14 +120383,23 @@
     "translations": [
       "收养；养育；培养"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "They fostered a child for two years.",
+        "zh": "他们收养了一个孩子两年。",
+        "scene": "family"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "v",
+      "adj"
+    ],
     "roots": [
       {
         "root": "oste",
@@ -121073,14 +121262,22 @@
     "translations": [
       "法郎(货币单位)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The price is 50 francs.",
+        "zh": "价格是50法郎。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "franc",
@@ -128962,14 +129159,22 @@
     "translations": [
       "再见；告别"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I said goodbye and left.",
+        "zh": "我说了再见就离开了。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "int"
+    ],
     "roots": [
       {
         "root": "good",
@@ -133475,14 +133680,22 @@
     "translations": [
       "吉他；六弦琴"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She plays the guitar beautifully.",
+        "zh": "她吉他弹得很美。",
+        "scene": "art"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "phrases": [
       {
         "en": "play guitar",
@@ -134946,7 +135159,7 @@
     "phonetic_us": "",
     "phonetic_uk": "",
     "pos": [
-      ""
+      "n"
     ],
     "translations": [
       "手推车"
@@ -135423,14 +135636,22 @@
     "translations": [
       "海港；港口；避难所"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The boats are in the harbor.",
+        "zh": "船只停泊在港口。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "har",
@@ -136327,14 +136548,22 @@
     "translations": [
       "有(have的第三人称单数现在时)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She has a beautiful smile.",
+        "zh": "她有美丽的笑容。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "v"
+    ],
     "phrases": [
       {
         "en": "has to",
@@ -142970,14 +143199,22 @@
     "translations": [
       "热狗(食物)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I want a hotdog, please.",
+        "zh": "我想要一个热狗。",
+        "scene": "food"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "hot",
@@ -143940,14 +144177,22 @@
     "translations": [
       "幽默；诙谐；情绪"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "He has a great sense of humor.",
+        "zh": "他很有幽默感。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "humor",
@@ -157332,14 +157577,22 @@
     "translations": [
       "是(be的第三人称单数现在时)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She is a doctor.",
+        "zh": "她是一名医生。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "v"
+    ],
     "phrases": [
       {
         "en": "is going to",
@@ -158764,14 +159017,22 @@
     "translations": [
       "珠宝；首饰"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She wore expensive jewellery.",
+        "zh": "她戴着昂贵的珠宝。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "jewel",
@@ -159675,14 +159936,22 @@
     "translations": [
       "判断；判决；意见"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Use your own judgment.",
+        "zh": "用你自己的判断力。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "-ment",
@@ -161225,14 +161494,22 @@
     "translations": [
       "千米；公里"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The race is 5 kilometers long.",
+        "zh": "比赛全程5公里。",
+        "scene": "sport"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "kilo-",
@@ -162463,14 +162740,22 @@
     "translations": [
       "劳动；劳工；分娩"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Manual labor is hard work.",
+        "zh": "体力劳动是辛苦的工作。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "labor, laborat, lab",
@@ -173728,14 +174013,22 @@
     "translations": [
       "夫人；女士(法语称呼已婚妇女)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Madame Curie was a great scientist.",
+        "zh": "居里夫人是一位伟大的科学家。",
+        "scene": "history"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "ma",
@@ -177412,14 +177705,22 @@
     "translations": [
       "数学(mathematics的缩写)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Math is my favorite subject.",
+        "zh": "数学是我最喜欢的科目。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "phrases": [
       {
         "en": "math class",
@@ -179968,14 +180269,22 @@
     "translations": [
       "男人(man的复数)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Many men work in construction.",
+        "zh": "很多男人从事建筑工作。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "phrases": [
       {
         "en": "men and women",
@@ -182390,14 +182699,22 @@
     "translations": [
       "毫米(长度单位)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The insect is 5 millimeters long.",
+        "zh": "这只昆虫长5毫米。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "milli-",
@@ -188023,14 +188340,22 @@
     "translations": [
       "先生(Mister的缩写)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Mr Smith is my teacher.",
+        "zh": "史密斯先生是我的老师。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "phrases": [
       {
         "en": "Mr. Smith",
@@ -188051,14 +188376,22 @@
     "translations": [
       "夫人；女士(Mistress的缩写)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Mrs Brown lives next door.",
+        "zh": "布朗夫人住在隔壁。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "phrases": [
       {
         "en": "Mrs. Smith",
@@ -188079,14 +188412,22 @@
     "translations": [
       "女士(Miss或Mrs的缩写)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Ms Johnson will see you now.",
+        "zh": "约翰逊女士现在见您。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "phrases": [
       {
         "en": "Ms. Smith",
@@ -188481,14 +188822,22 @@
     "translations": [
       "妈妈；母亲"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "My mum makes great cookies.",
+        "zh": "我妈妈做的饼干很好吃。",
+        "scene": "family"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "phrases": [
       {
         "en": "mum's the word",
@@ -188509,14 +188858,22 @@
     "translations": [
       "木乃伊；妈妈"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Ancient Egyptian mummies are in museums.",
+        "zh": "古埃及木乃伊在博物馆里。",
+        "scene": "history"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "mumm",
@@ -191913,14 +192270,22 @@
     "translations": [
       "邻居；邻国；邻近的人"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "My neighbor has a dog.",
+        "zh": "我邻居有一只狗。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "neigh",
@@ -198751,14 +199116,22 @@
     "translations": [
       "奥林匹克的；奥运会的"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The Olympic Games are held every 4 years.",
+        "zh": "奥运会每四年举办一次。",
+        "scene": "sport"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "adj"
+    ],
     "phrases": [
       {
         "en": "Olympic Games",
@@ -198779,14 +199152,22 @@
     "translations": [
       "奥林匹克运动会；奥运会"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She won a gold medal at the Olympics.",
+        "zh": "她在奥运会上赢得了金牌。",
+        "scene": "sport"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "ics",
@@ -201141,14 +201522,22 @@
     "translations": [
       "组织；机构；团体"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She works for a non-profit organisation.",
+        "zh": "她在一家非营利组织工作。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "organis",
@@ -208899,14 +209288,22 @@
     "translations": [
       "人行道；路面"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Walk on the pavement, not the road.",
+        "zh": "走人行道, 别走马路。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "pave",
@@ -209102,14 +209499,23 @@
     "translations": [
       "个人电脑(personal computer)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I work on my PC every day.",
+        "zh": "我每天用电脑工作。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "abbr",
+      "n"
+    ],
     "phrases": [
       {
         "en": "PC computer",
@@ -209130,14 +209536,22 @@
     "translations": [
       "体育课(physical education的缩写)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "We have PE class on Tuesdays.",
+        "zh": "我们星期二有体育课。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "abbr"
+    ],
     "phrases": [
       {
         "en": "PE class",
@@ -209890,14 +210304,22 @@
     "translations": [
       "便士(penny的复数)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The candy costs 50 pence.",
+        "zh": "这块糖50便士。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "pence",
@@ -217242,14 +217664,22 @@
     "translations": [
       "女警察"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The policewoman helped the lost child.",
+        "zh": "那位女警察帮助了迷路的孩子。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "police",
@@ -228201,14 +228631,22 @@
     "translations": [
       "心理学；心理状态"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She is studying psychology at university.",
+        "zh": "她在大学学习心理学。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "psycho-",
@@ -234026,14 +234464,22 @@
     "translations": [
       "认识到；实现；变卖"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I realised I was wrong.",
+        "zh": "我意识到我错了。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "v"
+    ],
     "roots": [
       {
         "root": "ali",
@@ -249941,14 +250387,22 @@
     "translations": [
       "安全地；平安地"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Drive safely!",
+        "zh": "开车注意安全！",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "adv"
+    ],
     "roots": [
       {
         "root": "safe",
@@ -251324,14 +251778,22 @@
     "translations": [
       "满足；使满意；符合"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The food satisfied my hunger.",
+        "zh": "食物解除了我的饥饿。",
+        "scene": "food"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "v"
+    ],
     "roots": [
       {
         "root": "-fy, -ify, -efy",
@@ -252847,14 +253309,22 @@
     "translations": [
       "男中小学生"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The schoolboy ran to catch the bus.",
+        "zh": "那个男生跑着去赶公共汽车。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "school",
@@ -252880,14 +253350,22 @@
     "translations": [
       "女中小学生"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The schoolgirl won the spelling bee.",
+        "zh": "那个女生赢了拼字比赛。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "school",
@@ -256055,14 +256533,22 @@
     "translations": [
       "研讨会；讨论班"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I attended a writing seminar.",
+        "zh": "我参加了一个写作研讨会。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "semi",
@@ -261258,14 +261744,23 @@
     "translations": [
       "收缩；缩小；退缩"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "This shirt will shrink in the wash.",
+        "zh": "这件衬衫洗后会缩水。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "v",
+      "n"
+    ],
     "roots": [
       {
         "root": "shrink",
@@ -261705,14 +262200,22 @@
     "translations": [
       "旁路；小巷"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Turn left at the sideroad.",
+        "zh": "在岔路口向左转。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "sid",
@@ -261737,14 +262240,22 @@
     "translations": [
       "人行道"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "People walked on the sidewalk.",
+        "zh": "人们在人行道上走。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "side",
@@ -264344,14 +264855,22 @@
     "translations": [
       "怀疑的；持怀疑态度的"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I am skeptical of his claims.",
+        "zh": "我对他声称的事持怀疑态度。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "adj"
+    ],
     "roots": [
       {
         "root": "ept",
@@ -264513,14 +265032,22 @@
     "translations": [
       "熟练的；有技巧的"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She is a skilful pianist.",
+        "zh": "她是个技术娴熟的钢琴家。",
+        "scene": "art"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "adj"
+    ],
     "phrases": [
       {
         "en": "skilful at",
@@ -270523,14 +271050,23 @@
     "translations": [
       "东南；东南地区"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The wind is blowing from the southeast.",
+        "zh": "风从东南方向吹来。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n",
+      "adj"
+    ],
     "roots": [
       {
         "root": "south",
@@ -270675,14 +271211,22 @@
     "translations": [
       "纪念品；礼物"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I bought a souvenir from Paris.",
+        "zh": "我从巴黎买了一个纪念品。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "souven",
@@ -272963,14 +273507,22 @@
     "translations": [
       "发言人；代言人"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The spokesman answered the questions.",
+        "zh": "这位发言人回答了问题。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "speak (spoke)",
@@ -272996,14 +273548,22 @@
     "translations": [
       "女发言人；女代言人"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The spokeswoman announced the new policy.",
+        "zh": "女发言人宣布了这项新政策。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "speak (spoke)",
@@ -275027,14 +275587,23 @@
     "translations": [
       "星；明星；明星演员；星级"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The star shone brightly.",
+        "zh": "星星明亮地闪耀着。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n",
+      "v"
+    ],
     "roots": [
       {
         "root": "star",
@@ -275568,14 +276137,22 @@
     "translations": [
       "女政治家；女国务活动家"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She was a great stateswoman.",
+        "zh": "她是一位伟大的女政治家。",
+        "scene": "history"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "state",
@@ -282707,14 +283284,22 @@
     "translations": [
       "夏天；夏季"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I love swimming in summer.",
+        "zh": "我喜欢在夏天游泳。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "summ",
@@ -288621,14 +289206,22 @@
     "translations": [
       "纳税人"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Every taxpayer must file a return.",
+        "zh": "每个纳税人都必须申报。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "tax",
@@ -289029,14 +289622,23 @@
     "translations": [
       "眼泪；撕裂；扯破"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She wiped a tear from her eye.",
+        "zh": "她擦去了眼角的泪水。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n",
+      "v"
+    ],
     "roots": [
       {
         "root": "tear",
@@ -290495,14 +291097,22 @@
     "translations": [
       "网球(运动)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "They played tennis all afternoon.",
+        "zh": "他们整个下午都在打网球。",
+        "scene": "sport"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "ten, tin, tain",
@@ -291759,14 +292369,22 @@
     "translations": [
       "剧院；电影院；戏剧"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "We went to the theater last night.",
+        "zh": "我们昨晚去看了戏。",
+        "scene": "art"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "theat",
@@ -298527,14 +299145,22 @@
     "translations": [
       "向；朝；对于；接近"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She walked towards the door.",
+        "zh": "她朝门口走去。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "prep"
+    ],
     "roots": [
       {
         "root": "to",
@@ -300713,14 +301339,23 @@
     "translations": [
       "旅行；游历；行进"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I love to travel to new places.",
+        "zh": "我喜欢去新地方旅行。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "v",
+      "n"
+    ],
     "roots": [
       {
         "root": "trav",
@@ -300787,14 +301422,22 @@
     "translations": [
       "旅行者；旅客"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The traveller told us stories of distant lands.",
+        "zh": "这位旅行者给我们讲远方的故事。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "tra",
@@ -301844,14 +302487,22 @@
     "translations": [
       "无轨电车"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "We took the trolleybus to the museum.",
+        "zh": "我们坐无轨电车去博物馆。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "trolley",
@@ -304754,14 +305405,22 @@
     "translations": [
       "难以置信的；不真实的"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The view was unbelievable!",
+        "zh": "景色令人难以置信！",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "adj"
+    ],
     "roots": [
       {
         "root": "un-",
@@ -308028,14 +308687,22 @@
     "translations": [
       "在...上；依据；靠近"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Once upon a time, there was a princess.",
+        "zh": "从前, 有一位公主。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "prep"
+    ],
     "roots": [
       {
         "root": "up",
@@ -308368,14 +309035,22 @@
     "translations": [
       "向上地；上升地"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The balloon floated upwards.",
+        "zh": "气球向上飘去。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "adv"
+    ],
     "roots": [
       {
         "root": "up",
@@ -308594,14 +309269,22 @@
     "translations": [
       "我们(we的宾格)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She gave us a gift.",
+        "zh": "她给了我们一份礼物。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "pron"
+    ],
     "phrases": [
       {
         "en": "with us",
@@ -310573,14 +311256,22 @@
     "translations": [
       "视频光盘(Video Compact Disc)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "We watched a VCD at home.",
+        "zh": "我们在家看了一张影碟。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "abbr"
+    ],
     "phrases": [
       {
         "en": "VCD player",
@@ -315261,14 +315952,22 @@
     "translations": [
       "警告；告诫；预先通知"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I must warn you about the danger.",
+        "zh": "我必须警告你注意危险。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "v"
+    ],
     "roots": [
       {
         "root": "warn",
@@ -317913,14 +318612,23 @@
     "translations": [
       "向西的；向西方的"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The wagon train moved westward.",
+        "zh": "马车队向西行进。",
+        "scene": "history"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "adv",
+      "adj"
+    ],
     "roots": [
       {
         "root": "west",
@@ -321617,14 +322325,22 @@
     "translations": [
       "女人(woman的复数)"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Women's rights are important.",
+        "zh": "妇女权利很重要。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "小学"
     ],
     "level": "primary",
     "difficulty": 1,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "n"
+    ],
     "roots": [
       {
         "root": "wom",
@@ -322029,14 +322745,22 @@
     "translations": [
       "羊毛的；毛织品"
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She wore a woolen sweater.",
+        "zh": "她穿着一件羊毛衫。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高中"
     ],
     "level": "senior",
     "difficulty": 3,
     "frequency": 3,
-    "pos": [],
+    "pos": [
+      "adj"
+    ],
     "roots": [
       {
         "root": "-en2",
