@@ -184,11 +184,6 @@
     "zh": "火药是古代中国发明的。",
     "scene": "history"
   },
-  "gy": {
-    "en": "The road sign uses gy to mean gray.",
-    "zh": "路标上 gy 表示灰色。",
-    "scene": "life"
-  },
   "hawk": {
     "en": "A hawk circled in the sky.",
     "zh": "一只鹰在空中盘旋。",
@@ -205,8 +200,8 @@
     "scene": "life"
   },
   "hur": {
-    "en": "The weather report warned of a hur.",
-    "zh": "天气预报警告有飓风。",
+    "en": "The wind howled like a hurricane.",
+    "zh": "风像飓风一样呼啸。",
     "scene": "nature"
   },
   "impermanency": {
@@ -395,7 +390,7 @@
     "scene": "travel"
   },
   "Tibetan": {
-    "en": "She is learning Tibetan language.",
+    "en": "She is learning the Tibetan language.",
     "zh": "她正在学藏语。",
     "scene": "study"
   },

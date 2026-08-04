@@ -61,7 +61,7 @@ describe('W95 93 词补 examples (主里程碑)', () => {
         hasExample++
       }
     }
-    expect(hasExample).toBe(93)
+    expect(hasExample).toBe(92)
   })
 
   it('每个 example 包含 en + zh + scene 字段 + 长度合理', () => {
@@ -83,7 +83,7 @@ describe('W95 93 词补 examples (主里程碑)', () => {
 
   it('每个 example en 包含词根 (W94 准确性经验)', () => {
     // 短词 + 缩写词 跳过
-    const skipCheck = new Set(['a', 'an', 'is', 'has', 'mr', 'mrs', 'ms', 'pc', 'bc', 'pe', 'vcd', 'us', 'pm', 'cd', 'dvd', 'dr', 'un', 'ox', 'oar', 'gy', 'hur', 'woo', 'zoom'])
+    const skipCheck = new Set(['a', 'an', 'is', 'has', 'mr', 'mrs', 'ms', 'pc', 'bc', 'pe', 'vcd', 'us', 'pm', 'cd', 'dvd', 'dr', 'un', 'ox', 'oar', 'hur', 'woo', 'zoom'])
     for (const word of Object.keys(w95Data)) {
       if (skipCheck.has(word.toLowerCase())) continue
       const w = words.find((x: any) => x.word === word)
@@ -92,17 +92,13 @@ describe('W95 93 词补 examples (主里程碑)', () => {
         const variants = getVariants(word)
         const enLower = ex.en.toLowerCase()
         const found = variants.some(v => v.length >= 3 && enLower.includes(v))
-        if (!found) {
-          // 不强 失败, 仅 提示
-          console.log(`${word} example.en "${ex.en}" 词根 检查 fail (变体: ${variants.join('/')})`)
-        }
-        // 接受 通过, 不 断言 (W95 抽 词 词根 可能 难)
-        expect(true).toBe(true)
+        // 修 v1 (P1-1): 跟 W94 经验 一致, 硬 断言 词根 准确性
+        expect(found, `${word} example.en "${ex.en}" 应包含词根 (变体: ${variants.join('/')})`).toBe(true)
       }
     }
   })
 
   it('W95 字典大小 = 93', () => {
-    expect(Object.keys(w95Data).length).toBe(93)
+    expect(Object.keys(w95Data).length).toBe(92)
   })
 })
