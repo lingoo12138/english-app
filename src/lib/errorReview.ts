@@ -174,7 +174,7 @@ export function answerInSession(
     remaining: newRemaining,
     correct: session.correct + (correct ? 1 : 0),
     wrong: session.wrong + (correct ? 0 : 1),
-    history: [...session.history, { cardId: card.id, score, grade, peeked }],
+    history: [...session.history, { cardId: card.id, score, grade, peeked, source: card.source }],
   }
   return { session: newSession, score, grade, isLast, card }
 }

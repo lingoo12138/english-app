@@ -10,11 +10,11 @@ function makeSession(overrides: Partial<ReviewSession> = {}): ReviewSession {
     wrong: 2,
     remaining: [],
     history: [
-      { cardId: 'w-1', score: 90, grade: 'good', peeked: false },
-      { cardId: 'w-2', score: 100, grade: 'perfect', peeked: false },
-      { cardId: 'd-1', score: 30, grade: 'bad', peeked: true },
-      { cardId: 'd-2', score: 70, grade: 'good', peeked: false },
-      { cardId: 's-1', score: 50, grade: 'ok', peeked: false },
+      { cardId: 'w-1', score: 90, grade: 'good', peeked: false, source: 'write' },
+      { cardId: 'w-2', score: 100, grade: 'perfect', peeked: false, source: 'write' },
+      { cardId: 'd-1', score: 30, grade: 'bad', peeked: true, source: 'dictation' },
+      { cardId: 'd-2', score: 70, grade: 'good', peeked: false, source: 'spelling' },
+      { cardId: 'd-3', score: 50, grade: 'ok', peeked: false, source: 'follow-read' },
     ],
     startedAt: Date.now(),
     lastUpdatedAt: Date.now(),
@@ -61,11 +61,12 @@ describe('W96 错题复习学习报告', () => {
     expect(r.gradeBreakdown.bad).toBe(1)
   })
 
-  it('来源分布: 推断 cardId 前缀', () => {
+  it('来源分布: 读 history.source (修 v1 P1-2)', () => {
     const r = buildReviewReport(makeSession())
     expect(r.sourceBreakdown.write).toBe(2)
-    expect(r.sourceBreakdown.dictation).toBe(2)
+    expect(r.sourceBreakdown.dictation).toBe(1)
     expect(r.sourceBreakdown.spelling).toBe(1)
+    expect(r.sourceBreakdown['follow-read']).toBe(1)
   })
 
   it('空 session 不崩 (业务边界)', () => {
@@ -99,6 +100,28 @@ describe('W96 错题复习学习报告', () => {
     })
     const f = formatReport(r)
     expect(f.accuracyLabel).toContain('多练')
+  })
+
+  it('re-answer 场景: accuracy 不会 > 100% (修 v1 P1-1)', () => {
+    // 5 张卡, 全部先答错 1 次再答对 1 次: total=5, correct=5, wrong=5
+    const r = buildReviewReport({
+      total: 5, correct: 5, wrong: 5, remaining: [],
+      history: [
+        { cardId: 'w-1', score: 30, grade: 'bad', peeked: false, source: 'write' },
+        { cardId: 'w-1', score: 90, grade: 'good', peeked: false, source: 'write' },
+        { cardId: 'w-2', score: 30, grade: 'bad', peeked: false, source: 'write' },
+        { cardId: 'w-2', score: 90, grade: 'good', peeked: false, source: 'write' },
+        { cardId: 'w-3', score: 30, grade: 'bad', peeked: false, source: 'write' },
+        { cardId: 'w-3', score: 90, grade: 'good', peeked: false, source: 'write' },
+        { cardId: 'w-4', score: 30, grade: 'bad', peeked: false, source: 'write' },
+        { cardId: 'w-4', score: 90, grade: 'good', peeked: false, source: 'write' },
+        { cardId: 'w-5', score: 30, grade: 'bad', peeked: false, source: 'write' },
+        { cardId: 'w-5', score: 90, grade: 'good', peeked: false, source: 'write' },
+      ],
+      startedAt: 0, lastUpdatedAt: 0,
+    })
+    // 5 correct / 10 attempts = 50% (而不是 5/5=100%)
+    expect(r.accuracy).toBe(50)
   })
 
   it('formatReport: 偷看率 0 鼓励', () => {

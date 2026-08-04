@@ -32,7 +32,7 @@ export function buildReviewReport(session: ReviewSession): ReviewReport {
   const total = session.total
   const correct = session.correct
   const wrong = session.wrong
-  const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0
+  const accuracy = (correct + wrong) > 0 ? Math.round((correct / (correct + wrong)) * 100) : 0
 
   const scores = session.history.map(h => h.score)
   const avgScore = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0
@@ -58,13 +58,10 @@ export function buildReviewReport(session: ReviewSession): ReviewReport {
     else difficulty.hard++
   }
 
+  // 修 v1 (P1-2): 读 history.source (W96 业务)
   const sourceBreakdown: Record<string, number> = {}
   for (const h of session.history) {
-    const src = h.cardId.startsWith('w-') ? 'write'
-      : h.cardId.startsWith('d-') ? 'dictation'
-      : h.cardId.startsWith('s-') ? 'spelling'
-      : h.cardId.startsWith('f-') ? 'follow-read'
-      : 'other'
+    const src = h.source || 'other'
     sourceBreakdown[src] = (sourceBreakdown[src] || 0) + 1
   }
 
