@@ -1,0 +1,904 @@
+{
+  "afterwards": {
+    "pos": [
+      "adverb"
+    ],
+    "example": {
+      "en": "We had dinner and afterwards we watched a movie.",
+      "zh": "我们吃了晚饭, 然后看了电影。",
+      "scene": "life"
+    }
+  },
+  "aluminum": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The ladder is made of aluminum.",
+      "zh": "这个梯子是铝制的。",
+      "scene": "life"
+    }
+  },
+  "ambassadress": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The ambassadress hosted a reception.",
+      "zh": "这位女大使举办了一场招待会。",
+      "scene": "work"
+    }
+  },
+  "an": {
+    "pos": [
+      "article"
+    ],
+    "example": {
+      "en": "I need an umbrella.",
+      "zh": "我需要一把雨伞。",
+      "scene": "life"
+    }
+  },
+  "antarctic": {
+    "pos": [
+      "adjective",
+      "noun"
+    ],
+    "example": {
+      "en": "The Antarctic ice is melting fast.",
+      "zh": "南极的冰融化得很快。",
+      "scene": "nature"
+    }
+  },
+  "backwards": {
+    "pos": [
+      "adverb"
+    ],
+    "example": {
+      "en": "She stepped backwards.",
+      "zh": "她向后退了一步。",
+      "scene": "life"
+    }
+  },
+  "baseball": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "He plays baseball every weekend.",
+      "zh": "他每个周末打棒球。",
+      "scene": "sport"
+    }
+  },
+  "bc": {
+    "pos": [
+      "abbreviation"
+    ],
+    "example": {
+      "en": "The city was founded in 300 BC.",
+      "zh": "这座城市建于公元前300年。",
+      "scene": "history"
+    }
+  },
+  "behaviour": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "His behaviour was excellent.",
+      "zh": "他的表现非常出色。",
+      "scene": "life"
+    }
+  },
+  "center": {
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "example": {
+      "en": "The hotel is in the city center.",
+      "zh": "酒店位于市中心。",
+      "scene": "travel"
+    }
+  },
+  "centimeter": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The ruler is 30 centimeters long.",
+      "zh": "这把尺子30厘米长。",
+      "scene": "study"
+    }
+  },
+  "children": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The children are playing outside.",
+      "zh": "孩子们在外面玩。",
+      "scene": "family"
+    }
+  },
+  "criteria": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "What are the criteria for the job?",
+      "zh": "这份工作的标准是什么？",
+      "scene": "work"
+    }
+  },
+  "daddy": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Daddy, can I have some juice?",
+      "zh": "爸爸, 我能喝点果汁吗？",
+      "scene": "family"
+    }
+  },
+  "dedicate": {
+    "pos": [
+      "verb"
+    ],
+    "example": {
+      "en": "She dedicated her life to helping others.",
+      "zh": "她毕生致力于帮助他人。",
+      "scene": "work"
+    }
+  },
+  "disappointed": {
+    "pos": [
+      "adjective"
+    ],
+    "example": {
+      "en": "I was disappointed with the result.",
+      "zh": "我对结果感到失望。",
+      "scene": "life"
+    }
+  },
+  "disc": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Please insert the disc.",
+      "zh": "请插入光盘。",
+      "scene": "work"
+    }
+  },
+  "email": {
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "example": {
+      "en": "I sent her an email yesterday.",
+      "zh": "我昨天给她发了一封邮件。",
+      "scene": "work"
+    }
+  },
+  "favorite": {
+    "pos": [
+      "adjective",
+      "noun"
+    ],
+    "example": {
+      "en": "Pizza is my favorite food.",
+      "zh": "比萨是我最爱的食物。",
+      "scene": "life"
+    }
+  },
+  "feet": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "My feet are cold.",
+      "zh": "我的脚很冷。",
+      "scene": "life"
+    }
+  },
+  "fiber": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Eat more fiber for better digestion.",
+      "zh": "多吃纤维有助于消化。",
+      "scene": "health"
+    }
+  },
+  "fireworks": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The fireworks lit up the sky.",
+      "zh": "烟花照亮了天空。",
+      "scene": "life"
+    }
+  },
+  "foster": {
+    "pos": [
+      "verb",
+      "adjective"
+    ],
+    "example": {
+      "en": "They fostered a child for two years.",
+      "zh": "他们收养了一个孩子两年。",
+      "scene": "family"
+    }
+  },
+  "franc": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The price is 50 francs.",
+      "zh": "价格是50法郎。",
+      "scene": "travel"
+    }
+  },
+  "goodbye": {
+    "pos": [
+      "interjection"
+    ],
+    "example": {
+      "en": "I said goodbye and left.",
+      "zh": "我说了再见就离开了。",
+      "scene": "life"
+    }
+  },
+  "guitar": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "She plays the guitar beautifully.",
+      "zh": "她吉他弹得很美。",
+      "scene": "art"
+    }
+  },
+  "harbor": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The boats are in the harbor.",
+      "zh": "船只停泊在港口。",
+      "scene": "travel"
+    }
+  },
+  "has": {
+    "pos": [
+      "verb"
+    ],
+    "example": {
+      "en": "She has a beautiful smile.",
+      "zh": "她有美丽的笑容。",
+      "scene": "life"
+    }
+  },
+  "hotdog": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "I want a hotdog, please.",
+      "zh": "我想要一个热狗。",
+      "scene": "food"
+    }
+  },
+  "humor": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "He has a great sense of humor.",
+      "zh": "他很有幽默感。",
+      "scene": "life"
+    }
+  },
+  "is": {
+    "pos": [
+      "verb"
+    ],
+    "example": {
+      "en": "She is a doctor.",
+      "zh": "她是一名医生。",
+      "scene": "work"
+    }
+  },
+  "jewellery": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "She wore expensive jewellery.",
+      "zh": "她戴着昂贵的珠宝。",
+      "scene": "life"
+    }
+  },
+  "judgment": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Use your own judgment.",
+      "zh": "用你自己的判断力。",
+      "scene": "work"
+    }
+  },
+  "kilometer": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The race is 5 kilometers long.",
+      "zh": "比赛全程5公里。",
+      "scene": "sport"
+    }
+  },
+  "labor": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Manual labor is hard work.",
+      "zh": "体力劳动是辛苦的工作。",
+      "scene": "work"
+    }
+  },
+  "madame": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Madame Curie was a great scientist.",
+      "zh": "居里夫人是一位伟大的科学家。",
+      "scene": "history"
+    }
+  },
+  "math": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Math is my favorite subject.",
+      "zh": "数学是我最喜欢的科目。",
+      "scene": "study"
+    }
+  },
+  "men": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Many men work in construction.",
+      "zh": "很多男人从事建筑工作。",
+      "scene": "work"
+    }
+  },
+  "millimeter": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The insect is 5 millimeters long.",
+      "zh": "这只昆虫长5毫米。",
+      "scene": "study"
+    }
+  },
+  "mr": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Mr Smith is my teacher.",
+      "zh": "史密斯先生是我的老师。",
+      "scene": "work"
+    }
+  },
+  "mrs": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Mrs Brown lives next door.",
+      "zh": "布朗夫人住在隔壁。",
+      "scene": "life"
+    }
+  },
+  "ms": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Ms Johnson will see you now.",
+      "zh": "约翰逊女士现在见您。",
+      "scene": "work"
+    }
+  },
+  "mum": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "My mum makes great cookies.",
+      "zh": "我妈妈做的饼干很好吃。",
+      "scene": "family"
+    }
+  },
+  "mummy": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Ancient Egyptian mummies are in museums.",
+      "zh": "古埃及木乃伊在博物馆里。",
+      "scene": "history"
+    }
+  },
+  "neighbor": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "My neighbor has a dog.",
+      "zh": "我邻居有一只狗。",
+      "scene": "life"
+    }
+  },
+  "olympic": {
+    "pos": [
+      "adjective"
+    ],
+    "example": {
+      "en": "The Olympic Games are held every 4 years.",
+      "zh": "奥运会每四年举办一次。",
+      "scene": "sport"
+    }
+  },
+  "olympics": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "She won a gold medal at the Olympics.",
+      "zh": "她在奥运会上赢得了金牌。",
+      "scene": "sport"
+    }
+  },
+  "organisation": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "She works for a non-profit organisation.",
+      "zh": "她在一家非营利组织工作。",
+      "scene": "work"
+    }
+  },
+  "pavement": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Walk on the pavement, not the road.",
+      "zh": "走人行道, 别走马路。",
+      "scene": "travel"
+    }
+  },
+  "pc": {
+    "pos": [
+      "abbreviation",
+      "noun"
+    ],
+    "example": {
+      "en": "I work on my PC every day.",
+      "zh": "我每天用电脑工作。",
+      "scene": "work"
+    }
+  },
+  "pe": {
+    "pos": [
+      "abbreviation"
+    ],
+    "example": {
+      "en": "We have PE class on Tuesdays.",
+      "zh": "我们星期二有体育课。",
+      "scene": "study"
+    }
+  },
+  "pence": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The candy costs 50 pence.",
+      "zh": "这块糖50便士。",
+      "scene": "life"
+    }
+  },
+  "policewoman": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The policewoman helped the lost child.",
+      "zh": "那位女警察帮助了迷路的孩子。",
+      "scene": "life"
+    }
+  },
+  "psychology": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "She is studying psychology at university.",
+      "zh": "她在大学学习心理学。",
+      "scene": "study"
+    }
+  },
+  "realise": {
+    "pos": [
+      "verb"
+    ],
+    "example": {
+      "en": "I realised I was wrong.",
+      "zh": "我意识到我错了。",
+      "scene": "life"
+    }
+  },
+  "safely": {
+    "pos": [
+      "adverb"
+    ],
+    "example": {
+      "en": "Drive safely!",
+      "zh": "开车注意安全！",
+      "scene": "travel"
+    }
+  },
+  "satisfy": {
+    "pos": [
+      "verb"
+    ],
+    "example": {
+      "en": "The food satisfied my hunger.",
+      "zh": "食物解除了我的饥饿。",
+      "scene": "food"
+    }
+  },
+  "schoolboy": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The schoolboy ran to catch the bus.",
+      "zh": "那个男生跑着去赶公共汽车。",
+      "scene": "study"
+    }
+  },
+  "schoolgirl": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The schoolgirl won the spelling bee.",
+      "zh": "那个女生赢了拼字比赛。",
+      "scene": "study"
+    }
+  },
+  "seminar": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "I attended a writing seminar.",
+      "zh": "我参加了一个写作研讨会。",
+      "scene": "study"
+    }
+  },
+  "shrink": {
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "example": {
+      "en": "This shirt will shrink in the wash.",
+      "zh": "这件衬衫洗后会缩水。",
+      "scene": "life"
+    }
+  },
+  "sideroad": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Turn left at the sideroad.",
+      "zh": "在岔路口向左转。",
+      "scene": "travel"
+    }
+  },
+  "sidewalk": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "People walked on the sidewalk.",
+      "zh": "人们在人行道上走。",
+      "scene": "travel"
+    }
+  },
+  "skeptical": {
+    "pos": [
+      "adjective"
+    ],
+    "example": {
+      "en": "I am skeptical of his claims.",
+      "zh": "我对他声称的事持怀疑态度。",
+      "scene": "life"
+    }
+  },
+  "skilful": {
+    "pos": [
+      "adjective"
+    ],
+    "example": {
+      "en": "She is a skilful pianist.",
+      "zh": "她是个技术娴熟的钢琴家。",
+      "scene": "art"
+    }
+  },
+  "southeast": {
+    "pos": [
+      "noun",
+      "adjective"
+    ],
+    "example": {
+      "en": "The wind is blowing from the southeast.",
+      "zh": "风从东南方向吹来。",
+      "scene": "nature"
+    }
+  },
+  "souvenir": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "I bought a souvenir from Paris.",
+      "zh": "我从巴黎买了一个纪念品。",
+      "scene": "travel"
+    }
+  },
+  "spokesman": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The spokesman answered the questions.",
+      "zh": "这位发言人回答了问题。",
+      "scene": "work"
+    }
+  },
+  "spokeswoman": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The spokeswoman announced the new policy.",
+      "zh": "女发言人宣布了这项新政策。",
+      "scene": "work"
+    }
+  },
+  "star": {
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "example": {
+      "en": "The star shone brightly.",
+      "zh": "星星明亮地闪耀着。",
+      "scene": "nature"
+    }
+  },
+  "stateswoman": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "She was a great stateswoman.",
+      "zh": "她是一位伟大的女政治家。",
+      "scene": "history"
+    }
+  },
+  "summer": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "I love swimming in summer.",
+      "zh": "我喜欢在夏天游泳。",
+      "scene": "life"
+    }
+  },
+  "taxpayer": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Every taxpayer must file a return.",
+      "zh": "每个纳税人都必须申报。",
+      "scene": "work"
+    }
+  },
+  "tear": {
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "example": {
+      "en": "She wiped a tear from her eye.",
+      "zh": "她擦去了眼角的泪水。",
+      "scene": "life"
+    }
+  },
+  "tennis": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "They played tennis all afternoon.",
+      "zh": "他们整个下午都在打网球。",
+      "scene": "sport"
+    }
+  },
+  "theater": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "We went to the theater last night.",
+      "zh": "我们昨晚去看了戏。",
+      "scene": "art"
+    }
+  },
+  "towards": {
+    "pos": [
+      "preposition"
+    ],
+    "example": {
+      "en": "She walked towards the door.",
+      "zh": "她朝门口走去。",
+      "scene": "life"
+    }
+  },
+  "travel": {
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "example": {
+      "en": "I love to travel to new places.",
+      "zh": "我喜欢去新地方旅行。",
+      "scene": "travel"
+    }
+  },
+  "traveller": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "The traveller told us stories of distant lands.",
+      "zh": "这位旅行者给我们讲远方的故事。",
+      "scene": "travel"
+    }
+  },
+  "trolleybus": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "We took the trolleybus to the museum.",
+      "zh": "我们坐无轨电车去博物馆。",
+      "scene": "travel"
+    }
+  },
+  "unbelievable": {
+    "pos": [
+      "adjective"
+    ],
+    "example": {
+      "en": "The view was unbelievable!",
+      "zh": "景色令人难以置信！",
+      "scene": "life"
+    }
+  },
+  "upon": {
+    "pos": [
+      "preposition"
+    ],
+    "example": {
+      "en": "Once upon a time, there was a princess.",
+      "zh": "从前, 有一位公主。",
+      "scene": "life"
+    }
+  },
+  "upwards": {
+    "pos": [
+      "adverb"
+    ],
+    "example": {
+      "en": "The balloon floated upwards.",
+      "zh": "气球向上飘去。",
+      "scene": "life"
+    }
+  },
+  "us": {
+    "pos": [
+      "pronoun"
+    ],
+    "example": {
+      "en": "She gave us a gift.",
+      "zh": "她给了我们一份礼物。",
+      "scene": "life"
+    }
+  },
+  "vcd": {
+    "pos": [
+      "abbreviation"
+    ],
+    "example": {
+      "en": "We watched a VCD at home.",
+      "zh": "我们在家看了一张影碟。",
+      "scene": "life"
+    }
+  },
+  "warn": {
+    "pos": [
+      "verb"
+    ],
+    "example": {
+      "en": "I must warn you about the danger.",
+      "zh": "我必须警告你注意危险。",
+      "scene": "life"
+    }
+  },
+  "westward": {
+    "pos": [
+      "adverb",
+      "adjective"
+    ],
+    "example": {
+      "en": "The wagon train moved westward.",
+      "zh": "马车队向西行进。",
+      "scene": "history"
+    }
+  },
+  "women": {
+    "pos": [
+      "noun"
+    ],
+    "example": {
+      "en": "Women's rights are important.",
+      "zh": "妇女权利很重要。",
+      "scene": "life"
+    }
+  },
+  "woolen": {
+    "pos": [
+      "adjective"
+    ],
+    "example": {
+      "en": "She wore a woolen sweater.",
+      "zh": "她穿着一件羊毛衫。",
+      "scene": "life"
+    }
+  }
+}
