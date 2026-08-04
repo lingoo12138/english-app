@@ -27,6 +27,7 @@ export function getPageTitle(pathname: string): string {
   if (pathname.startsWith('/fill-blank')) return '填空练习 - 句刻'
   if (pathname.startsWith('/settings')) return '设置 - 句刻'
   if (pathname.startsWith('/reports')) return '学习报告 - 句刻'
+  if (pathname === '/textbook/score') return '课文评分 - 句刻'
   if (pathname.startsWith('/textbook/')) return '课文详情 - 句刻'
   if (pathname.startsWith('/textbook')) return '课文 - 句刻'
   return '句刻'

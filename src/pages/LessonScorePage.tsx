@@ -24,13 +24,14 @@ export default function LessonScorePage() {
   const navigate = useNavigate()
   const [scores, setScores] = useState<LessonScore[]>([])
   const [loading, setLoading] = useState(true)
-  const [filter, setFilter] = useState<'all' | 'mastered' | 'in_progress' | 'not_started'>('all')
+  const [loadError, setLoadError] = useState<string | null>(null)
+  type FilterType = 'all' | 'mastered' | 'in_progress' | 'not_started'
+  const [filter, setFilter] = useState<FilterType>('all')
 
   useEffect(() => {
-    computeLessonScores().then(s => {
-      setScores(s)
-      setLoading(false)
-    })
+    computeLessonScores()
+      .then(s => { setScores(s); setLoading(false) })
+      .catch(e => { setLoadError(e?.message || '加载失败'); setLoading(false) })
   }, [])
 
   const stats = useMemo(() => {
@@ -52,8 +53,14 @@ export default function LessonScorePage() {
     return scores.filter(s => s.status === filter)
   }, [scores, filter])
 
-  const crossLessonTotal = getCrossLessonTotal()
+  const crossLessonTotal = useMemo(() => getCrossLessonTotal(), [])
 
+  if (loadError) {
+    return <div className="text-center py-20">
+      <div className="text-red-500 mb-2">加载失败: {loadError}</div>
+      <button onClick={() => window.location.reload()} className="text-sm px-3 py-1 bg-brand-500 text-white rounded">重试</button>
+    </div>
+  }
   if (loading) {
     return <div className="text-center py-20 text-stone-500">加载中...</div>
   }
@@ -106,7 +113,7 @@ export default function LessonScorePage() {
         ].map(opt => (
           <button
             key={opt.key}
-            onClick={() => setFilter(opt.key as any)}
+            onClick={() => setFilter(opt.key as FilterType)}
             className={`px-3 py-1 rounded ${filter === opt.key ? 'bg-brand-500 text-white' : 'bg-stone-100 dark:bg-stone-700'}`}
           >
             {opt.label}

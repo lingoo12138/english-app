@@ -47,11 +47,19 @@ export default function TextbookPage() {
 
   return (
     <div className="space-y-4">
-      <div>
-        <h1 className="text-2xl font-bold mb-1">📖 课文</h1>
-        <p className="text-stone-500 dark:text-stone-400 text-sm">
-          5 篇主题短文 · 真实语境学英语
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold mb-1">📖 课文</h1>
+          <p className="text-stone-500 dark:text-stone-400 text-sm">
+            5 篇主题短文 · 真实语境学英语
+          </p>
+        </div>
+        <Link
+          to="/textbook/score"
+          className="text-sm px-3 py-1.5 bg-brand-500 text-white rounded hover:bg-brand-600"
+        >
+          📊 课文评分
+        </Link>
       </div>
 
       {/* 学习建议 */}
