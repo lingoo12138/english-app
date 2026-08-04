@@ -14,6 +14,7 @@ import {
 import { saveSession, loadSession, clearSession } from '../lib/errorReviewSession'
 import { addErrorReviewScore } from '../lib/db'
 import { analyzeCard, updateCardDifficulty, difficultyStyle, trendArrow, countByDifficulty } from '../lib/errorDifficulty'
+import { buildReviewReport, formatReport } from '../lib/errorReviewReport'
 import { toast } from '../components/Toast'
 
 export default function ErrorReviewPage() {
@@ -310,18 +311,58 @@ export default function ErrorReviewPage() {
 
       {/* 完成 summary */}
       {isComplete ? (
-        <div className="card text-center py-10">
+        <div className="card text-center py-8">
           <div className="text-5xl mb-3">🎉</div>
           <p className="text-xl font-bold mb-2">复习完成!</p>
-          <p className="text-stone-500 mb-1">
-            共 {session.total} 题, 答对 {session.correct}, 答错 {session.wrong}
-          </p>
+          {/* W96: 学习报告 */}
+          {(() => {
+            const report = buildReviewReport(session)
+            const labels = formatReport(report)
+            return (
+              <div className="text-left max-w-md mx-auto mb-4 space-y-2">
+                {/* 准确率 + 标签 */}
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-stone-500">📊 准确率</span>
+                  <span>
+                    <span className="text-2xl font-bold text-brand-500 mr-2">{report.accuracy}%</span>
+                    <span className="text-stone-500">{labels.accuracyLabel}</span>
+                  </span>
+                </div>
+                {/* 分数统计 */}
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-stone-500">📈 分数</span>
+                  <span className="text-stone-600">
+                    平均 <b>{report.avgScore}</b> · 最高 <b className="text-emerald-500">{report.bestScore}</b> · 最低 <b className="text-rose-500">{report.worstScore}</b>
+                  </span>
+                </div>
+                {/* 难度分布 */}
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-stone-500">🎯 难度</span>
+                  <span className="text-stone-600">{labels.difficultyLabel}</span>
+                </div>
+                {/* 成绩分布 */}
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-stone-500">⭐ 成绩</span>
+                  <span className="text-stone-600 text-xs">{labels.gradeLabel}</span>
+                </div>
+                {/* 偷看率 */}
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-stone-500">👀 偷看</span>
+                  <span className="text-stone-600 text-xs">{labels.peekLabel}</span>
+                </div>
+                {/* 鼓励标签 */}
+                <div className="text-center text-sm text-stone-500 mt-3 pt-3 border-t border-stone-200 dark:border-stone-700">
+                  {labels.scoreLabel}
+                </div>
+              </div>
+            )
+          })()}
           {session.wrong > 0 && (
             <p className="text-amber-500 text-sm mb-4">
               ⚠️ {session.wrong} 题错过, 但已自动重排
             </p>
           )}
-          <div className="flex justify-center gap-2 mt-4">
+          <div className="flex justify-center gap-2 mt-4 flex-wrap">
             <button onClick={handleRestart} className="btn-primary">🔁 再来一轮</button>
             <button onClick={() => navigate('/errors/history')} className="btn-ghost">📊 错题统计</button>
             <button onClick={() => navigate('/errors')} className="btn-ghost">📋 改错本</button>
