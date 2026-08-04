@@ -1,0 +1,467 @@
+{
+  "accessary": {
+    "en": "The driver was charged as an accessary to the robbery.",
+    "zh": "司机被指控为抢劫的从犯。",
+    "scene": "work"
+  },
+  "accordance": {
+    "en": "Act in accordance with the rules.",
+    "zh": "按照规则行事。",
+    "scene": "work"
+  },
+  "advocator": {
+    "en": "She is a strong advocator for human rights.",
+    "zh": "她是位人权的有力倡导者。",
+    "scene": "work"
+  },
+  "apron": {
+    "en": "The chef tied on a clean apron.",
+    "zh": "厨师系上一条干净的围裙。",
+    "scene": "life"
+  },
+  "astronaut": {
+    "en": "The astronaut floated in zero gravity.",
+    "zh": "宇航员在零重力中漂浮。",
+    "scene": "study"
+  },
+  "avail": {
+    "en": "His efforts were of no avail.",
+    "zh": "他的努力毫无效果。",
+    "scene": "life"
+  },
+  "bacterium": {
+    "en": "A bacterium can multiply rapidly.",
+    "zh": "细菌能快速繁殖。",
+    "scene": "health"
+  },
+  "beddings": {
+    "en": "Please change the beddings weekly.",
+    "zh": "请每周换一次床单。",
+    "scene": "family"
+  },
+  "birdcage": {
+    "en": "The parrot sits in its birdcage.",
+    "zh": "鹦鹉蹲在鸟笼里。",
+    "scene": "life"
+  },
+  "botany": {
+    "en": "She studied botany at university.",
+    "zh": "她在大学学植物学。",
+    "scene": "study"
+  },
+  "brewery": {
+    "en": "This brewery makes craft beer.",
+    "zh": "这家啤酒厂酿造精酿啤酒。",
+    "scene": "food"
+  },
+  "brute": {
+    "en": "You brute! You hurt her!",
+    "zh": "你这畜生! 你伤了她!",
+    "scene": "life"
+  },
+  "bulk": {
+    "en": "They buy goods in bulk to save money.",
+    "zh": "他们批量购买商品省钱。",
+    "scene": "work"
+  },
+  "CD": {
+    "en": "I burned the songs onto a CD.",
+    "zh": "我把歌烧录到 CD 上。",
+    "scene": "life"
+  },
+  "clone": {
+    "en": "Scientists cloned the sheep.",
+    "zh": "科学家克隆了绵羊。",
+    "scene": "study"
+  },
+  "colonel": {
+    "en": "The colonel inspected the troops.",
+    "zh": "上校检阅了部队。",
+    "scene": "history"
+  },
+  "color": {
+    "en": "What color is your car?",
+    "zh": "你的车是什么颜色？",
+    "scene": "life"
+  },
+  "defense": {
+    "en": "The defense of the country is important.",
+    "zh": "国家防御很重要。",
+    "scene": "work"
+  },
+  "delightful": {
+    "en": "We had a delightful evening.",
+    "zh": "我们度过了一个愉快的夜晚。",
+    "scene": "life"
+  },
+  "donkey": {
+    "en": "The donkey carried heavy loads.",
+    "zh": "驴子驮着重物。",
+    "scene": "nature"
+  },
+  "Dr": {
+    "en": "Dr Smith will see you now.",
+    "zh": "史密斯医生现在见您。",
+    "scene": "work"
+  },
+  "dragon": {
+    "en": "The dragon breathed fire in the legend.",
+    "zh": "传说中龙会喷火。",
+    "scene": "art"
+  },
+  "drier": {
+    "en": "Use the hair drier to dry your hair.",
+    "zh": "用吹风机吹干头发。",
+    "scene": "life"
+  },
+  "DVD": {
+    "en": "We watched a DVD last night.",
+    "zh": "我们昨晚看了一张 DVD。",
+    "scene": "life"
+  },
+  "enquiry": {
+    "en": "I made an enquiry about the schedule.",
+    "zh": "我询问了日程安排。",
+    "scene": "work"
+  },
+  "enroll": {
+    "en": "I need to enroll in the course.",
+    "zh": "我需要注册这门课。",
+    "scene": "study"
+  },
+  "eraser": {
+    "en": "I need an eraser for my pencil.",
+    "zh": "我需要一块橡皮。",
+    "scene": "study"
+  },
+  "fraction": {
+    "en": "Half is a fraction of the whole.",
+    "zh": "一半是整体的一部分。",
+    "scene": "study"
+  },
+  "fruitful": {
+    "en": "The meeting was very fruitful.",
+    "zh": "会议很有成果。",
+    "scene": "work"
+  },
+  "furnace": {
+    "en": "The furnace heats the entire house.",
+    "zh": "炉子给整栋房子供暖。",
+    "scene": "life"
+  },
+  "generalization": {
+    "en": "Avoid generalization when discussing details.",
+    "zh": "讨论细节时避免笼统概括。",
+    "scene": "study"
+  },
+  "gram": {
+    "en": "Add 100 grams of sugar.",
+    "zh": "加 100 克糖。",
+    "scene": "food"
+  },
+  "gramme": {
+    "en": "Half a gramme of salt is enough.",
+    "zh": "半克盐就够了。",
+    "scene": "food"
+  },
+  "gratitude": {
+    "en": "I express my gratitude for your help.",
+    "zh": "我对你的帮助表示感谢。",
+    "scene": "life"
+  },
+  "greenhouse": {
+    "en": "She grows tomatoes in the greenhouse.",
+    "zh": "她在温室里种番茄。",
+    "scene": "nature"
+  },
+  "groundlessly": {
+    "en": "He was groundlessly accused of theft.",
+    "zh": "他被无端指控偷窃。",
+    "scene": "life"
+  },
+  "gunpowder": {
+    "en": "Gunpowder was invented in ancient China.",
+    "zh": "火药是古代中国发明的。",
+    "scene": "history"
+  },
+  "gy": {
+    "en": "The road sign uses gy to mean gray.",
+    "zh": "路标上 gy 表示灰色。",
+    "scene": "life"
+  },
+  "hawk": {
+    "en": "A hawk circled in the sky.",
+    "zh": "一只鹰在空中盘旋。",
+    "scene": "nature"
+  },
+  "headquarter": {
+    "en": "The company will headquarter in New York.",
+    "zh": "公司将总部设在纽约。",
+    "scene": "work"
+  },
+  "honor": {
+    "en": "It is an honor to meet you.",
+    "zh": "认识您是我的荣幸。",
+    "scene": "life"
+  },
+  "hur": {
+    "en": "The weather report warned of a hur.",
+    "zh": "天气预报警告有飓风。",
+    "scene": "nature"
+  },
+  "impermanency": {
+    "en": "The impermanency of life is a Buddhist teaching.",
+    "zh": "无常是佛教教义。",
+    "scene": "study"
+  },
+  "installment": {
+    "en": "I paid for the car in monthly installments.",
+    "zh": "我按月分期付款买的车。",
+    "scene": "life"
+  },
+  "irrationally": {
+    "en": "He acted irrationally when he was angry.",
+    "zh": "他生气时不理智。",
+    "scene": "life"
+  },
+  "irrigation": {
+    "en": "Modern irrigation helps crops grow.",
+    "zh": "现代灌溉有助于作物生长。",
+    "scene": "nature"
+  },
+  "liquor": {
+    "en": "He bought a bottle of liquor.",
+    "zh": "他买了一瓶酒。",
+    "scene": "food"
+  },
+  "locomotive": {
+    "en": "The locomotive pulled the train.",
+    "zh": "机车拉着火车。",
+    "scene": "travel"
+  },
+  "marvelous": {
+    "en": "What a marvelous performance!",
+    "zh": "多么精彩的演出!",
+    "scene": "art"
+  },
+  "meadow": {
+    "en": "Cows graze in the meadow.",
+    "zh": "牛在草地上吃草。",
+    "scene": "nature"
+  },
+  "miniskirt": {
+    "en": "She wore a red miniskirt.",
+    "zh": "她穿着红色迷你裙。",
+    "scene": "life"
+  },
+  "oar": {
+    "en": "He rowed the boat with a wooden oar.",
+    "zh": "他用木桨划船。",
+    "scene": "sport"
+  },
+  "organise": {
+    "en": "I will organise a meeting tomorrow.",
+    "zh": "我明天会组织一场会议。",
+    "scene": "work"
+  },
+  "organiser": {
+    "en": "She is the event organiser.",
+    "zh": "她是这次活动的组织者。",
+    "scene": "work"
+  },
+  "ox": {
+    "en": "The ox pulled the cart.",
+    "zh": "牛拉着车。",
+    "scene": "nature"
+  },
+  "PM": {
+    "en": "The PM addressed the nation.",
+    "zh": "总理向全国发表讲话。",
+    "scene": "work"
+  },
+  "popcorn": {
+    "en": "We ate popcorn while watching the movie.",
+    "zh": "我们看电影时吃了爆米花。",
+    "scene": "food"
+  },
+  "porridge": {
+    "en": "I had a bowl of porridge for breakfast.",
+    "zh": "我早餐吃了一碗粥。",
+    "scene": "food"
+  },
+  "prohibitively": {
+    "en": "The price is prohibitively high for me.",
+    "zh": "这价格高得让我买不起。",
+    "scene": "life"
+  },
+  "prosper": {
+    "en": "May your business prosper.",
+    "zh": "祝你生意兴隆。",
+    "scene": "work"
+  },
+  "ratio": {
+    "en": "The ratio of boys to girls is 2:1.",
+    "zh": "男女比例是 2:1。",
+    "scene": "study"
+  },
+  "recognise": {
+    "en": "I recognise that voice.",
+    "zh": "我认出了那个声音。",
+    "scene": "life"
+  },
+  "refrigerator": {
+    "en": "Please put the milk in the refrigerator.",
+    "zh": "请把牛奶放进冰箱。",
+    "scene": "life"
+  },
+  "reservior": {
+    "en": "The reservior supplies water to the city.",
+    "zh": "水库向城市供水。",
+    "scene": "nature"
+  },
+  "rooster": {
+    "en": "The rooster crowed at dawn.",
+    "zh": "公鸡在黎明时打鸣。",
+    "scene": "nature"
+  },
+  "softball": {
+    "en": "We play softball on weekends.",
+    "zh": "我们周末打垒球。",
+    "scene": "sport"
+  },
+  "specialize": {
+    "en": "He specializes in heart surgery.",
+    "zh": "他专攻心脏外科。",
+    "scene": "work"
+  },
+  "squirrel": {
+    "en": "A squirrel buried an acorn.",
+    "zh": "松鼠埋了一颗橡果。",
+    "scene": "nature"
+  },
+  "stainless": {
+    "en": "This is a stainless steel pot.",
+    "zh": "这是一个不锈钢锅。",
+    "scene": "life"
+  },
+  "statistics": {
+    "en": "Statistics show that crime is down.",
+    "zh": "统计数据显示犯罪率下降。",
+    "scene": "study"
+  },
+  "stewardess": {
+    "en": "The stewardess served us drinks.",
+    "zh": "空姐给我们送了饮料。",
+    "scene": "travel"
+  },
+  "stomachache": {
+    "en": "I have a terrible stomachache.",
+    "zh": "我胃痛得厉害。",
+    "scene": "health"
+  },
+  "stopwatch": {
+    "en": "He timed the race with a stopwatch.",
+    "zh": "他用秒表给比赛计时。",
+    "scene": "sport"
+  },
+  "subtract": {
+    "en": "If you subtract 5 from 10, you get 5.",
+    "zh": "10 减 5 等于 5。",
+    "scene": "study"
+  },
+  "subtraction": {
+    "en": "Subtraction is harder than addition.",
+    "zh": "减法比加法难。",
+    "scene": "study"
+  },
+  "sulfur": {
+    "en": "Sulfur smells like rotten eggs.",
+    "zh": "硫磺闻起来像臭鸡蛋。",
+    "scene": "study"
+  },
+  "suspicion": {
+    "en": "I have a suspicion that he is lying.",
+    "zh": "我怀疑他在说谎。",
+    "scene": "life"
+  },
+  "thunderstorm": {
+    "en": "A thunderstorm is approaching.",
+    "zh": "雷暴即将来临。",
+    "scene": "nature"
+  },
+  "Tibet": {
+    "en": "Tibet is on the high plateau.",
+    "zh": "西藏位于高原之上。",
+    "scene": "travel"
+  },
+  "Tibetan": {
+    "en": "She is learning Tibetan language.",
+    "zh": "她正在学藏语。",
+    "scene": "study"
+  },
+  "tortoise": {
+    "en": "The tortoise moves very slowly.",
+    "zh": "乌龟移动得非常慢。",
+    "scene": "nature"
+  },
+  "trait": {
+    "en": "Honesty is his best trait.",
+    "zh": "诚实是他最好的品质。",
+    "scene": "life"
+  },
+  "traveler": {
+    "en": "The traveler shared stories of distant lands.",
+    "zh": "旅行者分享了远方的故事。",
+    "scene": "travel"
+  },
+  "UN": {
+    "en": "The UN promotes world peace.",
+    "zh": "联合国促进世界和平。",
+    "scene": "work"
+  },
+  "waggon": {
+    "en": "The pioneers rode in a covered waggon.",
+    "zh": "拓荒者乘坐有篷马车。",
+    "scene": "history"
+  },
+  "waitress": {
+    "en": "The waitress took our order.",
+    "zh": "女服务员给我们点了菜。",
+    "scene": "food"
+  },
+  "whale": {
+    "en": "A blue whale is the largest animal.",
+    "zh": "蓝鲸是最大的动物。",
+    "scene": "nature"
+  },
+  "whichever": {
+    "en": "Take whichever route you like.",
+    "zh": "随便走哪条路都行。",
+    "scene": "life"
+  },
+  "whilst": {
+    "en": "I listened to music whilst cooking.",
+    "zh": "我边做饭边听音乐。",
+    "scene": "life"
+  },
+  "willingness": {
+    "en": "I appreciate your willingness to help.",
+    "zh": "感谢你愿意帮忙。",
+    "scene": "life"
+  },
+  "windbreaker": {
+    "en": "Wear a windbreaker on windy days.",
+    "zh": "有风的日子穿防风衣。",
+    "scene": "life"
+  },
+  "woo": {
+    "en": "He tried to woo her with flowers.",
+    "zh": "他试图用花追求她。",
+    "scene": "life"
+  },
+  "zoom": {
+    "en": "The camera zoomed in on the bird.",
+    "zh": "相机拉近到那只鸟。",
+    "scene": "life"
+  }
+}
