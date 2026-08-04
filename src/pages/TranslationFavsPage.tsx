@@ -16,6 +16,7 @@ import {
   type FavWithWord,
   type TimeGroup,
 } from '../lib/translationFavFilter'
+import { searchAllWords, countSearchMatches } from '../lib/translationFavSearch'
 
 interface GroupedFav {
   wordId: string
@@ -33,6 +34,8 @@ export default function TranslationFavsPage() {
   const [posFilters, setPosFilters] = useState<string[]>([])
   // 视图模式: 'word' (按 word 分组) | 'time' (按时间分组)
   const [viewMode, setViewMode] = useState<'word' | 'time'>('word')
+  // v2.0.7 W98: 跨词 搜索 模式 (全词库 vs 仅收藏)
+  const [crossWordMode, setCrossWordMode] = useState(false)
   const navigate = useNavigate()
 
   const load = useCallback(async () => {
@@ -68,6 +71,18 @@ export default function TranslationFavsPage() {
       posKeys: posFilters.length > 0 ? posFilters : undefined,
     })
   }, [favsWithWord, search, timeFilters, posFilters])
+
+  // v2.0.7 W98: 跨词 搜索 结果
+  const crossWordResults = useMemo(() => {
+    if (!crossWordMode || !search.trim()) return []
+    const allWords = Array.from(wordMap.values())
+    return searchAllWords(allWords, favs, search, 50)
+  }, [crossWordMode, search, wordMap, favs])
+
+  const crossWordCount = useMemo(() => {
+    if (!crossWordMode || !search.trim()) return 0
+    return countSearchMatches(Array.from(wordMap.values()), search)
+  }, [crossWordMode, search, wordMap])
 
   // 按 wordId 分组 (用于 word 视图)
   const grouped: GroupedFav[] = useMemo(() => {
@@ -186,6 +201,21 @@ export default function TranslationFavsPage() {
           placeholder="搜索单词或释义..."
           className="w-full px-3 py-2 border-2 border-stone-300 dark:border-stone-600 rounded-lg bg-white dark:bg-stone-900 mb-2"
         />
+        {/* v2.0.7 W98: 跨词 搜索 模式 */}
+        <label className="flex items-center gap-2 text-xs mb-2 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={crossWordMode}
+            onChange={e => setCrossWordMode(e.target.checked)}
+            className="w-4 h-4"
+          />
+          <span className="text-stone-700 dark:text-stone-300">
+            🔍 全词库搜索 (搜词名/词根/释义)
+            {crossWordMode && search.trim() && (
+              <span className="ml-1 text-brand-500">· 命中 {crossWordCount} 词</span>
+            )}
+          </span>
+        </label>
         {/* v1.97 W89-C: 时间 + 词性过滤 */}
         <div className="flex flex-wrap gap-2 text-xs">
           <span className="text-stone-500">时间:</span>
@@ -234,7 +264,58 @@ export default function TranslationFavsPage() {
       </div>
 
       {/* 列表 - 按视图模式 */}
-      {filteredFavs.length === 0 ? (
+      {crossWordMode && search.trim() ? (
+        /* v2.0.7 W98: 跨词 搜索 模式 */
+        <div className="space-y-2">
+          {crossWordResults.length === 0 ? (
+            <div className="card text-center py-6 text-stone-500 text-sm">
+              全词库中无匹配 "{search}"
+            </div>
+          ) : (
+            crossWordResults.map(r => (
+              <div key={r.word.id} className="card p-3">
+                <div className="flex items-center justify-between mb-1">
+                  <Link to={`/words/${r.word.id}`} className="font-bold text-brand-600 dark:text-brand-400 hover:underline">
+                    {r.word.word}
+                  </Link>
+                  {r.favCount > 0 ? (
+                    <span className="text-xs px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
+                      ⭐ 已收藏 {r.favCount} 个释义
+                    </span>
+                  ) : (
+                    <span className="text-xs text-stone-400">未收藏</span>
+                  )}
+                </div>
+                {r.word.roots && r.word.roots.length > 0 && (
+                  <div className="text-xs text-stone-500 mb-1">
+                    词根: {r.word.roots.map(rt => rt.root).join(', ')}
+                  </div>
+                )}
+                {r.matchedFavs.length > 0 ? (
+                  <div className="space-y-1">
+                    {r.matchedFavs.map(f => (
+                      <div key={`${f.wordId}-${f.index}`} className="text-sm flex items-center gap-2">
+                        <span className="text-amber-500">★</span>
+                        <span>{f.text}</span>
+                        <button
+                          onClick={() => handleRemove(f)}
+                          className="text-xs text-stone-400 hover:text-red-500 ml-auto"
+                        >
+                          删除
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-xs text-stone-500">
+                    释义: {(r.word.translations || []).join(', ')}
+                  </div>
+                )}
+              </div>
+            ))
+          )}
+        </div>
+      ) : filteredFavs.length === 0 ? (
         <div className="card text-center py-6 text-stone-500 text-sm">
           没有匹配的收藏
         </div>
