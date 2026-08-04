@@ -4,7 +4,7 @@
 
 ---
 
-## 📊 摘要 (v0.1.0 ~ v2.0.5)
+## 📊 摘要 (v0.1.0 ~ v2.0.6)
 
 | 阶段 | 范围 | 主要交付 |
 |------|------|---------|
@@ -20,9 +20,9 @@
 | **数据 100%** | v2.0.3-v2.0.4 | 87 词 pos + 92 词 example (pos 100% + examples 100%, verifier 抗审查 W94+W95) ⭐ 收官 |
 | **学习报告** | v2.0.5 | 错题复习 答完 完整 学习报告 (准确率/分数/难度/成绩/偷看, verifier 抗审查 W96) |
 
-**累计 (v2.0.5)**:
-- **101 release tag** / 17+ 周 / **29 次大 review** (含 8 verifier 抗审查)
-- **1065 单元测试 / 82 文件** ⭐ 稳定 1000+
+**累计 (v2.0.6)**:
+- **101 release tag** / 17+ 周 / **30 次大 review** (含 9 verifier 抗审查)
+- **1077 单元测试 / 83 文件** ⭐ 稳定 1000+
 - 5,423 词 / 100% 词根 / 5,423 短语 (100%) ⭐ W93 收官
 - 20 篇课文 / 244 同义词组 / 78 反义词
 - **7 大激活功能** (含 永久 IDB 错题复习)
@@ -3723,6 +3723,63 @@
 
 **业务承诺**: 之前 答完 summary 屏 简单 "共 N 题 答对 X 答错 Y". W96 加 完整 学习报告:
 - 📊 准确率% + 标签 (优秀/不错/加油/多练)
+
+## [v2.0.6] - 2026-08-04
+
+### v2.0.6 W97 — 课文评分 (跨课复用词 掌握度)
+
+**业务承诺**: 20 篇课文 评分 + 跨课复用词 业务.
+用户 答完 20 课文 后 看 掌握度排名 + 跨课 词 提示.
+
+**核心改动** (主 commit 9838773 + 修 v1 e5990b9):
+- src/lib/lessonScore.ts: 129 行
+  - findCrossLessonWords(minCount=2): 跨课复用词 (lower 归一化)
+  - computeLessonScores(): 异步 IDB writing/dictation/reviews 错题 → 算 20 篇 评分
+  - getNotMasteredWords(): 统一 错题 取词 (writing suggestion / dictation wordId / reviews 反查 w-/d- 前缀)
+  - LESSON_SCORE_THRESHOLDS + CROSS_LESSON_MIN 常量 (P1-3 + P1-2 修)
+  - score >= 60 不 算 不 掌握 (P1-4 修)
+
+- src/pages/LessonScorePage.tsx: 175 行
+  - 总体统计 4 卡 + 总词汇掌握度 % + 跨课词 标签
+  - filter 按钮 (全部/已掌握/学习中/未开始)
+  - 课文 列表 (emoji + title + level + 词数 + 跨课词 + 掌握度 + 状态 + 进度条)
+  - useMemo crossLessonTotal (P2-1 修)
+  - catch + 重试 按钮 (P2-5 修)
+  - FilterType 类型 替 as any (P2-4 修)
+
+- src/App.tsx: 加 route /textbook/score
+
+- src/pages/TextbookPage.tsx: 加 "📊 课文评分" 入口 (P2-3 致命 UX 修)
+
+- src/lib/utils.ts: /textbook/score 优先 page title (P2-2 修)
+
+- tests/lessonScore.test.ts: 12 测试 (6 → 12)
+  - 4 个 mock 业务边界 (writing/dictation/reviews 成功/失败 路径)
+  - 4 个 集成 验证
+  - 1 个 大小写 归一化
+  - 1 个 阈值 常量
+
+**verifier 抗审查 找 3 P0 + 4 P1 + 7 P2 全修**:
+- P0-1: 听写 错题 完全 丢弃 → 用 e.wordId 修
+- P0-2: 错题 复习 cardId 永 不 匹配 (w-/d- 前缀) → 反查 writing/dictation 表
+- P0-3: 死代码 getUserMasteredWords + 3 个 *Sync → 删
+- P1-1: 大小写 不 统一 → findCrossLessonWords 归一化
+- P1-2: 跨课 阈值 2 硬编码 → 参数化
+- P1-3: 状态 阈值 90/30 硬编码 → 常量
+- P1-4: 错题 复习 成功 仍 算 不 掌握 → score >= 60 不 算
+- P2-1 ~ P2-7: UI 集成 + 性能 + 入口 + 类型 + 错误兜底 + 测试覆盖 全修
+
+**测试**:
+- 1077 测试 (1065 + 12) / 83 文件 全过
+- 12 个 lessonScore 测试 PASS (含 4 业务边界)
+
+**累计 (v2.0.6)**:
+- 106 release tag / 17+ 周 / 30 次大 review (含 9 verifier 抗审查)
+- 24 P0 + 43 P1 累计修
+- 0 P0 + 0 P1 业务
+- 课文评分 业务 完成
+
+- 📊 准确率% + 标签 (优秀/不错/加油/多练)
 - 📈 分数: 平均/最高/最低
 - 🎯 难度分布: 掌握/简单/中等/难词
 - ⭐ 成绩分布: 完美/良好/一般/较差
@@ -3744,9 +3801,9 @@
 - 1065 测试 (1054 → 1065) / 82 文件 全过
 - 11 个 errorReviewReport 测试 PASS (含 re-answer 边界)
 
-**累计 (v2.0.5)**:
-- 105 release tag / 17+ 周 / 29 次大 review (含 8 verifier 抗审查)
-- 21 P0 + 39 P1 累计修
+**累计 (v2.0.6)**:
+- 105 release tag / 17+ 周 / 30 次大 review (含 9 verifier 抗审查)
+- 24 P0 + 43 P1 累计修
 - 0 P0 + 0 P1 业务
 - 错题复习 业务 增强: 答完 完整 学习报告
 
@@ -3772,9 +3829,9 @@
 - tests/w95-examples.test.ts 6 个 it 全部 PASS
 - 92 词 全部 example 含词根 准确性 100%
 
-**累计 (v2.0.5)**:
-- 104 release tag / 17+ 周 / 29 次大 review (含 8 verifier 抗审查)
-- 21 P0 + 39 P1 累计修
+**累计 (v2.0.6)**:
+- 104 release tag / 17+ 周 / 30 次大 review (含 9 verifier 抗审查)
+- 24 P0 + 43 P1 累计修
 - 0 P0 + 0 P1 业务
 - **5,423 词 / 100% 词根 / 100% 短语 / 100% pos / 100% examples** ⭐ 主线 数据 100% 收官
 
@@ -3803,9 +3860,9 @@
 - 1048 测试 (1045 → 1048) / 80 文件 全过
 - tests/w94-examples.test.ts 8 个 it 全部 PASS
 
-**累计 (v2.0.5)**:
-- 103 release tag / 17+ 周 / 29 次大 review (含 8 verifier 抗审查)
-- 21 P0 + 39 P1 累计修
+**累计 (v2.0.6)**:
+- 103 release tag / 17+ 周 / 30 次大 review (含 9 verifier 抗审查)
+- 24 P0 + 43 P1 累计修
 - 0 P0 + 0 P1 业务
 - 5,423 词 pos 100% / 短语 100% / 词根 100% / examples 98.29%
 
@@ -3831,9 +3888,9 @@
 - 1040 测试 (1035 → 1040) / 79 文件 全过
 - tests/w93-phrases.test.ts 5 个 it 全部 PASS
 
-**累计 (v2.0.5)**:
-- 102 release tag / 17+ 周 / 29 次大 review (含 8 verifier 抗审查)
-- 21 P0 + 39 P1 累计修
+**累计 (v2.0.6)**:
+- 102 release tag / 17+ 周 / 30 次大 review (含 9 verifier 抗审查)
+- 24 P0 + 43 P1 累计修
 - 0 P0 + 0 P1 业务
 - 短语补全 100% 收官 ⭐
 
@@ -3867,9 +3924,9 @@
 - 1035 测试 (1031 → 1035) / 78 文件 全过
 - tests/w92-phrases.test.ts 加 '5-9 字符短语 100% 有中文翻译' 断言 (4 it)
 
-**累计 (v2.0.5)**:
-- 101 release tag / 17+ 周 / 29 次大 review (含 8 verifier 抗审查)
-- 21 P0 + 39 P1 累计修
+**累计 (v2.0.6)**:
+- 101 release tag / 17+ 周 / 30 次大 review (含 9 verifier 抗审查)
+- 24 P0 + 43 P1 累计修
 - 0 P0 + 0 P1 业务
 
 
