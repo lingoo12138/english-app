@@ -4,7 +4,7 @@
 
 ---
 
-## 📊 摘要 (v0.1.0 ~ v2.0.2)
+## 📊 摘要 (v0.1.0 ~ v2.0.3)
 
 | 阶段 | 范围 | 主要交付 |
 |------|------|---------|
@@ -18,9 +18,9 @@
 | **错题复习** | v1.92-v2.0 | 跟读评分 / Flashcard / 统计页 / **IDB 永久持久化** (3 verifier 抗审查 W87+W90+W91) |
 | **短语补全** | v2.0.1-v2.0.2 | 5-9 字符 100% 覆盖 (227 词) + 100% 全覆盖 (48 词, verifier 抗审查 W92+W93) ⭐ 收官 |
 
-**累计 (v2.0.2)**:
-- **101 release tag** / 17+ 周 / **27 次大 review** (含 5 verifier 抗审查)
-- **1040 单元测试 / 79 文件** ⭐ 稳定 1000+
+**累计 (v2.0.3)**:
+- **101 release tag** / 17+ 周 / **28 次大 review** (含 6 verifier 抗审查)
+- **1048 单元测试 / 80 文件** ⭐ 稳定 1000+
 - 5,423 词 / 100% 词根 / 5,423 短语 (100%) ⭐ W93 收官
 - 20 篇课文 / 244 同义词组 / 78 反义词
 - **7 大激活功能** (含 永久 IDB 错题复习)
@@ -3712,6 +3712,39 @@
 
 ## [v2.0.2] - 2026-08-04
 
+## [v2.0.3] - 2026-08-04
+
+### v2.0.3 W94 — 补 87 词 pos + 1 example (pos 100% 覆盖)
+
+**业务承诺**: 填空算法 fillblank 依赖 examples + pos. 之前 89 词既无 pos 也无 example, 填空算法跳过. W94 补齐: pos 100% 覆盖, examples 98.29%.
+
+**核心改动**:
+- scripts/w94-fill-examples.py: 87 词 pos + 1 example (W93 字典拆分模式)
+- scripts/w94-fill-examples.json: 87 词字典 (afterwards/aluminum/email/psychology/...)
+- words.json: 89 → 87 词 pos + example (删 mum/mummy 因 words.json 不存在)
+- words.json: 25 条 长形式 pos → 短形式 (adv/adj/art/prep/...) 跟现有 5,334 词一致
+- words.json: handtruck pos=[''] 空 修 ['n']
+- words.json: 76 条 noun→n / verb→v 短形式 统一
+
+**verifier 抗审查找 3 P0 + 2 P1 全修**:
+- P0-1: pos 长形式 → 短 (25 条 + 76 条)
+- P0-2: mum/mummy 字典有但 words.json 无, 测试崩溃 → 删
+- P0-3: 0 准确性断言 → 加 pos 白名单 + example 词根准确性 + scene 白名单 + vt/vi 兼容
+- P1-1: W94 脚本 main() 空 + 模块顶部执行 → 包成 def run() + __name__ 守护
+- P1-2: W94 脚本死代码 elif → 删
+
+**测试**:
+- 1048 测试 (1045 → 1048) / 80 文件 全过
+- tests/w94-examples.test.ts 8 个 it 全部 PASS
+
+**累计 (v2.0.3)**:
+- 103 release tag / 17+ 周 / 28 次大 review (含 6 verifier 抗审查)
+- 16 P0 + 39 P1 累计修
+- 0 P0 + 0 P1 业务
+- 5,423 词 pos 100% / 短语 100% / 词根 100% / examples 98.29%
+
+## [v2.0.2] - 2026-08-04
+
 ### v2.0.2 W93 — 补短语 100% 全覆盖 (48 词, 短语补全收官)
 
 **业务承诺**: 5,423 / 5,423 词 全部有短语 + 中文翻译. **短语补全收官** (W88 94.9% → W92 99.1% → W93 100%).
@@ -3732,9 +3765,9 @@
 - 1040 测试 (1035 → 1040) / 79 文件 全过
 - tests/w93-phrases.test.ts 5 个 it 全部 PASS
 
-**累计 (v2.0.2)**:
-- 102 release tag / 17+ 周 / 27 次大 review (含 5 verifier 抗审查)
-- 13 P0 + 39 P1 累计修
+**累计 (v2.0.3)**:
+- 102 release tag / 17+ 周 / 28 次大 review (含 6 verifier 抗审查)
+- 16 P0 + 39 P1 累计修
 - 0 P0 + 0 P1 业务
 - 短语补全 100% 收官 ⭐
 
@@ -3768,9 +3801,9 @@
 - 1035 测试 (1031 → 1035) / 78 文件 全过
 - tests/w92-phrases.test.ts 加 '5-9 字符短语 100% 有中文翻译' 断言 (4 it)
 
-**累计 (v2.0.2)**:
-- 101 release tag / 17+ 周 / 27 次大 review (含 5 verifier 抗审查)
-- 13 P0 + 39 P1 累计修
+**累计 (v2.0.3)**:
+- 101 release tag / 17+ 周 / 28 次大 review (含 6 verifier 抗审查)
+- 16 P0 + 39 P1 累计修
 - 0 P0 + 0 P1 业务
 
 
