@@ -4,7 +4,7 @@
 
 ---
 
-## 📊 摘要 (v0.1.0 ~ v2.0.3)
+## 📊 摘要 (v0.1.0 ~ v2.0.4)
 
 | 阶段 | 范围 | 主要交付 |
 |------|------|---------|
@@ -18,9 +18,9 @@
 | **错题复习** | v1.92-v2.0 | 跟读评分 / Flashcard / 统计页 / **IDB 永久持久化** (3 verifier 抗审查 W87+W90+W91) |
 | **短语补全** | v2.0.1-v2.0.2 | 5-9 字符 100% 覆盖 (227 词) + 100% 全覆盖 (48 词, verifier 抗审查 W92+W93) ⭐ 收官 |
 
-**累计 (v2.0.3)**:
-- **101 release tag** / 17+ 周 / **28 次大 review** (含 6 verifier 抗审查)
-- **1048 单元测试 / 80 文件** ⭐ 稳定 1000+
+**累计 (v2.0.4)**:
+- **101 release tag** / 17+ 周 / **29 次大 review** (含 7 verifier 抗审查)
+- **1054 单元测试 / 81 文件** ⭐ 稳定 1000+
 - 5,423 词 / 100% 词根 / 5,423 短语 (100%) ⭐ W93 收官
 - 20 篇课文 / 244 同义词组 / 78 反义词
 - **7 大激活功能** (含 永久 IDB 错题复习)
@@ -3714,6 +3714,35 @@
 
 ## [v2.0.3] - 2026-08-04
 
+## [v2.0.4] - 2026-08-04
+
+### v2.0.4 W95 — 补 92 词 example (examples 100% 覆盖)
+
+**业务承诺**: W94 补 87 词 pos + example 后, 剩 92 词 缺 example. W95 补齐: **5,423 词 / 0 词 缺 example / 100% 覆盖** ⭐
+
+**核心改动**:
+- scripts/w95-fill-examples.py: 92 词 example 字典 (W94 同样 def run() 模式)
+- scripts/w95-fill-examples.json: 92 词 example 字典 (accessary/astronaut/CD/...)
+- words.json: 92 词 example 补齐, 格式 {en, zh, scene} 跟现有 11,000+ 一致
+
+**verifier 抗审查找 3 P1 全修**:
+- P1-1: 词根准确性测试软提示 → 改硬断言 (跟 W94 经验一致)
+- P1-2: 'gy' example 人造/非标准 → 删
+- P1-3: 'hur' example 语法错 + 词非真实英语词 → 改为 'The wind howled like a hurricane.'
+
+**测试**:
+- 1054 测试 (1048 → 1054) / 81 文件 全过
+- tests/w95-examples.test.ts 6 个 it 全部 PASS
+- 92 词 全部 example 含词根 准确性 100%
+
+**累计 (v2.0.4)**:
+- 104 release tag / 17+ 周 / 29 次大 review (含 7 verifier 抗审查)
+- 19 P0 + 39 P1 累计修
+- 0 P0 + 0 P1 业务
+- **5,423 词 / 100% 词根 / 100% 短语 / 100% pos / 100% examples** ⭐ 主线 数据 100% 收官
+
+## [v2.0.3] - 2026-08-04
+
 ### v2.0.3 W94 — 补 87 词 pos + 1 example (pos 100% 覆盖)
 
 **业务承诺**: 填空算法 fillblank 依赖 examples + pos. 之前 89 词既无 pos 也无 example, 填空算法跳过. W94 补齐: pos 100% 覆盖, examples 98.29%.
@@ -3737,9 +3766,9 @@
 - 1048 测试 (1045 → 1048) / 80 文件 全过
 - tests/w94-examples.test.ts 8 个 it 全部 PASS
 
-**累计 (v2.0.3)**:
-- 103 release tag / 17+ 周 / 28 次大 review (含 6 verifier 抗审查)
-- 16 P0 + 39 P1 累计修
+**累计 (v2.0.4)**:
+- 103 release tag / 17+ 周 / 29 次大 review (含 7 verifier 抗审查)
+- 19 P0 + 39 P1 累计修
 - 0 P0 + 0 P1 业务
 - 5,423 词 pos 100% / 短语 100% / 词根 100% / examples 98.29%
 
@@ -3765,9 +3794,9 @@
 - 1040 测试 (1035 → 1040) / 79 文件 全过
 - tests/w93-phrases.test.ts 5 个 it 全部 PASS
 
-**累计 (v2.0.3)**:
-- 102 release tag / 17+ 周 / 28 次大 review (含 6 verifier 抗审查)
-- 16 P0 + 39 P1 累计修
+**累计 (v2.0.4)**:
+- 102 release tag / 17+ 周 / 29 次大 review (含 7 verifier 抗审查)
+- 19 P0 + 39 P1 累计修
 - 0 P0 + 0 P1 业务
 - 短语补全 100% 收官 ⭐
 
@@ -3801,9 +3830,9 @@
 - 1035 测试 (1031 → 1035) / 78 文件 全过
 - tests/w92-phrases.test.ts 加 '5-9 字符短语 100% 有中文翻译' 断言 (4 it)
 
-**累计 (v2.0.3)**:
-- 101 release tag / 17+ 周 / 28 次大 review (含 6 verifier 抗审查)
-- 16 P0 + 39 P1 累计修
+**累计 (v2.0.4)**:
+- 101 release tag / 17+ 周 / 29 次大 review (含 7 verifier 抗审查)
+- 19 P0 + 39 P1 累计修
 - 0 P0 + 0 P1 业务
 
 
