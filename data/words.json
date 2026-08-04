@@ -1936,7 +1936,13 @@
         "zh": "...的从犯"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The driver was charged as an accessary to the robbery.",
+        "zh": "司机被指控为抢劫的从犯。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -2438,7 +2444,13 @@
         "translation": "依照；与…一致"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Act in accordance with the rules.",
+        "zh": "按照规则行事。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -6426,7 +6438,13 @@
         "zh": "...的倡导者"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She is a strong advocator for human rights.",
+        "zh": "她是位人权的有力倡导者。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -15746,7 +15764,13 @@
         "translation": "码头岸肩；自码头货棚至水边间的空间"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The chef tied on a clean apron.",
+        "zh": "厨师系上一条干净的围裙。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -19116,7 +19140,13 @@
         "zh": "...的宇航员"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The astronaut floated in zero gravity.",
+        "zh": "宇航员在零重力中漂浮。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -21664,7 +21694,13 @@
         "translation": "无用；徒劳地"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "His efforts were of no avail.",
+        "zh": "他的努力毫无效果。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -23399,7 +23435,13 @@
         "translation": "醋细菌"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "A bacterium can multiply rapidly.",
+        "zh": "细菌能快速繁殖。",
+        "scene": "health"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -27513,7 +27555,13 @@
         "translation": "粒级层；序粒层；粒级层理"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Please change the beddings weekly.",
+        "zh": "请每周换一次床单。",
+        "scene": "family"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -31026,7 +31074,13 @@
         "translation": "木鸟笼"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The parrot sits in its birdcage.",
+        "zh": "鹦鹉蹲在鸟笼里。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -34776,7 +34830,13 @@
         "translation": "药用植物学"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She studied botany at university.",
+        "zh": "她在大学学植物学。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -36967,7 +37027,13 @@
         "translation": "啤酒厂"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "This brewery makes craft beer.",
+        "zh": "这家啤酒厂酿造精酿啤酒。",
+        "scene": "food"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -38730,7 +38796,13 @@
         "translation": "强力"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "You brute! You hurt her!",
+        "zh": "你这畜生! 你伤了她!",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -39443,7 +39515,13 @@
         "translation": "散装水泥"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "They buy goods in bulk to save money.",
+        "zh": "他们批量购买商品省钱。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -45974,7 +46052,13 @@
         "translation": "光盘只读存储器；只读型光盘"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I burned the songs onto a CD.",
+        "zh": "我把歌烧录到 CD 上。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -53977,7 +54061,13 @@
         "translation": "基因克隆"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Scientists cloned the sheep.",
+        "zh": "科学家克隆了绵羊。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -56125,7 +56215,13 @@
         "translation": "[英]陆军中校；[美]陆军或空军、海军陆战队中校"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The colonel inspected the troops.",
+        "zh": "上校检阅了部队。",
+        "scene": "history"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -56241,7 +56337,13 @@
         "translation": "明亮的颜色"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "What color is your car?",
+        "zh": "你的车是什么颜色？",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -77563,7 +77665,13 @@
         "translation": "国防部长"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The defense of the country is important.",
+        "zh": "国家防御很重要。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -78451,7 +78559,13 @@
         "zh": "...的令人高兴"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "We had a delightful evening.",
+        "zh": "我们度过了一个愉快的夜晚。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -88868,7 +88982,13 @@
         "zh": "驴"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The donkey carried heavy loads.",
+        "zh": "驴子驮着重物。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -89884,7 +90004,13 @@
         "zh": "史密斯医生"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Dr Smith will see you now.",
+        "zh": "史密斯医生现在见您。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -90067,7 +90193,13 @@
         "translation": "猛烈地；凶猛地"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The dragon breathed fire in the legend.",
+        "zh": "传说中龙会喷火。",
+        "scene": "art"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -90762,7 +90894,13 @@
         "translation": "真空干燥器"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Use the hair drier to dry your hair.",
+        "zh": "用吹风机吹干头发。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -92537,7 +92675,13 @@
         "translation": "DVD播放器；数位影音播放机"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "We watched a DVD last night.",
+        "zh": "我们昨晚看了一张 DVD。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -99822,7 +99966,13 @@
         "translation": "查询表格"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I made an enquiry about the schedule.",
+        "zh": "我询问了日程安排。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -99900,7 +100050,13 @@
         "translation": "参加；选课"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I need to enroll in the course.",
+        "zh": "我需要注册这门课。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -101393,7 +101549,13 @@
         "translation": "n. 黑板擦"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I need an eraser for my pencil.",
+        "zh": "我需要一块橡皮。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -120955,7 +121117,13 @@
         "translation": "空隙率；空隙分数；空隙组分"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Half is a fraction of the whole.",
+        "zh": "一半是整体的一部分。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -123181,7 +123349,13 @@
         "translation": "丰收年"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The meeting was very fruitful.",
+        "zh": "会议很有成果。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -124040,7 +124214,13 @@
         "translation": "[化]再热炉"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The furnace heats the entire house.",
+        "zh": "炉子给整栋房子供暖。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -126143,7 +126323,13 @@
         "zh": "...的概括"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Avoid generalization when discussing details.",
+        "zh": "讨论细节时避免笼统概括。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -130243,7 +130429,13 @@
         "translation": "克力"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Add 100 grams of sugar.",
+        "zh": "加 100 克糖。",
+        "scene": "food"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -130391,7 +130583,13 @@
         "zh": "克"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Half a gramme of salt is enough.",
+        "zh": "半克盐就够了。",
+        "scene": "food"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -131302,7 +131500,13 @@
         "translation": "人情债"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I express my gratitude for your help.",
+        "zh": "我对你的帮助表示感谢。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -131925,7 +132129,13 @@
         "translation": "[化]温室效应"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She grows tomatoes in the greenhouse.",
+        "zh": "她在温室里种番茄。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -132766,7 +132976,13 @@
         "translation": "无端声称"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "He was groundlessly accused of theft.",
+        "zh": "他被无端指控偷窃。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -133921,7 +134137,13 @@
         "zh": "...的火药"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Gunpowder was invented in ancient China.",
+        "zh": "火药是古代中国发明的。",
+        "scene": "history"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -133960,7 +134182,13 @@
         "translation": "灰色"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The road sign uses gy to mean gray.",
+        "zh": "路标上 gy 表示灰色。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -137113,7 +137341,13 @@
         "translation": "食雀鹰；鹞"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "A hawk circled in the sky.",
+        "zh": "一只鹰在空中盘旋。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -137657,7 +137891,13 @@
         "zh": "...的总部"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The company will headquarter in New York.",
+        "zh": "公司将总部设在纽约。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -142007,7 +142247,13 @@
         "translation": "阁下；您（对他人的敬称）"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "It is an honor to meet you.",
+        "zh": "认识您是我的荣幸。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -144655,7 +144901,13 @@
         "translation": "飓风警报"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The weather report warned of a hur.",
+        "zh": "天气预报警告有飓风。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -147027,7 +147279,13 @@
         "zh": "...的非永久"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The impermanency of life is a Buddhist teaching.",
+        "zh": "无常是佛教教义。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -153123,7 +153381,13 @@
         "translation": "按月付款"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I paid for the car in monthly installments.",
+        "zh": "我按月分期付款买的车。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -157345,7 +157609,13 @@
         "translation": "表现得无理"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "He acted irrationally when he was angry.",
+        "zh": "他生气时不理智。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -157506,7 +157776,13 @@
         "translation": "灌溉设备"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Modern irrigation helps crops grow.",
+        "zh": "现代灌溉有助于作物生长。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -170034,7 +170310,13 @@
         "translation": "碱液"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "He bought a bottle of liquor.",
+        "zh": "他买了一瓶酒。",
+        "scene": "food"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -171425,7 +171707,13 @@
         "translation": "蓄电池机车"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The locomotive pulled the train.",
+        "zh": "机车拉着火车。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -176895,7 +177183,13 @@
         "zh": "...的奇妙"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "What a marvelous performance!",
+        "zh": "多么精彩的演出!",
+        "scene": "art"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -178413,7 +178707,13 @@
         "translation": "草甸土；湿草原土"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Cows graze in the meadow.",
+        "zh": "牛在草地上吃草。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -183316,7 +183616,13 @@
         "zh": "...的超短裙"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She wore a red miniskirt.",
+        "zh": "她穿着红色迷你裙。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -196734,7 +197040,13 @@
         "zh": "用桨划"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "He rowed the boat with a wooden oar.",
+        "zh": "他用木桨划船。",
+        "scene": "sport"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -201579,7 +201891,13 @@
         "translation": "组织会议"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I will organise a meeting tomorrow.",
+        "zh": "我明天会组织一场会议。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -201612,7 +201930,13 @@
         "zh": "...的组织者"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She is the event organiser.",
+        "zh": "她是这次活动的组织者。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -205172,7 +205496,13 @@
         "zh": "壮如牛"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The ox pulled the cart.",
+        "zh": "牛拉着车。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -216954,7 +217284,13 @@
         "zh": "下午 5 点"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The PM addressed the nation.",
+        "zh": "总理向全国发表讲话。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -218570,7 +218906,13 @@
         "translation": "吃爆米花"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "We ate popcorn while watching the movie.",
+        "zh": "我们看电影时吃了爆米花。",
+        "scene": "food"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -218811,7 +219153,13 @@
         "translation": "稀饭"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I had a bowl of porridge for breakfast.",
+        "zh": "我早餐吃了一碗粥。",
+        "scene": "food"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -226495,7 +226843,13 @@
         "translation": "高得吓人"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The price is prohibitively high for me.",
+        "zh": "这价格高得让我买不起。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -227690,7 +228044,13 @@
         "zh": "在...繁荣"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "May your business prosper.",
+        "zh": "祝你生意兴隆。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -233624,7 +233984,13 @@
         "translation": "信噪比"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The ratio of boys to girls is 2:1.",
+        "zh": "男女比例是 2:1。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -235928,7 +236294,13 @@
         "zh": "认出"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I recognise that voice.",
+        "zh": "我认出了那个声音。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -237562,7 +237934,13 @@
         "translation": "低温致冷器，低温冰箱"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Please put the milk in the refrigerator.",
+        "zh": "请把牛奶放进冰箱。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -242224,7 +242602,13 @@
         "zh": "...的储水池"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The reservior supplies water to the city.",
+        "zh": "水库向城市供水。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -247861,7 +248245,13 @@
         "translation": "公鸡打鸣"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The rooster crowed at dawn.",
+        "zh": "公鸡在黎明时打鸣。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -268892,7 +269282,13 @@
         "translation": "垒球队"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "We play softball on weekends.",
+        "zh": "我们周末打垒球。",
+        "scene": "sport"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -272293,7 +272689,13 @@
         "translation": "专门研究……"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "He specializes in heart surgery.",
+        "zh": "他专攻心脏外科。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -274546,7 +274948,13 @@
         "translation": "[动]鼯鼠"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "A squirrel buried an acorn.",
+        "zh": "松鼠埋了一颗橡果。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -275077,7 +275485,13 @@
         "translation": "不锈钢管"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "This is a stainless steel pot.",
+        "zh": "这是一个不锈钢锅。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -276392,7 +276806,13 @@
         "translation": "国家统计局"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Statistics show that crime is down.",
+        "zh": "统计数据显示犯罪率下降。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -277376,7 +277796,13 @@
         "translation": "空中小姐（空姐）；空中服务员"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The stewardess served us drinks.",
+        "zh": "空姐给我们送了饮料。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -278063,7 +278489,13 @@
         "translation": "胃痛；肚子疼"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I have a terrible stomachache.",
+        "zh": "我胃痛得厉害。",
+        "scene": "health"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -278299,7 +278731,13 @@
         "zh": "...的秒表"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "He timed the race with a stopwatch.",
+        "zh": "他用秒表给比赛计时。",
+        "scene": "sport"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -281690,7 +282128,13 @@
         "translation": "减去"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "If you subtract 5 from 10, you get 5.",
+        "zh": "10 减 5 等于 5。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -281724,7 +282168,13 @@
         "translation": "数字减影血管造影；数字减影血管造影术"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Subtraction is harder than addition.",
+        "zh": "减法比加法难。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -283040,7 +283490,13 @@
         "translation": "元素硫"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Sulfur smells like rotten eggs.",
+        "zh": "硫磺闻起来像臭鸡蛋。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -285714,7 +286170,13 @@
         "zh": "...的怀疑"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I have a suspicion that he is lying.",
+        "zh": "我怀疑他在说谎。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -295498,7 +295960,13 @@
         "zh": "...的雷暴"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "A thunderstorm is approaching.",
+        "zh": "雷暴即将来临。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -295639,7 +296107,13 @@
         "translation": "自由西藏；解放西藏"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Tibet is on the high plateau.",
+        "zh": "西藏位于高原之上。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -295691,7 +296165,13 @@
         "translation": "藏学；西藏研究"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "She is learning Tibetan language.",
+        "zh": "她正在学藏语。",
+        "scene": "study"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -298485,7 +298965,13 @@
         "translation": "龟甲；一种类似龟甲的蝴蝶"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The tortoise moves very slowly.",
+        "zh": "乌龟移动得非常慢。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -300272,7 +300758,13 @@
         "translation": "共同特质"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Honesty is his best trait.",
+        "zh": "诚实是他最好的品质。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4",
       "高频"
@@ -301401,7 +301893,13 @@
         "zh": "...的旅行者"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The traveler shared stories of distant lands.",
+        "zh": "旅行者分享了远方的故事。",
+        "scene": "travel"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -305233,7 +305731,13 @@
         "translation": "联合国的某个机构"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The UN promotes world peace.",
+        "zh": "联合国促进世界和平。",
+        "scene": "work"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -314809,7 +315313,13 @@
         "translation": "有篷马车"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The pioneers rode in a covered waggon.",
+        "zh": "拓荒者乘坐有篷马车。",
+        "scene": "history"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -315042,7 +315552,13 @@
         "translation": "女服务员端上"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The waitress took our order.",
+        "zh": "女服务员给我们点了菜。",
+        "scene": "food"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -318813,7 +319329,13 @@
         "translation": "白鲸"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "A blue whale is the largest animal.",
+        "zh": "蓝鲸是最大的动物。",
+        "scene": "nature"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -319442,7 +319964,13 @@
         "zh": "...的任何"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Take whichever route you like.",
+        "zh": "随便走哪条路都行。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -319545,7 +320073,13 @@
         "zh": "当...时"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I listened to music whilst cooking.",
+        "zh": "我边做饭边听音乐。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "CET4"
     ],
@@ -320896,7 +321430,13 @@
         "zh": "...的意愿"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "I appreciate your willingness to help.",
+        "zh": "感谢你愿意帮忙。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -321066,7 +321606,13 @@
         "zh": "...的防风夹克"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "Wear a windbreaker on windy days.",
+        "zh": "有风的日子穿防风衣。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考"
     ],
@@ -322510,7 +323056,13 @@
         "translation": "吴宇森（知名华裔导演）"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "He tried to woo her with flowers.",
+        "zh": "他试图用花追求她。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
@@ -326464,7 +327016,13 @@
         "translation": "数码变焦；数字变焦"
       }
     ],
-    "examples": [],
+    "examples": [
+      {
+        "en": "The camera zoomed in on the bird.",
+        "zh": "相机拉近到那只鸟。",
+        "scene": "life"
+      }
+    ],
     "tags": [
       "高考",
       "高频"
