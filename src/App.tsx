@@ -38,6 +38,7 @@ const CalendarPage = lazy(() => import('./pages/CalendarPage'))
 const FillBlankPage = lazy(() => import('./pages/FillBlankPage'))
 const TextbookPage = lazy(() => import('./pages/TextbookPage'))
 const LessonDetailPage = lazy(() => import('./pages/LessonDetailPage'))
+const LessonScorePage = lazy(() => import('./pages/LessonScorePage'))
 const DictationPage = lazy(() => import('./pages/DictationPage'))
 const SpellingPage = lazy(() => import('./pages/SpellingPage'))
 import { useStore, useStats } from './store/useStore'
@@ -165,6 +166,7 @@ function App() {
         <Route path="dictation" element={<DictationPage />} />
         <Route path="spelling" element={<SpellingPage />} />
         <Route path="textbook" element={<TextbookPage />} />
+        <Route path="textbook/score" element={<LessonScorePage />} />
         <Route path="textbook/:id" element={<LessonDetailPage />} />
         <Route path="pronounce-custom" element={<PronounceCustom />} />
         <Route path="custom-scenes" element={<CustomScenes />} />
