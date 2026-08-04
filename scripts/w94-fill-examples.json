@@ -1,7 +1,7 @@
 {
   "afterwards": {
     "pos": [
-      "adverb"
+      "adv"
     ],
     "example": {
       "en": "We had dinner and afterwards we watched a movie.",
@@ -11,7 +11,7 @@
   },
   "aluminum": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The ladder is made of aluminum.",
@@ -21,7 +21,7 @@
   },
   "ambassadress": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The ambassadress hosted a reception.",
@@ -31,7 +31,7 @@
   },
   "an": {
     "pos": [
-      "article"
+      "art"
     ],
     "example": {
       "en": "I need an umbrella.",
@@ -41,8 +41,8 @@
   },
   "antarctic": {
     "pos": [
-      "adjective",
-      "noun"
+      "adj",
+      "n"
     ],
     "example": {
       "en": "The Antarctic ice is melting fast.",
@@ -52,7 +52,7 @@
   },
   "backwards": {
     "pos": [
-      "adverb"
+      "adv"
     ],
     "example": {
       "en": "She stepped backwards.",
@@ -62,7 +62,7 @@
   },
   "baseball": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "He plays baseball every weekend.",
@@ -72,7 +72,7 @@
   },
   "bc": {
     "pos": [
-      "abbreviation"
+      "abbr"
     ],
     "example": {
       "en": "The city was founded in 300 BC.",
@@ -82,7 +82,7 @@
   },
   "behaviour": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "His behaviour was excellent.",
@@ -92,8 +92,8 @@
   },
   "center": {
     "pos": [
-      "noun",
-      "verb"
+      "n",
+      "v"
     ],
     "example": {
       "en": "The hotel is in the city center.",
@@ -103,7 +103,7 @@
   },
   "centimeter": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The ruler is 30 centimeters long.",
@@ -113,7 +113,7 @@
   },
   "children": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The children are playing outside.",
@@ -123,7 +123,7 @@
   },
   "criteria": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "What are the criteria for the job?",
@@ -133,7 +133,7 @@
   },
   "daddy": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Daddy, can I have some juice?",
@@ -143,7 +143,7 @@
   },
   "dedicate": {
     "pos": [
-      "verb"
+      "v"
     ],
     "example": {
       "en": "She dedicated her life to helping others.",
@@ -153,7 +153,7 @@
   },
   "disappointed": {
     "pos": [
-      "adjective"
+      "adj"
     ],
     "example": {
       "en": "I was disappointed with the result.",
@@ -163,7 +163,7 @@
   },
   "disc": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Please insert the disc.",
@@ -173,8 +173,8 @@
   },
   "email": {
     "pos": [
-      "noun",
-      "verb"
+      "n",
+      "v"
     ],
     "example": {
       "en": "I sent her an email yesterday.",
@@ -184,8 +184,8 @@
   },
   "favorite": {
     "pos": [
-      "adjective",
-      "noun"
+      "adj",
+      "n"
     ],
     "example": {
       "en": "Pizza is my favorite food.",
@@ -195,7 +195,7 @@
   },
   "feet": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "My feet are cold.",
@@ -205,7 +205,7 @@
   },
   "fiber": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Eat more fiber for better digestion.",
@@ -215,7 +215,7 @@
   },
   "fireworks": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The fireworks lit up the sky.",
@@ -225,8 +225,8 @@
   },
   "foster": {
     "pos": [
-      "verb",
-      "adjective"
+      "v",
+      "adj"
     ],
     "example": {
       "en": "They fostered a child for two years.",
@@ -236,7 +236,7 @@
   },
   "franc": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The price is 50 francs.",
@@ -246,7 +246,7 @@
   },
   "goodbye": {
     "pos": [
-      "interjection"
+      "int"
     ],
     "example": {
       "en": "I said goodbye and left.",
@@ -256,7 +256,7 @@
   },
   "guitar": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "She plays the guitar beautifully.",
@@ -266,7 +266,7 @@
   },
   "harbor": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The boats are in the harbor.",
@@ -276,7 +276,7 @@
   },
   "has": {
     "pos": [
-      "verb"
+      "v"
     ],
     "example": {
       "en": "She has a beautiful smile.",
@@ -286,7 +286,7 @@
   },
   "hotdog": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "I want a hotdog, please.",
@@ -296,7 +296,7 @@
   },
   "humor": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "He has a great sense of humor.",
@@ -306,7 +306,7 @@
   },
   "is": {
     "pos": [
-      "verb"
+      "v"
     ],
     "example": {
       "en": "She is a doctor.",
@@ -316,7 +316,7 @@
   },
   "jewellery": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "She wore expensive jewellery.",
@@ -326,7 +326,7 @@
   },
   "judgment": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Use your own judgment.",
@@ -336,7 +336,7 @@
   },
   "kilometer": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The race is 5 kilometers long.",
@@ -346,7 +346,7 @@
   },
   "labor": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Manual labor is hard work.",
@@ -356,7 +356,7 @@
   },
   "madame": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Madame Curie was a great scientist.",
@@ -366,7 +366,7 @@
   },
   "math": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Math is my favorite subject.",
@@ -376,7 +376,7 @@
   },
   "men": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Many men work in construction.",
@@ -386,7 +386,7 @@
   },
   "millimeter": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The insect is 5 millimeters long.",
@@ -396,7 +396,7 @@
   },
   "mr": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Mr Smith is my teacher.",
@@ -406,7 +406,7 @@
   },
   "mrs": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Mrs Brown lives next door.",
@@ -416,7 +416,7 @@
   },
   "ms": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Ms Johnson will see you now.",
@@ -424,29 +424,9 @@
       "scene": "work"
     }
   },
-  "mum": {
-    "pos": [
-      "noun"
-    ],
-    "example": {
-      "en": "My mum makes great cookies.",
-      "zh": "我妈妈做的饼干很好吃。",
-      "scene": "family"
-    }
-  },
-  "mummy": {
-    "pos": [
-      "noun"
-    ],
-    "example": {
-      "en": "Ancient Egyptian mummies are in museums.",
-      "zh": "古埃及木乃伊在博物馆里。",
-      "scene": "history"
-    }
-  },
   "neighbor": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "My neighbor has a dog.",
@@ -456,7 +436,7 @@
   },
   "olympic": {
     "pos": [
-      "adjective"
+      "adj"
     ],
     "example": {
       "en": "The Olympic Games are held every 4 years.",
@@ -466,7 +446,7 @@
   },
   "olympics": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "She won a gold medal at the Olympics.",
@@ -476,7 +456,7 @@
   },
   "organisation": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "She works for a non-profit organisation.",
@@ -486,7 +466,7 @@
   },
   "pavement": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Walk on the pavement, not the road.",
@@ -496,8 +476,8 @@
   },
   "pc": {
     "pos": [
-      "abbreviation",
-      "noun"
+      "abbr",
+      "n"
     ],
     "example": {
       "en": "I work on my PC every day.",
@@ -507,7 +487,7 @@
   },
   "pe": {
     "pos": [
-      "abbreviation"
+      "abbr"
     ],
     "example": {
       "en": "We have PE class on Tuesdays.",
@@ -517,7 +497,7 @@
   },
   "pence": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The candy costs 50 pence.",
@@ -527,7 +507,7 @@
   },
   "policewoman": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The policewoman helped the lost child.",
@@ -537,7 +517,7 @@
   },
   "psychology": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "She is studying psychology at university.",
@@ -547,7 +527,7 @@
   },
   "realise": {
     "pos": [
-      "verb"
+      "v"
     ],
     "example": {
       "en": "I realised I was wrong.",
@@ -557,7 +537,7 @@
   },
   "safely": {
     "pos": [
-      "adverb"
+      "adv"
     ],
     "example": {
       "en": "Drive safely!",
@@ -567,17 +547,17 @@
   },
   "satisfy": {
     "pos": [
-      "verb"
+      "v"
     ],
     "example": {
-      "en": "The food satisfied my hunger.",
-      "zh": "食物解除了我的饥饿。",
-      "scene": "food"
+      "en": "This job does not satisfy me.",
+      "zh": "这份工作不让我满意。",
+      "scene": "work"
     }
   },
   "schoolboy": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The schoolboy ran to catch the bus.",
@@ -587,7 +567,7 @@
   },
   "schoolgirl": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The schoolgirl won the spelling bee.",
@@ -597,7 +577,7 @@
   },
   "seminar": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "I attended a writing seminar.",
@@ -607,8 +587,8 @@
   },
   "shrink": {
     "pos": [
-      "verb",
-      "noun"
+      "v",
+      "n"
     ],
     "example": {
       "en": "This shirt will shrink in the wash.",
@@ -618,7 +598,7 @@
   },
   "sideroad": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Turn left at the sideroad.",
@@ -628,7 +608,7 @@
   },
   "sidewalk": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "People walked on the sidewalk.",
@@ -638,7 +618,7 @@
   },
   "skeptical": {
     "pos": [
-      "adjective"
+      "adj"
     ],
     "example": {
       "en": "I am skeptical of his claims.",
@@ -648,7 +628,7 @@
   },
   "skilful": {
     "pos": [
-      "adjective"
+      "adj"
     ],
     "example": {
       "en": "She is a skilful pianist.",
@@ -658,8 +638,8 @@
   },
   "southeast": {
     "pos": [
-      "noun",
-      "adjective"
+      "n",
+      "adj"
     ],
     "example": {
       "en": "The wind is blowing from the southeast.",
@@ -669,7 +649,7 @@
   },
   "souvenir": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "I bought a souvenir from Paris.",
@@ -679,7 +659,7 @@
   },
   "spokesman": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The spokesman answered the questions.",
@@ -689,7 +669,7 @@
   },
   "spokeswoman": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The spokeswoman announced the new policy.",
@@ -699,8 +679,8 @@
   },
   "star": {
     "pos": [
-      "noun",
-      "verb"
+      "n",
+      "v"
     ],
     "example": {
       "en": "The star shone brightly.",
@@ -710,7 +690,7 @@
   },
   "stateswoman": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "She was a great stateswoman.",
@@ -720,7 +700,7 @@
   },
   "summer": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "I love swimming in summer.",
@@ -730,7 +710,7 @@
   },
   "taxpayer": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Every taxpayer must file a return.",
@@ -740,8 +720,8 @@
   },
   "tear": {
     "pos": [
-      "noun",
-      "verb"
+      "n",
+      "v"
     ],
     "example": {
       "en": "She wiped a tear from her eye.",
@@ -751,7 +731,7 @@
   },
   "tennis": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "They played tennis all afternoon.",
@@ -761,7 +741,7 @@
   },
   "theater": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "We went to the theater last night.",
@@ -771,7 +751,7 @@
   },
   "towards": {
     "pos": [
-      "preposition"
+      "prep"
     ],
     "example": {
       "en": "She walked towards the door.",
@@ -781,8 +761,8 @@
   },
   "travel": {
     "pos": [
-      "verb",
-      "noun"
+      "v",
+      "n"
     ],
     "example": {
       "en": "I love to travel to new places.",
@@ -792,7 +772,7 @@
   },
   "traveller": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "The traveller told us stories of distant lands.",
@@ -802,7 +782,7 @@
   },
   "trolleybus": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "We took the trolleybus to the museum.",
@@ -812,7 +792,7 @@
   },
   "unbelievable": {
     "pos": [
-      "adjective"
+      "adj"
     ],
     "example": {
       "en": "The view was unbelievable!",
@@ -822,7 +802,7 @@
   },
   "upon": {
     "pos": [
-      "preposition"
+      "prep"
     ],
     "example": {
       "en": "Once upon a time, there was a princess.",
@@ -832,7 +812,7 @@
   },
   "upwards": {
     "pos": [
-      "adverb"
+      "adv"
     ],
     "example": {
       "en": "The balloon floated upwards.",
@@ -842,7 +822,7 @@
   },
   "us": {
     "pos": [
-      "pronoun"
+      "pron"
     ],
     "example": {
       "en": "She gave us a gift.",
@@ -852,7 +832,7 @@
   },
   "vcd": {
     "pos": [
-      "abbreviation"
+      "abbr"
     ],
     "example": {
       "en": "We watched a VCD at home.",
@@ -862,7 +842,7 @@
   },
   "warn": {
     "pos": [
-      "verb"
+      "v"
     ],
     "example": {
       "en": "I must warn you about the danger.",
@@ -872,8 +852,8 @@
   },
   "westward": {
     "pos": [
-      "adverb",
-      "adjective"
+      "adv",
+      "adj"
     ],
     "example": {
       "en": "The wagon train moved westward.",
@@ -883,7 +863,7 @@
   },
   "women": {
     "pos": [
-      "noun"
+      "n"
     ],
     "example": {
       "en": "Women's rights are important.",
@@ -893,7 +873,7 @@
   },
   "woolen": {
     "pos": [
-      "adjective"
+      "adj"
     ],
     "example": {
       "en": "She wore a woolen sweater.",
