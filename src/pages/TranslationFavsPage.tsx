@@ -16,7 +16,7 @@ import {
   type FavWithWord,
   type TimeGroup,
 } from '../lib/translationFavFilter'
-import { searchAllWords, countSearchMatches } from '../lib/translationFavSearch'
+import { searchAllWords, type CrossWordSearchOutput } from '../lib/translationFavSearch'
 
 interface GroupedFav {
   wordId: string
@@ -72,17 +72,12 @@ export default function TranslationFavsPage() {
     })
   }, [favsWithWord, search, timeFilters, posFilters])
 
-  // v2.0.7 W98: 跨词 搜索 结果
-  const crossWordResults = useMemo(() => {
-    if (!crossWordMode || !search.trim()) return []
-    const allWords = Array.from(wordMap.values())
+  // v2.0.7 W98: 跨词 搜索 结果 (P1-1 单遍 输出)
+  const allWords = useMemo(() => Array.from(wordMap.values()), [wordMap])  // P2-11
+  const crossWordOutput: CrossWordSearchOutput = useMemo(() => {
+    if (!crossWordMode || !search.trim()) return { results: [], totalMatches: 0, truncated: false }
     return searchAllWords(allWords, favs, search, 50)
-  }, [crossWordMode, search, wordMap, favs])
-
-  const crossWordCount = useMemo(() => {
-    if (!crossWordMode || !search.trim()) return 0
-    return countSearchMatches(Array.from(wordMap.values()), search)
-  }, [crossWordMode, search, wordMap])
+  }, [crossWordMode, search, allWords, favs])
 
   // 按 wordId 分组 (用于 word 视图)
   const grouped: GroupedFav[] = useMemo(() => {
@@ -141,7 +136,9 @@ export default function TranslationFavsPage() {
   return (
     <div className="space-y-4 max-w-2xl mx-auto">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">⭐ 释义收藏 ({favs.length})</h1>
+        <h1 className="text-2xl font-bold">
+          {crossWordMode && search.trim() ? '🔍 跨词搜索' : `⭐ 释义收藏`} ({crossWordMode && search.trim() ? crossWordOutput.totalMatches : favs.length})
+        </h1>
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
@@ -198,7 +195,7 @@ export default function TranslationFavsPage() {
         <input
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder="搜索单词或释义..."
+          placeholder="搜索词名/词根/释义/例句/短语..."
           className="w-full px-3 py-2 border-2 border-stone-300 dark:border-stone-600 rounded-lg bg-white dark:bg-stone-900 mb-2"
         />
         {/* v2.0.7 W98: 跨词 搜索 模式 */}
@@ -210,9 +207,12 @@ export default function TranslationFavsPage() {
             className="w-4 h-4"
           />
           <span className="text-stone-700 dark:text-stone-300">
-            🔍 全词库搜索 (搜词名/词根/释义)
+            🔍 全词库搜索 (搜词名/词根/释义/例句/短语)
             {crossWordMode && search.trim() && (
-              <span className="ml-1 text-brand-500">· 命中 {crossWordCount} 词</span>
+              <span className="ml-1 text-brand-500">
+              · 命中 {crossWordOutput.totalMatches} 词
+              {crossWordOutput.truncated && <span className="text-amber-500"> (仅显示前 50)</span>}
+            </span>
             )}
           </span>
         </label>
@@ -267,28 +267,38 @@ export default function TranslationFavsPage() {
       {crossWordMode && search.trim() ? (
         /* v2.0.7 W98: 跨词 搜索 模式 */
         <div className="space-y-2">
-          {crossWordResults.length === 0 ? (
+          {crossWordOutput.truncated && (
+            <div className="text-xs text-amber-600 dark:text-amber-400 text-center">
+              ⚠️ 命中 {crossWordOutput.totalMatches} 词, 仅显示前 50; 缩小查询以查看更多
+            </div>
+          )}
+          {crossWordOutput.results.length === 0 ? (
             <div className="card text-center py-6 text-stone-500 text-sm">
               全词库中无匹配 "{search}"
             </div>
           ) : (
-            crossWordResults.map(r => (
+            crossWordOutput.results.map(r => (
               <div key={r.word.id} className="card p-3">
                 <div className="flex items-center justify-between mb-1">
                   <Link to={`/words/${r.word.id}`} className="font-bold text-brand-600 dark:text-brand-400 hover:underline">
                     {r.word.word}
                   </Link>
-                  {r.favCount > 0 ? (
-                    <span className="text-xs px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
-                      ⭐ 已收藏 {r.favCount} 个释义
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs px-1.5 py-0.5 rounded bg-stone-100 dark:bg-stone-700 text-stone-600">
+                      {r.matchedField === 'word' ? '词名' : r.matchedField === 'root' ? '词根' : r.matchedField === 'translation' ? '释义' : r.matchedField === 'example' ? '例句' : '短语'}
                     </span>
-                  ) : (
-                    <span className="text-xs text-stone-400">未收藏</span>
-                  )}
+                    {r.favCount > 0 ? (
+                      <span className="text-xs px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
+                        ⭐ {r.favCount}
+                      </span>
+                    ) : (
+                      <span className="text-xs text-stone-400">未收藏</span>
+                    )}
+                  </div>
                 </div>
                 {r.word.roots && r.word.roots.length > 0 && (
                   <div className="text-xs text-stone-500 mb-1">
-                    词根: {r.word.roots.map(rt => rt.root).join(', ')}
+                    词根: {r.word.roots.map(rt => `${rt.root}(${rt.meaning})`).join(', ')}
                   </div>
                 )}
                 {r.matchedFavs.length > 0 ? (
