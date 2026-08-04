@@ -131,7 +131,7 @@ export interface ReviewSession {
   remaining: ReviewCard[]  // 剩余队列 (答对 shift, 答错 shift + push 末尾)
   correct: number       // 答对数
   wrong: number         // 答错数
-  history: { cardId: string; score: number; grade: string; peeked?: boolean }[]
+  history: { cardId: string; score: number; grade: string; peeked?: boolean; source?: string }[]
 }
 
 /** 新会话 (排序后入列) */

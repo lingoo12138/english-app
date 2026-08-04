@@ -4,7 +4,7 @@
 
 ---
 
-## 📊 摘要 (v0.1.0 ~ v2.0.4)
+## 📊 摘要 (v0.1.0 ~ v2.0.5)
 
 | 阶段 | 范围 | 主要交付 |
 |------|------|---------|
@@ -18,10 +18,11 @@
 | **错题复习** | v1.92-v2.0 | 跟读评分 / Flashcard / 统计页 / **IDB 永久持久化** (3 verifier 抗审查 W87+W90+W91) |
 | **短语补全** | v2.0.1-v2.0.2 | 5-9 字符 100% 覆盖 (227 词) + 100% 全覆盖 (48 词, verifier 抗审查 W92+W93) ⭐ 收官 |
 | **数据 100%** | v2.0.3-v2.0.4 | 87 词 pos + 92 词 example (pos 100% + examples 100%, verifier 抗审查 W94+W95) ⭐ 收官 |
+| **学习报告** | v2.0.5 | 错题复习 答完 完整 学习报告 (准确率/分数/难度/成绩/偷看, verifier 抗审查 W96) |
 
-**累计 (v2.0.4)**:
-- **101 release tag** / 17+ 周 / **29 次大 review** (含 7 verifier 抗审查)
-- **1054 单元测试 / 81 文件** ⭐ 稳定 1000+
+**累计 (v2.0.5)**:
+- **101 release tag** / 17+ 周 / **29 次大 review** (含 8 verifier 抗审查)
+- **1065 单元测试 / 82 文件** ⭐ 稳定 1000+
 - 5,423 词 / 100% 词根 / 5,423 短语 (100%) ⭐ W93 收官
 - 20 篇课文 / 244 同义词组 / 78 反义词
 - **7 大激活功能** (含 永久 IDB 错题复习)
@@ -3715,6 +3716,41 @@
 
 ## [v2.0.3] - 2026-08-04
 
+
+## [v2.0.5] - 2026-08-04
+
+### v2.0.5 W96 — 错题复习 答完 summary 学习报告
+
+**业务承诺**: 之前 答完 summary 屏 简单 "共 N 题 答对 X 答错 Y". W96 加 完整 学习报告:
+- 📊 准确率% + 标签 (优秀/不错/加油/多练)
+- 📈 分数: 平均/最高/最低
+- 🎯 难度分布: 掌握/简单/中等/难词
+- ⭐ 成绩分布: 完美/良好/一般/较差
+- 👀 偷看率 + 鼓励
+- 综合 鼓励
+
+**核心改动**:
+- src/lib/errorReviewReport.ts: 115 行 (buildReviewReport + formatReport + ReviewReport interface)
+- src/lib/errorReview.ts: answerInSession history 加 source 字段 (修 v1 P1-2)
+- src/pages/ErrorReviewPage.tsx: 完成 summary 屏 集成 (5 行 text-left 报告)
+- tests/errorReviewReport.test.ts: 11 测试 (含 re-answer 场景)
+
+**verifier 抗审查找 2 P1 全修**:
+- P1-1: accuracy 公式 re-answer 场景可能 > 100% (correct/(correct+wrong) 防)
+- P1-2: sourceBreakdown 用 cardId 前缀推断 source (production 不可能产 s-/f- 前缀) → 改读 history.source
+- P1-3: 测试用 production 不可能 cardId → 改用真实 source/cardId 组合 + 加 re-answer 测试
+
+**测试**:
+- 1065 测试 (1054 → 1065) / 82 文件 全过
+- 11 个 errorReviewReport 测试 PASS (含 re-answer 边界)
+
+**累计 (v2.0.5)**:
+- 105 release tag / 17+ 周 / 29 次大 review (含 8 verifier 抗审查)
+- 21 P0 + 39 P1 累计修
+- 0 P0 + 0 P1 业务
+- 错题复习 业务 增强: 答完 完整 学习报告
+
+
 ## [v2.0.4] - 2026-08-04
 
 ### v2.0.4 W95 — 补 92 词 example (examples 100% 覆盖)
@@ -3736,9 +3772,9 @@
 - tests/w95-examples.test.ts 6 个 it 全部 PASS
 - 92 词 全部 example 含词根 准确性 100%
 
-**累计 (v2.0.4)**:
-- 104 release tag / 17+ 周 / 29 次大 review (含 7 verifier 抗审查)
-- 19 P0 + 39 P1 累计修
+**累计 (v2.0.5)**:
+- 104 release tag / 17+ 周 / 29 次大 review (含 8 verifier 抗审查)
+- 21 P0 + 39 P1 累计修
 - 0 P0 + 0 P1 业务
 - **5,423 词 / 100% 词根 / 100% 短语 / 100% pos / 100% examples** ⭐ 主线 数据 100% 收官
 
@@ -3767,9 +3803,9 @@
 - 1048 测试 (1045 → 1048) / 80 文件 全过
 - tests/w94-examples.test.ts 8 个 it 全部 PASS
 
-**累计 (v2.0.4)**:
-- 103 release tag / 17+ 周 / 29 次大 review (含 7 verifier 抗审查)
-- 19 P0 + 39 P1 累计修
+**累计 (v2.0.5)**:
+- 103 release tag / 17+ 周 / 29 次大 review (含 8 verifier 抗审查)
+- 21 P0 + 39 P1 累计修
 - 0 P0 + 0 P1 业务
 - 5,423 词 pos 100% / 短语 100% / 词根 100% / examples 98.29%
 
@@ -3795,9 +3831,9 @@
 - 1040 测试 (1035 → 1040) / 79 文件 全过
 - tests/w93-phrases.test.ts 5 个 it 全部 PASS
 
-**累计 (v2.0.4)**:
-- 102 release tag / 17+ 周 / 29 次大 review (含 7 verifier 抗审查)
-- 19 P0 + 39 P1 累计修
+**累计 (v2.0.5)**:
+- 102 release tag / 17+ 周 / 29 次大 review (含 8 verifier 抗审查)
+- 21 P0 + 39 P1 累计修
 - 0 P0 + 0 P1 业务
 - 短语补全 100% 收官 ⭐
 
@@ -3831,9 +3867,9 @@
 - 1035 测试 (1031 → 1035) / 78 文件 全过
 - tests/w92-phrases.test.ts 加 '5-9 字符短语 100% 有中文翻译' 断言 (4 it)
 
-**累计 (v2.0.4)**:
-- 101 release tag / 17+ 周 / 29 次大 review (含 7 verifier 抗审查)
-- 19 P0 + 39 P1 累计修
+**累计 (v2.0.5)**:
+- 101 release tag / 17+ 周 / 29 次大 review (含 8 verifier 抗审查)
+- 21 P0 + 39 P1 累计修
 - 0 P0 + 0 P1 业务
 
 
