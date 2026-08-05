@@ -60,13 +60,13 @@ export default function Layout() {
       >
         跳到主内容
       </a>
-      {/* 侧边栏 (桌面) */}
-      <aside className="hidden md:flex md:flex-col md:w-56 md:fixed md:inset-y-0 md:left-0 bg-white dark:bg-stone-900 border-r border-stone-200 dark:border-stone-800 z-10">
-        <div className="px-6 py-6 border-b border-stone-200 dark:border-stone-800">
+      {/* 侧边栏 (桌面) - 修复: 22 项 nav 在小屏幕 可 滚, header 固定 */}
+      <aside className="hidden md:flex md:flex-col md:w-56 md:fixed md:inset-y-0 md:left-0 md:overflow-hidden bg-white dark:bg-stone-900 border-r border-stone-200 dark:border-stone-800 z-10">
+        <div className="flex-shrink-0 px-6 py-6 border-b border-stone-200 dark:border-stone-800">
           <h1 className="text-2xl font-bold text-brand-600">句刻</h1>
           <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">即时英语学习</p>
         </div>
-        <nav className="flex-1 px-3 py-4 space-y-1">
+        <nav className="flex-1 min-h-0 px-3 py-4 space-y-1 overflow-y-auto">
           {desktopNav.map((item) => (
             <NavLink
               key={item.to}
