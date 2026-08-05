@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom'
 import { loadWords, LEVELS } from '../lib/words'
 import type { Word } from '../types'
 import WordCard from '../components/WordCard'
-import { addFavorite, removeFavorite, getAllFavorites } from '../lib/db'
+import { addFavorite, removeFavorite, getAllFavorites, getAllTranslationFavs } from '../lib/db'
 import { useStore } from '../store/useStore'
 import { useTranslate } from '../lib/useTranslate'
 
@@ -51,6 +51,17 @@ export default function WordList() {
       .then(favs => setFavSet(new Set(favs.map(f => f.wordId))))
       .catch(e => console.error('[WordList] getAllFavorites failed:', e))
   }, [])
+
+  // W102 修 v1: 加载 收藏 数量 map (per word) - 实时 跟 favSet 同步
+  useEffect(() => {
+    getAllTranslationFavs()
+      .then(favs => {
+        const m: Record<string, number> = {}
+        for (const f of favs) m[f.wordId] = (m[f.wordId] || 0) + 1
+        setFavCountMap(m)
+      })
+      .catch(e => console.error('[WordList] getAllTranslationFavs failed:', e))
+  }, [favSet])  // favSet 变 化 (收藏/取消) 时 重 算
 
   useEffect(() => {
     if (level === 'all' && targetLevel !== 'all') {
