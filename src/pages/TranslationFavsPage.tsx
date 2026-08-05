@@ -2,7 +2,7 @@
 // v1.94 W88-B: 按 word 分组, 搜索 + 删除
 // v1.97 W89-C: 加 时间分组 + 词性过滤 + 统计 + JSON 导出
 import { useEffect, useState, useMemo, useCallback } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useSearchParams } from 'react-router-dom'
 import { getAllTranslationFavs, removeTranslationFav, type TranslationFav } from '../lib/db'
 import { loadWords } from '../lib/words'
 import type { Word } from '../types'
@@ -36,6 +36,9 @@ export default function TranslationFavsPage() {
   const [viewMode, setViewMode] = useState<'word' | 'time'>('word')
   // v2.0.7 W98: 跨词 搜索 模式 (全词库 vs 仅收藏)
   const [crossWordMode, setCrossWordMode] = useState(false)
+  // W102: URL ?word=xxx 跨页 集成 (词库 跳转)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const wordQuery = searchParams.get('word') || ''
   const navigate = useNavigate()
 
   const load = useCallback(async () => {
@@ -57,6 +60,13 @@ export default function TranslationFavsPage() {
   }, [])
 
   useEffect(() => { load() }, [load])
+  // W102: 跨页 query 同步 (词库 点 跳 → 自动 跨词 + 搜 该词)
+  useEffect(() => {
+    if (wordQuery) {
+      setCrossWordMode(true)
+      setSearch(wordQuery)
+    }
+  }, [wordQuery])
 
   // v1.97 W89-C: 用 FavWithWord 重算 (多维度过滤)
   const favsWithWord: FavWithWord[] = useMemo(() => {

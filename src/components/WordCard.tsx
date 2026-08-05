@@ -10,9 +10,11 @@ interface Props {
   word: Word
   isFavorite?: boolean
   onToggleFavorite?: () => void
+  favCount?: number  // W102: 跨页 集成
+  onClickFavs?: () => void  // W102: 跳 释义收藏 跨词
 }
 
-export default function WordCard({ word, isFavorite, onToggleFavorite }: Props) {
+export default function WordCard({ word, isFavorite, onToggleFavorite, favCount, onClickFavs }: Props) {
   const dailyGoal = useStore(s => s.dailyGoal)
   const level = LEVELS.find(l => l.value === word.level)
 
@@ -66,6 +68,16 @@ export default function WordCard({ word, isFavorite, onToggleFavorite }: Props) 
         <span onClick={(e) => e.stopPropagation()}>
           <TTSButton text={word.word} size="sm" />
         </span>
+        {/* W102: 收藏 数量 跳 链接 */}
+        {favCount !== undefined && favCount > 0 && (
+          <button
+            onClick={(e) => { e.stopPropagation(); onClickFavs?.() }}
+            className="text-xs px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-200"
+            title="跳 释义收藏 跨词 模式"
+          >
+            ⭐ {favCount} 收藏
+          </button>
+        )}
       </div>
     </Link>
   )

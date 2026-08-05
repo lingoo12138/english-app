@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef, useCallback, Fragment } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { loadWords, LEVELS } from '../lib/words'
 import type { Word } from '../types'
 import WordCard from '../components/WordCard'
@@ -25,10 +25,17 @@ export default function WordList() {
   const [debouncedQuery, setDebouncedQuery] = useState('')  // 修复: 搜索 debounce 300ms
   const [level, setLevel] = useState<string>('all')
   const [favSet, setFavSet] = useState<Set<string>>(new Set())
+  // W102: 收藏 数量 map (per word)
+  const [favCountMap, setFavCountMap] = useState<Record<string, number>>({})
   const favSetRef = useRef(favSet)
   favSetRef.current = favSet
   const [displayCount, setDisplayCount] = useState(PAGE_SIZE)
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+  // W102: 跳 释义收藏 跨词 模式
+  const handleClickFavs = useCallback((w: Word) => {
+    navigate(`/translation-favs?word=${encodeURIComponent(w.word)}`)
+  }, [navigate])
   const [activeLetter, setActiveLetter] = useState<string>('')
   const targetLevel = useStore(s => s.targetLevel)
   const sentinelRef = useRef<HTMLDivElement>(null)
@@ -272,6 +279,8 @@ export default function WordList() {
                       word={word}
                       isFavorite={favSet.has(word.id)}
                       onToggleFavorite={() => handleToggleFav(word)}
+                      favCount={favCountMap[word.id]}
+                      onClickFavs={() => handleClickFavs(word)}
                     />
                   </Fragment>
                 )
