@@ -123,3 +123,34 @@ W83 跟读模式 (TTS 逐句朗读) + STT 录音 + 字符/词级评分. 错入 d
 6. **错题导入 CSV** (多设备同步)
 7. **10+ 字符专业词根补全** (5 词, ROI 低)
 8. **触类旁通 UI 增强** (推荐路径图)
+
+## v2.0.8 W100 (2026-08-05) 侧边栏 滚动 修复
+
+### 业务 bug
+- 桌面 22 项 nav 在屏幕 < 1100px 时 末 3 项 (跟读趋势/成就/文档) 不可访问
+- 实际 阈值 (verifier 校准): header 102px + nav padding 32px + 22 项 * 44px = 1102px
+- 1080p 显示器 (可用 ~960px) 也 滚, 不只小屏
+
+### CSS 修复 关键
+- `md:overflow-hidden` (aside 整 不滚, 内部 滚)
+- `flex-shrink-0` (header 不 被 压缩)
+- `min-h-0` + `flex-1` + `overflow-y-auto` (nav 内部 滚)
+- **关键 教训**: flex item 默认 `min-height: auto` → overflow-y-auto 失效
+  - 必须 `min-h-0` 才能 让 flex item 滚 动
+
+### verifier 抗审查 找 5 P1 + 5 P2, 修 P1 全修
+- P1-1: 测 试 1 正则 不 强制 md: 前缀 → 改 锚定 md:overflow-hidden
+- P1-2: 漏 关键 类 min-h-0 (业务 关键) → 加 min-h-0 + flex-1 断言
+- P1-3: 22 项 全 渲染 漏 → 加 RTL render 测
+- P1-4: 跨 设备 不 变 漏 → 加 桌面 hidden md:flex + 移动 md:hidden
+- P1-5: 标 错 W99 → 改 W100
+
+### 测试 覆盖
+- 2 → 8 测试 (业务 关键 22 项 全 渲染 验证)
+- @testing-library/react (新 装, RTL render 测)
+- 1105 测试 / 85 文件 全过
+
+### 累计 (v2.0.8 W100)
+- 108 release tag / 18+ 周 / 32 次大 review (含 11 verifier 抗审查)
+- 24 P0 + 49 P1 累计修
+- 0 P0 + 0 P1 业务 维持

@@ -19,6 +19,7 @@
 | **短语补全** | v2.0.1-v2.0.2 | 5-9 字符 100% 覆盖 (227 词) + 100% 全覆盖 (48 词, verifier 抗审查 W92+W93) ⭐ 收官 |
 | **数据 100%** | v2.0.3-v2.0.4 | 87 词 pos + 92 词 example (pos 100% + examples 100%, verifier 抗审查 W94+W95) ⭐ 收官 |
 | **学习报告** | v2.0.5 | 错题复习 答完 完整 学习报告 (准确率/分数/难度/成绩/偷看, verifier 抗审查 W96) |
+| **侧边栏滚动** | v2.0.8 | 桌面 22 项 nav 跨设备 可滚 (min-h-0 业务关键, verifier 抗审查 W100) |
 
 **累计 (v2.0.8)**:
 - **101 release tag** / 17+ 周 / **32 次大 review** (含 11 verifier 抗审查)
@@ -3803,67 +3804,44 @@
 
 ### v2.0.8 W100 — 侧边栏 滚动 修复
 
-**业务承诺**: 桌面 侧边栏 22 项 nav 在 屏幕 < 880px 可 滚, 末 3 项 不 截 断.
+**业务承诺**: 桌面 侧边栏 22 项 nav 在 屏幕 < 1100px 可 滚, 末 3 项 (跟读趋势/成就/文档) 不 截 断.
 
-**核心改动**:
+**核心改动** (主 5c70688 + 修 v1 f4795ec + docs 7acc03b):
 - src/components/Layout.tsx (改 桌面 aside/nav/header):
   - aside 加 md:overflow-hidden (整 aside 不 滚, 内部 滚)
   - header 改 flex-shrink-0 (不 被 压 缩)
   - nav 加 min-h-0 + overflow-y-auto (内容 滚, header 固定)
-- tests/layout-scroll.test.ts (2 测试)
+- tests/layout-scroll.test.ts: 2 → 8 测试 (W100 修 v1)
+  - 1 强制 md: 前缀 (P1-1)
+  - 1 min-h-0 业务 关键 (P1-2)
+  - 1 flex-1 占 满 剩余 (P1-2)
+  - 3 跨 设备 不 变 (P1-4)
+  - 1 业务 关键 22 项 全 渲染 (P1-3, RTL render + 末 3 项 验证)
+  - 1 改 W99 → W100 (P1-5)
 
-**业务 bug**:
+**业务 bug 详情**:
 - 之前: aside 没 overflow 控制, 22 项 * ~40px = 880px > 屏幕 800px
+- 实际 阈值 (verifier 校准): 22 项 * 44px + header 102px + padding 32px ≈ 1100px
+- 1080p 显示器 (可用 ~960px) 也 滚, 不只小屏
 - 末 3 项 (跟读趋势/成就/文档) 截 断, 用户 不 能 访问
 
-**修复 关键**: min-h-0 + flex-1 是 flex item 滚 动 关键
-(否则 flex item 默认 min-height: auto → 不 滚)
+**修复 关键**: `min-h-0` + `flex-1` 是 flex item 滚 动 关键
+(否则 flex item 默认 min-height: auto → overflow-y-auto 完全 失效)
 
-**测试**: 1099 测试 (1097 + 2) / 85 文件 全过
+**verifier 抗审查 找 5 P1 + 5 P2, 修 P1-1~5 全 修**:
+- P1-1: 测 试 1 正则 不 强制 md: 前缀 → 改 锚定 md:overflow-hidden
+- P1-2: 漏 关键 类 min-h-0 (业务 关键) → 加 min-h-0 + flex-1 断言
+- P1-3: 22 项 全 渲染 漏 → 加 RTL render 测, 22 项 + 末 3 项 验证
+- P1-4: 跨 设备 不 变 漏 → 加 桌面 hidden md:flex + 移动 md:hidden
+- P1-5: 测 试 标 错 W99 → 改 W100
+- P2-6 ~ P2-10 (滚动 条 Firefox / 导航 后 滚 动 位置 丢失 / mobileNav 注释 / brief 估算 偏低) 暂 留, W101+
 
-**累计 (v2.0.8)**: 108 release tag / 18+ 周 / 32 次大 review / 24 P0 + 49 P1
+**依赖**:
+- @testing-library/react (新 装, RTL render 测)
 
-- P1-4: 错题 复习 成功 仍 算 不 掌握 → score >= 60 不 算
-- P2-1 ~ P2-7: UI 集成 + 性能 + 入口 + 类型 + 错误兜底 + 测试覆盖 全修
+**测试**: 1105 测试 (1097 → 1105, +8) / 85 文件 全过
 
-**测试**:
-- 1077 测试 (1065 + 12) / 83 文件 全过
-- 12 个 lessonScore 测试 PASS (含 4 业务边界)
-
-**累计 (v2.0.8)**:
-- 106 release tag / 17+ 周 / 32 次大 review (含 11 verifier 抗审查)
-- 24 P0 + 49 P1 累计修
-- 0 P0 + 0 P1 业务
-- 课文评分 业务 完成
-
-- 📊 准确率% + 标签 (优秀/不错/加油/多练)
-- 📈 分数: 平均/最高/最低
-- 🎯 难度分布: 掌握/简单/中等/难词
-- ⭐ 成绩分布: 完美/良好/一般/较差
-- 👀 偷看率 + 鼓励
-- 综合 鼓励
-
-**核心改动**:
-- src/lib/errorReviewReport.ts: 115 行 (buildReviewReport + formatReport + ReviewReport interface)
-- src/lib/errorReview.ts: answerInSession history 加 source 字段 (修 v1 P1-2)
-- src/pages/ErrorReviewPage.tsx: 完成 summary 屏 集成 (5 行 text-left 报告)
-- tests/errorReviewReport.test.ts: 11 测试 (含 re-answer 场景)
-
-**verifier 抗审查找 2 P1 全修**:
-- P1-1: accuracy 公式 re-answer 场景可能 > 100% (correct/(correct+wrong) 防)
-- P1-2: sourceBreakdown 用 cardId 前缀推断 source (production 不可能产 s-/f- 前缀) → 改读 history.source
-- P1-3: 测试用 production 不可能 cardId → 改用真实 source/cardId 组合 + 加 re-answer 测试
-
-**测试**:
-- 1065 测试 (1054 → 1065) / 82 文件 全过
-- 11 个 errorReviewReport 测试 PASS (含 re-answer 边界)
-
-**累计 (v2.0.8)**:
-- 105 release tag / 17+ 周 / 32 次大 review (含 11 verifier 抗审查)
-- 24 P0 + 49 P1 累计修
-- 0 P0 + 0 P1 业务
-- 错题复习 业务 增强: 答完 完整 学习报告
-
+**累计 (v2.0.8)**: 108 release tag / 18+ 周 / 32 次大 review (含 11 verifier 抗审查) / 24 P0 + 49 P1 / 0 业务
 
 ## [v2.0.4] - 2026-08-04
 
