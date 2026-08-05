@@ -4,7 +4,7 @@
 
 ---
 
-## 📊 摘要 (v0.1.0 ~ v2.0.7)
+## 📊 摘要 (v0.1.0 ~ v2.0.8)
 
 | 阶段 | 范围 | 主要交付 |
 |------|------|---------|
@@ -20,9 +20,9 @@
 | **数据 100%** | v2.0.3-v2.0.4 | 87 词 pos + 92 词 example (pos 100% + examples 100%, verifier 抗审查 W94+W95) ⭐ 收官 |
 | **学习报告** | v2.0.5 | 错题复习 答完 完整 学习报告 (准确率/分数/难度/成绩/偷看, verifier 抗审查 W96) |
 
-**累计 (v2.0.7)**:
-- **101 release tag** / 17+ 周 / **31 次大 review** (含 10 verifier 抗审查)
-- **1097 单元测试 / 84 文件** ⭐ 稳定 1000+
+**累计 (v2.0.8)**:
+- **101 release tag** / 17+ 周 / **32 次大 review** (含 11 verifier 抗审查)
+- **1099 单元测试 / 85 文件** ⭐ 稳定 1000+
 - 5,423 词 / 100% 词根 / 5,423 短语 (100%) ⭐ W93 收官
 - 20 篇课文 / 244 同义词组 / 78 反义词
 - **7 大激活功能** (含 永久 IDB 错题复习)
@@ -3791,12 +3791,38 @@
 
 **测试**: 1097 测试 (1087 + 10) / 84 文件 全过
 
-**累计 (v2.0.7)**: 107 release tag / 18+ 周 / 31 次大 review / 24 P0 + 49 P1 / 0 业务
+**累计 (v2.0.8)**: 107 release tag / 18+ 周 / 32 次大 review / 24 P0 + 49 P1 / 0 业务
 
 - P0-3: 死代码 getUserMasteredWords + 3 个 *Sync → 删
 - P1-1: 大小写 不 统一 → findCrossLessonWords 归一化
 - P1-2: 跨课 阈值 2 硬编码 → 参数化
 - P1-3: 状态 阈值 90/30 硬编码 → 常量
+- P1-4: 错题 复习 成功 仍 算 不 掌握 → score >= 60 不 算
+
+## [v2.0.8] - 2026-08-05
+
+### v2.0.8 W100 — 侧边栏 滚动 修复
+
+**业务承诺**: 桌面 侧边栏 22 项 nav 在 屏幕 < 880px 可 滚, 末 3 项 不 截 断.
+
+**核心改动**:
+- src/components/Layout.tsx (改 桌面 aside/nav/header):
+  - aside 加 md:overflow-hidden (整 aside 不 滚, 内部 滚)
+  - header 改 flex-shrink-0 (不 被 压 缩)
+  - nav 加 min-h-0 + overflow-y-auto (内容 滚, header 固定)
+- tests/layout-scroll.test.ts (2 测试)
+
+**业务 bug**:
+- 之前: aside 没 overflow 控制, 22 项 * ~40px = 880px > 屏幕 800px
+- 末 3 项 (跟读趋势/成就/文档) 截 断, 用户 不 能 访问
+
+**修复 关键**: min-h-0 + flex-1 是 flex item 滚 动 关键
+(否则 flex item 默认 min-height: auto → 不 滚)
+
+**测试**: 1099 测试 (1097 + 2) / 85 文件 全过
+
+**累计 (v2.0.8)**: 108 release tag / 18+ 周 / 32 次大 review / 24 P0 + 49 P1
+
 - P1-4: 错题 复习 成功 仍 算 不 掌握 → score >= 60 不 算
 - P2-1 ~ P2-7: UI 集成 + 性能 + 入口 + 类型 + 错误兜底 + 测试覆盖 全修
 
@@ -3804,8 +3830,8 @@
 - 1077 测试 (1065 + 12) / 83 文件 全过
 - 12 个 lessonScore 测试 PASS (含 4 业务边界)
 
-**累计 (v2.0.7)**:
-- 106 release tag / 17+ 周 / 31 次大 review (含 10 verifier 抗审查)
+**累计 (v2.0.8)**:
+- 106 release tag / 17+ 周 / 32 次大 review (含 11 verifier 抗审查)
 - 24 P0 + 49 P1 累计修
 - 0 P0 + 0 P1 业务
 - 课文评分 业务 完成
@@ -3832,8 +3858,8 @@
 - 1065 测试 (1054 → 1065) / 82 文件 全过
 - 11 个 errorReviewReport 测试 PASS (含 re-answer 边界)
 
-**累计 (v2.0.7)**:
-- 105 release tag / 17+ 周 / 31 次大 review (含 10 verifier 抗审查)
+**累计 (v2.0.8)**:
+- 105 release tag / 17+ 周 / 32 次大 review (含 11 verifier 抗审查)
 - 24 P0 + 49 P1 累计修
 - 0 P0 + 0 P1 业务
 - 错题复习 业务 增强: 答完 完整 学习报告
@@ -3860,8 +3886,8 @@
 - tests/w95-examples.test.ts 6 个 it 全部 PASS
 - 92 词 全部 example 含词根 准确性 100%
 
-**累计 (v2.0.7)**:
-- 104 release tag / 17+ 周 / 31 次大 review (含 10 verifier 抗审查)
+**累计 (v2.0.8)**:
+- 104 release tag / 17+ 周 / 32 次大 review (含 11 verifier 抗审查)
 - 24 P0 + 49 P1 累计修
 - 0 P0 + 0 P1 业务
 - **5,423 词 / 100% 词根 / 100% 短语 / 100% pos / 100% examples** ⭐ 主线 数据 100% 收官
@@ -3891,8 +3917,8 @@
 - 1048 测试 (1045 → 1048) / 80 文件 全过
 - tests/w94-examples.test.ts 8 个 it 全部 PASS
 
-**累计 (v2.0.7)**:
-- 103 release tag / 17+ 周 / 31 次大 review (含 10 verifier 抗审查)
+**累计 (v2.0.8)**:
+- 103 release tag / 17+ 周 / 32 次大 review (含 11 verifier 抗审查)
 - 24 P0 + 49 P1 累计修
 - 0 P0 + 0 P1 业务
 - 5,423 词 pos 100% / 短语 100% / 词根 100% / examples 98.29%
@@ -3919,8 +3945,8 @@
 - 1040 测试 (1035 → 1040) / 79 文件 全过
 - tests/w93-phrases.test.ts 5 个 it 全部 PASS
 
-**累计 (v2.0.7)**:
-- 102 release tag / 17+ 周 / 31 次大 review (含 10 verifier 抗审查)
+**累计 (v2.0.8)**:
+- 102 release tag / 17+ 周 / 32 次大 review (含 11 verifier 抗审查)
 - 24 P0 + 49 P1 累计修
 - 0 P0 + 0 P1 业务
 - 短语补全 100% 收官 ⭐
@@ -3955,8 +3981,8 @@
 - 1035 测试 (1031 → 1035) / 78 文件 全过
 - tests/w92-phrases.test.ts 加 '5-9 字符短语 100% 有中文翻译' 断言 (4 it)
 
-**累计 (v2.0.7)**:
-- 101 release tag / 17+ 周 / 31 次大 review (含 10 verifier 抗审查)
+**累计 (v2.0.8)**:
+- 101 release tag / 17+ 周 / 32 次大 review (含 11 verifier 抗审查)
 - 24 P0 + 49 P1 累计修
 - 0 P0 + 0 P1 业务
 
