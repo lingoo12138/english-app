@@ -4,7 +4,7 @@
 
 ---
 
-## 📊 摘要 (v0.1.0 ~ v2.0.8)
+## 📊 摘要 (v0.1.0 ~ v2.0.9)
 
 | 阶段 | 范围 | 主要交付 |
 |------|------|---------|
@@ -21,8 +21,8 @@
 | **学习报告** | v2.0.5 | 错题复习 答完 完整 学习报告 (准确率/分数/难度/成绩/偷看, verifier 抗审查 W96) |
 | **侧边栏滚动** | v2.0.8 | 桌面 22 项 nav 跨设备 可滚 (min-h-0 业务关键, verifier 抗审查 W100) |
 
-**累计 (v2.0.8)**:
-- **101 release tag** / 17+ 周 / **32 次大 review** (含 11 verifier 抗审查)
+**累计 (v2.0.9)**:
+- **101 release tag** / 17+ 周 / **33 次大 review** (含 12 verifier 抗审查)
 - **1099 单元测试 / 85 文件** ⭐ 稳定 1000+
 - 5,423 词 / 100% 词根 / 5,423 短语 (100%) ⭐ W93 收官
 - 20 篇课文 / 244 同义词组 / 78 反义词
@@ -3792,7 +3792,7 @@
 
 **测试**: 1097 测试 (1087 + 10) / 84 文件 全过
 
-**累计 (v2.0.8)**: 107 release tag / 18+ 周 / 32 次大 review / 24 P0 + 49 P1 / 0 业务
+**累计 (v2.0.9)**: 107 release tag / 18+ 周 / 33 次大 review / 24 P0 + 49 P1 / 0 业务
 
 - P0-3: 死代码 getUserMasteredWords + 3 个 *Sync → 删
 - P1-1: 大小写 不 统一 → findCrossLessonWords 归一化
@@ -3841,7 +3841,7 @@
 
 **测试**: 1105 测试 (1097 → 1105, +8) / 85 文件 全过
 
-**累计 (v2.0.8)**: 108 release tag / 18+ 周 / 32 次大 review (含 11 verifier 抗审查) / 24 P0 + 49 P1 / 0 业务
+**累计 (v2.0.9)**: 108 release tag / 18+ 周 / 33 次大 review (含 12 verifier 抗审查) / 24 P0 + 49 P1 / 0 业务
 
 ## [v2.0.4] - 2026-08-04
 
@@ -3859,13 +3859,42 @@
 - P1-2: 'gy' example 人造/非标准 → 删
 - P1-3: 'hur' example 语法错 + 词非真实英语词 → 改为 'The wind howled like a hurricane.'
 
+## [v2.0.9] - 2026-08-05
+
+### v2.0.9 W101-W104 — 4 release 一起 (数据一致性+跨页+Firefox+滚动持久化)
+
+**业务承诺** (4 release 整合):
+- W101: 5,423 词 数据 100% 校验 (0 issue, 修 4 词)
+- W102: 释义收藏 跨页 集成 (词库 跳 释义收藏 跨词)
+- W103: 滚动 条 Firefox 兼容 (scrollbar-width + scrollbar-color)
+- W104: 导航 后 滚 动 位置 持久化 (跨 路由 scrollTop 持久)
+
+**核心改动** (主 5ebfa30 + 5f48b27b):
+- src/lib/dataConsistency.ts: 61 行 (checkWordConsistency + checkAllWords + summarizeIssues, 5 类型)
+- scripts/w101-check.py + scripts/w101_check.ts: 跑 真实 words.json
+- src/components/WordCard.tsx: 加 favCount + onClickFavs (W102)
+- src/pages/WordList.tsx: 加 favCountMap + handleClickFavs (W102)
+- src/pages/TranslationFavsPage.tsx: useSearchParams 跨页 (W102)
+- src/index.css: scrollbar Firefox 兼容 (W103)
+- src/components/Layout.tsx: navRef + scrollPosRef (W104)
+- public/data/words.json: 4 词 pos 修 (maximum/okay/reverse + 1)
+
+**测试**: 1120 测试 (1105 + 15) / 87 文件 全过
+- 11 dataConsistency
+- 4 translationFavCrossPage
+- 5 w103-w104-polish
+
+**累计 (v2.0.9)**: 109 release tag / 18+ 周 / 33 次大 review / 24 P0 + 49 P1 / 0 业务
+
+- P1-3: 'hur' example 语法错 + 词非真实英语词 → 改为 'The wind howled like a hurricane.'
+
 **测试**:
 - 1054 测试 (1048 → 1054) / 81 文件 全过
 - tests/w95-examples.test.ts 6 个 it 全部 PASS
 - 92 词 全部 example 含词根 准确性 100%
 
-**累计 (v2.0.8)**:
-- 104 release tag / 17+ 周 / 32 次大 review (含 11 verifier 抗审查)
+**累计 (v2.0.9)**:
+- 104 release tag / 17+ 周 / 33 次大 review (含 12 verifier 抗审查)
 - 24 P0 + 49 P1 累计修
 - 0 P0 + 0 P1 业务
 - **5,423 词 / 100% 词根 / 100% 短语 / 100% pos / 100% examples** ⭐ 主线 数据 100% 收官
@@ -3895,8 +3924,8 @@
 - 1048 测试 (1045 → 1048) / 80 文件 全过
 - tests/w94-examples.test.ts 8 个 it 全部 PASS
 
-**累计 (v2.0.8)**:
-- 103 release tag / 17+ 周 / 32 次大 review (含 11 verifier 抗审查)
+**累计 (v2.0.9)**:
+- 103 release tag / 17+ 周 / 33 次大 review (含 12 verifier 抗审查)
 - 24 P0 + 49 P1 累计修
 - 0 P0 + 0 P1 业务
 - 5,423 词 pos 100% / 短语 100% / 词根 100% / examples 98.29%
@@ -3923,8 +3952,8 @@
 - 1040 测试 (1035 → 1040) / 79 文件 全过
 - tests/w93-phrases.test.ts 5 个 it 全部 PASS
 
-**累计 (v2.0.8)**:
-- 102 release tag / 17+ 周 / 32 次大 review (含 11 verifier 抗审查)
+**累计 (v2.0.9)**:
+- 102 release tag / 17+ 周 / 33 次大 review (含 12 verifier 抗审查)
 - 24 P0 + 49 P1 累计修
 - 0 P0 + 0 P1 业务
 - 短语补全 100% 收官 ⭐
@@ -3959,8 +3988,8 @@
 - 1035 测试 (1031 → 1035) / 78 文件 全过
 - tests/w92-phrases.test.ts 加 '5-9 字符短语 100% 有中文翻译' 断言 (4 it)
 
-**累计 (v2.0.8)**:
-- 101 release tag / 17+ 周 / 32 次大 review (含 11 verifier 抗审查)
+**累计 (v2.0.9)**:
+- 101 release tag / 17+ 周 / 33 次大 review (含 12 verifier 抗审查)
 - 24 P0 + 49 P1 累计修
 - 0 P0 + 0 P1 业务
 
