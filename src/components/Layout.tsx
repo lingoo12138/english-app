@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { getPageTitle } from '../lib/utils'
 import { ToastContainer } from './Toast'
@@ -51,6 +52,22 @@ export default function Layout() {
   const fullTitle = getPageTitle(location.pathname)
   const shortTitle = isHome ? '句刻' : fullTitle.split(' - ')[0]
 
+  // W104: 桌面 侧边栏 滚 动 位置 持久化 (跨 路由)
+  const navRef = useRef<HTMLElement>(null)
+  const scrollPosRef = useRef<number>(0)
+  useEffect(() => {
+    // 路由 变化 前 保存 滚 动 位置
+    return () => {
+      if (navRef.current) scrollPosRef.current = navRef.current.scrollTop
+    }
+  }, [location.pathname])
+  useEffect(() => {
+    // 路由 变化 后 恢复 滚 动 位置
+    if (navRef.current && scrollPosRef.current) {
+      navRef.current.scrollTop = scrollPosRef.current
+    }
+  }, [location.pathname])
+
   return (
     <div className="min-h-full flex flex-col md:flex-row">
       {/* 修复: a11y skip-to-main 链接,屏幕阅读器和键盘用户可跳过导航 */}
@@ -66,7 +83,7 @@ export default function Layout() {
           <h1 className="text-2xl font-bold text-brand-600">句刻</h1>
           <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">即时英语学习</p>
         </div>
-        <nav className="flex-1 min-h-0 px-3 py-4 space-y-1 overflow-y-auto">
+        <nav ref={navRef} className="flex-1 min-h-0 px-3 py-4 space-y-1 overflow-y-auto">
           {desktopNav.map((item) => (
             <NavLink
               key={item.to}
