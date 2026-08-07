@@ -52,19 +52,23 @@ export default function Layout() {
   const fullTitle = getPageTitle(location.pathname)
   const shortTitle = isHome ? '句刻' : fullTitle.split(' - ')[0]
 
-  // W104: 桌面 侧边栏 滚 动 位置 持久化 (跨 路由)
+  // W104 修 v1: 桌面 侧边栏 滚 动 位置 持久化 (每 页 独 立, verifier B 修 P1)
   const navRef = useRef<HTMLElement>(null)
-  const scrollPosRef = useRef<number>(0)
+  const scrollPosMapRef = useRef<Map<string, number>>(new Map())
   useEffect(() => {
-    // 路由 变化 前 保存 滚 动 位置
+    // 路由 变化 时: 保存 离 开页 位置, 恢复 进入页 位置
+    const currentPath = location.pathname
     return () => {
-      if (navRef.current) scrollPosRef.current = navRef.current.scrollTop
+      if (navRef.current) {
+        scrollPosMapRef.current.set(currentPath, navRef.current.scrollTop)
+      }
     }
   }, [location.pathname])
   useEffect(() => {
-    // 路由 变化 后 恢复 滚 动 位置
-    if (navRef.current && scrollPosRef.current) {
-      navRef.current.scrollTop = scrollPosRef.current
+    // 路由 进入 时: 恢复 该页 位置 (默认 0)
+    if (navRef.current) {
+      const saved = scrollPosMapRef.current.get(location.pathname) || 0
+      navRef.current.scrollTop = saved
     }
   }, [location.pathname])
 

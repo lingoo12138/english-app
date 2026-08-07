@@ -2,7 +2,7 @@
 import { describe, it, expect } from 'vitest'
 import { readFileSync } from 'fs'
 import { render } from '@testing-library/react'
-import { MemoryRouter, useLocation } from 'react-router-dom'
+import { MemoryRouter } from 'react-router-dom'
 import React from 'react'
 import Layout from '../src/components/Layout'
 
@@ -23,11 +23,34 @@ describe('W103 滚动条 Firefox 兼容', () => {
   })
 })
 
-describe('W104 导航 后 侧边栏 滚 动 持久化', () => {
-  it('Layout 含 navRef + scrollPosRef', () => {
+describe('W104 修 v1 跨路由 滚 动 位置 独立 (verifier B P1 修)', () => {
+  it('Layout 含 navRef + scrollPosMapRef', () => {
     const layout = readFileSync('src/components/Layout.tsx', 'utf-8')
     expect(layout).toContain('navRef')
-    expect(layout).toContain('scrollPosRef')
+    expect(layout).toContain('scrollPosMapRef')
+  })
+
+  it('Layout 用 Map<path, number> 存 每 页 位置', () => {
+    const layout = readFileSync('src/components/Layout.tsx', 'utf-8')
+    expect(layout).toMatch(/Map<string,\s*number>/)
+  })
+
+  it('Layout 不 仍 用 scrollPosRef 旧 单 变量 (verifier B 修)', () => {
+    const layout = readFileSync('src/components/Layout.tsx', 'utf-8')
+    // 旧: scrollPosRef.current = navRef...  (save)
+    expect(layout).not.toMatch(/scrollPosRef\.current\s*=\s*navRef/)
+    // 旧: scrollPosRef.current (used in restore)
+    expect(layout).not.toMatch(/navRef\.current\.scrollTop\s*=\s*scrollPosRef/)
+  })
+
+  it('cleanup 时 调 set 保存 离 开页 位置', () => {
+    const layout = readFileSync('src/components/Layout.tsx', 'utf-8')
+    expect(layout).toMatch(/scrollPosMapRef\.current\.set\(currentPath/)
+  })
+
+  it('进入 effect 时 调 get 恢复 该页 位置', () => {
+    const layout = readFileSync('src/components/Layout.tsx', 'utf-8')
+    expect(layout).toMatch(/scrollPosMapRef\.current\.get\(location\.pathname\)/)
   })
 
   it('Layout 桌面 nav 渲染 正确', () => {
