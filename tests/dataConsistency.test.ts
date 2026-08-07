@@ -110,3 +110,24 @@ describe('W105 修 v1 valid_pos 扩展 + 5,423 词 自动化', () => {
     }
   })
 })
+
+// W111 修: dataConsistency 库 完 善 (P2-4/P3-1/P3-2/P2-5 修)
+describe('W111 dataConsistency 库 完 善', () => {
+  it('ConsistencyIssueType 提 取, 4 类型 (empty_roots 删)', () => {
+    // 业务: empty_roots 死 type 删
+    const lib = readFileSync('src/lib/dataConsistency.ts', 'utf-8')
+    expect(lib).toContain('export type ConsistencyIssueType')
+    expect(lib).not.toContain("'empty_roots'")
+  })
+
+  it('注 解 修 改 (W94 业务 允许 空 词根)', () => {
+    // 业务: 注 解 矛盾 修
+    const lib = readFileSync('src/lib/dataConsistency.ts', 'utf-8')
+    expect(lib).toMatch(/5\. 词根: 业务 允许 空/)
+  })
+
+  it('package.json 含 check:data npm script', () => {
+    const pkg = JSON.parse(readFileSync('package.json', 'utf-8'))
+    expect(pkg.scripts['check:data']).toBe('tsx scripts/w101_check.ts')
+  })
+})

@@ -1,10 +1,12 @@
 // src/lib/dataConsistency.ts - 数据 一致性 校验 (W101)
 import type { Word } from '../types'
 
+export type ConsistencyIssueType = 'pos_format' | 'missing_translation' | 'empty_examples' | 'empty_phrases'
+
 export interface ConsistencyIssue {
   wordId: string
   word: string
-  type: 'pos_format' | 'missing_translation' | 'empty_examples' | 'empty_phrases' | 'empty_roots'
+  type: ConsistencyIssueType
   message: string
 }
 
@@ -47,8 +49,8 @@ export function checkWordConsistency(word: Word): ConsistencyIssue[] {
   if (!word.phrases || word.phrases.length === 0) {
     issues.push({ wordId: word.id, word: word.word, type: 'empty_phrases', message: '无 短语' })
   }
-  // 5. 词根 不空 (W94 业务 允许空)
-  // 业务: 短 词 派生 词 词根 可 空, 不 算 issue
+  // 5. 词根: 业务 允许 空 (W94 决定, 短 派生 词 词根 可 空)
+  // 不 算 issue - 业务 决 策
   return issues
 }
 
