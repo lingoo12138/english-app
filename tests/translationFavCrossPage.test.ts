@@ -1,9 +1,10 @@
-// translationFavCrossPage.test.ts - 释义收藏 跨页 集成 测试 (W102 + W106)
+// translationFavCrossPage.test.ts - 释义收藏 跨页 集成 测试 (W102 + W106 + W110)
 import { describe, it, expect, vi } from 'vitest'
 import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import React, { act } from 'react'
 import WordCard from '../src/components/WordCard'
+import { readFileSync } from 'fs'
 import type { Word } from '../src/types'
 
 // mock 词库 1 词 (避免 5,423 词 fetch)
@@ -66,8 +67,7 @@ describe('W102 修 v1 WordList 端到端 跨页', () => {
     const { default: WordList } = await import('../src/pages/WordList')
     const { container } = render(React.createElement(MemoryRouter, null, React.createElement(WordList)))
     await act(async () => { await new Promise(r => setTimeout(r, 500)) })
-    // 业务 关键: WordList 调 getAllTranslationFavs → favCountMap 渲 染 '⭐ N 收藏' 链
-    // mock 返 phone 2 favs, book 1 fav
+    // 业务 关键: WordList 调 getAllTranslationFavs → favCountMap 渲 染 '收藏' 链
     expect(container.textContent).toMatch(/收藏/)
     vi.doUnmock('../src/lib/db')
   })
@@ -88,7 +88,6 @@ describe('W106 跨页 端到端 URL 同步', () => {
     const TF = (await import('../src/pages/TranslationFavsPage')).default
     const { container } = render(React.createElement(MemoryRouter, { initialEntries: ['/translation-favs?word=phone'] }, React.createElement(TF)))
     await act(async () => { await new Promise(r => setTimeout(r, 500)) })
-    // 业务: URL ?word=phone → useEffect → 跨词 模式 启
     const cb = container.querySelector('input[type="checkbox"]') as HTMLInputElement | null
     expect(cb).toBeTruthy()
     expect(cb?.checked).toBe(true)
@@ -108,10 +107,37 @@ describe('W106 跨页 端到端 URL 同步', () => {
     const TF = (await import('../src/pages/TranslationFavsPage')).default
     const { container } = render(React.createElement(MemoryRouter, { initialEntries: ['/translation-favs?word='] }, React.createElement(TF)))
     await act(async () => { await new Promise(r => setTimeout(r, 500)) })
-    // 业务: 空 word - 跨词 模式 不 启 (useEffect 短路 if wordQuery)
     const cb = container.querySelector('input[type="checkbox"]') as HTMLInputElement | null
     expect(cb).toBeTruthy()
     expect(cb?.checked).toBe(false)
     vi.doUnmock('../src/lib/db')
+  })
+})
+
+// W110 URL 脏 参数 清理 (verifier A P2-1 修)
+describe('W110 URL 脏 参数 清理', () => {
+  it('TranslationFavsPage URL 无 ?word= 不 调 setSearchParams 业务 路径 (跨词 不 启)', async () => {
+    vi.resetModules()
+    vi.doMock('../src/lib/db', () => ({
+      getAllTranslationFavs: vi.fn(async () => [
+        { wordId: 'w-phone', index: 0, text: '电话', addedAt: 1 },
+      ]),
+      getAllWritingErrors: vi.fn(async () => []),
+      getAllDictationErrors: vi.fn(async () => []),
+      getAllErrorReviewScores: vi.fn(async () => []),
+    }))
+    const TF = (await import('../src/pages/TranslationFavsPage')).default
+    const { container } = render(React.createElement(MemoryRouter, { initialEntries: ['/translation-favs'] }, React.createElement(TF)))
+    await act(async () => { await new Promise(r => setTimeout(r, 500)) })
+    const cb = container.querySelector('input[type="checkbox"]') as HTMLInputElement | null
+    expect(cb).toBeTruthy()
+    expect(cb?.checked).toBe(false)
+    vi.doUnmock('../src/lib/db')
+  })
+
+  it('TranslationFavsPage 含 setSearchParams ... replace:true 调 用 (源码)', () => {
+    const tf = readFileSync('src/pages/TranslationFavsPage.tsx', 'utf-8')
+    expect(tf).toMatch(/setSearchParams\(/)
+    expect(tf).toMatch(/replace: true/)
   })
 })

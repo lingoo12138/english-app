@@ -62,6 +62,7 @@ export default function TranslationFavsPage() {
   useEffect(() => { load() }, [load])
   // W102: 跨页 query 同步 (词库 点 跳 → 自动 跨词 + 搜 该词)
   // P2-2 修: 加 else 分支, URL ?word= 移 除 时 重 置 状 态
+  // W110 修 (verifier A P2-1): URL 脏 参数 累 积 → 清 URL (避免 ?word= 永 不清)
   useEffect(() => {
     if (wordQuery) {
       setCrossWordMode(true)
@@ -69,8 +70,13 @@ export default function TranslationFavsPage() {
     } else {
       setCrossWordMode(false)
       setSearch('')
+      // 清 URL 脏 参数, 避 免 后 退/刷 新 重 启 跨词 模式
+      setSearchParams((prev) => {
+        prev.delete('word')
+        return prev
+      }, { replace: true })
     }
-  }, [wordQuery])
+  }, [wordQuery, setSearchParams])
 
   // v1.97 W89-C: 用 FavWithWord 重算 (多维度过滤)
   const favsWithWord: FavWithWord[] = useMemo(() => {
