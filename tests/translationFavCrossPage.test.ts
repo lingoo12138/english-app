@@ -65,8 +65,10 @@ describe('W102 修 v1 WordList 端到端 跨页', () => {
     }))
     const { default: WordList } = await import('../src/pages/WordList')
     const { container } = render(React.createElement(MemoryRouter, null, React.createElement(WordList)))
-    await act(async () => { await new Promise(r => setTimeout(r, 200)) })
-    expect(true).toBe(true)
+    await act(async () => { await new Promise(r => setTimeout(r, 500)) })
+    // 业务 关键: WordList 调 getAllTranslationFavs → favCountMap 渲 染 '⭐ N 收藏' 链
+    // mock 返 phone 2 favs, book 1 fav
+    expect(container.textContent).toMatch(/收藏/)
     vi.doUnmock('../src/lib/db')
   })
 })

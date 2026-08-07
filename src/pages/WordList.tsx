@@ -52,7 +52,7 @@ export default function WordList() {
       .catch(e => console.error('[WordList] getAllFavorites failed:', e))
   }, [])
 
-  // W102 修 v1: 加载 收藏 数量 map (per word) - 实时 跟 favSet 同步
+  // W102 修 v1 (P2-1 修): mount 时 拉 一 次, 避 免 冗 余 fetch
   useEffect(() => {
     getAllTranslationFavs()
       .then(favs => {
@@ -61,7 +61,7 @@ export default function WordList() {
         setFavCountMap(m)
       })
       .catch(e => console.error('[WordList] getAllTranslationFavs failed:', e))
-  }, [favSet])  // favSet 变 化 (收藏/取消) 时 重 算
+  }, [])  // mount only - 跨 路由 跳 后 remount 自 动 重 拉
 
   useEffect(() => {
     if (level === 'all' && targetLevel !== 'all') {

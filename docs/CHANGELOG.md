@@ -3861,30 +3861,54 @@
 
 ## [v2.0.9] - 2026-08-05
 
-### v2.0.9 W101-W104 — 4 release 一起 (数据一致性+跨页+Firefox+滚动持久化)
+### v2.0.9 W101-W108 — 4 release 整合 + 抗审查 修 v1 + W105-W108 P1 修
 
-**业务承诺** (4 release 整合):
-- W101: 5,423 词 数据 100% 校验 (0 issue, 修 4 词)
-- W102: 释义收藏 跨页 集成 (词库 跳 释义收藏 跨词)
+**业务承诺** (8 release 整合):
+- W101: 5,423 词 数据 100% 校验 (0 issue, 修 4 词 pos)
+- W102: 释义收藏 跨页 集成 (词库 ⭐ N 收藏 → 跳 释义收藏 跨词 模式)
 - W103: 滚动 条 Firefox 兼容 (scrollbar-width + scrollbar-color)
 - W104: 导航 后 滚 动 位置 持久化 (跨 路由 scrollTop 持久)
+- W105: valid_pos 扩 展 (det/pl 兼容 牛津/朗文) + 5,423 词 自动化 测 试
+- W106: 跨页 useEffect 端到端 测 试
+- W107: CSS '*' 通配 符 缩小 (body, aside, main, nav)
+- W108: 跨 路由 滚 动 行为 端到端 测 试
 
-**核心改动** (主 5ebfa30 + 5f48b27b):
+**核心改动** (主 5ebfa30 + 5f48b27b + 修 v1 79cf131 + 6239e94 + 修 2 4e1c3f + 修 W104 + W105-W107 7484b63 + W108 0404acd):
 - src/lib/dataConsistency.ts: 61 行 (checkWordConsistency + checkAllWords + summarizeIssues, 5 类型)
-- scripts/w101-check.py + scripts/w101_check.ts: 跑 真实 words.json
+- scripts/w101_check.ts: 跑 真实 words.json
 - src/components/WordCard.tsx: 加 favCount + onClickFavs (W102)
-- src/pages/WordList.tsx: 加 favCountMap + handleClickFavs (W102)
-- src/pages/TranslationFavsPage.tsx: useSearchParams 跨页 (W102)
-- src/index.css: scrollbar Firefox 兼容 (W103)
-- src/components/Layout.tsx: navRef + scrollPosRef (W104)
+- src/pages/WordList.tsx: 加 favCountMap + handleClickFavs (W102) + getAllTranslationFavs useEffect (修 v1)
+- src/pages/TranslationFavsPage.tsx: useSearchParams 跨页 (W102) + else 分支 重 置 (修 v1)
+- src/index.css: scrollbar Firefox 兼容 (W103) + body/aside/main/nav 缩 小 (W107)
+- src/components/Layout.tsx: navRef + scrollPosMapRef (W104 修 v1)
 - public/data/words.json: 4 词 pos 修 (maximum/okay/reverse + 1)
+- VALID_POS 扩 展 'det'/'pl' (W105)
 
-**测试**: 1120 测试 (1105 + 15) / 87 文件 全过
-- 11 dataConsistency
-- 4 translationFavCrossPage
-- 5 w103-w104-polish
+**业务 bug 详情 (修 v1)**:
+- P0-1 (verifier A): WordList favCountMap 死 状态 → 修: 加 useEffect 调 getAllTranslationFavs
+- P1-2 (verifier B): W104 跨 路由 滚 动 错位 → 修: scrollPosMapRef (Map<path, number>) 存 每 页 位置
+- P1-1 (verifier A): 跨页 useEffect 端到端 测 试 漏 → 修: +2 测 试
+- P1-3 (verifier A): valid_pos 缺 'det'/'pl' → 修: 扩 展
+- P1-4 (verifier A): CSS '*' 通配 符 过 宽 → 修: 缩小
+- P1-5 (verifier A): words.json 5,423 词 0 自动化 测 试 漏 → 修: +5 测 试
+- P2-1 (verifier C): useEffect 依赖 [favSet] 错 → 修: 空依赖
+- P2-2 (verifier C): useSearchParams 状态 不 重 置 → 修: else 分支
 
-**累计 (v2.0.9)**: 109 release tag / 18+ 周 / 33 次大 review / 24 P0 + 49 P1 / 0 业务
+**测试**: 1143 测试 (1105 + 38) / 88 文件 全过
+- 11+5 dataConsistency (W101+W105)
+- 5+2 translationFavCrossPage (W102+W106)
+- 5+1 w103-w104-polish (W103+W104)
+- 3 w108-scroll-behavior (W108)
+- 8 layout-scroll (W100)
+
+**verifier 抗审查 完 整 循环 (第 33 + 34 次大 review)**:
+- 第 33 次: 2 verifier 并行, 找 2 P0 + 4 P1 + 6 P2 (A) + 1 P0 + 1 P1 + 3 P2 (B)
+- 第 34 次: 3 verifier 并行, 找 2 P1 + 8 P2 + 5 P3 (C)
+- 累计 修 v1 跨 4 个 commit: 79cf131 (P0+5P1) + 6239e94 (W104 P1) + 7484b63 (W105-W107) + 0404acd (W108) + 本次
+
+**累计 (v2.0.9)**: 111 release tag / 18+ 周 / 33 次大 review (含 15 verifier 抗审查) / 24 P0 + 49 P1 / 0 业务
+
+ P0 + 49 P1 / 0 业务
 
 - P1-3: 'hur' example 语法错 + 词非真实英语词 → 改为 'The wind howled like a hurricane.'
 

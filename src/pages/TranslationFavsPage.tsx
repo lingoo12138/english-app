@@ -61,10 +61,14 @@ export default function TranslationFavsPage() {
 
   useEffect(() => { load() }, [load])
   // W102: 跨页 query 同步 (词库 点 跳 → 自动 跨词 + 搜 该词)
+  // P2-2 修: 加 else 分支, URL ?word= 移 除 时 重 置 状 态
   useEffect(() => {
     if (wordQuery) {
       setCrossWordMode(true)
       setSearch(wordQuery)
+    } else {
+      setCrossWordMode(false)
+      setSearch('')
     }
   }, [wordQuery])
 
