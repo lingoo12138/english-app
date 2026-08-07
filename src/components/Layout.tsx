@@ -1,4 +1,5 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
+import { loadScrollPosMap, saveScrollPosMap } from '../lib/scrollPosStorage'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { getPageTitle } from '../lib/utils'
 import { ToastContainer } from './Toast'
@@ -54,23 +55,26 @@ export default function Layout() {
 
   // W104 修 v1: 桌面 侧边栏 滚 动 位置 持久化 (每 页 独 立, verifier B 修 P1)
   const navRef = useRef<HTMLElement>(null)
-  const scrollPosMapRef = useRef<Map<string, number>>(new Map())
+  const [scrollPosMap, setScrollPosMap] = useState<Map<string, number>>(() => loadScrollPosMap() as Map<string, number>)
   useEffect(() => {
-    // 路由 变化 时: 保存 离 开页 位置, 恢复 进入页 位置
+    // 路由 变化 时: 保存 离 开页 位置, 持久 化
     const currentPath = location.pathname
     return () => {
       if (navRef.current) {
-        scrollPosMapRef.current.set(currentPath, navRef.current.scrollTop)
+        const updated = new Map<string, number>(scrollPosMap)
+        updated.set(currentPath, navRef.current.scrollTop)
+        setScrollPosMap(updated)
+        saveScrollPosMap(updated)
       }
     }
   }, [location.pathname])
   useEffect(() => {
     // 路由 进入 时: 恢复 该页 位置 (默认 0)
     if (navRef.current) {
-      const saved = scrollPosMapRef.current.get(location.pathname) || 0
+      const saved = scrollPosMap.get(location.pathname) || 0
       navRef.current.scrollTop = saved
     }
-  }, [location.pathname])
+  }, [location.pathname, scrollPosMap])
 
   return (
     <div className="min-h-full flex flex-col md:flex-row">

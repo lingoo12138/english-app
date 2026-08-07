@@ -23,11 +23,11 @@ describe('W103 滚动条 Firefox 兼容', () => {
   })
 })
 
-describe('W104 修 v1 跨路由 滚 动 位置 独立 (verifier B P1 修)', () => {
-  it('Layout 含 navRef + scrollPosMapRef', () => {
+describe('W104 修 v1 + W109 跨路由 滚 动 位置 持久 化', () => {
+  it('Layout 含 navRef + scrollPosMap (state)', () => {
     const layout = readFileSync('src/components/Layout.tsx', 'utf-8')
     expect(layout).toContain('navRef')
-    expect(layout).toContain('scrollPosMapRef')
+    expect(layout).toContain('scrollPosMap')
   })
 
   it('Layout 用 Map<path, number> 存 每 页 位置', () => {
@@ -35,22 +35,20 @@ describe('W104 修 v1 跨路由 滚 动 位置 独立 (verifier B P1 修)', () =
     expect(layout).toMatch(/Map<string,\s*number>/)
   })
 
-  it('Layout 不 仍 用 scrollPosRef 旧 单 变量 (verifier B 修)', () => {
+  it('W109 改 useState 不 用 scrollPosMapRef (持久 化)', () => {
     const layout = readFileSync('src/components/Layout.tsx', 'utf-8')
-    // 旧: scrollPosRef.current = navRef...  (save)
-    expect(layout).not.toMatch(/scrollPosRef\.current\s*=\s*navRef/)
-    // 旧: scrollPosRef.current (used in restore)
-    expect(layout).not.toMatch(/navRef\.current\.scrollTop\s*=\s*scrollPosRef/)
+    expect(layout).not.toMatch(/scrollPosMapRef\s*=\s*useRef<Map/)
   })
 
-  it('cleanup 时 调 set 保存 离 开页 位置', () => {
+  it('W109 cleanup 时 调 setScrollPosMap + saveScrollPosMap', () => {
     const layout = readFileSync('src/components/Layout.tsx', 'utf-8')
-    expect(layout).toMatch(/scrollPosMapRef\.current\.set\(currentPath/)
+    expect(layout).toMatch(/setScrollPosMap\(updated\)/)
+    expect(layout).toMatch(/saveScrollPosMap\(updated\)/)
   })
 
-  it('进入 effect 时 调 get 恢复 该页 位置', () => {
+  it('W109 进入 effect 时 调 scrollPosMap.get 恢复 该页 位置', () => {
     const layout = readFileSync('src/components/Layout.tsx', 'utf-8')
-    expect(layout).toMatch(/scrollPosMapRef\.current\.get\(location\.pathname\)/)
+    expect(layout).toMatch(/scrollPosMap\.get\(location\.pathname\)/)
   })
 
   it('Layout 桌面 nav 渲染 正确', () => {
