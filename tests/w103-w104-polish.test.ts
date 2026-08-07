@@ -9,17 +9,17 @@ import Layout from '../src/components/Layout'
 describe('W103 滚动条 Firefox 兼容', () => {
   it('index.css 含 scrollbar-width: thin (Firefox)', () => {
     const css = readFileSync('src/index.css', 'utf-8')
-    expect(css).toMatch(/scrollbar-width:\s*thin/)
+    expect(css).toMatch(/(body,\s*aside|aside,\s*main|nav)[\s\S]{0,100}scrollbar-width:\s*thin/)
   })
 
   it('index.css 含 scrollbar-color (Firefox)', () => {
     const css = readFileSync('src/index.css', 'utf-8')
-    expect(css).toMatch(/scrollbar-color:\s*rgb\(214\s*211\s*209\)/)
+    expect(css).toMatch(/(body|aside|main|nav)[\s\S]{0,100}scrollbar-color:\s*rgb\(214\s*211\s*209\)/)
   })
 
   it('index.css dark 模式 滚动条 颜色', () => {
     const css = readFileSync('src/index.css', 'utf-8')
-    expect(css).toMatch(/\.dark\s*\*[\s\S]{0,100}scrollbar-color:\s*rgb\(87\s*83\s*78\)/)
+    expect(css).toMatch(/\.dark\s+(body|aside|main|nav)[\s\S]{0,200}scrollbar-color:\s*rgb\(87\s+83\s+78\)/)
   })
 })
 

@@ -72,3 +72,41 @@ describe('W101 数据 一致性 校验', () => {
     expect(summary.pos_format).toBe(1)
   })
 })
+
+// W105 修 v1: valid_pos 扩展 + words.json 5,423 词 自动化 测 试
+import { readFileSync } from 'fs'
+import wordsData from '../public/data/words.json'
+
+describe('W105 修 v1 valid_pos 扩展 + 5,423 词 自动化', () => {
+  it('valid_pos 含 det (限定词, 牛津 标 this/that)', () => {
+    // 业务: 兼容 牛津/朗文 词性
+    const lib = readFileSync('src/lib/dataConsistency.ts', 'utf-8')
+    expect(lib).toContain("'det'")
+  })
+
+  it('valid_pos 含 pl (复数 标记)', () => {
+    const lib = readFileSync('src/lib/dataConsistency.ts', 'utf-8')
+    expect(lib).toContain("'pl'")
+  })
+
+  it('5,423 词 0 issue (P1-5 自动化 测 试)', () => {
+    // 业务: 跑 真实 words.json, 0 issue 校验 PASS
+    const issues = checkAllWords(wordsData as any)
+    if (issues.length > 0) {
+      console.error('W105 5,423 词 issues:', issues.slice(0, 5))
+    }
+    expect(issues.length).toBe(0)
+  })
+
+  it('5,423 词 ≥ 5400 (防 误 删)', () => {
+    // 业务: 词库 数据 不 减
+    expect(wordsData.length).toBeGreaterThanOrEqual(5400)
+  })
+
+  it('每 词 至少 1 释义', () => {
+    // 业务: 5 类型 校验 - 释义 不 空
+    for (const w of wordsData) {
+      expect(w.translations.length).toBeGreaterThan(0)
+    }
+  })
+})

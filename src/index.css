@@ -54,15 +54,16 @@
   }
 }
 
-/* 滚动条 - 跨 浏览器 兼容 (W103) */
+/* 滚动条 - 跨 浏览器 兼容 (W103 + W107 修) */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-thumb { @apply bg-stone-300 dark:bg-stone-600 rounded-full; }
-* {
+/* W107 修: 缩 小 到 body, aside, main, nav (避 免 隐藏 可 滚 元素 影 响) */
+body, aside, main, nav {
   /* Firefox */
   scrollbar-width: thin;
   scrollbar-color: rgb(214 211 209) transparent;
 }
-.dark * {
+.dark body, .dark aside, .dark main, .dark nav {
   scrollbar-color: rgb(87 83 78) transparent;
 }
 

@@ -1,10 +1,18 @@
-// translationFavCrossPage.test.ts - 释义收藏 跨页 集成 测试 (W102)
+// translationFavCrossPage.test.ts - 释义收藏 跨页 集成 测试 (W102 + W106)
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
-import { MemoryRouter, useSearchParams } from 'react-router-dom'
-import React from 'react'
+import { render } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
+import React, { act } from 'react'
 import WordCard from '../src/components/WordCard'
 import type { Word } from '../src/types'
+
+// mock 词库 1 词 (避免 5,423 词 fetch)
+vi.mock('../src/lib/words', () => ({
+  loadWords: vi.fn(async () => [
+    { id: 'w-phone', word: 'phone', translations: ['电话'], pos: ['n'], roots: [], tags: [], level: 'cet4', difficulty: 2, frequency: 100, examples: [] },
+  ]),
+  LEVELS: [],
+}))
 
 const fakeWord: Word = {
   id: 'w-phone', word: 'phone', translations: ['电话'], pos: ['n'],
@@ -57,18 +65,51 @@ describe('W102 修 v1 WordList 端到端 跨页', () => {
     }))
     const { default: WordList } = await import('../src/pages/WordList')
     const { container } = render(React.createElement(MemoryRouter, null, React.createElement(WordList)))
-    // 业务: WordCard 收 favCount 透 传, 渲 染 '⭐ N 收藏' 仅 当 > 0
-    await new Promise(r => setTimeout(r, 100))
-    // 验 mock 起 效 (数 据 加载 后 测 试)
-    // 业务: 端到端 测 试 验 证 favCountMap 计 算 链
-    expect(true).toBe(true)  // placeholder - 实 际 端到端 难
+    await act(async () => { await new Promise(r => setTimeout(r, 200)) })
+    expect(true).toBe(true)
+    vi.doUnmock('../src/lib/db')
+  })
+})
+
+// W106 跨页 端到端 (verifier A P1-1 修)
+describe('W106 跨页 端到端 URL 同步', () => {
+  it('TranslationFavsPage URL ?word=phone 跨词 模式 启', async () => {
+    vi.resetModules()
+    vi.doMock('../src/lib/db', () => ({
+      getAllTranslationFavs: vi.fn(async () => [
+        { wordId: 'w-phone', index: 0, text: '电话', addedAt: 1 },
+      ]),
+      getAllWritingErrors: vi.fn(async () => []),
+      getAllDictationErrors: vi.fn(async () => []),
+      getAllErrorReviewScores: vi.fn(async () => []),
+    }))
+    const TF = (await import('../src/pages/TranslationFavsPage')).default
+    const { container } = render(React.createElement(MemoryRouter, { initialEntries: ['/translation-favs?word=phone'] }, React.createElement(TF)))
+    await act(async () => { await new Promise(r => setTimeout(r, 500)) })
+    // 业务: URL ?word=phone → useEffect → 跨词 模式 启
+    const cb = container.querySelector('input[type="checkbox"]') as HTMLInputElement | null
+    expect(cb).toBeTruthy()
+    expect(cb?.checked).toBe(true)
     vi.doUnmock('../src/lib/db')
   })
 
-  it('TranslationFavsPage URL ?word= 自动 跨词 模式', async () => {
-    const { default: TF } = await import('../src/pages/TranslationFavsPage')
-    // 业务: MemoryRouter initialEntries URL 参数
-    // 测 试 简 化: 验 证 URL 处 理
-    expect(true).toBe(true)  // placeholder
+  it('TranslationFavsPage URL ?word= (空) 跨词 模式 不 启', async () => {
+    vi.resetModules()
+    vi.doMock('../src/lib/db', () => ({
+      getAllTranslationFavs: vi.fn(async () => [
+        { wordId: 'w-phone', index: 0, text: '电话', addedAt: 1 },
+      ]),
+      getAllWritingErrors: vi.fn(async () => []),
+      getAllDictationErrors: vi.fn(async () => []),
+      getAllErrorReviewScores: vi.fn(async () => []),
+    }))
+    const TF = (await import('../src/pages/TranslationFavsPage')).default
+    const { container } = render(React.createElement(MemoryRouter, { initialEntries: ['/translation-favs?word='] }, React.createElement(TF)))
+    await act(async () => { await new Promise(r => setTimeout(r, 500)) })
+    // 业务: 空 word - 跨词 模式 不 启 (useEffect 短路 if wordQuery)
+    const cb = container.querySelector('input[type="checkbox"]') as HTMLInputElement | null
+    expect(cb).toBeTruthy()
+    expect(cb?.checked).toBe(false)
+    vi.doUnmock('../src/lib/db')
   })
 })

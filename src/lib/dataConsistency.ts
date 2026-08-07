@@ -8,7 +8,14 @@ export interface ConsistencyIssue {
   message: string
 }
 
-const VALID_POS = new Set(['n', 'v', 'adj', 'adv', 'art', 'prep', 'pron', 'int', 'abbr', 'aux', 'conj', 'num', 'vt', 'vi', '&'])
+// 业务: 兼容 牛津/朗文 词性 + 旧 W94 格式
+// - n/v/adj/adv: 主 词性
+// - art/prep/pron/int/abbr/aux/conj/num: 辅 词性
+// - vt/vi: 旧 格式 (W94 兼容)
+// - det: 限定词 (this/that 牛津 标 det)
+// - pl: 复数 标记
+// - &: 旧 格式 分隔符
+const VALID_POS = new Set(['n', 'v', 'adj', 'adv', 'art', 'prep', 'pron', 'int', 'abbr', 'aux', 'conj', 'num', 'vt', 'vi', 'det', 'pl', '&'])
 
 /** 校验 1 词 */
 export function checkWordConsistency(word: Word): ConsistencyIssue[] {
