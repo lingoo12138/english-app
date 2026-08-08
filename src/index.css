@@ -76,6 +76,15 @@
   }
 }
 
+/* W116 添 加: scrollbar-hide utility (移 动 端 字 母 索 引 隐 滚 动 条) */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* 滚动条 - 跨 浏览器 兼容 (W103 + W107 修) */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-thumb { @apply bg-stone-300 dark:bg-stone-600 rounded-full; }

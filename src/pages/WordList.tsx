@@ -40,6 +40,8 @@ export default function WordList() {
   const targetLevel = useStore(s => s.targetLevel)
   const sentinelRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  // W116: 移 动 端 字 母 索 引 横 滚 容 器
+  const mobileAlphaRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setLoading(true)
@@ -153,6 +155,15 @@ export default function WordList() {
     // 修复: 加上 visible.length,让分页加载后出现的字母锚点重新被 observe
   }, [availableLetters.size, level, debouncedQuery, visible.length])
 
+  // W116: 移 动 端 字 母 索 引 横 滚 自 动 跟 激 活 字 母 (scrollIntoView center)
+  useEffect(() => {
+    if (!mobileAlphaRef.current || !activeLetter) return
+    const activeBtn = mobileAlphaRef.current.querySelector(`[data-letter="${activeLetter}"]`) as HTMLElement | null
+    if (activeBtn) {
+      activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+    }
+  }, [activeLetter])
+
   // 滚动到指定字母
   // 修复: 不立即 setActiveLetter(避免与 IO race),滚动完成后由 IO 决定
   const scrollToLetter = useCallback((letter: string) => {
@@ -232,33 +243,64 @@ export default function WordList() {
         ))}
       </div>
 
-      {/* 字母索引条 */}
+      {/* W116 字 母 索 引 动 效 (spring 弹入 + scale-110 + ease-spring) */}
       {!query.trim() && availableLetters.size > 0 && (
-        <div className="sticky top-14 md:top-0 z-10 bg-stone-50/95 dark:bg-stone-900/95 backdrop-blur py-2 -mx-4 px-4 md:mx-0 md:px-0 border-b border-stone-200 dark:border-stone-800">
-          <div className="flex gap-1 overflow-x-auto">
+        <>
+          {/* 移动端: 横 滚 sticky top-14 */}
+          <div className="md:hidden sticky top-14 z-10 bg-stone-50/95 dark:bg-stone-900/95 backdrop-blur py-2 -mx-4 px-4 border-b border-stone-200 dark:border-stone-800">
+            <div className="flex gap-1 overflow-x-auto scrollbar-hide" ref={mobileAlphaRef}>
+              {allLetters.map(letter => {
+                const has = availableLetters.has(letter)
+                const isActive = activeLetter === letter
+                return (
+                  <button
+                    key={letter}
+                    data-letter={letter}
+                    onClick={() => has && scrollToLetter(letter)}
+                    disabled={!has}
+                    className={`w-7 h-7 flex-shrink-0 rounded text-xs font-bold transition-all duration-[var(--t-base)] ease-[var(--ease-spring)] ${
+                      isActive
+                        ? 'bg-brand-600 text-white scale-110 shadow-[0_2px_6px_rgba(34,197,94,0.3)]'
+                        : has
+                          ? 'bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-300 hover:bg-brand-100 dark:hover:bg-brand-900/40 hover:scale-105'
+                          : 'text-stone-300 dark:text-stone-600'
+                    }`}
+                    aria-label={`跳转到 ${letter}`}
+                    aria-current={isActive ? 'true' : undefined}
+                  >
+                    {letter}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+          {/* 桌面端: 右 侧 竖 排 sticky */}
+          <div className="hidden md:flex md:flex-col md:fixed md:right-3 md:top-1/2 md:-translate-y-1/2 z-10 bg-white/80 dark:bg-stone-900/80 backdrop-blur rounded-full p-1 shadow-[var(--shadow-soft)] border border-stone-200 dark:border-stone-800 max-h-[80vh] overflow-y-auto scrollbar-hide">
             {allLetters.map(letter => {
               const has = availableLetters.has(letter)
               const isActive = activeLetter === letter
               return (
                 <button
                   key={letter}
+                  data-letter={letter}
                   onClick={() => has && scrollToLetter(letter)}
                   disabled={!has}
-                  className={`w-7 h-7 flex-shrink-0 rounded text-xs font-bold transition-colors ${
+                  className={`w-6 h-6 flex-shrink-0 rounded-full text-[10px] font-bold transition-all duration-[var(--t-base)] ease-[var(--ease-spring)] ${
                     isActive
-                      ? 'bg-brand-600 text-white'
+                      ? 'bg-brand-600 text-white scale-110 shadow-[0_2px_6px_rgba(34,197,94,0.3)]'
                       : has
-                        ? 'bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-300 hover:bg-brand-100 dark:hover:bg-brand-900/40'
-                        : 'text-stone-300 dark:text-stone-600 dark:text-stone-300'
+                        ? 'text-stone-700 dark:text-stone-300 hover:bg-brand-100 dark:hover:bg-brand-900/40 hover:scale-110'
+                        : 'text-stone-300 dark:text-stone-600'
                   }`}
                   aria-label={`跳转到 ${letter}`}
+                  aria-current={isActive ? 'true' : undefined}
                 >
                   {letter}
                 </button>
               )
             })}
           </div>
-        </div>
+        </>
       )}
 
       {/* 词条列表 */}
