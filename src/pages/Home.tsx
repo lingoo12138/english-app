@@ -116,7 +116,7 @@ export default function Home() {
         {/* v1.1-F1: 分享按钮 */}
         <button
           onClick={() => setShowShare(true)}
-          className="text-xs px-3 py-1.5 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-sm hover:shadow-md active:scale-95 transition"
+          className="text-xs px-3 py-1.5 rounded-full bg-brand-500 text-white shadow-[0_2px_8px_rgba(34,197,94,0.25)] hover:shadow-[0_4px_12px_rgba(34,197,94,0.3)] active:scale-95 transition-all duration-[var(--t-base)] ease-[var(--ease)]"
         >
           📤 分享
         </button>
@@ -126,7 +126,7 @@ export default function Home() {
       {!onboarded && (
         <button
           onClick={() => setShowOnboarding(true)}
-          className="w-full card bg-gradient-to-r from-brand-50 to-emerald-50 dark:from-brand-900/30 dark:to-emerald-900/30 border-2 border-brand-300 dark:border-brand-700 hover:shadow-md active:scale-[0.98] transition-all text-left"
+          className="w-full card-interactive bg-brand-50 dark:bg-brand-900/30 border-2 border-brand-300 dark:border-brand-700 text-left"
           aria-label="打开首启引导"
         >
           <div className="flex items-center gap-3">
@@ -143,7 +143,7 @@ export default function Home() {
       )}
 
       {/* v1.43.0 W43-B: XP/level 进度卡 */}
-      <div className="card bg-gradient-to-r from-violet-50 via-fuchsia-50 to-pink-50 dark:from-violet-900/20 dark:via-fuchsia-900/20 dark:to-pink-900/20 border border-violet-200 dark:border-violet-800">
+      <div className="card-interactive bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <div className="text-3xl font-bold text-violet-600 dark:text-violet-400">Lv.{xpState.level}</div>
@@ -161,7 +161,7 @@ export default function Home() {
         </div>
         <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500 transition-all duration-500"
+            className="h-full bg-accent-500 transition-all duration-700 ease-[var(--ease)]"
             style={{ width: `${Math.round(xpState.progress * 100)}%` }}
           />
         </div>
@@ -171,7 +171,7 @@ export default function Home() {
       {achievementStats && (
         <Link
           to="/achievements"
-          className="card bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 border border-yellow-200 dark:border-yellow-800 flex items-center gap-3 hover:shadow-md transition"
+          className="card-interactive bg-[var(--state-warning)]/10 dark:bg-[var(--state-warning)]/20 border border-[var(--state-warning)]/30 flex items-center gap-3"
         >
           <div className="text-3xl">🏆</div>
           <div className="flex-1">
@@ -191,7 +191,7 @@ export default function Home() {
       {/* v1.11.0-C: 日报/周报入口 */}
       <Link
         to="/reports"
-        className="card bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 border border-cyan-200 dark:border-cyan-800 flex items-center gap-3 hover:shadow-md transition"
+        className="card-interactive bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 flex items-center gap-3"
       >
         <div className="text-3xl">📊</div>
         <div className="flex-1">
@@ -204,7 +204,7 @@ export default function Home() {
       {/* v1.14.0: 自定义场景入口 */}
       <Link
         to="/custom-scenes"
-        className="card bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 border border-violet-200 dark:border-violet-800 flex items-center gap-3 hover:shadow-md transition"
+        className="card-interactive bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 flex items-center gap-3"
       >
         <div className="text-3xl">📝</div>
         <div className="flex-1">
@@ -217,7 +217,7 @@ export default function Home() {
       {/* v1.19.0: 学习日历入口 */}
       <Link
         to="/calendar"
-        className="card bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border border-amber-200 dark:border-amber-800 flex items-center gap-3 hover:shadow-md transition"
+        className="card-interactive bg-[var(--state-warning)]/10 dark:bg-[var(--state-warning)]/20 border border-[var(--state-warning)]/30 flex items-center gap-3"
       >
         <div className="text-3xl">📅</div>
         <div className="flex-1">
@@ -367,7 +367,7 @@ export default function Home() {
         </div>
         {/* 场景专题课 / 拍照识物 / 每日一句作为独立推荐区 */}
         <div className="mt-3 grid grid-cols-1 gap-3">
-          <Link to="/scenes" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-brand-50 to-emerald-50 dark:from-brand-900/20 dark:to-emerald-900/20 no-select">
+          <Link to="/scenes" className="card-interactive bg-brand-50 dark:bg-brand-900/20 flex items-center gap-4 no-select">
             <div className="text-3xl">🎬</div>
             <div className="flex-1">
               <div className="font-medium">场景专题课</div>
@@ -375,7 +375,7 @@ export default function Home() {
             </div>
             <div className="text-stone-400 dark:text-stone-300">→</div>
           </Link>
-          <Link to="/camera" key="camera" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 no-select">
+          <Link to="/camera" key="camera" className="card-interactive bg-accent-50 dark:bg-accent-900/20 flex items-center gap-4 no-select">
             <div className="text-3xl">📷</div>
             <div className="flex-1">
               <div className="font-medium">拍照识物</div>
@@ -383,7 +383,7 @@ export default function Home() {
             </div>
             <div className="text-stone-400 dark:text-stone-300">→</div>
           </Link>
-          <Link to="/chat" key="chat" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 no-select">
+          <Link to="/chat" key="chat" className="card-interactive bg-accent-50 dark:bg-accent-900/20 flex items-center gap-4 no-select">
             <div className="text-3xl">💬</div>
             <div className="flex-1">
               <div className="font-medium">AI 对话陪练</div>
@@ -391,7 +391,7 @@ export default function Home() {
             </div>
             <div className="text-stone-400 dark:text-stone-300">→</div>
           </Link>
-          <Link to="/plan" key="plan" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 no-select">
+          <Link to="/plan" key="plan" className="card-interactive bg-brand-50 dark:bg-brand-900/20 flex items-center gap-4 no-select">
             <div className="text-3xl">📅</div>
             <div className="flex-1">
               <div className="font-medium">学习计划</div>
@@ -399,7 +399,7 @@ export default function Home() {
             </div>
             <div className="text-stone-400 dark:text-stone-300">→</div>
           </Link>
-          <Link to="/write" key="write" className="card hover:shadow-md active:scale-[0.98] transition-all flex items-center gap-4 bg-gradient-to-r from-rose-50 to-pink-50 dark:from-rose-900/20 dark:to-pink-900/20 no-select">
+          <Link to="/write" key="write" className="card-interactive bg-[var(--state-error)]/10 dark:bg-[var(--state-error)]/20 flex items-center gap-4 no-select">
             <div className="text-3xl">✍️</div>
             <div className="flex-1">
               <div className="font-medium">写作批改</div>
