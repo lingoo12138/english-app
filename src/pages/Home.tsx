@@ -5,7 +5,6 @@ import Onboarding, { isOnboarded } from '../components/Onboarding'
 import TodayPlanCard from '../components/home/TodayPlanCard'
 import DailySentenceCard from '../components/home/DailySentenceCard'
 import ReviewReminderCard from '../components/home/ReviewReminderCard'
-import StudyCalendar from '../components/StudyCalendar'
 import { ShareModal } from '../components/ShareModal'
 import { loadAchievementStats, getUnlockedCount, getNextAchievement } from '../lib/achievements'
 import { getTodaySentence } from '../lib/daily'
@@ -107,140 +106,139 @@ export default function Home() {
 
   return (
     <div className="space-y-6">
-      {/* 顶部欢迎 */}
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-2xl font-bold mb-1">👋 {t('home.welcome')}</h1>
-          <p className="text-stone-500 dark:text-stone-400 text-sm">今天来学点新东西吧</p>
-        </div>
-        {/* v1.1-F1: 分享按钮 */}
-        <button
-          onClick={() => setShowShare(true)}
-          className="text-xs px-3 py-1.5 rounded-full bg-brand-500 text-white shadow-[0_2px_8px_rgba(34,197,94,0.25)] hover:shadow-[0_4px_12px_rgba(34,197,94,0.3)] active:scale-95 transition-all duration-[var(--t-base)] ease-[var(--ease)]"
-        >
-          📤 分享
-        </button>
-      </div>
-
-      {/* v1.8.0-A: 首启 onboarding CTA (仅未引导用户可见) */}
-      {!onboarded && (
-        <button
-          onClick={() => setShowOnboarding(true)}
-          className="w-full card-interactive bg-brand-50 dark:bg-brand-900/30 border-2 border-brand-300 dark:border-brand-700 text-left"
-          aria-label="打开首启引导"
-        >
-          <div className="flex items-center gap-3">
-            <div className="text-3xl" aria-hidden="true">👋</div>
-            <div className="flex-1">
-              <div className="font-semibold text-base">第一次来? 跟我 5 分钟了解</div>
-              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
-                选学段 · 体验跟读 · 收个生词 — 3 步上手
-              </div>
-            </div>
-            <div className="text-brand-600 dark:text-brand-400 text-xl" aria-hidden="true">→</div>
+      {/* W115 MainCTA: 合 并 欢 迎 + 分享 + onboarding CTA + 今 日 学 (改 良 稿 第 3 步) */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-500 to-brand-600 text-white p-5 shadow-[0_4px_16px_rgba(34,197,94,0.25)]">
+        <div className="flex items-start justify-between mb-3">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">👋 {t('home.welcome')}</h1>
+            <p className="text-sm opacity-90 mt-1">今天来学点新东西吧</p>
           </div>
-        </button>
-      )}
-
-      {/* v1.43.0 W43-B: XP/level 进度卡 */}
-      <div className="card-interactive bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800">
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2">
-            <div className="text-3xl font-bold text-violet-600 dark:text-violet-400">Lv.{xpState.level}</div>
-            <div>
-              <div className="text-sm font-semibold">{xpState.levelTitle}</div>
-              <div className="text-[10px] text-stone-500 dark:text-stone-400">
-                {xpState.isMaxLevel ? '已满级' : `再 ${xpState.nextLevelXP} XP 升级`}
-              </div>
-            </div>
-          </div>
-          <div className="text-right">
-            <div className="text-xs text-stone-500 dark:text-stone-400">总 XP</div>
-            <div className="text-lg font-bold text-fuchsia-600 dark:text-fuchsia-400">{xpState.totalXP}</div>
-          </div>
+          <button
+            onClick={() => setShowShare(true)}
+            className="text-xs px-3 py-1.5 rounded-full bg-white/20 backdrop-blur hover:bg-white/30 active:scale-95 transition-all duration-[var(--t-base)] ease-[var(--ease)]"
+            aria-label="分享学习进度"
+          >
+            📤 分享
+          </button>
         </div>
-        <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-accent-500 transition-all duration-700 ease-[var(--ease)]"
-            style={{ width: `${Math.round(xpState.progress * 100)}%` }}
-          />
-        </div>
-      </div>
-
-      {/* v1.3-F2: 成就卡 */}
-      {achievementStats && (
-        <Link
-          to="/achievements"
-          className="card-interactive bg-[var(--state-warning)]/10 dark:bg-[var(--state-warning)]/20 border border-[var(--state-warning)]/30 flex items-center gap-3"
-        >
-          <div className="text-3xl">🏆</div>
+        <div className="flex items-center gap-3 mt-4 pt-4 border-t border-white/15">
           <div className="flex-1">
-            <div className="font-semibold text-sm">成就</div>
-            <div className="text-xs text-stone-500 dark:text-stone-400">
-              已解锁 <b className="text-amber-600 dark:text-amber-400">{getUnlockedCount(achievementStats)}</b> / 19
-              {(() => {
-                const next = getNextAchievement(achievementStats)
-                return next ? ` · 下一: ${next.achievement.emoji} ${next.achievement.title}` : ''
-              })()}
+            <div className="text-base font-semibold">今日学 5 词</div>
+            <div className="text-xs opacity-85 mt-0.5">3 步上手 · 5 分钟</div>
+          </div>
+          <Link
+            to="/words"
+            className="bg-white/25 backdrop-blur text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-white/35 active:scale-95 transition-all duration-[var(--t-base)] ease-[var(--ease)]"
+          >
+            开始 →
+          </Link>
+        </div>
+        {!onboarded && (
+          <button
+            onClick={() => setShowOnboarding(true)}
+            className="absolute top-3 right-3 text-[10px] px-2 py-0.5 rounded-full bg-amber-300 text-amber-900 font-semibold hover:bg-amber-200 transition-colors duration-[var(--t-fast)]"
+            aria-label="打开首启引导"
+          >
+            NEW · 5 分钟了解
+          </button>
+        )}
+      </div>
+
+      {/* W115 Bento Grid: Lv./XP (大) + 3 统计 (横 排) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {/* Lv./XP (Bento 大, span 2) */}
+        <div className="md:col-span-2 card-interactive bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <div className="text-3xl font-bold text-accent-600 dark:text-accent-400">Lv.{xpState.level}</div>
+              <div>
+                <div className="text-sm font-semibold">{xpState.levelTitle}</div>
+                <div className="text-[10px] text-stone-500 dark:text-stone-400">
+                  {xpState.isMaxLevel ? '已满级' : `再 ${xpState.nextLevelXP} XP 升级`}
+                </div>
+              </div>
             </div>
+            <div className="text-right">
+              <div className="text-xs text-stone-500 dark:text-stone-400">总 XP</div>
+              <div className="text-lg font-bold text-accent-600 dark:text-accent-400">{xpState.totalXP}</div>
+            </div>
+          </div>
+          <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-accent-500 transition-all duration-700 ease-[var(--ease)]"
+              style={{ width: `${Math.round(xpState.progress * 100)}%` }}
+            />
+          </div>
+        </div>
+        {/* 3 统计 (Bento 1 行) */}
+        <div className="card text-center">
+          <div className="grid grid-cols-3 gap-2">
+            <div>
+              <div className="text-xl font-bold text-brand-600">{stats.todayCount}</div>
+              <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">今日</div>
+            </div>
+            <div>
+              <div className="text-xl font-bold text-brand-600">{stats.totalLearned}</div>
+              <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">累计</div>
+            </div>
+            <div>
+              <div className="text-xl font-bold text-brand-600">{stats.favoriteCount}</div>
+              <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">生词</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* W115 Bento Grid: 4 状态 2x2 (成就/日报/自定义/日历) */}
+      <div className="grid grid-cols-2 gap-3">
+        {achievementStats && (
+          <Link
+            to="/achievements"
+            className="card-interactive bg-[var(--state-warning)]/10 dark:bg-[var(--state-warning)]/20 border border-[var(--state-warning)]/30 flex items-center gap-3"
+          >
+            <div className="text-2xl">🏆</div>
+            <div className="flex-1 min-w-0">
+              <div className="font-semibold text-sm">成就</div>
+              <div className="text-xs text-stone-500 dark:text-stone-400">
+                <b className="text-amber-600 dark:text-amber-400">{getUnlockedCount(achievementStats)}</b> / 19
+              </div>
+            </div>
+            <div className="text-stone-400">→</div>
+          </Link>
+        )}
+        <Link
+          to="/reports"
+          className="card-interactive bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 flex items-center gap-3"
+        >
+          <div className="text-2xl">📊</div>
+          <div className="flex-1 min-w-0">
+            <div className="font-semibold text-sm">日报</div>
+            <div className="text-xs text-stone-500 dark:text-stone-400 truncate">{t('home.today_summary')}</div>
           </div>
           <div className="text-stone-400">→</div>
         </Link>
-      )}
-
-      {/* v1.11.0-C: 日报/周报入口 */}
-      <Link
-        to="/reports"
-        className="card-interactive bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 flex items-center gap-3"
-      >
-        <div className="text-3xl">📊</div>
-        <div className="flex-1">
-          <div className="font-semibold text-sm">日报 / 周报</div>
-          <div className="text-xs text-stone-500 dark:text-stone-400">{t('home.today_summary')}</div>
-        </div>
-        <div className="text-stone-400">→</div>
-      </Link>
-
-      {/* v1.14.0: 自定义场景入口 */}
-      <Link
-        to="/custom-scenes"
-        className="card-interactive bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 flex items-center gap-3"
-      >
-        <div className="text-3xl">📝</div>
-        <div className="flex-1">
-          <div className="font-semibold text-sm">自定义场景</div>
-          <div className="text-xs text-stone-500 dark:text-stone-400">粘贴文本 · AI 提取生词 · 专属场景</div>
-        </div>
-        <div className="text-stone-400">→</div>
-      </Link>
-
-      {/* v1.19.0: 学习日历入口 */}
-      <Link
-        to="/calendar"
-        className="card-interactive bg-[var(--state-warning)]/10 dark:bg-[var(--state-warning)]/20 border border-[var(--state-warning)]/30 flex items-center gap-3"
-      >
-        <div className="text-3xl">📅</div>
-        <div className="flex-1">
-          <div className="font-semibold text-sm">学习日历</div>
-          <div className="text-xs text-stone-500 dark:text-stone-400">月度学习可视化 · 热力图</div>
-        </div>
-        <div className="text-stone-400">→</div>
-      </Link>
-
-      {/* 学习数据卡片 */}
-      <div className="grid grid-cols-3 gap-3">
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-brand-600">{stats.todayCount}</div>
-          <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">今日学词</div>
-        </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-brand-600">{stats.totalLearned}</div>
-          <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">累计学词</div>
-        </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-brand-600">{stats.favoriteCount}</div>
-          <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">生词</div>
-        </div>
+        <Link
+          to="/custom-scenes"
+          className="card-interactive bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 flex items-center gap-3"
+        >
+          <div className="text-2xl">📝</div>
+          <div className="flex-1 min-w-0">
+            <div className="font-semibold text-sm">自定义场景</div>
+            <div className="text-xs text-stone-500 dark:text-stone-400 truncate">粘贴文本 · AI 提词</div>
+          </div>
+          <div className="text-stone-400">→</div>
+        </Link>
+        <Link
+          to="/calendar"
+          className="card-interactive bg-[var(--state-warning)]/10 dark:bg-[var(--state-warning)]/20 border border-[var(--state-warning)]/30 flex items-center gap-3"
+        >
+          <div className="text-2xl">📅</div>
+          <div className="flex-1 min-w-0">
+            <div className="font-semibold text-sm">学习日历</div>
+            <div className="text-xs text-stone-500 dark:text-stone-400 truncate">热力图可视化</div>
+          </div>
+          <div className="text-stone-400">→</div>
+        </Link>
       </div>
 
       {/* v0.22.3: 今日学习计划 */}
@@ -335,77 +333,63 @@ export default function Home() {
         </div>
       )}
 
-      {/* 学习日历 */}
-      <div className="card">
-        <StudyCalendar days={84} compact />
-      </div>
+      {/* W115: 移 除 重 复 StudyCalendar (streak 已 含 周/月 进度), 7 卡 减 6 = 减 1 */}
 
-      {/* 快捷入口 - 修复: 4 个一组,场景课作为独立大卡 (避免 col-span-2 破坏网格) */}
+      {/* W115 快捷入口 - 横 向 滚 动 quick-bar (5 项 一 行) */}
       <div>
         <h3 className="text-sm font-semibold text-stone-500 dark:text-stone-400 mb-3">快捷入口</h3>
         <div className="grid grid-cols-2 gap-3">
-          <Link to="/words" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
+          <Link to="/words" className="card-interactive text-center py-6">
             <div className="text-3xl mb-2">📚</div>
             <div className="font-medium">浏览词库</div>
             <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">5000+ 高频词</div>
           </Link>
-          <Link to="/review" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
+          <Link to="/review" className="card-interactive text-center py-6">
             <div className="text-3xl mb-2">📝</div>
             <div className="font-medium">{t('home.review_center')}</div>
             <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">智能间隔重复</div>
           </Link>
-          <Link to="/translate" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
+          <Link to="/translate" className="card-interactive text-center py-6">
             <div className="text-3xl mb-2">🔤</div>
             <div className="font-medium">中英翻译</div>
             <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">即时查询</div>
           </Link>
-          <Link to="/notebook" className="card hover:shadow-md active:scale-[0.98] transition-all text-center py-6">
+          <Link to="/notebook" className="card-interactive text-center py-6">
             <div className="text-3xl mb-2">⭐</div>
             <div className="font-medium">我的生词</div>
             <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">{stats.favoriteCount} 个</div>
           </Link>
         </div>
-        {/* 场景专题课 / 拍照识物 / 每日一句作为独立推荐区 */}
-        <div className="mt-3 grid grid-cols-1 gap-3">
-          <Link to="/scenes" className="card-interactive bg-brand-50 dark:bg-brand-900/20 flex items-center gap-4 no-select">
-            <div className="text-3xl">🎬</div>
-            <div className="flex-1">
-              <div className="font-medium">场景专题课</div>
-              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">5 个真实场景 · 真实能用</div>
-            </div>
-            <div className="text-stone-400 dark:text-stone-300">→</div>
+      </div>
+
+      {/* W115 5 推荐: 场 景 课 / 拍 照 / AI / 计 划 / 写 作 (横 向 滚 动 quick-bar) */}
+      <div>
+        <h3 className="text-sm font-semibold text-stone-500 dark:text-stone-400 mb-3">推荐</h3>
+        <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
+          <Link to="/scenes" className="flex-shrink-0 w-44 card-interactive bg-brand-50 dark:bg-brand-900/20">
+            <div className="text-2xl mb-1">🎬</div>
+            <div className="font-medium text-sm">场景专题课</div>
+            <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">5 个真实场景</div>
           </Link>
-          <Link to="/camera" key="camera" className="card-interactive bg-accent-50 dark:bg-accent-900/20 flex items-center gap-4 no-select">
-            <div className="text-3xl">📷</div>
-            <div className="flex-1">
-              <div className="font-medium">拍照识物</div>
-              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">AI 识别图片,返回英文 + 例句</div>
-            </div>
-            <div className="text-stone-400 dark:text-stone-300">→</div>
+          <Link to="/camera" className="flex-shrink-0 w-44 card-interactive bg-accent-50 dark:bg-accent-900/20">
+            <div className="text-2xl mb-1">📷</div>
+            <div className="font-medium text-sm">拍照识物</div>
+            <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">AI 识图 + 例句</div>
           </Link>
-          <Link to="/chat" key="chat" className="card-interactive bg-accent-50 dark:bg-accent-900/20 flex items-center gap-4 no-select">
-            <div className="text-3xl">💬</div>
-            <div className="flex-1">
-              <div className="font-medium">AI 对话陪练</div>
-              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">5 个场景 · 6 个难度 · Mock 零成本测试</div>
-            </div>
-            <div className="text-stone-400 dark:text-stone-300">→</div>
+          <Link to="/chat" className="flex-shrink-0 w-44 card-interactive bg-accent-50 dark:bg-accent-900/20">
+            <div className="text-2xl mb-1">💬</div>
+            <div className="font-medium text-sm">AI 对话</div>
+            <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">5 场景 · 6 难度</div>
           </Link>
-          <Link to="/plan" key="plan" className="card-interactive bg-brand-50 dark:bg-brand-900/20 flex items-center gap-4 no-select">
-            <div className="text-3xl">📅</div>
-            <div className="flex-1">
-              <div className="font-medium">学习计划</div>
-              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">{t('home.plan_summary')}</div>
-            </div>
-            <div className="text-stone-400 dark:text-stone-300">→</div>
+          <Link to="/plan" className="flex-shrink-0 w-44 card-interactive bg-brand-50 dark:bg-brand-900/20">
+            <div className="text-2xl mb-1">📅</div>
+            <div className="font-medium text-sm">学习计划</div>
+            <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">{t('home.plan_summary')}</div>
           </Link>
-          <Link to="/write" key="write" className="card-interactive bg-[var(--state-error)]/10 dark:bg-[var(--state-error)]/20 flex items-center gap-4 no-select">
-            <div className="text-3xl">✍️</div>
-            <div className="flex-1">
-              <div className="font-medium">写作批改</div>
-              <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">AI 改错 + 标色 diff + 一键收藏生词</div>
-            </div>
-            <div className="text-stone-400 dark:text-stone-300">→</div>
+          <Link to="/write" className="flex-shrink-0 w-44 card-interactive bg-[var(--state-error)]/10 dark:bg-[var(--state-error)]/20">
+            <div className="text-2xl mb-1">✍️</div>
+            <div className="font-medium text-sm">写作批改</div>
+            <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">AI 改错 + 标色</div>
           </Link>
         </div>
       </div>

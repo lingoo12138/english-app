@@ -38,7 +38,8 @@ describe('W114 Home 渐变 8→2 收 敛', () => {
 
   it('保 留 brand-500 (主 CTA) + accent-500 (辅 CTA) 强 调 色', () => {
     const src = readFileSync('src/pages/Home.tsx', 'utf-8')
-    expect(src).toMatch(/bg-brand-500/)
-    expect(src).toMatch(/bg-accent-500/)
+    // W115 MainCTA 用 from-brand-500 to-brand-600 渐 变 (改 良 稿 允许 主 CTA 例外)
+    expect(src).toMatch(/from-brand-500/)
+    expect(src).toMatch(/bg-accent-500/)  // XP 进 度 条
   })
 })
