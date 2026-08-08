@@ -6,6 +6,7 @@ import TodayPlanCard from '../components/home/TodayPlanCard'
 import DailySentenceCard from '../components/home/DailySentenceCard'
 import ReviewReminderCard from '../components/home/ReviewReminderCard'
 import { ShareModal } from '../components/ShareModal'
+import { IconWaving, IconTrophy, IconBarChart, IconEdit, IconCalendar, IconVideo, IconChat, IconHeadphones, IconStar } from '../components/Icon'
 import { loadAchievementStats, getUnlockedCount, getNextAchievement } from '../lib/achievements'
 import { getTodaySentence } from '../lib/daily'
 import { loadWords } from '../lib/words'
@@ -110,7 +111,7 @@ export default function Home() {
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-500 to-brand-600 text-white p-5 shadow-[0_4px_16px_rgba(34,197,94,0.25)]">
         <div className="flex items-start justify-between mb-3">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">👋 {t('home.welcome')}</h1>
+            <h1 className="text-2xl font-bold tracking-tight"><IconWaving size={22} className="inline-block mr-1" /> {t('home.welcome')}</h1>
             <p className="text-sm opacity-90 mt-1">今天来学点新东西吧</p>
           </div>
           <button
@@ -196,7 +197,7 @@ export default function Home() {
             to="/achievements"
             className="card-interactive bg-[var(--state-warning)]/10 dark:bg-[var(--state-warning)]/20 border border-[var(--state-warning)]/30 flex items-center gap-3"
           >
-            <div className="text-2xl">🏆</div>
+            <IconTrophy size={22} className="text-amber-500" />
             <div className="flex-1 min-w-0">
               <div className="font-semibold text-sm">成就</div>
               <div className="text-xs text-stone-500 dark:text-stone-400">
@@ -210,7 +211,7 @@ export default function Home() {
           to="/reports"
           className="card-interactive bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 flex items-center gap-3"
         >
-          <div className="text-2xl">📊</div>
+          <IconBarChart size={22} className="text-accent-500" />
           <div className="flex-1 min-w-0">
             <div className="font-semibold text-sm">日报</div>
             <div className="text-xs text-stone-500 dark:text-stone-400 truncate">{t('home.today_summary')}</div>
@@ -221,7 +222,7 @@ export default function Home() {
           to="/custom-scenes"
           className="card-interactive bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 flex items-center gap-3"
         >
-          <div className="text-2xl">📝</div>
+          <IconEdit size={22} className="text-accent-500" />
           <div className="flex-1 min-w-0">
             <div className="font-semibold text-sm">自定义场景</div>
             <div className="text-xs text-stone-500 dark:text-stone-400 truncate">粘贴文本 · AI 提词</div>
@@ -232,7 +233,7 @@ export default function Home() {
           to="/calendar"
           className="card-interactive bg-[var(--state-warning)]/10 dark:bg-[var(--state-warning)]/20 border border-[var(--state-warning)]/30 flex items-center gap-3"
         >
-          <div className="text-2xl">📅</div>
+          <IconCalendar size={22} className="text-amber-500" />
           <div className="flex-1 min-w-0">
             <div className="font-semibold text-sm">学习日历</div>
             <div className="text-xs text-stone-500 dark:text-stone-400 truncate">热力图可视化</div>
@@ -290,7 +291,7 @@ export default function Home() {
         <div className="card">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <div className="text-sm font-semibold">🏆 {t('home.streak_title')}</div>
+              <div className="text-sm font-semibold flex items-center gap-1"><IconTrophy size={14} className="text-amber-500" />{t('home.streak_title')}</div>
               <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">{t('home.streak_subtitle').replace('N', String(streakState?.current || 0))}</div>
               <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
                 {getStreakMessage(streakState.current).message}
@@ -345,7 +346,7 @@ export default function Home() {
             <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">5000+ 高频词</div>
           </Link>
           <Link to="/review" className="card-interactive text-center py-6">
-            <div className="text-3xl mb-2">📝</div>
+            <IconEdit size={28} className="mx-auto mb-2 text-stone-400" />
             <div className="font-medium">{t('home.review_center')}</div>
             <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">智能间隔重复</div>
           </Link>
@@ -367,27 +368,27 @@ export default function Home() {
         <h3 className="text-sm font-semibold text-stone-500 dark:text-stone-400 mb-3">推荐</h3>
         <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
           <Link to="/scenes" className="flex-shrink-0 w-44 card-interactive bg-brand-50 dark:bg-brand-900/20">
-            <div className="text-2xl mb-1">🎬</div>
+            <IconVideo size={22} className="mb-1 text-brand-500" />
             <div className="font-medium text-sm">场景专题课</div>
             <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">5 个真实场景</div>
           </Link>
           <Link to="/camera" className="flex-shrink-0 w-44 card-interactive bg-accent-50 dark:bg-accent-900/20">
-            <div className="text-2xl mb-1">📷</div>
+            <IconHeadphones size={22} className="mb-1 text-accent-500" />
             <div className="font-medium text-sm">拍照识物</div>
             <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">AI 识图 + 例句</div>
           </Link>
           <Link to="/chat" className="flex-shrink-0 w-44 card-interactive bg-accent-50 dark:bg-accent-900/20">
-            <div className="text-2xl mb-1">💬</div>
+            <IconChat size={22} className="mb-1 text-accent-500" />
             <div className="font-medium text-sm">AI 对话</div>
             <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">5 场景 · 6 难度</div>
           </Link>
           <Link to="/plan" className="flex-shrink-0 w-44 card-interactive bg-brand-50 dark:bg-brand-900/20">
-            <div className="text-2xl mb-1">📅</div>
+            <IconCalendar size={22} className="mb-1 text-brand-500" />
             <div className="font-medium text-sm">学习计划</div>
             <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">{t('home.plan_summary')}</div>
           </Link>
           <Link to="/write" className="flex-shrink-0 w-44 card-interactive bg-[var(--state-error)]/10 dark:bg-[var(--state-error)]/20">
-            <div className="text-2xl mb-1">✍️</div>
+            <IconEdit size={22} className="mb-1 text-rose-500" />
             <div className="font-medium text-sm">写作批改</div>
             <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">AI 改错 + 标色</div>
           </Link>

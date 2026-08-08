@@ -3,41 +3,45 @@ import { loadScrollPosMap, saveScrollPosMap } from '../lib/scrollPosStorage'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { getPageTitle } from '../lib/utils'
 import { ToastContainer } from './Toast'
+import {
+  IconHome, IconBook, IconVideo, IconSparkles, IconChat, IconCalendar,
+  IconEdit, IconBookOpen, IconHeadphones, IconBarChart, IconSettings,
+  IconFileText, IconStar, IconTrophy, IconUser,
+} from './Icon'
 
-// 桌面端侧边栏 — 7 个全量入口
+// 桌面端侧边栏 — 22 项 (W118: emoji → Icon SVG 替)
 const desktopNav = [
-  { to: '/', label: '首页', icon: '🏠' },
-  { to: '/words', label: '词库', icon: '📚' },
-  { to: '/scenes', label: '场景课', icon: '🎬' },
-  { to: '/daily', label: '每日一句', icon: '✨' },
-  { to: '/chat', label: 'AI', icon: '💬' },
-  { to: '/plan', label: '计划', icon: '📅' },
-  { to: '/write', label: '写作', icon: '✍️' },
-  { to: '/errors', label: '错题', icon: '📕' },
-  { to: '/errors/history', label: '错题统计', icon: '📊' },
-  { to: '/listen', label: '听力', icon: '🎧' },
-  { to: '/report', label: '报告', icon: '📊' },
-  { to: '/translate', label: '翻译', icon: '🔤' },
-  { to: '/notebook', label: '生词本', icon: '⭐' },
-  { to: '/textbook', label: '课文', icon: '📖' },
-  { to: '/fill-blank', label: '填空', icon: '✏️' },
-  { to: '/dictation', label: '听写', icon: '🎧' },
-  { to: '/spelling', label: '拼写', icon: '✏️' },
-  { to: '/translation-favs', label: '释义收藏', icon: '⭐' },
-  { to: '/follow-read/progress', label: '跟读趋势', icon: '📊' },
-  { to: '/achievements', label: '成就', icon: '🏆' },
-  { to: '/settings', label: '设置', icon: '⚙️' },
-  { to: '/docs', label: '文档', icon: '📚' },
+  { to: '/', label: '首页', Icon: IconHome },
+  { to: '/words', label: '词库', Icon: IconBook },
+  { to: '/scenes', label: '场景课', Icon: IconVideo },
+  { to: '/daily', label: '每日一句', Icon: IconSparkles },
+  { to: '/chat', label: 'AI', Icon: IconChat },
+  { to: '/plan', label: '计划', Icon: IconCalendar },
+  { to: '/write', label: '写作', Icon: IconEdit },
+  { to: '/errors', label: '错题', Icon: IconBookOpen },
+  { to: '/errors/history', label: '错题统计', Icon: IconBarChart },
+  { to: '/listen', label: '听力', Icon: IconHeadphones },
+  { to: '/report', label: '报告', Icon: IconBarChart },
+  { to: '/translate', label: '翻译', Icon: IconChat },
+  { to: '/notebook', label: '生词本', Icon: IconStar },
+  { to: '/textbook', label: '课文', Icon: IconBookOpen },
+  { to: '/fill-blank', label: '填空', Icon: IconEdit },
+  { to: '/dictation', label: '听写', Icon: IconHeadphones },
+  { to: '/spelling', label: '拼写', Icon: IconEdit },
+  { to: '/translation-favs', label: '释义收藏', Icon: IconStar },
+  { to: '/follow-read/progress', label: '跟读趋势', Icon: IconBarChart },
+  { to: '/achievements', label: '成就', Icon: IconTrophy },
+  { to: '/settings', label: '设置', Icon: IconSettings },
+  { to: '/docs', label: '文档', Icon: IconFileText },
 ]
 
 // 移动端底部 Tab — 5 项核心 (W112 UX bug 修: 之前 10 项, grid-cols-5 静默丢 6-10)
-// 业务: 首页/词库/场景/AI/我的 (其余入口从设置页或首页快捷区进入)
 const mobileNav = [
-  { to: '/', label: '首页', icon: '🏠' },
-  { to: '/words', label: '词库', icon: '📚' },
-  { to: '/scenes', label: '场景', icon: '🎬' },
-  { to: '/chat', label: 'AI', icon: '💬' },
-  { to: '/settings', label: '我的', icon: '👤' },
+  { to: '/', label: '首页', Icon: IconHome },
+  { to: '/words', label: '词库', Icon: IconBook },
+  { to: '/scenes', label: '场景', Icon: IconVideo },
+  { to: '/chat', label: 'AI', Icon: IconChat },
+  { to: '/settings', label: '我的', Icon: IconUser },
 ]
 
 // 移动端顶部 Title — 路径感知
@@ -88,23 +92,26 @@ export default function Layout() {
           <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">即时英语学习</p>
         </div>
         <nav ref={navRef} className="flex-1 min-h-0 px-3 py-4 space-y-1 overflow-y-auto">
-          {desktopNav.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === '/'}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300'
-                    : 'text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800'
-                }`
-              }
-            >
-              <span className="text-lg">{item.icon}</span>
-              <span>{item.label}</span>
-            </NavLink>
-          ))}
+          {desktopNav.map((item) => {
+            const Icon = item.Icon
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.to === '/'}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-[var(--t-fast)] ease-[var(--ease)] ${
+                    isActive
+                      ? 'bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300'
+                      : 'text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800'
+                  }`
+                }
+              >
+                <Icon size={16} strokeWidth={2} className="flex-shrink-0" />
+                <span>{item.label}</span>
+              </NavLink>
+            )
+          })}
         </nav>
       </aside>
 
@@ -149,23 +156,26 @@ export default function Layout() {
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
         <div className="grid grid-cols-5">
-          {mobileNav.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === '/'}
-              className={({ isActive }) =>
-                `flex flex-col items-center justify-center py-2.5 text-xs ${
-                  isActive
-                    ? 'text-brand-600'
-                    : 'text-stone-500 dark:text-stone-400'
-                }`
-              }
-            >
-              <span className="text-xl mb-0.5">{item.icon}</span>
-              <span>{item.label}</span>
-            </NavLink>
-          ))}
+          {mobileNav.map((item) => {
+            const Icon = item.Icon
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.to === '/'}
+                className={({ isActive }) =>
+                  `flex flex-col items-center justify-center py-2.5 text-xs transition-colors duration-[var(--t-fast)] ${
+                    isActive
+                      ? 'text-brand-600'
+                      : 'text-stone-500 dark:text-stone-400'
+                  }`
+                }
+              >
+                <Icon size={22} strokeWidth={2} className="mb-0.5" />
+                <span>{item.label}</span>
+              </NavLink>
+            )
+          })}
         </div>
       </nav>
     </div>
