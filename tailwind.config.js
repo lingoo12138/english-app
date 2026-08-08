@@ -26,7 +26,12 @@ export default {
         // 见 index.css 里 html { font-size: var(--base-font-size) }
         // 不要再用 text-* 写 px,全部交给 rem
         base: 'var(--base-font-size, 16px)',
-      }
+      },
+      // W117: 字 体 升 级 (Outfit + JetBrains Mono 自 托 管)
+      fontFamily: {
+        sans: ['Outfit', '-apple-system', 'BlinkMacSystemFont', '"PingFang SC"', '"Hiragino Sans GB"', '"Microsoft YaHei"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+      },
     },
   },
   plugins: [],

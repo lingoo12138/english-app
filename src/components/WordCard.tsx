@@ -54,7 +54,8 @@ function WordCardInner({ word, isFavorite, onToggleFavorite, favCount, onClickFa
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-0.5">
           <h3 className="text-lg font-semibold truncate">{word.word}</h3>
-          <span className="text-xs text-stone-400 dark:text-stone-300 truncate">{word.phonetic}</span>
+          {/* W117: 音标用 mono + tabular-nums 等宽对齐 */}
+          <span className="text-xs text-stone-400 dark:text-stone-300 truncate font-mono tabular-nums">{word.phonetic}</span>
         </div>
         <p className="text-sm text-stone-600 dark:text-stone-400 truncate">
           {word.translations[0]}
