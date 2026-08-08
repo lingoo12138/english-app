@@ -30,7 +30,10 @@ describe('W102 释义收藏 跨页 集成', () => {
   it('WordCard: favCount=2 显示 收藏 链接', () => {
     const onClickFavs = vi.fn()
     const { container } = render(React.createElement(MemoryRouter, null, React.createElement(WordCard, { word: fakeWord, favCount: 2, onClickFavs })))
-    expect(container.textContent).toContain('⭐ 2 收藏')
+    // v2.1.0: 改 用 SVG 图标 + 数字 + "收藏" 文 本
+    expect(container.textContent).toContain('2 收藏')
+    // 确 认 SVG 图标 存 在 (替 换 emoji)
+    expect(container.querySelectorAll('svg').length).toBeGreaterThan(0)
   })
 
   it('WordCard: 点击 收藏 链 触发 onClickFavs', () => {

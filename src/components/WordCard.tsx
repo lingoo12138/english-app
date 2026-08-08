@@ -1,4 +1,5 @@
 // 单词卡组件
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import { markWordCompleted } from '../lib/plan'
 import { useStore } from '../store/useStore'
@@ -14,7 +15,29 @@ interface Props {
   onClickFavs?: () => void  // W102: 跳 释义收藏 跨词
 }
 
-export default function WordCard({ word, isFavorite, onToggleFavorite, favCount, onClickFavs }: Props) {
+// v2.1.0: 内联 SVG (0 依赖) 替 换 emoji, 跟 改版稿一致
+function StarIcon({ filled, size = 16, className = '' }: { filled: boolean; size?: number; className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill={filled ? 'currentColor' : 'none'}
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  )
+}
+
+// v2.1.0: React.memo 优 化, prop 不 变 跳 过 重 渲 (省 49 reconcile / 翻 页)
+function WordCardInner({ word, isFavorite, onToggleFavorite, favCount, onClickFavs }: Props) {
   const dailyGoal = useStore(s => s.dailyGoal)
   const level = LEVELS.find(l => l.value === word.level)
 
@@ -26,7 +49,7 @@ export default function WordCard({ word, isFavorite, onToggleFavorite, favCount,
         // P2 修: 用静态 import,避免每次创建 chunk
         markWordCompleted(word.id, undefined, dailyGoal)
       }}
-      className="card flex items-center gap-3 hover:shadow-md active:scale-[0.98] transition-all no-select"
+      className="card-interactive flex items-center gap-3 active:scale-[0.98] no-select"
     >
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-0.5">
@@ -59,9 +82,13 @@ export default function WordCard({ word, isFavorite, onToggleFavorite, favCount,
               e.stopPropagation()
               onToggleFavorite()
             }}
-            className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-100 dark:hover:bg-stone-700"
+            className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-[var(--t-fast)]"
+            aria-label={isFavorite ? '取消收藏' : '收藏'}
           >
-            {isFavorite ? '⭐' : '☆'}
+            {/* v2.1.0: 内联 SVG 替 换 emoji (0 依赖) */}
+            {isFavorite
+              ? <StarIcon filled size={16} className="text-amber-500" />
+              : <StarIcon filled={false} size={16} className="text-stone-400" />}
           </button>
         )}
         {/* TTSButton 内部已在 useEffect cleanup 里 stopSpeak,但点击事件需要 stopPropagation */}
@@ -72,13 +99,20 @@ export default function WordCard({ word, isFavorite, onToggleFavorite, favCount,
         {favCount !== undefined && favCount > 0 && (
           <button
             onClick={(e) => { e.stopPropagation(); onClickFavs?.() }}
-            className="text-xs px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-200"
+            className="text-xs px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-200 transition-colors duration-[var(--t-fast)] flex items-center gap-1"
             title="跳 释义收藏 跨词 模式"
           >
-            ⭐ {favCount} 收藏
+            <StarIcon filled size={11} />{favCount} 收藏
           </button>
         )}
       </div>
     </Link>
   )
 }
+
+// v2.1.0: React.memo - 词 id/isFavorite 不 变 跳 过 重 渲
+const WordCard = memo(WordCardInner, (prev, next) => {
+  return prev.word.id === next.word.id && prev.isFavorite === next.isFavorite
+})
+
+export default WordCard

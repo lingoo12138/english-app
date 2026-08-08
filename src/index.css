@@ -17,6 +17,20 @@
 
   /* 字号(默认中) */
   --base-font-size: 16px;
+
+  /* v2.1.0 motion token (改 良 稿 落 地) */
+  --t-fast: 150ms;
+  --t-base: 200ms;
+  --t-slow: 300ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* v2.1.0 状态 色 (3 强调 色 替 5 渐 变) */
+  --state-success: #10b981;
+  --state-warning: #f59e0b;
+  --state-error: #f43f5e;
+  /* v2.1.0 柔 浮 阴 影 token */
+  --shadow-soft: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px -2px rgba(0,0,0,0.06);
+  --shadow-hover: 0 2px 4px rgba(0,0,0,0.04), 0 8px 24px -6px rgba(0,0,0,0.1);
 }
 
 @layer base {
@@ -38,7 +52,7 @@
 
 @layer components {
   .btn {
-    @apply px-4 py-2 rounded-lg font-medium transition-all active:scale-95 select-none;
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-[var(--t-base)] ease-[var(--ease)] active:scale-95 select-none;
   }
   .btn-primary {
     @apply btn bg-brand-600 text-white hover:bg-brand-700;
@@ -46,11 +60,19 @@
   .btn-ghost {
     @apply btn text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-800;
   }
+  /* v2.1.0 .card v2: 柔 浮 阴 影 + hover 浮 起 -2px (改 良 稿) */
   .card {
-    @apply bg-white dark:bg-stone-800 rounded-2xl shadow-sm p-4 transition-colors;
+    @apply bg-white dark:bg-stone-800 rounded-2xl p-4 transition-all duration-[var(--t-base)] ease-[var(--ease)];
+    box-shadow: var(--shadow-soft);
+  }
+  .card-interactive {
+    @apply card cursor-pointer hover:-translate-y-0.5;
+  }
+  .card-interactive:hover {
+    box-shadow: var(--shadow-hover);
   }
   .input {
-    @apply w-full px-4 py-2.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors;
+    @apply w-full px-4 py-2.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all duration-[var(--t-fast)] ease-[var(--ease)];
   }
 }
 
