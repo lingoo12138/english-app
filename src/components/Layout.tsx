@@ -30,18 +30,14 @@ const desktopNav = [
   { to: '/docs', label: '文档', icon: '📚' },
 ]
 
-// 移动端底部 Tab — 5 个核心(已加 每日一句 + 翻译,避免埋在首页快捷区)
+// 移动端底部 Tab — 5 项核心 (W112 UX bug 修: 之前 10 项, grid-cols-5 静默丢 6-10)
+// 业务: 首页/词库/场景/AI/我的 (其余入口从设置页或首页快捷区进入)
 const mobileNav = [
   { to: '/', label: '首页', icon: '🏠' },
   { to: '/words', label: '词库', icon: '📚' },
   { to: '/scenes', label: '场景', icon: '🎬' },
   { to: '/chat', label: 'AI', icon: '💬' },
-  { to: '/plan', label: '计划', icon: '📅' },
-  { to: '/write', label: '写作', icon: '✍️' },
-  { to: '/errors', label: '错题', icon: '📕' },
-  { to: '/listen', label: '听力', icon: '🎧' },
-  { to: '/report', label: '报告', icon: '📊' },
-  { to: '/notebook', label: '生词', icon: '⭐' },
+  { to: '/settings', label: '我的', icon: '👤' },
 ]
 
 // 移动端顶部 Title — 路径感知
@@ -147,7 +143,7 @@ export default function Layout() {
       {/* Toast 通知 (顶部居中堆叠) */}
       <ToastContainer />
 
-      {/* 底部导航 (手机) - 修复: 加了 每日一句 tab(用户高频功能) */}
+      {/* 底部导航 (手机) - W112 UX bug 修: 10 项 → 5 项, 避免 grid-cols-5 静默丢 6-10 */}
       <nav
         className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 z-10"
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}

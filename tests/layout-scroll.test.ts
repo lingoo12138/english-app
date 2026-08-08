@@ -52,3 +52,34 @@ describe('W100 侧边栏 滚动 修复', () => {
     expect(labels.some(l => l.includes('文档'))).toBe(true)
   })
 })
+
+// W112 修: 移 动 Tab 10→5 UX bug (6-10 项 静默 丢 弃)
+describe('W112 移 动 Tab UX bug 修', () => {
+  it('移 动 Tab 缩 到 5 项 (避 免 grid-cols-5 静默 丢 弃)', () => {
+    // 业务: 之前 10 项, grid-cols-5 只 渲 染 前 5, 6-10 永 远 不 见
+    const mobileNavMatch = layout.match(/const mobileNav = \[([\s\S]*?)\]/)
+    expect(mobileNavMatch).toBeTruthy()
+    const items = (mobileNavMatch![1].match(/to: '/g) || []).length
+    expect(items).toBe(5)
+  })
+
+  it('5 项 含 高频: 首页/词 库/场景/AI/我的', () => {
+    expect(layout).toMatch(/to: '\/'.*首页/)
+    expect(layout).toMatch(/to: '\/words'.*词库/)
+    expect(layout).toMatch(/to: '\/scenes'.*场景/)
+    expect(layout).toMatch(/to: '\/chat'.*AI/)
+    expect(layout).toMatch(/to: '\/settings'.*我的/)
+  })
+
+  it('移 动 nav 注释 含 5 项 + UX bug 修 说明', () => {
+    expect(layout).toMatch(/W112 UX bug 修/)
+  })
+
+  it('grid-cols-5 跟 5 项 一 致 (不 再 静默 丢 弃)', () => {
+    // 业务: grid-cols-5 渲 染 5 项, 现 在 5 项 = 一 致
+    const mobileNavMatch = layout.match(/const mobileNav = \[([\s\S]*?)\]/)
+    const items = (mobileNavMatch![1].match(/to: '/g) || []).length
+    expect(items).toBe(5)
+    expect(layout).toContain('grid-cols-5')
+  })
+})
