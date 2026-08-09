@@ -40,16 +40,18 @@ describe('W100 侧边栏 滚动 修复', () => {
     expect(layout).toMatch(/<nav[^>]*overflow-y-auto/)
   })
 
-  it('业务 关键: 桌面 22 项 nav 全 渲染 (P1-3)', () => {
-    // 业务承诺: 22 项 nav 完 整 可 访问
-    const { container } = render(React.createElement(MemoryRouter, null, React.createElement(Layout)))
-    const links = container.querySelectorAll('aside nav a')
-    expect(links.length).toBeGreaterThanOrEqual(22)
-    // 末 3 项 (跟读趋势/成就/文档) 应 该 存在
-    const labels = Array.from(links).map(l => l.textContent || '')
-    expect(labels.some(l => l.includes('跟读趋势'))).toBe(true)
-    expect(labels.some(l => l.includes('成就'))).toBe(true)
-    expect(labels.some(l => l.includes('文档'))).toBe(true)
+  it('业务 关键: W121 桌 面 22 项 收 敛 4 大 组 (P1-3 改 良)', () => {
+    // W121: 22 项 → 4 大 组 (学 习/练 习/复 习/设 置) 折 叠
+    // 源 码 验 证 4 大 组 全 存 在 (不 再 强 制 渲 染 22 项, 折 叠 后 默 认 仅 学 习 6 项)
+    const layoutSrc = readFileSync('src/components/Layout.tsx', 'utf-8')
+    expect(layoutSrc).toMatch(/label: '学习'/)
+    expect(layoutSrc).toMatch(/label: '练习'/)
+    expect(layoutSrc).toMatch(/label: '复习'/)
+    expect(layoutSrc).toMatch(/label: '设置'/)
+    // 22 项 原 始 项 全 存 在 源 码 (只 是 折 叠)
+    expect(layoutSrc).toContain('跟读趋势')
+    expect(layoutSrc).toContain('成就')
+    expect(layoutSrc).toContain('文档')
   })
 })
 

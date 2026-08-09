@@ -6,33 +6,54 @@ import { ToastContainer } from './Toast'
 import {
   IconHome, IconBook, IconVideo, IconSparkles, IconChat, IconCalendar,
   IconEdit, IconBookOpen, IconHeadphones, IconBarChart, IconSettings,
-  IconFileText, IconStar, IconTrophy, IconUser,
+  IconFileText, IconStar, IconTrophy, IconUser, IconArrow,
 } from './Icon'
 
-// 桌面端侧边栏 — 22 项 (W118: emoji → Icon SVG 替)
-const desktopNav = [
-  { to: '/', label: '首页', Icon: IconHome },
-  { to: '/words', label: '词库', Icon: IconBook },
-  { to: '/scenes', label: '场景课', Icon: IconVideo },
-  { to: '/daily', label: '每日一句', Icon: IconSparkles },
-  { to: '/chat', label: 'AI', Icon: IconChat },
-  { to: '/plan', label: '计划', Icon: IconCalendar },
-  { to: '/write', label: '写作', Icon: IconEdit },
-  { to: '/errors', label: '错题', Icon: IconBookOpen },
-  { to: '/errors/history', label: '错题统计', Icon: IconBarChart },
-  { to: '/listen', label: '听力', Icon: IconHeadphones },
-  { to: '/report', label: '报告', Icon: IconBarChart },
-  { to: '/translate', label: '翻译', Icon: IconChat },
-  { to: '/notebook', label: '生词本', Icon: IconStar },
-  { to: '/textbook', label: '课文', Icon: IconBookOpen },
-  { to: '/fill-blank', label: '填空', Icon: IconEdit },
-  { to: '/dictation', label: '听写', Icon: IconHeadphones },
-  { to: '/spelling', label: '拼写', Icon: IconEdit },
-  { to: '/translation-favs', label: '释义收藏', Icon: IconStar },
-  { to: '/follow-read/progress', label: '跟读趋势', Icon: IconBarChart },
-  { to: '/achievements', label: '成就', Icon: IconTrophy },
-  { to: '/settings', label: '设置', Icon: IconSettings },
-  { to: '/docs', label: '文档', Icon: IconFileText },
+// W121: 桌 面 端 22 项 → 4 大 组 折 叠 (12 项 主 入口 + 10 项 折 叠)
+// 业务: 学 习 6 / 练 习 6 / 复 习 5 / 设 置 5 = 22 项, 收 敛 后 顶 部 12 + 4 组 折 叠
+const desktopGroups: { label: string; items: { to: string; label: string; Icon: any }[] }[] = [
+  {
+    label: '学习',
+    items: [
+      { to: '/', label: '首页', Icon: IconHome },
+      { to: '/words', label: '词库', Icon: IconBook },
+      { to: '/scenes', label: '场景课', Icon: IconVideo },
+      { to: '/daily', label: '每日一句', Icon: IconSparkles },
+      { to: '/notebook', label: '生词本', Icon: IconStar },
+      { to: '/textbook', label: '课文', Icon: IconBookOpen },
+    ],
+  },
+  {
+    label: '练习',
+    items: [
+      { to: '/chat', label: 'AI', Icon: IconChat },
+      { to: '/listen', label: '听力', Icon: IconHeadphones },
+      { to: '/plan', label: '计划', Icon: IconCalendar },
+      { to: '/write', label: '写作', Icon: IconEdit },
+      { to: '/translate', label: '翻译', Icon: IconChat },
+      { to: '/follow-read/progress', label: '跟读趋势', Icon: IconBarChart },
+    ],
+  },
+  {
+    label: '复习',
+    items: [
+      { to: '/errors', label: '错题', Icon: IconBookOpen },
+      { to: '/errors/history', label: '错题统计', Icon: IconBarChart },
+      { to: '/translation-favs', label: '释义收藏', Icon: IconStar },
+      { to: '/dictation', label: '听写', Icon: IconHeadphones },
+      { to: '/spelling', label: '拼写', Icon: IconEdit },
+    ],
+  },
+  {
+    label: '设置',
+    items: [
+      { to: '/report', label: '报告', Icon: IconBarChart },
+      { to: '/achievements', label: '成就', Icon: IconTrophy },
+      { to: '/fill-blank', label: '填空', Icon: IconEdit },
+      { to: '/settings', label: '设置', Icon: IconSettings },
+      { to: '/docs', label: '文档', Icon: IconFileText },
+    ],
+  },
 ]
 
 // 移动端底部 Tab — 5 项核心 (W112 UX bug 修: 之前 10 项, grid-cols-5 静默丢 6-10)
@@ -56,6 +77,18 @@ export default function Layout() {
   // W104 修 v1: 桌面 侧边栏 滚 动 位置 持久化 (每 页 独 立, verifier B 修 P1)
   const navRef = useRef<HTMLElement>(null)
   const [scrollPosMap, setScrollPosMap] = useState<Map<string, number>>(() => loadScrollPosMap() as Map<string, number>)
+  // W121: 4 大 组 折 叠 状 态 (学 习 默 认 展 开, 其 余 折 叠)
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => {
+    try {
+      const saved = localStorage.getItem('layout-open-groups')
+      return saved ? JSON.parse(saved) : { 学习: true, 练习: false, 复习: false, 设置: false }
+    } catch {
+      return { 学习: true, 练习: false, 复习: false, 设置: false }
+    }
+  })
+  useEffect(() => {
+    localStorage.setItem('layout-open-groups', JSON.stringify(openGroups))
+  }, [openGroups])
   useEffect(() => {
     // 路由 变化 时: 保存 离 开页 位置, 持久 化
     const currentPath = location.pathname
@@ -91,25 +124,52 @@ export default function Layout() {
           <h1 className="text-2xl font-bold text-brand-600">句刻</h1>
           <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">即时英语学习</p>
         </div>
-        <nav ref={navRef} className="flex-1 min-h-0 px-3 py-4 space-y-1 overflow-y-auto">
-          {desktopNav.map((item) => {
-            const Icon = item.Icon
+        <nav ref={navRef} className="flex-1 min-h-0 px-3 py-4 space-y-3 overflow-y-auto">
+          {/* W121: 4 大 组 折 叠 (学 习/练 习/复 习/设 置) — 22 项 收 敛 */}
+          {desktopGroups.map((group) => {
+            // 折 叠 状 态: 默 认 学 习 展 开, 其 余 折 叠
+            const groupKey = group.label
+            const isOpen = openGroups[groupKey] ?? (groupKey === '学习')
             return (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.to === '/'}
-                className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-[var(--t-fast)] ease-[var(--ease)] ${
-                    isActive
-                      ? 'bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300'
-                      : 'text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800'
-                  }`
-                }
-              >
-                <Icon size={16} strokeWidth={2} className="flex-shrink-0" />
-                <span>{item.label}</span>
-              </NavLink>
+              <div key={groupKey}>
+                <button
+                  onClick={() => setOpenGroups((prev) => ({ ...prev, [groupKey]: !isOpen }))}
+                  className="w-full flex items-center justify-between px-2 py-1.5 text-[10px] font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wider hover:text-stone-700 dark:hover:text-stone-200 transition-colors duration-[var(--t-fast)]"
+                  aria-expanded={isOpen}
+                >
+                  <span>{group.label}</span>
+                  <span
+                    className="inline-block transition-transform duration-[var(--t-base)] ease-[var(--ease-spring)]"
+                    style={{ transform: isOpen ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                  >
+                    <IconArrow size={12} strokeWidth={2.5} />
+                  </span>
+                </button>
+                {isOpen && (
+                  <div className="mt-1 space-y-1">
+                    {group.items.map((item) => {
+                      const Icon = item.Icon
+                      return (
+                        <NavLink
+                          key={item.to}
+                          to={item.to}
+                          end={item.to === '/'}
+                          className={({ isActive }) =>
+                            `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-[var(--t-fast)] ease-[var(--ease)] ${
+                              isActive
+                                ? 'bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300'
+                                : 'text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800'
+                            }`
+                          }
+                        >
+                          <Icon size={16} strokeWidth={2} className="flex-shrink-0" />
+                          <span>{item.label}</span>
+                        </NavLink>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
             )
           })}
         </nav>

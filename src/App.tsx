@@ -4,6 +4,8 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
 // v1.38.0 W36: iOS in-app 提醒 banner
 import InAppBanner from './components/InAppBanner'
+// W120: 反 馈 层 — Suspense fallback 用 Skeleton 替 "加 载 中..." 文 字
+import { SkeletonPage } from './components/Skeleton'
 const Home = lazy(() => import('./pages/Home'))
 const WordList = lazy(() => import('./pages/WordList'))
 const WordDetail = lazy(() => import('./pages/WordDetail'))
@@ -132,7 +134,7 @@ function App() {
   }, [location.pathname])
 
   return (
-    <Suspense fallback={<div className="flex items-center justify-center h-32"><div className="text-stone-500">加载中...</div></div>}>
+    <Suspense fallback={<SkeletonPage />}>
     {/* v1.38.0 W36: iOS 提醒 banner (iOS Safari 时启用) */}
     <InAppBanner />
     <Routes>
