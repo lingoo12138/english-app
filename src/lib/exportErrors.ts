@@ -1,40 +1,38 @@
 // src/lib/exportErrors.ts - v1.92 W86-B 错题导出 CSV
+// W128: 委托 dataExport.ts 统一实现 (escapeCSVField + downloadFile)
+// 保留旧签名给测试/调用方继续用
 
 import type { DictationError, WritingError } from './db'
+import { escapeCSVField as _escapeCSV, downloadFile as _downloadFile } from './dataExport'
 
-/** 转义 CSV 字段 (引号/逗号/换行) */
+/** 转义 CSV 字段 (引号/逗号/换行) - W128 委托 dataExport */
 export function escapeCSV(field: string | number | undefined | null): string {
-  if (field === undefined || field === null) return ''
-  const s = String(field)
-  if (s.includes(',') || s.includes('"') || s.includes('\n') || s.includes('\r')) {
-    return `"${s.replace(/"/g, '""')}"`
-  }
-  return s
+  return _escapeCSV(field)
 }
 
 /** 写作错题 → CSV 行 */
 export function writingErrorToCSV(err: WritingError): string {
   const errs = err.errors.map(e => `${e.original}→${e.suggestion}(${e.type})`).join(' | ')
   return [
-    escapeCSV(err.id),
-    escapeCSV(err.source),
-    escapeCSV(new Date(err.ts).toISOString()),
-    escapeCSV(err.original),
-    escapeCSV(err.corrected),
-    escapeCSV(errs),
+    _escapeCSV(err.id),
+    _escapeCSV(err.source),
+    _escapeCSV(new Date(err.ts).toISOString()),
+    _escapeCSV(err.original),
+    _escapeCSV(err.corrected),
+    _escapeCSV(errs),
   ].join(',')
 }
 
 /** 听写/拼写/跟读 错题 → CSV 行 */
 export function dictationErrorToCSV(err: DictationError): string {
   return [
-    escapeCSV(err.id),
-    escapeCSV(err.source || 'dictation'),
-    escapeCSV(new Date(err.ts).toISOString()),
-    escapeCSV(err.target),
-    escapeCSV(err.transcript),
-    escapeCSV(err.score),
-    escapeCSV(err.difficulty),
+    _escapeCSV(err.id),
+    _escapeCSV(err.source || 'dictation'),
+    _escapeCSV(new Date(err.ts).toISOString()),
+    _escapeCSV(err.target),
+    _escapeCSV(err.transcript),
+    _escapeCSV(err.score),
+    _escapeCSV(err.difficulty),
   ].join(',')
 }
 
@@ -59,31 +57,25 @@ export function allErrorsToCSV(
 ): string {
   const header = 'id,source,time,source_text,user_text,extra'
   const wRows = writing.map(e => [
-    escapeCSV(e.id),
-    escapeCSV(e.source),
-    escapeCSV(new Date(e.ts).toISOString()),
-    escapeCSV(e.corrected),
-    escapeCSV(e.original),
-    escapeCSV(e.errors.map(x => `${x.original}→${x.suggestion}(${x.type})`).join(' | ')),
+    _escapeCSV(e.id),
+    _escapeCSV(e.source),
+    _escapeCSV(new Date(e.ts).toISOString()),
+    _escapeCSV(e.corrected),
+    _escapeCSV(e.original),
+    _escapeCSV(e.errors.map(x => `${x.original}→${x.suggestion}(${x.type})`).join(' | ')),
   ].join(','))
   const dRows = dictation.map(e => [
-    escapeCSV(e.id),
-    escapeCSV(e.source || 'dictation'),
-    escapeCSV(new Date(e.ts).toISOString()),
-    escapeCSV(e.target),
-    escapeCSV(e.transcript),
-    escapeCSV(`score=${e.score} difficulty=${e.difficulty}`),
+    _escapeCSV(e.id),
+    _escapeCSV(e.source || 'dictation'),
+    _escapeCSV(new Date(e.ts).toISOString()),
+    _escapeCSV(e.target),
+    _escapeCSV(e.transcript),
+    _escapeCSV(`score=${e.score} difficulty=${e.difficulty}`),
   ].join(','))
   return [header, ...wRows, ...dRows].join('\n')
 }
 
-/** 触发浏览器下载 */
+/** 触发浏览器下载 - W128 委托 dataExport (统一加 UTF-8 BOM + Blob URL) */
 export function downloadCSV(filename: string, content: string): void {
-  const blob = new Blob(['\uFEFF' + content], { type: 'text/csv;charset=utf-8' })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = filename
-  a.click()
-  URL.revokeObjectURL(url)
+  _downloadFile(content, filename, 'text/csv')
 }

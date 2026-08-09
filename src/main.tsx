@@ -61,3 +61,19 @@ const updateSW = registerSW({
     if (import.meta.env.DEV) console.debug('[PWA] 离线就绪,无网络也能用')
   },
 })
+
+// W128: 跨 tab IDB 同步 (主 tab 写 -> 副 tab 收到 -> 刷新 store)
+// 启动期: 拿不到 store hook, 用 dynamic import + window event 通知应用层
+import { initIdbSync } from './lib/idbSync'
+initIdbSync({
+  onChange: (msg) => {
+    // 抛 window event, 业务 store 可订阅
+    // P1: 任何 store (favorites/chats/errors 等) 想跨 tab 刷新, 监听 'idb-sync' 事件
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('idb-sync', { detail: msg }))
+    }
+    if (import.meta.env.DEV) {
+      console.debug('[idbSync] 收到副 tab 写入:', msg.store, msg.op, msg.key)
+    }
+  },
+})

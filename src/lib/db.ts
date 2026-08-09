@@ -2,6 +2,8 @@
 import Dexie, { type Table } from 'dexie'
 // v1.51.0 W46: 静态 import addXP (verifier4 P1-B 修 fire-and-forget)
 import { addXP, XP_REWARDS } from './xpSystem'
+// W128: 跨 tab IDB 同步 (动态 import 避免循环依赖 + 启动期不能弹 UI)
+import { notifyIdbWrite } from './idbSync'
 import type { Favorite, LearnRecord, ReviewItem, PronunciationAttempt } from '../types'
 
 // v1.0: export 供 migrate.ts 等使用
@@ -192,12 +194,17 @@ export interface ChatRecord {
 }
 
 export async function saveChat(record: ChatRecord): Promise<number> {
-  return db.chats.put({ ...record, updatedAt: Date.now() })
+  const id = await db.chats.put({ ...record, updatedAt: Date.now() })
+  // W128: 跨 tab 同步 (收到广播时 _receiving=true, 防回环)
+  notifyIdbWrite({ store: 'chats', op: 'put', key: id })
+  return id
 }
 
 // 写作错误 helpers
 export async function saveWritingError(err: WritingError): Promise<number> {
-  return db.writingErrors.put({ ...err, ts: Date.now() })
+  const id = await db.writingErrors.put({ ...err, ts: Date.now() })
+  notifyIdbWrite({ store: 'writingErrors', op: 'put', key: id })
+  return id
 }
 
 export async function getAllWritingErrors(): Promise<WritingError[]> {
@@ -210,7 +217,9 @@ export async function deleteWritingError(id: number): Promise<void> {
 
 // v1.87 W81-D: 听写错题 helpers
 export async function saveDictationError(err: Omit<DictationError, 'id' | 'ts'>): Promise<number> {
-  return db.dictationErrors.add({ ...err, ts: Date.now() })
+  const id = await db.dictationErrors.add({ ...err, ts: Date.now() })
+  notifyIdbWrite({ store: 'dictationErrors', op: 'put', key: id })
+  return id
 }
 
 export async function getAllDictationErrors(): Promise<DictationError[]> {
@@ -347,7 +356,8 @@ export async function getChat(id: number): Promise<ChatRecord | undefined> {
 }
 
 export async function deleteChat(id: number): Promise<void> {
-  return db.chats.delete(id)
+  await db.chats.delete(id)
+  notifyIdbWrite({ store: 'chats', op: 'delete', key: id })
 }
 
 /** 统一处理 IDB 写入错误(quota exceeded 等) */
@@ -369,6 +379,8 @@ export async function addFavorite(wordId: string) {
   } catch (e) {
     handleDbError(e, '添加收藏')
   }
+  // W128: 跨 tab 同步
+  notifyIdbWrite({ store: 'favorites', op: 'put', key: wordId })
   // v1.43.0 W43-B: 收藏 +1 XP (静默, 失败不阻塞主流程)
   // v1.51.0 W46: 改静态 import (verifier4 P1-B 修, 避免 fire-and-forget)
   try {
@@ -380,6 +392,7 @@ export async function addFavorite(wordId: string) {
 
 export async function removeFavorite(wordId: string) {
   await db.favorites.delete(wordId)
+  notifyIdbWrite({ store: 'favorites', op: 'delete', key: wordId })
 }
 
 export async function isFavorite(wordId: string): Promise<boolean> {
@@ -519,7 +532,9 @@ export async function getBestAttempt(wordId: string): Promise<PronunciationAttem
 
 export async function addErrorReviewScore(s: Omit<ErrorReviewScore, 'id'>): Promise<number> {
   try {
-    return await db.errorReviewHistory.add(s)
+    const id = await db.errorReviewHistory.add(s)
+    notifyIdbWrite({ store: 'errorReviewHistory', op: 'put', key: id })
+    return id
   } catch (e) {
     handleDbError(e, '保存错题评分')
   }
