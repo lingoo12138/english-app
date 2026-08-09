@@ -12,11 +12,13 @@ import { Modal } from '../components/Modal'
 import { ErrorExplainButton } from '../components/ErrorExplainButton'
 import { addErrorWordsToFavorites } from '../lib/errorReview'
 import { toast } from '../components/Toast'
+import { Skeleton } from '../components/Skeleton'
 import { loadWords } from '../lib/words'
 import { translate as translateText, BUILTIN_TRANSLATE_PROVIDERS } from '../lib/translate'
 import { getRoleById, getGreetingForRole, parseMultiRoleReply } from '../lib/chatRoles'
 import RoleSelector from '../components/RoleSelector'
 import MultiRoleSelector from '../components/MultiRoleSelector'
+import { IconChat, IconRefresh, IconShare, IconBookOpen, IconHeadphones, IconArrow, IconUser, IconSparkles } from '../components/Icon'
 
 const SCENARIOS = [
   { id: 'cafe', name: '☕ 咖啡店', desc: '点单 / 咨询 / 结账' },
@@ -449,28 +451,36 @@ export default function AIChat() {
           </button>
         </div>
       )}
+      {/* W123a 顶 部 简 化: 3 操 作 + 标 题, 用 Icon SVG 替 emoji */}
       <div className="flex items-center justify-between mb-3">
         <div>
-          <h1 className="text-2xl font-bold">💬 {t('aichat.title')}</h1>
+          <h1 className="text-2xl font-bold flex items-center gap-2">
+            <IconChat size={22} className="text-brand-500" />
+            {t('aichat.title')}
+          </h1>
           <p className="text-stone-500 dark:text-stone-400 text-sm">
             {provider?.name || '未选择渠道'} · {SCENARIOS.find(s => s.id === scenario)?.name} · {LEVELS.find(l => l.id === level)?.name}
           </p>
         </div>
-        <button onClick={handleNewChat} className="btn-ghost text-sm">🆕 新对话</button>
-        <button
-          onClick={async () => {
-            // v0.22.8: 导出全部对话
-            const content = await exportAllChats()
-            const date = new Date().toISOString().slice(0, 10)
-            downloadChatJson(content, `chats-${date}.json`)
-          }}
-          className="btn-ghost text-sm"
-        >
-          📤 导出
-        </button>
-        <button onClick={() => setShowHistory(!showHistory)} className={`btn-ghost text-sm ${showHistory ? 'bg-brand-100 dark:bg-brand-900/30' : ''}`}>
-          📚 历史 ({chats.length})
-        </button>
+        <div className="flex gap-2">
+          <button onClick={handleNewChat} className="btn-ghost text-sm flex items-center gap-1">
+            <IconRefresh size={14} />新对话
+          </button>
+          <button
+            onClick={async () => {
+              const content = await exportAllChats()
+              const date = new Date().toISOString().slice(0, 10)
+              downloadChatJson(content, `chats-${date}.json`)
+            }}
+            className="btn-ghost text-sm flex items-center gap-1"
+            title="导出全部对话"
+          >
+            <IconShare size={14} />导出
+          </button>
+          <button onClick={() => setShowHistory(!showHistory)} className={`btn-ghost text-sm flex items-center gap-1 ${showHistory ? 'bg-brand-100 dark:bg-brand-900/30' : ''}`}>
+            <IconBookOpen size={14} />历史 ({chats.length})
+          </button>
+        </div>
       </div>
 
       {/* 场景 / 难度选择 */}
@@ -699,24 +709,35 @@ export default function AIChat() {
 
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-stone-100 dark:bg-stone-800 rounded-2xl px-4 py-2 text-sm">
-              <span className="inline-block animate-pulse">● ● ●</span>
+            <div className="bg-stone-100 dark:bg-stone-800 rounded-2xl px-4 py-3 text-sm space-y-2 min-w-[120px]">
+              <Skeleton width={80} height={12} />
+              <Skeleton width={140} height={12} />
+              <Skeleton width={60} height={12} />
             </div>
           </div>
         )}
       </div>
 
-      {/* 输入区 */}
-      <div className="flex gap-2 pt-3 border-t border-stone-200 dark:border-stone-700">
+      {/* W123a 输入区: 移 动 端 safe-area 固 定 底 部, Icon SVG 替 emoji */}
+      <div
+        className="flex gap-2 pt-3 border-t border-stone-200 dark:border-stone-700 sticky md:static bottom-0 bg-white dark:bg-stone-900 -mx-4 px-4 md:mx-0 md:px-0"
+        style={{ paddingBottom: 'max(0px, env(safe-area-inset-bottom))' }}
+      >
         <button
           onClick={handleStartSTT}
           disabled={loading}
-          className={`btn ${sttActive ? 'bg-red-500 text-white animate-pulse' : 'btn-ghost'} w-12 h-12 !p-0`}
+          className={`btn flex items-center justify-center w-12 h-12 !p-0 rounded-full transition-all duration-[var(--t-fast)] ${
+            sttActive
+              ? 'bg-red-500 text-white animate-pulse'
+              : 'btn-ghost text-stone-500 dark:text-stone-400 hover:text-brand-500'
+          }`}
           title={sttActive ? '点击停止录音' : '点击开始语音输入'}
           aria-label={sttActive ? '停止录音' : '开始语音输入'}
           aria-pressed={sttActive}
         >
-          {sttActive ? '⏹' : '🎤'}
+          {sttActive
+            ? <IconHeadphones size={18} className="text-white" />
+            : <IconHeadphones size={18} strokeWidth={2} />}
         </button>
         <div className="flex-1 relative">
           <input
@@ -735,11 +756,13 @@ export default function AIChat() {
         <button
           onClick={handleSend}
           disabled={loading || !input.trim()}
-          className="btn-primary"
+          className="btn-primary flex items-center gap-1"
         >
-          {loading ? '...' : '发送'}
+          {loading
+            ? <span className="inline-block animate-pulse">...</span>
+            : <><IconArrow size={14} strokeWidth={2.5} />发送</>}
         </button>
-        </div>
+      </div>
     </div>
   )
 }
