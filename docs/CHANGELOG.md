@@ -4076,3 +4076,112 @@
 - 0 P0 + 0 P1 业务
 - 99 release tag / 17 周 / 25 次大 review
 
+
+---
+
+## [v2.1.x] - 2026-08-08 → 2026-08-09
+
+### 改版稿 8 大改良点 100% 完整落地 (W112-W121)
+
+> W112 移动 Tab UX bug 修 + W113 UI 基建 (motion + .card v2 + WordCard memo) +
+> W114 渐变 8→2 收敛 + W115 Home 24→8 卡重构 (Bento + MainCTA) +
+> W116 字母索引动效 + W117 字体升级 (Outfit + JBMono) +
+> W118 32 组件 emoji → Icon SVG + W119 SUMMARY +
+> W120 Skeleton 反馈层 + W121 22 项 4 大组折叠
+
+#### v2.1.7 W120 — Skeleton 反馈层
+- 5 个 Skeleton 出口 (Base/WordCard/WordList/MainCTA/Page)
+- 0 额外依赖 (Tailwind 内置 animate-pulse)
+- App.tsx Suspense fallback 改 `<SkeletonPage />` (替"加载中...")
+
+#### v2.1.7 W121 — 22 项 4 大组折叠
+- 桌面 22 项侧栏收 敛: 学 习 6 / 练 习 6 / 复 习 5 / 设 置 5 = 22
+- 默 认 仅 "学 习" 展 开 6 项, 其 余 折 叠
+- 折 叠 状 态 持 久 化 localStorage (W104 风 格)
+- 折 叠 箭 头 ease-spring 旋 转 + aria-expanded a11y
+
+#### v2.1.6 W119 — SUMMARY_v2.1.x
+- 改版稿 8 大 改 良 点 完 整 总 结 (5.7KB)
+- 8/8 100% 完 整 落 地 文 档
+
+#### v2.1.5 W118 — 32 组件 emoji 替 Icon SVG
+- Icon 库 20 个 SVG (Home/Book/Video/Sparkles/Chat/Calendar/Edit/Headphones/BarChart/Settings/Star/Trophy/User/Share/FileText/Arrow/Waving/Refresh)
+- 0 依赖 (纯内联 SVG, 跟改版稿一致)
+- Layout 22 桌面 + 5 移动 全替
+- Home MainCTA + 4 状态 + 5 推荐 全替
+
+#### v2.1.4 W117 — 字体升级 (Outfit + JetBrains Mono)
+- @fontsource/outfit 4 字重 + @fontsource/jetbrains-mono 2 字重 (自托管)
+- PWA workbox 缓存命中 (0 外网)
+- body font-feature-settings tnum/lnum (数字等宽)
+- tailwind fontFamily.sans (Outfit) + fontFamily.mono (JetBrains Mono)
+- WordCard 音标 font-mono tabular-nums
+
+#### v2.1.3 W116 — 字母索引动效
+- 移动端 sticky top-14 横滚 + scrollbar-hide
+- 桌面端 fixed right-3 竖排 (新增 26 字母圆形紧凑)
+- 激活态 spring 弹入 (scale-110 + ease-spring)
+- hover 浮起 (scale-105/110)
+- aria-current + data-letter + 自动跟激活 (mobileAlphaRef)
+
+#### v2.1.2 W115 — Home 24→8 卡重构
+- MainCTA 合并 4 功能 (欢迎 + 分享 + onboarding + 今日学)
+- Bento Lv./XP (md:col-span-2) + 3 统计 (1 行)
+- 2x2 状态 (成就/日报/自定义/日历)
+- 5 推荐横向滚动 quick-bar
+- 删 StudyCalendar 重复 (streak 已含)
+- 改版稿第 3 步: 主 CTA ≤ 5 步 ✅
+
+#### v2.1.1 W114 — Home 渐变 8→2 收敛
+- 13 渐变 (8 色族) → 0 渐变
+- 删色族: violet/fuchsia/pink/cyan/blue/yellow/amber/orange/teal/rose/purple
+- 改用 brand-500/600 + accent-500/600 + 3 状态色 token
+
+#### v2.1.0 W113 — UI 基建
+- motion token: --t-fast/--t-base/--t-slow + --ease/--ease-spring
+- 状态色 token: --state-success/warning/error
+- 柔浮阴影: --shadow-soft/--shadow-hover
+- .card v2 + .card-interactive (hover -translate-y-0.5)
+- WordCard React.memo (省 49 reconcile/翻页)
+- 内联 SVG StarIcon 替 emoji (0 依赖)
+- a11y: 收藏按钮加 aria-label
+
+#### v2.0.15 W112 — 移动 Tab UX bug 修
+- mobileNav 10 → 5 项 (首页/词库/场景/AI/我的)
+- 修前: 6-10 项 静默丢弃 (5 个高频入口丢失)
+- 修后: 5 项核心 100% 可见
+
+### 改版稿 8 大改良点落地
+| # | 改良点 | 状态 | 落地 release |
+|---|--------|------|--------------|
+| 1 | 卡片柔浮 (.card v2) | ✅ | W113 |
+| 2 | 渐变 8→2 收敛 | ✅ | W114 |
+| 3 | Bento Grid + MainCTA | ✅ | W115 |
+| 4 | 字母索引动效 | ✅ | W116 |
+| 5 | Lucide 图标 (32 组件) | ✅ | W118 |
+| 6 | 字体升级 | ✅ | W117 |
+| 7 | Motion token | ✅ | W113 |
+| 8 | 主 CTA ≤ 5 步 | ✅ | W115 |
+| **+** | **反馈层 (Skeleton)** | ✅ | **W120** |
+| **+** | **22 项 → 4 大组折叠** | ✅ | **W121** |
+
+**8/8 完整 + 2 补充 = 10/10 业务价值落地**
+
+### 累计 (v2.1.7)
+- **1225 单元测试** / 95 文件 (v2.0.15 1160 → +65 测试, +7 文件)
+- **5,423 词 / 100%** ⭐
+- 0 P0 + 0 P1 业务 维持 200+ 轮
+- 150+ bug 修复 (含 verifier 抗审查累计 24 P0 + 49 P1)
+- 18 verifier 抗审查完整循环
+
+### 部署
+- **main**: `e56277f` W120+W121
+- **gh-pages**: `ab919e6` v2.1.6 (后续 push)
+- **预览**: https://lingoo12138.github.io/english-app/
+
+### 性能红线 (不越)
+- 词库 < 100ms / 跨路由 < 50ms / glass ≤ 2 / 0 framer-motion
+- WordCard React.memo (-49 reconcile/翻页)
+- 字体自托管 PWA 缓存, 首屏不增
+- 0 emoji (32 组件) → 0 依赖 SVG
+
