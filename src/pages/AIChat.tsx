@@ -18,7 +18,7 @@ import { translate as translateText, BUILTIN_TRANSLATE_PROVIDERS } from '../lib/
 import { getRoleById, getGreetingForRole, parseMultiRoleReply } from '../lib/chatRoles'
 import RoleSelector from '../components/RoleSelector'
 import MultiRoleSelector from '../components/MultiRoleSelector'
-import { IconChat, IconRefresh, IconShare, IconBookOpen, IconHeadphones, IconArrow, IconUser, IconSparkles } from '../components/Icon'
+import { IconChat, IconRefresh, IconShare, IconBookOpen, IconHeadphones, IconArrow, IconUser, IconSparkles, IconMic, IconMicOff } from '../components/Icon'
 
 const SCENARIOS = [
   { id: 'cafe', name: '☕ 咖啡店', desc: '点单 / 咨询 / 结账' },
@@ -718,6 +718,21 @@ export default function AIChat() {
         )}
       </div>
 
+      {/* W123c 快 捷 回 复 建 议 (新 手 友 好) - 空 输 入 + 消 息 ≤ 2 时 显 示 */}
+      {!input.trim() && messages.length <= 2 && !loading && (
+        <div className="flex gap-2 overflow-x-auto pb-2 pt-2 scrollbar-hide">
+          {['Hello!', 'How are you?', "I don't understand.", 'Can you speak slowly?'].map((suggestion) => (
+            <button
+              key={suggestion}
+              onClick={() => setInput(suggestion)}
+              className="flex-shrink-0 px-3 py-1.5 text-xs bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 rounded-full hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors duration-[var(--t-fast)]"
+            >
+              {suggestion}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* W123a 输入区: 移 动 端 safe-area 固 定 底 部, Icon SVG 替 emoji */}
       <div
         className="flex gap-2 pt-3 border-t border-stone-200 dark:border-stone-700 sticky md:static bottom-0 bg-white dark:bg-stone-900 -mx-4 px-4 md:mx-0 md:px-0"
@@ -736,8 +751,8 @@ export default function AIChat() {
           aria-pressed={sttActive}
         >
           {sttActive
-            ? <IconHeadphones size={18} className="text-white" />
-            : <IconHeadphones size={18} strokeWidth={2} />}
+            ? <IconMicOff size={18} className="text-white" />
+            : <IconMic size={18} strokeWidth={2} />}
         </button>
         <div className="flex-1 relative">
           <input

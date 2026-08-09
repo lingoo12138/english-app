@@ -31,9 +31,10 @@ describe('W123a AIChat UI 优 化', () => {
     expect(aiChat).toMatch(/safe-area-inset-bottom/)
   })
 
-  it('AIChat 录 音 🎤 emoji 替 IconHeadphones SVG', () => {
-    // 业 务: W118 一 致
-    expect(aiChat).toMatch(/<IconHeadphones size=\{18\}/)
+  it('AIChat 录 音 🎤 emoji 替 IconMic/IconMicOff SVG (W123c 优 化)', () => {
+    // 业 务: W118 一 致, W123c 改 IconHeadphones → IconMic (录 音 图 标 更 准 确)
+    expect(aiChat).toMatch(/<IconMic size=\{18\} strokeWidth=\{2\} \/>/)
+    expect(aiChat).toMatch(/<IconMicOff size=\{18\} className="text-white" \/>/)
   })
 
   it('AIChat 发 送 按 钮 加 IconArrow SVG', () => {
