@@ -18,7 +18,7 @@ import { translate as translateText, BUILTIN_TRANSLATE_PROVIDERS } from '../lib/
 import { getRoleById, getGreetingForRole, parseMultiRoleReply } from '../lib/chatRoles'
 import RoleSelector from '../components/RoleSelector'
 import MultiRoleSelector from '../components/MultiRoleSelector'
-import { IconChat, IconRefresh, IconShare, IconBookOpen, IconHeadphones, IconArrow, IconUser, IconSparkles, IconMic, IconMicOff } from '../components/Icon'
+import { IconChat, IconRefresh, IconShare, IconBookOpen, IconHeadphones, IconArrow, IconUser, IconSparkles, IconMic, IconMicOff, IconSettings } from '../components/Icon'
 
 const SCENARIOS = [
   { id: 'cafe', name: '☕ 咖啡店', desc: '点单 / 咨询 / 结账' },
@@ -49,6 +49,12 @@ export default function AIChat() {
   const setLevel = useStore(s => s.setChatLevel)
 
   const [showHistory, setShowHistory] = useState(false)
+  // W123d: 3 大 折 叠 状 态 (角 色 默 认 展 开, 其 余 折 叠) — 跟 W121 4 大组 风 格 一 致
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => ({
+    role: true,
+    config: false,
+  }))
+  const toggleGroup = (key: string) => setOpenGroups((prev) => ({ ...prev, [key]: !prev[key] }))
   // W6 a11y: Esc 关闭历史侧栏
   useEffect(() => {
     if (!showHistory) return
@@ -451,119 +457,150 @@ export default function AIChat() {
           </button>
         </div>
       )}
-      {/* W123a 顶 部 简 化: 3 操 作 + 标 题, 用 Icon SVG 替 emoji */}
+      {/* W123d 顶 部 v2: 标 题 居 中 + 3 圆 形 Icon 按 钮 (新对话/导出/历史) */}
       <div className="flex items-center justify-between mb-3">
-        <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2">
-            <IconChat size={22} className="text-brand-500" />
-            {t('aichat.title')}
-          </h1>
-          <p className="text-stone-500 dark:text-stone-400 text-sm">
-            {provider?.name || '未选择渠道'} · {SCENARIOS.find(s => s.id === scenario)?.name} · {LEVELS.find(l => l.id === level)?.name}
-          </p>
+        <div className="flex items-center gap-2">
+          <IconChat size={20} className="text-brand-500" />
+          <h1 className="text-lg font-bold">{t('aichat.title')}</h1>
         </div>
-        <div className="flex gap-2">
-          <button onClick={handleNewChat} className="btn-ghost text-sm flex items-center gap-1">
-            <IconRefresh size={14} />新对话
+        <div className="flex gap-1">
+          <button onClick={handleNewChat} className="w-9 h-9 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 flex items-center justify-center transition-colors duration-[var(--t-fast)]" title="新对话" aria-label="新对话">
+            <IconRefresh size={16} />
           </button>
-          <button
-            onClick={async () => {
-              const content = await exportAllChats()
-              const date = new Date().toISOString().slice(0, 10)
-              downloadChatJson(content, `chats-${date}.json`)
-            }}
-            className="btn-ghost text-sm flex items-center gap-1"
-            title="导出全部对话"
-          >
-            <IconShare size={14} />导出
+          <button onClick={async () => { const content = await exportAllChats(); const date = new Date().toISOString().slice(0, 10); downloadChatJson(content, `chats-${date}.json`) }} className="w-9 h-9 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 flex items-center justify-center transition-colors duration-[var(--t-fast)]" title="导出" aria-label="导出全部对话">
+            <IconShare size={16} />
           </button>
-          <button onClick={() => setShowHistory(!showHistory)} className={`btn-ghost text-sm flex items-center gap-1 ${showHistory ? 'bg-brand-100 dark:bg-brand-900/30' : ''}`}>
-            <IconBookOpen size={14} />历史 ({chats.length})
+          <button onClick={() => setShowHistory(!showHistory)} className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-[var(--t-fast)] relative ${showHistory ? 'bg-brand-100 dark:bg-brand-900/30' : 'hover:bg-stone-100 dark:hover:bg-stone-800'}`} title="历史" aria-label="历史记录">
+            <IconBookOpen size={16} />
+            {chats.length > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-brand-500 text-white text-[10px] font-semibold rounded-full flex items-center justify-center">{chats.length}</span>
+            )}
           </button>
         </div>
       </div>
 
-      {/* 场景 / 难度选择 */}
+      {/* W123d 3 大 折 叠 v2 (角 色 / 多人场景 / 难 度 + 自由话题) — 跟 W121 4 大组 风 格 一 致 */}
       <div className="space-y-2 mb-3">
-        {/* v1.13.0: B3 多角色对话 (5 角色 + "普通") */}
-        <RoleSelector
-          selectedRoleId={currentRoleId}
-          onChange={handleRoleChange}
-        />
-        {/* v1.27.0: 多人场景选择 (W28) */}
-        <div className="mt-2">
-          <div className="text-xs text-stone-500 dark:text-stone-400 mb-1">👥 多人场景</div>
-          <MultiRoleSelector
-            selectedScenarioId={multiScenarioId}
-            onChange={(id) => { setMultiScenarioId(id); if (id) setCurrentRoleId('none') }}
-          />
-        </div>
-        {currentRoleId !== 'none' && (() => {
-          const role = getRoleById(currentRoleId)
-          return (
-            <div className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
-              <span aria-hidden="true">{role.emoji}</span>
-              <span>当前角色: <strong>{role.name}</strong> - {role.scenario}模式</span>
-            </div>
-          )
-        })()}
-        <div className="flex gap-2 overflow-x-auto pb-1">
-          {SCENARIOS.map(s => (
-            <button
-              key={s.id}
-              onClick={() => setScenario(s.id)}
-              className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors ${
-                scenario === s.id
-                  ? 'bg-brand-600 text-white'
-                  : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300'
-              }`}
-            >
-              {s.name}
-            </button>
-          ))}
-          {/* v1.9.0: 自由话题按钮 */}
+        {/* 角 色 选 择 - 默 认 展 开 (主 功 能) */}
+        <div className="border border-stone-200 dark:border-stone-700 rounded-xl overflow-hidden">
           <button
-            onClick={() => setShowTopicModal(true)}
-            className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors ${
-              customTopic
-                ? 'bg-purple-600 text-white'
-                : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300'
-            }`}
-            title={customTopic ? `话题: ${customTopic}` : '自由话题'}
+            onClick={() => toggleGroup('role')}
+            className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors duration-[var(--t-fast)]"
+            aria-expanded={openGroups.role}
           >
-            💬 自由话题
-          </button>
-        </div>
-        <div className="flex gap-2 overflow-x-auto pb-1 items-center">
-          {LEVELS.map(l => (
-            <button
-              key={l.id}
-              onClick={() => { setLevel(l.id); setAutoLevel(false) }}
-              className={`px-3 py-1 rounded text-xs whitespace-nowrap ${
-                !autoLevel && level === l.id
-                  ? 'bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300 font-medium'
-                  : 'text-stone-500 dark:text-stone-400'
-              }`}
-            >
-              {l.name}
-            </button>
-          ))}
-          {/* v1.9.0: ✨ 自动难度切换 */}
-          <button
-            onClick={() => setAutoLevel(!autoLevel)}
-            className={`px-3 py-1 rounded text-xs whitespace-nowrap transition-colors ${
-              autoLevel
-                ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium'
-                : 'text-stone-500 dark:text-stone-400'
-            }`}
-            title={autoLevel ? '已开启: 系统根据你最近 5 轮表达自动调难度' : '开启自动难度'}
-          >
-            ✨ 自动
-          </button>
-          {autoLevel && dynamicLevel && (
-            <span className="text-xs px-2 py-0.5 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 rounded">
-              当前: {dynamicLevel}
+            <span className="flex items-center gap-1">
+              <IconUser size={12} strokeWidth={2.5} />
+              角色
+              {currentRoleId !== 'none' && (
+                <span className="ml-1 text-[10px] normal-case font-normal text-brand-600 dark:text-brand-400">
+                  · {getRoleById(currentRoleId).name}
+                </span>
+              )}
             </span>
+            <span className="inline-block transition-transform duration-[var(--t-base)] ease-[var(--ease-spring)]" style={{ transform: openGroups.role ? 'rotate(0deg)' : 'rotate(-90deg)' }}>
+              <IconArrow size={12} strokeWidth={2.5} />
+            </span>
+          </button>
+          {openGroups.role && (
+            <div className="p-2 border-t border-stone-200 dark:border-stone-700">
+              <RoleSelector
+                selectedRoleId={currentRoleId}
+                onChange={handleRoleChange}
+              />
+            </div>
+          )}
+        </div>
+
+        {/* 多人场景 + 场景 + 难度 + 自由话题 - 折 叠 */}
+        <div className="border border-stone-200 dark:border-stone-700 rounded-xl overflow-hidden">
+          <button
+            onClick={() => toggleGroup('config')}
+            className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors duration-[var(--t-fast)]"
+            aria-expanded={openGroups.config}
+          >
+            <span className="flex items-center gap-1">
+              <IconSettings size={12} strokeWidth={2.5} />
+              场景 / 难度
+              <span className="ml-1 text-[10px] normal-case font-normal text-stone-500">
+                · {SCENARIOS.find(s => s.id === scenario)?.name} · {LEVELS.find(l => l.id === level)?.name}
+              </span>
+            </span>
+            <span className="inline-block transition-transform duration-[var(--t-base)] ease-[var(--ease-spring)]" style={{ transform: openGroups.config ? 'rotate(0deg)' : 'rotate(-90deg)' }}>
+              <IconArrow size={12} strokeWidth={2.5} />
+            </span>
+          </button>
+          {openGroups.config && (
+            <div className="p-2 border-t border-stone-200 dark:border-stone-700 space-y-3">
+              <div>
+                <div className="text-[10px] text-stone-500 dark:text-stone-400 mb-1.5 px-1">场景</div>
+                <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                  {SCENARIOS.map(s => (
+                    <button
+                      key={s.id}
+                      onClick={() => setScenario(s.id)}
+                      className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-[var(--t-base)] ease-[var(--ease-spring)] ${
+                        scenario === s.id
+                          ? 'bg-brand-500 text-white shadow-[0_2px_6px_rgba(34,197,94,0.3)]'
+                          : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+                      }`}
+                    >
+                      {s.name}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => setShowTopicModal(true)}
+                    className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-[var(--t-base)] ease-[var(--ease-spring)] ${
+                      customTopic
+                        ? 'bg-accent-500 text-white shadow-[0_2px_6px_rgba(99,102,241,0.3)]'
+                        : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+                    }`}
+                  >
+                    ✨ 自由话题
+                  </button>
+                </div>
+              </div>
+              <div>
+                <div className="text-[10px] text-stone-500 dark:text-stone-400 mb-1.5 px-1">多人场景</div>
+                <MultiRoleSelector
+                  selectedScenarioId={multiScenarioId}
+                  onChange={(id) => { setMultiScenarioId(id); if (id) setCurrentRoleId('none') }}
+                />
+              </div>
+              <div>
+                <div className="text-[10px] text-stone-500 dark:text-stone-400 mb-1.5 px-1">难度</div>
+                <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                  {LEVELS.map(l => (
+                    <button
+                      key={l.id}
+                      onClick={() => { setLevel(l.id); setAutoLevel(false) }}
+                      className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-[var(--t-base)] ease-[var(--ease-spring)] ${
+                        !autoLevel && level === l.id
+                          ? 'bg-accent-500 text-white shadow-[0_2px_6px_rgba(99,102,241,0.3)]'
+                          : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+                      }`}
+                    >
+                      {l.name}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => setAutoLevel(!autoLevel)}
+                    className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-[var(--t-base)] ease-[var(--ease-spring)] ${
+                      autoLevel
+                        ? 'bg-amber-500 text-white shadow-[0_2px_6px_rgba(245,158,11,0.3)]'
+                        : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+                    }`}
+                    title={autoLevel ? '已开启: 系统根据你最近 5 轮表达自动调难度' : '开启自动难度'}
+                  >
+                    ✨ 自动
+                  </button>
+                </div>
+                {autoLevel && dynamicLevel && (
+                  <div className="mt-1 text-xs px-2 py-0.5 inline-block bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 rounded">
+                    当前: {dynamicLevel}
+                  </div>
+                )}
+              </div>
+            </div>
           )}
         </div>
       </div>

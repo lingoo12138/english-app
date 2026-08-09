@@ -1,8 +1,11 @@
-// 外观设置 - v0.22.2
+// 外观设置 - v0.22.2 / W125 改版稿 2: 高对比度模式
 import { useStore } from '../../store/useStore'
 import { THEMES, FONT_SIZES, applyTheme, applyFontSize, getTheme } from '../../lib/themes'
 // v1.41.0 W41: i18n
 import { useTranslate } from '../../lib/useTranslate'
+import { useEffect, useState } from 'react'
+
+const HIGH_CONTRAST_KEY = 'app-high-contrast'
 
 export default function AppearanceSection() {
   const darkMode = useStore(s => s.darkMode)
@@ -13,6 +16,17 @@ export default function AppearanceSection() {
   const setThemeColor = useStore(s => s.setThemeColor)
   const fontSize = useStore(s => s.fontSize)
   const setFontSize = useStore(s => s.setFontSize)
+  // W125 高对比度 — 直接用 localStorage (轻量)
+  const [highContrast, setHighContrastState] = useState(() => localStorage.getItem(HIGH_CONTRAST_KEY) === '1')
+  useEffect(() => {
+    if (highContrast) {
+      document.documentElement.setAttribute('data-contrast', 'high')
+      localStorage.setItem(HIGH_CONTRAST_KEY, '1')
+    } else {
+      document.documentElement.removeAttribute('data-contrast')
+      localStorage.setItem(HIGH_CONTRAST_KEY, '0')
+    }
+  }, [highContrast])
 
   return (
     <section className="card space-y-3">
@@ -90,13 +104,37 @@ export default function AppearanceSection() {
         </div>
         <button
           onClick={toggleDark}
-          className={`w-12 h-7 rounded-full transition-colors ${
+          className={`w-12 h-7 rounded-full transition-colors duration-[var(--t-base)] ease-[var(--ease)] ${
             darkMode ? 'bg-brand-600' : 'bg-stone-300 dark:bg-stone-700'
           }`}
+          aria-label="暗色模式"
+          aria-pressed={darkMode}
         >
           <div
-            className={`w-5 h-5 bg-white rounded-full shadow transition-transform ${
+            className={`w-5 h-5 bg-white rounded-full shadow transition-transform duration-[var(--t-base)] ease-[var(--ease-spring)] ${
               darkMode ? 'translate-x-6' : 'translate-x-1'
+            }`}
+            style={{ marginTop: '4px' }}
+          />
+        </button>
+      </div>
+      {/* W125 改版稿 2: 高对比度模式 (a11y 强化) */}
+      <div className="flex items-center justify-between pt-2 border-t border-stone-100 dark:border-stone-700">
+        <div>
+          <div className="font-medium">高对比度模式</div>
+          <div className="text-sm text-stone-500 dark:text-stone-400">无障碍增强 · 强分隔 + 加粗描边</div>
+        </div>
+        <button
+          onClick={() => setHighContrastState(v => !v)}
+          className={`w-12 h-7 rounded-full transition-colors duration-[var(--t-base)] ease-[var(--ease)] ${
+            highContrast ? 'bg-accent-600' : 'bg-stone-300 dark:bg-stone-700'
+          }`}
+          aria-label="高对比度模式"
+          aria-pressed={highContrast}
+        >
+          <div
+            className={`w-5 h-5 bg-white rounded-full shadow transition-transform duration-[var(--t-base)] ease-[var(--ease-spring)] ${
+              highContrast ? 'translate-x-6' : 'translate-x-1'
             }`}
             style={{ marginTop: '4px' }}
           />
