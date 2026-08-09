@@ -23,6 +23,6 @@ class SPAHandler(http.server.SimpleHTTPRequestHandler):
 if __name__ == '__main__':
     os.chdir('dist')
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 4173
-    server = http.server.HTTPServer(('127.0.0.1', port), SPAHandler)
+    server = http.server.ThreadingHTTPServer(('127.0.0.1', port), SPAHandler)
     print(f'SPA fallback server: http://127.0.0.1:{port}/')
     server.serve_forever()
