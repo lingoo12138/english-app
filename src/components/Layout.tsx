@@ -3,6 +3,8 @@ import { loadScrollPosMap, saveScrollPosMap } from '../lib/scrollPosStorage'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { getPageTitle } from '../lib/utils'
 import { ToastContainer } from './Toast'
+// W131: 离线状态 banner
+import OfflineBanner from './OfflineBanner'
 import {
   IconHome, IconBook, IconVideo, IconSparkles, IconChat, IconCalendar,
   IconEdit, IconBookOpen, IconHeadphones, IconBarChart, IconSettings,
@@ -154,6 +156,7 @@ export default function Layout() {
                           key={item.to}
                           to={item.to}
                           end={item.to === '/'}
+                          aria-label={item.label}
                           className={({ isActive }) =>
                             `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-[var(--t-fast)] ease-[var(--ease)] ${
                               isActive
@@ -162,7 +165,7 @@ export default function Layout() {
                             }`
                           }
                         >
-                          <Icon size={16} strokeWidth={2} className="flex-shrink-0" />
+                          <Icon size={16} strokeWidth={2} className="flex-shrink-0" aria-hidden="true" />
                           <span>{item.label}</span>
                         </NavLink>
                       )
@@ -200,6 +203,8 @@ export default function Layout() {
         </div>
       </header>
 
+      {/* W131: 离线状态 banner — 顶部, 跨页可见 */}
+      <OfflineBanner />
       {/* 主内容 */}
       <main id="main-content" tabIndex={-1} className="flex-1 md:ml-56 pb-20 md:pb-0">
         <div className="max-w-3xl mx-auto px-4 md:px-8 py-6">
@@ -223,6 +228,7 @@ export default function Layout() {
                 key={item.to}
                 to={item.to}
                 end={item.to === '/'}
+                aria-label={item.label}
                 className={({ isActive }) =>
                   `flex flex-col items-center justify-center py-2.5 text-xs transition-colors duration-[var(--t-fast)] ${
                     isActive
@@ -231,7 +237,7 @@ export default function Layout() {
                   }`
                 }
               >
-                <Icon size={22} strokeWidth={2} className="mb-0.5" />
+                <Icon size={22} strokeWidth={2} className="mb-0.5" aria-hidden="true" />
                 <span>{item.label}</span>
               </NavLink>
             )

@@ -1,12 +1,34 @@
 // src/components/Icon.tsx - W118 内 联 SVG 图 标 库 (替 emoji, 0 依赖)
 // 跟 改版稿 一致: lucide 风格 + currentColor + stroke-width 2
 // 10 个 常 用 图 标 涵 盖 Layout (22 项) + Home (10 项) + WordDetail (5 项)
+// W131: 增 加 ariaLabel / titleId prop, 支 持 单 独 配 置 a11y (默认 aria-hidden 仍 向 后 兼 容)
 import React from 'react'
 
-type Props = { size?: number; className?: string; strokeWidth?: number }
+type Props = {
+  size?: number
+  className?: string
+  strokeWidth?: number
+  // W131: 单 独 设 置 a11y 标 签 (默 认 aria-hidden, 单 独 指 定 时 显 示 role=img + aria-label)
+  ariaLabel?: string
+  // W131: 显 式 控 制 aria-hidden (覆 盖 ariaLabel 推 断)
+  ariaHidden?: boolean
+  role?: string
+}
 
 function makeIcon(path: React.ReactNode) {
-  return function Icon({ size = 16, className = '', strokeWidth = 2 }: Props) {
+  return function Icon({
+    size = 16,
+    className = '',
+    strokeWidth = 2,
+    ariaLabel,
+    ariaHidden,
+    role,
+  }: Props) {
+    // W131: 推 断 a11y 模 式 — 有 ariaLabel → role=img + label; 否则 aria-hidden
+    const isDecorative = ariaHidden ?? !ariaLabel
+    const a11yProps: Record<string, string> = isDecorative
+      ? { 'aria-hidden': 'true' }
+      : { role: role || 'img', 'aria-label': ariaLabel! }
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +41,8 @@ function makeIcon(path: React.ReactNode) {
         strokeLinecap="round"
         strokeLinejoin="round"
         className={className}
-        aria-hidden="true"
+        focusable="false"
+        {...a11yProps}
       >
         {path}
       </svg>

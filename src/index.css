@@ -213,6 +213,63 @@ details > summary::-webkit-details-marker {
   box-shadow: 0 2px 4px rgba(0,0,0,0.25), 0 8px 24px -6px rgba(0,0,0,0.4);
 }
 
+/* W131: 暗色全 局 强 化 - stone-950 + 提 升 surface/分隔对比度 */
+.dark {
+  --surface-card: 23 23 23;       /* stone-900 — 替 stone-800 让 卡片 更 沉 */
+  --surface-elevated: 38 38 38;   /* stone-800 */
+  --border-subtle: 41 37 36;      /* stone-800 */
+  --border-default: 68 64 64;     /* stone-700 — 加 强 分 隔 */
+  --text-primary: 245 245 244;    /* stone-100 */
+  --text-secondary: 214 211 209;  /* stone-300 — 替 400 让 次 要 文 字 更 亮 */
+  --text-tertiary: 168 162 158;   /* stone-400 */
+}
+.dark .text-stone-400 { color: rgb(214 211 209) !important; }   /* 升 一 级 可 读 性 */
+.dark .text-stone-500 { color: rgb(168 162 158) !important; }   /* 暗 色 3 级 文 字 加 强 */
+.dark .text-stone-600 { color: rgb(168 162 158) !important; }
+.dark .border-stone-200 { border-color: rgb(68 64 64) !important; }   /* 暗 色 分 隔 强 化 */
+.dark .border-stone-100 { border-color: rgb(41 37 36) !important; }
+.dark .bg-stone-50 { background-color: rgb(23 23 23) !important; }   /* 暗 色 0 亮 色 块 — stone-50 全 转 stone-900 */
+.dark .bg-white { background-color: rgb(23 23 23) !important; }        /* 暗 色 0 亮 色 块 — 白 全 转 深 */
+.dark .bg-stone-100 { background-color: rgb(38 38 38) !important; }   /* 亮 stone-100 → stone-800 */
+.dark .bg-stone-200 { background-color: rgb(41 37 36) !important; }   /* 亮 stone-200 → stone-700 */
+/* 暗 色 form 元素 — 0 亮 色 块 */
+.dark input, .dark textarea, .dark select {
+  background-color: rgb(38 38 38) !important;
+  border-color: rgb(68 64 64) !important;
+  color: rgb(245 245 244) !important;
+}
+.dark input::placeholder, .dark textarea::placeholder {
+  color: rgb(168 162 158) !important;
+}
+/* 暗 色 code/pre/code 块 */
+.dark code, .dark pre {
+  background-color: rgb(38 38 38) !important;
+  color: rgb(214 211 209) !important;
+}
+/* 暗 色 状 态 色 加 深 (W131 强化 — 4 大 页 听 写/拼 写/错 题/课 文) */
+:root[data-contrast='high'].dark body {
+  @apply text-stone-50 bg-stone-950;
+}
+:root[data-contrast='high'].dark .card {
+  @apply border-2 border-stone-600 bg-stone-900;
+}
+:root[data-contrast='high'].dark .btn-ghost {
+  @apply border-2 border-stone-500 text-stone-100;
+}
+
+/* W131: 移 动 端 input font-size ≥ 16px (防 iOS Safari 缩放 + 一 致 体 验) */
+@media (max-width: 640px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+/* 高 对 比 度 模 式 强 化 input font-weight */
+:root[data-contrast='high'] input,
+:root[data-contrast='high'] textarea,
+:root[data-contrast='high'] select {
+  font-weight: 500;
+}
+
 /* W125 改版稿 2: PWA install banner slide-up 动 效 */
 @keyframes slideUpBanner {
   from { transform: translateY(100%); opacity: 0; }
