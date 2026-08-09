@@ -16,6 +16,8 @@ import { addErrorReviewScore } from '../lib/db'
 import { analyzeCard, updateCardDifficulty, difficultyStyle, trendArrow, countByDifficulty } from '../lib/errorDifficulty'
 import { buildReviewReport, formatReport } from '../lib/errorReviewReport'
 import { toast } from '../components/Toast'
+import { SkeletonPage } from '../components/Skeleton'
+import { IconRefresh, IconSparkles, IconTrophy, IconEdit, IconHeadphones } from '../components/Icon'
 
 export default function ErrorReviewPage() {
   const [cards, setCards] = useState<ReviewCard[]>([])
@@ -195,15 +197,17 @@ export default function ErrorReviewPage() {
   }, [cards])
 
   if (loading) {
-    return <div className="text-center py-20 text-stone-500">加载错题中...</div>
+    return <SkeletonPage />
   }
 
   if (loadError) {
     return (
       <div className="space-y-4">
-        <h1 className="text-2xl font-bold">🔁 错题复习</h1>
+        <h1 className="text-2xl font-bold flex items-center gap-2">
+          <IconRefresh size={22} className="text-brand-500" />错题复习
+        </h1>
         <div className="card text-center py-10">
-          <div className="text-5xl mb-3">⚠️</div>
+          <IconSparkles size={48} className="mx-auto mb-3 text-rose-500" />
           <p className="text-lg mb-1 text-rose-500">{loadError}</p>
           <button onClick={() => window.location.reload()} className="btn-primary mt-4">
             重试
@@ -216,17 +220,26 @@ export default function ErrorReviewPage() {
   if (cards.length === 0) {
     return (
       <div className="space-y-4">
-        <h1 className="text-2xl font-bold">🔁 错题复习</h1>
+        <h1 className="text-2xl font-bold flex items-center gap-2">
+          <IconRefresh size={22} className="text-brand-500" />错题复习
+        </h1>
         <div className="card text-center py-10">
-          <div className="text-5xl mb-3">🎉</div>
+          <IconTrophy size={48} className="mx-auto mb-3 text-amber-500" />
           <p className="text-lg mb-1">暂无错题</p>
           <p className="text-sm text-stone-500 mb-4">先去写作 / 听写 / 拼写 / 跟读 攒点错题再来</p>
           <div className="flex flex-wrap justify-center gap-2">
-            <button onClick={() => navigate('/write')} className="btn-primary text-sm">✍️ 写作</button>
-            <button onClick={() => navigate('/dictation')} className="btn-primary text-sm">🎧 听写</button>
-            <button onClick={() => navigate('/spelling')} className="btn-primary text-sm">🔤 拼写</button>
-            {/* 修 v1 (P2-2): 跟读功能在 /textbook (LessonDetailPage), 改路由 */}
-            <button onClick={() => navigate('/textbook')} className="btn-primary text-sm">🎤 跟读</button>
+            <button onClick={() => navigate('/write')} className="btn-primary text-sm flex items-center gap-1">
+              <IconEdit size={14} />写作
+            </button>
+            <button onClick={() => navigate('/dictation')} className="btn-primary text-sm flex items-center gap-1">
+              <IconHeadphones size={14} />听写
+            </button>
+            <button onClick={() => navigate('/spelling')} className="btn-primary text-sm flex items-center gap-1">
+              <IconEdit size={14} />拼写
+            </button>
+            <button onClick={() => navigate('/textbook')} className="btn-primary text-sm flex items-center gap-1">
+              <IconHeadphones size={14} />跟读
+            </button>
           </div>
         </div>
       </div>
