@@ -17,7 +17,7 @@
 
 import { db, getAllChats, saveChat, getAllWritingErrors, getAllDictationErrors, getAllFavorites, type ChatRecord, type WritingError, type DictationError } from './db'
 import { loadWords } from './words'
-import { computeLessonScores, type LessonScore } from './lessonScore'
+import { computeLessonScoresAsync, type LessonScore } from './lessonScoreWorkerClient'
 import { loadAchievementStats, getAllAchievementStatus, type AchievementStatus, type AchievementStats } from './achievements'
 
 // === 导出 schema 版本 ===
@@ -383,7 +383,7 @@ export async function exportByKey(
     }
 
     case 'lessonScores': {
-      const scores = await computeLessonScores()
+      const scores = await computeLessonScoresAsync()
       if (format === 'json') {
         return { content: toJSON(scores), mime: 'application/json', filename: `${baseName}.json`, ext: 'json' }
       }
@@ -472,7 +472,7 @@ export async function exportAllData(): Promise<{
     getAllChats(),
     getAllWritingErrors(),
     getAllDictationErrors(),
-    computeLessonScores(),
+    computeLessonScoresAsync(),
     loadAchievementStats(),
     getAllFavorites(),
     collectWords(),

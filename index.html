@@ -34,6 +34,14 @@
     <link rel="apple-touch-startup-image" href="/icons/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" />
     <link rel="apple-touch-startup-image" href="/icons/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" />
     <link rel="apple-touch-startup-image" href="/icons/splash-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" />
+
+    <!-- W135: LCP 关键资源 preload — 字体子集 (400 + 500 weight 是首屏主用) -->
+    <!-- 业务: 首屏 LCP 元素是 "首页标题" / "首句" 文字, 字体阻塞渲染 -->
+    <!-- 策略: 关键 icon (PWA-192) precache 已覆盖, 这里只补 PWA-512 (桌面用) + 主屏 webmanifest -->
+    <!-- 注: 字体 woff2 由 workbox runtimeCaching CacheFirst 1y 处理, precache 也会包含 (W127) -->
+    <link rel="preload" href="/icons/pwa-192.png" as="image" type="image/png" />
+    <link rel="preload" href="/manifest.webmanifest" as="fetch" crossorigin="anonymous" />
+
     <title>句刻 - 即时英语学习</title>
   </head>
   <body>

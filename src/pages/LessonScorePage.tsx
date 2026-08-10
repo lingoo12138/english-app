@@ -1,7 +1,9 @@
 // src/pages/LessonScorePage.tsx - 课文评分 页面 (W97+W124 改版稿 UI)
-import { useState, useEffect, useMemo } from 'react'
+// W135: 改用 computeLessonScoresAsync (Web Worker 化, 评分计算不阻塞 UI)
+// W135: LessonCard 提取为 memo 组件, 列表 filter 切换不重渲未变 cards
+import { memo, useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { computeLessonScores, getCrossLessonTotal, type LessonScore } from '../lib/lessonScore'
+import { computeLessonScoresAsync, getCrossLessonTotal, type LessonScore } from '../lib/lessonScoreWorkerClient'
 import { IconBarChart, IconTrophy, IconSparkles, IconBookOpen, IconArrow, IconRefresh } from '../components/Icon'
 
 const LEVEL_LABEL: Record<string, string> = {
@@ -24,7 +26,7 @@ export default function LessonScorePage() {
   const [filter, setFilter] = useState<FilterType>('all')
 
   useEffect(() => {
-    computeLessonScores()
+    computeLessonScoresAsync()
       .then(s => { setScores(s); setLoading(false) })
       .catch(e => { setLoadError(e?.message || '加载失败'); setLoading(false) })
   }, [])
@@ -157,50 +159,13 @@ export default function LessonScorePage() {
 
       {/* W124 课 文 列 表 — card-interactive + 进 度 条 + 状 态 标 签 */}
       <div className="space-y-2">
-        {filtered.map(s => {
-          const cfg = STATUS_CONFIG[s.status]
-          return (
-            <div
-              key={s.lessonId}
-              onClick={() => navigate(`/textbook/${s.lessonId}`)}
-              className="card card-interactive p-3 cursor-pointer"
-            >
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2 min-w-0">
-                  <span className="text-2xl shrink-0" aria-hidden="true">{s.emoji}</span>
-                  <div className="min-w-0">
-                    <div className="font-medium truncate">{s.title}</div>
-                    <div className="text-xs text-stone-500">
-                      {LEVEL_LABEL[s.level] || s.level} · <span className="font-mono">{s.totalVocab}</span> 词
-                      {s.crossLessonVocab.length > 0 && (
-                        <span className="ml-1">· 跨课词 <span className="font-mono">{s.crossLessonVocab.length}</span></span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <div className="text-right shrink-0 ml-2">
-                  <div className="text-xl font-bold text-brand-500 font-mono tabular-nums">{s.masteryRate}%</div>
-                  <div className="text-[11px] text-stone-500 font-mono tabular-nums">{s.masteredCount} / {s.totalVocab}</div>
-                </div>
-              </div>
-              {/* 进 度 条 */}
-              <div className="h-1.5 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
-                <div
-                  className={`h-full transition-all duration-[var(--t-base)] ease-[var(--ease-spring)] ${
-                    s.status === 'mastered' ? 'bg-amber-500' :
-                    s.status === 'in_progress' ? 'bg-brand-500' : 'bg-stone-300 dark:bg-stone-600'
-                  }`}
-                  style={{ width: `${s.masteryRate}%` }}
-                />
-              </div>
-              <div className="mt-2">
-                <span className={`text-[11px] px-2 py-0.5 rounded-full border ${cfg.bg} ${cfg.color} font-medium`}>
-                  {cfg.label}
-                </span>
-              </div>
-            </div>
-          )
-        })}
+        {filtered.map(s => (
+          <LessonCard
+            key={s.lessonId}
+            score={s}
+            onClick={() => navigate(`/textbook/${s.lessonId}`)}
+          />
+        ))}
         {filtered.length === 0 && (
           <div className="text-center text-sm text-stone-500 py-12">
             暂无此状态的课文
@@ -210,3 +175,49 @@ export default function LessonScorePage() {
     </div>
   )
 }
+
+// W135: 课 卡 memo — filter 切换时未变 课 卡 不 重 渲
+// 业务: 20 课 切 filter 4 次, 不 memo 每次 全 渲 80 次, memo 后 只 重 渲 变 化 的
+const LessonCard = memo(function LessonCard({ score, onClick }: { score: LessonScore; onClick: () => void }) {
+  const cfg = STATUS_CONFIG[score.status]
+  return (
+    <div
+      onClick={onClick}
+      className="card card-interactive p-3 cursor-pointer"
+    >
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-2xl shrink-0" aria-hidden="true">{score.emoji}</span>
+          <div className="min-w-0">
+            <div className="font-medium truncate">{score.title}</div>
+            <div className="text-xs text-stone-500">
+              {LEVEL_LABEL[score.level] || score.level} · <span className="font-mono">{score.totalVocab}</span> 词
+              {score.crossLessonVocab.length > 0 && (
+                <span className="ml-1">· 跨课词 <span className="font-mono">{score.crossLessonVocab.length}</span></span>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="text-right shrink-0 ml-2">
+          <div className="text-xl font-bold text-brand-500 font-mono tabular-nums">{score.masteryRate}%</div>
+          <div className="text-[11px] text-stone-500 font-mono tabular-nums">{score.masteredCount} / {score.totalVocab}</div>
+        </div>
+      </div>
+      {/* 进 度 条 */}
+      <div className="h-1.5 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
+        <div
+          className={`h-full transition-all duration-[var(--t-base)] ease-[var(--ease-spring)] ${
+            score.status === 'mastered' ? 'bg-amber-500' :
+            score.status === 'in_progress' ? 'bg-brand-500' : 'bg-stone-300 dark:bg-stone-600'
+          }`}
+          style={{ width: `${score.masteryRate}%` }}
+        />
+      </div>
+      <div className="mt-2">
+        <span className={`text-[11px] px-2 py-0.5 rounded-full border ${cfg.bg} ${cfg.color} font-medium`}>
+          {cfg.label}
+        </span>
+      </div>
+    </div>
+  )
+})

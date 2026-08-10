@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { memo } from 'react'
 
 export type ToastType = 'success' | 'error' | 'info' | 'warning'
 
@@ -77,7 +78,8 @@ const variantIcon: Record<ToastType, string> = {
   warning: '⚠️',
 }
 
-function ToastItem({ toast: t, onDismiss }: { toast: Toast; onDismiss: () => void }) {
+// W135: ToastItem memo — 多个 toast 时, dismiss callback 重建不影响其他项
+const ToastItem = memo(function ToastItem({ toast: t, onDismiss }: { toast: Toast; onDismiss: () => void }) {
   return (
     <div
       className={`pointer-events-auto px-4 py-3 rounded-lg shadow-lg max-w-md min-w-[200px] flex items-start gap-2 ${variantClass[t.type]} animate-slide-down`}
@@ -93,4 +95,4 @@ function ToastItem({ toast: t, onDismiss }: { toast: Toast; onDismiss: () => voi
       </button>
     </div>
   )
-}
+})

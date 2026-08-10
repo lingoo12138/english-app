@@ -238,6 +238,8 @@ export function subscribeToPlan(callback: () => void): () => void {
 // === v1.11.0-A: FSRS 间隔重复算法 (新加, 平行 SM-2) ===
 // 默认关闭, 用户在设置中开启后, 新数据走 FSRS.
 // 旧数据 (db.reviews SM-2 records) 继续用 SM-2, 互不干扰.
+// W135: 引入 fsrs worker 客户端 (批量复习时移到 Worker, 不阻塞主线程)
+import { batchReviewFSRSAsync } from './fsrsWorkerClient'
 
 const FSRS_USE_KEY = 'fsrs-use-flag'  // 'true' | 'false'
 const FSRS_CARD_KEY = 'fsrs-card-'    // fsrs-card-{wordId}
@@ -308,6 +310,31 @@ export function getNextReviewFSRS(
   const existing = loadFSRSCard(wordId) || initFSRS(now)
   const updated = reviewFSRS(existing, rating, now)
   saveFSRSCard(wordId, updated)
+  return updated
+}
+
+/**
+ * W135: 批量 FSRS 复习 (Worker 版) — 课程完成 / 批量更新时用
+ * - 接受 wordIds + ratings, 内部走 Worker 计算
+ * - 计算完一并写回 localStorage
+ * - 业务: 课程 30 词 一次性算, 不阻塞主线程
+ * @returns 更新后的 FSRSCard 数组 (与输入 wordIds 一一对应)
+ */
+export async function batchGetNextReviewFSRS(
+  wordIds: string[],
+  ratings: Rating[],
+  now: number = Date.now(),
+): Promise<FSRSCard[]> {
+  if (wordIds.length !== ratings.length) {
+    throw new Error(`batchGetNextReviewFSRS length mismatch: ${wordIds.length} vs ${ratings.length}`)
+  }
+  if (wordIds.length === 0) return []
+  // 1) 加载所有 现有 卡
+  const existing: FSRSCard[] = wordIds.map(id => loadFSRSCard(id) || initFSRS(now))
+  // 2) Worker 批量算
+  const updated = await batchReviewFSRSAsync(existing, ratings, now)
+  // 3) 一并写回
+  updated.forEach((card, i) => saveFSRSCard(wordIds[i], card))
   return updated
 }
 

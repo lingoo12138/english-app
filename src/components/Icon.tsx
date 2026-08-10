@@ -2,7 +2,8 @@
 // 跟 改版稿 一致: lucide 风格 + currentColor + stroke-width 2
 // 10 个 常 用 图 标 涵 盖 Layout (22 项) + Home (10 项) + WordDetail (5 项)
 // W131: 增 加 ariaLabel / titleId prop, 支 持 单 独 配 置 a11y (默认 aria-hidden 仍 向 后 兼 容)
-import React from 'react'
+// W135: 加 memo 包 装 — props 不 变 跳 过 重 渲 (Layout/Home 大量 icon 复用 时 省 100+ render)
+import React, { memo } from 'react'
 
 type Props = {
   size?: number
@@ -16,7 +17,9 @@ type Props = {
 }
 
 function makeIcon(path: React.ReactNode) {
-  return function Icon({
+  // W135: 用 memo 包 Icon, 浅比较 props, props 不变跳过重渲
+  // 业务: Layout 22 个 nav icon + Home 10 个 icon, 每次路由切换会 re-render, memo 后节省 32+ reconcile
+  const IconComponent = function Icon({
     size = 16,
     className = '',
     strokeWidth = 2,
@@ -48,6 +51,7 @@ function makeIcon(path: React.ReactNode) {
       </svg>
     )
   }
+  return memo(IconComponent)
 }
 
 // W118: 10 个 常 用 图 标 (Layout + Home 替 emoji)

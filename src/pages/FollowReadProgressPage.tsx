@@ -1,8 +1,15 @@
 // src/pages/FollowReadProgressPage.tsx - v1.94 W88-A 跟读评分趋势图
 // SVG 折线图 + 统计 + 按课文过滤
+// W135: 改用 aggregateScoresAsync (Worker 化, 1500 条聚合不阻塞)
 import { useEffect, useState, useMemo } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { getFollowReadScores, aggregateScores, type FollowReadScore } from '../lib/followReadScore'
+import { getFollowReadScores } from '../lib/followReadScore'
+import {
+  aggregateScoresAsync,
+  aggregateScores,
+  type FollowReadScore,
+  type ScoreAggregates,
+} from '../lib/followReadScoreWorkerClient'
 import { lessonStats, sentenceStats } from '../lib/followReadByLesson'
 import { LESSONS } from '../data/textbook'
 
@@ -11,6 +18,8 @@ export default function FollowReadProgressPage() {
   const [filterLesson, setFilterLesson] = useState<string>('all')
   // v1.98 W89-D: 视图模式
   const [viewMode, setViewMode] = useState<'time' | 'lesson' | 'sentence'>('time')
+  // W135: Worker 化聚合 (默认聚合结果 + 加载态)
+  const [agg, setAgg] = useState<ScoreAggregates>({ avg: 0, best: 0, count: 0, recent: [], byLesson: [] })
   const navigate = useNavigate()
 
   // 修 v1: lessonId → title 反查
@@ -29,7 +38,18 @@ export default function FollowReadProgressPage() {
     [scores, filterLesson],
   )
 
-  const agg = useMemo(() => aggregateScores(filtered), [filtered])
+  // W135: filter 变化时调 worker 重新聚合 (异步, 不阻塞)
+  useEffect(() => {
+    let cancelled = false
+    aggregateScoresAsync(filtered).then(result => {
+      if (!cancelled) setAgg(result)
+    }).catch(err => {
+      // fallback: 同步主线程聚合 (Worker 不可用或失败, 业务不阻塞)
+      console.warn('[FollowReadProgress] worker aggregate failed, fallback sync', err)
+      if (!cancelled) setAgg(aggregateScores(filtered))
+    })
+    return () => { cancelled = true }
+  }, [filtered])
 
   // SVG 折线图
   const chartW = 600

@@ -4,8 +4,12 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
 // v1.38.0 W36: iOS in-app 提醒 banner
 import InAppBanner from './components/InAppBanner'
+// W135: PWA 新版本可用 toast (监听 SW update)
+import UpdateToast from './components/UpdateToast'
 // W120: 反 馈 层 — Suspense fallback 用 Skeleton 替 "加 载 中..." 文 字
 import { SkeletonPage } from './components/Skeleton'
+// W135: 错 误 边 界 — 包 裹 Suspense 兜 底 懒 加 载 失 败 (chunk 加 载 失 败 → retry button)
+import { ErrorBoundary } from './components/ErrorBoundary'
 const Home = lazy(() => import('./pages/Home'))
 const WordList = lazy(() => import('./pages/WordList'))
 const WordDetail = lazy(() => import('./pages/WordDetail'))
@@ -133,10 +137,21 @@ function App() {
     document.title = getPageTitle(location.pathname)
   }, [location.pathname])
 
+  // W135: 记录当前访问的 path, 用于 sessionStorage 预热
+  useEffect(() => {
+    // 动态 import 避免循环依赖
+    import('./lib/prefetch').then(({ recordVisit }) => {
+      recordVisit(location.pathname)
+    })
+  }, [location.pathname])
+
   return (
+    <ErrorBoundary>
     <Suspense fallback={<SkeletonPage />}>
     {/* v1.38.0 W36: iOS 提醒 banner (iOS Safari 时启用) */}
     <InAppBanner />
+    {/* W135: PWA SW 新版本可用 toast + 离线就绪提示 */}
+    <UpdateToast />
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
@@ -180,6 +195,7 @@ function App() {
       </Route>
     </Routes>
     </Suspense>
+    </ErrorBoundary>
   )
 }
 

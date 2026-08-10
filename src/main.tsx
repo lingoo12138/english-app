@@ -47,15 +47,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   </React.StrictMode>
 )
 
-// W4-B: PWA "新版本可用" 提示
+// W4-B: PWA "新版本可用" 提示 (保留, 但 W135 UpdateToast 接管 UI)
+// W135: 这里只在 DEV 给 console.debug, UI 提示由 UpdateToast 组件统一管
 import { registerSW } from 'virtual:pwa-register'
 const updateSW = registerSW({
   onNeedRefresh() {
-    // 弹个轻量提示,让用户刷新
-    // WONTFIX v1.1-W1: 此处在 React 渲染前, 用 DOM 弹 Modal 需重写整套 toast 体系, PWA 升级是边缘场景, 等 v1.2 单独做
-    if (confirm('🚀 新版本可用,是否立即更新?\n(将清空当前页面缓存)')) {
-      updateSW(true)
-    }
+    // W135: UI 提示由 src/components/UpdateToast.tsx 统一管 (它也注册了 registerSW)
+    // 这里只保留一个 SW 控制句柄, 给 main.tsx 内部用 (e.g. 强制刷新)
+    if (import.meta.env.DEV) console.debug('[PWA] 新版本可用, 等待 UpdateToast 弹窗')
   },
   onOfflineReady() {
     if (import.meta.env.DEV) console.debug('[PWA] 离线就绪,无网络也能用')
@@ -77,3 +76,47 @@ initIdbSync({
     }
   },
 })
+
+// W135: Background Sync Manager 初始化
+//  - 注册默认 handlers (favorite/dictation/errorReview)
+//  - 监听 online 事件 + 60s 周期轮询, 离线时入队的写操作在线后自动 flush
+//  - 失败重试 5 次, 指数退避
+import { initSyncManager, registerDefaultHandlers } from './lib/syncManager'
+registerDefaultHandlers()
+initSyncManager({
+  onFlush: (result) => {
+    if (import.meta.env.DEV) {
+      console.debug('[syncManager] flushed', result)
+    }
+  },
+  onOnline: () => {
+    if (import.meta.env.DEV) {
+      console.debug('[syncManager] back online, flushing queue')
+    }
+  },
+  pollIntervalMs: 60_000, // 60s
+})
+
+// W135: 路由 chunk 注册 + idle 预取 + 上次访问预热
+//  - 注册 5 个最常访问的 chunk 供 prefetchRoute() 拉
+//  - 浏览器 idle 时预拉 (提速 200-500ms)
+//  - 重启时预热 sessionStorage 记录的上次访问页面
+import {
+  registerPrefetchRoute,
+  scheduleIdlePrefetch,
+  warmRecentVisits,
+} from './lib/prefetch'
+
+// 注册 chunk 映射 (业务可后续扩展)
+registerPrefetchRoute('/', () => import('./pages/Home'))
+registerPrefetchRoute('/words', () => import('./pages/WordList'))
+registerPrefetchRoute('/scenes', () => import('./pages/Scenes'))
+registerPrefetchRoute('/chat', () => import('./pages/AIChat'))
+registerPrefetchRoute('/settings', () => import('./pages/Settings'))
+registerPrefetchRoute('/daily', () => import('./pages/DailyPage'))
+registerPrefetchRoute('/textbook', () => import('./pages/TextbookPage'))
+
+// 启动时: idle 预取最热的几个页面
+scheduleIdlePrefetch(['/words', '/scenes', '/chat'], 2000)
+// 重启时: 预热上次访问
+warmRecentVisits()

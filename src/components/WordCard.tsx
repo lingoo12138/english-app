@@ -112,8 +112,13 @@ function WordCardInner({ word, isFavorite, onToggleFavorite, favCount, onClickFa
 }
 
 // v2.1.0: React.memo - 词 id/isFavorite 不 变 跳 过 重 渲
+// W135: 加 favCount 浅比较 (收藏数变化时才重渲, 词内容不变就跳过)
 const WordCard = memo(WordCardInner, (prev, next) => {
-  return prev.word.id === next.word.id && prev.isFavorite === next.isFavorite
+  return (
+    prev.word.id === next.word.id &&
+    prev.isFavorite === next.isFavorite &&
+    prev.favCount === next.favCount
+  )
 })
 
 export default WordCard
