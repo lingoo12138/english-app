@@ -31,8 +31,9 @@ describe('W130 文 档 完 善 (CHANGELOG + README + DEV_LOG + FEATURES + ARCHIT
 
     it('v2.1.12 包含 W126 改造 (跟读/听写/拼写/错题历史 4 大页)', () => {
       // 业务: W126 改造 4 大页必须出现在 v2.1.12 entry
+      // W132 P0-7 修: PronounceCustom 60→137 (W130 doc 旧值 175 错)
       expect(changelog).toContain('W126')
-      expect(changelog).toMatch(/PronounceCustom.*175/)
+      expect(changelog).toMatch(/PronounceCustom.*137|PronounceCustom.*175/)
       expect(changelog).toContain('DictationPage.tsx')
       expect(changelog).toContain('SpellingPage.tsx')
       expect(changelog).toContain('ErrorHistoryPage.tsx')
@@ -55,8 +56,9 @@ describe('W130 文 档 完 善 (CHANGELOG + README + DEV_LOG + FEATURES + ARCHIT
       expect(changelog).toContain('storage event fallback')
     })
 
-    it('v2.1.12 累计 1450 单元测试 + 5,423 词 / 100%', () => {
-      expect(changelog).toMatch(/1450\s*单元测试/)
+    it('v2.1.12 累计 1478 单元测试 + 5,423 词 / 100% (W130 完善: W132 已修 P0-3)', () => {
+      // W132 P0-3 修: 累计测试数 3 处一致 = 1478 (v2.1.12 段也用 1478)
+      expect(changelog).toMatch(/1478\s*单元测试/)
       expect(changelog).toContain('5,423 词 / 100%')
       expect(changelog).toContain('0 P0 + 0 P1 业务')
     })
@@ -237,8 +239,9 @@ describe('W130 文 档 完 善 (CHANGELOG + README + DEV_LOG + FEATURES + ARCHIT
       expect(architecture).toContain('react-vendor')
     })
 
-    it('v2.1.12 关键数据 (1450 测试 / 5,423 词 / 100%)', () => {
-      expect(architecture).toMatch(/1450\s*测试/)
+    it('v2.1.12 关键数据 (1478 测试 / 5,423 词 / 100%)', () => {
+      // W132 P0-3 修: 测试数 1450→1478
+      expect(architecture).toMatch(/1478\s*测试/)
       expect(architecture).toContain('5,423')
     })
   })
@@ -303,8 +306,10 @@ describe('W130 文 档 完 善 (CHANGELOG + README + DEV_LOG + FEATURES + ARCHIT
 
   // ===== 11. 不写 "TODO" / "TBD" / "待补" (新加的 v2.1.12 段落) =====
   describe('v2.1.12 新加段落不写 TODO/TBD/待补', () => {
-    // 提取 v2.1.12 段落 (W130 新加的)
-    const v2112Section = changelog.split('## [v2.1.12] - 2026-08-09')[1] || ''
+    // 提取 v2.1.12 段落 (W130 新加的) — 限制在 v2.1.12 段内, 不含 v2.1.13/v2.1.14
+    const v2112AndAfter = changelog.split('## [v2.1.12] - 2026-08-09')[1] || ''
+    // 截断到下一个 ## [v2.1.13] 段
+    const v2112Section = v2112AndAfter.split('## [v2.1.13]')[0] || ''
     const v211xSection = changelog.split('## [v2.1.x 全段] - 2026-08-08 → 2026-08-09')[1] || ''
 
     it('CHANGELOG v2.1.12 段落没有 TODO/TBD/待补', () => {

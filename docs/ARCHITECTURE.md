@@ -200,8 +200,8 @@ notes           // 笔记
 
 ### 测试栈
 
-- **Vitest 4** 单元测试 (**1450 测试** / 100+ 文件)
-- **Playwright** e2e (4 文件, 17 测试)
+- **Vitest 4** 单元测试 (**1478 测试** / 100+ 文件)
+- **Playwright** e2e (19 spec, 60+ 测试)
 - **自定义 verify-v*.mjs** 静态检查 (60 闭环, 8 个已修)
 - **自定义 review-v*.py** P0/P1/P2 审查 (14 版本历史)
 - **大 review 机制** (类似 v1.6 13 bug / v1.22 18 处 catch any / v1.36 3 处 / v1.40.1 2 处 / v1.45-1.58 verifier 找 12 处)
@@ -229,17 +229,17 @@ src/
 │   ├── llm.ts            # LLM 抽象 (10 渠道)
 │   ├── md.ts             # Markdown 解析
 │   └── ...
-├── pages/                # 27 页面
+├── pages/                # 37 页面
 │   ├── WordList.tsx / WordDetail.tsx  # 单词
 │   ├── TextbookPage.tsx / LessonDetailPage.tsx  # 课文 (跟读评分集成)
 │   ├── DictationPage.tsx / SpellingPage.tsx  # 听写/拼写 (W126 UI 改造)
 │   ├── ErrorReviewPage.tsx  # 错题复习 (W87 新)
-│   ├── ErrorHistoryPage.tsx  # 错题历史 (W126 UI 改造, 547 行)
+│   ├── ErrorHistoryPage.tsx  # 错题历史 (W126 UI 改造, 437 行)
 │   ├── ErrorsPage.tsx       # 改错本 (5 tab filter)
 │   ├── WritePage.tsx / AIChat.tsx  # 写作/AI (W123a-d v2)
-│   ├── PronounceCustom.tsx  # 跟读自定义 (W126 UI 改造, 175 行)
+│   ├── PronounceCustom.tsx  # 跟读自定义 (W126 UI 改造, 137 行)
 │   └── ...
-├── components/           # 32 组件
+├── components/           # 37 组件
 │   ├── TTSButton.tsx / PronunciationPractice.tsx
 │   ├── Toast.tsx / Skeleton.tsx (5 出口) /
 │   ├── Icon.tsx (20 个内联 SVG) /
@@ -251,7 +251,7 @@ src/
 ├── store/                # Zustand store
 └── types/                # TypeScript 类型
 
-tests/                    # 100+ 文件, 1450 测试
+tests/                    # 100+ 文件, 1478 测试
 ├── w126-ui.test.ts       # 4 大页 UI 改造 (20 测试)
 ├── w127-perf-pwa.test.ts # pdfjs 拆 vendor + workbox (29 测试)
 ├── w128-data-export-sync.test.ts  # dataExport + idbSync (48 测试)

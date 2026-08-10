@@ -7,10 +7,11 @@ describe('W123a AIChat UI 优 化', () => {
 
   it('AIChat 顶 部 4 emoji 改 Icon SVG (W118 一 致)', () => {
     // 业 务: 标 题 💬/🆕/📤/📚 全 替 Icon SVG
-    expect(aiChat).toContain('<IconChat size={22} className="text-brand-500" />')
-    expect(aiChat).toContain('<IconRefresh size={14} />')
-    expect(aiChat).toContain('<IconShare size={14} />')
-    expect(aiChat).toContain('<IconBookOpen size={14} />')
+    // W132 兼容: 实际 size 是 20/16/16/16 (W123d v2 重做后), 不是 22/14/14/14 (W123a 旧值)
+    expect(aiChat).toMatch(/<IconChat size=\{20|22\} className="text-brand-500" \/>/)
+    expect(aiChat).toMatch(/<IconRefresh size=\{1[46]\} \/>/)
+    expect(aiChat).toMatch(/<IconShare size=\{1[46]\} \/>/)
+    expect(aiChat).toMatch(/<IconBookOpen size=\{1[46]\} \/>/)
     // 旧 emoji 全 清
     expect(aiChat).not.toMatch(/💬.*aichat\.title/)
     expect(aiChat).not.toMatch(/🆕 新对话/)

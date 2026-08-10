@@ -7,6 +7,12 @@
 // - 不依赖真实 LLM: 直接用 page.evaluate 调 saveWritingError (v2.0.9 W101+ 注入 API)
 // - 不依赖真实 TTS/STT: 全程用 input 输入
 // - 验证 IDB 状态: db.errorReviewHistory.toArray()
+//
+// W132 修复 (P0-1, P0-2, P0-3, P0-4, P0-5):
+// - IDB 软验证 `>= 0` 改成 `>= 1` 真 IDB 强验证
+// - waitForTimeout 改成 waitForSelector
+// - try/catch 空 catch 改 hard 断言
+// - 加 localStorage.clear() 防止上一次未完成 session 干扰
 
 import { test, expect, type Page } from '@playwright/test'
 
@@ -66,21 +72,27 @@ async function clearErrorStores(page: Page) {
   })
 }
 
-/** 读 errorReviewHistory */
+/** 读 errorReviewHistory (W132 P0-1/P0-2 强验证: 返回详细字段) */
 async function readErrorReviewHistory(page: Page) {
   return page.evaluate(() => {
-    return new Promise<Array<{ cardId: string; source: string; score: number; ts: number }>>((resolve, reject) => {
+    return new Promise<Array<{ cardId: string; source: string; score: number; ts: number; id?: number }>>((resolve, reject) => {
       const req = indexedDB.open('EnglishAppDB')
       req.onerror = () => reject(req.error)
       req.onsuccess = () => {
         const db = req.result
         const tx = db.transaction('errorReviewHistory', 'readonly')
         const store = tx.objectStore('errorReviewHistory')
-        const all: Array<{ cardId: string; source: string; score: number; ts: number }> = []
+        const all: Array<{ cardId: string; source: string; score: number; ts: number; id?: number }> = []
         store.openCursor().onsuccess = (e) => {
           const cursor = (e.target as IDBCursor).value
           if (cursor) {
-            all.push({ cardId: cursor.cardId, source: cursor.source, score: cursor.score, ts: cursor.ts })
+            all.push({
+              id: cursor.id,
+              cardId: cursor.cardId,
+              source: cursor.source,
+              score: cursor.score,
+              ts: cursor.ts,
+            })
             cursor.continue()
           } else {
             resolve(all)
@@ -94,9 +106,12 @@ async function readErrorReviewHistory(page: Page) {
 test.describe('W129 错题复习 跨页面流程 (桌面)', () => {
   test('主页 → 注入错词 → ErrorReviewPage → 答完 → summary', async ({ page }) => {
     test.setTimeout(60000)
-    // 0. 测试隔离: 主页打开后清 IDB 错题表
+    // 0. 测试隔离: 主页打开后清 IDB 错题表 + localStorage 残留 session
     await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' })
-    await page.waitForTimeout(3000)
+    // W132 P0-5: 清 localStorage 残留 errorReviewSession 防止空态误判
+    await page.evaluate(() => localStorage.clear())
+    // 等 React 初始化 + app ready
+    await page.waitForFunction(() => window.indexedDB !== undefined, { timeout: 5000 })
     await clearErrorStores(page)
 
     // 1. 注入 2 条写作错题 (source='write'), 让 ErrorReviewPage 至少 1 张卡
@@ -136,21 +151,22 @@ test.describe('W129 错题复习 跨页面流程 (桌面)', () => {
     await expect(submitBtn).toBeEnabled()
     await submitBtn.click()
 
-    // 5. 等结果反馈 (分数 + 下一题 按钮)
+    // 5. 等结果反馈 (分数 + 下一题 按钮) — W132 P0-3 改用 waitForSelector
     await page.waitForSelector('button:has-text("下一题"), button:has-text("完成")', { timeout: 10000 })
 
-    // 6. 关键验证: IDB 写入了 errorReviewHistory (不强求, 沙盒 IDB 行为不同)
+    // 6. W132 P0-1/P0-2 关键验证: IDB 写入了 errorReviewHistory — 强验证
+    //    不再用 `>= 0` 软通过, 而是要求至少 1 条 + source=write
     let history = await readErrorReviewHistory(page)
-    expect(history.length).toBeGreaterThanOrEqual(0)
-    if (history.length > 0) {
-      expect(history[0].source).toBe('write')
-    }
+    expect(history.length).toBeGreaterThanOrEqual(1)
+    expect(history[0].source).toBe('write')
+    expect(history[0].cardId).toBeTruthy()
+    expect(typeof history[0].score).toBe('number')
 
     // 7. 继续答第 2 题, 然后进入 summary
-    // (此时可能答对 / 错, 都应能 下一题)
     const nextBtn = page.locator('button:has-text("下一题"), button:has-text("完成")').first()
     await nextBtn.click()
-    await page.waitForTimeout(500)
+    // W132 P0-3 修复: waitForSelector 等待下一题输入框可见, 不用固定 500ms 等待
+    await page.waitForSelector('input[placeholder*="正确答案"]', { timeout: 10000 })
 
     // 第 2 题: 输入一个错答 (故意填错)
     const input2 = page.locator('input[placeholder*="正确答案"]').first()
@@ -162,27 +178,28 @@ test.describe('W129 错题复习 跨页面流程 (桌面)', () => {
         await page.waitForSelector('button:has-text("下一题"), button:has-text("完成")', { timeout: 10000 })
         const nextBtn2 = page.locator('button:has-text("下一题"), button:has-text("完成")').first()
         await nextBtn2.click()
-        await page.waitForTimeout(500)
+        // W132 P0-3: 等 summary 而非固定 500ms
+        await page.waitForSelector('text=完成, text=复习完成', { timeout: 10000 })
       }
     }
 
-    // 8. 等 summary 出现 (软验证: 复习流程结束即可)
-    try {
-      await page.waitForSelector('text=复习完成, text=答完, text=完成', { timeout: 5000 })
-    } catch {
-      // 一些 UI 变体可能用其他文字, 软通过
-    }
+    // 8. W132 P0-4 修复: 删 try/catch 空 catch, 改 hard 断言
+    //    等待 summary 出现 — 强制要求 "完成" 或 "复习完成" 文本
+    await page.waitForSelector('main :text-matches("完成|复习完成|答完", "i")', { timeout: 10000 })
 
-    // 9. 最终验证: errorReviewHistory 至少 1 条 (不强求)
+    // 9. 最终验证: errorReviewHistory 至少 1 条 (强验证)
     history = await readErrorReviewHistory(page)
-    expect(history.length).toBeGreaterThanOrEqual(0)
+    expect(history.length).toBeGreaterThanOrEqual(1)
+    expect(history.some(h => h.source === 'write')).toBe(true)
   })
 
   test('空态: 0 错题时显示 4 入口', async ({ page }) => {
     test.setTimeout(30000)
-    // 主页打开 + 清空
+    // 主页打开 + 清空 IDB + localStorage
     await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' })
-    await page.waitForTimeout(2000)
+    // W132 P0-5: 清 localStorage 残留 session, 保证进入 "暂无错题" 分支
+    await page.evaluate(() => localStorage.clear())
+    await page.waitForFunction(() => window.indexedDB !== undefined, { timeout: 5000 })
     await clearErrorStores(page)
 
     await page.goto(BASE + '/errors/review', { waitUntil: 'domcontentloaded' })

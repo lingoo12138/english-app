@@ -68,7 +68,7 @@
 | 2 | 🃏 **拼写** | `/spelling` | 字符级 diff 高亮 (missing/wrong/extra) + 即时反馈 | [截图](../screenshots/w126-desktop-spelling.png) |
 | 3 | 🎤 **跟读** | `/pronounce-custom` | TTS 切句 → STT 录音 → 字符/词级评分 | (无截图) |
 | 4 | 🎤 **跟读评分 (课文)** | `/textbook/:id` | 跨课复用词 掌握度 + 评分集成 | [截图](../screenshots/w124-desktop-lesson-score.png) |
-| 5 | 🔁 **错题复习** | `/errors/review` | Flashcard 队列 + 答对移出 + 答错留 + 偷看 0 | [截图](../screenshots/w123b-errorreview-ui.png) |
+| 5 | 🔁 **错题复习** | `/errors/review` | Flashcard 队列 + 答对移出 + 答错留 + 偷看 0 | [截图](../screenshots/15-abruptly-after.png) |
 | 6 | 📊 **错题历史** | `/errors/history` | 横向条形图 + 来源分组 + 难度分布 | [截图](../screenshots/w126-desktop-error-history.png) |
 | 7 | ⭐ **释义收藏** | `/favorites/translation` | 跨词搜索 + [wordId+index] 复合 key | (释义页) |
 | 8 | 💬 **AI 对话 v2** | `/aichat` | folders + reply + 快捷建议 + 实时纠错 | [截图](../screenshots/w123d-desktop-aichat.png) |
@@ -94,7 +94,7 @@ Vite 5 + React 18 + TypeScript 5 + Tailwind 3 + Zustand 4 + Dexie 3
 ├─ 数据: IndexedDB 本地 (零云) — IDB v8 (translationFavs 表)
 ├─ 性能: pdfjs 拆 vendor (476KB → 142KB gzip) + react-vendor 165KB
 ├─ 跨 tab: BroadcastChannel + storage event fallback (idbSync.ts)
-├─ 测试: Vitest 4 (1450 单元测试 / 100+ 文件)
+├─ 测试: Vitest 4 (1478 单元测试 / 100+ 文件)
 └─ 静态审查: verify-v*.mjs + review-v*.py + 18 verifier 抗审查 (W87+)
 ```
 
@@ -133,7 +133,7 @@ npm install
 npm run dev      # 开发模式 (http://localhost:5173)
 npm run build    # 生产构建 → dist/
 npm run preview  # 预览 dist
-npm test         # 跑全套测试 (vitest, 1450 测试)
+npm test         # 跑全套测试 (vitest, 1478 测试)
 npx vitest run tests/w126-ui.test.ts   # 跑单个测试
 ```
 
@@ -195,11 +195,11 @@ git push origin gh-pages --force         # 强制推 gh-pages
 
 - **123 release tag** (v0.1.0 ~ v2.1.12) / 19+ 周
 - **35+ 次大 review** (含 **18 verifier 抗审查**, 累计 24 P0 + 49 P1 修)
-- **1450 单元测试** / 100+ 文件 (v1.85 805 → v2.0.9 1120 → v2.1.7 1225 → v2.1.12 1450)
+- **1478 单元测试** / 100+ 文件 (v1.85 805 → v2.0.9 1120 → v2.1.7 1232 → v2.1.13 1478)
 - **5,423 词 / 100% 全覆盖** ⭐ (词根/短语/pos/examples/同义词/反义词)
 - **20 篇课文** (跨课复用 36 词) / **244 同义词组** (P1 146 + P3 98) / 78 反义词
 - **8 大激活功能**: 听写 / 拼写 / 跟读 / 跟读评分 / 错题复习 / 错题历史 / 释义收藏 / AI 对话
-- **27 页面 + 32 组件 + 50+ 库 + 460+ commit**
+- **37 页面 + 37 组件 + 50+ 库 + 460+ commit**
 - **17 角色模式** (11 单 + 3 多人 + 3 复盘) / **10 LLM** / **8 TTS** / **8 翻译** / **8 主题** / **4 字号**
 - **10 XP 等级 + 7 streak 里程碑**
 - **150+ bug 修复** 累计
@@ -263,7 +263,7 @@ v2.1.0-v2.1.7 改版稿 8 大改良点 100% 完整落地:
 | 2 | 渐变 8→2 收敛 | ✅ | W114 |
 | 3 | Bento Grid + MainCTA | ✅ | W115 |
 | 4 | 字母索引动效 | ✅ | W116 |
-| 5 | Lucide 图标 (32 组件) | ✅ | W118 |
+| 5 | Icon SVG (20 个内联, lucide 风格) | ✅ | W118 |
 | 6 | 字体升级 (Outfit + JBMono) | ✅ | W117 |
 | 7 | Motion token | ✅ | W113 |
 | 8 | 主 CTA ≤ 5 步 | ✅ | W115 |
@@ -273,7 +273,7 @@ v2.1.0-v2.1.7 改版稿 8 大改良点 100% 完整落地:
 **10/10 业务价值完整落地** (8 改版稿 + 2 补充).
 
 ### 关键数据
-- **1450 单元测试** / 100+ 文件
+- **1478 单元测试** / 100+ 文件
 - **5,423 词 / 100%** ⭐
 - 0 P0 + 0 P1 业务 维持 200+ 轮
 - **18 verifier 抗审查完整循环** (24 P0 + 49 P1 累计修)

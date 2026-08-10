@@ -7,7 +7,14 @@ const VIEWPORT_DESKTOP = { width: 1280, height: 800 }
 async function go(page: any, path: string) {
   await page.setViewportSize(VIEWPORT_DESKTOP)
   await page.goto(BASE + path, { waitUntil: 'domcontentloaded' })
-  await page.waitForTimeout(5000) // lazy + 词库 加载
+  // W132 P2-2 修复: 改 waitForSelector 等 main h1 渲染, 不用 5s 硬等
+  //    5s 在 CI 慢时 false-fail, 快速 CI 浪费. waitForSelector 弹性 200ms-10s
+  await page.waitForSelector('main h1', { timeout: 10000 })
+  // 等 React lazy + 词库 fetch 完成 (有数据加载)
+  await page.waitForFunction(() => {
+    const body = document.body.textContent || ''
+    return !body.includes('加载中')
+  }, { timeout: 10000 })
 }
 
 async function setDarkAndContrast(page: any, dark: boolean, contrast: boolean) {

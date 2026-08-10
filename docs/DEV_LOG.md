@@ -115,7 +115,12 @@
   - W126: 8 大激活功能 UI 改造 (4 大页) — 20 测试 + 4 截图
   - W127: pdfjs 拆 vendor + workbox 优化 — 29 测试
   - W128: 数据导出整合 + 跨 tab IDB 同步 — 48 测试
-  - W130: 文档完善 (CHANGELOG + README + DEV_LOG) — 6+ 测试
+
+### Phase 12: 暗色全局 + iOS PWA 完整化 + 跨页 a11y (W129-W131, v2.1.13)
+- **v2.1.13**:
+  - W129: e2e 跨页面测试 5 spec (10/10 桌面 + 移动) — 3 reviewer 找 13 P0
+  - W130: 文档完善 6 文件 (CHANGELOG + README + DEV_LOG + FEATURES + ARCHITECTURE + SUMMARY) — 46 测试
+  - W131: 暗色全局强化 (stone-50/100/200 全转深, 0 亮色块) + iOS PWA 完整化 (7 icon + 7 splash + 3 shortcuts) + 跨页 a11y (Skip link + aria-label + aria-expanded + 移动 input 16px) + OfflineBanner (navigator.onLine + online/offline 事件) — 39 测试 + 9 e2e 截图
 
 ---
 
@@ -133,10 +138,10 @@
 - **dark 模式兼容**: 8 主题 0 延迟切换
 
 **4 大页改造**:
-- `PronounceCustom.tsx` (60 → 175 行): 跟读自定义
-- `DictationPage.tsx` (399 → 599 行): 听写
-- `SpellingPage.tsx` (317 → 477 行): 拼写
-- `ErrorHistoryPage.tsx` (264 → 547 行): 错题历史
+- `PronounceCustom.tsx` (60 → 137 行): 跟读自定义
+- `DictationPage.tsx` (399 → 474 行): 听写
+- `SpellingPage.tsx` (317 → 381 行): 拼写
+- `ErrorHistoryPage.tsx` (264 → 437 行): 错题历史
 
 **测试**: +20 单元测试 (`tests/w126-ui.test.ts`)
 
@@ -211,11 +216,11 @@
 
 - **123 release tag** (v0.1.0 ~ v2.1.12) / **19+ 周**
 - **35+ 次大 review** (含 **18 verifier 抗审查**, 累计 24 P0 + 49 P1 修)
-- **1450 单元测试** / 100+ 文件 (v1.85 805 → v2.0.9 1120 → v2.1.7 1225 → v2.1.12 1450)
+- **1478 单元测试** / 100+ 文件 (v1.85 805 → v2.0.9 1120 → v2.1.7 1232 → v2.1.13 1478)
 - **5,423 词 / 100% 全覆盖** ⭐ (词根/短语/pos/examples/同义词/反义词)
 - **20 篇课文** (跨课复用 36 词) / **244 同义词组** (P1 146 + P3 98) / 78 反义词
 - **8 大激活功能**: 听写 / 拼写 / 跟读 / 跟读评分 / 错题复习 / 错题历史 / 释义收藏 / AI 对话
-- **27 页面 / 32 组件 / 50+ 库 / 460+ commit**
+- **37 页面 / 37 组件 / 50+ 库 / 460+ commit**
 - **17 角色模式** (11 单 + 3 多人 + 3 复盘) / **10 LLM** / **8 TTS** / **8 翻译** / **8 主题** / **4 字号**
 - **10 XP 等级 + 7 streak 里程碑**
 - **150+ bug 修复** 累计
@@ -265,10 +270,10 @@
 
 ---
 
-## 🚀 未来计划 (W131+ 候选)
+## 🚀 未来计划 (W132+ 候选)
 
-1. **真机测试 5 步** (15 min, 验收 v2.1.12 部署)
-2. **第 36 次大 review** (拉 1-2 verifier 跑 W126-W128 修 v1, 验证修对了)
+1. **真机测试 5 步** (15 min, 验收 v2.1.13 部署)
+2. **第 36 次大 review** (拉 1-2 verifier 跑 W129-W131 修 v1, 验证修对了)
 3. **跨设备同步** (云同步方案 — 已 idbSync 跨 tab, 跨设备靠 export/import)
 4. **跟读评分趋势图** (得分曲线)
 5. **释义收藏列表页** (复用 Notebook 模式)
@@ -344,7 +349,7 @@
 - 折 叠 箭 头 ease-spring 旋 转 + aria-expanded a11y
 
 #### 累计 (v2.1.7)
-- 1225 单元测试 / 95 文件 (v2.0.15 1160 → +65 测试, +7 文件)
+- 1232 单元测试 / 95 文件 (v2.0.15 1160 → +65 测试, +7 文件)
 - 5,423 词 / 100% ⭐
 - 0 P0 + 0 P1 业务 维持 200+ 轮
 - 150+ bug 修复 (含 verifier 抗审查累计 24 P0 + 49 P1)
@@ -370,9 +375,9 @@
 - 重构 3 个旧 export lib
 - +48 单元测试 (`tests/w128-data-export-sync.test.ts`)
 
-#### 累计 (v2.1.12)
-- 123 release tag / 19+ 周 / 35+ 次大 review (含 18 verifier 抗审查)
-- 1450 单元测试 / 100+ 文件
+#### 累计 (v2.1.13)
+- 123 release tag / 21+ 周 / 35+ 次大 review (含 21 verifier 抗审查)
+- 1478 单元测试 / 100+ 文件
 - 5,423 词 / 100% ⭐
 - 0 P0 + 0 P1 业务 维持
 - 150+ bug 修复 累计

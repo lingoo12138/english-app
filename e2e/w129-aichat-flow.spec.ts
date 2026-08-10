@@ -7,6 +7,12 @@
 // - Mock 渠道走 mockResponse, 不打真实网络
 // - 验证 IDB chats 表写入 + messages 列表
 // - network.route 双保险: 拦 LLM API, 强制 mock JSON
+//
+// W132 修复 (P0-8, P0-9, P0-10, P1-14):
+// - waitForTimeout 8000ms → waitForSelector 等输入框可输入 (loading 结束)
+// - IDB 软验证 `>= 0` 改成 `>= 1` 真验证
+// - 监听器移到 test 顶部, BEFORE navigation
+// - 验证 mock AI 响应内容 (5 个 mock 之一)
 
 import { test, expect, type Page } from '@playwright/test'
 
@@ -132,19 +138,7 @@ async function readChats(page: Page) {
 test.describe('W129 AI 对话 跨页面流程 (桌面)', () => {
   test('/chat → 输入消息 → Mock AI 响应 → 消息列表 + IDB', async ({ page }) => {
     test.setTimeout(60000)
-    // 网络 mock (兜底)
-    await setupNetworkMocks(page)
-
-    // 0. 主页打开 + 清 chats
-    await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' })
-    await page.waitForTimeout(2000)
-    try {
-      await clearChats(page)
-    } catch (e) {
-      console.warn('clearChats warn (ignoring):', (e as Error).message)
-    }
-
-    // 1. 进 AI 对话
+    // W132 P0-10 修复: 监听器 BEFORE any navigation
     page.on('pageerror', (err) => console.log('PAGE ERROR:', err.message))
     page.on('console', (msg) => {
       if (msg.type() === 'error') console.log('CONSOLE ERR:', msg.text())
@@ -153,10 +147,25 @@ test.describe('W129 AI 对话 跨页面流程 (桌面)', () => {
     page.on('response', (res) => {
       if (res.status() >= 400) console.log('HTTP', res.status(), res.url())
     })
+
+    // 网络 mock (兜底) — 移到 test 顶部
+    await setupNetworkMocks(page)
+
+    // 0. 主页打开 + 清 chats
+    await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' })
+    await page.waitForFunction(() => window.indexedDB !== undefined, { timeout: 5000 })
+    try {
+      await clearChats(page)
+    } catch (e) {
+      console.warn('clearChats warn (ignoring):', (e as Error).message)
+    }
+
+    // 1. 进 AI 对话
     await page.goto(BASE + '/chat', { waitUntil: 'domcontentloaded' })
     // 等 React 渲染 + provider 列表
     await page.waitForSelector('main h1:has-text("AI 对话陪练")', { timeout: 15000 })
-    await page.waitForTimeout(2000)
+    // W132 P1-9: 改 waitForSelector 而非 waitForTimeout 2000ms
+    await page.waitForSelector('input[placeholder*="输入英文"], input[placeholder*="Enter"]', { timeout: 10000 })
 
     // 2. 找输入框 (placeholder 含 "输入英文" 或 "Enter")
     const input = page.locator('input[placeholder*="输入英文"], input[placeholder*="Enter"]').first()
@@ -168,9 +177,9 @@ test.describe('W129 AI 对话 跨页面流程 (桌面)', () => {
     // 按 Enter 发送
     await input.press('Enter')
 
-    // 4. 等 AI 响应完成 (loading 状态结束, 输入框重新可用)
-    // loading 期间输入框 disabled
-    await page.waitForTimeout(8000)  // mock 响应 + IDB 保存
+    // 4. W132 P0-8 修复: 等 AI 响应完成 (loading 状态结束, 输入框重新可用)
+    // loading 期间输入框 disabled — 用 waitForSelector 等 input 可输入
+    await expect(input).toBeEnabled({ timeout: 15000 })
 
     // 5. 验证: 输入框已清空
     const inputValue = await input.inputValue()
@@ -180,7 +189,15 @@ test.describe('W129 AI 对话 跨页面流程 (桌面)', () => {
     const bodyText = await page.textContent('body') || ''
     expect(bodyText).toContain('Hello, can you help me learn English')
 
-    // 7. 关键验证: IDB chats 表 写入了 1 条记录 (含 messages)
+    // W132 P1-14 修复: 验证 mock AI 响应内容 (5 个 mock 之一, 或 mock 兜底)
+    // mockResponse 5 个: 'Got it!', 'I see!', 'Great point!', 'That is interesting', 'I understand'
+    // network.route 兜底: 'Mocked AI response' / 'Hello! This is a mock reply from test.'
+    const aiReplyVisible = await page.locator('main').textContent()
+    expect(aiReplyVisible || '').toMatch(/Got it!|I see!|Great point!|interesting|understand|Mocked|mock reply/i)
+
+    // 7. W132 P0-9 修复: IDB chats 表 强验证 — 至少 1 条记录, 包含 user + assistant messages
+    // 给 IDB 异步写入 200ms 缓冲
+    await page.waitForTimeout(300)
     const chats = await readChats(page)
     // debug: 详细检查
     if (chats.length === 0) {
@@ -214,8 +231,15 @@ test.describe('W129 AI 对话 跨页面流程 (桌面)', () => {
       })
       console.log('IDB debug:', debugInfo)
     }
-    expect(chats.length).toBeGreaterThanOrEqual(0) // 沙盒 IDB 行为不同, 不强求
-    // 退而求其次: 验证用户消息输入成功 (主流程)
+    expect(chats.length).toBeGreaterThanOrEqual(1)
+    // 至少 1 个 chat 含 user + assistant messages
+    const chatWithMessages = chats.find(c => Array.isArray(c.messages) && c.messages.length >= 2)
+    expect(chatWithMessages).toBeTruthy()
+    if (chatWithMessages) {
+      expect(chatWithMessages.messages.some(m => m.role === 'user')).toBe(true)
+      expect(chatWithMessages.messages.some(m => m.role === 'assistant')).toBe(true)
+    }
+    // 用户消息输入成功 (UI 兜底)
     const userMsg = page.locator(`text="${userMessage}"`).first()
     await expect(userMsg).toBeVisible({ timeout: 5000 })
   })

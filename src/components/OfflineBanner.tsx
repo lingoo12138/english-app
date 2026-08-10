@@ -43,14 +43,21 @@ export default function OfflineBanner() {
       aria-live="polite"
       data-testid="offline-banner"
       data-online={online ? 'true' : 'false'}
-      className={`fixed top-0 inset-x-0 z-40 transition-all duration-[var(--t-base)] ease-[var(--ease)] ${
+      // W132 P2-1 修复: z-30 + pointer-events-none on outer wrapper
+      //    修复前: banner z 过高 完全覆盖 Layout header (sticky z-10) + desktop sidebar (md:fixed z-10)
+      //    修复后:
+      //      - z-30 (在内容 z-0 之上, 视觉上可见)
+      //      - pointer-events-none on outer wrapper (允许点击穿透到 nav 元素)
+      //      - 内部交互元素 (关闭按钮) pointer-events-auto (用户仍可关闭)
+      //    用户仍能看到 banner + 关闭按钮, 但返回按钮 / 侧边栏链接 不被遮挡
+      className={`fixed top-0 inset-x-0 z-30 transition-all duration-[var(--t-base)] ease-[var(--ease)] pointer-events-none ${
         online
           ? 'bg-emerald-600 text-white'
           : 'bg-amber-500 text-white'
       }`}
       style={{ paddingTop: 'env(safe-area-inset-top)' }}
     >
-      <div className="flex items-center justify-between gap-2 px-4 py-2 text-sm">
+      <div className="flex items-center justify-between gap-2 px-4 py-2 text-sm pointer-events-auto">
         <div className="flex items-center gap-2 min-w-0">
           <span
             className={`w-2 h-2 rounded-full shrink-0 ${

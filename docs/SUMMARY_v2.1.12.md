@@ -16,10 +16,10 @@ W124 + W125 改版稿落地后, 3 个独立方向拉 3 个 agent 并行:
 ## 改动
 
 ### W126 — 8 大激活功能 UI 改造 (4 大页)
-- **PronounceCustom.tsx** (60 行 → 175 行): 跟读自定义
-- **DictationPage.tsx** (399 行 → 599 行): 听写
-- **SpellingPage.tsx** (317 行 → 477 行): 拼写
-- **ErrorHistoryPage.tsx** (264 行 → 547 行): 错题复习历史
+- **PronounceCustom.tsx** (60 行 → 137 行): 跟读自定义
+- **DictationPage.tsx** (399 行 → 474 行): 听写
+- **SpellingPage.tsx** (317 行 → 381 行): 拼写
+- **ErrorHistoryPage.tsx** (264 行 → 437 行): 错题复习历史
 - 设计统一: 0 emoji (改 Icon SVG), 标题居中 + 3 圆按钮 (W123d), `card card-interactive` (W113 v2), motion token (W113), dark 兼容
 - +20 单元测试 (`tests/w126-ui.test.ts`)
 
@@ -112,13 +112,15 @@ Dark: 8 主题 0 延迟切换
 
 ## 累计数据 v2.1.12
 - **123 release tag** / 19+ 周
-- **1317+ 单元测试** (1269 → +48 = W128 +20 = W126 +29 = W127)
+- **1329 单元测试** (v2.1.7 1232 → +20 W126 + +29 W127 + +48 W128 = 1329)
 - **5,423 词 / 100%** ⭐
 - 0 P0 + 0 P1 业务
 - 18 verifier 抗审查 (24 P0 + 49 P1 累计修)
 - 8 大激活功能 + 8 大改版稿 + 2 补充 = 100% 全部落地 ✅
 - pdfjs 拆 vendor 首屏省 6MB, react-vendor 165KB gzip
 - 3 export lib 整合到 1 个, 跨 tab IDB 同步
+
+> v2.1.13 (W129+W130+W131) 累计 **1478 单元测试** + 19 e2e spec + 21 verifier 抗审查
 
 ## 部署
 - main: d589cf2 ✅ pushed

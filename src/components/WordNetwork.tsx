@@ -1,6 +1,7 @@
-// WordNetwork.tsx - v1.85-A 触类旁通 (Word Network)
+// src/components/WordNetwork.tsx - v1.85-A 触类旁通 (Word Network) + W133 UI 改版稿
 // 4 个 tab: 同根 / 同义 / 反义 / 搭配
 // 点词跳转 /words/:id, 空态提示 "暂无相关词"
+// W133: 0 emoji (W118 Icon 化 4 tab) + W113 3 状态色 + 暗色兼容 + motion token
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -12,6 +13,7 @@ import {
   isInWordList,
   type NetworkType,
 } from '../lib/wordNetwork'
+import { IconRefresh, IconBookOpen } from './Icon'
 
 interface Props {
   /** 当前词 (主词) */
@@ -21,18 +23,23 @@ interface Props {
 type TabConfig = {
   key: NetworkType
   label: string
-  icon: string
   color: string  // tailwind 主题色
   /** 描述 (用于 tooltip / accessibility) */
   desc: string
 }
 
+// W133: 0 emoji — 4 tab 用 状 态 色 + 简 短 label (不 用 emoji)
+// 同 义 词 tab 强 调 — 主 功 能, 用 amber (W113 同 义 词 主 题 色)
 const TABS: TabConfig[] = [
-  { key: 'root', label: '同根', icon: '🌱', color: 'emerald', desc: '同词根/词缀的词' },
-  { key: 'synonym', label: '近义', icon: '📚', color: 'amber', desc: '同义词/近义词' },
-  { key: 'antonym', label: '反义', icon: '⚖️', color: 'rose', desc: '反义词' },
-  { key: 'collocation', label: '搭配', icon: '🔗', color: 'sky', desc: '共享短语的词' },
+  { key: 'root', label: '同根', color: 'emerald', desc: '同词根/词缀的词' },
+  { key: 'synonym', label: '近义', color: 'amber', desc: '同义词/近义词' },
+  { key: 'antonym', label: '反义', color: 'rose', desc: '反义词' },
+  { key: 'collocation', label: '搭配', color: 'sky', desc: '共享短语的词' },
 ]
+
+// W113 3 状 态 色
+const STATE_SUCCESS = 'var(--state-success)'
+const STATE_WARNING = 'var(--state-warning)'
 
 /** 单个 tab 的内容区 */
 function WordGrid({
@@ -48,10 +55,17 @@ function WordGrid({
   onPick: (w: string) => void
   inWordList: Set<string>
 }) {
+  // W133: 空 态 0 emoji — Icon + 文 字
   if (words.length === 0) {
     return (
-      <div className="text-center py-6 text-sm text-stone-400 dark:text-stone-500">
-        {emptyHint}
+      <div className="text-center py-6 text-sm text-stone-400 dark:text-stone-500 flex flex-col items-center gap-2">
+        <div
+          className="w-12 h-12 rounded-full flex items-center justify-center bg-stone-100 dark:bg-stone-800"
+          aria-hidden="true"
+        >
+          <IconBookOpen size={20} className="text-stone-400" />
+        </div>
+        <span>{emptyHint}</span>
       </div>
     )
   }
@@ -60,20 +74,29 @@ function WordGrid({
       {words.map((w) => {
         // v1.86: 区分可点 (在词库) / 不可点 (仅参考, 灰色 + cursor-not-allowed)
         const known = inWordList.has(w.toLowerCase())
+        // W113 状 态 色: 跟 colorMap 对 应
+        const stateColor =
+          color === 'emerald' ? STATE_SUCCESS :
+          color === 'amber' ? STATE_WARNING :
+          color === 'rose' ? 'var(--state-error)' :
+          'var(--state-success)'
         return (
           <button
             key={w}
             onClick={() => onPick(w)}
-            className={`px-3 py-1.5 text-sm rounded-lg font-mono transition-colors ${
+            className={`px-3 py-1.5 text-sm rounded-lg font-mono transition-all duration-[var(--t-fast)] active:scale-95 ${
               known
-                ? `bg-${color}-50 dark:bg-${color}-900/20 text-${color}-700 dark:text-${color}-300 hover:bg-${color}-100 dark:hover:bg-${color}-900/40 border border-${color}-200 dark:border-${color}-800`
+                ? `bg-${color}-50 dark:bg-${color}-900/20 text-${color}-700 dark:text-${color}-300 hover:bg-${color}-100 dark:hover:bg-${color}-900/40 border`
                 : 'bg-stone-100 dark:bg-stone-800 text-stone-400 dark:text-stone-500 border border-stone-200 dark:border-stone-700 cursor-not-allowed line-through'
             }`}
+            style={known ? { borderColor: stateColor } : undefined}
             title={known ? `跳转到 ${w}` : `${w} (未学, 仅参考)`}
             disabled={!known}
           >
             {w}
-            {!known && <span className="ml-1 text-[9px]">🆕</span>}
+            {!known && (
+              <span className="ml-1 text-[9px] text-stone-400 font-sans">新</span>
+            )}
           </button>
         )
       })}
@@ -153,8 +176,12 @@ export function WordNetwork({ word }: Props) {
 
   return (
     <div>
-      {/* 4 个 tab */}
-      <div className="flex items-center gap-1 mb-3 border-b border-stone-200 dark:border-stone-700 overflow-x-auto">
+      {/* 4 个 tab — W133 0 emoji, 0 Icon (用 状 态 色 + 圆 点 强 调 活 动) */}
+      <div
+        className="flex items-center gap-1 mb-3 border-b border-stone-200 dark:border-stone-700 overflow-x-auto scrollbar-hide"
+        role="tablist"
+        aria-label="同义词网络"
+      >
         {TABS.map((tab) => {
           const isActive = activeTab === tab.key
           const count = data[tab.key].length
@@ -163,15 +190,28 @@ export function WordNetwork({ word }: Props) {
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors flex items-center gap-1.5
+              className={`px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors duration-[var(--t-fast)] flex items-center gap-1.5
                 ${isActive
-                  ? `${c.text} border-b-2 ${c.border.replace('border-', 'border-b-')} -mb-px`
+                  ? `${c.text} -mb-px`
                   : 'text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-300'
                 }`}
+              style={isActive ? {
+                borderBottom: `2px solid currentColor`,
+                marginBottom: '-1px',
+              } : undefined}
               title={tab.desc}
               aria-label={tab.desc}
+              role="tab"
+              aria-selected={isActive}
             >
-              <span>{tab.icon}</span>
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full"
+                style={{
+                  backgroundColor: isActive ? 'currentColor' : 'transparent',
+                  border: isActive ? undefined : '1px solid currentColor',
+                }}
+                aria-hidden="true"
+              />
               <span>{tab.label}</span>
               {count > 0 && (
                 <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${c.bg} ${c.text}`}>
@@ -182,7 +222,10 @@ export function WordNetwork({ word }: Props) {
           )
         })}
         {loading && (
-          <span className="ml-auto text-xs text-stone-400">⏳ 加载中...</span>
+          <span className="ml-auto text-xs text-stone-400 flex items-center gap-1">
+            <IconRefresh size={12} className="animate-spin" />
+            加载中
+          </span>
         )}
       </div>
 
@@ -192,7 +235,7 @@ export function WordNetwork({ word }: Props) {
         const words = data[tab.key]
         const c = colorMap[tab.key]
         return (
-          <div key={tab.key} className="space-y-2">
+          <div key={tab.key} className="space-y-2" role="tabpanel">
             <div className="text-xs text-stone-500 dark:text-stone-400">
               {tab.desc}
             </div>
@@ -205,11 +248,14 @@ export function WordNetwork({ word }: Props) {
                 inWordList={inWordList}
               />
             ) : (
-              <div className="text-center py-6 text-sm text-stone-400">加载中...</div>
+              <div className="text-center py-6 text-sm text-stone-400 flex items-center justify-center gap-2">
+                <IconRefresh size={14} className="animate-spin" />
+                加载中
+              </div>
             )}
             {/* 调试信息 (data 字段) - 仅当有数据时显示 */}
             {words.length > 0 && (
-              <div className={`text-[10px] mt-2 ${c.text} opacity-50`}>
+              <div className={`text-[10px] mt-2 ${c.text} opacity-50 font-mono tabular-nums`}>
                 共 {words.length} 个
               </div>
             )}

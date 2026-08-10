@@ -517,10 +517,10 @@ describe('W128 idbSync - 跨 tab IDB 同步', () => {
       // 强制重新初始化 (因 _resetForTest 在 beforeEach 已清)
       const cb = vi.fn()
       const teardown = initIdbSync({ onChange: cb })
-      // 模拟 storage event
+      // 模拟 storage event (W134: storage key 现在按 channelName 命名空间)
       const msg = { msgId: 'a', store: 'chats', op: 'put', key: 1, ts: 1, sourceTab: 'other' }
       const ev = new StorageEvent('storage', {
-        key: '__idb-sync__',
+        key: '__idb-sync__:english-app-idb-sync',
         newValue: JSON.stringify(msg),
       })
       window.dispatchEvent(ev)

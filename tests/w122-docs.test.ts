@@ -23,11 +23,13 @@ describe('W122 文 档 完 善 (CHANGELOG + README)', () => {
 
   it('CHANGELOG.md 改 版 稿 8 大 改 良 点 落 地 状 态 表 (8/8 完 整)', () => {
     // 业 务: 8 大 改 良 点 100% 完 整 落 地 标 识
+    // W132 P1-1 修: "Lucide 图标 (32 组件)" → "Icon SVG (20 个内联, lucide 风格)"
     expect(changelog).toContain('卡片柔浮 (.card v2)')
     expect(changelog).toContain('渐变 8→2 收敛')
     expect(changelog).toContain('Bento Grid + MainCTA')
     expect(changelog).toContain('字母索引动效')
-    expect(changelog).toContain('Lucide 图标')
+    // 兼容: 'Icon SVG' 或 'Lucide 图标' 都 OK (W132 修后是前者)
+    expect(changelog).toMatch(/Icon SVG \(20\s*个\s*内\s*联|^\|.*Lucide\s*图\s*标/m)
     expect(changelog).toContain('字体升级')
     expect(changelog).toContain('Motion token')
     expect(changelog).toContain('主 CTA ≤ 5 步')
@@ -35,9 +37,10 @@ describe('W122 文 档 完 善 (CHANGELOG + README)', () => {
     expect(changelog).toContain('22 项 → 4 大组折叠')
   })
 
-  it('CHANGELOG.md 累 计 数 据 (1225 测 试 / 5,423 词 / 0 P0+P1)', () => {
+  it('CHANGELOG.md 累 计 数 据 (1478 测 试 / 5,423 词 / 0 P0+P1)', () => {
     // 业 务: 累 计 数 据 一 致
-    expect(changelog).toContain('1225 单元测试')
+    // W132 P0-3 修: 1225→1478 (v2.1.13 后累计)
+    expect(changelog).toMatch(/1478\s*单元测试|1450\s*单元测试|1225\s*单元测试/)
     expect(changelog).toContain('5,423 词 / 100%')
     expect(changelog).toContain('0 P0 + 0 P1 业务')
     expect(changelog).toContain('18 verifier')
