@@ -73,8 +73,8 @@ v2.1.13 之后, 3 个独立 reviewer (W129 / W130 / W131) 共找出 **15 P0 + 14
 - 累计 verifier 抗审查 (W87-W134): **24+ 次 review** 找到 **15+ P0** 真问题 100% 修
 
 ## 部署
-- main: 待 commit + push (W132+W133+W134 3 plan 整合后)
-- gh-pages: v2.1.12 仍 deployed, 待 v2.1.14 编译后 deploy
+- main: `181f2ac` ✅ pushed (W132+W133+W134 3 plan 整合)
+- gh-pages: `9c19be4` ✅ deployed (v2.1.14)
 - 预览: https://lingoo12138.github.io/english-app/
 
 ## 后续 backlog (W135+)
