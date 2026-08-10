@@ -2,26 +2,44 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <!-- W7: iOS PWA 完整化 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta name="theme-color" content="#16a34a" />
+    <!-- W131: iOS PWA 完整化 - viewport-fit=cover (env(safe-area-inset-*)) + interactive-widget=resizes-content (移动键盘不遮挡) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover, interactive-widget=resizes-content" />
+    <!-- W131: theme-color 跟随暗色 (CSS 切) -->
+    <meta name="theme-color" content="#16a34a" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="description" content="句刻 - 即时英语学习。让英语在你想用的时候就能用上。" />
+    <!-- W131: iOS PWA 完整化 -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="句刻" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="句刻" />
+    <meta name="format-detection" content="telephone=no" />
     <link rel="manifest" href="/english-app/manifest.webmanifest" />
-    <link rel="icon" type="image/png" href="/english-app/pwa-192.png" />
-    <link rel="apple-touch-icon" href="/english-app/pwa-192.png" />
-    <!-- iOS 启动画面 (iPhone X 等) -->
-    <link rel="apple-touch-startup-image" href="/english-app/pwa-512.png" />
+    <!-- W131: 完整 icon 集 -->
+    <link rel="icon" type="image/png" sizes="72x72" href="/english-app/icons/pwa-72.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/english-app/icons/pwa-96.png" />
+    <link rel="icon" type="image/png" sizes="128x128" href="/english-app/icons/pwa-128.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/english-app/icons/pwa-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/english-app/icons/pwa-512.png" />
+    <link rel="icon" type="image/svg+xml" href="/english-app/icons/pwa.svg" />
+    <link rel="apple-touch-icon" href="/english-app/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/english-app/icons/apple-touch-icon.png" />
+    <!-- W131: iOS 启动画面 (iPhone 各种机型) -->
+    <link rel="apple-touch-startup-image" href="/english-app/icons/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" />
+    <link rel="apple-touch-startup-image" href="/english-app/icons/splash-1179x2556.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)" />
+    <link rel="apple-touch-startup-image" href="/english-app/icons/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)" />
+    <link rel="apple-touch-startup-image" href="/english-app/icons/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" />
+    <link rel="apple-touch-startup-image" href="/english-app/icons/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" />
+    <link rel="apple-touch-startup-image" href="/english-app/icons/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" />
+    <link rel="apple-touch-startup-image" href="/english-app/icons/splash-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" />
     <title>句刻 - 即时英语学习</title>
-    <script type="module" crossorigin src="/english-app/assets/index-DLfuEsZu.js"></script>
+    <script type="module" crossorigin src="/english-app/assets/index-DX6MI0ry.js"></script>
     <link rel="modulepreload" crossorigin href="/english-app/assets/react-vendor-Dc3BUvRu.js">
     <link rel="modulepreload" crossorigin href="/english-app/assets/state-vendor-CO12vhKp.js">
     <link rel="modulepreload" crossorigin href="/english-app/assets/db-vendor-kfNg-Duc.js">
-    <link rel="stylesheet" crossorigin href="/english-app/assets/index-DiJ8-axw.css">
+    <link rel="stylesheet" crossorigin href="/english-app/assets/index-DPLNYJnh.css">
   <link rel="manifest" href="/english-app/manifest.webmanifest"></head>
   <body>
     <div id="root"></div>
