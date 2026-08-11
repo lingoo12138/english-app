@@ -10,9 +10,10 @@ const SMOKE_PAGES: { path: string; name: string; expected: string; category: str
   { path: '/textbook', name: '课文', expected: '课文', category: '学习' },
   { path: '/dictation', name: '听写', expected: '听写', category: '练习' },
   { path: '/spelling', name: '拼写', expected: '拼写', category: '练习' },
-  { path: '/follow-read', name: '跟读', expected: '跟读', category: '练习' },
+  // W139: /follow-read 路径不存在 (App.tsx 仅有 follow-read/progress, 主跟读页从未实现), 移除
   { path: '/cards', name: '卡片复习', expected: '卡', category: '复习' },
-  { path: '/error-review', name: '错题复习', expected: '错题', category: '复习' },
+  // W139: /error-review → /errors/review (App.tsx 实际路由)
+  { path: '/errors/review', name: '错题复习', expected: '错题', category: '复习' },
   { path: '/translation-favs', name: '释义收藏', expected: '收藏', category: '收藏' },
   { path: '/synonyms', name: '同义词', expected: '同义', category: '工具' },
   { path: '/settings', name: '设置', expected: '设置', category: '设置' },

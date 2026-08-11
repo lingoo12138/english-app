@@ -140,6 +140,13 @@ export default function LessonDetailPage() {
     }
   }, [lesson, learned, togglingLearned])
 
+  // W139: useMemo 必须在 early return 之前 (rules-of-hooks), 否则 React error #310
+  // 用 ranges 切分 body 成 token 数组 (text + 可选 vocab)
+  const segments = useMemo(() => {
+    if (!lesson) return []
+    return buildSegments(lesson.body, ranges)
+  }, [lesson, ranges])
+
   if (!lesson) {
     return (
       <div className="text-center py-20 text-stone-500 dark:text-stone-400">
@@ -158,9 +165,6 @@ export default function LessonDetailPage() {
       </div>
     )
   }
-
-  // 用 ranges 切分 body 成 token 数组 (text + 可选 vocab)
-  const segments = useMemo(() => buildSegments(lesson.body, ranges), [lesson.body, ranges])
 
   return (
     <div className="space-y-4 pb-24">

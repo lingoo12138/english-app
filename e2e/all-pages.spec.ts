@@ -21,10 +21,11 @@ const PAGES: PageInfo[] = [
   { path: '/textbook/travel-airport', name: '课文详情', category: 'study', expectedContent: '旅行' },
   { path: '/dictation', name: '听写', category: 'practice', expectedContent: '听写', entryText: '听写' },
   { path: '/spelling', name: '拼写', category: 'practice', expectedContent: '拼写', entryText: '拼写' },
-  { path: '/follow-read', name: '跟读', category: 'practice', expectedContent: '跟读', entryText: '跟读' },
-  { path: '/follow-read/progress', name: '跟读进度', category: 'progress', expectedContent: '进度', entryText: '跟读进度' },
+  // W139: /follow-read 路径不存在 (App.tsx 仅有 follow-read/progress, 主跟读页从未实现), 移除
+  { path: '/follow-read/progress', name: '跟读进度', category: 'progress', expectedContent: '跟读', entryText: '跟读' },
   { path: '/cards', name: '卡片复习', category: 'review', expectedContent: '卡', entryText: '卡片复习' },
-  { path: '/error-review', name: '错题复习', category: 'review', expectedContent: '错题', entryText: '错题复习' },
+  // W139: /error-review → /errors/review (App.tsx 实际路由)
+  { path: '/errors/review', name: '错题复习', category: 'review', expectedContent: '错题', entryText: '错题' },
   { path: '/error-history', name: '错题历史', category: 'review', expectedContent: '错题' },
   { path: '/fill-blank', name: '填空练习', category: 'review', expectedContent: '填空' },
   { path: '/translation-favs', name: '释义收藏', category: 'fav', expectedContent: '收藏', entryText: '收藏' },
@@ -110,7 +111,7 @@ test.describe.serial('W99 完整度 验收', () => {
   })
 
   test('业务 关键 路径: 错题复习 空 状态', async ({ page }) => {
-    await page.goto(BASE + '/error-review', { waitUntil: 'domcontentloaded' })
+    await page.goto(BASE + '/errors/review', { waitUntil: 'domcontentloaded' })
     await page.waitForTimeout(2000)
     const body = await page.textContent('body')
     expect(body).toContain('错题')

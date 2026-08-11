@@ -13,12 +13,13 @@ const ALL_PAGES: { path: string; name: string; expected: string; category: strin
   // 练习
   { path: '/dictation', name: '听写', expected: '听写', category: 'practice' },
   { path: '/spelling', name: '拼写', expected: '拼写', category: 'practice' },
-  { path: '/follow-read', name: '跟读', expected: '跟读', category: 'practice' },
+  // W139: /follow-read 路径不存在 (App.tsx 仅有 follow-read/progress, 主跟读页从未实现), 移除
   { path: '/listen', name: '听力', expected: '听', category: 'practice' },
   { path: '/write', name: '写作', expected: '写', category: 'practice' },
   // 复习
   { path: '/cards', name: '卡片复习', expected: '卡', category: 'review' },
-  { path: '/error-review', name: '错题复习', expected: '错题', category: 'review' },
+  // W139: /error-review → /errors/review (App.tsx 实际路由)
+  { path: '/errors/review', name: '错题复习', expected: '错题', category: 'review' },
   { path: '/error-history', name: '错题历史', expected: '错题', category: 'review' },
   { path: '/error-stats', name: '错题统计', expected: '错题', category: 'review' },
   { path: '/fill-blank', name: '填空', expected: '填空', category: 'review' },
@@ -30,7 +31,7 @@ const ALL_PAGES: { path: string; name: string; expected: string; category: strin
   { path: '/translation-favs', name: '释义收藏', expected: '收藏', category: 'fav' },
   { path: '/vocab', name: '生词本', expected: '生词', category: 'fav' },
   // 跟读
-  { path: '/follow-read/progress', name: '跟读进度', expected: '进度', category: 'follow' },
+  { path: '/follow-read/progress', name: '跟读进度', expected: '跟读', category: 'follow' },
   { path: '/pronounce-custom', name: '自定义跟读', expected: '跟读', category: 'follow' },
   // 工具
   { path: '/synonyms', name: '同义词', expected: '同义', category: 'tool' },
