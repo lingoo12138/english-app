@@ -98,6 +98,26 @@ export default function UpdateToast() {
         }
       },
     })
+
+    // W136: test hook — 让 e2e 能 不依赖真 SW update 事件, 直接 trigger onNeedRefresh 路径
+    //  - production: 仅 attach 在 window, 0 副作用 (没 SW 事件时是死对象)
+    //  - e2e: 调 __w136_test_updateToast.triggerNeedRefresh() 模拟 SW 触发
+    if (typeof window !== 'undefined') {
+      ;(window as unknown as { __w136_test_updateToast?: unknown }).__w136_test_updateToast = {
+        triggerNeedRefresh: () => {
+          // 走跟 onNeedRefresh 一样的路径 (含 dismiss 检查)
+          if (readDismissUntil() > Date.now()) return false
+          setState((s) => ({ ...s, needRefresh: true }))
+          setIndicator(true)
+          return true
+        },
+        reset: () => {
+          setState({ needRefresh: false, offlineReady: false })
+          setIndicator(false)
+        },
+        isDismissed: () => readDismissUntil() > Date.now(),
+      }
+    }
     setUpdateFn(() => updateSW)
   }, [])
 

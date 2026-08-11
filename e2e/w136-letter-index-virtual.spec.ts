@@ -5,6 +5,9 @@
 //  - 修复前: data-letter-anchor 只在非 virtual 分支渲染 → querySelector null → 静默
 //  - 修复后: VirtualList 内部 渲染 data-letter-anchor, onContainerRef 暴露 scroll container
 //
+// W137 修: 桌面端 viewport 移动端按钮被 md:hidden 隐藏, .first() 选到 hidden 元素
+//  - 解决: 用 :visible 过滤拿当前 viewport 真正可见的按钮
+//
 // 测试:
 //  1. 加载 /words 等待列表渲染
 //  2. 验证字母按钮存在 (移动端横排 + 桌面端竖排)
@@ -15,16 +18,27 @@
 import { test, expect } from '@playwright/test'
 
 const BASE = 'http://127.0.0.1:4173/english-app'
-const VIEWPORT = { width: 1280, height: 800 }
+const VIEWPORT_DESKTOP = { width: 1280, height: 800 }
+const VIEWPORT_MOBILE = { width: 375, height: 800 }
 
-async function go(page: any, path: string) {
-  await page.setViewportSize(VIEWPORT)
+async function go(page: any, path: string, isMobile = false) {
+  await page.setViewportSize(isMobile ? VIEWPORT_MOBILE : VIEWPORT_DESKTOP)
   await page.goto(BASE + path, { waitUntil: 'domcontentloaded' })
   await page.waitForSelector('main h1', { timeout: 15000 })
-  // 等待 词条 列表 加载 (有 至少 1 个 [data-virtual-list] 或 .word-card 元素)
+  // 等 virtual list 渲染 (data-virtual-list 或 .card 之一)
   await page.waitForSelector('[data-virtual-list], .card', { timeout: 15000 })
-  // 等 字母索引 渲染 (字母 'A' 按钮可见)
-  await page.waitForSelector('button[data-letter="A"]', { timeout: 10000 })
+  // 等字母索引 加载到 DOM (attached 即可, mobile+desktop 各 26 个)
+  await page.waitForSelector('button[data-letter="A"]', { state: 'attached', timeout: 10000 })
+}
+
+/**
+ * 当前 viewport 真正可见的字母按钮 (排除被 md:hidden / hidden md:flex 隐藏的副本)
+ *  - 桌面端: 右侧固定竖排, .md\\:flex 容器内的
+ *  - 移动端: 横排 sticky, .md\\:hidden 容器内的
+ *  - 用 :visible Playwright 伪选择器自动过滤 hidden 元素
+ */
+function visibleLetterButton(page: any, letter: string) {
+  return page.locator(`button[data-letter="${letter}"]:visible`).first()
 }
 
 test.describe('W136 P0-1: 字母索引 virtual 模式', () => {
@@ -32,15 +46,15 @@ test.describe('W136 P0-1: 字母索引 virtual 模式', () => {
     test.setTimeout(60000)
     await go(page, '/words')
 
-    // 1. 字母按钮 L 存在 (桌面端 竖排)
-    const lButton = page.locator('button[data-letter="L"]').first()
+    // 1. 桌面端 字母按钮 L 真正可见
+    const lButton = visibleLetterButton(page, 'L')
     await expect(lButton).toBeVisible()
 
-    // 2. 验证 至少 1 个 data-letter-anchor 元素 (virtual 模式 修复前为 0)
+    // 2. 至少 1 个 data-letter-anchor (virtual 模式 修复前为 0)
     const anchorCount = await page.locator('[data-letter-anchor]').count()
     expect(anchorCount, 'virtual 模式应渲染字母锚点').toBeGreaterThan(0)
 
-    // 3. 验证 'L' 字母的锚点 ID 存在
+    // 3. 'L' 字母 锚点 ID 存在
     const lAnchor = page.locator('#letter-anchor-L')
     await expect(lAnchor).toHaveCount(1)
   })
@@ -56,25 +70,23 @@ test.describe('W136 P0-1: 字母索引 virtual 模式', () => {
     })
     expect(initialScrollTop).toBe(0)  // 初始 应在 顶部
 
-    // 点 L 字母 按钮
-    const lButton = page.locator('button[data-letter="L"]').first()
+    // 点 L 字母 按钮 (用 :visible 拿当前 viewport 真正可见的)
+    const lButton = visibleLetterButton(page, 'L')
     await lButton.click()
 
-    // 等待 滚动完成 (虚拟列表 触发 scrollTop > 0)
-    // L 字母 在 第 11 位 (A=0, B=1, ... L=11), 5000+ 词中 应在 scrollTop 几百像素后
+    // 等待 滚动完成 (虚拟列表 触发 scrollTop > 100)
     await page.waitForFunction(() => {
       const el = document.querySelector('[data-virtual-list]') as HTMLElement | null
       return el !== null && el.scrollTop > 100
     }, { timeout: 10000 })
 
-    // 验证 scrollTop 跳变
     const afterScrollTop = await page.evaluate(() => {
       const el = document.querySelector('[data-virtual-list]') as HTMLElement | null
       return el ? el.scrollTop : 0
     })
     expect(afterScrollTop).toBeGreaterThan(100)
 
-    // 验证 L 字母锚点 进入 视口 (在 视口顶部 30% 内)
+    // 验证 L 字母锚点 进入 视口 (在 视口顶部 50% 内)
     const lInViewport = await page.evaluate(() => {
       const anchor = document.querySelector('#letter-anchor-L') as HTMLElement | null
       if (!anchor) return false
@@ -89,14 +101,19 @@ test.describe('W136 P0-1: 字母索引 virtual 模式', () => {
     test.setTimeout(60000)
     await go(page, '/words')
 
-    // 点 M 字母
-    const mButton = page.locator('button[data-letter="M"]').first()
+    // 点 M 字母 (visible 过滤)
+    const mButton = visibleLetterButton(page, 'M')
     await mButton.click()
 
-    // 等待 IO 触发 activeLetter 更新 (按钮 class 应含 scale-110)
+    // 等待 IO 触发 activeLetter 更新 (M 按钮 出现 scale-110)
     await page.waitForFunction(() => {
-      const btn = document.querySelector('button[data-letter="M"]') as HTMLElement | null
-      return btn !== null && btn.className.includes('scale-110')
+      // 找所有 M 按钮, 找 visible 且含 scale-110 的
+      const btns = document.querySelectorAll('button[data-letter="M"]')
+      for (const btn of Array.from(btns)) {
+        const b = btn as HTMLElement
+        if (b.offsetParent !== null && b.className.includes('scale-110')) return true
+      }
+      return false
     }, { timeout: 10000 })
 
     // M 按钮 应为 active 状态 (scale-110)
@@ -107,18 +124,17 @@ test.describe('W136 P0-1: 字母索引 virtual 模式', () => {
 
   test('移动端 /words: 字母索引横排 sticky + 点击有效', async ({ page }) => {
     test.setTimeout(60000)
-    await page.setViewportSize({ width: 375, height: 800 })
-    await go(page, '/words')
+    await go(page, '/words', true)
 
     // 移动端 字母按钮 A 可见
-    const aButton = page.locator('button[data-letter="A"]').first()
+    const aButton = visibleLetterButton(page, 'A')
     await expect(aButton).toBeVisible()
 
     // 点 S 字母
-    const sButton = page.locator('button[data-letter="S"]').first()
+    const sButton = visibleLetterButton(page, 'S')
     await sButton.click()
 
-    // 等待 scrollTop > 0
+    // 等待 scrollTop > 100
     await page.waitForFunction(() => {
       const el = document.querySelector('[data-virtual-list]') as HTMLElement | null
       return el !== null && el.scrollTop > 100
