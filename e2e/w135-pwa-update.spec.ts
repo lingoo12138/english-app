@@ -38,7 +38,7 @@ test('W135 — 离线 banner 触发显示 (W131 兼容)', async ({ page }) => {
   const banner = page.locator('[data-testid="offline-banner"]')
   await expect(banner).toBeVisible()
   await expect(banner).toHaveAttribute('data-online', 'false')
-  await expect(banner).toHaveAttribute(/data-offline-duration/)
+  await expect(banner).toHaveAttribute('data-offline-duration', /\d+/)
 })
 
 test('W135 — 离线 banner 显示时长, 展开可见可用功能', async ({ page }) => {

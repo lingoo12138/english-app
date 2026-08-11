@@ -1,6 +1,9 @@
 // e2e/all-pages.spec.ts - 28 页面 完整度 测试 (W99)
 import { test, expect } from '@playwright/test'
 
+// W139: 走本地 baseURL (避免沙盒 出网 抖动), 与 w129/w131/w134/w135/w136 一致
+const BASE = 'http://127.0.0.1:4173/english-app'
+
 interface PageInfo {
   path: string
   name: string
@@ -42,7 +45,7 @@ test.describe.serial('W99 完整度 验收', () => {
     // 业务: 沙盒 出网 不稳, retry 3 次
     let homeLoaded = false
     for (let i = 0; i < 3 && !homeLoaded; i++) {
-      try { await page.goto('https://lingoo12138.github.io/english-app/', { waitUntil: 'domcontentloaded', timeout: 20000 }); homeLoaded = true }
+      try { await page.goto(BASE + '/', { waitUntil: 'domcontentloaded', timeout: 20000 }); homeLoaded = true }
       catch (e) { await page.waitForTimeout(2000) }
     }
     expect(homeLoaded).toBe(true)
@@ -61,7 +64,7 @@ test.describe.serial('W99 完整度 验收', () => {
       // 业务: 沙盒 出网 不稳, retry 3 次
     let pageLoaded = false
     for (let i = 0; i < 3 && !pageLoaded; i++) {
-      try { await page.goto('https://lingoo12138.github.io/english-app/' + p.path, { waitUntil: 'domcontentloaded', timeout: 20000 }); pageLoaded = true }
+      try { await page.goto(BASE + p.path, { waitUntil: 'domcontentloaded', timeout: 20000 }); pageLoaded = true }
       catch (e) { await page.waitForTimeout(2000) }
     }
     expect(pageLoaded).toBe(true)
@@ -74,7 +77,7 @@ test.describe.serial('W99 完整度 验收', () => {
   }
 
   test('业务 关键 路径: 词库 加载 5,423 词', async ({ page }) => {
-    await page.goto('https://lingoo12138.github.io/english-app/words', { waitUntil: 'domcontentloaded' })
+    await page.goto(BASE + '/words', { waitUntil: 'domcontentloaded' })
     await page.waitForTimeout(5000)
     const html = await page.content()
     // 业务: 词库 渲染 应 至少 100KB
@@ -83,7 +86,7 @@ test.describe.serial('W99 完整度 验收', () => {
 
   test('业务 关键 路径: 词详情 加载', async ({ page }) => {
     // 业务: 词库 找 1 词 → click
-    await page.goto('https://lingoo12138.github.io/english-app/words', { waitUntil: 'domcontentloaded' })
+    await page.goto(BASE + '/words', { waitUntil: 'domcontentloaded' })
     await page.waitForTimeout(3000)
     // 业务: 应 至少 1 词 link
     const links = await page.locator('a[href*="/words/"]').count()
@@ -91,7 +94,7 @@ test.describe.serial('W99 完整度 验收', () => {
   })
 
   test('业务 关键 路径: 课文 列表 + 详情', async ({ page }) => {
-    await page.goto('https://lingoo12138.github.io/english-app/textbook', { waitUntil: 'domcontentloaded' })
+    await page.goto(BASE + '/textbook', { waitUntil: 'domcontentloaded' })
     await page.waitForTimeout(2000)
     const body = await page.textContent('body')
     // 业务: 课文 列表 应 至少 含 1 课文
@@ -99,7 +102,7 @@ test.describe.serial('W99 完整度 验收', () => {
   })
 
   test('业务 关键 路径: 释义收藏 空 状态', async ({ page }) => {
-    await page.goto('https://lingoo12138.github.io/english-app/translation-favs', { waitUntil: 'domcontentloaded' })
+    await page.goto(BASE + '/translation-favs', { waitUntil: 'domcontentloaded' })
     await page.waitForTimeout(2000)
     const body = await page.textContent('body')
     // 业务: 收藏 页面 应 加载
@@ -107,14 +110,14 @@ test.describe.serial('W99 完整度 验收', () => {
   })
 
   test('业务 关键 路径: 错题复习 空 状态', async ({ page }) => {
-    await page.goto('https://lingoo12138.github.io/english-app/error-review', { waitUntil: 'domcontentloaded' })
+    await page.goto(BASE + '/error-review', { waitUntil: 'domcontentloaded' })
     await page.waitForTimeout(2000)
     const body = await page.textContent('body')
     expect(body).toContain('错题')
   })
 
   test('业务 关键 路径: 课文评分 加载', async ({ page }) => {
-    await page.goto('https://lingoo12138.github.io/english-app/textbook/score', { waitUntil: 'domcontentloaded' })
+    await page.goto(BASE + '/textbook/score', { waitUntil: 'domcontentloaded' })
     await page.waitForTimeout(3000)
     const body = await page.textContent('body')
     expect(body).toContain('评分')

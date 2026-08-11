@@ -1,6 +1,9 @@
 // e2e/full-coverage.spec.ts - 完整 28 页面 验收 (W99)
 import { test, expect } from '@playwright/test'
 
+// W139: 走本地 baseURL (避免沙盒 出网 抖动), 与 w129/w131/w134/w135/w136 一致
+const BASE = 'http://127.0.0.1:4173/english-app'
+
 const ALL_PAGES: { path: string; name: string; expected: string; category: string }[] = [
   // 入口
   { path: '/', name: '首页', expected: '句刻', category: 'main' },
@@ -51,7 +54,7 @@ for (const p of ALL_PAGES) {
     let loaded = false
     for (let i = 0; i < 2 && !loaded; i++) {
       try {
-        await page.goto('https://lingoo12138.github.io/english-app' + p.path, { waitUntil: 'domcontentloaded', timeout: 20000 })
+        await page.goto(BASE + p.path, { waitUntil: 'domcontentloaded', timeout: 20000 })
         loaded = true
       } catch (e) { await page.waitForTimeout(2000) }
     }
