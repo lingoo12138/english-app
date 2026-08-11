@@ -110,17 +110,17 @@ describe('W130 文 档 完 善 (CHANGELOG + README + DEV_LOG + FEATURES + ARCHIT
     })
   })
 
-  // ===== 4. README.md 升级 v2.1.12 =====
-  describe('README.md 升级 v2.1.12', () => {
-    it('顶部版本号升级到 v2.1.12', () => {
-      expect(readme).toMatch(/^# 句刻 · 即时英语学习 v2\.1\.12$/m)
+  // ===== 4. README.md 升级 v2.1.19/20 (W140: v2.1.12 → v2.1.19) =====
+  describe('README.md 升级 v2.1.19/20', () => {
+    it('顶部版本号升级到 v2.1.19+', () => {
+      expect(readme).toMatch(/^# 句刻 · 即时英语学习 v2\.1\.(19|20)$/m)
     })
 
-    it('当前进度 (v2.1.12) 段落', () => {
-      expect(readme).toContain('当前进度 (v2.1.12)')
-      expect(readme).toContain('123 release tag')
-      expect(readme).toContain('35+ 次大 review')
-      expect(readme).toContain('18 verifier 抗审查')
+    it('当前进度 (v2.1.19/20) 段落', () => {
+      expect(readme).toMatch(/当前进度 \(v2\.1\.(19|20)\)/)
+      expect(readme).toMatch(/12[89]\+ release tag/)
+      expect(readme).toMatch(/35\+\s*次大 review/)
+      expect(readme).toMatch(/28\+\s*verifier/)
     })
 
     it('8 大激活功能 模块 (8 个页) 介绍', () => {
@@ -155,16 +155,16 @@ describe('W130 文 档 完 善 (CHANGELOG + README + DEV_LOG + FEATURES + ARCHIT
     })
   })
 
-  // ===== 5. DEV_LOG.md 完整时间线 =====
+  // ===== 5. DEV_LOG.md 完整时间线 (W140: v2.1.12 → v2.1.19) =====
   describe('DEV_LOG.md 完整时间线', () => {
-    it('v2.1.x 19 周 + 123 release tag 时间线', () => {
-      expect(devLog).toContain('19+ 周')
-      expect(devLog).toContain('123 release tag')
+    it('v2.1.x 21+ 周 + 128+ release tag 时间线', () => {
+      expect(devLog).toContain('21+ 周')
+      expect(devLog).toMatch(/12[89]\+\s*release tag/)
     })
 
-    it('35+ 次大 review + 18 verifier 抗审查', () => {
+    it('35+ 次大 review + 28+ verifier 抗审查', () => {
       expect(devLog).toMatch(/35\+\s*次大 review/)
-      expect(devLog).toContain('18 verifier 抗审查')
+      expect(devLog).toMatch(/28\+\s*verifier/)
     })
 
     it('5,423 词 / 100% 收官', () => {
@@ -233,15 +233,16 @@ describe('W130 文 档 完 善 (CHANGELOG + README + DEV_LOG + FEATURES + ARCHIT
       expect(architecture).toContain('7 类别')
     })
 
-    it('pdfjs vendor chunk 图存在', () => {
-      expect(architecture).toContain('pdfjs vendor chunk 图')
+    it('pdfjs + llm-vendor chunk 图存在 (W140: W127 + W135)', () => {
+      expect(architecture).toMatch(/pdfjs.*chunk.*图/)
       expect(architecture).toContain('manualChunks')
       expect(architecture).toContain('react-vendor')
+      expect(architecture).toMatch(/pdfjs.*142KB|142KB.*pdfjs/)
     })
 
-    it('v2.1.12 关键数据 (1478 测试 / 5,423 词 / 100%)', () => {
-      // W132 P0-3 修: 测试数 1450→1478
-      expect(architecture).toMatch(/1478\s*测试/)
+    it('v2.1.19/20 关键数据 (1633 测试 / 5,423 词 / 100%)', () => {
+      // W140: 测试数 1478 → 1633 (W136 增 39, W137-W140 0 增减)
+      expect(architecture).toMatch(/1633\s*测试/)
       expect(architecture).toContain('5,423')
     })
   })

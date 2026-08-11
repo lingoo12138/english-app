@@ -21,7 +21,7 @@ Vite 5 + React 18 + TypeScript 5 + Tailwind 3 + Zustand 4 + Dexie 3
 ├─ 性能: pdfjs 拆 vendor (476KB → 142KB gzip 异步) + llm-vendor 21KB + LCP 字体 preload
 ├─ 跨 tab: BroadcastChannel + storage event fallback (idbSync.ts, 100ms debounce + 5MB cap + 3 retry)
 ├─ 数据导出: dataExport.ts 统一 7 类别 + CSV/JSON/MD 转换
-└─ 测试: Vitest 1633 / 115 文件 + Playwright 12+ spec + 28+ verifier 抗审查
+└─ 测试: Vitest 1633 / 115 文件 + Playwright 23 spec / 128+ 测试 + 28+ verifier 抗审查
 ```
 
 ---
@@ -251,7 +251,7 @@ notes           // 笔记
 ### 测试栈
 
 - **Vitest 4** 单元测试 (**1633 测试** / 115 文件, v2.1.16 收官)
-- **Playwright** e2e (12+ spec, 60+ 测试)
+- **Playwright** e2e (23 spec, 128+ 测试)
   - W129 跨页 5 spec + W131 dark/pwa + W134 pdfjs + W135 pwa-update + W136 letter-index + W136 update-dismiss
 - **自定义 verify-v*.mjs** 静态检查 (60 闭环, 8 个已修)
 - **自定义 review-v*.py** P0/P1/P2 审查 (14 版本历史)

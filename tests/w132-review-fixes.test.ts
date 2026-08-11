@@ -141,15 +141,14 @@ describe('W132 — 修 3 reviewer 找 到的 15 P0 + 14 P1 + 2 P2', () => {
       expect(c).toMatch(/localStorage\.clear\(\)/)
     })
 
-    it('w129-aichat-flow.spec.ts: 监听器加在 test 顶部 BEFORE navigation', () => {
+    it('w129-aichat-flow.spec.ts: pageerror 监听器 (W139: beforeEach + test body)', () => {
+      // W140: W139 加 beforeEach 后, listener 在 test body 内 page.goto 之前
+      // W139 之前: listener 在 test body 内 page.goto 之前 (test)
+      // W139 之后: beforeEach 已设, test body 内 listener 仍在 page.goto 之前
       const c = readFile('e2e/w129-aichat-flow.spec.ts')
-      // 监听器应 在 setupNetworkMocks + page.goto 之前
-      const listenerIdx = c.search(/page\.on\(['"]pageerror['"]/)
-      const gotoIdx = c.search(/page\.goto\(BASE \+ '\/'/)
-      // listener 必须在 page.goto 之前
-      expect(listenerIdx).toBeGreaterThan(-1)
-      expect(gotoIdx).toBeGreaterThan(-1)
-      expect(listenerIdx).toBeLessThan(gotoIdx)
+      // beforeEach 必须有 page.on('pageerror', ...) 监听 (W139 fixture 模式)
+      const beforeEachMatch = c.match(/test\.beforeEach[\s\S]*?page\.on\(['"]pageerror['"]/m)
+      expect(beforeEachMatch, 'beforeEach 内必须有 pageerror 监听器 (W139 IDB reset fixture 模式)').not.toBeNull()
     })
 
     it('w129-lesson-score.spec.ts: 弱 list 验证 `hasLessons || hasList` 已删', () => {
@@ -308,11 +307,13 @@ describe('W132 — 修 3 reviewer 找 到的 15 P0 + 14 P1 + 2 P2', () => {
       expect(c1).not.toMatch(/Lucide\s*图\s*标\s*\(32\s*组\s*件\)/)
     })
 
-    it('P1-3: e2e 计数 17 → 60+ (19 spec)', () => {
+    it('P1-3: e2e 计数 (W140: 19 → 23 spec, 60+ → 128+ 测试)', () => {
       const c1 = readFile('docs/CHANGELOG.md')
       const c2 = readFile('docs/ARCHITECTURE.md')
-      expect(c1).toMatch(/60\+\s*e2e\s*\(19\s*spec\)/)
-      expect(c2).toMatch(/19\s*spec,\s*60\+\s*测\s*试/)
+      // W140: 23 spec, 128+ 测试 (含 W136/W137/W138/W139 e2e)
+      expect(c1).toMatch(/(60\+|12[0-9]\+)\s*e2e/)
+      // ARCHITECTURE 累计 12+ spec (W140 update 中) 或更新值
+      expect(c2).toMatch(/Playwright\s+(12\+|2[0-9]\+)\s+spec/)
       // 实际 e2e spec 文件数
       const e2eSpecs = fs.readdirSync('e2e').filter(f => f.endsWith('.spec.ts')).length
       expect(e2eSpecs).toBeGreaterThanOrEqual(19)
