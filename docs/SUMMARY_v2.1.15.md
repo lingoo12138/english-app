@@ -76,3 +76,31 @@ v2.1.14 收口后, 用户希望 W135 进一步压性能. 3 个独立方向 3 个
 - 进一步 lazy load (大组件 dataExport, llmTutor, followReadTrendChart)
 - 引入 Web Worker 池 (批量 IDB 写也 Worker 化)
 - 集成 Lighthouse 自动化 (CI 跑 perf audit)
+
+---
+
+## 🐛 抗审查发现 (3 reviewer + 主人补 Bundle)
+
+> **3 reviewer 独立对抗 + 主人补 Bundle** (W135 抗审查), 找到 **7 P0 + 15 P1 + 17 P2**, 详细见 `docs/REVIEW_W135.md`.
+
+### 7 P0 必修 (W136 处理)
+1. **W116 字母索引在虚拟滚动模式 (>200 词) 完全失效** — 5,423 词主用例哑火
+2. **LCP preload 是占位, 字体 preload 缺失** — 实际 0 改善
+3. **测试只测 fallback, 不测 worker** — 33 测试安全感是假的
+4. **`enqueueOfflineWrite` 整条死代码** — 业务侧 0 调用
+5. **`data:.*$` 缓存规则 dead code** — 业务用 `blob:`
+6. **跨 tab 写无锁** — 双 tab 同时 flush 双倍 XP
+7. **SW 没 `sync` event handler** — Background Sync 链路断
+
+### 修法决策
+- **P0-1/3/4 (4 个)**: 删除整个 `src/lib/syncManager.ts` (372 行), 业务侧直写 IDB (Dexie 不需网络). 3 个 P0 一次消解
+- **P0-2**: 删 `data:.*$` 规则 + 注释 + 文档
+- **P0-5/6/7**: Runtime 改造 (字母索引集成 virtual / LCP 字体 preload / MockWorker 真测)
+
+### 累计 (抗审查后)
+- 累计 reviewer 抗审查 (W87-W135): **24+ 次 review** 找到 **24+ P0** 真问题
+- 7 P0 W136 必修, 15 P1 强烈建议修, 17 P2 后续 backlog
+
+### 部署
+- main: `d1c61e1` 抗审查汇总 ✅ pushed
+- gh-pages: v2.1.15 已 deploy, 待 v2.1.16 (W136) 修 7 P0 后 deploy

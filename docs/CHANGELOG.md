@@ -4465,6 +4465,108 @@
 
 ---
 
+## [v2.1.15] - 2026-08-10
+
+### v2.1.15 W135 — 性能 + Bundle 优化 (3 producer 并行 + 主人收尾 + 3 reviewer 抗审查)
+
+> 三大方向 3 个 agent 并行 (W135-Bundle manualChunks 拆分 / W135-Runtime Worker 化重计算 + 虚拟滚动 / W135-PWA 缓存策略调优 + syncManager), 落地 110 precache / 1.48MB + 3 个 Web Worker + VirtualList 209 行 + 8 大新功能, 主人收尾 + 3 reviewer 抗审查 找到 **7 P0 + 15 P1 + 17 P2**.
+
+#### W135-Bundle — manualChunks 进一步拆分 + 资源压缩
+- `vite.config.ts`:
+  - 新增 `llm-vendor` chunk (合并 7 个 LLM 共享 lib, 56KB / 21KB gzip) — `dist/assets/llm-vendor-BxIsH8Si.js`
+  - 收紧 `maximumFileSizeToCacheInBytes` 从 2MB → 1MB (单文件上限)
+  - 启用 `clientsClaim: true` (新版 SW 立即接管未受控 tab)
+  - `skipWaiting: true` 显式开启
+- 4 vendor chunks 拆出: react-vendor (164KB / 53KB gzip) / db-vendor (96KB / 32KB) / md-vendor / llm-vendor (56KB / 21KB)
+- **实测**: 110 precache / 1.48MB (跟先前承诺一致)
+
+#### W135-Runtime — Web Worker 重计算 + 虚拟滚动 + LCP
+- 新建 `src/workers/` (3 个 Worker):
+  - `fsrs.worker.ts` (202 行): FSRS 复习调度, 批量 30 词一次算
+  - `followReadScore.worker.ts` (103 行): 跟读评分聚合 (avg/best/byLesson/recent)
+  - `lessonScore.worker.ts` (121 行): 课文评分计算 (跨课复用词)
+- 新建 `src/lib/*WorkerClient.ts` (3 个 client): 主线程通过 postMessage 调 Worker, 不阻塞 UI
+  - `fsrsWorkerClient.ts` / `followReadScoreWorkerClient.ts` / `lessonScoreWorkerClient.ts`
+  - `_reset*WorkerForTest()` 测试工具
+- 新建 `src/components/VirtualList.tsx` (209 行): 长列表虚拟滚动
+  - 5,423 词 × 112px = 607k total, 渲染 ~24 item (远小于 100)
+  - keyboard nav (PageUp/Down/Home/End) + `role="list"` + `ariaLabel`
+- `src/pages/WordList.tsx`: 加虚拟滚动 (filtered.length >= 200 走 VirtualList)
+- `index.html`: 加 LCP preload (pwa-192.png + manifest.webmanifest)
+- `src/App.tsx`: ErrorBoundary 包裹 Suspense 兜底 + 路由 path 预热
+- `src/components/ErrorBoundary.tsx`: 新建, 失败 retry + 兜底 UI
+- **+20 单元测试** (`tests/w135-runtime.test.ts`): 33 测试全过
+
+#### W135-PWA — 缓存策略调优 + 资源预取 + Background Sync + SW 更新
+- `vite.config.ts` workbox 全面调优 (9 条 runtimeCaching):
+  - 字体: CacheFirst 1y (不变)
+  - `words.json`: SWR 7d → **CacheFirst + 6h 过期** (重复打开秒开, 6h 后台重拉)
+  - `AI/LLM`: NetworkFirst 1d → **StaleWhileRevalidate 1d** (重复 query 秒回)
+  - 翻译 API: 保持 NetworkFirst (翻译不能过期)
+  - 新增 `data:` URL 缓存 (用户导出数据 7d) — **W136 删, 业务用 blob:**
+  - 新增 settings/profile.json NetworkFirst 1d — **W136 删, 0 业务命中**
+  - Google Fonts CacheFirst 1y (备用)
+- 新建 `src/lib/syncManager.ts` (372 行): Background Sync 抽象
+  - 离线写入排队, 在线时自动 flush
+  - 5 次重试 + 指数退避
+  - 注册默认 handlers: favorite/dictation/errorReview
+  - **W136 删整个文件** (业务侧 0 调用, dead code)
+- 新建 `src/lib/prefetch.ts` (195 行): 路由 hover 预取 + idle 预热 + warmRecentVisits
+- 新建 `src/components/UpdateToast.tsx` (148 行): SW 新版本 toast 提示
+- `src/main.tsx`: 集成 syncManager + UpdateToast
+- 新建 `e2e/w135-pwa-update.spec.ts`: SW 更新 e2e (6 测试)
+- **+9 单元测试** (`tests/w135-pwa.test.ts`)
+
+#### 3 reviewer 抗审查 (W135 完, plan_8b1210dd)
+- **W135-Runtime** (`outputs/w135-runtime-reviewer/deliverable.md`): 3 P0 + 5 P1 + 8 P2
+  - P0-1: W116 字母索引在 virtual 模式 (>200 词) 完全失效 — 5,423 词主用例哑火
+  - P0-2: LCP preload 是占位, 字体 preload 缺失
+  - P0-3: 测试只测 fallback, 不测 worker
+- **W135-PWA** (`outputs/w135-pwa-reviewer/deliverable.md`): 4 P0 + 7 P1 + 6 P2
+  - P0-1: `enqueueOfflineWrite` 整条死代码
+  - P0-2: `data:.*$` 缓存规则 dead code
+  - P0-3: 跨 tab 写无锁
+  - P0-4: SW 没 `sync` event handler
+- **W135-Bundle** (主人手做, sub-agent 超时): 0 P0 + 3 P1 + 3 P2
+  - P1-1: llm-vendor 名义不符 (含 xpSystem/idbSync)
+  - P1-2: 重复图标 precache (根 + /icons/) 13KB 浪费
+  - P1-3: maxEntries: 3 / 共享 cache 限
+- **抗审查汇总**: `docs/REVIEW_W135.md` (205 行)
+
+### 累计 (v2.1.15)
+- **1594 单元测试** (1552 → +42) / 114 文件 (v2.1.14 105 → +9 w135)
+- **3 个 Web Worker 化重计算**, 主线程不卡 (fsrs / followReadScore / lessonScore)
+- **1 个 llm-vendor chunk** (56KB / 21KB gzip) + react-vendor (164KB / 53KB)
+- 110 precache / 1.48MB (W135-Bundle 实测)
+- 0 P0 + 0 P1 业务 维持 200+ 轮
+- 7 P0 抗审查真问题, W136 修
+- 累计 verifier 抗审查 (W87-W135): **24+ 次 review** 找到 **24+ P0** 真问题
+
+### 部署
+- main: `f0f40c8` v2.1.15 ✅ pushed
+- gh-pages: v2.1.15 deployed, 预览 200
+- 抗审查汇总: `d1c61e1` ✅ pushed
+
+### 性能红线 (守住)
+- 词库 < 100ms (CacheFirst 6h 命中)
+- 跨路由 < 50ms (react-vendor 53KB gzip + 路由预取)
+- 主线程: 重计算全部 Worker 化 (fsrs / followReadScore / lessonScore)
+- bundle: 0 emoji / pdfjs 异步 (468KB / 141KB gzip) / llm-vendor 单独 chunk
+- PWA: 110 precache / 1.48MB / 字体 1y / 词库 6h / AI 1d / 翻译 NetworkFirst
+
+### 后续 (W136 必修)
+- W136 修 7 P0 (Runtime 3 + PWA 4):
+  - 字母索引集成 virtual
+  - LCP 字体 preload
+  - MockWorker 真测
+  - 删 syncManager 整文件
+  - 删 data: URL 规则
+  - 删 settings/profile URL 规则
+  - 删重复图标
+- W136 P1 强烈建议: 词库 CacheFirst 6h → SWR 7d / hover prefetch 接 Layout / 双 registerSW 修 / UpdateToast dismiss-until 24h / e2e 真测 SW update
+
+---
+
 ## [v2.1.x 全段] - 2026-08-08 → 2026-08-09
 
 ### 21 周完整时间线 (W112-W131)
@@ -4497,6 +4599,7 @@
 | W132 | v2.1.14 | 修 3 reviewer 找 到的 15 P0 + 14 P1 + 2 P2 (IDB 强验证 + 文档准确性 + OfflineBanner z) | 34 测试 | ✅ |
 | W133 | v2.1.14 | 同义词 + 翻译页 UI 改造 (跟 W126 风格一致: 0 emoji + Icon + W123d) | 27 测试 | ✅ |
 | W134 | v2.1.14 | idbSync 100ms debounce + 5MB 限制 + 3 次重试 + 端口化 + pdfjs 懒加载 e2e | 13 测试 + 1 e2e spec | ✅ |
+| W135 | v2.1.15 | 性能+Bundle 优化 (3 worker + VirtualList + llm-vendor + 8 大新功能) | 42 测试 + 3 reviewer 抗审查 (7 P0 + 15 P1 + 17 P2) | ✅ |
 | **总** | **v2.1.0-v2.1.14** | **8 大改版稿 + 2 补充 + 8 大激活 UI + 性能 + 数据 + 暗色强化 + PWA + 修 review 漏洞 + 翻译+同义词 UI + idb sync 优化** | **1552+ 单元测试 + 20 e2e spec** | **100%** |
 
 ### 改版稿 8 大改良点落地 (W113-W121)

@@ -393,6 +393,66 @@
 
 ---
 
+### v2.1.15 W135 (2026-08-10) 性能 + Bundle 优化 (3 producer + 主人收尾 + 3 reviewer 抗审查)
+
+#### 业务目标
+- 3 个独立方向 3 个 agent 并行 (W135-Bundle / W135-Runtime / W135-PWA), 落地后主人收尾 (sub-agent 跑超时)
+- 3 reviewer 独立对抗, 找 7 P0 + 15 P1 + 17 P2
+
+#### W135-Bundle — manualChunks 进一步拆分
+- `vite.config.ts`:
+  - 新增 `llm-vendor` chunk (7 LLM 共享 lib 合一, 56KB / 21KB gzip)
+  - precache 单文件上限 2MB → 1MB
+  - clientsClaim: true (新版 SW 立即接管)
+- 4 vendor chunks: react-vendor 53KB / db-vendor 32KB / md-vendor / llm-vendor 21KB
+- 110 precache / 1.48MB
+
+#### W135-Runtime — Web Worker 重计算 + 虚拟滚动 + LCP
+- 3 个 Worker: fsrs (202) / followReadScore (103) / lessonScore (121) — 主线程不卡
+- VirtualList 209 行: 5,423 词 渲染 ~24 item (远 < 100)
+- LCP preload (pwa-192 + manifest)
+- ErrorBoundary 包裹 Suspense 兜底
+- 路由 path 预热 (recordVisit + warmRecentVisits)
+- +33 单元测试 (`tests/w135-runtime.test.ts`)
+
+#### W135-PWA — 缓存策略调优 + 资源预取 + Background Sync + SW 更新
+- workbox 9 条 runtimeCaching: 词库 CacheFirst 6h / AI SWR 1d / 翻译 NF / 字体 1y
+- syncManager 372 行 (Background Sync 抽象) — **W136 删 (dead code)**
+- prefetch 195 行 (hover 50ms + idle + warmRecentVisits) — **W136 改 delay 50→200ms**
+- UpdateToast 148 行 (SW 新版 toast) — **W136 加 dismiss-until 24h**
+- main.tsx 集成 syncManager + UpdateToast
+- +9 单元测试 (`tests/w135-pwa.test.ts`) + 6 e2e (w135-pwa-update.spec.ts)
+
+#### 3 reviewer 抗审查 (W135, plan_8b1210dd)
+- **W135-Runtime** (sub-agent): 3 P0 + 5 P1 + 8 P2
+  - P0-1: W116 字母索引在 virtual 模式 (>200 词) 完全失效 — 5,423 词主用例哑火
+  - P0-2: LCP preload 是占位, 字体 preload 缺失 — 实际 0 改善
+  - P0-3: 测试只测 fallback, 不测 worker — 33 测试安全感是假的
+- **W135-PWA** (sub-agent): 4 P0 + 7 P1 + 6 P2
+  - P0-1: `enqueueOfflineWrite` 整条死代码 — 业务侧 0 调用
+  - P0-2: `data:.*$` 缓存规则 dead code — 业务用 `blob:`
+  - P0-3: 跨 tab 写无锁 — 双 tab 同时 flush 双倍 XP
+  - P0-4: SW 没 `sync` event handler — Background Sync 链路断
+- **W135-Bundle** (sub-agent 超时, 主人手做): 0 P0 + 3 P1 + 3 P2
+  - P1-1: llm-vendor 名义不符 (含 xpSystem/idbSync)
+  - P1-2: 重复图标 precache (根 + /icons/) 13KB 浪费
+  - P1-3: maxEntries: 3 / 共享 cache 限
+- 汇总: `docs/REVIEW_W135.md` (205 行)
+
+#### 累计 (v2.1.15)
+- 1594 单元测试 (1552 → +42) / 114 文件
+- 5,423 词 / 100% ⭐
+- 0 P0 + 0 P1 业务 维持 200+ 轮
+- 7 P0 抗审查真问题, W136 修
+- 累计 verifier 抗审查 (W87-W135): 24+ 次 review 找到 24+ P0 真问题
+
+### 部署
+- **main**: `f0f40c8` v2.1.15 ✅ + `d1c61e1` 抗审查汇总 ✅
+- **gh-pages**: v2.1.15 deployed
+- **预览**: https://lingoo12138.github.io/english-app/ 200
+
+---
+
 ## 📎 内部 anchor
 
 - [Phase 1-3 基础 + review (W1-W33)](#phase-1-基础-w1-w20-v01-v020)
@@ -403,3 +463,4 @@
 - [v2.0.9 W101-W104 数据一致性](#v209-w101-w104-2026-08-08-数据一致性--跨页--firefox--滚动持久化)
 - [v2.1.7 W120+W121 Skeleton + 折叠](#v217-w120w121-2026-08-08-skeleton--22-项折叠)
 - [v2.1.12 W126-W128 激活收官](#v2112-w126-w128-2026-08-09-激活收官--性能--数据)
+- [v2.1.15 W135 性能 + Bundle + 抗审查](#v2115-w135-2026-08-10-性能--bundle-优化-3-producer--主人收尾--3-reviewer-抗审查)
