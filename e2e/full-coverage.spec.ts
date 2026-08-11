@@ -20,7 +20,8 @@ const ALL_PAGES: { path: string; name: string; expected: string; category: strin
   { path: '/cards', name: '卡片复习', expected: '卡', category: 'review' },
   // W139: /error-review → /errors/review (App.tsx 实际路由)
   { path: '/errors/review', name: '错题复习', expected: '错题', category: 'review' },
-  { path: '/error-history', name: '错题历史', expected: '错题', category: 'review' },
+  // W139: /error-history → /errors/history (App.tsx 实际路由)
+  { path: '/errors/history', name: '错题历史', expected: '错题', category: 'review' },
   { path: '/error-stats', name: '错题统计', expected: '错题', category: 'review' },
   { path: '/fill-blank', name: '填空', expected: '填空', category: 'review' },
   { path: '/reports', name: '学习报告', expected: '报告', category: 'review' },
@@ -34,8 +35,7 @@ const ALL_PAGES: { path: string; name: string; expected: string; category: strin
   { path: '/follow-read/progress', name: '跟读进度', expected: '跟读', category: 'follow' },
   { path: '/pronounce-custom', name: '自定义跟读', expected: '跟读', category: 'follow' },
   // 工具
-  { path: '/synonyms', name: '同义词', expected: '同义', category: 'tool' },
-  { path: '/antonyms', name: '反义词', expected: '反义', category: 'tool' },
+  // W139: /synonyms /antonyms 路由不存在 (App.tsx 无), 同义词在 /words 词详情页, 移除
   { path: '/custom-scenes', name: '自定义场景', expected: '场景', category: 'tool' },
   // AI
   { path: '/ai-chat', name: 'AI 对话', expected: 'AI', category: 'ai' },

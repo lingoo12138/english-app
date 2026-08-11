@@ -26,11 +26,11 @@ const PAGES: PageInfo[] = [
   { path: '/cards', name: '卡片复习', category: 'review', expectedContent: '卡', entryText: '卡片复习' },
   // W139: /error-review → /errors/review (App.tsx 实际路由)
   { path: '/errors/review', name: '错题复习', category: 'review', expectedContent: '错题', entryText: '错题' },
-  { path: '/error-history', name: '错题历史', category: 'review', expectedContent: '错题' },
+  // W139: /error-history → /errors/history (App.tsx 实际路由)
+  { path: '/errors/history', name: '错题历史', category: 'review', expectedContent: '错题' },
   { path: '/fill-blank', name: '填空练习', category: 'review', expectedContent: '填空' },
   { path: '/translation-favs', name: '释义收藏', category: 'fav', expectedContent: '收藏', entryText: '收藏' },
-  { path: '/synonyms', name: '同义词', category: 'tool', expectedContent: '同义', entryText: '同义' },
-  { path: '/antonyms', name: '反义词', category: 'tool', expectedContent: '反义' },
+  // W139: /synonyms /antonyms 路由不存在 (App.tsx 无), 同义词在 /words 词详情页, 移除
   { path: '/scenes', name: '场景', category: 'tool', expectedContent: '场景' },
   { path: '/ai-chat', name: 'AI 对话', category: 'ai', expectedContent: 'AI', entryText: 'AI' },
   { path: '/plan', name: '学习计划', category: 'ai', expectedContent: '计划' },
