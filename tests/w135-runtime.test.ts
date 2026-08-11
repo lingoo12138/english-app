@@ -6,8 +6,8 @@
 //  4. VirtualList: items 渲染控制 (阈值内不虚拟化, 阈值外虚拟化)
 //  5. React.memo: WordCard, Icon, Toast 浅比较逻辑
 //  6. ErrorBoundary 包裹 Suspense (App.tsx)
-//  7. index.html preload 资源 (PWA icon 192px + manifest)
-//  8. 性能测量 hook: useVirtualScroll 范围计算
+//  7. index.html preload 资源 (字体 woff2 preload, 4 个 weight — W136 P0-2 替 PWA-192 占位)
+//  8. (W136 删) useVirtualScroll 死代码 — 已删 src/lib/virtualScroll.ts
 import { describe, it, expect, beforeEach } from 'vitest'
 import { readFileSync, existsSync } from 'fs'
 import { join } from 'path'
@@ -33,6 +33,16 @@ import type { Lesson } from '../src/data/textbook'
 
 const NOW = 1753272000000
 const DAY = 24 * 60 * 60 * 1000
+
+// W136 P1-1: beforeEach 重置所有 worker 单例 + pending map, 避免跨测试污染
+beforeEach(async () => {
+  const fsrs = await import('../src/lib/fsrsWorkerClient')
+  const frs = await import('../src/lib/followReadScoreWorkerClient')
+  const ls = await import('../src/lib/lessonScoreWorkerClient')
+  fsrs._resetFsrsWorkerForTest()
+  frs._resetFollowReadWorkerForTest()
+  ls._resetLessonScoreWorkerForTest()
+})
 
 describe('W135 运行时优化', () => {
   describe('1. fsrs.worker.ts 计算逻辑', () => {
@@ -265,6 +275,39 @@ describe('W135 运行时优化', () => {
       // a11y
       expect(code).toMatch(/role=[\s\S]*?list/)
     })
+
+    it('W136 P0-1: VirtualList 加 getLetterKey + onContainerRef (字母索引 virtual 模式)', () => {
+      const code = readFileSync('src/components/VirtualList.tsx', 'utf-8')
+      // getLetterKey prop
+      expect(code).toMatch(/getLetterKey\?:\s*\(item:\s*T/)
+      // onContainerRef prop
+      expect(code).toMatch(/onContainerRef\?:\s*\(el:\s*HTMLDivElement/)
+      // 渲染 data-letter-anchor 元素
+      expect(code).toMatch(/data-letter-anchor=\{letter\}/)
+      // 渲染 id="letter-anchor-L" 元素
+      expect(code).toMatch(/id=\{`letter-anchor-\$\{letter\}`\}/)
+      // 暴露 scroll container ref
+      expect(code).toMatch(/onContainerRef\(containerRef\.current\)/)
+    })
+
+    it('W136 P0-1: WordList 传 getLetterKey + onContainerRef 给 VirtualList', () => {
+      const code = readFileSync('src/pages/WordList.tsx', 'utf-8')
+      // virtual 模式 用 VirtualList 并传 getLetterKey
+      expect(code).toMatch(/getLetterKey=\{[^}]*getFirstLetter/)
+      // onContainerRef
+      expect(code).toMatch(/onContainerRef=\{/)
+      // virtualScrollRef 存在
+      expect(code).toMatch(/virtualScrollRef/)
+    })
+
+    it('W136 P0-1: WordList scrollToLetter 在 virtual 模式用 scrollTo (不走 querySelector)', () => {
+      const code = readFileSync('src/pages/WordList.tsx', 'utf-8')
+      // 应有 letterIndexMap 计算 (字母 -> index)
+      expect(code).toMatch(/letterIndexMap/)
+      // scrollToLetter 内部 virtual 分支 用 scrollTo
+      expect(code).toMatch(/virtualScrollRef\.current/)
+      expect(code).toMatch(/scrollTo\(\{/)
+    })
   })
 
   describe('5. React.memo 优化 (WordCard, Icon, Toast)', () => {
@@ -293,6 +336,22 @@ describe('W135 运行时优化', () => {
       // ToastItem = memo
       expect(code).toMatch(/const\s+ToastItem\s*=\s*memo\(/)
     })
+
+    it('W136 P1-3: LessonCard memo 内部 useNavigate, 不接 onClick prop (避免 inline 箭头打破 memo)', () => {
+      const code = readFileSync('src/pages/LessonScorePage.tsx', 'utf-8')
+      // LessonCard 应是 memo 组件
+      expect(code).toMatch(/const\s+LessonCard\s*=\s*memo\(/)
+      // 内部 useNavigate (不依赖父组件 onClick)
+      const cardBlock = code.match(/const\s+LessonCard\s*=\s*memo\(function\s+LessonCard[\s\S]*?\n\}\)/)
+      expect(cardBlock).toBeTruthy()
+      expect(cardBlock![0]).toMatch(/useNavigate\(\)/)
+      // 内部 navigate 调 navigate(`/textbook/...`)
+      expect(cardBlock![0]).toMatch(/navigate/)
+      // 父组件传 LessonCard 不传 onClick (用更宽松的正则)
+      const usageBlock = code.match(/<LessonCard[\s\S]*?\/>/)
+      expect(usageBlock).toBeTruthy()
+      expect(usageBlock![0]).not.toMatch(/\bonClick=/)
+    })
   })
 
   describe('6. App.tsx ErrorBoundary 包裹 Suspense', () => {
@@ -307,23 +366,114 @@ describe('W135 运行时优化', () => {
       expect(code).toMatch(/<ErrorBoundary>\s*[\s\S]*?<Suspense/)
       expect(code).toMatch(/<\/Suspense>\s*[\s\S]*?<\/ErrorBoundary>/)
     })
+
+    it('W136 P2-4: ErrorBoundary 0 emoji — 用 IconAlertCircle / IconRotateCcw / IconRotateCw SVG', () => {
+      const code = readFileSync('src/components/ErrorBoundary.tsx', 'utf-8')
+      // 关键: JSX 中不应有 emoji 渲染 (注释里的 emoji OK)
+      // 抽出 JSX render 块 (return (...) 部分)
+      const renderBlock = code.match(/render\(\)\s*\{[\s\S]*?return \(([\s\S]*?)\)\s*\}/)
+      expect(renderBlock).toBeTruthy()
+      const jsx = renderBlock![1]
+      // 不应再有 😵 / 🔄 / 🔃 emoji
+      expect(jsx).not.toMatch(/😵/)
+      expect(jsx).not.toMatch(/🔄/)
+      expect(jsx).not.toMatch(/🔃/)
+      // 用 SVG Icon 替
+      expect(jsx).toMatch(/<IconAlertCircle/)
+      expect(jsx).toMatch(/<IconRotateCcw/)
+      expect(jsx).toMatch(/<IconRotateCw/)
+    })
   })
 
-  describe('7. index.html preload 资源', () => {
-    it('PWA-192 图标 preload', () => {
+  describe('7. index.html preload 资源 (W136 P0-2: 字体 woff2 替 PWA-192 占位)', () => {
+    it('outfit-latin-400 字体 woff2 preload', () => {
       const code = readFileSync('index.html', 'utf-8')
-      expect(code).toMatch(/<link\s+rel=["']preload["'][^>]*href=["']\/icons\/pwa-192\.png["'][^>]*as=["']image["']/)
+      // W136: outfit 字体 400 weight preload, 真实 hash 来自 build
+      expect(code).toMatch(/<link\s+rel=["']preload["'][^>]*href=["'][^"']*outfit-latin-400-normal-[A-Za-z0-9_-]+\.woff2["'][^>]*as=["']font["'][^>]*type=["']font\/woff2["']/)
     })
 
-    it('manifest.webmanifest preload', () => {
+    it('outfit-latin-500 字体 woff2 preload', () => {
       const code = readFileSync('index.html', 'utf-8')
-      expect(code).toMatch(/<link\s+rel=["']preload["'][^>]*href=["']\/manifest\.webmanifest["']/)
+      expect(code).toMatch(/<link\s+rel=["']preload["'][^>]*href=["'][^"']*outfit-latin-500-normal-[A-Za-z0-9_-]+\.woff2["'][^>]*as=["']font["']/)
+    })
+
+    it('jetbrains-mono-latin-400 字体 woff2 preload', () => {
+      const code = readFileSync('index.html', 'utf-8')
+      expect(code).toMatch(/<link\s+rel=["']preload["'][^>]*href=["'][^"']*jetbrains-mono-latin-400-normal-[A-Za-z0-9_-]+\.woff2["'][^>]*as=["']font["']/)
+    })
+
+    it('jetbrains-mono-latin-500 字体 woff2 preload', () => {
+      const code = readFileSync('index.html', 'utf-8')
+      expect(code).toMatch(/<link\s+rel=["']preload["'][^>]*href=["'][^"']*jetbrains-mono-latin-500-normal-[A-Za-z0-9_-]+\.woff2["'][^>]*as=["']font["']/)
+    })
+
+    it('字体 preload 都带 crossorigin=anonymous (woff2 必须)', () => {
+      const code = readFileSync('index.html', 'utf-8')
+      const fontPreloads = code.match(/<link\s+rel=["']preload["'][^>]*as=["']font["'][^>]*>/g) || []
+      // 至少 4 个字体 preload (outfit 400/500 + jetbrains 400/500)
+      expect(fontPreloads.length).toBeGreaterThanOrEqual(4)
+      for (const tag of fontPreloads) {
+        expect(tag).toMatch(/crossorigin=["']anonymous["']/)
+      }
+    })
+
+    it('W136 P1-4: manifest 不再 preload (PWA 自动 fetch, 同源浪费 CORS preflight)', () => {
+      const code = readFileSync('index.html', 'utf-8')
+      // 不应该再 preload manifest
+      expect(code).not.toMatch(/<link\s+rel=["']preload["'][^>]*href=["']\/manifest\.webmanifest["']/)
+    })
+
+    it('W136 P0-2: PWA-192.png 不再 preload (precache 已覆盖)', () => {
+      const code = readFileSync('index.html', 'utf-8')
+      // 不应该再 preload pwa-192.png
+      expect(code).not.toMatch(/<link\s+rel=["']preload["'][^>]*href=["']\/icons\/pwa-192\.png["']/)
+      expect(code).not.toMatch(/<link\s+rel=["']preload["'][^>]*href=["']\/pwa-192\.png["']/)
     })
 
     it('保留 iOS PWA meta (viewport-fit + apple-mobile-web-app-capable)', () => {
       const code = readFileSync('index.html', 'utf-8')
       expect(code).toMatch(/viewport-fit=cover/)
       expect(code).toMatch(/apple-mobile-web-app-capable/)
+    })
+  })
+
+  describe('7b. P1-5 + P2-1 静态审查', () => {
+    it('W136 P1-5: public/pwa-192.png + public/pwa-512.png 已删 (跟 /icons/ 唯一一份)', () => {
+      expect(existsSync('public/pwa-192.png')).toBe(false)
+      expect(existsSync('public/pwa-512.png')).toBe(false)
+      // /icons/ 下的仍在
+      expect(existsSync('public/icons/pwa-192.png')).toBe(true)
+      expect(existsSync('public/icons/pwa-512.png')).toBe(true)
+    })
+
+    it('W136 P1-5: vite.config.ts includeAssets 指向 /icons/ 路径', () => {
+      const code = readFileSync('vite.config.ts', 'utf-8')
+      // 提取 includeAssets 数组内容做精确比较 (避免 'icons/pwa-192.png' 跟 'pwa-192.png' 模糊匹配)
+      const m = code.match(/includeAssets:\s*\[([^\]]*)\]/)
+      expect(m, '应能找到 includeAssets 数组').toBeTruthy()
+      const entries = m![1].split(',').map(s => s.trim().replace(/^['"]|['"]$/g, ''))
+      // 必须含 icons/pwa-192.png + icons/pwa-512.png
+      expect(entries).toContain('icons/pwa-192.png')
+      expect(entries).toContain('icons/pwa-512.png')
+      // 不能含根 pwa-192.png (无 /icons/ 前缀)
+      expect(entries).not.toContain('pwa-192.png')
+      expect(entries).not.toContain('pwa-512.png')
+    })
+
+    it('W136 P2-1: useVirtualScroll hook 死代码已删 (src/lib/virtualScroll.ts)', () => {
+      expect(existsSync('src/lib/virtualScroll.ts')).toBe(false)
+    })
+
+    it('W136 P2-1: 业务无 useVirtualScroll 引用', () => {
+      // grep 排除 src/lib/virtualScroll.ts (已删) + 当前测试文件
+      const { execSync } = require('child_process')
+      const out = execSync(
+        'grep -rn "useVirtualScroll" src/ tests/ 2>/dev/null || true',
+        { encoding: 'utf-8' }
+      )
+      // 只允许测试文件注释里出现 (作为 历史记录)
+      const lines = out.split('\n').filter(l => l.trim() && !l.includes('w135-runtime.test.ts') && !l.includes('已删'))
+      expect(lines.length).toBe(0)
     })
   })
 
@@ -335,6 +485,35 @@ describe('W135 运行时优化', () => {
       expect(code2).toMatch(/isWorkerAvailable/)
       const code3 = readFileSync('src/lib/lessonScoreWorkerClient.ts', 'utf-8')
       expect(code3).toMatch(/isWorkerAvailable/)
+    })
+
+    it('W136 P0-3: 3 个 client 都 export _lastWorkerInstanceForTest', () => {
+      // 验证 test 能拿到 worker instance (哪怕 happy-dom 没 Worker, 导出要存在)
+      const fsrsCode = readFileSync('src/lib/fsrsWorkerClient.ts', 'utf-8')
+      const frsCode = readFileSync('src/lib/followReadScoreWorkerClient.ts', 'utf-8')
+      const lsCode = readFileSync('src/lib/lessonScoreWorkerClient.ts', 'utf-8')
+      expect(fsrsCode).toMatch(/export\s+function\s+_lastFsrsWorkerInstanceForTest/)
+      expect(frsCode).toMatch(/export\s+function\s+_lastFollowReadWorkerInstanceForTest/)
+      expect(lsCode).toMatch(/export\s+function\s+_lastLessonScoreWorkerInstanceForTest/)
+    })
+
+    it('W136 P1-2: 3 个 client 的 onerror 都 terminate worker (防 crash 死锁)', () => {
+      const fsrsCode = readFileSync('src/lib/fsrsWorkerClient.ts', 'utf-8')
+      const frsCode = readFileSync('src/lib/followReadScoreWorkerClient.ts', 'utf-8')
+      const lsCode = readFileSync('src/lib/lessonScoreWorkerClient.ts', 'utf-8')
+      // 简化检查: onerror 后 50 行 内含 terminate() + null 赋值
+      for (const [name, code] of [
+        ['fsrs', fsrsCode],
+        ['frs', frsCode],
+        ['ls', lsCode],
+      ] as const) {
+        const onerrorIdx = code.search(/onerror\s*=\s*\(e\)/)
+        expect(onerrorIdx, `${name} 应有 onerror handler`).toBeGreaterThan(0)
+        // 取 onerror 之后 800 字符
+        const tail = code.slice(onerrorIdx, onerrorIdx + 800)
+        expect(tail, `${name}.onerror 应调 workerInstance.terminate()`).toMatch(/workerInstance\.terminate\(\)/)
+        expect(tail, `${name}.onerror 应置 workerInstance = null`).toMatch(/workerInstance\s*=\s*null/)
+      }
     })
 
     it('所有 3 个 Worker 文件存在 (vite 独立 chunk)', () => {

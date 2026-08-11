@@ -4,6 +4,7 @@ import { loadWords, LEVELS } from '../lib/words'
 import type { Word } from '../types'
 import WordCard from '../components/WordCard'
 // W135: 虚 拟 列 表 — 5000 词 不 全 渲 染 DOM (省 80% 内存 + 滚 动 60fps)
+// W136: 虚 拟 列 表 加 getLetterKey + onContainerRef — 字 母 索 引 在 virtual 模 式 也 生效
 import { VirtualList } from '../components/VirtualList'
 import { addFavorite, removeFavorite, getAllFavorites, getAllTranslationFavs } from '../lib/db'
 import { useStore } from '../store/useStore'
@@ -46,6 +47,8 @@ export default function WordList() {
   const targetLevel = useStore(s => s.targetLevel)
   const sentinelRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  // W136: VirtualList 内部 scroll container — virtual 模式下字母索引 IO / 滚动都用这个
+  const virtualScrollRef = useRef<HTMLDivElement | null>(null)
   // W116: 移 动 端 字 母 索 引 横 滚 容 器
   const mobileAlphaRef = useRef<HTMLDivElement>(null)
 
@@ -120,6 +123,19 @@ export default function WordList() {
   // 完整字母表 + # 号位
   const allLetters = useMemo(() => [...ALPHABET, '#'], [])
 
+  // W136: 字母 -> 首个 item index 映射 (virtual 模式用, scrollToLetter 计算 scrollTop)
+  //   - 搜索时不计算 (有 query 时字母索引隐藏, scrollToLetter 不会被调)
+  //   - 性能: 5000 词 + 26 字母 = O(N) 一次
+  const letterIndexMap = useMemo(() => {
+    if (query.trim()) return null
+    const m: Record<string, number> = {}
+    for (let i = 0; i < filtered.length; i++) {
+      const l = getFirstLetter(filtered[i].word)
+      if (!(l in m)) m[l] = i
+    }
+    return m
+  }, [filtered, query])
+
   const visible = filtered.slice(0, displayCount)
   const hasMore = displayCount < filtered.length
 
@@ -137,8 +153,12 @@ export default function WordList() {
 
   // 监听当前可见的首字母
   // 修复: 依赖 availableLetters.size (不是 visible.length) - 避免每次分页重建
+  // W136: virtual 模式下锚点在 VirtualList 内部 scroll container, 用 virtualScrollRef; 非 virtual 模式用 containerRef
   useEffect(() => {
-    if (!containerRef.current) return
+    const isVirtual = filtered.length >= VIRTUAL_THRESHOLD
+    // 选正确的 scroll 容器: virtual → VirtualList 内部; 非 virtual → 外面 containerRef
+    const scrollEl = isVirtual ? virtualScrollRef.current : containerRef.current
+    if (!scrollEl) return
     const observer = new IntersectionObserver(
       (entries) => {
         // 找最靠近顶部的可见锚点
@@ -155,11 +175,10 @@ export default function WordList() {
       { rootMargin: '0px 0px -70% 0px', threshold: 0 }
     )
 
-    const anchors = containerRef.current.querySelectorAll('[data-letter-anchor]')
+    const anchors = scrollEl.querySelectorAll('[data-letter-anchor]')
     anchors.forEach(a => observer.observe(a))
     return () => observer.disconnect()
-    // 修复: 加上 visible.length,让分页加载后出现的字母锚点重新被 observe
-  }, [availableLetters.size, level, debouncedQuery, visible.length])
+  }, [availableLetters.size, level, debouncedQuery, visible.length, filtered.length])
 
   // W116: 移 动 端 字 母 索 引 横 滚 自 动 跟 激 活 字 母 (scrollIntoView center)
   useEffect(() => {
@@ -172,7 +191,21 @@ export default function WordList() {
 
   // 滚动到指定字母
   // 修复: 不立即 setActiveLetter(避免与 IO race),滚动完成后由 IO 决定
+  // W136: virtual 模式直接用 scrollTop (字 母 -> index 映射), 非 virtual 用 scrollIntoView
   const scrollToLetter = useCallback((letter: string) => {
+    if (filtered.length >= VIRTUAL_THRESHOLD) {
+      // Virtual 模式: 直接设 scroll container scrollTop
+      const scroller = virtualScrollRef.current
+      if (!scroller || !letterIndexMap) return
+      const idx = letterIndexMap[letter]
+      if (idx === undefined) return
+      // sticky top 头高 60px 偏移
+      const STICKY_OFFSET = 60
+      scroller.scrollTo({ top: Math.max(0, idx * WORD_CARD_ESTIMATED_HEIGHT - STICKY_OFFSET), behavior: 'smooth' })
+      setActiveLetter(letter)
+      return
+    }
+    // 非 virtual 模式: 原 scrollIntoView 路径
     if (!containerRef.current) return
     const el = containerRef.current.querySelector(`[data-letter-anchor="${letter}"]`)
     if (el) {
@@ -182,7 +215,7 @@ export default function WordList() {
       // 乐观设置 activeLetter,但 IO 会在滚动后覆盖
       setActiveLetter(letter)
     }
-  }, [])
+  }, [filtered.length, letterIndexMap])
 
   const handleToggleFav = useCallback(async (word: Word) => {
     // 用 ref 读取最新值,避免 callback 重建
@@ -318,6 +351,7 @@ export default function WordList() {
         ) : filtered.length >= VIRTUAL_THRESHOLD ? (
           // W135: 虚 拟 滚 动 模 式 (>= 200 条)
           // 业务: 全词库 5423 词, 渲染所有 5423 个 WordCard 会卡 200ms+, 虚拟滚动只渲染视口内 ~12 个
+          // W136: 字母锚点由 VirtualList 内部渲染 (getLetterKey); scroll container 通过 onContainerRef 暴露
           <VirtualList
             items={filtered}
             estimatedItemHeight={WORD_CARD_ESTIMATED_HEIGHT}
@@ -327,6 +361,8 @@ export default function WordList() {
             innerClassName="space-y-2"
             ariaLabel="词条列表 (虚拟滚动)"
             getKey={(w) => w.id}
+            getLetterKey={(w) => query.trim() ? null : getFirstLetter(w.word)}
+            onContainerRef={(el) => { virtualScrollRef.current = el }}
             renderItem={(word) => (
               <WordCard
                 word={word}

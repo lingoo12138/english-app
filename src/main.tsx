@@ -47,19 +47,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   </React.StrictMode>
 )
 
-// W4-B: PWA "新版本可用" 提示 (保留, 但 W135 UpdateToast 接管 UI)
-// W135: 这里只在 DEV 给 console.debug, UI 提示由 UpdateToast 组件统一管
-import { registerSW } from 'virtual:pwa-register'
-const updateSW = registerSW({
-  onNeedRefresh() {
-    // W135: UI 提示由 src/components/UpdateToast.tsx 统一管 (它也注册了 registerSW)
-    // 这里只保留一个 SW 控制句柄, 给 main.tsx 内部用 (e.g. 强制刷新)
-    if (import.meta.env.DEV) console.debug('[PWA] 新版本可用, 等待 UpdateToast 弹窗')
-  },
-  onOfflineReady() {
-    if (import.meta.env.DEV) console.debug('[PWA] 离线就绪,无网络也能用')
-  },
-})
+// W136-PWA: 删 main.tsx 的 registerSW, 完全交给 UpdateToast 组件 (P1-4: 修复双 registerSW)
+//  原 W4-B registerSW 已在 W135 改造, 这里仅保留 console.debug 引导, 不再注册第二个
+//  - UpdateToast 唯一入口注册 registerSW, UI 提示 (toast / indicator) 集中
+//  - offlineReady / needRefresh 都在 UpdateToast 内处理
 
 // W128: 跨 tab IDB 同步 (主 tab 写 -> 副 tab 收到 -> 刷新 store)
 // 启动期: 拿不到 store hook, 用 dynamic import + window event 通知应用层
@@ -77,25 +68,10 @@ initIdbSync({
   },
 })
 
-// W135: Background Sync Manager 初始化
-//  - 注册默认 handlers (favorite/dictation/errorReview)
-//  - 监听 online 事件 + 60s 周期轮询, 离线时入队的写操作在线后自动 flush
-//  - 失败重试 5 次, 指数退避
-import { initSyncManager, registerDefaultHandlers } from './lib/syncManager'
-registerDefaultHandlers()
-initSyncManager({
-  onFlush: (result) => {
-    if (import.meta.env.DEV) {
-      console.debug('[syncManager] flushed', result)
-    }
-  },
-  onOnline: () => {
-    if (import.meta.env.DEV) {
-      console.debug('[syncManager] back online, flushing queue')
-    }
-  },
-  pollIntervalMs: 60_000, // 60s
-})
+// W136-PWA: 删 syncManager 整个抽象 (P0-1: 业务侧 0 调用, 死代码)
+//  - Dexie 本地 IDB 写不需要网络, 离线写入 0 损失
+//  - 跨 tab 锁问题 (P0-3) 和 SW sync handler 缺失 (P0-4) 随 syncManager 删除自动消解
+//  - 在线时不需要 sync 语义, 业务直写 IDB 即可
 
 // W135: 路由 chunk 注册 + idle 预取 + 上次访问预热
 //  - 注册 5 个最常访问的 chunk 供 prefetchRoute() 拉

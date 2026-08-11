@@ -34,9 +34,15 @@ function ensureWorker(): Worker {
     else handler.reject(new Error(res.error))
   }
   workerInstance.onerror = (e) => {
+    // W136 P1-2 修复: 全部 pending 失败后, terminate worker 并清引用
+    // 业务: worker crash 后 (Module 加载失败), 不清会一直返回死的 worker
     for (const [id, h] of pending) {
       h.reject(new Error(`Worker error: ${e.message}`))
       pending.delete(id)
+    }
+    if (workerInstance) {
+      workerInstance.terminate()
+      workerInstance = null
     }
   }
   return workerInstance
@@ -81,4 +87,10 @@ export function _resetFollowReadWorkerForTest() {
     workerInstance = null
   }
   pending.clear()
+  nextReqId = 1
+}
+
+/** W136: 返回最后创建的 Worker 实例 (测试用) */
+export function _lastFollowReadWorkerInstanceForTest(): Worker | null {
+  return workerInstance
 }

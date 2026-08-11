@@ -1,5 +1,7 @@
 // W6: 全局 ErrorBoundary 错误兜底
+// W136 P2-4: 0 emoji 政策 — 替 😵/🔄/🔃 为 Icon SVG (IconAlertCircle/IconRotateCcw/IconRotateCw)
 import { Component, type ErrorInfo, type ReactNode } from 'react'
+import { IconAlertCircle, IconRotateCcw, IconRotateCw } from './Icon'
 
 interface Props {
   children: ReactNode
@@ -39,17 +41,19 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="min-h-screen flex items-center justify-center p-4">
           <div className="card max-w-md text-center">
-            <div className="text-5xl mb-3">😵</div>
+            <div className="flex justify-center mb-3 text-red-500">
+              <IconAlertCircle size={48} ariaLabel="错误" />
+            </div>
             <h2 className="text-lg font-semibold mb-2">页面出错了</h2>
             <p className="text-sm text-stone-500 dark:text-stone-400 mb-4">
               {this.state.error?.message || '未知错误'}
             </p>
             <div className="flex gap-2 justify-center">
-              <button onClick={this.handleReset} className="btn-ghost text-sm">
-                🔄 重试
+              <button onClick={this.handleReset} className="btn-ghost text-sm flex items-center gap-1">
+                <IconRotateCcw size={14} />重试
               </button>
-              <button onClick={this.handleReload} className="btn-primary text-sm">
-                🔃 刷新页面
+              <button onClick={this.handleReload} className="btn-primary text-sm flex items-center gap-1">
+                <IconRotateCw size={14} />刷新页面
               </button>
             </div>
           </div>

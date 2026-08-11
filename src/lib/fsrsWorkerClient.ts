@@ -44,10 +44,15 @@ function ensureWorker(): Worker {
     else handler.reject(new Error(res.error))
   }
   workerInstance.onerror = (e) => {
-    // 全部 pending 失败
+    // 全部 pending 失败 + W136 P1-2 修复: 清 worker instance, 下次 ensureWorker 重建
+    // 业务: worker crash 后 (Module 加载失败 / 致命语法错误), 不清会一直返回同一个死的 worker
     for (const [id, h] of pending) {
       h.reject(new Error(`Worker error: ${e.message}`))
       pending.delete(id)
+    }
+    if (workerInstance) {
+      workerInstance.terminate()
+      workerInstance = null
     }
   }
   return workerInstance
@@ -125,4 +130,10 @@ export function _resetFsrsWorkerForTest() {
     workerInstance = null
   }
   pending.clear()
+  nextReqId = 1
+}
+
+/** W136: 返回最后创建的 Worker 实例 (测试用 — 验证 Worker 路径被走) */
+export function _lastFsrsWorkerInstanceForTest(): Worker | null {
+  return workerInstance
 }

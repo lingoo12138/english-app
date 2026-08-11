@@ -10,7 +10,13 @@ export default defineConfig({
     VitePWA({
       registerType: 'prompt',  // W4-B P2 改: prompt 让用户主动选择更新
       injectRegister: 'auto',
-      includeAssets: ['favicon.svg', 'pwa-192.png', 'pwa-512.png'],
+      // W136-Bundle P1-2: 统一用 /icons/ 下的图标, 跟 Runtime 删根 public/pwa-192.png 配套
+      //  旧 includeAssets ['pwa-192.png', 'pwa-512.png'] 走的是 public/ 根, 同时 manifest.icons
+      //  也写 /english-app/pwa-192.png (根), 跟 /icons/pwa-192.png 重复 precache ~13KB 浪费
+      //  - 修法: includeAssets 改用 /icons/ 路径, manifest.icons 也改 /icons/
+      //  - public/ 根的 pwa-192.png / pwa-512.png 由 Runtime producer 删, 跟 /icons/ 统一
+      //  - public/manifest.webmanifest 已用 /icons/, 跟这里对齐
+      includeAssets: ['favicon.svg', 'icons/pwa-192.png', 'icons/pwa-512.png'],
       manifest: {
         name: '句刻 - 即时英语学习',
         short_name: '句刻',
@@ -22,13 +28,13 @@ export default defineConfig({
         lang: 'zh-CN',
         icons: [
           {
-            src: '/english-app/pwa-192.png',
+            src: '/english-app/icons/pwa-192.png',
             sizes: '192x192',
             type: 'image/png',
             purpose: 'any maskable',
           },
           {
-            src: '/english-app/pwa-512.png',
+            src: '/english-app/icons/pwa-512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable',
@@ -56,6 +62,15 @@ export default defineConfig({
         // W127: 关键 precache 上限 100 (避免 5MB+)
         // vite-plugin-pwa v1.x 默认无 limit,这里通过 globPatterns 收紧 + 后续 limit 字段
         // (workbox-build 内部 manifestTransform 可进一步收紧,但 PWA v1.3.0 默认即足)
+        //
+        // W136-Bundle P2-2 注释: cleanupOutdatedCaches 只清 precache, 不清 runtimeCaching
+        //  - workbox-build 的 cleanupOutdatedCaches 仅删除旧 revision 缓存 (precache 部分)
+        //  - runtimeCaching (font-cache-v1 / word-data-cache-v2 / data-misc-cache-v1 /
+        //    ai-response-cache-v2 / translate-cache / google-fonts-cache-v1) 改名后
+        //    (v1 → v2) 旧 cache 不会自动清, 需要在 SW 内手动 cache.keys() + cache.delete()
+        //  - 当前策略: cacheName 加 -vN 后缀, 用户升级 SW 后旧 cache 留底, ExpirationPlugin
+        //    maxAgeSeconds 触发后自然过期 (最长 1y 字体), 不会无限累积
+        //  - cleanupOutdatedCaches: true 保留 — 删 precache 旧 revision 仍必要
         cleanupOutdatedCaches: true,
         // W127: SPA fallback — /words, /scenes, /aichat, /textbook, /settings 等
         // 深链直达时, 离线返回 index.html 让 SPA 自己渲染
@@ -89,20 +104,19 @@ export default defineConfig({
             },
           },
           {
-            // W135: 词库 JSON: CacheFirst + 后台 revalidate (原 SWR 7d)
-            //  - 词库一旦缓存就优先用缓存 (省一次网络, 离线秒开)
-            //  - 后台 revalidate 用 plugins 实现: ExpirationPlugin + 6h 后过期强制重拉
-            //  - 用户重复打开 /words 提提速
-            //  - 注意: 词库 6.2MB 仍走 runtimeCaching, 不会进 precache
+            // W136: 词库 JSON: StaleWhileRevalidate 7d (W135 CacheFirst 6h 改回)
+            //  - 业务: 词库 6.2MB, 首次打开后缓存 7 天, 命中后秒开
+            //  - SWR 优势: 命中返回 cache + 后台静默更新, 下次打开拿到新词
+            //  - 抗审查 P1-1: W135 改 CacheFirst 6h 在断网回归测试中暴露
+            //    (W135.5 e2e 模拟 offline 重新打开, 6h 已过期 -> 拉到旧 7d cache, 反而失败)
+            //  - 关键: 词库 6.2MB 走 runtimeCaching, 不会进 precache
             urlPattern: /\/data\/words\.json$/,
-            handler: 'CacheFirst',
+            handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'word-data-cache-v2',
               expiration: {
                 maxEntries: 3,
-                // W135: 6h 后过期, 比 SWR 7d 短, 但 CacheFirst 仍命中 (用户感知秒开)
-                // 重新进入会拉新版, 保证词库新鲜
-                maxAgeSeconds: 60 * 60 * 6, // 6 小时
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 天
               },
               cacheableResponse: {
                 statuses: [0, 200],
@@ -110,11 +124,17 @@ export default defineConfig({
             },
           },
           {
-            // 其他 data json (daily, lesson 等): CacheFirst
+            // W136-Bundle P1-3: 其他 data json (daily, lesson, scene 等): 独立 cache
+            //  旧: 跟词库共用 word-data-cache-v2, 但 workbox ExpirationPlugin 一个 cache
+            //    一个 plugin 实例, 以先注册为准 -> 整个 cache 限 maxEntries: 3
+            //    结果: 词库 + 5+ data JSON 总共只能缓存 3 条, 后面的永远被驱逐
+            //  新: 拆 data-misc-cache-v1, maxEntries 10 (7d), 跟词库互不挤占
+            //  - 词库 word-data-cache-v2 仍 3 entries / 7d (W136 抗审查 P1-1 改 SWR)
+            //  - 数据 JSON (daily.json / lesson.json / scene.json 等) 走独立 cache
             urlPattern: /\/data\/.*\.json$/,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'word-data-cache-v2',
+              cacheName: 'data-misc-cache-v1',
               expiration: {
                 maxEntries: 10,
                 maxAgeSeconds: 60 * 60 * 24 * 7, // 7 天
@@ -161,38 +181,12 @@ export default defineConfig({
               networkTimeoutSeconds: 5,
             },
           },
-          {
-            // W135: 用户导出数据 (dataExport 触发 data: URL 下载)
-            //  - data: URL 不走网络, 但 workbox precache 排除, runtimeCaching 接住
-            //  - CacheFirst 7d: 用户重导出用缓存
-            urlPattern: /^data:.*$/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'export-data-cache-v1',
-              expiration: {
-                maxEntries: 5,
-                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 天
-              },
-            },
-          },
-          {
-            // W135: 设置/用户偏好相关 (zustand persist 走 localStorage 不走网络)
-            //  - 这里接住用户 settings.json / profile.json 类小 JSON
-            //  - NetworkFirst: 偏好像要最新 (主题/LLM 渠道)
-            urlPattern: /\/(settings|profile|user)\.json$/,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'user-settings-cache-v1',
-              networkTimeoutSeconds: 3,
-              expiration: {
-                maxEntries: 5,
-                maxAgeSeconds: 60 * 60 * 24, // 1 天
-              },
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
-            },
-          },
+          // W136: 删 data: URL 规则 (P0-2 修复) — 原 W135 注释写 "dataExport 触发 data: URL 下载",
+          //  实际业务用 URL.createObjectURL(blob) 生成 blob: URL, 不是 data:.
+          //  grep "data:" src/lib/dataExport.ts 0 业务命中.
+          //  Workbox registerRoute 只接 HTTP/HTTPS fetch, data: / blob: / file: 根本不到 SW.
+          // W136: 删 settings/profile.json NetworkFirst 1d 规则 (P2-3 修复) — 0 业务命中
+          //  (zustand persist 走 localStorage, 不走网络; 注释提到的 settings.json 实际不存在).
           {
             // W135: Google Fonts 静态资源 (备用, 当前自托管, 留兜底)
             urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/,
@@ -245,6 +239,15 @@ export default defineConfig({
           // aiChat (AI 聊天角色), chatRoles (系统角色定义), llmUsage (每日配额).
           // 估算: 合并后 ~10-15KB gzip (vs. 散在 5 个 page chunks 各 2-3KB, 总 ~15-20KB).
           // 收益: 用户从 AIChat 跳到 Settings 时, LLM 通道已缓存, 不重复解析.
+          //
+          // W136-Bundle P1-1 注释: 名字 "llm-vendor" 实际含 LLM 生态共用 mini-vendor
+          //  - Rollup shared dependency graph 把跟 LLM 共享依赖的库拽进来, 实际打包
+          //    出来可能含: xpSystem (XP 等级, AIChat 奖励) / idbSync (跨 tab 广播,
+          //    AIChat 状态同步) 等非纯 LLM 代码
+          //  - 实测 llm-vendor chunk 56KB / 21KB gzip, 比纯 LLM 多 ~30KB
+          //  - 决策: 不强拆 (会破坏 Rollup 共享图, page chunks 反而增大),
+          //    文档说清楚"llm-vendor = LLM 生态共用 mini-vendor" 即可
+          //  - 收益: 用户访问 2 个 LLM 页面后 (AIChat / 错题讲解 / 语法讲解) 整体收益
           'llm-vendor': [
             './src/lib/providers/llm.ts',
             './src/lib/llmFallback.ts',

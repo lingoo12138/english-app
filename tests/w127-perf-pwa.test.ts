@@ -116,9 +116,11 @@ describe('W127 性能 + PWA 优化', () => {
   })
 
   describe('5. dist/ 产物大小 (实测)', () => {
-    it.skipIf(!existsSync('dist/index.html'))('dist/index.html < 5KB', () => {
+    // W136 P0-2: 加 4 个字体 woff2 preload, index.html 体积从 ~3KB 涨到 ~5.1KB
+    // 改限制为 6KB (W127 旧 5KB 已不够, 实际 5258 字节)
+    it.skipIf(!existsSync('dist/index.html'))('dist/index.html < 6KB (W136 P0-2 加 4 字体 preload)', () => {
       const size = statSync('dist/index.html').size
-      expect(size).toBeLessThan(5 * 1024)
+      expect(size).toBeLessThan(6 * 1024)
     })
 
     it.skipIf(!existsSync('dist/assets'))('dist/assets/index-*.js < 200KB', () => {
@@ -176,10 +178,12 @@ describe('W127 性能 + PWA 优化', () => {
   })
 
   describe('6. main.tsx + PWA 注册', () => {
-    it('main.tsx 用 virtual:pwa-register 注册 SW', () => {
+    it('W136: main.tsx 不再 import virtual:pwa-register (P1-4 唯一 registerSW 入口改 UpdateToast)', () => {
+      // 业务: 原 W127 测试要求 main.tsx 注册 SW; W136 抗审查 P1-4 修复双 registerSW,
+      //  完全交给 src/components/UpdateToast.tsx 唯一入口
       const main = readFileSync('src/main.tsx', 'utf-8')
-      expect(main).toMatch(/virtual:pwa-register/)
-      expect(main).toMatch(/registerSW/)
+      expect(main).not.toMatch(/virtual:pwa-register/)
+      expect(main).not.toMatch(/registerSW\(/)
     })
 
     it('main.tsx 不直接 import pdfjs (避免污染首屏)', () => {

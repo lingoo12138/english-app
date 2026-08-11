@@ -1,11 +1,19 @@
-// tests/w135-pwa.test.ts - W135 PWA 优化
+// tests/w135-pwa.test.ts - W135/W136 PWA 优化
 // 验证:
-//  1. vite.config.ts workbox 策略调优 (1MB precache, CacheFirst words.json, SWR AI, dataExport, settings)
+//  1. vite.config.ts workbox 策略调优 (1MB precache, words.json SWR 7d, AI SWR, 翻译 NF)
 //  2. src/lib/prefetch.ts 路由 hover/idle 预取 + dedup + last visit
-//  3. src/lib/syncManager.ts 离线写排队 + online flush + retry
-//  4. src/components/UpdateToast.tsx SW 更新 toast + indicator
-//  5. src/components/OfflineBanner.tsx 离线时长 + 功能可用性
-//  6. dist/ 产物: precache 数量 + 策略落地
+//  3. src/components/UpdateToast.tsx SW 更新 toast + indicator + 24h 免打扰 (W136 P1-7)
+//  4. src/components/OfflineBanner.tsx 离线时长 + 功能可用性
+//  5. dist/ 产物: precache 数量 + 策略落地
+//  6. main.tsx 集成 (无 syncManager / 唯一 registerSW 入口)
+//
+// W136 重大变化:
+//  - 删 src/lib/syncManager.ts 整个 (P0-1, 业务侧 0 调用)
+//  - 删 data: URL 规则 (P0-2, workbox 不接 data:/blob:)
+//  - 删 settings/profile.json 规则 (P2-3, 0 业务命中)
+//  - 词库 words.json: CacheFirst 6h → StaleWhileRevalidate 7d (P1-1, 离线 regression)
+//  - UpdateToast: 24h 免打扰 (P1-7, 用户点"稍后"24h 内不弹)
+//  - main.tsx: 删 registerSW 唯一入口交给 UpdateToast (P1-4, 修双 registerSW)
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { readFileSync, existsSync, statSync, readdirSync } from 'fs'
 import { join } from 'path'
@@ -35,13 +43,15 @@ describe('W135 PWA - workbox 缓存策略', () => {
     expect(Number(m![1])).toBe(1)
   })
 
-  it('words.json 改用 CacheFirst (W135 优化)', () => {
-    // 业务: 词库缓存命中直接用, 6h 后过期重拉
+  it('words.json 改用 StaleWhileRevalidate 7d (W136 P1-1 修复)', () => {
+    // 业务: 词库 6.2MB, 首次打开后缓存 7 天, 命中后秒开
+    //  W135 CacheFirst 6h 在断网回归测试中暴露 (offline 重新打开时 6h 已过期)
+    //  W136 改回 SWR 7d, 兼容离线 + 命中后后台静默更新
     expect(viteConfig).toContain("urlPattern: /\\/data\\/words\\.json$/")
     const handler = getHandlerFor(viteConfig, "urlPattern: /\\/data\\/words\\.json$/,")
-    expect(handler).toBe('CacheFirst')
-    // 6h 过期 (W135 新增, 比原 SWR 7d 短)
-    expect(viteConfig).toMatch(/maxAgeSeconds\s*:\s*60\s*\*\s*60\s*\*\s*6/)
+    expect(handler).toBe('StaleWhileRevalidate')
+    // 7 天 (W136 改回)
+    expect(viteConfig).toMatch(/maxAgeSeconds\s*:\s*60\s*\*\s*60\s*\*\s*24\s*\*\s*7/)
   })
 
   it('AI/LLM 改用 StaleWhileRevalidate (W135 优化)', () => {
@@ -69,23 +79,20 @@ describe('W135 PWA - workbox 缓存策略', () => {
     expect(terraHandler).toBe('NetworkFirst')
   })
 
-  it('新增 dataExport 缓存 (W135)', () => {
-    // 业务: 用户导出数据可缓存
-    expect(viteConfig).toContain('urlPattern: /^data:.*$/')
-    const handler = getHandlerFor(viteConfig, 'urlPattern: /^data:.*$/,')
-    expect(handler).toBe('CacheFirst')
-    expect(viteConfig).toMatch(/export-data-cache-v\d+/)
+  it('dataExport data: URL 规则已删 (W136 P0-2 修复)', () => {
+    // 业务: 原 W135 注释 "dataExport 触发 data: URL 下载 CacheFirst 7d" 是 dead code
+    //  - 实际业务用 URL.createObjectURL(blob) 生成 blob: URL
+    //  - Workbox registerRoute 只接 HTTP/HTTPS fetch
+    //  - W136 整条规则删除
+    expect(viteConfig).not.toMatch(/urlPattern:\s*\/\^data:\.\*\$\//)
+    expect(viteConfig).not.toMatch(/export-data-cache/)
   })
 
-  it('新增 user settings 缓存 (W135)', () => {
-    // 业务: 用户偏好可缓存
-    expect(viteConfig).toContain('urlPattern: /\\/(settings|profile|user)\\.json$/')
-    const handler = getHandlerFor(
-      viteConfig,
-      'urlPattern: /\\/(settings|profile|user)\\.json$/,'
-    )
-    expect(handler).toBe('NetworkFirst')
-    expect(viteConfig).toMatch(/user-settings-cache-v\d+/)
+  it('settings/profile.json 规则已删 (W136 P2-3 修复)', () => {
+    // 业务: 原 W135 规则 0 业务命中 (zustand persist 走 localStorage)
+    //  W136 整条规则删除
+    expect(viteConfig).not.toMatch(/urlPattern:\s*\/\/\\\/\(settings\|profile\|user\)\\\.json\$\//)
+    expect(viteConfig).not.toMatch(/user-settings-cache/)
   })
 
   it('skipWaiting + clientsClaim 启用 (W135)', () => {
@@ -175,91 +182,7 @@ describe('W135 PWA - src/lib/prefetch.ts', () => {
   })
 })
 
-// === 3. src/lib/syncManager.ts ===
-
-describe('W135 PWA - src/lib/syncManager.ts', () => {
-  beforeEach(async () => {
-    vi.resetModules()
-    // reset syncManager 状态
-    const sm = await import('../src/lib/syncManager')
-    await sm._resetForTest()
-  })
-
-  it('enqueueOfflineWrite: 写 IDB 队列 + 返回 QueuedWrite', async () => {
-    const { enqueueOfflineWrite, _peekQueueForTest } = await import('../src/lib/syncManager')
-    const item = await enqueueOfflineWrite({
-      type: 'favorite:add',
-      payload: { wordId: 'w-1' },
-    })
-    expect(item.id).toMatch(/^swq-/)
-    expect(item.type).toBe('favorite:add')
-    expect(item.retry).toBe(0)
-    const queue = await _peekQueueForTest()
-    expect(queue.length).toBe(1)
-  })
-
-  it('flushOfflineQueue: 调 handler 成功后从队列删除', async () => {
-    const {
-      enqueueOfflineWrite,
-      registerHandler,
-      flushOfflineQueue,
-      _peekQueueForTest,
-    } = await import('../src/lib/syncManager')
-    const handler = vi.fn(async () => {
-      /* ok */
-    })
-    registerHandler('test:ok', handler)
-    await enqueueOfflineWrite({ type: 'test:ok', payload: { x: 1 } })
-    const result = await flushOfflineQueue()
-    expect(result.ok).toBe(1)
-    expect(handler).toHaveBeenCalledWith({ x: 1 })
-    const queue = await _peekQueueForTest()
-    expect(queue.length).toBe(0)
-  })
-
-  it('flushOfflineQueue: handler 失败时 retry+1, 超过 MAX_RETRY 删除', async () => {
-    const {
-      enqueueOfflineWrite,
-      registerHandler,
-      flushOfflineQueue,
-      _peekQueueForTest,
-    } = await import('../src/lib/syncManager')
-    const handler = vi.fn(async () => {
-      throw new Error('boom')
-    })
-    registerHandler('test:fail', handler)
-    await enqueueOfflineWrite({ type: 'test:fail', payload: { x: 1 } })
-    // 5 次 retry 后永久放弃
-    for (let i = 0; i < 5; i++) {
-      await flushOfflineQueue()
-    }
-    const queue = await _peekQueueForTest()
-    expect(queue.length).toBe(0)
-  })
-
-  it('flushOfflineQueue: 没注册的 type 当完成删', async () => {
-    const { enqueueOfflineWrite, flushOfflineQueue, _peekQueueForTest } = await import(
-      '../src/lib/syncManager'
-    )
-    await enqueueOfflineWrite({ type: 'unknown:type', payload: {} })
-    const result = await flushOfflineQueue()
-    expect(result.ok).toBe(1)
-    const queue = await _peekQueueForTest()
-    expect(queue.length).toBe(0)
-  })
-
-  it('queue 超出 MAX_QUEUE_LEN (200) 丢弃最老', async () => {
-    const { enqueueOfflineWrite, _peekQueueForTest } = await import('../src/lib/syncManager')
-    // 推 201 条, 期望最后剩 200
-    for (let i = 0; i < 201; i++) {
-      await enqueueOfflineWrite({ type: 'noop', payload: { i } })
-    }
-    const queue = await _peekQueueForTest()
-    expect(queue.length).toBeLessThanOrEqual(200)
-  })
-})
-
-// === 4. src/components/UpdateToast.tsx ===
+// === 3. src/components/UpdateToast.tsx (含 W136 24h 免打扰) ===
 
 describe('W135 PWA - src/components/UpdateToast.tsx', () => {
   it('组件存在 + 0 emoji', () => {
@@ -276,7 +199,7 @@ describe('W135 PWA - src/components/UpdateToast.tsx', () => {
     expect(c).toContain('data-testid="offline-ready-toast"')
   })
 
-  it('用 virtual:pwa-register', () => {
+  it('用 virtual:pwa-register (W136 唯一入口)', () => {
     const c = readFileSync('src/components/UpdateToast.tsx', 'utf-8')
     expect(c).toMatch(/virtual:pwa-register/)
   })
@@ -286,9 +209,40 @@ describe('W135 PWA - src/components/UpdateToast.tsx', () => {
     expect(c).toMatch(/import UpdateToast from ['"]\.\/components\/UpdateToast['"]/)
     expect(c).toContain('<UpdateToast />')
   })
+
+  // === W136 P1-7: 24h 免打扰 ===
+
+  it('W136: 含 24h dismiss-until localStorage 逻辑 (P1-7)', () => {
+    const c = readFileSync('src/components/UpdateToast.tsx', 'utf-8')
+    expect(c).toMatch(/DISMISS_UNTIL_KEY\s*=\s*['"]w136-update-dismiss-until['"]/)
+    expect(c).toMatch(/DISMISS_DURATION_MS\s*=\s*24\s*\*\s*60\s*\*\s*60\s*\*\s*1000/)
+    // 读 / 写 两个 helper 都在
+    expect(c).toMatch(/function\s+readDismissUntil/)
+    expect(c).toMatch(/function\s+setDismissUntil/)
+  })
+
+  it('W136: onNeedRefresh 检查 dismissed 状态, 24h 内不弹', () => {
+    const c = readFileSync('src/components/UpdateToast.tsx', 'utf-8')
+    // onNeedRefresh 内 readDismissUntil() > Date.now() → return
+    expect(c).toMatch(/onNeedRefresh\(\)\s*{[\s\S]*?readDismissUntil\(\)\s*>\s*Date\.now\(\)/)
+  })
+
+  it('W136: dismiss 按钮调 setDismissUntil + setDismissed (P1-7)', () => {
+    const c = readFileSync('src/components/UpdateToast.tsx', 'utf-8')
+    // dismiss 按钮 onClick
+    expect(c).toContain('data-testid="update-toast-dismiss"')
+    expect(c).toMatch(/setDismissUntil\(\)/)
+    expect(c).toMatch(/setDismissed\(true\)/)
+  })
+
+  it('W136: dismissed 状态时整个组件 return null (不显示 indicator)', () => {
+    const c = readFileSync('src/components/UpdateToast.tsx', 'utf-8')
+    // 组件主入口 dismissed 检查
+    expect(c).toMatch(/if\s*\(\s*dismissed\s*\|\|\s*\(\s*!state\.needRefresh/)
+  })
 })
 
-// === 5. src/components/OfflineBanner.tsx (W135 增强) ===
+// === 4. src/components/OfflineBanner.tsx (W135 增强) ===
 
 describe('W135 PWA - OfflineBanner 增强', () => {
   it('显示离线时长 (data-offline-duration)', () => {
@@ -326,7 +280,7 @@ describe('W135 PWA - OfflineBanner 增强', () => {
   })
 })
 
-// === 6. main.tsx 集成 ===
+// === 5. main.tsx 集成 (W136 无 syncManager, 无双 registerSW) ===
 
 describe('W135 PWA - main.tsx 集成', () => {
   it('main.tsx 注册 prefetchRoute 5+ 个 chunk', () => {
@@ -341,10 +295,23 @@ describe('W135 PWA - main.tsx 集成', () => {
     expect(c).toMatch(/warmRecentVisits/)
   })
 
-  it('main.tsx 调 initSyncManager + registerDefaultHandlers', () => {
+  it('W136: main.tsx 不再 import syncManager (P0-1 修复)', () => {
     const c = readFileSync('src/main.tsx', 'utf-8')
-    expect(c).toMatch(/initSyncManager/)
-    expect(c).toMatch(/registerDefaultHandlers/)
+    expect(c).not.toMatch(/from\s+['"]\.\/lib\/syncManager['"]/)
+    expect(c).not.toMatch(/initSyncManager/)
+    expect(c).not.toMatch(/registerDefaultHandlers/)
+    expect(c).not.toMatch(/enqueueOfflineWrite/)
+  })
+
+  it('W136: main.tsx 不再 import registerSW (P1-4 修复双 registerSW)', () => {
+    const c = readFileSync('src/main.tsx', 'utf-8')
+    expect(c).not.toMatch(/from\s+['"]virtual:pwa-register['"]/)
+    expect(c).not.toMatch(/registerSW\(/)
+  })
+
+  it('W136: syncManager.ts 文件已被删 (P0-1 修复)', () => {
+    // 业务: P0-1 决策 = 删整个文件 (372 行)
+    expect(existsSync('src/lib/syncManager.ts')).toBe(false)
   })
 
   it('main.tsx W4-B 旧 confirm 提示已删 (W135 UpdateToast 接管)', () => {
@@ -354,7 +321,7 @@ describe('W135 PWA - main.tsx 集成', () => {
   })
 })
 
-// === 7. dist/sw.js 产物 (W135 调优落地) ===
+// === 6. dist/sw.js 产物 (W135 调优落地) ===
 
 describe('W135 PWA - dist/sw.js 产物', () => {
   // dist/sw.js 由 vite build 产生, 测试运行前先 build 一次
@@ -370,13 +337,14 @@ describe('W135 PWA - dist/sw.js 产物', () => {
     expect(urls.length).toBeLessThanOrEqual(120)
   })
 
-  it('sw.js 含 W135 新增 4 个 cache 命名空间', () => {
+  it('sw.js 含 W135 词库 / AI cache 命名空间 (W136 删 export/user-settings)', () => {
     if (!existsSync('dist/sw.js')) return
     const sw = readFileSync('dist/sw.js', 'utf-8')
     expect(sw).toContain('word-data-cache-v2')
     expect(sw).toContain('ai-response-cache-v2')
-    expect(sw).toContain('export-data-cache-v1')
-    expect(sw).toContain('user-settings-cache-v1')
+    // W136: 删 export-data-cache-v1 (P0-2) + user-settings-cache-v1 (P2-3)
+    expect(sw).not.toContain('export-data-cache-v1')
+    expect(sw).not.toContain('user-settings-cache-v1')
   })
 
   it('sw.js skipWaiting + clientsClaim 已生效 (W135)', () => {
@@ -386,11 +354,12 @@ describe('W135 PWA - dist/sw.js 产物', () => {
     expect(sw).toMatch(/clientsClaim/)
   })
 
-  it('sw.js words.json 是 CacheFirst (W135 优化)', () => {
+  it('sw.js words.json 是 StaleWhileRevalidate 7d (W136 P1-1 改回)', () => {
     if (!existsSync('dist/sw.js')) return
     const sw = readFileSync('dist/sw.js', 'utf-8')
+    // Workbox 编译后: StaleWhileRevalidate 类生成 s.StaleWhileRevalidate
     const m = sw.match(/\\\/data\\\/words\\\.json\$[\s\S]*?new s\.(\w+)/)
     expect(m).not.toBeNull()
-    expect(m![1]).toBe('CacheFirst')
+    expect(m![1]).toBe('StaleWhileRevalidate')
   })
 })

@@ -255,10 +255,12 @@ describe('W133 — 同义词 + 翻译页 UI 改版稿', () => {
       expect(emojiRe.test(wordNet), 'WordNetwork 0 emoji').toBe(false)
     })
 
-    it('3 文件 22 个 Icon 仍 然 可 用 (没 改 Icon.tsx)', () => {
+    it('3 文件 25 个 Icon 仍 然 可 用 (W136 P2-4 加 3 个: IconAlertCircle/IconRotateCcw/IconRotateCw)', () => {
       const icon = readFile('src/components/Icon.tsx')
       const iconCount = (icon.match(/^export const Icon/gm) || []).length
-      expect(iconCount, 'Icon.tsx 应 22 个').toBe(22)
+      // W136 P2-4: ErrorBoundary 替 emoji, 加 3 个 Icon
+      // 22 (W133) + 3 (W136 P2-4) = 25
+      expect(iconCount, 'Icon.tsx 应 25 个 (W133: 22 + W136 P2-4: 3)').toBe(25)
     })
 
     it('8 大激活 数据 不 变 (W133 限制: 不 改 同义词词组 / 翻译词库)', () => {

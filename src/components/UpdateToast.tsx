@@ -1,12 +1,16 @@
-// src/components/UpdateToast.tsx — W135 SW 新版本可用 toast
+// src/components/UpdateToast.tsx — W135/W136 SW 新版本可用 toast
 // 监听 SW updatefound 事件, 弹一个右下角 toast 提示用户刷新
 // 与 W4-B registerType:'prompt' 配合: 后台激活, 前台提示
 //
 // 设计原则:
-//   - 不破坏 W4-B 既有 registerSW 流程 (只用虚拟模块副作用触发, 不接管 onNeedRefresh)
+//   - W136-PWA: 唯一 registerSW 入口 (P1-4 修: main.tsx 已删 registerSW, 完全交给本组件)
 //   - 顶 indicator (红点): 新版本下载完, 提示用户
 //   - toast 关闭: 用户选择稍后, 不强迫刷新
 //   - 点击 "立即更新": 调 updateSW(true) 跳过等待, 页面 reload
+//   - W136-PWA: 24h 免打扰 (P1-7) — 用户点"稍后"后, 24h 内不再弹同版本 toast
+//     业务: SW 检测到新版本会持续触发 onNeedRefresh, 用户每天看 N 次很烦
+//     解决: 记 localStorage 'w136-update-dismiss-until' = Date.now() + 24h
+//     24h 内 onNeedRefresh 触发时, 不弹 toast + 不显示 indicator
 //   - 0 emoji, 0 第三方依赖 (workbox-window 已有, 这里只读 registerSW 的 update)
 import { useEffect, useState } from 'react'
 import { IconClose, IconRefresh } from './Icon'
@@ -19,6 +23,39 @@ interface UpdateToastState {
   offlineReady: boolean
 }
 
+/** W136: 24h 免打扰 localStorage key */
+const DISMISS_UNTIL_KEY = 'w136-update-dismiss-until'
+/** 免打扰时长: 24h = 86_400_000 ms */
+const DISMISS_DURATION_MS = 24 * 60 * 60 * 1000
+
+/**
+ * 当前是否处于免打扰期 (24h dismiss window)
+ *  - localStorage 缺失 / parse 失败 / 已过期 → 返回 false
+ *  - 否则返回 true (onNeedRefresh 触发时不弹)
+ */
+function readDismissUntil(): number {
+  if (typeof localStorage === 'undefined') return 0
+  try {
+    const raw = localStorage.getItem(DISMISS_UNTIL_KEY)
+    if (!raw) return 0
+    const n = Number(raw)
+    if (!Number.isFinite(n) || n <= 0) return 0
+    return n
+  } catch {
+    return 0
+  }
+}
+
+/** W136: 设置 24h 免打扰截止时间戳 (用户点"稍后"时调) */
+function setDismissUntil(): void {
+  if (typeof localStorage === 'undefined') return
+  try {
+    localStorage.setItem(DISMISS_UNTIL_KEY, String(Date.now() + DISMISS_DURATION_MS))
+  } catch {
+    // localStorage 满 / 隐私模式禁用 → 静默, 下次仍会弹
+  }
+}
+
 export default function UpdateToast() {
   const [state, setState] = useState<UpdateToastState>({
     needRefresh: false,
@@ -28,12 +65,20 @@ export default function UpdateToast() {
   const [updateFn, setUpdateFn] = useState<((reloadPage?: boolean) => Promise<void>) | null>(null)
   // 顶部红点: 不需用户操作
   const [indicator, setIndicator] = useState(false)
+  // W136: 是否在 24h 免打扰期 (初始化即读, 避免首帧闪烁)
+  const [dismissed, setDismissed] = useState<boolean>(() => readDismissUntil() > Date.now())
 
   useEffect(() => {
-    // W135: 用 registerSW 但不抢 W4-B 那个 (它已经在 main.tsx 注册)
-    // 这里重新注册一个, 只监听事件不弹 confirm, 用我们的 toast 替代
+    // W136-PWA: 唯一 registerSW 入口 (P1-4 修)
+    //  - main.tsx 已删 registerSW, 完全交给本组件
+    //  - onNeedRefresh 时检查 dismissed 状态, 24h 免打扰期内不弹
     const updateSW = registerSW({
       onNeedRefresh() {
+        if (readDismissUntil() > Date.now()) {
+          // 24h 免打扰期内, 不弹 toast 也不显示 indicator
+          // 业务: 用户主动刷新 / 关闭再开, 仍能拿到新 SW (skipWaiting 仍生效)
+          return
+        }
         setState((s) => ({ ...s, needRefresh: true }))
         setIndicator(true)
       },
@@ -63,10 +108,10 @@ export default function UpdateToast() {
     }
   }, [state.needRefresh])
 
-  // 不显示: 无更新
-  if (!state.needRefresh && !state.offlineReady) {
-    // 只显示 indicator
-    if (indicator) {
+  // W136: 不显示任何更新 UI (dismissed 期或根本无更新)
+  if (dismissed || (!state.needRefresh && !state.offlineReady)) {
+    // 只在 dismissed=false 时显示 indicator; dismissed=true 整体静默
+    if (!dismissed && indicator) {
       return (
         <div
           data-testid="update-indicator"
@@ -101,6 +146,9 @@ export default function UpdateToast() {
   }
 
   // 新版本可用 (主提示)
+  // 稍后按钮: W136 加 24h 免打扰 (P1-7)
+  //  - 用户点稍后 → localStorage 写 dismiss-until = now + 24h
+  //  - 24h 内 onNeedRefresh 再触发不弹 (本组件 useEffect 已 check)
   return (
     <>
       {indicator && !state.needRefresh && (
@@ -136,9 +184,15 @@ export default function UpdateToast() {
           立即更新
         </button>
         <button
-          onClick={() => setState((s) => ({ ...s, needRefresh: false }))}
+          onClick={() => {
+            // W136: 24h 免打扰
+            setDismissUntil()
+            setDismissed(true)
+            setState((s) => ({ ...s, needRefresh: false }))
+          }}
+          data-testid="update-toast-dismiss"
           className="w-6 h-6 rounded-full hover:bg-white/20 flex items-center justify-center shrink-0"
-          aria-label="稍后提醒"
+          aria-label="稍后提醒 (24 小时内不再弹出)"
         >
           <IconClose size={12} />
         </button>

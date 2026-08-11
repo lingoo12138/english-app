@@ -6,6 +6,12 @@
 //   - 用 transform: translateY 偏移
 //   - 维护 roving tabindex
 //   - 固定 estimatedItemHeight, 真正高度可变时由外层 CSS 控制
+//
+// W136: 新增 letter 锚点支持 — getLetterKey + onContainerRef
+//   - getLetterKey(item, i) -> string | null: 返回该项所属的 letter (A-Z/#), 用于在
+//     字母变化时渲染 <div data-letter-anchor id="letter-anchor-L" /> 供外层 IO/scrollIntoView
+//   - onContainerRef(el): 暴露内部 scroll container, 父组件可调 scrollToIndex/scrollTop
+//   - scrollToIndex (通过 onContainerRef 拿到 el 后直接设置 scrollTop)
 
 import {
   useRef,
@@ -44,6 +50,10 @@ export interface VirtualListProps<T> {
   /** a11y 标签 */
   ariaLabel?: string
   role?: string
+  /** W136: 返回当前 item 的首字母 (A-Z, # 等). null 表示不渲染锚点 */
+  getLetterKey?: (item: T, index: number) => string | null
+  /** W136: 暴露 scroll 容器 ref (父组件调 scrollToIndex / IO 监听) */
+  onContainerRef?: (el: HTMLDivElement | null) => void
 }
 
 /**
@@ -68,6 +78,8 @@ export function VirtualList<T>({
   innerClassName = 'space-y-2',
   ariaLabel,
   role = 'list',
+  getLetterKey,
+  onContainerRef,
 }: VirtualListProps<T>) {
   const containerRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
@@ -76,6 +88,14 @@ export function VirtualList<T>({
 
   // 当 items 数量过少, 直接全量渲染 (避免过度优化)
   const useVirtual = items.length >= threshold
+
+  // W136: 暴露 scroll container 给父组件
+  useEffect(() => {
+    if (onContainerRef) onContainerRef(containerRef.current)
+    return () => {
+      if (onContainerRef) onContainerRef(null)
+    }
+  }, [onContainerRef])
 
   // 监听容器滚动
   useEffect(() => {
@@ -127,6 +147,23 @@ export function VirtualList<T>({
   const visibleItems = useMemo(() => {
     return items.slice(startIndex, endIndex)
   }, [items, startIndex, endIndex])
+
+  // W136: 字母变化检测 — 在每个 item 之前 (字母发生变化) 渲染锚点
+  // 关键: 锚点也用 estimatedItemHeight 高度, 保持位置正确
+  // 性能: 简单 memo, 每次 render 重算, items 不变时 O(visible)
+  const letterChangeSet = useMemo(() => {
+    if (!getLetterKey) return null
+    const set = new Set<number>()  // 锚点应在哪个 absolute index 前置
+    let prevLetter: string | null = null
+    for (let i = startIndex; i < endIndex; i++) {
+      const letter = getLetterKey(items[i], i)
+      if (letter && letter !== prevLetter) {
+        set.add(i)
+      }
+      if (letter) prevLetter = letter
+    }
+    return set
+  }, [getLetterKey, items, startIndex, endIndex])
 
   // 键盘导航 (PageUp/PageDown/Home/End) — 滚动到上下限
   const handleKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
@@ -180,12 +217,27 @@ export function VirtualList<T>({
           >
             {visibleItems.map((item, i) => {
               const realIndex = startIndex + i
+              const showAnchor = letterChangeSet?.has(realIndex)
+              const letter = showAnchor ? getLetterKey!(item, realIndex) : null
               return (
                 <div
                   key={getKey ? getKey(item, realIndex) : realIndex}
                   style={{ minHeight: estimatedItemHeight }}
                   data-virtual-index={realIndex}
                 >
+                  {showAnchor && letter && (
+                    // W136: 字母锚点 — 父组件 IO 监听 data-letter-anchor,
+                    // scrollToLetter 用 id="letter-anchor-L" scrollIntoView
+                    <div
+                      id={`letter-anchor-${letter}`}
+                      data-letter-anchor={letter}
+                      className="pt-2 pb-1 px-1"
+                    >
+                      <div className="text-xs font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">
+                        {letter}
+                      </div>
+                    </div>
+                  )}
                   {renderItem(item, realIndex)}
                 </div>
               )
@@ -194,14 +246,29 @@ export function VirtualList<T>({
         </div>
       ) : (
         <div className={innerClassName}>
-          {items.map((item, i) => (
-            <div
-              key={getKey ? getKey(item, i) : i}
-              style={{ minHeight: estimatedItemHeight }}
-            >
-              {renderItem(item, i)}
-            </div>
-          ))}
+          {items.map((item, i) => {
+            const showAnchor = letterChangeSet?.has(i) ?? false
+            const letter = showAnchor && getLetterKey ? getLetterKey(item, i) : null
+            return (
+              <div
+                key={getKey ? getKey(item, i) : i}
+                style={{ minHeight: estimatedItemHeight }}
+              >
+                {showAnchor && letter && (
+                  <div
+                    id={`letter-anchor-${letter}`}
+                    data-letter-anchor={letter}
+                    className="pt-2 pb-1 px-1"
+                  >
+                    <div className="text-xs font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">
+                      {letter}
+                    </div>
+                  </div>
+                )}
+                {renderItem(item, i)}
+              </div>
+            )
+          })}
         </div>
       )}
     </div>

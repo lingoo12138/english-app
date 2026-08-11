@@ -4497,25 +4497,24 @@
 - `src/components/ErrorBoundary.tsx`: 新建, 失败 retry + 兜底 UI
 - **+20 单元测试** (`tests/w135-runtime.test.ts`): 33 测试全过
 
-#### W135-PWA — 缓存策略调优 + 资源预取 + Background Sync + SW 更新
-- `vite.config.ts` workbox 全面调优 (9 条 runtimeCaching):
+#### W135-PWA — 缓存策略调优 + 资源预取 + SW 更新 (W136 修)
+- `vite.config.ts` workbox 全面调优 (7 条 runtimeCaching, W136 删 2 条 dead code):
   - 字体: CacheFirst 1y (不变)
-  - `words.json`: SWR 7d → **CacheFirst + 6h 过期** (重复打开秒开, 6h 后台重拉)
+  - `words.json`: SWR 7d → **CacheFirst + 6h 过期** (W135) → **W136 改回 SWR 7d** (P1-1: 断网回归测试暴露)
   - `AI/LLM`: NetworkFirst 1d → **StaleWhileRevalidate 1d** (重复 query 秒回)
   - 翻译 API: 保持 NetworkFirst (翻译不能过期)
-  - 新增 `data:` URL 缓存 (用户导出数据 7d) — **W136 删, 业务用 blob:**
-  - 新增 settings/profile.json NetworkFirst 1d — **W136 删, 0 业务命中**
+  - ~~新增 `data:` URL 缓存~~ — **W136 删整条规则** (P0-2: 业务用 blob: URL, workbox 不接 data:)
+  - ~~新增 settings/profile.json NetworkFirst 1d~~ — **W136 删整条规则** (P2-3: 0 业务命中, zustand 走 localStorage)
   - Google Fonts CacheFirst 1y (备用)
-- 新建 `src/lib/syncManager.ts` (372 行): Background Sync 抽象
-  - 离线写入排队, 在线时自动 flush
-  - 5 次重试 + 指数退避
-  - 注册默认 handlers: favorite/dictation/errorReview
-  - **W136 删整个文件** (业务侧 0 调用, dead code)
+- ~~新建 `src/lib/syncManager.ts` (372 行): Background Sync 抽象~~ — **W136 删整个文件** (P0-1: 业务侧 0 调用, dead code; P0-3/4 跨 tab 锁 / SW sync handler 缺失随文件删自动消解)
 - 新建 `src/lib/prefetch.ts` (195 行): 路由 hover 预取 + idle 预热 + warmRecentVisits
 - 新建 `src/components/UpdateToast.tsx` (148 行): SW 新版本 toast 提示
-- `src/main.tsx`: 集成 syncManager + UpdateToast
+  - **W136 加 24h dismiss-until 免打扰** (P1-7): 用户点"稍后" → localStorage 记 24h → 24h 内 onNeedRefresh 不弹
+  - **W136 唯一 registerSW 入口** (P1-4): main.tsx 已删 registerSW, 完全交给本组件
+- `src/main.tsx`: 集成 UpdateToast (~~集成 syncManager~~ — **W136 删** P0-1)
 - 新建 `e2e/w135-pwa-update.spec.ts`: SW 更新 e2e (6 测试)
-- **+9 单元测试** (`tests/w135-pwa.test.ts`)
+- **W136 新建** `e2e/w136-update-dismiss.spec.ts`: 24h dismiss-until 闭环 e2e (5 测试)
+- **+9 单元测试** (`tests/w135-pwa.test.ts` — W136 删 5 syncManager case, 加 4 UpdateToast dismiss case)
 
 #### 3 reviewer 抗审查 (W135 完, plan_8b1210dd)
 - **W135-Runtime** (`outputs/w135-runtime-reviewer/deliverable.md`): 3 P0 + 5 P1 + 8 P2

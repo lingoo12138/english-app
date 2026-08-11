@@ -160,10 +160,12 @@ export default function LessonScorePage() {
       {/* W124 课 文 列 表 — card-interactive + 进 度 条 + 状 态 标 签 */}
       <div className="space-y-2">
         {filtered.map(s => (
+          // W136 P1-3: 不传 onClick, 改 LessonCard 内部 useNavigate
+          // 业务: 父组件 map 每次渲染创建新箭头函数, 打 破 memo 浅比较
+          // 修后: score 引用不变, memo 命中, filter 切换不重渲未变 cards
           <LessonCard
             key={s.lessonId}
             score={s}
-            onClick={() => navigate(`/textbook/${s.lessonId}`)}
           />
         ))}
         {filtered.length === 0 && (
@@ -178,11 +180,13 @@ export default function LessonScorePage() {
 
 // W135: 课 卡 memo — filter 切换时未变 课 卡 不 重 渲
 // 业务: 20 课 切 filter 4 次, 不 memo 每次 全 渲 80 次, memo 后 只 重 渲 变 化 的
-const LessonCard = memo(function LessonCard({ score, onClick }: { score: LessonScore; onClick: () => void }) {
+// W136 P1-3: 内部 useNavigate, 不接 onClick prop, 父组件箭头函数不再 打破 memo
+const LessonCard = memo(function LessonCard({ score }: { score: LessonScore }) {
+  const navigate = useNavigate()
   const cfg = STATUS_CONFIG[score.status]
   return (
     <div
-      onClick={onClick}
+      onClick={() => navigate(`/textbook/${score.lessonId}`)}
       className="card card-interactive p-3 cursor-pointer"
     >
       <div className="flex items-center justify-between mb-2">

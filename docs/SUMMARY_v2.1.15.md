@@ -13,6 +13,8 @@ v2.1.14 收口后, 用户希望 W135 进一步压性能. 3 个独立方向 3 个
 ### W135-Bundle — manualChunks 进一步拆分 + 资源压缩
 - `vite.config.ts`:
   - 新增 `llm-vendor` chunk (合并 7 个 LLM 共享 lib, ~56KB / ~15KB gzip)
+    - **W136 抗审查 P1-1 注**: 实际含 LLM 生态共用 mini-vendor (xpSystem/idbSync 等
+      共享依赖), 不强拆, 文档说明即可
   - 收紧 `maximumFileSizeToCacheInBytes` 从 2MB → 1MB
   - 启用 `clientsClaim: true` (新版 SW 立即接管未受控 tab)
 - bundle size 实测:
@@ -35,19 +37,27 @@ v2.1.14 收口后, 用户希望 W135 进一步压性能. 3 个独立方向 3 个
 ### W135-PWA — 缓存策略调优 + 资源预取 + Background Sync + SW 更新
 - `vite.config.ts` workbox 全面调优:
   - `words.json`: SWR 7d → **CacheFirst + 6h 过期** (重复打开秒开, 6h 后台重拉)
+    - **W136 抗审查 P1-1 注**: 6h 改回 SWR 7d (断网回归测试暴露 6h 已过期问题)
   - `AI/LLM`: NetworkFirst 1d → **StaleWhileRevalidate 1d** (重复 query 秒回)
   - 翻译 API: 保持 NetworkFirst (翻译不能过期)
-  - 新增 `data:` URL 缓存 (用户导出数据 7d)
-  - 新增 settings/profile.json NetworkFirst 1d
   - 字体: CacheFirst 1y (不变)
+  - **W136 抗审查 P0-2 删**: `data:` URL 缓存 (用户导出数据 7d) — 业务用 blob: URL
+    不是 data:, Workbox registerRoute 只接 HTTP/HTTPS, 0 业务命中
+  - **W136 抗审查 P2-3 删**: settings/profile.json NetworkFirst 1d — 0 业务命中
+    (zustand 走 localStorage)
 - 新建 `src/lib/syncManager.ts` (372 行): Background Sync 抽象
   - 离线写入排队, 在线时自动 flush
   - 5 次重试 + 指数退避
   - 注册默认 handlers: favorite/dictation/errorReview
+  - **W136 抗审查 P0-1 删整文件**: 业务侧 0 调用, 死代码; 3 个 P0 (死代码/跨 tab 锁/
+    SW sync handler 缺失) 一次消解
 - 新建 `src/lib/prefetch.ts` (195 行): 路由 hover 预取 + idle 预热
 - 新建 `src/components/UpdateToast.tsx` (148 行): SW 新版本 toast 提示
-- `src/main.tsx`: 集成 syncManager + UpdateToast
+  - **W136 抗审查 P1-7 加**: 24h dismiss-until 免打扰 (用户点"稍后"后, 24h 内不弹 toast)
+  - **W136 抗审查 P1-4 注**: 现为唯一 registerSW 入口 (main.tsx 已删 registerSW)
+- `src/main.tsx`: 集成 UpdateToast (~~集成 syncManager~~ — **W136 删** P0-1)
 - 新建 `e2e/w135-pwa-update.spec.ts`: SW 更新 e2e
+- **W136 新建** `e2e/w136-update-dismiss.spec.ts`: 24h dismiss-until 闭环 e2e
 
 ### 累计 (v2.1.15)
 - 1594 单元测试 (1552 → +42) 全过
@@ -56,8 +66,9 @@ v2.1.14 收口后, 用户希望 W135 进一步压性能. 3 个独立方向 3 个
 - 0 P0 + 0 P1 业务 维持 200+ 轮
 - 3 个 Web Worker 化重计算, 主线程不卡
 - 1 个 llm-vendor chunk, LLM 页面切换秒开
-- 路由级 hover 预取 + offline 写入自动 sync
+- 路由级 hover 预取 (W136 注: 删 syncManager 离线写入 sync, 业务直写 IDB)
 - 8 大激活 + 8 大改版稿 + 2 补充 + 改版稿 2 + 改版稿 3 + W135 = **100% 全部落地** ✅
+- **W136 抗审查**: 删 syncManager (P0-1/3/4) + 删 data: 规则 (P0-2) + 词库改回 SWR 7d (P1-1) + 双 registerSW 修 (P1-4) + UpdateToast 24h 免打扰 (P1-7) + 删 settings 规则 (P2-3)
 
 ### 部署
 - main: 待 commit + push
@@ -65,12 +76,12 @@ v2.1.14 收口后, 用户希望 W135 进一步压性能. 3 个独立方向 3 个
 - 预览: https://lingoo12138.github.io/english-app/
 
 ### 性能红线 (守住)
-- 词库 < 100ms (CacheFirst 6h 命中)
+- 词库 < 100ms (SWR 7d 命中, W136 改)
 - 跨路由 < 50ms (react-vendor 54KB gzip + 路由预取)
 - glass ≤ 2 / 0 framer-motion
 - 主线程: 重计算全部 Worker 化
 - bundle: 0 emoji → 0 依赖 SVG / pdfjs 异步 import / llm-vendor 单独 chunk
-- PWA: 110 precache / 1.48MB / 字体 1y / 词库 6h / AI 1d / 翻译 NetworkFirst
+- PWA: 110 precache / 1.48MB / 字体 1y / 词库 7d / AI 1d / 翻译 NetworkFirst
 
 ### 后续 backlog
 - 进一步 lazy load (大组件 dataExport, llmTutor, followReadTrendChart)
