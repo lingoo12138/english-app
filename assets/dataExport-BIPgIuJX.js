@@ -1,0 +1,4 @@
+import"./llm-vendor-BxIsH8Si.js";import"./lessonScoreWorkerClient-BiyaLAVc.js";function i(n){if(n==null)return"";let e=String(n);return e.length>0&&/^[=+\-@\t\r]/.test(e)&&(e="'"+e),e.includes(",")||e.includes('"')||e.includes(`
+`)||e.includes("\r")?'"'+e.replace(/"/g,'""')+'"':e}function u(n,o){const e=o.map(c=>i(c.header)).join(","),r=n.map(c=>o.map(t=>i(t.getter(c))).join(","));return[e,...r].join(`
+`)}function d(n,o){return"\uFEFF"+u(n,o).replace(/\n/g,`\r
+`)}function l(n){return JSON.stringify(n,null,2)}function f(n,o,e){const r=n instanceof Blob?n:new Blob([n],{type:e+";charset=utf-8"}),c=URL.createObjectURL(r),t=document.createElement("a");t.href=c,t.download=o,typeof document<"u"&&document.body?(document.body.appendChild(t),t.click(),document.body.removeChild(t)):t.click(),setTimeout(()=>URL.revokeObjectURL(c),1e3)}export{d as a,f as d,i as e,l as t};

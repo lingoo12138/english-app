@@ -35,20 +35,23 @@
     <link rel="apple-touch-startup-image" href="/english-app/icons/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" />
     <link rel="apple-touch-startup-image" href="/english-app/icons/splash-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" />
 
-    <!-- W135: LCP 关键资源 preload — 字体子集 (400 + 500 weight 是首屏主用) -->
-    <!-- 业务: 首屏 LCP 元素是 "首页标题" / "首句" 文字, 字体阻塞渲染 -->
-    <!-- 策略: 关键 icon (PWA-192) precache 已覆盖, 这里只补 PWA-512 (桌面用) + 主屏 webmanifest -->
-    <!-- 注: 字体 woff2 由 workbox runtimeCaching CacheFirst 1y 处理, precache 也会包含 (W127) -->
-    <link rel="preload" href="/english-app/icons/pwa-192.png" as="image" type="image/png" />
-    <link rel="preload" href="/english-app/manifest.webmanifest" as="fetch" crossorigin="anonymous" />
+    <!-- W136: LCP 关键资源 preload — 字体 woff2 (4 个 weight 400/500, 2 family latin) -->
+    <!-- 业务: 首屏 LCP 元素是 "首页标题" / "首句" 文字, 字体阻塞渲染. 不 preload 等 @fontsource CSS @import 拉 woff2, FOUT. -->
+    <!-- 路径: 字体走 base=/english-app/, 用绝对路径加 /english-app/ 前缀 -->
+    <!-- crossorigin: woff2 字体必须 anonymous (服务器会发 CORS header, 否则 onload/onerror 不触发) -->
+    <!-- 删 W135 占位 (PWA-192 precache 已覆盖, manifest 同源无需 crossorigin) -->
+    <link rel="preload" href="/english-app/assets/outfit-latin-400-normal-BGsTXAXT.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="/english-app/assets/outfit-latin-500-normal-DKnIMDSk.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="/english-app/assets/jetbrains-mono-latin-400-normal-V6pRDFza.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="/english-app/assets/jetbrains-mono-latin-500-normal-BWZEU5yA.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 
     <title>句刻 - 即时英语学习</title>
-    <script type="module" crossorigin src="/english-app/assets/index-Cak-2hfq.js"></script>
+    <script type="module" crossorigin src="/english-app/assets/index-DALtHD8L.js"></script>
     <link rel="modulepreload" crossorigin href="/english-app/assets/react-vendor-Dc3BUvRu.js">
     <link rel="modulepreload" crossorigin href="/english-app/assets/state-vendor-CO12vhKp.js">
     <link rel="modulepreload" crossorigin href="/english-app/assets/db-vendor-kfNg-Duc.js">
     <link rel="modulepreload" crossorigin href="/english-app/assets/llm-vendor-BxIsH8Si.js">
-    <link rel="stylesheet" crossorigin href="/english-app/assets/index-DGROVECM.css">
+    <link rel="stylesheet" crossorigin href="/english-app/assets/index-B8__O9Zm.css">
   <link rel="manifest" href="/english-app/manifest.webmanifest"></head>
   <body>
     <div id="root"></div>
