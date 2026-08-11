@@ -4566,6 +4566,73 @@
 
 ---
 
+## [v2.1.18] - 2026-08-11
+
+### v2.1.18 W138 — 修 W137 找到的 2 个 e2e 假阳性 + W138 找到的 2 个 e2e 假阴性
+
+> W136 (v2.1.16) → W137 (v2.1.17) → W138 (v2.1.18) e2e 自纠链. W136 修 W135 抗审查 7 P0 + 关键 P1, W137 验 e2e 发现 2 假阳性 (hidden element + localStorage roundtrip), W138 验 e2e 发现 2 假阴性 (initial assertion + smooth scroll timing). **0 业务问题, 全是 e2e spec 自身 bug** — "测试真测" 比 "业务正确" 重要.
+
+#### v2.1.18 W138 (830130b) - 1 文件
+
+- 🐛 e2e 假阴性修 2 P0 (e2e/w136-letter-index-virtual.spec.ts):
+  - **Test 1**: `#letter-anchor-L` 初始断言逻辑错误 (L 索引 423 远超初始 0-22 渲染范围) → 改 "any 字母锚点 ≥1" (A 在初始 0-22 内必有)
+  - **Test 2**: smooth scroll 时序假设错误 (scrollTop > 100 不等于完成, smooth scroll 中途就 pass) → 等 scrollTop > 10000 (L 位置 ~30k+ in all) + 2500ms 安全网
+  - 锚点位置容忍 50% → 80% (variable item height 累积偏差 118px)
+  - 显式设 targetLevel='all' via localStorage (测试状态确定, 不依赖 useStore 默认值 cet4)
+- 实测: 4/4 pass, 14.4s (字母索引) + 12.3s (dismiss)
+
+#### v2.1.17 W137 (5355511) - 3 文件 (e2e 假阳性修)
+
+- 🐛 e2e 假阳性修 2 P1:
+  - **Runtime P1-1** (w136-letter-index-virtual.spec.ts): 桌面端 viewport 下, 移动端字母按钮被 `md:hidden` 隐藏, `waitForSelector` 默认 visible + `.first()` 选到 hidden 元素 → 4/4 fail → 改用 `state:'attached'` + 点击用 `:visible` 过滤拿当前 viewport 真正可见按钮
+  - **PWA P1-1** (w136-update-dismiss.spec.ts): 之前是 localStorage roundtrip 假 e2e (不点击 dismiss 也不触发 SW) → UpdateToast 加 `window.__w136_test_updateToast` test hook (triggerNeedRefresh/reset/isDismissed) → e2e 真测完整流程
+- `src/components/UpdateToast.tsx` (+20 行 test hook): 仅 attach 在 window, 0 业务影响
+- 实测: 4/4 pass, 12.3s (dismiss)
+
+#### v2.1.16 W136 (cc21c7b) - 26 文件 (Runtime + PWA + Bundle + 文档)
+
+- 🐛 Runtime P0-1: 字母索引 virtual 模式 (data-letter-anchor + onContainerRef)
+- 🐛 Runtime P0-2: LCP 字体 preload (4 个 woff2 真阻塞点, ~80KB)
+- 🐛 Runtime P0-3: Worker 真测 (MockWorker shim)
+- 🐛 Runtime P1-1~5: tests/setup reset + onerror terminate + LessonCard memo + crossorigin 删 + 重复图标删
+- 🐛 Runtime P2-1/4/5: useVirtualScroll 删 + ErrorBoundary emoji→SVG + IO 挂对位置
+- 🐛 PWA P0-1/3/4: 删 src/lib/syncManager.ts 整文件 (372 行)
+- 🐛 PWA P0-2: 删 data: URL 规则 + settings.json 规则
+- 🐛 PWA P1-1/4/7: 词库 SWR 7d + 删 main.tsx registerSW + UpdateToast 24h dismiss-until
+- 🐛 Bundle P1-1/2/3: llm-vendor 注释 + includeAssets /icons/ + 拆 data-misc-cache-v1
+- 🧪 1633 单元测试 (+39) / 115 文件
+- 📦 108 precache / 1.45MB / index 50KB→34KB gzip (PWA 删 syncManager 省 16KB)
+
+### 累计 (v2.1.18)
+
+- **127+ release tag** / 21+ 周
+- **1633 单元测试** / 115 文件 / 全过
+- **5,423 词 / 100% 主线** (词根/短语/pos/examples/同义词/反义词)
+- **8 大激活功能** 100% 落地
+- **28+ verifier 抗审查** / 24+ P0 真问题 100% 闭环
+- **W136-W138 review 找 0 业务 P0**, 全是 e2e 自身 bug
+- 0 P0 + 0 P1 业务 维持 200+ 轮
+
+### 抗审查 (W138 修链)
+
+- **1/3 reviewer PASS** (Business, 32KB 报告)
+- **2/3 sub-agent 超时砍** (Letter + Regression)
+- **主人 owner-self-verify 兜底** (W132/W135/W136/W137/W138 全用)
+
+### 部署
+
+- main: `830130b` v2.1.18 ✅
+- gh-pages: v2.1.18 待编译后 deploy
+- 预览: https://lingoo12138.github.io/english-app/
+
+### 关键经验
+
+- **测试全过 ≠ 正确** (W137 e2e 假阳性, W138 e2e 假阴性)
+- **e2e 必须真测** (test hook + 真实 IO), 不能 roundtrip
+- **主人 owner-self-verify 兜底** sub-agent timeout
+
+---
+
 ## [v2.1.x 全段] - 2026-08-08 → 2026-08-09
 
 ### 21 周完整时间线 (W112-W131)
