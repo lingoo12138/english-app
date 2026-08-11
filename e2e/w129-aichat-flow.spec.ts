@@ -15,6 +15,8 @@
 // - 验证 mock AI 响应内容 (5 个 mock 之一)
 
 import { test, expect, type Page } from '@playwright/test'
+// W139: IDB reset helper (避免跨 spec IDB 状态污染, 见 W138 审查报告)
+import { resetIDB } from './w129-helpers'
 
 const BASE = 'http://127.0.0.1:4173/english-app'
 
@@ -62,8 +64,9 @@ async function clearChats(page: Page) {
   return page.evaluate(() => {
     return new Promise<void>((resolve) => {
       try {
-        // 用 Dexie 已知最新 version 9, 否则 IDB 会用 v1 创建 (无 chats store)
-        const req = indexedDB.open('EnglishAppDB', 9)
+        // W139: Dexie 4 把 schema version * 10 当 IDB version (schema v9 → IDB v90)
+        // 不指定 version, 用现有 IDB version (避免 VersionError)
+        const req = indexedDB.open('EnglishAppDB')
         req.onerror = () => { console.error('open err', req.error); resolve() /* 继续, 不阻塞 test */ }
         req.onsuccess = () => {
           const db = req.result
@@ -98,7 +101,8 @@ async function readChats(page: Page) {
   return page.evaluate(() => {
     return new Promise<Array<{ id: number; title: string; messages: Array<{ role: string; content: string }>; scenario: string; level: string }>>((resolve) => {
       try {
-        const req = indexedDB.open('EnglishAppDB', 9)
+        // W139: Dexie 4 把 schema version * 10 当 IDB version — 用现有 IDB version
+        const req = indexedDB.open('EnglishAppDB')
         req.onerror = () => resolve([])
         req.onsuccess = () => {
           const db = req.result
@@ -111,14 +115,16 @@ async function readChats(page: Page) {
           const store = tx.objectStore('chats')
           const all: Array<{ id: number; title: string; messages: Array<{ role: string; content: string }>; scenario: string; level: string }> = []
           store.openCursor().onsuccess = (e) => {
-            const cursor = (e.target as IDBCursor).value
+            // W139: IDBRequest.result (not .value) 是 IDBCursor; 记录在 cursor.value
+            const cursor = (e.target as IDBRequest<IDBCursor>).result
             if (cursor) {
+              const v = cursor.value as { id?: number; title: string; messages: Array<{ role: string; content: string }>; scenario: string; level: string }
               all.push({
-                id: cursor.id,
-                title: cursor.title,
-                messages: cursor.messages,
-                scenario: cursor.scenario,
-                level: cursor.level,
+                id: (cursor.key as number) ?? v.id ?? 0,
+                title: v.title,
+                messages: v.messages,
+                scenario: v.scenario,
+                level: v.level,
               })
               cursor.continue()
             } else {
@@ -126,6 +132,7 @@ async function readChats(page: Page) {
               resolve(all)
             }
           }
+          tx.onerror = () => { db.close(); resolve([]) }
         }
         setTimeout(() => resolve([]), 5000)
       } catch (e) {
@@ -136,6 +143,12 @@ async function readChats(page: Page) {
 }
 
 test.describe('W129 AI 对话 跨页面流程 (桌面)', () => {
+  test.beforeEach(async ({ page }) => {
+    // W139: 进首页 reset IDB 防止跨 spec 状态污染
+    await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' })
+    await resetIDB(page)
+  })
+
   test('/chat → 输入消息 → Mock AI 响应 → 消息列表 + IDB', async ({ page }) => {
     test.setTimeout(60000)
     // W132 P0-10 修复: 监听器 BEFORE any navigation
@@ -196,8 +209,8 @@ test.describe('W129 AI 对话 跨页面流程 (桌面)', () => {
     expect(aiReplyVisible || '').toMatch(/Got it!|I see!|Great point!|interesting|understand|Mocked|mock reply/i)
 
     // 7. W132 P0-9 修复: IDB chats 表 强验证 — 至少 1 条记录, 包含 user + assistant messages
-    // 给 IDB 异步写入 200ms 缓冲
-    await page.waitForTimeout(300)
+    // W139: AIChat useEffect 防抖 500ms, 需 800ms 等待 (500 debounce + 300 buffer)
+    await page.waitForTimeout(800)
     const chats = await readChats(page)
     // debug: 详细检查
     if (chats.length === 0) {
@@ -213,9 +226,11 @@ test.describe('W129 AI 对话 跨页面流程 (桌面)', () => {
               const store = tx.objectStore('chats')
               const all: any[] = []
               store.openCursor().onsuccess = (e) => {
-                const cursor = (e.target as IDBCursor).value
+                // W139: IDBRequest.result 是 cursor, 记录在 cursor.value
+                const cursor = (e.target as IDBRequest<IDBCursor>).result
                 if (cursor) {
-                  all.push({ id: cursor.id, title: cursor.title, msgCount: cursor.messages?.length })
+                  const v: any = cursor.value
+                  all.push({ id: cursor.key, title: v?.title, msgCount: Array.isArray(v?.messages) ? v.messages.length : 0 })
                   cursor.continue()
                 } else {
                   db.close()

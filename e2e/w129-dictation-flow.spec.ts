@@ -13,6 +13,8 @@
 // - waitForTimeout 500/1000ms 改 waitForSelector
 
 import { test, expect, type Page } from '@playwright/test'
+// W139: IDB reset helper (避免跨 spec IDB 状态污染, 见 W138 审查报告)
+import { resetIDB } from './w129-helpers'
 
 const BASE = 'http://127.0.0.1:4173/english-app'
 
@@ -43,27 +45,37 @@ async function readDictationErrors(page: Page) {
         const store = tx.objectStore('dictationErrors')
         const all: Array<{ id?: number; wordId: string; source: string; score: number; target: string; transcript: string }> = []
         store.openCursor().onsuccess = (e) => {
-          const cursor = (e.target as IDBCursor).value
+          // W139: IDBRequest.result (not .value) 是 IDBCursor; 记录在 cursor.value
+          const cursor = (e.target as IDBRequest<IDBCursor>).result
           if (cursor) {
+            const v = cursor.value as { wordId: string; source: string; score: number; target: string; transcript: string }
             all.push({
-              id: cursor.id,
-              wordId: cursor.wordId,
-              source: cursor.source,
-              score: cursor.score,
-              target: cursor.target,
-              transcript: cursor.transcript,
+              id: cursor.key as number,
+              wordId: v.wordId,
+              source: v.source,
+              score: v.score,
+              target: v.target,
+              transcript: v.transcript,
             })
             cursor.continue()
           } else {
+            db.close()
             resolve(all)
           }
         }
+        tx.onerror = () => { db.close(); reject(tx.error) }
       }
     })
   })
 }
 
 test.describe('W129 听写 跨页面流程 (桌面)', () => {
+  test.beforeEach(async ({ page }) => {
+    // W139: 进首页 reset IDB 防止跨 spec 状态污染
+    await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' })
+    await resetIDB(page)
+  })
+
   test('主页 → /dictation → 答 5 题 → 检查错题 IDB', async ({ page }) => {
     test.setTimeout(90000)
     // 0. 主页打开 + 清空 dictationErrors

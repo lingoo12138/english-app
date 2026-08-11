@@ -13,6 +13,8 @@
 // - waitForTimeout 2000/500 改 waitForSelector
 
 import { test, expect, type Page } from '@playwright/test'
+// W139: IDB reset helper (避免跨 spec IDB 状态污染, 见 W138 审查报告)
+import { resetIDB } from './w129-helpers'
 
 const BASE = 'http://127.0.0.1:4173/english-app'
 
@@ -84,6 +86,12 @@ async function getFirstWord(page: Page): Promise<{ id: string; word: string } | 
 }
 
 test.describe('W129 释义收藏 + 跨词搜索 跨页面流程 (桌面)', () => {
+  test.beforeEach(async ({ page }) => {
+    // W139: 进首页 reset IDB 防止跨 spec 状态污染
+    await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' })
+    await resetIDB(page)
+  })
+
   test('主页 → /words → 注入收藏 → /translation-favs → 跨词搜索', async ({ page }) => {
     test.setTimeout(90000)
     // 0. 主页打开 + 清 translationFavs
@@ -123,8 +131,8 @@ test.describe('W129 释义收藏 + 跨词搜索 跨页面流程 (桌面)', () =>
     // 4. 跨词搜索: 勾选 全词库 checkbox
     const crossCheckbox = page.locator('input[type="checkbox"]').first()
     await crossCheckbox.check()
-    // W132 P1-11: 等 跨词搜索 标题出现, 不用 500ms
-    await page.waitForSelector('text=跨词搜索', { timeout: 5000 })
+    // W139: '跨词搜索' 标题只在输入后才出现, 改等搜索 input 可见
+    await page.waitForSelector('input[placeholder*="搜索词名"]', { timeout: 5000 })
 
     // 5. 搜 firstWord 名字 (跨词库)
     const searchInput = page.locator('input[placeholder*="搜索词名"]').first()
