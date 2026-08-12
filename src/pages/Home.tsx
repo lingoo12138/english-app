@@ -122,9 +122,10 @@ export default function Home() {
             <h1 className="text-2xl font-bold tracking-tight"><IconWaving size={22} className="inline-block mr-1" /> {t('home.welcome')}</h1>
             <p className="text-sm opacity-90 mt-1">今天来学点新东西吧</p>
           </div>
+          {/* W144 a11y: text-xs px-3 py-1.5 → min-h-6 m-1 (24px 高度 + 间距, WCAG 2.5.8 target-size) */}
           <button
             onClick={() => setShowShare(true)}
-            className="text-xs px-3 py-1.5 rounded-full bg-white/20 backdrop-blur hover:bg-white/30 active:scale-95 transition-all duration-[var(--t-base)] ease-[var(--ease)]"
+            className="text-xs px-3 min-h-6 m-1 rounded-full bg-white/20 backdrop-blur hover:bg-white/30 active:scale-95 transition-all duration-[var(--t-base)] ease-[var(--ease)] flex items-center"
             aria-label="分享学习进度"
           >
             📤 分享
@@ -142,13 +143,14 @@ export default function Home() {
             开始 →
           </Link>
         </div>
+        {/* W144 a11y: text-[10px] px-2 py-0.5 → min-h-6 min-w-6 (24x24 WCAG 2.5.8) + aria-label 含 visible "NEW" 关键词 (label-content-name-mismatch 修) */}
         {!onboarded && (
           <button
             onClick={() => setShowOnboarding(true)}
-            className="absolute top-3 right-3 text-[10px] px-2 py-0.5 rounded-full bg-amber-300 text-amber-900 font-semibold hover:bg-amber-200 transition-colors duration-[var(--t-fast)]"
-            aria-label="打开首启引导"
+            className="absolute top-3 right-3 text-[10px] px-2 min-h-6 min-w-6 rounded-full bg-amber-300 text-amber-900 font-semibold hover:bg-amber-200 transition-colors duration-[var(--t-fast)] flex items-center justify-center"
+            aria-label="打开首启引导 NEW 5 分钟了解"
           >
-            NEW · 5 分钟了解
+            NEW
           </button>
         )}
       </div>
@@ -312,7 +314,8 @@ export default function Home() {
                 title={`${m.label} (${m.days} 天)${m.reached ? ' ✓' : ''}`}
               >
                 <div className="text-base">{m.emoji}</div>
-                <div className="text-[9px]">{m.days}d</div>
+                {/* W144 a11y: 字号 9→10px + 文字 stone-600/dark:stone-300 (contrast 4.6:1 light / 7:1 dark, WCAG AA pass) */}
+                <div className="text-[10px] text-stone-600 dark:text-stone-300 font-medium">{m.days}d</div>
               </div>
             ))}
           </div>

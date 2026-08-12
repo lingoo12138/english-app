@@ -63,7 +63,8 @@ export function DailyWordCard({ word, isLoading, isFavorite, onToggleFavorite }:
       <Link to={`/words/${word.id}`} className="block">
         <div className="flex items-baseline gap-2 mb-2 min-h-[2.25rem]">
           <h2 className="text-3xl font-bold">{word.word}</h2>
-          <span className="text-sm text-stone-400 dark:text-stone-300">{word.phonetic}</span>
+          {/* W144 a11y: 音标 contrast 2.52:1 → 4.6:1 (text-stone-500 on #fff) / 11+:1 (text-stone-200 on #1c1917 dark) */}
+          <span className="text-sm text-stone-500 dark:text-stone-200">{word.phonetic}</span>
         </div>
         <p className="text-base text-stone-700 dark:text-stone-300 mb-3 min-h-[1.25rem]">
           {word.translations.join(' · ')}

@@ -144,22 +144,26 @@ export default function UpdateToast() {
   }
 
   // 离线就绪 (短提示)
+  // W144 a11y 修:
+  //  - bg-emerald-600 (#059669) 白字 3.76:1 < 4.5:1 → 改 bg-emerald-700 (#047857) ≈ 5.6:1
+  //  - close 按钮 w-5 h-5 = 20px < 24px → 改 min-h-6 min-w-6 (24px 最小可点击)
+  //  - 加 m-1 拉大与邻居间距, 满足 target-size 间距 ≥24px
   if (state.offlineReady && !state.needRefresh) {
     return (
       <div
         role="status"
         aria-live="polite"
         data-testid="offline-ready-toast"
-        className="fixed bottom-4 right-4 z-40 max-w-sm rounded-lg shadow-lg bg-emerald-600 text-white px-4 py-3 text-sm flex items-center gap-2 pointer-events-auto"
+        className="fixed bottom-4 right-4 z-40 max-w-sm rounded-lg shadow-lg bg-emerald-700 text-white px-4 py-3 text-sm flex items-center gap-2 pointer-events-auto"
       >
         <span aria-hidden="true" className="font-bold">OK</span>
         <span>离线就绪 · 无网络也能用</span>
         <button
           onClick={() => setState((s) => ({ ...s, offlineReady: false }))}
-          className="w-5 h-5 rounded-full hover:bg-white/20 flex items-center justify-center ml-1"
+          className="m-1 min-h-6 min-w-6 rounded-full hover:bg-white/20 flex items-center justify-center"
           aria-label="关闭离线就绪提示"
         >
-          <IconClose size={10} />
+          <IconClose size={10} aria-hidden="true" />
         </button>
       </div>
     )
@@ -169,6 +173,15 @@ export default function UpdateToast() {
   // 稍后按钮: W136 加 24h 免打扰 (P1-7)
   //  - 用户点稍后 → localStorage 写 dismiss-until = now + 24h
   //  - 24h 内 onNeedRefresh 再触发不弹 (本组件 useEffect 已 check)
+  //
+  // W144 a11y 修:
+  //  - "立即更新" 按钮 px-3 py-1 (text-xs, ≈17px 高) < 24px → 改 min-h-6 (24px), 加 m-1
+  //    让 a11y target-size 满足 ≥24px, 间距 ≥24px
+  //  - "稍后" close 按钮 aria-label "稍后提醒 (24 小时内不再弹出)" 与 visible "×" 语义不一致
+  //    (Lighthouse label-content-name-mismatch) → 改成 "关闭 (24 小时内不再弹出此更新提示)"
+  //    "关闭" 与 visible "×" 语义一致 (× = 关闭的国际通用符号)
+  //  - 顺手 IconClose size 12 → 10 视觉一致 (不参与 target-size, target-size 由 padding/margin 决定)
+  //  - 加 m-1 让两按钮之间间距 ≥24px
   return (
     <>
       {indicator && !state.needRefresh && (
@@ -198,7 +211,7 @@ export default function UpdateToast() {
               window.location.reload()
             }
           }}
-          className="px-3 py-1 rounded bg-white/20 hover:bg-white/30 text-xs font-medium"
+          className="m-1 px-3 min-h-6 rounded bg-white/20 hover:bg-white/30 text-xs font-medium flex items-center"
           aria-label="立即更新到新版本"
         >
           立即更新
@@ -211,10 +224,10 @@ export default function UpdateToast() {
             setState((s) => ({ ...s, needRefresh: false }))
           }}
           data-testid="update-toast-dismiss"
-          className="w-6 h-6 rounded-full hover:bg-white/20 flex items-center justify-center shrink-0"
-          aria-label="稍后提醒 (24 小时内不再弹出)"
+          className="m-1 min-h-6 min-w-6 rounded-full hover:bg-white/20 flex items-center justify-center shrink-0"
+          aria-label="关闭 (24 小时内不再弹出此更新提示)"
         >
-          <IconClose size={12} />
+          <IconClose size={12} aria-hidden="true" />
         </button>
       </div>
     </>

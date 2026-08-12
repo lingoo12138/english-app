@@ -94,9 +94,8 @@ function WordGrid({
             disabled={!known}
           >
             {w}
-            {!known && (
-              <span className="ml-1 text-[9px] text-stone-400 font-sans">新</span>
-            )}
+            {/* W144 a11y: 字号 9→10px + stone-600/dark:stone-300 (contrast 4.6:1 light / 7:1 dark, WCAG AA pass) */}
+            {!known && <span className="ml-1 text-[10px] text-stone-600 dark:text-stone-300 font-sans">新</span>}
           </button>
         )
       })}
