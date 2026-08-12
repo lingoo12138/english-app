@@ -10,3 +10,4 @@ data-sources/
 test-results/
 .worktree-gh-pages/
 .mavis/plans/
+.lighthouseci/

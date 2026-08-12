@@ -4,6 +4,8 @@ import Dexie, { type Table } from 'dexie'
 import { addXP, XP_REWARDS } from './xpSystem'
 // W128: 跨 tab IDB 同步 (动态 import 避免循环依赖 + 启动期不能弹 UI)
 import { notifyIdbWrite } from './idbSync'
+// W142: 收藏走 IDB 写 Worker (高频写点, 主线程不阻塞)
+import { writePut } from './idbWorkerClient'
 import type { Favorite, LearnRecord, ReviewItem, PronunciationAttempt } from '../types'
 
 // v1.0: export 供 migrate.ts 等使用
@@ -373,9 +375,12 @@ function handleDbError(e: unknown, context: string): never {
 }
 
 // 收藏
+// W142: 改走 IDB 写 Worker (主线程不阻塞, Worker 不可用时 fallback 主线程)
+// 注意: 用 writePut 而非 writeAdd — 原代码用 db.favorites.put (覆盖), 改为 add 会破坏
+// "重复收藏同一 wordId 不抛错" 的业务语义 (put 覆盖 / add 冲突报错)
 export async function addFavorite(wordId: string) {
   try {
-    await db.favorites.put({ wordId, addedAt: Date.now() })
+    await writePut('favorites', { wordId, addedAt: Date.now() })
   } catch (e) {
     handleDbError(e, '添加收藏')
   }
