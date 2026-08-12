@@ -11,7 +11,7 @@ import { ShareModal } from '../components/ShareModal'
 import { IconWaving, IconTrophy, IconBarChart, IconEdit, IconCalendar, IconVideo, IconChat, IconHeadphones, IconStar } from '../components/Icon'
 import { loadAchievementStats, getUnlockedCount, getNextAchievement } from '../lib/achievements'
 import { getTodaySentence } from '../lib/daily'
-import { loadWords } from '../lib/words'
+import { loadWords, loadWordsByLetter } from '../lib/words'
 import type { Word, DailySentence } from '../types'
 import { useStats, useStore } from '../store/useStore'
 import { isFavorite, addFavorite, removeFavorite } from '../lib/db'
@@ -55,15 +55,25 @@ export default function Home() {
     setSentence(getTodaySentence())
     // W143: 加载开始时重置 wordLoading=true (targetLevel 切换时重新走 Skeleton)
     setWordLoading(true)
-    loadWords().then((words) => {
-      // 修复: 每日一词用日期 + targetLevel 确定性选择(同一天同一个词)
-      const filtered = targetLevel === 'all' ? words : words.filter(w => w.level === targetLevel)
-      const candidates = filtered.length > 0 ? filtered : words
-      const today = new Date().toISOString().slice(0, 10)  // 'YYYY-MM-DD'
-      const seed = today.split('').reduce((a, c) => a + c.charCodeAt(0), 0)
-      const idx = seed % candidates.length
-      setWordOfDay(candidates[idx])
-      // W143: loadWords 完成 → 关闭 Skeleton, 真实数据替换
+    // W145: 每日一词改按需加载 — 1 fetch ~196KB (单 chunk) vs 6.3MB 全量
+    // 1. 用 date + targetLevel seed 选 1 个 first_letter
+    // 2. fetch 那个 letter 的 chunk (~196KB)
+    // 3. chunk 内按 seed 选 1 个 word
+    const today = new Date().toISOString().slice(0, 10)  // 'YYYY-MM-DD'
+    const seed = today.split('').reduce((a, c) => a + c.charCodeAt(0), 0)
+    // 25 个字母 (a-z 不含 x), seed 选 1 个
+    const letters = 'abcdefghijklmnopqrstuvwyz'
+    const letter = letters[seed % letters.length]
+    loadWordsByLetter(letter).then((chunk) => {
+      // 按 targetLevel 筛 (chunk 通常是同字母全 level, 可能 0 命中)
+      const filtered = targetLevel === 'all' ? chunk : chunk.filter(w => w.level === targetLevel)
+      const candidates = filtered.length > 0 ? filtered : chunk
+      if (candidates.length > 0) {
+        const idx = seed % candidates.length
+        setWordOfDay(candidates[idx])
+      }
+      // W143: loadWordsByLetter 完成 → 关闭 Skeleton, 真实数据替换
+      // 注意: 即使 chunk 为空也要关闭 loading, 否则永远 skeleton
       setWordLoading(false)
     })
     // 获取待复习数量

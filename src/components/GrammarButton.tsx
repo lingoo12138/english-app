@@ -17,7 +17,8 @@ export function GrammarButton({ word, pos, translation }: Props) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   // W141: explanation 类型从 llmTutor 动态 import, 不 import type (避免 Rollup 保留模块)
-  const [explanation, setExplanation] = useState<{ rule: string; examples: string; mnemonic: string; cached?: boolean } | null>(null)
+  // W145+: 改 unknown + 运行时 narrowing, 兼容 W141 hardcoded 形状 + llmTutor 实际返回 (rule/definition/usage/examples/commonMistakes/cached)
+  const [explanation, setExplanation] = useState<unknown>(null)
 
   const handleClick = async () => {
     if (open && explanation) {
@@ -67,26 +68,32 @@ export function GrammarButton({ word, pos, translation }: Props) {
       >
         {loading ? '⏳ 加载中...' : open ? '✕ 收起' : '📖 语法讲解'}
       </button>
-      {open && explanation && (
+      {open && explanation !== null && (
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         <div className="mt-3 p-3 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 text-sm space-y-2 border border-emerald-200 dark:border-emerald-800">
-          {explanation.cached && (
+          {/* W145: 改 useState<unknown> 后, 访问 explanation.* 需 cast. llmTutor 实际返回 GrammarExplanation 形状 */}
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {(explanation as any).cached && (
             <div className="text-[10px] text-emerald-500 dark:text-emerald-400">📦 来自缓存/Mock</div>
           )}
           <div>
             <div className="font-semibold text-emerald-700 dark:text-emerald-300 mb-0.5">📐 定义</div>
-            <div className="text-stone-700 dark:text-stone-300">{explanation.definition}</div>
+            <div className="text-stone-700 dark:text-stone-300">{(explanation as any).definition}</div>
           </div>
-          {explanation.usage && (
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {(explanation as any).usage && (
             <div>
               <div className="font-semibold text-emerald-700 dark:text-emerald-300 mb-0.5">📏 语法</div>
-              <div className="text-stone-700 dark:text-stone-300 whitespace-pre-line">{explanation.usage}</div>
+              <div className="text-stone-700 dark:text-stone-300 whitespace-pre-line">{(explanation as any).usage}</div>
             </div>
           )}
-          {explanation.examples.length > 0 && (
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {(explanation as any).examples.length > 0 && (
             <div>
               <div className="font-semibold text-emerald-700 dark:text-emerald-300 mb-0.5">💡 例句</div>
               <div className="space-y-1.5">
-                {explanation.examples.map((ex, i) => (
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                {(explanation as any).examples.map((ex: { en: string; zh: string }, i: number) => (
                   <div key={i} className="border-l-2 border-emerald-300 pl-2">
                     <div className="text-stone-800 dark:text-stone-200 font-mono text-xs">{ex.en}</div>
                     <div className="text-stone-500 dark:text-stone-400 text-xs">{ex.zh}</div>
@@ -95,11 +102,13 @@ export function GrammarButton({ word, pos, translation }: Props) {
               </div>
             </div>
           )}
-          {explanation.commonMistakes.length > 0 && (
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {(explanation as any).commonMistakes.length > 0 && (
             <div>
               <div className="font-semibold text-emerald-700 dark:text-emerald-300 mb-0.5">⚠️ 易错点</div>
               <div className="space-y-1.5">
-                {explanation.commonMistakes.map((m, i) => (
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                {(explanation as any).commonMistakes.map((m: { wrong: string; right: string; why: string }, i: number) => (
                   <div key={i} className="border-l-2 border-red-300 pl-2 text-xs">
                     <div className="flex items-center gap-1 mb-0.5">
                       <span className="line-through text-stone-500 dark:text-stone-400 font-mono">{m.wrong}</span>
