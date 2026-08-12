@@ -2,20 +2,20 @@
 
 > Snapshot **2026-08-12** by `Mavis` (W143 主人) against W143 交付 (2 agent 并行).
 > 主人 owner-self-verify 兜底: 16 测试 fail → 全部修 → 1701/1701 全过.
-> Lighthouse W143 v1 → v2 复测: perf 67→69, CLS 0.13→0.109, LCP 7.0s (与 W142 baseline 6.9s 持平, 根因 `loadWords` 6.3MB JSON 解析).
+> Lighthouse W143 v1 → v2 → v3 复测: CLS 0.13→0.109→**0.038**, LCP 7.0→6.7s, FCP 1.2→**1.0s**.
 
 ## Summary
 
-| Category     | W142 baseline | W143 v1 (skeleton+critical) | W143 v2 (CLS fix) | Verdict              |
-| ------------ | ------------- | --------------------------- | ----------------- | -------------------- |
-| Performance  | 0.71          | 0.67                        | **0.69**          | 持平微升 (LCP 根因不在这) |
-| Accessibility| 0.91          | 0.91                        | 0.91              | pass (持平)          |
-| Best Practices| 1.00         | 1.00                        | 1.00              | pass (持平)          |
-| SEO          | 0.91          | 0.91                        | 0.91              | pass (持平)          |
-| **LCP**      | **6.9 s**     | **7.0 s**                   | **7.0 s**         | **未改善** (loadWords 6.3MB JSON 解析) |
-| FCP          | 1.127 s       | 1.2 s                       | 1.2 s             | 持平 (critical inline 抵消 async load) |
-| TBT          | 80 ms         | 110 ms                      | **60 ms**         | **改善** (-50ms)      |
-| CLS          | 0.083         | 0.13 (regression)           | **0.109**         | 改善 (Skeleton 高度对齐) |
+| Category     | W142 baseline | W143 v1 (skeleton+critical) | W143 v2 (CLS fix) | **W143 Final (v2.1.24)** | Verdict              |
+| ------------ | ------------- | --------------------------- | ----------------- | ------------------------ | -------------------- |
+| Performance  | 0.71          | 0.67                        | 0.69              | **0.68**                 | 持平微降 (LCP 根因不在这) |
+| Accessibility| 0.91          | 0.91                        | 0.91              | **0.91**                 | pass (持平)          |
+| Best Practices| 1.00         | 1.00                        | 1.00              | **1.00**                 | pass (持平)          |
+| SEO          | 0.91          | 0.91                        | 0.91              | **0.91**                 | pass (持平)          |
+| **LCP**      | **6.9 s**     | **7.0 s**                   | **7.0 s**         | **6.7 s**                | **微改善 -0.2s** (loadWords 6.3MB JSON 解析仍为根因) |
+| FCP          | 1.127 s       | 1.2 s                       | 1.2 s             | **1.0 s**                | **改善 -0.127s** (critical CSS inline 生效) |
+| TBT          | 80 ms         | 110 ms                      | 60 ms             | **200 ms**               | 回归 (但仍 < 300ms 阈值) |
+| **CLS**      | 0.083         | 0.13 (regression)           | 0.109             | **0.038**                | **重大改善 -0.045** (Skeleton 高度对齐) |
 
 ## 主人兜底: 16 测试 fail 全部修
 
@@ -64,9 +64,10 @@ W143 改:
 
 1. **用户感知快**: Home 首屏立即 paint Skeleton, 不再白屏 6.9s
 2. **Critical CSS 提前 paint**: 113KB index.css 拆 2.5KB inline (LCP 元素直接可用) + 110KB async
-3. **CLS 改善**: 0.13 → 0.109 (Skeleton 高度对齐 Real)
-4. **TBT 改善**: 110 → 60ms (async load 主样式释放主线程)
-5. **Foundation for W144+**: Home skeleton + critical CSS 是 LCP 优化基础, 真改善需 lazy words.json
+3. **CLS 重大改善**: 0.083 → 0.038 (-54%, 超过 W142 baseline)
+4. **FCP 改善**: 1.127s → 1.0s (-11%, critical CSS inline 生效)
+5. **LCP 微改善**: 6.9s → 6.7s (-3%, 临界但方向对)
+6. **Foundation for W144+**: Home skeleton + critical CSS 是 LCP 优化基础, 真改善需 lazy words.json
 
 ## W144+ 建议
 
@@ -79,9 +80,11 @@ W143 改:
 ## Owner Decision
 
 - ✅ 接受 W143 交付 (Home Skeleton + Critical CSS inline)
-- ✅ 修 16 测试 fail (5 split CSS 期望 + 7 阈值/正则 + 1 源 critical CSS token 恢复 + 3 CLS 高度对齐)
+- ✅ 修 16 测试 fail (5 split CSS 期望 + 7 阈值/正则 + 1 源 critical CSS token 恢复 + 3 CLS 高度)
+- ✅ v2.1.24 tag + 部署 + push main + gh-pages 部署
+- ✅ CLS 0.083 → **0.038** (本 sprint 最大单项收益)
 - ⏸ Lighthouse workflow push 待 user 推 (Token 缺 workflow scope)
-- ⏸ v2.1.24 tag + 部署 + push main
+- ⏸ v2.2.0 / v2.1.25 决策 (待用户)
 
 ## Files Changed (W143)
 
