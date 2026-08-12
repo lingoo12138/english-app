@@ -4,7 +4,8 @@ import { readFileSync } from 'fs'
 import { existsSync } from 'fs'
 
 describe('W117 字 体 升 级 (Outfit + JetBrains Mono)', () => {
-  const css = readFileSync('src/index.css', 'utf-8')
+  // W143: critical CSS inline 拆出 — 检查 index.critical.css + index.css
+  const css = readFileSync('src/index.critical.css', 'utf-8') + '\n' + readFileSync('src/index.css', 'utf-8')
   const main = readFileSync('src/main.tsx', 'utf-8')
   const tailwind = readFileSync('tailwind.config.js', 'utf-8')
   const wordCard = readFileSync('src/components/WordCard.tsx', 'utf-8')
@@ -40,8 +41,8 @@ describe('W117 字 体 升 级 (Outfit + JetBrains Mono)', () => {
 
   it('index.css body font-feature-settings tnum 启 用 (数 字 等 宽)', () => {
     // 业 务: 统 计 卡 数 字 对 齐
-    expect(css).toMatch(/font-feature-settings: "tnum" 1, "lnum" 1/)
-    expect(css).toMatch(/font-variant-numeric: tabular-nums lining-nums/)
+    expect(css).toMatch(/font-feature-settings:.*tnum.*lnum/)
+    expect(css).toMatch(/font-variant-numeric:.*tabular-nums.*lining-nums/)
   })
 
   it('tailwind.config.js fontFamily.sans 含 Outfit', () => {

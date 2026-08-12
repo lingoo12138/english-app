@@ -16,26 +16,27 @@ vi.mock('../src/lib/plan', () => ({
 }))
 
 describe('v2.1.0 UI 改 良 验证', () => {
+  // W143: critical CSS inline 拆出 — 检查 index.critical.css (新建, 含首屏关键) + index.css (其余)
+  const criticalCss = readFileSync('src/index.critical.css', 'utf-8')
+  const allCss = criticalCss + '\n' + readFileSync('src/index.css', 'utf-8')
+
   describe('A1: motion token (CSS 变量)', () => {
-    it('index.css 含 motion token (--t-fast/--t-base/--t-slow/--ease)', () => {
-      const css = readFileSync('src/index.css', 'utf-8')
-      expect(css).toMatch(/--t-fast:\s*150ms/)
-      expect(css).toMatch(/--t-base:\s*200ms/)
-      expect(css).toMatch(/--t-slow:\s*300ms/)
-      expect(css).toMatch(/--ease:\s*cubic-bezier\(0\.2,\s*0\.8,\s*0\.2,\s*1\)/)
+    it('index.critical.css / index.css 含 motion token (--t-fast/--t-base/--t-slow/--ease)', () => {
+      expect(allCss).toMatch(/--t-fast:\s*150ms/)
+      expect(allCss).toMatch(/--t-base:\s*200ms/)
+      expect(allCss).toMatch(/--t-slow:\s*300ms/)
+      expect(allCss).toMatch(/--ease:\s*cubic-bezier\(0\.2,\s*0\.8,\s*0\.2,\s*1\)/)
     })
 
     it('状 态 色 3 强调 色 (success/warning/error)', () => {
-      const css = readFileSync('src/index.css', 'utf-8')
-      expect(css).toMatch(/--state-success:\s*#10b981/)
-      expect(css).toMatch(/--state-warning:\s*#f59e0b/)
-      expect(css).toMatch(/--state-error:\s*#f43f5e/)
+      expect(allCss).toMatch(/--state-success:\s*#10b981/)
+      expect(allCss).toMatch(/--state-warning:\s*#f59e0b/)
+      expect(allCss).toMatch(/--state-error:\s*#f43f5e/)
     })
 
     it('柔 浮 阴 影 token (--shadow-soft/--shadow-hover)', () => {
-      const css = readFileSync('src/index.css', 'utf-8')
-      expect(css).toMatch(/--shadow-soft:/)
-      expect(css).toMatch(/--shadow-hover:/)
+      expect(allCss).toMatch(/--shadow-soft:/)
+      expect(allCss).toMatch(/--shadow-hover:/)
     })
   })
 
@@ -47,13 +48,11 @@ describe('v2.1.0 UI 改 良 验证', () => {
     })
 
     it('.card-interactive 类 添 加 hover -translate-y-0.5', () => {
-      const css = readFileSync('src/index.css', 'utf-8')
-      expect(css).toMatch(/\.card-interactive\s*\{[^}]*hover:-translate-y-0\.5/)
+      expect(allCss).toMatch(/\.card-interactive\s*\{[^}]*hover:-translate-y-0\.5/)
     })
 
     it('.btn 改 用 motion token (duration/ease)', () => {
-      const css = readFileSync('src/index.css', 'utf-8')
-      expect(css).toMatch(/\.btn\s*\{[^}]*duration-\[var\(--t-base\)\][^}]*ease-\[var\(--ease\)\]/)
+      expect(allCss).toMatch(/\.btn\s*\{[^}]*duration-\[var\(--t-base\)\][^}]*ease-\[var\(--ease\)\]/)
     })
   })
 

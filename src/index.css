@@ -2,58 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 主题色变量(默认绿色) */
-:root {
-  --brand-50: 240 253 244;
-  --brand-100: 220 252 231;
-  --brand-200: 187 247 208;
-  --brand-300: 134 239 172;
-  --brand-400: 74 222 128;
-  --brand-500: 34 197 94;
-  --brand-600: 22 163 74;
-  --brand-700: 21 128 61;
-  --brand-800: 22 101 52;
-  --brand-900: 20 83 29;
+/* W143: 主题色变量 / 字号 / motion / shadow token / safe-area / html+body 基础样式 /
+ *      scrollbar / .card / .btn / .btn-primary 已移至 src/index.critical.css
+ *      (inline 到 index.html <style>, 异步加载之前先 paint).
+ *      这里保留 .card-interactive (@apply card), .btn-ghost (@apply btn), .input 等
+ *      依赖 .card / .btn 的派生类, 不可移除. */
 
-  /* 字号(默认中) */
-  --base-font-size: 16px;
-
-  /* v2.1.0 motion token (改 良 稿 落 地) */
-  --t-fast: 150ms;
-  --t-base: 200ms;
-  --t-slow: 300ms;
-  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  /* v2.1.0 状态 色 (3 强调 色 替 5 渐 变) */
-  --state-success: #10b981;
-  --state-warning: #f59e0b;
-  --state-error: #f43f5e;
-  /* v2.1.0 柔 浮 阴 影 token */
-  --shadow-soft: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px -2px rgba(0,0,0,0.06);
-  --shadow-hover: 0 2px 4px rgba(0,0,0,0.04), 0 8px 24px -6px rgba(0,0,0,0.1);
-}
-
-@layer base {
-  html, body, #root {
-    height: 100%;
-  }
-  html {
-    font-size: var(--base-font-size);
-  }
-  body {
-    @apply bg-stone-50 text-stone-900 antialiased;
-    -webkit-tap-highlight-color: transparent;
-    /* W117: Outfit (主, 几何 sans) + JetBrains Mono (辅, 音标) + 中文系统栈 fallback */
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    /* 数字 tnum 等宽 + lnum 衬线 (统计卡对齐) */
-    font-feature-settings: "tnum" 1, "lnum" 1;
-    font-variant-numeric: tabular-nums lining-nums;
-  }
-  .dark body {
-    @apply bg-stone-900 text-stone-100;
-  }
-}
-
+/* 派生类层 — .card / .btn / .btn-primary 留在 critical.css 供首屏,
+   这里只保留依赖它们的派生类 (.card-interactive, .btn-ghost, .input) */
 @layer components {
   .btn {
     @apply px-4 py-2 rounded-lg font-medium transition-all duration-[var(--t-base)] ease-[var(--ease)] active:scale-95 select-none;
@@ -89,15 +45,10 @@
   display: none;
 }
 
-/* 滚动条 - 跨 浏览器 兼容 (W103 + W107 修) */
+/* 滚动条 - 跨 浏览器 兼容 (W103 + W107 修) — Firefox 部分已移至 critical.css
+ * (W143: 首屏最小 scrollbar 已在 inline 中, 这里仅保留 webkit + 暗色覆盖) */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-thumb { @apply bg-stone-300 dark:bg-stone-600 rounded-full; }
-/* W107 修: 缩 小 到 body, aside, main, nav (避 免 隐藏 可 滚 元素 影 响) */
-body, aside, main, nav {
-  /* Firefox */
-  scrollbar-width: thin;
-  scrollbar-color: rgb(214 211 209) transparent;
-}
 .dark body, .dark aside, .dark main, .dark nav {
   scrollbar-color: rgb(87 83 78) transparent;
 }
@@ -160,13 +111,7 @@ details > summary::-webkit-details-marker {
   transform: rotateY(180deg);
 }
 
-/* W7: iOS PWA safe-area + overscroll */
-:root {
-  --sat: env(safe-area-inset-top);
-  --sab: env(safe-area-inset-bottom);
-  --sal: env(safe-area-inset-left);
-  --sar: env(safe-area-inset-right);
-}
+/* W7: iOS PWA safe-area CSS 变量 (--sat/--sab/--sal/--sar) 已移至 critical.css (W143) */
 
 /* W125 改版稿 2: 高对比度模式 (data-contrast="high") — 无 障 碍 a11y + 暗 色 强 化 */
 :root[data-contrast='high'] {

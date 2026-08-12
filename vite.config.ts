@@ -1,12 +1,71 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import { readFileSync, existsSync } from 'fs'
+import { resolve, dirname } from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+/**
+ * W143 Critical CSS Inline Plugin
+ *
+ * 目的: 113KB 主 CSS 改异步加载, inline 1-2KB critical 进 <style> 块, 加速 LCP.
+ *
+ * 行为:
+ *   1. build 时读 src/index.critical.css
+ *   2. 简单 minify (去空白/注释)
+ *   3. inline 进 <head> 的 <style> 块
+ *   4. 把主 CSS <link> 改成 `media="print" onload="this.media='all'"` 异步加载
+ *      (浏览器解析时不阻塞 render, 加载完成后切换 media 生效)
+ *
+ * 关键: order: 'post' — 必须等 Vite 把 <link rel="stylesheet"> 注入到 html 后再改,
+ *   'pre' 阶段 Vite 还没注入, replace 找不到目标.
+ */
+function inlineCriticalCss(): import('vite').Plugin {
+  return {
+    name: 'inline-critical-css',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html) {
+        const criticalPath = resolve(__dirname, 'src/index.critical.css')
+        if (!existsSync(criticalPath)) {
+          // 容错: critical.css 不存在时跳过, 不破坏 build
+          return html
+        }
+        const raw = readFileSync(criticalPath, 'utf-8')
+        // 简单 minify: 多空白 → 单空格, 去掉 /* */ 注释
+        // 不做复杂压缩 (生产环境由 gzip 处理, 重复规则代价 < 1KB)
+        const min = raw
+          .replace(/\/\*[\s\S]*?\*\//g, '') // 去注释
+          .replace(/\s+/g, ' ') // 多空白 → 单空格
+          .replace(/\s*([{}:;,])\s*/g, '$1') // 关键符号周围空白
+          .replace(/;}/g, '}') // 末位分号
+          .trim()
+        // 把 Vite 注入的 <link rel="stylesheet" ...> 改成 async-load 模式
+        // 前面插 <style>${min}</style> 提供首屏 paint
+        // 只替换第一个匹配 (全站只有 1 个主 stylesheet)
+        if (!html.includes('<link rel="stylesheet"')) {
+          // 兜底: 如果没找到 link, 把 style 插到 </head> 前
+          return html.replace('</head>', `<style>${min}</style></head>`)
+        }
+        return html.replace(
+          '<link rel="stylesheet"',
+          `<style>${min}</style><link rel="stylesheet" media="print" onload="this.media='all'"`,
+        )
+      },
+    },
+  }
+}
 
 export default defineConfig({
   // GitHub Pages 部署:仓库名 lingoo12138/english-app,base 必须带 /english-app/
   base: '/english-app/',
   plugins: [
     react(),
+    // W143: 必须先于 VitePWA 注册, 让我们 inline 早于 PWA 的 injectRegister 处理
+    //  PWA 内部也会用 transformIndexHtml, 但 order 不冲突 (默认 vs post 不会乱)
+    inlineCriticalCss(),
     VitePWA({
       registerType: 'prompt',  // W4-B P2 改: prompt 让用户主动选择更新
       injectRegister: 'auto',

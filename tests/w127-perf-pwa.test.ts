@@ -118,9 +118,11 @@ describe('W127 性能 + PWA 优化', () => {
   describe('5. dist/ 产物大小 (实测)', () => {
     // W136 P0-2: 加 4 个字体 woff2 preload, index.html 体积从 ~3KB 涨到 ~5.1KB
     // 改限制为 6KB (W127 旧 5KB 已不够, 实际 5258 字节)
-    it.skipIf(!existsSync('dist/index.html'))('dist/index.html < 6KB (W136 P0-2 加 4 字体 preload)', () => {
+    it.skipIf(!existsSync('dist/index.html'))('dist/index.html < 8KB (W143 inline critical CSS ~2.5KB + 4 字体 preload)', () => {
+      // W143: critical CSS inline 后, dist/index.html 含 <style> 块 (~2.5KB), 加上 4 字体 preload
+      // 总大小 ~7-8KB (vs 改前 4-5KB), 仍 < 8KB 阈值
       const size = statSync('dist/index.html').size
-      expect(size).toBeLessThan(6 * 1024)
+      expect(size).toBeLessThan(8 * 1024)
     })
 
     it.skipIf(!existsSync('dist/assets'))('dist/assets/index-*.js < 200KB', () => {

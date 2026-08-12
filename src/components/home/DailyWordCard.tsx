@@ -14,29 +14,36 @@ interface Props {
 
 export function DailyWordCard({ word, isLoading, isFavorite, onToggleFavorite }: Props) {
   // W143: 初始 Skeleton 占位 (LCP element 立即 paint)
-  // 原 LCP element 是 <p> 例句, 现在换成固定高度的占位 <p>, 立即可见
+  // 重要: Skeleton 和 Real 两态布局完全一致 (高度/padding/字号), 防止 CLS
   if (isLoading || !word) {
     return (
       <div className="card" aria-busy="true" aria-label="每日一词加载中">
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-3">
           <span className="text-xs px-2 py-0.5 bg-stone-100 dark:bg-stone-700 rounded-full">每日一词</span>
           <button
             disabled
             aria-label="收藏"
-            className="text-xl text-stone-300 dark:text-stone-600 cursor-not-allowed"
+            className="text-xl text-stone-300 dark:text-stone-600 cursor-not-allowed w-6 h-6"
           >
             ☆
           </button>
         </div>
-        <div className="h-7 bg-stone-200 dark:bg-stone-700 rounded animate-pulse w-1/3 mb-2" />
-        <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded animate-pulse w-2/3 mb-3" />
-        {/* LCP element: 固定高度的占位 p, 立即 paint, 真实数据 async 替换 */}
-        <p
-          className="text-sm text-stone-300 dark:text-stone-600 line-clamp-2 min-h-[2.5rem]"
-          data-testid="daily-word-skeleton-p"
-        >
-          加载每日一词例句中…
-        </p>
+        <div className="block">
+          {/* 词头行: 固定 h-9 (36px) 对应 text-3xl + line-height 2.25rem */}
+          <div className="flex items-baseline gap-2 mb-2 min-h-[2.25rem]">
+            <div className="h-7 bg-stone-200 dark:bg-stone-700 rounded animate-pulse w-1/3" />
+            <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded animate-pulse w-16" />
+          </div>
+          {/* 翻译行: 固定 min-h 24px 对应 text-base */}
+          <div className="h-5 bg-stone-200 dark:bg-stone-700 rounded animate-pulse w-2/3 mb-3" />
+          {/* LCP element: 固定 min-h 40px (2.5rem) 对应 text-sm line-clamp-2 */}
+          <p
+            className="text-sm text-stone-300 dark:text-stone-600 line-clamp-2 min-h-[2.5rem]"
+            data-testid="daily-word-skeleton-p"
+          >
+            加载每日一词例句中…
+          </p>
+        </div>
       </div>
     )
   }
@@ -47,22 +54,22 @@ export function DailyWordCard({ word, isLoading, isFavorite, onToggleFavorite }:
         <span className="text-xs px-2 py-0.5 bg-stone-100 dark:bg-stone-700 rounded-full">每日一词</span>
         <button
           onClick={onToggleFavorite}
-          className="text-xl"
+          className="text-xl w-6 h-6"
           aria-label={isFavorite ? '取消收藏' : '收藏'}
         >
           {isFavorite ? '⭐' : '☆'}
         </button>
       </div>
       <Link to={`/words/${word.id}`} className="block">
-        <div className="flex items-baseline gap-2 mb-2">
+        <div className="flex items-baseline gap-2 mb-2 min-h-[2.25rem]">
           <h2 className="text-3xl font-bold">{word.word}</h2>
           <span className="text-sm text-stone-400 dark:text-stone-300">{word.phonetic}</span>
         </div>
-        <p className="text-base text-stone-700 dark:text-stone-300 mb-3">
+        <p className="text-base text-stone-700 dark:text-stone-300 mb-3 min-h-[1.25rem]">
           {word.translations.join(' · ')}
         </p>
         <p
-          className="text-sm text-stone-500 dark:text-stone-400 line-clamp-2"
+          className="text-sm text-stone-500 dark:text-stone-400 line-clamp-2 min-h-[2.5rem]"
           data-testid="daily-word-real-p"
         >
           {word.examples[0]?.en}
