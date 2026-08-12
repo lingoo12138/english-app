@@ -1,6 +1,7 @@
 // UsageButton.tsx - v1.5-D3 单词短语用法
+// W141: 动态 import llmTutor (395 行) — 仅 click 触发, 不入 WordDetail 主页 bundle
+// W141+: 移除 type 引用, 避免 Rollup 保留 llmTutor 模块
 import { useState } from 'react'
-import { explainUsage, type UsageExplanation } from '../lib/llmTutor'
 import { getOrCreateExplanation } from '../lib/db'
 import { useStore } from '../store/useStore'
 import { BUILTIN_LLM_PROVIDERS } from '../lib/providers/llm'
@@ -14,7 +15,8 @@ interface Props {
 export function UsageButton({ word, translation }: Props) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [usage, setUsage] = useState<UsageExplanation | null>(null)
+  // W141: usage 类型从 llmTutor 动态 import, 不 import type (避免 Rollup 保留模块)
+  const [usage, setUsage] = useState<{ phrases: { phrase: string; meaning: string; example: string }[]; tip: string; cached?: boolean } | null>(null)
 
   const handleClick = async () => {
     if (open && usage) {
@@ -37,6 +39,8 @@ export function UsageButton({ word, translation }: Props) {
         return
       }
       const cached = await getOrCreateExplanation(key, async () => {
+        // W141: 动态 import — 仅当用户点 "💡 短语用法" 时才加载 llmTutor.ts (395 行)
+        const { explainUsage } = await import('../lib/llmTutor')
         const result = await explainUsage(
           provider,
           llmApiKeys[llmProviderId],

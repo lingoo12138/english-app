@@ -174,11 +174,12 @@ describe('W128 dataExport - CSV/JSON/MD 转换器', () => {
     expect(md).toContain('## Item 2')
   })
 
-  it('downloadFile: 用 Blob URL (大文件友好)', () => {
+  it('downloadFile: 用 Blob URL (大文件友好)', async () => {
+    // W141: downloadFile 改 async (动态 import dataExport)
     const createSpy = vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:mock-url')
     const revokeSpy = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {})
     const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {})
-    downloadFile('test content', 'test.txt', 'text/plain')
+    await downloadFile('test content', 'test.txt', 'text/plain')
     expect(createSpy).toHaveBeenCalled()
     expect(clickSpy).toHaveBeenCalled()
     createSpy.mockRestore()

@@ -1,7 +1,8 @@
 // GrammarButton.tsx - v1.8-A D3 LLM Tutor 2.0 完整版 (语法讲解按钮)
 // 复用 UsageButton 模式 (loading 状态 / setLoading(true) 修复)
+// W141: 动态 import llmTutor (395 行) — 仅 click 触发
+// W141+: 移除 type 引用, 避免 Rollup 保留 llmTutor 模块
 import { useState } from 'react'
-import { explainGrammar, type GrammarExplanation } from '../lib/llmTutor'
 import { useStore } from '../store/useStore'
 import { BUILTIN_LLM_PROVIDERS, type LLMProvider } from '../lib/providers/llm'
 import { toast } from './Toast'
@@ -15,7 +16,8 @@ interface Props {
 export function GrammarButton({ word, pos, translation }: Props) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [explanation, setExplanation] = useState<GrammarExplanation | null>(null)
+  // W141: explanation 类型从 llmTutor 动态 import, 不 import type (避免 Rollup 保留模块)
+  const [explanation, setExplanation] = useState<{ rule: string; examples: string; mnemonic: string; cached?: boolean } | null>(null)
 
   const handleClick = async () => {
     if (open && explanation) {
@@ -36,6 +38,8 @@ export function GrammarButton({ word, pos, translation }: Props) {
         toast.error('未选择 LLM 渠道')
         return
       }
+      // W141: 动态 import — 仅当用户点 "📖 语法讲解" 时才加载 llmTutor.ts (395 行)
+      const { explainGrammar } = await import('../lib/llmTutor')
       const result = await explainGrammar(
         provider,
         llmApiKeys[llmProviderId],

@@ -396,7 +396,7 @@ export default function Notebook() {
                   setExporting(true)
                   try {
                     const csv = await exportToCSV()
-                    downloadFile(csv, `生词本-${formatDate()}.csv`, 'text/csv')
+                    await downloadFile(csv, `生词本-${formatDate()}.csv`, 'text/csv')
                   } finally {
                     setTimeout(() => setExporting(false), 1000)
                   }
@@ -412,7 +412,7 @@ export default function Notebook() {
                   setExporting(true)
                   try {
                     const json = await exportToJSON()
-                    downloadFile(json, `生词本-${formatDate()}.json`, 'application/json')
+                    await downloadFile(json, `生词本-${formatDate()}.json`, 'application/json')
                   } finally {
                     setTimeout(() => setExporting(false), 1000)
                   }
@@ -428,7 +428,7 @@ export default function Notebook() {
                   setExporting(true)
                   try {
                     const backup = await exportFullBackup()
-                    downloadFile(backup, `完整备份-${formatDate()}.json`, 'application/json')
+                    await downloadFile(backup, `完整备份-${formatDate()}.json`, 'application/json')
                   } finally {
                     setTimeout(() => setExporting(false), 1000)
                   }

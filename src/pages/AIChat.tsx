@@ -467,7 +467,7 @@ export default function AIChat() {
           <button onClick={handleNewChat} className="w-9 h-9 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 flex items-center justify-center transition-colors duration-[var(--t-fast)]" title="新对话" aria-label="新对话">
             <IconRefresh size={16} />
           </button>
-          <button onClick={async () => { const content = await exportAllChats(); const date = new Date().toISOString().slice(0, 10); downloadChatJson(content, `chats-${date}.json`) }} className="w-9 h-9 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 flex items-center justify-center transition-colors duration-[var(--t-fast)]" title="导出" aria-label="导出全部对话">
+          <button onClick={async () => { const content = await exportAllChats(); const date = new Date().toISOString().slice(0, 10); await downloadChatJson(content, `chats-${date}.json`) }} className="w-9 h-9 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 flex items-center justify-center transition-colors duration-[var(--t-fast)]" title="导出" aria-label="导出全部对话">
             <IconShare size={16} />
           </button>
           <button onClick={() => setShowHistory(!showHistory)} className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-[var(--t-fast)] relative ${showHistory ? 'bg-brand-100 dark:bg-brand-900/30' : 'hover:bg-stone-100 dark:hover:bg-stone-800'}`} title="历史" aria-label="历史记录">
@@ -691,12 +691,12 @@ export default function AIChat() {
                       </div>
                       <div className="flex flex-col gap-1 shrink-0">
                         <button
-                          onClick={() => {
-                            // v0.22.8: 单条导出
-                            const content = exportChat(c)
+                          onClick={async () => {
+                            // v0.22.8: 单条导出 (W141: exportChat/donwloadChatJson 改 async, 动态 import dataExport)
+                            const content = await exportChat(c)
                             const date = new Date(c.updatedAt).toISOString().slice(0, 10)
                             const safeTitle = c.title.replace(/[^a-z0-9-]/gi, '-').slice(0, 30)
-                            downloadChatJson(content, `chat-${safeTitle}-${date}.json`)
+                            await downloadChatJson(content, `chat-${safeTitle}-${date}.json`)
                           }}
                           className="text-xs text-stone-400 hover:text-brand-500"
                           aria-label="导出对话"

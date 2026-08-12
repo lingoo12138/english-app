@@ -1,13 +1,14 @@
 // AI 对话导出/导入 - v0.22.8
 // W128: 委托 dataExport.ts 统一实现 (toJSON + downloadFile)
+// W141: 动态 import dataExport (782 行) — 仅导出/导入时加载
 // 保留 parseChatsJson/importChats/pickJsonFile 给 AIChatDataSection 复用
 import { db, getAllChats, saveChat, type ChatRecord } from './db'
-import { toJSON, downloadFile as _downloadFile } from './dataExport'
 
 /**
  * 导出单条对话为 JSON
  */
-export function exportChat(chat: ChatRecord): string {
+export async function exportChat(chat: ChatRecord): Promise<string> {
+  const { toJSON } = await import('./dataExport')
   return toJSON({
     version: 1,
     type: 'single-chat',
@@ -21,6 +22,7 @@ export function exportChat(chat: ChatRecord): string {
  */
 export async function exportAllChats(): Promise<string> {
   const chats = await getAllChats()
+  const { toJSON } = await import('./dataExport')
   return toJSON({
     version: 1,
     type: 'all-chats',
@@ -33,8 +35,9 @@ export async function exportAllChats(): Promise<string> {
 /**
  * 触发下载对话 JSON
  */
-export function downloadChatJson(content: string, filename: string): void {
-  _downloadFile(content, filename, 'application/json')
+export async function downloadChatJson(content: string, filename: string): Promise<void> {
+  const { downloadFile } = await import('./dataExport')
+  downloadFile(content, filename, 'application/json')
 }
 
 /**

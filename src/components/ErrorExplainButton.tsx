@@ -1,7 +1,8 @@
 // ErrorExplainButton.tsx - v1.2-D2 错题讲解按钮 (复用组件)
 // 3 处复用: WritePage 错题面板 / AIChat 纠错面板 / ErrorsPage 时间 Tab
+// W141: 动态 import llmTutor (395 行) — 仅 click 触发
+// W141+: 移除 type 引用, 避免 Rollup 保留 llmTutor 模块
 import { useState } from 'react'
-import { explainError, type ErrorExplanation } from '../lib/llmTutor'
 import { getOrCreateExplanation } from '../lib/db'
 import { useStore } from '../store/useStore'
 import { BUILTIN_LLM_PROVIDERS } from '../lib/providers/llm'
@@ -18,7 +19,8 @@ interface Props {
 export function ErrorExplainButton({ type, original, suggestion, variant = 'inline' }: Props) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [explanation, setExplanation] = useState<ErrorExplanation | null>(null)
+  // W141: explanation 类型从 llmTutor 动态 import, 不 import type (避免 Rollup 保留模块)
+  const [explanation, setExplanation] = useState<{ rule: string; examples: string; mnemonic: string; cached?: boolean } | null>(null)
 
   const handleClick = async () => {
     if (open && explanation) {
@@ -42,6 +44,8 @@ export function ErrorExplainButton({ type, original, suggestion, variant = 'inli
         if (!provider) {
           throw new Error('未选择 LLM 渠道')
         }
+        // W141: 动态 import — 仅当用户点 "💡 错误讲解" 时才加载 llmTutor.ts (395 行)
+        const { explainError } = await import('../lib/llmTutor')
         const result = await explainError(
           provider,
           llmApiKeys[llmProviderId],
