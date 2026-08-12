@@ -4,6 +4,8 @@ import TTSButton from '../components/TTSButton'
 import Onboarding, { isOnboarded } from '../components/Onboarding'
 import TodayPlanCard from '../components/home/TodayPlanCard'
 import DailySentenceCard from '../components/home/DailySentenceCard'
+// W143: 拆出每日一词子组件, 初始 Skeleton 占位, LCP 立即 paint
+import DailyWordCard from '../components/home/DailyWordCard'
 import ReviewReminderCard from '../components/home/ReviewReminderCard'
 import { ShareModal } from '../components/ShareModal'
 import { IconWaving, IconTrophy, IconBarChart, IconEdit, IconCalendar, IconVideo, IconChat, IconHeadphones, IconStar } from '../components/Icon'
@@ -24,7 +26,9 @@ import { toast } from '../components/Toast'
 
 export default function Home() {
   const [sentence, setSentence] = useState<DailySentence | null>(null)
+  // W143: wordLoading 默认 true, 初始 Skeleton 占位, LCP element 立即 paint
   const [wordOfDay, setWordOfDay] = useState<Word | null>(null)
+  const [wordLoading, setWordLoading] = useState(true)
   const [fav, setFav] = useState(false)
   // v1.42.0 W42: streak 状态
   const [streakState, setStreakState] = useState<{
@@ -49,6 +53,8 @@ export default function Home() {
 
   useEffect(() => {
     setSentence(getTodaySentence())
+    // W143: 加载开始时重置 wordLoading=true (targetLevel 切换时重新走 Skeleton)
+    setWordLoading(true)
     loadWords().then((words) => {
       // 修复: 每日一词用日期 + targetLevel 确定性选择(同一天同一个词)
       const filtered = targetLevel === 'all' ? words : words.filter(w => w.level === targetLevel)
@@ -57,6 +63,8 @@ export default function Home() {
       const seed = today.split('').reduce((a, c) => a + c.charCodeAt(0), 0)
       const idx = seed % candidates.length
       setWordOfDay(candidates[idx])
+      // W143: loadWords 完成 → 关闭 Skeleton, 真实数据替换
+      setWordLoading(false)
     })
     // 获取待复习数量
     getDueReviews().then(reviews => setDueReviewCount(reviews.length))
@@ -252,36 +260,13 @@ export default function Home() {
         <DailySentenceCard sentence={sentence} />
       )}
 
-      {/* 每日一词 */}
-      {wordOfDay && (
-        <div className="card">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs px-2 py-0.5 bg-stone-100 dark:bg-stone-700 rounded-full">每日一词</span>
-            <button
-              onClick={toggleFav}
-              className="text-xl"
-            >
-              {fav ? '⭐' : '☆'}
-            </button>
-          </div>
-          <Link to={`/words/${wordOfDay.id}`} className="block">
-            <div className="flex items-baseline gap-2 mb-2">
-              <h2 className="text-3xl font-bold">{wordOfDay.word}</h2>
-              <span className="text-sm text-stone-400 dark:text-stone-300">{wordOfDay.phonetic}</span>
-            </div>
-            <p className="text-base text-stone-700 dark:text-stone-300 mb-3">
-              {wordOfDay.translations.join(' · ')}
-            </p>
-            <p className="text-sm text-stone-500 dark:text-stone-400 line-clamp-2">
-              {wordOfDay.examples[0]?.en}
-            </p>
-          </Link>
-          <div className="mt-3 flex items-center gap-2">
-            <TTSButton text={wordOfDay.word} />
-            <TTSButton text={wordOfDay.examples[0]?.en || ''} variant="text" />
-          </div>
-        </div>
-      )}
+      {/* W143: 每日一词改子组件, 初始 Skeleton 占位, LCP element 立即 paint */}
+      <DailyWordCard
+        word={wordOfDay}
+        isLoading={wordLoading}
+        isFavorite={fav}
+        onToggleFavorite={toggleFav}
+      />
 
       {/* 复习提醒 */}
       <ReviewReminderCard dueCount={dueReviewCount} />
