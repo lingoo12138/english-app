@@ -92,6 +92,7 @@ export default function Layout() {
 
   // W104 修 v1: 桌面 侧边栏 滚 动 位置 持久化 (每 页 独 立, verifier B 修 P1)
   const navRef = useRef<HTMLElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
   const [scrollPosMap, setScrollPosMap] = useState<Map<string, number>>(() => loadScrollPosMap() as Map<string, number>)
   // W121: 4 大 组 折 叠 状 态 (学 习 默 认 展 开, 其 余 折 叠)
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => {
@@ -127,6 +128,17 @@ export default function Layout() {
   // W149 反馈 1: 切页面时主内容滚到顶部, 避免从底部跳 (老 page scroll 状态没清)
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+  }, [location.pathname])
+  // W149 反馈 1+2: 切页面触发 pageEnter 动效 — 用 class toggle (而非 key={pathname} 重 mount)
+  // 原因: React 重 mount 会让 Suspense fallback (SkeletonPage) 闪一下, 即使 chunk 已 cache
+  // 解法: 监听 pathname 变 → 移除/重加 .page-transition class, 强制重启动画 (不重 mount)
+  useEffect(() => {
+    const el = contentRef.current
+    if (!el) return
+    // 触发 reflow → 重启动画
+    el.classList.remove('page-transition')
+    void el.offsetWidth
+    el.classList.add('page-transition')
   }, [location.pathname])
   // W146: 启动时初始化 telemetry (App mount 一次)
   useEffect(() => {
@@ -273,9 +285,10 @@ export default function Layout() {
 
       {/* W131: 离线状态 banner — 顶部, 跨页可见 */}
       <OfflineBanner />
-      {/* 主内容 — W149 反馈: 切页面生硬, key={pathname} 触发 pageEnter 动效 */}
+      {/* 主内容 — W149 反馈 1: 切页面生硬 → pageEnter fade-up 240ms
+       *                    W149 反馈 2: 骨架闪 → 改用 CSS class toggle 触发 (不依赖 React key 重 mount, 避免 Suspense fallback 闪) */}
       <main id="main-content" tabIndex={-1} className="flex-1 md:ml-56 pb-20 md:pb-0">
-        <div key={location.pathname} className="page-transition max-w-3xl mx-auto px-4 md:px-8 py-6">
+        <div ref={contentRef} className="max-w-3xl mx-auto px-4 md:px-8 py-6">
           <Outlet />
         </div>
       </main>

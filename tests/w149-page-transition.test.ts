@@ -35,13 +35,17 @@ describe('W149 反馈 1 — 页面切换过渡动效', () => {
   })
 
   describe('Layout.tsx 集成', () => {
-    it('main 容器包 div + key={location.pathname} 触发重 mount', () => {
-      // 注: Layout.tsx 里 import { useLocation } 后, location.pathname 触发
-      expect(layout).toMatch(/key=\{location\.pathname\}/)
+    it('contentRef + useEffect 触发 class toggle (不重 mount, 避免骨架闪)', () => {
+      // W149 反馈 2: 之前用 key={location.pathname} 重 mount → Suspense fallback 闪
+      // 改为: contentRef + classList toggle, reflow 强制重启动画
+      expect(layout).toMatch(/contentRef\s*=\s*useRef/)
+      expect(layout).toMatch(/classList\.remove\(['"]page-transition['"]\)/)
+      expect(layout).toMatch(/classList\.add\(['"]page-transition['"]\)/)
+      expect(layout).toMatch(/void\s+el\.offsetWidth/)
     })
 
-    it('div 加 .page-transition class', () => {
-      expect(layout).toMatch(/className="[^"]*page-transition[^"]*"/)
+    it('不再用 key={location.pathname} (避免重 mount 引起骨架闪)', () => {
+      expect(layout).not.toMatch(/key=\{location\.pathname\}/)
     })
 
     it('切页面 useEffect scroll 到顶部 (避免从底部跳)', () => {
