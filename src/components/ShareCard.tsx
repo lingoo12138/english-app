@@ -7,7 +7,7 @@ import { getAllFavorites, getTotalLearned, getAllWritingErrors } from '../lib/db
 import { getWord } from '../lib/words'
 
 
-export type ShareCardStyle = 'simple' | 'gradient' | 'retro'
+export type ShareCardStyle = 'simple' | 'gradient' | 'retro' | 'streak' | 'vocab'
 
 export interface ShareCardData {
   streak: number           // 连续天数
@@ -64,17 +64,60 @@ const STYLE_BG: Record<ShareCardStyle, string> = {
   simple: 'bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100',
   gradient: 'bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600 text-white',
   retro: 'bg-gradient-to-br from-amber-100 via-orange-200 to-pink-200 text-amber-900',
+  // W147: 新加 2 风格
+  streak: 'bg-gradient-to-br from-orange-400 via-red-500 to-pink-500 text-white',  // streak 连续学习
+  vocab: 'bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 text-white',   // 词汇量
 }
 
 const STYLE_ACCENT: Record<ShareCardStyle, string> = {
   simple: 'text-green-600',
   gradient: 'text-white drop-shadow-md',
   retro: 'text-orange-700',
+  streak: 'text-yellow-200 drop-shadow-md',
+  vocab: 'text-yellow-200 drop-shadow-md',
 }
 
 export function ShareCard({ data, style }: Props) {
   const bg = STYLE_BG[style]
   const accent = STYLE_ACCENT[style]
+
+  // W147: 新风格 streak / vocab — 单大数字 + 副标题, 冲击力更强
+  if (style === 'streak') {
+    return (
+      <div
+        className={`w-full max-w-md aspect-[4/5] rounded-2xl shadow-2xl p-8 flex flex-col items-center justify-center text-center ${bg}`}
+        style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+        data-testid="sharecard-streak"
+      >
+        <div className="text-7xl font-bold mb-2 drop-shadow-lg">{data.streak}</div>
+        <div className={`text-2xl font-semibold ${accent}`}>天连续学习</div>
+        <div className="text-sm opacity-80 mt-3">累计 {data.totalDays} 天</div>
+        <div className="mt-12 text-sm opacity-70">句刻 · 让英语在你想用的时候就能用上</div>
+        <div className="mt-2 text-xs opacity-50">lingoo12138/english-app</div>
+      </div>
+    )
+  }
+
+  if (style === 'vocab') {
+    return (
+      <div
+        className={`w-full max-w-md aspect-[4/5] rounded-2xl shadow-2xl p-8 flex flex-col items-center justify-center text-center ${bg}`}
+        style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+        data-testid="sharecard-vocab"
+      >
+        <div className="text-7xl font-bold mb-2 drop-shadow-lg">{data.totalLearned}</div>
+        <div className={`text-2xl font-semibold ${accent}`}>词已掌握</div>
+        <div className="text-sm opacity-80 mt-3">收藏 {data.favoriteCount} 个</div>
+        {data.topFavorites[0] && (
+          <div className="mt-6 text-base opacity-90">
+            最近: <b>{data.topFavorites[0].word}</b> {data.topFavorites[0].translation}
+          </div>
+        )}
+        <div className="mt-12 text-sm opacity-70">句刻 · 让英语在你想用的时候就能用上</div>
+        <div className="mt-2 text-xs opacity-50">lingoo12138/english-app</div>
+      </div>
+    )
+  }
 
   return (
     <div
