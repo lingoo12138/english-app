@@ -223,6 +223,23 @@ details > summary::-webkit-details-marker {
 .animate-slide-up {
   animation: slideUpBanner 0.3s var(--ease-spring) both;
 }
+
+/* W149 反馈 1: 页面切换生硬 — 加 fade-up 过渡 (微微上移 + 渐入) */
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* 业务: 路由切换时给 main 包一层触发. 持续时间 240ms, spring 缓动 — 不抢戏, 0 P0 */
+.page-transition {
+  animation: pageEnter 0.24s var(--ease-spring) both;
+  will-change: opacity, transform;
+}
+/* a11y: 用户开了 reduced-motion, 取消动效 (W144 a11y 满分延续) */
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    animation: none;
+  }
+}
 html, body {
   overscroll-behavior-y: contain;
 }

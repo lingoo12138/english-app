@@ -124,6 +124,10 @@ export default function Layout() {
       navRef.current.scrollTop = saved
     }
   }, [location.pathname, scrollPosMap])
+  // W149 反馈 1: 切页面时主内容滚到顶部, 避免从底部跳 (老 page scroll 状态没清)
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+  }, [location.pathname])
   // W146: 启动时初始化 telemetry (App mount 一次)
   useEffect(() => {
     void initTelemetry()
@@ -269,9 +273,9 @@ export default function Layout() {
 
       {/* W131: 离线状态 banner — 顶部, 跨页可见 */}
       <OfflineBanner />
-      {/* 主内容 */}
+      {/* 主内容 — W149 反馈: 切页面生硬, key={pathname} 触发 pageEnter 动效 */}
       <main id="main-content" tabIndex={-1} className="flex-1 md:ml-56 pb-20 md:pb-0">
-        <div className="max-w-3xl mx-auto px-4 md:px-8 py-6">
+        <div key={location.pathname} className="page-transition max-w-3xl mx-auto px-4 md:px-8 py-6">
           <Outlet />
         </div>
       </main>

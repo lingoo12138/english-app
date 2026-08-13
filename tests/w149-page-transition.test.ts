@@ -1,0 +1,65 @@
+// W149 反馈 1: 验证页面切换过渡动效
+import { describe, it, expect } from 'vitest'
+import { readFileSync } from 'fs'
+
+describe('W149 反馈 1 — 页面切换过渡动效', () => {
+  const css = readFileSync('src/index.css', 'utf-8')
+  const layout = readFileSync('src/components/Layout.tsx', 'utf-8')
+
+  describe('CSS: pageEnter 动效', () => {
+    it('@keyframes pageEnter 定义存在', () => {
+      expect(css).toMatch(/@keyframes\s+pageEnter\s*\{/)
+    })
+
+    it('from: opacity 0 + translateY(8px) (fade-up)', () => {
+      expect(css).toMatch(/from\s*\{\s*opacity:\s*0\s*;?\s*transform:\s*translateY\(8px\)/)
+    })
+
+    it('to: opacity 1 + translateY(0)', () => {
+      expect(css).toMatch(/to\s*\{?\s*opacity:\s*1\s*;?\s*transform:\s*translateY\(0\)/)
+    })
+
+    it('.page-transition class 使用 spring 缓动 + 240ms', () => {
+      expect(css).toMatch(/\.page-transition\s*\{[^}]*animation:\s*pageEnter\s+0\.24s\s+var\(--ease-spring\)/)
+    })
+
+    it('will-change: opacity, transform (GPU 优化)', () => {
+      expect(css).toMatch(/will-change:\s*opacity,\s*transform/)
+    })
+  })
+
+  describe('a11y: prefers-reduced-motion fallback', () => {
+    it('@media (prefers-reduced-motion: reduce) 取消动效', () => {
+      expect(css).toMatch(/@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[^}]*\.page-transition[^}]*animation:\s*none/)
+    })
+  })
+
+  describe('Layout.tsx 集成', () => {
+    it('main 容器包 div + key={location.pathname} 触发重 mount', () => {
+      // 注: Layout.tsx 里 import { useLocation } 后, location.pathname 触发
+      expect(layout).toMatch(/key=\{location\.pathname\}/)
+    })
+
+    it('div 加 .page-transition class', () => {
+      expect(layout).toMatch(/className="[^"]*page-transition[^"]*"/)
+    })
+
+    it('切页面 useEffect scroll 到顶部 (避免从底部跳)', () => {
+      expect(layout).toMatch(/window\.scrollTo\(\s*\{\s*top:\s*0[^}]*\}\s*\)/)
+    })
+  })
+
+  describe('回归: 0 业务 P0 + 0 副作用', () => {
+    it('不破坏 layout 其他功能 (NavLink / Outlet / scrollPosMap)', () => {
+      expect(layout).toContain('Outlet')
+      expect(layout).toContain('NavLink')
+      expect(layout).toContain('scrollPosMap')
+    })
+
+    it('不引入新依赖 (无 framer-motion / react-spring)', () => {
+      const pkg = readFileSync('package.json', 'utf-8')
+      expect(pkg).not.toMatch(/"framer-motion"/)
+      expect(pkg).not.toMatch(/"react-spring"/)
+    })
+  })
+})
