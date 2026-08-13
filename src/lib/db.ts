@@ -39,6 +39,10 @@ class EnglishAppDB extends Dexie {
   translationFavs!: Table<TranslationFav, [string, number]>
   // v2.0 W91: 错题复习历史 (IDB 永久持久化)
   errorReviewHistory!: Table<ErrorReviewScore, number>
+  // W146: 反馈回路 — telemetry / feedback / nps (local-only, 不上传云)
+  telemetry!: Table<TelemetryEvent, number>
+  feedback!: Table<FeedbackEntry, number>
+  nps!: Table<NpsEntry, number>
 
   constructor() {
     super('EnglishAppDB')
@@ -138,6 +142,18 @@ class EnglishAppDB extends Dexie {
       dictationErrors: '++id, wordId, ts, score, difficulty',
       translationFavs: '[wordId+index], wordId, index, addedAt',
       errorReviewHistory: '++id, cardId, ts',
+    })
+    // W146: 反馈回路 — telemetry / feedback / nps (local-only, 0 云上传)
+    //  - telemetry: 事件流 (page_view / feature_used / session_start/end / word_learned / error_made)
+    //    索引: ts (按时间范围查) + event (按事件类型聚合)
+    //  - feedback: 用户反馈 (bug/功能/表扬 + 文本 + 邮箱)
+    //    索引: ts (按时间排)
+    //  - nps: NPS 评分 (0-10 + why 文本)
+    //    索引: ts + score
+    this.version(10).stores({
+      telemetry: '++id, ts, event, [ts+event]',
+      feedback: '++id, ts, type',
+      nps: '++id, ts, score',
     })
   }
 }
@@ -555,4 +571,68 @@ export async function getErrorReviewScoresByCard(cardId: string): Promise<ErrorR
 
 export async function clearErrorReviewScores(): Promise<void> {
   return db.errorReviewHistory.clear()
+}
+
+// ============================================================
+// W146: 反馈回路 — Telemetry / Feedback / NPS (local-only, 0 云)
+// ============================================================
+
+/** W146: 埋点事件类型 (7 种 — 见 v3 plan W137 scope)
+ *  - page_view: 页面访问 (path + ts)
+ *  - feature_used: 功能使用 (feature name + props)
+ *  - session_start: 用户启动 App (冷启动/热启动)
+ *  - session_end: 用户离开 App (beforeunload / visibilitychange)
+ *  - word_learned: 学完 1 词 (wordId + level)
+ *  - error_made: 错题 (source + wordId)
+ *  - feedback_submitted: 提交反馈 (1 次 / 提交)
+ *  - nps_score: NPS 评分 (0-10)
+ * 注: 0 网络上传, 全部写 IDB, 用户可关可导出
+ */
+export type TelemetryEventName =
+  | 'page_view'
+  | 'feature_used'
+  | 'session_start'
+  | 'session_end'
+  | 'word_learned'
+  | 'error_made'
+  | 'feedback_submitted'
+  | 'nps_score'
+
+export interface TelemetryEvent {
+  id?: number
+  /** 事件名 */
+  event: TelemetryEventName
+  /** 事件时间 (ms epoch) */
+  ts: number
+  /** 事件属性 (path/feature/source/wordId/score 等, 自由 shape) */
+  props?: Record<string, string | number | boolean>
+  /** session id (同次访问共享, 用于 cohort 分析) */
+  sessionId?: string
+}
+
+export type FeedbackType = 'bug' | 'feature' | 'praise'
+
+export interface FeedbackEntry {
+  id?: number
+  type: FeedbackType
+  /** 反馈文本 (≤ 200 字) */
+  text: string
+  /** 邮箱 (可选) */
+  email?: string
+  ts: number
+  /** 当前页 path (辅助定位) */
+  path?: string
+  /** app 版本 */
+  appVersion?: string
+}
+
+export interface NpsEntry {
+  id?: number
+  /** 0-10 评分 */
+  score: number
+  /** 为什么这个分 (文本) */
+  why?: string
+  ts: number
+  /** 距首次使用天数 (用于"激活 7 天后" 触发) */
+  daysSinceFirstUse?: number
 }

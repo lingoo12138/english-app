@@ -5,6 +5,10 @@ import { getPageTitle } from '../lib/utils'
 import { ToastContainer } from './Toast'
 // W131: 离线状态 banner
 import OfflineBanner from './OfflineBanner'
+// W146: 反馈回路 — FeedbackButton 浮动 + initTelemetry 启动 + NpsPrompt 7天弹
+import FeedbackButton from './FeedbackButton'
+import NpsPrompt from './NpsPrompt'
+import { initTelemetry, track } from '../lib/telemetry'
 import {
   IconHome, IconBook, IconVideo, IconSparkles, IconChat, IconCalendar,
   IconEdit, IconBookOpen, IconHeadphones, IconBarChart, IconSettings,
@@ -110,6 +114,14 @@ export default function Layout() {
       navRef.current.scrollTop = saved
     }
   }, [location.pathname, scrollPosMap])
+  // W146: 启动时初始化 telemetry (App mount 一次)
+  useEffect(() => {
+    void initTelemetry()
+  }, [])
+  // W146: 路由变化时 track page_view
+  useEffect(() => {
+    track('page_view', { path: location.pathname })
+  }, [location.pathname])
 
   return (
     <div className="min-h-full flex flex-col md:flex-row">
@@ -214,6 +226,9 @@ export default function Layout() {
 
       {/* Toast 通知 (顶部居中堆叠) */}
       <ToastContainer />
+      {/* W146: 反馈回路 — 浮动反馈按钮 + 7天 NPS 提示 */}
+      <FeedbackButton />
+      <NpsPrompt />
 
       {/* 底部导航 (手机) - W112 UX bug 修: 10 项 → 5 项, 避免 grid-cols-5 静默丢 6-10 */}
       <nav

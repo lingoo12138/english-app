@@ -17,6 +17,8 @@ const DailyPage = lazy(() => import('./pages/DailyPage'))
 const Translate = lazy(() => import('./pages/Translate'))
 const Notebook = lazy(() => import('./pages/Notebook'))
 const Settings = lazy(() => import('./pages/Settings'))
+// W146: 反馈回路 — UsagePage dashboard
+const UsagePage = lazy(() => import('./pages/UsagePage'))
 const DocsPage = lazy(() => import('./pages/DocsPage'))
 const ReviewCenter = lazy(() => import('./pages/ReviewCenter'))
 const CardReview = lazy(() => import('./pages/CardReview'))
@@ -190,6 +192,8 @@ function App() {
         <Route path="custom-scenes/:id" element={<CustomSceneDetail />} />
         <Route path="custom-scenes/:id/learn" element={<CustomSceneLearn />} />
         <Route path="settings" element={<Settings />} />
+        {/* W146: 反馈回路 — UsagePage (我的使用 dashboard) */}
+        <Route path="usage" element={<UsagePage />} />
         <Route path="docs" element={<DocsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

@@ -1,8 +1,9 @@
 // 设置 - v0.22.2 拆为 6 个子组件
 // v1.8.0-A: 加 "🔄 重新看引导" 按钮 (清除 onboarded 标志)
 // v1.12.0-C: 加 "📊 LLM 用量" 卡片
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+// W146: 加 "📊 我的使用" / "💬 反馈" / "📡 埋点设置" 入口
+import { useState, useEffect } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import PreferencesSection from '../components/settings/PreferencesSection'
 import TTSSection from '../components/settings/TTSSection'
 import TranslateSection from '../components/settings/TranslateSection'
@@ -15,12 +16,19 @@ import ReminderSection from '../components/settings/ReminderSection'
 import { clearOnboarded } from '../components/Onboarding'
 import { useTranslate } from '../lib/useTranslate'
 import { getLLMUsageToday, resetLLMUsageToday, DAILY_LIMITS, type LLMCategory } from '../lib/llmUsage'
+import { isTelemetryEnabled, setTelemetryEnabled } from '../lib/telemetry'
+import { IconChart, IconChat } from '../components/Icon'
 
 export default function Settings() {
   const navigate = useNavigate()
   const { t } = useTranslate()
   // v1.12.0-C: LLM 用量 state (跨日重置)
   const [usage, setUsage] = useState(() => getLLMUsageToday())
+  // W146: 埋点开关 (读 + 写)
+  const [telemetryOn, setTelemetryOn] = useState(() => isTelemetryEnabled())
+  useEffect(() => {
+    setTelemetryEnabled(telemetryOn)
+  }, [telemetryOn])
 
   // v1.8.0-A: 重看 onboarding 引导
   const handleReplayOnboarding = () => {
@@ -75,6 +83,50 @@ export default function Settings() {
         <p className="text-xs text-stone-500 dark:text-stone-400 mt-2">
           清除首次使用标记, 跳回首页重新弹 onboarding 弹层
         </p>
+      </section>
+
+      {/* W146: 反馈回路 — 我的使用 / 反馈 / 埋点设置 入口 */}
+      <section className="card" data-testid="settings-feedback-section">
+        <h3 className="font-semibold mb-3">反馈与使用</h3>
+        <div className="space-y-2">
+          <Link
+            to="/usage"
+            className="btn-ghost text-sm w-full flex items-center justify-center gap-2"
+            data-testid="settings-usage-link"
+          >
+            <IconChart size={16} aria-hidden="true" />
+            查看我的使用
+          </Link>
+          <p className="text-xs text-stone-500 dark:text-stone-400">
+            看自己 30 天活动 + 功能使用 + 导出 JSON
+          </p>
+          <a
+            href="#feedback"
+            onClick={(e) => {
+              e.preventDefault()
+              // FeedbackButton 在 Layout 浮动, 触发方式: 派发 CustomEvent
+              window.dispatchEvent(new CustomEvent('w146-open-feedback'))
+            }}
+            className="btn-ghost text-sm w-full flex items-center justify-center gap-2"
+            data-testid="settings-feedback-link"
+          >
+            <IconChat size={16} aria-hidden="true" />
+            提交反馈
+          </a>
+          <p className="text-xs text-stone-500 dark:text-stone-400">
+            想说啥都行 (问题 / 建议 / 表白), 仅本地保存
+          </p>
+          <label className="flex items-center gap-2 pt-2">
+            <input
+              type="checkbox"
+              checked={telemetryOn}
+              onChange={(e) => setTelemetryOn(e.target.checked)}
+              className="w-4 h-4"
+              data-testid="settings-telemetry-toggle"
+            />
+            <span className="text-sm">启用使用数据收集 (local-only, 不上传云)</span>
+          </label>
+        </div>
       </section>
 
       {/* v1.12.0-C: LLM 用量 */}
