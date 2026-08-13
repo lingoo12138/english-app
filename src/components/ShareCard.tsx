@@ -1,10 +1,12 @@
 // ShareCard.tsx - v1.1-F1 学习海报分享卡
 // 设计: 渐变 + 大数字 + 成就感, 让用户想晒
-import { useEffect, useState } from 'react'
+// W148-C: 老 3 风格 (simple/gradient/retro) emoji 全替 Icon SVG, 0 emoji 硬约束
+import { useEffect, useState, type ReactNode } from 'react'
 import { getStreak, getTotalDays } from '../lib/streak'
 import { getUnlockedCount, loadAchievementStats } from '../lib/achievements'
 import { getAllFavorites, getTotalLearned, getAllWritingErrors } from '../lib/db'
 import { getWord } from '../lib/words'
+import { IconBook, IconBookOpen, IconCalendar, IconStar, IconTrophy } from './Icon'
 
 
 export type ShareCardStyle = 'simple' | 'gradient' | 'retro' | 'streak' | 'vocab'
@@ -123,25 +125,27 @@ export function ShareCard({ data, style }: Props) {
     <div
       className={`w-full max-w-md aspect-[4/5] rounded-2xl shadow-2xl p-8 flex flex-col ${bg}`}
       style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+      data-testid="sharecard-default"
     >
-      {/* 头部 */}
+      {/* 头部 — W148-C:  → IconBook */}
       <div className="text-center mb-6">
-        <div className="text-5xl mb-2">📚</div>
+        <IconBook size={48} className="mx-auto mb-2" aria-hidden />
         <h1 className="text-2xl font-bold">句刻 · 我的英语学习</h1>
         <p className="text-sm opacity-70 mt-1">让英语在你想用的时候就能用上</p>
       </div>
 
-      {/* 4 大数据 (2x2 网格) */}
+      {/* 4 大数据 (2x2 网格) — W148-C: ///Star emoji 全替 Icon SVG */}
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <Stat label="🔥 连续学习" value={data.streak} unit="天" accent={accent} />
-        <Stat label="📅 累计天数" value={data.totalDays} unit="天" accent={accent} />
-        <Stat label="📖 学过词数" value={data.totalLearned} unit="词" accent={accent} />
-        <Stat label="⭐ 收藏" value={data.favoriteCount} unit="个" accent={accent} />
+        <Stat icon={<IconStar size={14} className="inline-block align-middle" />} label="连续学习" value={data.streak} unit="天" accent={accent} />
+        <Stat icon={<IconCalendar size={14} className="inline-block align-middle" />} label="累计天数" value={data.totalDays} unit="天" accent={accent} />
+        <Stat icon={<IconBookOpen size={14} className="inline-block align-middle" />} label="学过词数" value={data.totalLearned} unit="词" accent={accent} />
+        <Stat icon={<IconStar size={14} className="inline-block align-middle" />} label="收藏" value={data.favoriteCount} unit="个" accent={accent} />
       </div>
 
-      {/* v1.3-F2: 成就 */}
-      <div className={`text-center text-sm mb-4 ${accent} font-semibold`}>
-        🏆 已解锁 {data.achievementCount} 个成就
+      {/* v1.3-F2: 成就 — W148-C:  → IconTrophy */}
+      <div className={`text-center text-sm mb-4 ${accent} font-semibold inline-flex items-center justify-center gap-1.5 mx-auto`}>
+        <IconTrophy size={16} aria-hidden />
+        <span>已解锁 {data.achievementCount} 个成就</span>
       </div>
 
       {/* 错题 */}
@@ -154,7 +158,10 @@ export function ShareCard({ data, style }: Props) {
       {/* Top 3 收藏 */}
       {data.topFavorites.length > 0 && (
         <div className="mt-auto">
-          <div className="text-xs opacity-70 mb-2">最近收藏</div>
+          <div className="text-xs opacity-70 mb-2 flex items-center gap-1.5">
+            <IconBook size={12} aria-hidden />
+            <span>最近收藏</span>
+          </div>
           <div className="space-y-1.5">
             {data.topFavorites.map((f, i) => (
               <div key={i} className="flex items-center gap-2 text-sm">
@@ -181,11 +188,14 @@ export function ShareCard({ data, style }: Props) {
   )
 }
 
-function Stat({ label, value, unit, accent }: { label: string; value: number; unit: string; accent: string }) {
+function Stat({ icon, label, value, unit, accent }: { icon?: ReactNode; label: string; value: number; unit: string; accent: string }) {
   return (
     <div className="text-center p-3 rounded-lg bg-black/5 dark:bg-white/5">
       <div className={`text-3xl font-bold ${accent}`}>{value}</div>
-      <div className="text-xs opacity-70 mt-1">{label} · {unit}</div>
+      <div className="text-xs opacity-70 mt-1 inline-flex items-center justify-center gap-1">
+        {icon}
+        <span>{label} · {unit}</span>
+      </div>
     </div>
   )
 }

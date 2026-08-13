@@ -76,7 +76,8 @@ describe('v2.1.0 UI 改 良 验证', () => {
 
     it('WordCard 改 用 .card-interactive 替 hover:shadow-md', () => {
       const src = readFileSync('src/components/WordCard.tsx', 'utf-8')
-      expect(src).toMatch(/className="card-interactive/)
+      // 注: W148-A 改用模板字符串 (支持 isSelected 条件)
+      expect(src).toMatch(/className=\{?[`'"]card-interactive/)
       expect(src).not.toMatch(/hover:shadow-md/)
     })
   })

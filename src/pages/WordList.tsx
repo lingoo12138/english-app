@@ -9,6 +9,10 @@ import { VirtualList } from '../components/VirtualList'
 import { addFavorite, removeFavorite, getAllFavorites, getAllTranslationFavs } from '../lib/db'
 import { useStore } from '../store/useStore'
 import { useTranslate } from '../lib/useTranslate'
+// W148: 桌面 1280px+ 2-3 列网格 (lg=2 / xl=3, lg 用单词列已有 sticky alpha-index 留位)
+import { useIsDesktopXL } from '../lib/useMediaQuery'
+// W148-A: 监听 w148-shortcut 事件 — j/k 移动选中, Enter 跳详情
+import { SHORTCUT_EVENT, type ShortcutEventDetail } from '../lib/keyboardShortcuts'
 
 const PAGE_SIZE = 50
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
@@ -51,6 +55,10 @@ export default function WordList() {
   const virtualScrollRef = useRef<HTMLDivElement | null>(null)
   // W116: 移 动 端 字 母 索 引 横 滚 容 器
   const mobileAlphaRef = useRef<HTMLDivElement>(null)
+  // W148: 桌面 1280px+ 检测 — 决定 virtual 列表 cols (1 → 2)
+  const isDesktopXL = useIsDesktopXL()
+  // W148-A: j/k 选中词索引 (在 visible 数组里, 非整 filtered), -1 = 无选中
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1)
 
   useEffect(() => {
     setLoading(true)
@@ -79,6 +87,16 @@ export default function WordList() {
       setLevel(targetLevel)
     }
   }, [targetLevel, level])
+
+  // W148-A: 监听 w148-shortcut 事件, j/k 移动选中, Enter 跳详情
+  // 业务: 全词库 5423 词, 虚拟列表 j/k 移动只在 visible 范围内 (UI 上滚动到可见)
+  // 注: useEffect 必须放在 filtered useMemo 之后 (filtered 引用)
+  // 此处先声明 setSelectedIndex, 实际 listener 移到 filtered 之后
+
+  // W148-A: 切换学段 / 搜索时, 重置选中
+  useEffect(() => {
+    setSelectedIndex(-1)
+  }, [level, debouncedQuery])
 
   // 修复: 搜索 debounce 300ms,避免 5000 词全表过滤
   useEffect(() => {
@@ -119,6 +137,36 @@ export default function WordList() {
     filtered.forEach(w => set.add(getFirstLetter(w.word)))
     return set
   }, [filtered])
+
+  // W148-A: 监听 w148-shortcut 事件 — j/k 移动选中, Enter 跳详情
+  // 放在 filtered 之后 (filtered 引用), TS 友好
+  useEffect(() => {
+    const onShortcut = (e: Event) => {
+      const detail = (e as CustomEvent<ShortcutEventDetail>).detail
+      if (!detail) return
+      if (detail.action === 'list-down') {
+        setSelectedIndex((prev) => {
+          const max = filtered.length - 1
+          if (max < 0) return -1
+          if (prev < 0) return 0
+          return Math.min(prev + 1, max)
+        })
+      } else if (detail.action === 'list-up') {
+        setSelectedIndex((prev) => {
+          if (prev <= 0) return prev < 0 ? -1 : 0
+          return prev - 1
+        })
+      } else if (detail.action === 'list-open') {
+        // 拿当前选中, 跳到 /words/:id
+        if (selectedIndex >= 0 && selectedIndex < filtered.length) {
+          const w = filtered[selectedIndex]
+          if (w) navigate(`/words/${encodeURIComponent(w.id)}`)
+        }
+      }
+    }
+    window.addEventListener(SHORTCUT_EVENT, onShortcut as EventListener)
+    return () => window.removeEventListener(SHORTCUT_EVENT, onShortcut as EventListener)
+  }, [filtered, selectedIndex, navigate])
 
   // 完整字母表 + # 号位
   const allLetters = useMemo(() => [...ALPHABET, '#'], [])
@@ -192,6 +240,7 @@ export default function WordList() {
   // 滚动到指定字母
   // 修复: 不立即 setActiveLetter(避免与 IO race),滚动完成后由 IO 决定
   // W136: virtual 模式直接用 scrollTop (字 母 -> index 映射), 非 virtual 用 scrollIntoView
+  // W148: 桌面 2-3 列时, item 视觉行 = Math.floor(idx / cols), scrollTop 按行算
   const scrollToLetter = useCallback((letter: string) => {
     if (filtered.length >= VIRTUAL_THRESHOLD) {
       // Virtual 模式: 直接设 scroll container scrollTop
@@ -201,7 +250,10 @@ export default function WordList() {
       if (idx === undefined) return
       // sticky top 头高 60px 偏移
       const STICKY_OFFSET = 60
-      scroller.scrollTo({ top: Math.max(0, idx * WORD_CARD_ESTIMATED_HEIGHT - STICKY_OFFSET), behavior: 'smooth' })
+      // W148: cols>1 时, 视觉行 = floor(idx / cols), scrollTop 按行
+      const visualCols = isDesktopXL ? 2 : 1
+      const visualRow = Math.floor(idx / visualCols)
+      scroller.scrollTo({ top: Math.max(0, visualRow * WORD_CARD_ESTIMATED_HEIGHT - STICKY_OFFSET), behavior: 'smooth' })
       setActiveLetter(letter)
       return
     }
@@ -215,7 +267,7 @@ export default function WordList() {
       // 乐观设置 activeLetter,但 IO 会在滚动后覆盖
       setActiveLetter(letter)
     }
-  }, [filtered.length, letterIndexMap])
+  }, [filtered.length, letterIndexMap, isDesktopXL])
 
   const handleToggleFav = useCallback(async (word: Word) => {
     // 用 ref 读取最新值,避免 callback 重建
@@ -342,7 +394,12 @@ export default function WordList() {
         </>
       )}
 
-      {/* 词条列表 — W135: 5000+ 词 走 虚 拟 滚 动 (省 DOM), < 200 词 保留 原 有 pagination + 字母锚点 */}
+      {/* 词条列表 — W135: 5000+ 词 走 虚 拟 滚 动 (省 DOM), < 200 词 保留 原 有 pagination + 字母锚点
+       * W148: 桌面 1280px+ 改 2-3 列 (xl:2, 0-1279px 保持单列)
+       *   - virtual 模式: innerClassName = 'grid grid-cols-2 gap-3' + cols=2 prop (VirtualList 滚动 math 按列折算)
+       *   - 非 virtual 模式 (< 200 词): grid-cols-2 layout
+       *   - 0-1279px 保持单列 (space-y-2)
+      */}
       <div ref={containerRef}>
         {filtered.length === 0 ? (
           <div className="text-center py-12 text-stone-500 dark:text-stone-400">
@@ -352,35 +409,45 @@ export default function WordList() {
           // W135: 虚 拟 滚 动 模 式 (>= 200 条)
           // 业务: 全词库 5423 词, 渲染所有 5423 个 WordCard 会卡 200ms+, 虚拟滚动只渲染视口内 ~12 个
           // W136: 字母锚点由 VirtualList 内部渲染 (getLetterKey); scroll container 通过 onContainerRef 暴露
+          // W148: 桌面 cols=2, 移动 cols=1, innerClassName 同步 grid
           <VirtualList
             items={filtered}
             estimatedItemHeight={WORD_CARD_ESTIMATED_HEIGHT}
             height="calc(100vh - 280px)"
             overscan={8}
             threshold={VIRTUAL_THRESHOLD}
-            innerClassName="space-y-2"
+            cols={isDesktopXL ? 2 : 1}
+            innerClassName={isDesktopXL ? 'grid grid-cols-2 gap-3' : 'space-y-2'}
             ariaLabel="词条列表 (虚拟滚动)"
             getKey={(w) => w.id}
             getLetterKey={(w) => query.trim() ? null : getFirstLetter(w.word)}
             onContainerRef={(el) => { virtualScrollRef.current = el }}
-            renderItem={(word) => (
-              <WordCard
-                word={word}
-                isFavorite={favSet.has(word.id)}
-                onToggleFavorite={() => handleToggleFav(word)}
-                favCount={favCountMap[word.id]}
-                onClickFavs={() => handleClickFavs(word)}
-              />
-            )}
+            renderItem={(word) => {
+              const i = filtered.indexOf(word)
+              return (
+                <WordCard
+                  word={word}
+                  isFavorite={favSet.has(word.id)}
+                  onToggleFavorite={() => handleToggleFav(word)}
+                  favCount={favCountMap[word.id]}
+                  onClickFavs={() => handleClickFavs(word)}
+                  isSelected={i === selectedIndex}
+                  dataTestId={i === selectedIndex ? 'word-list-selected' : undefined}
+                />
+              )
+            }}
             emptyState={<div className="text-center py-12 text-stone-500 dark:text-stone-400">无匹配词</div>}
           />
         ) : (
           <>
-            <div className="space-y-2">
+            {/* W148: < 200 词 (非 virtual), 桌面 2 列 */}
+            <div className={isDesktopXL ? 'grid grid-cols-2 gap-3' : 'space-y-2'}>
               {visible.map((word, i) => {
                 const firstLetter = getFirstLetter(word.word)
                 const prevLetter = i > 0 ? getFirstLetter(visible[i - 1].word) : null
                 const showAnchor = firstLetter !== prevLetter
+                // W148-A: 找到 word 在 filtered 里的全局 index, 用于 selectedIndex 比较
+                const globalIndex = filtered.indexOf(word)
                 return (
                   <Fragment key={word.id}>
                     {showAnchor && !query.trim() && (
@@ -399,6 +466,8 @@ export default function WordList() {
                       onToggleFavorite={() => handleToggleFav(word)}
                       favCount={favCountMap[word.id]}
                       onClickFavs={() => handleClickFavs(word)}
+                      isSelected={globalIndex === selectedIndex}
+                      dataTestId={globalIndex === selectedIndex ? 'word-list-selected' : undefined}
                     />
                   </Fragment>
                 )

@@ -12,9 +12,12 @@ describe('W123b ErrorReviewPage UI 改 良', () => {
     expect(errReview).not.toMatch(/加载错题中\.\.\./)
   })
 
-  it('ErrorReviewPage 加 Icon SVG 库 (5 个 图 标)', () => {
+  it('ErrorReviewPage 加 Icon SVG 库 (5+ 个 图 标)', () => {
     // 业 务: W118 一 致
-    expect(errReview).toContain("import { IconRefresh, IconSparkles, IconTrophy, IconEdit, IconHeadphones } from '../components/Icon'")
+    // W148-B: 加 IconChart (错题统计按钮), 6 个 Icon 总
+    expect(errReview).toMatch(/import \{[^}]*IconRefresh[^}]*\} from '\.\.\/components\/Icon'/)
+    expect(errReview).toMatch(/import \{[^}]*IconSparkles[^}]*\} from '\.\.\/components\/Icon'/)
+    expect(errReview).toMatch(/import \{[^}]*IconChart[^}]*\} from '\.\.\/components\/Icon'/)
   })
 
   it('错 题 标 题 🔁 替 IconRefresh (32 组 件 一 致)', () => {

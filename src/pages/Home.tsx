@@ -125,6 +125,13 @@ export default function Home() {
 
   return (
     <div className="space-y-6">
+      {/* W148: 桌面 1280px+ 两栏 (主 + 右侧快捷面板: 今日计划 + 复习提醒)
+        * - 0-1279px 保持单栏原样
+        * - xl 断点: 主列 flex-1 + 右侧 240px (sticky)
+        * - 移动端优先: 用 CSS class 切换, 不破坏现有 stack
+      */}
+      <div className="xl:flex xl:gap-6 xl:items-start">
+        <div className="space-y-6 xl:flex-1 xl:min-w-0">
       {/* W115 MainCTA: 合 并 欢 迎 + 分享 + onboarding CTA + 今 日 学 (改 良 稿 第 3 步) */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-500 to-brand-600 text-white p-5 shadow-[0_4px_16px_rgba(34,197,94,0.25)]">
         <div className="flex items-start justify-between mb-3">
@@ -262,9 +269,11 @@ export default function Home() {
         </Link>
       </div>
 
-      {/* v0.22.3: 今日学习计划 */}
+      {/* v0.22.3: 今日学习计划 — W148 桌面 1280px+ 移到右侧 sticky 面板 */}
       {plan && plan.total > 0 && (
-        <TodayPlanCard plan={plan} onMarkWord={handleMarkPlanWord} />
+        <div className="xl:hidden">
+          <TodayPlanCard plan={plan} onMarkWord={handleMarkPlanWord} />
+        </div>
       )}
 
       {/* 每日一句 */}
@@ -280,8 +289,12 @@ export default function Home() {
         onToggleFavorite={toggleFav}
       />
 
-      {/* 复习提醒 */}
-      <ReviewReminderCard dueCount={dueReviewCount} />
+      {/* 复习提醒 — W148 桌面 1280px+ 移到右侧 sticky 面板 */}
+      {dueReviewCount > 0 && (
+        <div className="xl:hidden">
+          <ReviewReminderCard dueCount={dueReviewCount} />
+        </div>
+      )}
 
       {/* v1.42.0 W42: streak 里程碑 */}
       {streakState && (
@@ -392,6 +405,24 @@ export default function Home() {
           </Link>
         </div>
       </div>
+        </div>{/* end xl:flex-1 main col */}
+
+        {/* W148: 桌面 1280px+ 右侧快捷面板 (今日计划 + 复习提醒, sticky 跟随滚动) */}
+        <aside className="hidden xl:block xl:w-60 xl:flex-shrink-0 xl:sticky xl:top-6 space-y-3" data-testid="home-quick-panel">
+          {plan && plan.total > 0 && (
+            <TodayPlanCard plan={plan} onMarkWord={handleMarkPlanWord} />
+          )}
+          {dueReviewCount > 0 && (
+            <ReviewReminderCard dueCount={dueReviewCount} />
+          )}
+          {/* 占位: 至少 1 张卡 (避免右侧空荡) */}
+          {(!plan || plan.total === 0) && dueReviewCount === 0 && (
+            <div className="card text-center text-xs text-stone-500 dark:text-stone-400 py-6">
+              暂无待办
+            </div>
+          )}
+        </aside>
+      </div>{/* end xl:flex wrapper */}
 
       <ShareModal open={showShare} onClose={() => setShowShare(false)} />
       {/* v1.8.0-A: 首启 onboarding (受控) */}

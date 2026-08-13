@@ -43,6 +43,8 @@ export interface VirtualListProps<T> {
   onReachStart?: () => void
   /** 容错: 当 items 长度 < 阈值时不启用虚拟滚动 */
   threshold?: number
+  /** W148: 桌面列数 (>1 时启用 CSS grid 模式; 滚动 / offset 按列折算) */
+  cols?: number
   /** 容器 className */
   className?: string
   /** 容器内层 className (默认 'space-y-2') */
@@ -74,6 +76,7 @@ export function VirtualList<T>({
   onReachEnd,
   onReachStart,
   threshold = 50,
+  cols = 1,
   className = '',
   innerClassName = 'space-y-2',
   ariaLabel,
@@ -121,21 +124,26 @@ export function VirtualList<T>({
   }, [])
 
   // 计算可见区间
+  // W148: cols > 1 时, 视觉上每行放 cols 个 item;
+  //   - totalHeight = ceil(items.length / cols) * estimatedItemHeight
+  //   - offsetY = floor(startIndex / cols) * estimatedItemHeight
+  //   - itemsPerView / overscan 按 cols 倍数扩
   const { startIndex, endIndex, offsetY, totalHeight } = useMemo(() => {
     if (!useVirtual) {
       return { startIndex: 0, endIndex: items.length, offsetY: 0, totalHeight: items.length * estimatedItemHeight }
     }
-    const itemsPerView = Math.ceil(viewportH / estimatedItemHeight)
-    const start = Math.max(0, Math.floor(scrollTop / estimatedItemHeight) - overscan)
-    const end = Math.min(items.length, start + itemsPerView + overscan * 2)
-    const offset = start * estimatedItemHeight
+    const c = Math.max(1, cols)
+    const itemsPerView = Math.ceil(viewportH / estimatedItemHeight) * c
+    const start = Math.max(0, Math.floor(scrollTop / estimatedItemHeight) * c - overscan * c)
+    const end = Math.min(items.length, start + itemsPerView + overscan * 2 * c)
+    const offset = Math.floor(start / c) * estimatedItemHeight
     return {
       startIndex: start,
       endIndex: end,
       offsetY: offset,
-      totalHeight: items.length * estimatedItemHeight,
+      totalHeight: Math.ceil(items.length / c) * estimatedItemHeight,
     }
-  }, [useVirtual, scrollTop, viewportH, estimatedItemHeight, overscan, items.length])
+  }, [useVirtual, scrollTop, viewportH, estimatedItemHeight, overscan, items.length, cols])
 
   // 触顶 / 触底
   useEffect(() => {

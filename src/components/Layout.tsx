@@ -14,6 +14,16 @@ import {
   IconEdit, IconBookOpen, IconHeadphones, IconBarChart, IconSettings,
   IconFileText, IconStar, IconTrophy, IconUser, IconArrow,
 } from './Icon'
+// W148-A: 全局快捷键 + 快捷键面板
+import {
+  registerShortcuts,
+  unregisterShortcuts,
+  setEnabled as setShortcutsEnabled,
+  getRouteForAction,
+  SHORTCUT_EVENT,
+  type ShortcutEventDetail,
+} from '../lib/keyboardShortcuts'
+import KeyboardShortcutsModal from './KeyboardShortcutsModal'
 
 // W121: 桌 面 端 22 项 → 4 大 组 折 叠 (12 项 主 入口 + 10 项 折 叠)
 // 业务: 学 习 6 / 练 习 6 / 复 习 5 / 设 置 5 = 22 项, 收 敛 后 顶 部 12 + 4 组 折 叠
@@ -123,6 +133,48 @@ export default function Layout() {
     track('page_view', { path: location.pathname })
   }, [location.pathname])
 
+  // W148-A: 全局快捷键 mount / unmount
+  useEffect(() => {
+    registerShortcuts()
+    return () => unregisterShortcuts()
+  }, [])
+
+  // W148-A: 快捷键面板开关状态 + 监听 w148-shortcut 事件
+  const [showShortcuts, setShowShortcuts] = useState(false)
+  useEffect(() => {
+    const onShortcut = (e: Event) => {
+      const detail = (e as CustomEvent<ShortcutEventDetail>).detail
+      if (!detail) return
+      // 路由跳转 (g h / g w / g a / g s / g e)
+      const route = getRouteForAction(detail.action)
+      if (route) {
+        track('feature_used', { feature: 'shortcut_goto', to: route.to, combo: detail.combo })
+        navigate(route.to)
+        return
+      }
+      // 显示 / 关闭快捷键面板
+      if (detail.action === 'show-shortcuts') {
+        setShowShortcuts((prev) => !prev)
+        return
+      }
+      // close-modal: 业务无关, 让 modal 自己监听 Esc (本组件的 modal 收到 onClose)
+      // 这里不强制关闭, 保持 Layout 状态干净 (避免 'esc' 误关 NavLink 之类)
+    }
+    window.addEventListener(SHORTCUT_EVENT, onShortcut as EventListener)
+    return () => window.removeEventListener(SHORTCUT_EVENT, onShortcut as EventListener)
+  }, [navigate])
+
+  // W148-A: 打开 modal 时禁用全局快捷键 (避免 g h 误触跳转; j/k/Enter 也暂停)
+  //  Esc 仍由 modal 内部 Esc 监听 (复用 src/components/Modal.tsx 的现有逻辑, 不动)
+  //  注意: 本组件用自渲染的 KeyboardShortcutsModal (不基于 Modal.tsx, 是 info-only)
+  //  我们自己加 Esc 关闭 + backdrop 点击关闭
+  useEffect(() => {
+    if (showShortcuts) {
+      setShortcutsEnabled(false)
+      return () => setShortcutsEnabled(true)
+    }
+  }, [showShortcuts])
+
   return (
     <div className="min-h-full flex flex-col md:flex-row">
       {/* 修复: a11y skip-to-main 链接,屏幕阅读器和键盘用户可跳过导航 */}
@@ -229,6 +281,8 @@ export default function Layout() {
       {/* W146: 反馈回路 — 浮动反馈按钮 + 7天 NPS 提示 */}
       <FeedbackButton />
       <NpsPrompt />
+      {/* W148-A: 全局快捷键面板 — '?' 触发, Esc / 再按 '?' / 点击背景 关闭 */}
+      <KeyboardShortcutsModal open={showShortcuts} onClose={() => setShowShortcuts(false)} />
 
       {/* 底部导航 (手机) - W112 UX bug 修: 10 项 → 5 项, 避免 grid-cols-5 静默丢 6-10 */}
       <nav

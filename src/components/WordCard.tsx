@@ -13,6 +13,8 @@ interface Props {
   onToggleFavorite?: () => void
   favCount?: number  // W102: 跨页 集成
   onClickFavs?: () => void  // W102: 跳 释义收藏 跨词
+  isSelected?: boolean  // W148-A: 键盘快捷键 j/k 选中的高亮
+  dataTestId?: string  // W148-A: 测试用, 选中态 e2e
 }
 
 // v2.1.0: 内联 SVG (0 依赖) 替 换 emoji, 跟 改版稿一致
@@ -37,7 +39,7 @@ function StarIcon({ filled, size = 16, className = '' }: { filled: boolean; size
 }
 
 // v2.1.0: React.memo 优 化, prop 不 变 跳 过 重 渲 (省 49 reconcile / 翻 页)
-function WordCardInner({ word, isFavorite, onToggleFavorite, favCount, onClickFavs }: Props) {
+function WordCardInner({ word, isFavorite, onToggleFavorite, favCount, onClickFavs, isSelected, dataTestId }: Props) {
   const dailyGoal = useStore(s => s.dailyGoal)
   const level = LEVELS.find(l => l.value === word.level)
 
@@ -49,7 +51,13 @@ function WordCardInner({ word, isFavorite, onToggleFavorite, favCount, onClickFa
         // P2 修: 用静态 import,避免每次创建 chunk
         markWordCompleted(word.id, undefined, dailyGoal)
       }}
-      className="card-interactive flex items-center gap-3 active:scale-[0.98] no-select"
+      data-testid={dataTestId}
+      data-selected={isSelected ? 'true' : undefined}
+      className={`card-interactive flex items-center gap-3 active:scale-[0.98] no-select ${
+        isSelected
+          ? 'ring-2 ring-brand-500 ring-offset-1 dark:ring-offset-stone-900 rounded-lg bg-brand-50/60 dark:bg-brand-900/20'
+          : ''
+      }`}
     >
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-0.5">

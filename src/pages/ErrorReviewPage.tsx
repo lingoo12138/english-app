@@ -17,7 +17,7 @@ import { analyzeCard, updateCardDifficulty, difficultyStyle, trendArrow, countBy
 import { buildReviewReport, formatReport } from '../lib/errorReviewReport'
 import { toast } from '../components/Toast'
 import { SkeletonPage } from '../components/Skeleton'
-import { IconRefresh, IconSparkles, IconTrophy, IconEdit, IconHeadphones } from '../components/Icon'
+import { IconRefresh, IconSparkles, IconTrophy, IconEdit, IconHeadphones, IconChart } from '../components/Icon'
 
 export default function ErrorReviewPage() {
   const [cards, setCards] = useState<ReviewCard[]>([])
@@ -284,43 +284,45 @@ export default function ErrorReviewPage() {
   const progress = sessionProgress(session)
 
   return (
-    <div className="space-y-4 max-w-2xl mx-auto">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">🔁 错题复习</h1>
-        <button onClick={() => navigate('/errors')} className="text-stone-500 hover:text-stone-700">
-          ← 改错本
-        </button>
-      </div>
+    // W148: 桌面 1280px+ 主副卡 (主卡 + 右侧 288px sticky 副卡: 上次错 / 下次预 / 历史)
+    <div className="space-y-4 max-w-2xl mx-auto xl:max-w-none xl:mx-0 xl:flex xl:gap-6 xl:items-start">
+      <div className="xl:flex-1 xl:min-w-0 space-y-4">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold">🔁 错题复习</h1>
+          <button onClick={() => navigate('/errors')} className="text-stone-500 hover:text-stone-700">
+            ← 改错本
+          </button>
+        </div>
 
-      {/* 进度 */}
-      <div className="card">
-        <div className="flex items-center justify-between text-sm mb-2">
-          <span>进度 {session.total - session.remaining.length} / {session.total}</span>
-          <span className="text-emerald-500">✓ {session.correct}</span>
-          <span className="text-rose-500">✗ {session.wrong}</span>
-          {session.remaining.length > 0 && session.remaining.length < session.total && (
-            <span className="text-amber-500 text-xs">({session.remaining.length} 待重答)</span>
-          )}
+        {/* 进度 */}
+        <div className="card">
+          <div className="flex items-center justify-between text-sm mb-2">
+            <span>进度 {session.total - session.remaining.length} / {session.total}</span>
+            <span className="text-emerald-500">✓ {session.correct}</span>
+            <span className="text-rose-500">✗ {session.wrong}</span>
+            {session.remaining.length > 0 && session.remaining.length < session.total && (
+              <span className="text-amber-500 text-xs">({session.remaining.length} 待重答)</span>
+            )}
+          </div>
+          {/* W89-B: 池中难度统计 */}
+          {(() => {
+            const counts = countByDifficulty(session, session.remaining)
+            return (
+              <div className="flex items-center gap-2 text-xs text-stone-500 mb-2">
+                <span>🌟 掌握 {counts.mastered}</span>
+                <span>🟢 易 {counts.easy}</span>
+                <span>🟡 中 {counts.medium}</span>
+                <span>🔴 难 {counts.hard}</span>
+              </div>
+            )
+          })()}
+          <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-emerald-400 to-brand-500 transition-all"
+              style={{ width: `${progress * 100}%` }}
+            />
+          </div>
         </div>
-        {/* W89-B: 池中难度统计 */}
-        {(() => {
-          const counts = countByDifficulty(session, session.remaining)
-          return (
-            <div className="flex items-center gap-2 text-xs text-stone-500 mb-2">
-              <span>🌟 掌握 {counts.mastered}</span>
-              <span>🟢 易 {counts.easy}</span>
-              <span>🟡 中 {counts.medium}</span>
-              <span>🔴 难 {counts.hard}</span>
-            </div>
-          )
-        })()}
-        <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-emerald-400 to-brand-500 transition-all"
-            style={{ width: `${progress * 100}%` }}
-          />
-        </div>
-      </div>
 
       {/* 完成 summary */}
       {isComplete ? (
@@ -377,7 +379,7 @@ export default function ErrorReviewPage() {
           )}
           <div className="flex justify-center gap-2 mt-4 flex-wrap">
             <button onClick={handleRestart} className="btn-primary">🔁 再来一轮</button>
-            <button onClick={() => navigate('/errors/history')} className="btn-ghost">📊 错题统计</button>
+            <button onClick={() => navigate('/errors/history')} className="btn-ghost inline-flex items-center gap-1.5"><IconChart size={14} /> 错题统计</button>
             <button onClick={() => navigate('/errors')} className="btn-ghost">📋 改错本</button>
           </div>
         </div>
@@ -522,10 +524,10 @@ export default function ErrorReviewPage() {
         </div>
       ) : null}
 
-      {/* 答题历史 */}
+      {/* 答题历史 — W148 桌面 1280px+ 移到右侧 (始终可见, 不需 toggle) */}
       {session.history.length > 0 && (
         <details
-          className="card text-sm"
+          className="card text-sm xl:hidden"
           open={showHistory}
           onToggle={(e) => setShowHistory((e.target as HTMLDetailsElement).open)}
         >
@@ -546,6 +548,79 @@ export default function ErrorReviewPage() {
           </div>
         </details>
       )}
+      </div>{/* end xl:flex-1 main col */}
+
+      {/* W148: 桌面 1280px+ 右侧副卡 (上次错 / 下次预 / 历史, sticky 滚动) */}
+      <aside className="hidden xl:flex xl:flex-col xl:w-72 xl:flex-shrink-0 xl:sticky xl:top-6 xl:self-start space-y-3" data-testid="errorreview-side-panel">
+        {/* 上次错 (最近一次答题结果) */}
+        {lastResult && (
+          <div className="card text-sm" data-testid="errorreview-last-result">
+            <div className="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-1.5 uppercase tracking-wider">
+              上次错
+            </div>
+            <div className={`text-xs mb-1 ${
+              lastResult.grade === 'perfect' || lastResult.grade === 'good' ? 'text-emerald-500' :
+              lastResult.grade === 'ok' ? 'text-amber-500' : 'text-rose-500'
+            }`}>
+              得分 <b>{lastResult.score}</b> · {lastResult.grade}
+              {lastResult.peeked && <span className="ml-1 text-rose-500">(偷看)</span>}
+            </div>
+            <div className="text-[10px] text-stone-500 dark:text-stone-400 mb-1">
+              答: <span className="font-mono text-stone-700 dark:text-stone-300">{lastResult.userAnswer || '(空)'}</span>
+            </div>
+            <div className="text-[10px] text-stone-500 dark:text-stone-400 mb-1">
+              正: <span className="font-mono text-emerald-600 dark:text-emerald-400">{lastResult.card.answer}</span>
+            </div>
+            {!lastResult.isCorrect && !lastResult.peeked && (
+              <div className="text-[10px] text-rose-500 mt-1">🔁 此题将再次出现</div>
+            )}
+          </div>
+        )}
+
+        {/* 下次预 (next card preview) */}
+        {(() => {
+          // session.remaining[0] 是当前题, [1] 是下一题
+          const nextCard = session.remaining.length > 1 ? session.remaining[1] : null
+          if (!nextCard) return null
+          return (
+            <div className="card text-sm" data-testid="errorreview-next-preview">
+              <div className="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-1.5 uppercase tracking-wider">
+                下次预
+              </div>
+              <div className="text-[10px] text-stone-500 dark:text-stone-400 mb-1">
+                源: {nextCard.source} {nextCard.hint && `· 💡 ${nextCard.hint}`}
+              </div>
+              <div className="text-xs font-mono text-rose-700 dark:text-rose-300 line-clamp-3">
+                {nextCard.prompt}
+              </div>
+              <div className="text-[10px] text-stone-400 mt-1">下一题即将出现 ↑</div>
+            </div>
+          )
+        })()}
+
+        {/* 答题历史 (桌面始终展开, 不需 toggle) */}
+        {session.history.length > 0 && (
+          <div className="card text-sm" data-testid="errorreview-history">
+            <div className="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-1.5 uppercase tracking-wider">
+              答题历史 ({session.history.length})
+            </div>
+            <div className="space-y-1 max-h-60 overflow-y-auto">
+              {session.history.slice().reverse().slice(0, 10).map((h, i) => (
+                <div key={i} className="flex items-center justify-between text-[10px]">
+                  <span className="font-mono text-stone-500 dark:text-stone-400 truncate flex-1 mr-2">
+                    {h.cardId}
+                  </span>
+                  <span className={
+                    h.grade === 'perfect' || h.grade === 'good' ? 'text-emerald-500' : 'text-rose-500'
+                  }>
+                    {h.score} ({h.grade}){h.peeked ? ' 👀' : ''}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </aside>
     </div>
   )
 }

@@ -1,9 +1,11 @@
 // ShareModal.tsx - v1.1-F1 分享 Modal (3 步: 选风格 → 预览 → 下载)
 // W147: 加 2 个新风格 (streak / vocab) + 加 "生成周报" 入口
+// W148-C: handleCopy 文 本 emoji 全替 (/////️/), 提示 段 emoji 全替 (/)
 import { useState, useRef } from 'react'
 import { Modal } from './Modal'
 import { ShareCard, useShareCardData, type ShareCardStyle } from './ShareCard'
 import { toast } from './Toast'
+import { IconShare } from './Icon'
 import { generateWeeklyReport, copyReportAsMarkdown, downloadReportAsHtml, shareReport } from '../lib/weeklyReport'
 
 interface Props {
@@ -78,14 +80,15 @@ export function ShareModal({ open, onClose }: Props) {
 
   const handleCopy = async () => {
     if (!data) return
+    // W148-C: 文 本 emoji 全替, 用 【】 / — 分隔
     const text = [
-      '📚 我的句刻学习 📚',
+      '【我的句刻学习】',
       '',
-      `🔥 连续学习: ${data.streak} 天`,
-      `📅 累计天数: ${data.totalDays} 天`,
-      `📖 学过词数: ${data.totalLearned} 词`,
-      `⭐ 收藏: ${data.favoriteCount} 个`,
-      `✏️ 错题: ${data.errorCount} 个`,
+      `连续学习: ${data.streak} 天`,
+      `累计天数: ${data.totalDays} 天`,
+      `学过词数: ${data.totalLearned} 词`,
+      `收藏: ${data.favoriteCount} 个`,
+      `错题: ${data.errorCount} 个`,
       '',
       '让英语在你想用的时候就能用上',
       'https://lingoo12138.github.io/english-app/',
@@ -180,20 +183,22 @@ export function ShareModal({ open, onClose }: Props) {
           </div>
         </div>
 
-        {/* 提示 */}
+        {/* 提示 — W148-C: / emoji 全替 */}
         <div className="text-xs text-stone-500 dark:text-stone-400 text-center space-y-1">
-          <p>📱 手机端: 长按图片 → 保存到相册</p>
-          <p>💻 电脑端: 右键图片 → 图片另存为</p>
+          <p>手机端: 长按图片 → 保存到相册</p>
+          <p>电脑端: 右键图片 → 图片另存为</p>
         </div>
 
-        {/* 复制文本 */}
+        {/* 复制文本 — W148-C:  emoji 替 IconShare */}
         <div className="flex gap-2">
           <button
             onClick={handleCopy}
             disabled={!data}
-            className="btn-primary flex-1 text-sm disabled:opacity-50"
+            className="btn-primary flex-1 text-sm disabled:opacity-50 inline-flex items-center justify-center gap-1.5"
+            data-testid="share-copy-text"
           >
-            📋 复制分享文本
+            <IconShare size={14} aria-hidden />
+            <span>复制分享文本</span>
           </button>
         </div>
       </div>

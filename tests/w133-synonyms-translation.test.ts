@@ -255,13 +255,14 @@ describe('W133 — 同义词 + 翻译页 UI 改版稿', () => {
       expect(emojiRe.test(wordNet), 'WordNetwork 0 emoji').toBe(false)
     })
 
-    it('3 文件 29 个 Icon 仍 然 可 用 (W136 P2-4 加 3 + W146 加 4: IconCheck/IconChart/IconDownload/IconTrash)', () => {
+    it('3 文件 30 个 Icon 仍 然 可 用 (W136 P2-4 加 3 + W146 加 4 + W148-A 加 1)', () => {
       const icon = readFile('src/components/Icon.tsx')
       const iconCount = (icon.match(/^export const Icon/gm) || []).length
       // W136 P2-4: ErrorBoundary 替 emoji, 加 3 个 Icon
       // W146: 反馈回路 + UsagePage dashboard 加 4 个 (IconCheck/IconChart/IconDownload/IconTrash)
-      // 22 (W133) + 3 (W136 P2-4) + 4 (W146) = 29
-      expect(iconCount, 'Icon.tsx 应 29 个 (W133: 22 + W136 P2-4: 3 + W146: 4)').toBe(29)
+      // W148-A: 键盘快捷键面板加 1 个 (IconKeyboard)
+      // 22 (W133) + 3 (W136 P2-4) + 4 (W146) + 1 (W148-A) = 30
+      expect(iconCount, 'Icon.tsx 应 30 个 (W133: 22 + W136 P2-4: 3 + W146: 4 + W148-A: 1)').toBe(30)
     })
 
     it('8 大激活 数据 不 变 (W133 限制: 不 改 同义词词组 / 翻译词库)', () => {

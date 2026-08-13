@@ -408,7 +408,9 @@ export default function AIChat() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-7rem)] md:h-[calc(100vh-4rem)]">
+    <div className="flex flex-col h-[calc(100vh-7rem)] md:h-[calc(100vh-4rem)] xl:flex-row xl:gap-4">
+      {/* W148: 桌面 1280px+ 左侧 主对话区 (消息 + 输入) */}
+      <div className="flex flex-col flex-1 min-w-0 xl:min-w-0">
       {/* v1.9.0: 💬 自由话题 modal */}
       <Modal
         open={showTopicModal}
@@ -479,8 +481,10 @@ export default function AIChat() {
         </div>
       </div>
 
-      {/* W123d 3 大 折 叠 v2 (角 色 / 多人场景 / 难 度 + 自由话题) — 跟 W121 4 大组 风 格 一 致 */}
-      <div className="space-y-2 mb-3">
+      {/* W123d 3 大 折 叠 v2 (角 色 / 多人场景 / 难 度 + 自由话题) — 跟 W121 4 大组 风 格 一 致
+       * W148: 桌面 1280px+ 隐藏 (移到右侧 sticky 面板, 始终展开)
+      */}
+      <div className="space-y-2 mb-3 xl:hidden">
         {/* 角 色 选 择 - 默 认 展 开 (主 功 能) */}
         <div className="border border-stone-200 dark:border-stone-700 rounded-xl overflow-hidden">
           <button
@@ -605,9 +609,9 @@ export default function AIChat() {
         </div>
       </div>
 
-      {/* 历史侧栏 */}
+      {/* 历史侧栏 — W148 桌面 1280px+ 移到右侧 (始终可见, 不用 toggle) */}
       {showHistory && (
-        <div className="card">
+        <div className="card xl:hidden">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-sm font-semibold">📚 {t('aichat.history').replace('N', String(chats.length))}</h2>
             <button onClick={() => setShowHistory(false)} className="text-xs text-stone-500">关闭</button>
@@ -815,6 +819,146 @@ export default function AIChat() {
             : <><IconArrow size={14} strokeWidth={2.5} />发送</>}
         </button>
       </div>
+      </div>{/* end xl:flex-1 main col */}
+
+      {/* W148: 桌面 1280px+ 右侧快捷建议 (场景 chips / 难度 / 角色 / 历史, 始终可见, sticky 滚动) */}
+      <aside className="hidden xl:flex xl:flex-col xl:w-72 xl:flex-shrink-0 xl:sticky xl:top-4 xl:self-start xl:max-h-[calc(100vh-6rem)] xl:overflow-y-auto scrollbar-hide space-y-3" data-testid="aichat-quick-panel">
+        {/* 角色 (始终展开) */}
+        <div className="border border-stone-200 dark:border-stone-700 rounded-xl overflow-hidden bg-white dark:bg-stone-900">
+          <div className="px-3 py-2 text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider flex items-center gap-1">
+            <IconUser size={12} strokeWidth={2.5} />
+            角色
+            {currentRoleId !== 'none' && (
+              <span className="ml-1 text-[10px] normal-case font-normal text-brand-600 dark:text-brand-400">
+                · {getRoleById(currentRoleId).name}
+              </span>
+            )}
+          </div>
+          <div className="p-2 border-t border-stone-200 dark:border-stone-700">
+            <RoleSelector
+              selectedRoleId={currentRoleId}
+              onChange={handleRoleChange}
+            />
+          </div>
+        </div>
+
+        {/* 场景 / 难度 (始终展开) */}
+        <div className="border border-stone-200 dark:border-stone-700 rounded-xl overflow-hidden bg-white dark:bg-stone-900">
+          <div className="px-3 py-2 text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider flex items-center gap-1">
+            <IconSettings size={12} strokeWidth={2.5} />
+            场景 / 难度
+            <span className="ml-1 text-[10px] normal-case font-normal text-stone-500">
+              · {SCENARIOS.find(s => s.id === scenario)?.name} · {LEVELS.find(l => l.id === level)?.name}
+            </span>
+          </div>
+          <div className="p-2 border-t border-stone-200 dark:border-stone-700 space-y-3">
+            <div>
+              <div className="text-[10px] text-stone-500 dark:text-stone-400 mb-1.5 px-1">场景</div>
+              <div className="flex flex-col gap-1.5">
+                {SCENARIOS.map(s => (
+                  <button
+                    key={s.id}
+                    onClick={() => setScenario(s.id)}
+                    className={`text-left px-3 py-1.5 rounded-lg text-sm transition-all duration-[var(--t-base)] ease-[var(--ease-spring)] ${
+                      scenario === s.id
+                        ? 'bg-brand-500 text-white shadow-[0_2px_6px_rgba(34,197,94,0.3)]'
+                        : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+                    }`}
+                  >
+                    {s.name}
+                  </button>
+                ))}
+                <button
+                  onClick={() => setShowTopicModal(true)}
+                  className={`text-left px-3 py-1.5 rounded-lg text-sm transition-all duration-[var(--t-base)] ease-[var(--ease-spring)] ${
+                    customTopic
+                      ? 'bg-accent-500 text-white shadow-[0_2px_6px_rgba(99,102,241,0.3)]'
+                      : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+                  }`}
+                >
+                  ✨ 自由话题
+                </button>
+              </div>
+            </div>
+            <div>
+              <div className="text-[10px] text-stone-500 dark:text-stone-400 mb-1.5 px-1">多人场景</div>
+              <MultiRoleSelector
+                selectedScenarioId={multiScenarioId}
+                onChange={(id) => { setMultiScenarioId(id); if (id) setCurrentRoleId('none') }}
+              />
+            </div>
+            <div>
+              <div className="text-[10px] text-stone-500 dark:text-stone-400 mb-1.5 px-1">难度</div>
+              <div className="grid grid-cols-3 gap-1.5">
+                {LEVELS.map(l => (
+                  <button
+                    key={l.id}
+                    onClick={() => { setLevel(l.id); setAutoLevel(false) }}
+                    className={`px-2 py-1.5 rounded-lg text-xs transition-all duration-[var(--t-base)] ease-[var(--ease-spring)] ${
+                      !autoLevel && level === l.id
+                        ? 'bg-accent-500 text-white shadow-[0_2px_6px_rgba(99,102,241,0.3)]'
+                        : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+                    }`}
+                  >
+                    {l.name}
+                  </button>
+                ))}
+                <button
+                  onClick={() => setAutoLevel(!autoLevel)}
+                  className={`col-span-3 px-2 py-1.5 rounded-lg text-xs transition-all duration-[var(--t-base)] ease-[var(--ease-spring)] ${
+                    autoLevel
+                      ? 'bg-amber-500 text-white shadow-[0_2px_6px_rgba(245,158,11,0.3)]'
+                      : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+                  }`}
+                  title={autoLevel ? '已开启: 系统根据你最近 5 轮表达自动调难度' : '开启自动难度'}
+                >
+                  ✨ 自动难度
+                </button>
+              </div>
+              {autoLevel && dynamicLevel && (
+                <div className="mt-1 text-xs px-2 py-0.5 inline-block bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 rounded">
+                  当前: {dynamicLevel}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* 历史 (桌面始终展开, 不需 toggle) */}
+        <div className="border border-stone-200 dark:border-stone-700 rounded-xl overflow-hidden bg-white dark:bg-stone-900">
+          <div className="px-3 py-2 text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider flex items-center justify-between">
+            <span className="flex items-center gap-1">
+              <IconBookOpen size={12} strokeWidth={2.5} />
+              历史
+            </span>
+            <span className="text-[10px] normal-case font-normal text-stone-500">
+              {chats.length} 条
+            </span>
+          </div>
+          {chats.length === 0 ? (
+            <p className="p-3 text-xs text-stone-500 dark:text-stone-400 text-center">还没有对话</p>
+          ) : (
+            <div className="p-2 border-t border-stone-200 dark:border-stone-700 space-y-1.5 max-h-60 overflow-y-auto">
+              {chats.slice(0, 5).map(c => (
+                <button
+                  key={c.id}
+                  onClick={() => loadChat(c)}
+                  className={`w-full text-left p-2 rounded-lg border text-xs ${
+                    c.id === currentChatId
+                      ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/20'
+                      : 'border-stone-200 dark:border-stone-700 hover:bg-stone-50 dark:hover:bg-stone-800/50'
+                  }`}
+                >
+                  <div className="font-medium truncate">{c.title}</div>
+                  <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">
+                    {c.scenario} · {c.messages.length} 条
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </aside>
     </div>
   )
 }
