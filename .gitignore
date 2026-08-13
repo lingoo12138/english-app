@@ -11,3 +11,4 @@ test-results/
 .worktree-gh-pages/
 .mavis/plans/
 .lighthouseci/
+dist/

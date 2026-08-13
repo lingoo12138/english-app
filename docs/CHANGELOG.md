@@ -2,9 +2,9 @@
 
 > 每次功能发布的变更记录 · 中英双语 (主中文, 关键段英文)
 >
-> 最后更新: 2026-08-09 (v2.1.12)
+> 最后更新: 2026-08-13 (v2.1.29)
 >
-> **English Summary**: This changelog documents 123 release tags (v0.1.0 ~ v2.1.12), 19+ weeks, 35+ major reviews (incl. 18 verifier adversarial audits). 5,423 words / 100% coverage. 1,450 unit tests. 0 P0 + 0 P1 business-critical. See [v2.1.12](#v2112--2026-08-09) for the latest release.
+> **English Summary**: This changelog documents 138 release tags (v0.1.0 ~ v2.1.29), 22+ weeks, 42+ major reviews (incl. 28+ verifier adversarial audits). 5,423 words / 100% coverage. 1,941 unit tests. 0 P0 + 0 P1 business-critical. See [v2.1.29](#v2129--2026-08-13) for the latest release.
 
 ---
 
@@ -4720,3 +4720,88 @@
 - [v2.1.12 W126+W127+W128](#v2112--2026-08-09)
 - [v2.1.x 全段 W112-W131](#v21x-全段--2026-08-08--2026-08-09)
 
+
+## [v2.1.29] - 2026-08-13
+
+### v2.1.29 W148 — 桌面 PWA 增强 (v3 plan E-3) — 快捷键 + 桌面布局 + InstallPrompt
+
+> v3 plan 战略第三步: 不再列新功能, 建"反馈信号塔". E-1 (W146 反馈回路) → E-2 (W147 学习周报) → E-3 (W148 桌面 PWA 增强) → W149 真实用户招募. W143-W145 恰好印证 v3 诊断 (技术到顶但 0 用户数据).
+
+#### 关键交付
+
+- **键盘快捷键系统**: `src/lib/keyboardShortcuts.ts` (9.7KB) + `src/components/KeyboardShortcutsModal.tsx` (6KB)
+  - `g h/w/a/s/e` 5 跳转 (home/wordlist/ai-chat/settings/errors)
+  - `j/k` 词表上下移动选中 (WordCard ring-2 ring-brand-500 高亮)
+  - `Enter` 跳当前选中词详情
+  - `?` 打开/关闭快捷键面板 (ESC 关闭)
+  - CustomEvent 'w148-shortcut' 派发 (解耦 react-router)
+- **桌面布局 (xl/lg)**: `src/lib/useMediaQuery.ts` (1.9KB) ssr safe
+  - ErrorReviewPage: xl 主副卡 (主 + 288px sticky 右侧: 上次错 / 下次预 / 历史)
+  - AIChat: xl 双栏 (对话 + 320px 侧栏)
+  - Home/WordList: 桌面 lg 横向布局
+  - VirtualList: 桌面横排
+  - WordCard: isSelected 条件 class + data-testid
+- **InstallPrompt 桌面 PWA 增强**: `(display-mode: standalone)` + `(navigator as any).standalone` 双重检测
+  - `appinstalled` 事件 → 3 秒绿色反馈条 (IconCheck)
+  - chrome/edge 桌面 + Android + iOS 共用
+  - data-testid 供 e2e
+- **ShareCard/ShareModal emoji cleanup**: W146 0 emoji 硬约束补刀
+  - 1 ⭐ 残留 → 改 "Star" 文字
+  - 测试 regex 容许
+- **Icon.tsx 30 个**: W148-A 新增 IconKeyboard (键盘快捷键面板 header)
+- **Telemetry 复用**: 快捷键 goto 用 `feature_used` + payload `{ feature: 'shortcut_goto', to, combo }` 替自定义事件名
+
+#### 沙盒经验第 8 次 (3 agent 全 fail)
+
+- 3 agent 并行: 快捷键 / 桌面布局 / InstallPrompt+emoji cleanup
+- 全部 fail (跟 W144 同样模式, 沙盒经验 8/8)
+- 但写了 13 文件 + 87 测试 (W144 Agent B 0 deliverable 升级)
+- 主人 owner-self-verify 兜底:
+  - 10 测试 fail 修
+  - 2 TS 编译 fail (Layout track / WordList useEffect hoisting)
+  - 1 emoji 残留清
+  - 1 Icon 注册 (测试 expect 同步)
+  - 1 import 同步 (ErrorReviewPage IconChart)
+  - commit + tag + push + 部署
+
+### 累计 (v2.1.29)
+
+- **138 release tag** / 22+ 周 / **42+ 次大 review** (含 **28+ verifier 抗审查**)
+- **1941 单元测试** / 127 文件 / 全过 (+87 W148)
+- **5,423 词 / 100% 主线** (词根/短语/pos/examples/同义词/反义词/翻译)
+- **8 大激活功能** 100% 落地
+- **0 P0 + 0 P1 业务** 维持 200+ 轮 (W146+ 战略延续)
+- **Lighthouse 4 类目 (W147 复测)**: perf 0.89 / a11y 1.00 / bp 1.00 / seo 0.91
+- **Lighthouse 进步轨迹**:
+  - W142 baseline: perf 0.71 / a11y 0.91 / LCP 6.9s
+  - W143 (LCP + CLS): perf 0.68 / a11y 0.91 / LCP 6.7s / CLS 0.038
+  - W144 (a11y 全面): perf 0.68 / a11y 1.00 满分
+  - W145 (lazy words.json): perf 0.92 / a11y 1.00 / LCP 1.7s (4x 改善)
+  - W146 (E-1 反馈回路): perf 0.89 / a11y 1.00 / LCP 1.8s
+  - W147 (E-2 学习周报): perf 0.89 / a11y 1.00 / LCP 1.8s
+  - W148 (E-3 桌面 PWA): 估计持平 (沙盒无法复测)
+- **23 e2e spec / 128+ 测试**
+- **0 emoji 严格** (W146+) — 30 个 Icon SVG
+- **0 网络上传** (W146+ 严格) — telemetry/feedback/nps 全部 IDB
+
+### 部署
+
+- main: `a814578` v2.1.29 ✅
+- gh-pages: `3e54f52` 部署 v2.1.29 ✅
+- 预览: https://lingoo12138.github.io/english-app/
+
+### ⚠️ 待 user 自己推
+
+`.github/workflows/lighthouse.yml` (W142 写, 22 行) — 当前 Token 缺 workflow scope, commit `c5feb9c` 含此文件, 被 `a814578` revert 排除. **请 user 用有 workflow scope 的 token 推**:
+```bash
+git checkout c5feb9c -- .github/workflows/lighthouse.yml
+git push origin main  # 此时会带 lighthouse.yml
+```
+
+### 关键经验
+
+- **测试全过 ≠ 正确** (W135-W148 反复印证)
+- **2-3 独立 verifier 抗审查** 累计找 25+ P0 真问题
+- **沙盒 sub-agent 不再适合 W149+** (战略已转向, 需真用户数据)
+- **W148 主人兜底 5 周连击** (W144/W145/W146/W147/W148) — 沙盒经验复用已成 routine
+- **v3 plan 战略接受** (E 方向三步走完) — W149 真实用户招募是触发下一步的关键
