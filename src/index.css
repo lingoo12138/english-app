@@ -68,6 +68,53 @@
     .stagger-item { animation: none; }
     .card-interactive { transition: none; }
   }
+
+  /* W149 反馈 4-7: 4 大微动效 */
+  /* 4. 列表项 hover — 轻 scale + ring 提示 (跟 .card-interactive 一致但更轻) */
+  .stagger-item {
+    transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+  }
+  .stagger-item:hover {
+    transform: scale(1.005);
+  }
+  /* 5. 模态框 spring 弹出 (scale 0.92 + fade → 1.0) */
+  @keyframes modalPopup {
+    from { opacity: 0; transform: scale(0.92) translateY(8px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-popup {
+    animation: modalPopup 0.32s var(--ease-spring) both;
+    will-change: opacity, transform;
+  }
+  /* 5b. 模态背景 fade in (跟 modal 主体并行) */
+  @keyframes backdropFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .modal-backdrop {
+    animation: backdropFade 0.2s var(--ease) both;
+  }
+  /* 6. 进度条 fill — width 平滑过渡 (默认应用) */
+  .progress-fill {
+    transition: width var(--t-slow, 300ms) var(--ease);
+  }
+  /* 7. 暗色切换 — body + 卡片 bg/color 平滑过渡 (全局, 一次性) */
+  html, body {
+    transition: background-color var(--t-slow, 300ms) var(--ease), color var(--t-slow, 300ms) var(--ease);
+  }
+  /* 业务: 暗色切换不能影响其他 transition (按钮 hover 等) */
+  /* 7b. 卡片 / 按钮等也跟随 — bg-color + border-color 过渡 */
+  .card, .btn, .input, .card-interactive {
+    transition-property: transform, box-shadow, background-color, border-color;
+    transition-duration: var(--t-base), var(--t-base), var(--t-slow, 300ms), var(--t-slow, 300ms);
+    transition-timing-function: var(--ease), var(--ease), var(--ease), var(--ease);
+  }
+  /* a11y: 4 大动效 reduced-motion 全关 */
+  @media (prefers-reduced-motion: reduce) {
+    .modal-popup, .modal-backdrop { animation: none; }
+    .progress-fill { transition: none; }
+    html, body { transition: none; }
+  }
   .input {
     @apply w-full px-4 py-2.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all duration-[var(--t-fast)] ease-[var(--ease)];
   }

@@ -89,7 +89,7 @@ export function KeyboardShortcutsModal({ open, onClose }: KeyboardShortcutsModal
   if (!open) return null
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      className="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose()
       }}
@@ -98,7 +98,7 @@ export function KeyboardShortcutsModal({ open, onClose }: KeyboardShortcutsModal
       aria-labelledby="shortcuts-modal-title"
       data-testid="keyboard-shortcuts-modal"
     >
-      <div className="max-w-md w-full rounded-lg shadow-2xl bg-white dark:bg-slate-800">
+      <div className="modal-popup max-w-md w-full rounded-lg shadow-2xl bg-white dark:bg-slate-800">
         <div className="p-6 pb-3 flex items-center justify-between border-b border-stone-200 dark:border-stone-700">
           <h2
             id="shortcuts-modal-title"

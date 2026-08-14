@@ -94,14 +94,14 @@ export function FeedbackButton({ disabled = false }: Props) {
       {/* Modal */}
       {open && (
         <div
-          className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
+          className="modal-backdrop fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
           onClick={() => !submitting && setOpen(false)}
           role="dialog"
           aria-modal="true"
           aria-labelledby="feedback-title"
         >
           <div
-            className="bg-white dark:bg-stone-800 rounded-2xl p-6 max-w-md w-full shadow-xl space-y-4"
+            className="modal-popup bg-white dark:bg-stone-800 rounded-2xl p-6 max-w-md w-full shadow-xl space-y-4"
             onClick={e => e.stopPropagation()}
           >
             {/* 标题 + 关闭 */}

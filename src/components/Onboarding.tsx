@@ -291,7 +291,7 @@ export default function Onboarding({ open, onClose, onComplete }: OnboardingProp
         <div className="px-5 pt-2" aria-hidden="true">
           <div className="h-1 bg-stone-100 dark:bg-stone-700 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-brand-500 to-emerald-500 transition-all duration-300"
+              className="h-full bg-gradient-to-r from-brand-500 to-emerald-500 transition-all duration-300 progress-fill"
               style={{ width: `${(stepNum / TOTAL_STEPS) * 100}%` }}
             />
           </div>

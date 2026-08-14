@@ -67,7 +67,7 @@ export function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      className="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       onClick={(e) => {
         if (e.target === e.currentTarget) onCancel()
       }}
@@ -75,7 +75,7 @@ export function Modal({
       aria-modal="true"
       aria-labelledby="modal-title"
     >
-      <div className={`max-w-md w-full rounded-lg shadow-2xl ${variantClass}`}>
+      <div className={`modal-popup max-w-md w-full rounded-lg shadow-2xl ${variantClass}`}>
         <div className="p-6">
           <h2 id="modal-title" className="text-lg font-semibold mb-3 text-slate-900 dark:text-slate-100">
             {title}

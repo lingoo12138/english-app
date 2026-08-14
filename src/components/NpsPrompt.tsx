@@ -79,12 +79,12 @@ export function NpsPrompt() {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
+      className="modal-backdrop fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="nps-title"
     >
-      <div className="bg-white dark:bg-stone-800 rounded-2xl p-6 max-w-md w-full shadow-xl space-y-4">
+      <div className="modal-popup bg-white dark:bg-stone-800 rounded-2xl p-6 max-w-md w-full shadow-xl space-y-4">
         {submitted ? (
           <div className="py-12 text-center space-y-2" data-testid="nps-success">
             <div className="inline-flex w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 items-center justify-center">

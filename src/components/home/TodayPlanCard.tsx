@@ -27,7 +27,7 @@ export default function TodayPlanCard({ plan, onMarkWord }: Props) {
           </div>
           <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden mt-1.5">
             <div
-              className="h-full bg-gradient-to-r from-emerald-500 to-cyan-500 transition-all"
+              className="h-full bg-gradient-to-r from-emerald-500 to-cyan-500 transition-all progress-fill"
               style={{ width: `${plan.progressPct}%` }}
             />
           </div>
