@@ -468,6 +468,8 @@ export default function WordList() {
                       onClickFavs={() => handleClickFavs(word)}
                       isSelected={globalIndex === selectedIndex}
                       dataTestId={globalIndex === selectedIndex ? 'word-list-selected' : undefined}
+                      // W149 反馈 3: 分页模式 stagger fade-in (virtual 模式不加, 会跟 scroll 冲突)
+                      className="stagger-item"
                     />
                   </Fragment>
                 )

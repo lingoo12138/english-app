@@ -47,8 +47,9 @@ describe('v2.1.0 UI 改 良 验证', () => {
       expect(css).toMatch(/\.card\s*\{[^}]*box-shadow:\s*var\(--shadow-soft\)/)
     })
 
-    it('.card-interactive 类 添 加 hover -translate-y-0.5', () => {
-      expect(allCss).toMatch(/\.card-interactive\s*\{[^}]*hover:-translate-y-0\.5/)
+    it('.card-interactive hover 浮起 (W149 反馈 3 升级: -3px + scale 1.005)', () => {
+      // W149 反馈 3: hover 增强, 从 -translate-y-0.5 升到 translateY(-3px) scale(1.005)
+      expect(allCss).toMatch(/\.card-interactive:hover\s*\{[^}]*transform:\s*translateY\(-3px\)\s*scale\(1\.005\)/)
     })
 
     it('.btn 改 用 motion token (duration/ease)', () => {

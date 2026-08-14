@@ -26,10 +26,47 @@
     box-shadow: var(--shadow-soft);
   }
   .card-interactive {
-    @apply card cursor-pointer hover:-translate-y-0.5;
+    @apply card cursor-pointer;
+    transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
   }
   .card-interactive:hover {
+    transform: translateY(-3px) scale(1.005);
     box-shadow: var(--shadow-hover);
+  }
+  /* W149 反馈 3: 按钮按下涟漪 — inset shadow 模拟物理按压 */
+  .btn:active {
+    transform: scale(0.97);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+  /* W149 反馈 3: 列表 stagger fade-in (n=1..20) — 错题/词库/设置 列表逐个浮现 */
+  @keyframes listItemEnter {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .stagger-item {
+    animation: listItemEnter 0.32s var(--ease-spring) both;
+    will-change: opacity, transform;
+  }
+  .stagger-item:nth-child(1)  { animation-delay: 0.00s; }
+  .stagger-item:nth-child(2)  { animation-delay: 0.03s; }
+  .stagger-item:nth-child(3)  { animation-delay: 0.06s; }
+  .stagger-item:nth-child(4)  { animation-delay: 0.09s; }
+  .stagger-item:nth-child(5)  { animation-delay: 0.12s; }
+  .stagger-item:nth-child(6)  { animation-delay: 0.15s; }
+  .stagger-item:nth-child(7)  { animation-delay: 0.18s; }
+  .stagger-item:nth-child(8)  { animation-delay: 0.21s; }
+  .stagger-item:nth-child(9)  { animation-delay: 0.24s; }
+  .stagger-item:nth-child(10) { animation-delay: 0.27s; }
+  .stagger-item:nth-child(11) { animation-delay: 0.30s; }
+  .stagger-item:nth-child(12) { animation-delay: 0.33s; }
+  .stagger-item:nth-child(13) { animation-delay: 0.36s; }
+  .stagger-item:nth-child(14) { animation-delay: 0.39s; }
+  .stagger-item:nth-child(15) { animation-delay: 0.42s; }
+  .stagger-item:nth-child(n+16) { animation-delay: 0.45s; } /* 16+ 同步, 不再 stagger */
+  /* a11y: 跟 page-transition 一致 */
+  @media (prefers-reduced-motion: reduce) {
+    .stagger-item { animation: none; }
+    .card-interactive { transition: none; }
   }
   .input {
     @apply w-full px-4 py-2.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all duration-[var(--t-fast)] ease-[var(--ease)];

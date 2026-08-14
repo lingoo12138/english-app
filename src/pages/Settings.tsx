@@ -71,7 +71,7 @@ export default function Settings() {
       <ReminderSection />
 
       {/* v1.8.0-A: 重新看引导 */}
-      <section className="card">
+      <section className="card stagger-item">
         <h3 className="font-semibold mb-3">🎓 引导</h3>
         <button
           onClick={handleReplayOnboarding}
@@ -86,7 +86,7 @@ export default function Settings() {
       </section>
 
       {/* W146: 反馈回路 — 我的使用 / 反馈 / 埋点设置 入口 */}
-      <section className="card" data-testid="settings-feedback-section">
+      <section className="card stagger-item" data-testid="settings-feedback-section">
         <h3 className="font-semibold mb-3">反馈与使用</h3>
         <div className="space-y-2">
           <Link
@@ -130,7 +130,7 @@ export default function Settings() {
       </section>
 
       {/* v1.12.0-C: LLM 用量 */}
-      <section className="card">
+      <section className="card stagger-item">
         <div className="flex items-center justify-between mb-3">
           <h3 className="font-semibold">📊 LLM 用量 (今日)</h3>
           <div className="flex gap-2">
