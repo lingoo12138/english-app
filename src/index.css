@@ -336,11 +336,11 @@ body {
 
 /* v1.1-W1: Toast 滑入动画 */
 @keyframes slide-down {
-  from { transform: translateY(-100%); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
+  from { transform: translateY(-100%) scale(0.95); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
 }
 .animate-slide-down {
-  animation: slide-down 0.2s ease-out;
+  animation: slide-down 0.24s var(--ease-spring) both;
 }
 /* v1.3-F2: 成就解锁动画 */
 @keyframes bounce-slow {

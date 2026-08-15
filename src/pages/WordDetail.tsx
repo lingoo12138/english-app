@@ -160,7 +160,7 @@ export default function WordDetail() {
       </div>
 
       {/* 主词条 */}
-      <div className="card">
+      <div className="card stagger-item">
         <div className="flex items-start justify-between mb-3">
           <div>
             <h1 className="text-4xl font-bold mb-1">{word.word}</h1>
@@ -256,7 +256,7 @@ export default function WordDetail() {
 
       {/* 词根词缀 */}
       {word.roots && word.roots.length > 0 && (
-        <div className="card">
+        <div className="card stagger-item">
           <h3 className="font-semibold mb-3 flex items-center gap-2">
             <span>🌱</span>
             <span>词根词缀</span>
@@ -283,7 +283,7 @@ export default function WordDetail() {
 
       {/* 短语 */}
       {word.phrases && word.phrases.length > 0 && (
-        <div className="card">
+        <div className="card stagger-item">
           <h3 className="font-semibold mb-3 flex items-center gap-2">
             <span>🔗</span>
             <span>常用短语</span>
@@ -304,7 +304,7 @@ export default function WordDetail() {
       )}
 
       {/* v1.5-D3: AI 推荐短语用法 */}
-      <div className="card">
+      <div className="card stagger-item">
         <h3 className="font-semibold mb-3 flex items-center gap-2">
           <span>💡</span>
           <span>AI 短语用法</span>
@@ -319,7 +319,7 @@ export default function WordDetail() {
       <WordNetwork word={word.word} />
 
       {/* v1.8-A: D3 LLM Tutor 2.0 完整版 (语法讲解) */}
-      <div className="card">
+      <div className="card stagger-item">
         <h3 className="font-semibold mb-3 flex items-center gap-2">
           <span>📖</span>
           <span>AI 语法讲解</span>
@@ -332,7 +332,7 @@ export default function WordDetail() {
       </div>
 
       {/* v1.10.0-B: 同义词辨析 */}
-      <div className="card">
+      <div className="card stagger-item">
         <h3 className="font-semibold mb-3 flex items-center gap-2">
           <span>🔀</span>
           <span>AI 同义词辨析</span>
@@ -345,7 +345,7 @@ export default function WordDetail() {
       </div>
 
       {/* 例句 */}
-      <div className="card">
+      <div className="card stagger-item">
         <h3 className="font-semibold mb-3 flex items-center gap-2">
           <span>💬</span>
           <span>场景例句</span>
@@ -393,7 +393,7 @@ export default function WordDetail() {
       <PronunciationPractice key={word.id} word={word.word} />
 
       {/* 自评 */}
-      <div className="card">
+      <div className="card stagger-item">
         <h3 className="font-semibold mb-3">{t('worddetail.ask_known')}</h3>
         <div className="grid grid-cols-2 gap-3">
           <button

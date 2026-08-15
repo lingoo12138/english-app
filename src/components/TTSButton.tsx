@@ -134,7 +134,7 @@ export default function TTSButton({ text, size = 'md', variant = 'icon' }: Props
   return (
     <button
       onClick={handleClick}
-      className={`${sizeClass} rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-brand-900/50 flex items-center justify-center transition-colors no-select`}
+      className={`${sizeClass} rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-brand-900/50 active:scale-90 active:shadow-[inset_0_2px_6px_rgba(0,0,0,0.12)] flex items-center justify-center transition-all duration-[var(--t-fast)] ease-[var(--ease)] no-select`}
       aria-label={isPlaying ? '停止' : '朗读'}
       aria-pressed={isPlaying}
     >
