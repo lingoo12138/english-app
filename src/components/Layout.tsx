@@ -238,9 +238,9 @@ export default function Layout() {
                           end={item.to === '/'}
                           aria-label={item.label}
                           className={({ isActive }) =>
-                            `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-[var(--t-fast)] ease-[var(--ease)] ${
+                            `nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-[var(--t-fast)] ease-[var(--ease)] ${
                               isActive
-                                ? 'bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300'
+                                ? 'active-nav bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300'
                                 : 'text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800'
                             }`
                           }

@@ -20,6 +20,8 @@ const Settings = lazy(() => import('./pages/Settings'))
 // W146: 反馈回路 — UsagePage dashboard
 const UsagePage = lazy(() => import('./pages/UsagePage'))
 const DocsPage = lazy(() => import('./pages/DocsPage'))
+// W149 反馈 14: 404 NotFound — 错误页插画淡入, 直接 import (小, 不用 lazy)
+import NotFoundPage from './pages/NotFoundPage'
 const ReviewCenter = lazy(() => import('./pages/ReviewCenter'))
 const CardReview = lazy(() => import('./pages/CardReview'))
 const WeakWords = lazy(() => import('./pages/WeakWords'))
@@ -195,7 +197,7 @@ function App() {
         {/* W146: 反馈回路 — UsagePage (我的使用 dashboard) */}
         <Route path="usage" element={<UsagePage />} />
         <Route path="docs" element={<DocsPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
     </Suspense>

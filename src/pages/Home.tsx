@@ -23,6 +23,7 @@ import { getStreakWithMilestones, getStreakMessage, type StreakMilestone } from 
 import { getXPState, type XPCurrentState } from '../lib/xpSystem'
 import { useTranslate } from '../lib/useTranslate'
 import { toast } from '../components/Toast'
+import { CountUp } from '../components/CountUp'
 
 export default function Home() {
   const [sentence, setSentence] = useState<DailySentence | null>(null)
@@ -188,7 +189,9 @@ export default function Home() {
             </div>
             <div className="text-right">
               <div className="text-xs text-stone-500 dark:text-stone-400">总 XP</div>
-              <div className="text-lg font-bold text-accent-600 dark:text-accent-400">{xpState.totalXP}</div>
+              <div className="text-lg font-bold text-accent-600 dark:text-accent-400 tabular-nums">
+                <CountUp value={xpState.totalXP} />
+              </div>
             </div>
           </div>
           <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
@@ -202,15 +205,21 @@ export default function Home() {
         <div className="card text-center">
           <div className="grid grid-cols-3 gap-2">
             <div>
-              <div className="text-xl font-bold text-brand-600">{stats.todayCount}</div>
+              <div className="text-xl font-bold text-brand-600 tabular-nums">
+                <CountUp value={stats.todayCount} />
+              </div>
               <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">今日</div>
             </div>
             <div>
-              <div className="text-xl font-bold text-brand-600">{stats.totalLearned}</div>
+              <div className="text-xl font-bold text-brand-600 tabular-nums">
+                <CountUp value={stats.totalLearned} />
+              </div>
               <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">累计</div>
             </div>
             <div>
-              <div className="text-xl font-bold text-brand-600">{stats.favoriteCount}</div>
+              <div className="text-xl font-bold text-brand-600 tabular-nums">
+                <CountUp value={stats.favoriteCount} />
+              </div>
               <div className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">生词</div>
             </div>
           </div>

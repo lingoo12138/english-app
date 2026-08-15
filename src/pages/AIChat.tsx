@@ -744,8 +744,10 @@ export default function AIChat() {
           </div>
         )}
 
-        {messages.map(m => (
-          <MessageBubble key={m.id} message={m} review={reviews[m.id]} />
+        {messages.map((m, i) => (
+          <div key={m.id} className="stagger-item" style={{ animationDelay: `${Math.min(i * 0.05, 0.4)}s` }}>
+            <MessageBubble message={m} review={reviews[m.id]} />
+          </div>
         ))}
 
         {loading && (
