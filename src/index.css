@@ -97,6 +97,86 @@
   .nav-item.active-nav::before {
     transform: translateY(-50%) scaleY(1);
   }
+
+  /* W149 反馈 16: Streak milestone 解锁 (金色光环 + spring 弹入) */
+  @keyframes milestoneUnlock {
+    0%   { transform: scale(0.5); opacity: 0; }
+    60%  { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .milestone-reached {
+    animation: milestoneUnlock 0.6s var(--ease-spring) both;
+    box-shadow: 0 0 0 2px rgb(251 191 36 / 0.4);
+  }
+  /* 大 milestone (7/30/100/365) 额外光环 */
+  .milestone-major {
+    box-shadow:
+      0 0 0 2px rgb(251 191 36 / 0.5),
+      0 0 12px 2px rgb(251 191 36 / 0.25);
+  }
+
+  /* W149 反馈 17: 搜索框 focus 时 ring 滑入 + 微 scale */
+  .input:focus {
+    transform: scale(1.005);
+    box-shadow: 0 0 0 3px rgb(var(--brand-500) / 0.18);
+  }
+
+  /* W149 反馈 18: 错题翻卡 spring 翻转 (3D perspective) */
+  .flip-card {
+    perspective: 1000px;
+  }
+  .flip-card-inner {
+    position: relative;
+    transition: transform 0.6s var(--ease-spring);
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-card-front,
+  .flip-card-back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .flip-card-back {
+    position: absolute;
+    inset: 0;
+    transform: rotateY(180deg);
+  }
+
+  /* W149 反馈: Switch toggle 滑块 (Settings 暗色/高对比度开关) */
+  .switch-track {
+    position: relative;
+    width: 2.75rem;
+    height: 1.5rem;
+    border-radius: 9999px;
+    background-color: rgb(214 211 209);  /* stone-300 */
+    transition: background-color var(--t-base) var(--ease);
+    cursor: pointer;
+  }
+  .dark .switch-track {
+    background-color: rgb(68 64 60);  /* stone-700 */
+  }
+  .switch-track.switch-on {
+    background-color: var(--brand-500);
+  }
+  .switch-track.switch-on.dark {
+    background-color: var(--brand-600);
+  }
+  .switch-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-color: white;
+    border-radius: 9999px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    transition: transform var(--t-base) var(--ease-spring);
+  }
+  .switch-track.switch-on .switch-thumb {
+    transform: translateX(1.25rem);
+  }
   /* 5. 模态框 spring 弹出 (scale 0.92 + fade → 1.0) */
   @keyframes modalPopup {
     from { opacity: 0; transform: scale(0.92) translateY(8px); }

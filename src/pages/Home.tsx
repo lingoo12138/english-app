@@ -340,7 +340,9 @@ export default function Home() {
                 key={m.days}
                 className={`flex-1 text-center text-xs py-1.5 rounded ${
                   m.reached
-                    ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300'
+                    ? `bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 milestone-reached${
+                        [7, 30, 100, 365].includes(m.days) ? ' milestone-major' : ''
+                      }`
                     : 'bg-stone-100 dark:bg-stone-800 text-stone-400'
                 }`}
                 title={`${m.label} (${m.days} 天)${m.reached ? ' ✓' : ''}`}
