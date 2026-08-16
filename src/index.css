@@ -366,6 +366,42 @@
   .audio-ripple {
     animation: audioRipple 0.5s ease-out;
   }
+
+  /* W149 反馈 37: 连续答对 5 题 streak 徽章弹出 */
+  @keyframes streakBadge {
+    0%   { transform: scale(0) rotate(-180deg); opacity: 0; }
+    50%  { transform: scale(1.3) rotate(20deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+  }
+  .streak-badge {
+    animation: streakBadge 0.6s var(--ease-spring) both;
+    box-shadow: 0 0 0 3px rgb(251 191 36 / 0.4), 0 4px 12px -2px rgb(251 191 36 / 0.3);
+  }
+  /* W149 反馈 38: 答题历史 sparkline (SVG path 描边动画) */
+  @keyframes sparklineDraw {
+    from { stroke-dashoffset: 200; }
+    to   { stroke-dashoffset: 0; }
+  }
+  .sparkline-path {
+    animation: sparklineDraw 1.2s var(--ease) both;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .sparkline-dot {
+    transition: r var(--t-fast) var(--ease), fill var(--t-fast) var(--ease);
+  }
+  .sparkline-dot:hover {
+    r: 5;
+  }
+  /* W149 反馈 39: 错题超过 10 题时 UI 抖动警告 (橙色 pulse 提示) */
+  @keyframes warningPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgb(245 158 11 / 0.4); }
+    50%      { box-shadow: 0 0 0 6px rgb(245 158 11 / 0); }
+  }
+  .warning-pulse {
+    animation: warningPulse 1.5s ease-in-out infinite;
+  }
   /* 5. 模态框 spring 弹出 (scale 0.92 + fade → 1.0) */
   @keyframes modalPopup {
     from { opacity: 0; transform: scale(0.92) translateY(8px); }

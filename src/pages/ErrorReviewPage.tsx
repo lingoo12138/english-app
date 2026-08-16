@@ -731,10 +731,73 @@ export default function ErrorReviewPage() {
 
         {/* 答题历史 (桌面始终展开, 不需 toggle) */}
         {session.history.length > 0 && (
-          <div className="card text-sm" data-testid="errorreview-history">
-            <div className="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-1.5 uppercase tracking-wider">
+          <div
+            className={`card text-sm ${
+              // W149 反馈 39: 错题超过 10 题时 warning-pulse (橙色 pulse 提示)
+              session.history.length > 10 ? 'warning-pulse' : ''
+            }`}
+            data-testid="errorreview-history"
+          >
+            <div className="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-1.5 uppercase tracking-wider flex items-center gap-1">
               答题历史 ({session.history.length})
+              {/* W149 反馈 37: 连续答对 5 题 streak 徽章 */}
+              {(() => {
+                // 计算最近 5 题连续答对 streak
+                const last5 = session.history.slice(-5)
+                const streak5 = last5.length === 5 && last5.every(h => h.grade === 'perfect' || h.grade === 'good')
+                if (streak5) {
+                  return (
+                    <span
+                      className="streak-badge inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-amber-400 text-amber-900 text-[10px] font-bold"
+                      data-testid="streak-badge"
+                      title="连续 5 题答对"
+                    >
+                      <IconTrophy size={10} strokeWidth={3} />
+                      <span>5连</span>
+                    </span>
+                  )
+                }
+                return null
+              })()}
             </div>
+
+            {/* W149 反馈 38: 答题历史 sparkline (SVG path 描边动画) */}
+            {session.history.length >= 2 && (() => {
+              const points = session.history.slice(-20)
+              const w = 200
+              const h = 40
+              const xs = points.map((_, i) => (i / Math.max(1, points.length - 1)) * w)
+              const ys = points.map(p => h - (p.score / 100) * h)
+              const pathD = xs.map((x, i) => `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${ys[i].toFixed(1)}`).join(' ')
+              return (
+                <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="my-2" aria-label="答题得分趋势">
+                  <path
+                    d={pathD}
+                    stroke="var(--brand-500)"
+                    strokeWidth="2"
+                    className="sparkline-path"
+                    style={{ strokeDasharray: 200, strokeDashoffset: 0 }}
+                  />
+                  {points.map((p, i) => {
+                    const correct = p.grade === 'perfect' || p.grade === 'good'
+                    return (
+                      <circle
+                        key={i}
+                        cx={xs[i]}
+                        cy={ys[i]}
+                        r={2.5}
+                        fill={correct ? '#22c55e' : '#f43f5e'}
+                        className="sparkline-dot"
+                        data-testid={`sparkline-dot-${i}`}
+                      >
+                        <title>{`${p.cardId}: ${p.score} (${p.grade})`}</title>
+                      </circle>
+                    )
+                  })}
+                </svg>
+              )
+            })()}
+
             <div className="space-y-1 max-h-60 overflow-y-auto">
               {session.history.slice().reverse().slice(0, 10).map((h, i) => (
                 <div key={i} className="flex items-center justify-between text-[10px]">
