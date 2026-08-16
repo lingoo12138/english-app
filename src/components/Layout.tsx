@@ -276,7 +276,11 @@ export default function Layout() {
               ←
             </button>
           )}
-          <h1 className={`text-lg font-semibold ${isHome ? 'text-brand-600' : 'text-stone-700 dark:text-stone-200'}`}>
+          <h1
+            // W149 反馈 33: 路由切换时 sidebar 标题淡入 (key 触发重 mount → animation 重跑)
+            key={shortTitle}
+            className={`text-lg font-semibold sidebar-title-anim ${isHome ? 'text-brand-600' : 'text-stone-700 dark:text-stone-200'}`}
+          >
             {shortTitle}
           </h1>
           <div className="w-6" />

@@ -19,6 +19,7 @@ import { toast } from '../components/Toast'
 import { SkeletonPage } from '../components/Skeleton'
 import { IconRefresh, IconSparkles, IconTrophy, IconEdit, IconHeadphones, IconChart, IconCheck, IconClose } from '../components/Icon'
 import { CountUp } from '../components/CountUp'
+import { playCorrectSound, playWrongSound, playCompleteSound } from '../lib/sound'
 
 export default function ErrorReviewPage() {
   const [cards, setCards] = useState<ReviewCard[]>([])
@@ -163,6 +164,16 @@ export default function ErrorReviewPage() {
       isCorrect: result.grade === 'perfect' || result.grade === 'good',
       isLast: newIsLast,
     })
+    // W149 反馈 31: 答对/答错 短促音效 (Web Audio API 振荡器, 0 网络)
+    if (result.grade === 'perfect' || result.grade === 'good') {
+      playCorrectSound()
+    } else {
+      playWrongSound()
+    }
+    // W149 反馈 31b: 答完 100% confetti 庆祝音效 (C 大三和弦)
+    if (newIsLast) {
+      setTimeout(() => playCompleteSound(), 200)
+    }
     // v2.0 W91: 永久 IDB 持久化 (修 verifier 找的 localStorage 架构缺陷)
     // 修 v1: 偷看 (peeked=true) 不入 IDB, 0 分会污染 wrongCount 难词判定
     if (!peeked) {
@@ -299,6 +310,11 @@ export default function ErrorReviewPage() {
       })
     : []
 
+  // W149 反馈 32: 错题 100% 完成 progress 圆环 (SVG circle 描边动画)
+  // 圆周长 = 2 * π * r, r=45 → 283 (跟 CSS --circumference 对应)
+  const circumference = 2 * Math.PI * 45
+  const circleOffset = circumference * (1 - progress)
+
   return (
     // W148: 桌面 1280px+ 主副卡 (主卡 + 右侧 288px sticky 副卡: 上次错 / 下次预 / 历史)
     <div className="space-y-4 max-w-2xl mx-auto xl:max-w-none xl:mx-0 xl:flex xl:gap-6 xl:items-start">
@@ -359,11 +375,44 @@ export default function ErrorReviewPage() {
               </div>
             )
           })()}
-          <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-emerald-400 to-brand-500 transition-all duration-500 ease-[var(--ease)] progress-fill"
-              style={{ width: `${progress * 100}%` }}
-            />
+          <div className="flex items-center gap-3">
+            {/* W149 反馈 32: 错题 100% 完成 progress 圆环 (SVG circle 描边动画) */}
+            <div className="relative w-12 h-12 shrink-0" aria-label={`进度 ${Math.round(progress * 100)}%`}>
+              <svg width="48" height="48" viewBox="0 0 100 100" className="-rotate-90">
+                <circle
+                  cx="50" cy="50" r="45"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="6"
+                  className="text-stone-200 dark:text-stone-700"
+                />
+                <circle
+                  cx="50" cy="50" r="45"
+                  fill="none"
+                  stroke="url(#progressGradient)"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  strokeDasharray={circumference}
+                  strokeDashoffset={circleOffset}
+                  className={`progress-circle ${progress >= 1 ? 'progress-circle-complete' : ''}`}
+                />
+                <defs>
+                  <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#22c55e" />
+                    <stop offset="100%" stopColor="#3b82f6" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center text-xs font-bold tabular-nums text-emerald-600 dark:text-emerald-400">
+                <CountUp value={Math.round(progress * 100)} />%
+              </div>
+            </div>
+            <div className="flex-1 h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-emerald-400 to-brand-500 transition-all duration-500 ease-[var(--ease)] progress-fill"
+                style={{ width: `${progress * 100}%` }}
+              />
+            </div>
           </div>
         </div>
 
