@@ -50,8 +50,13 @@ describe('W125 改版稿 2 — 暗色强化 + 高对比度 + PWA slide-up', () =
     const c = readFile('src/components/settings/AppearanceSection.tsx')
     expect(c).toContain('HIGH_CONTRAST_KEY')
     expect(c).toContain("data-contrast")
-    expect(c).toContain("aria-pressed")
+    // W149 反馈 25: 暗色 + 高对比度 2 个开关改用 <Switch> 组件 (替代手写 button+div)
+    // Switch 内部 role="switch" + aria-checked (a11y 跟 aria-pressed 同等)
+    // spring 缓动移到 .switch-thumb CSS (W149 反馈 18) — 源码不再用 ease-spring 直接
+    expect(c).toMatch(/<Switch[\s\S]{0,200}settings-(darkmode|highcontrast)-toggle/)
     expect(c).toMatch(/高对比度模式/)
-    expect(c).toMatch(/ease-\[var\(--ease-spring\)\]/)
+    // 注: 旧版 transition-transform ease-spring 移到 .switch-thumb CSS
+    const css = readFile('src/index.css')
+    expect(css).toMatch(/\.switch-thumb\s*\{[^}]*transition:\s*transform\s+var\(--t-base\)\s+var\(--ease-spring\)/)
   })
 })

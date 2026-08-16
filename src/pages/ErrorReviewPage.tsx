@@ -18,6 +18,7 @@ import { buildReviewReport, formatReport } from '../lib/errorReviewReport'
 import { toast } from '../components/Toast'
 import { SkeletonPage } from '../components/Skeleton'
 import { IconRefresh, IconSparkles, IconTrophy, IconEdit, IconHeadphones, IconChart, IconCheck, IconClose } from '../components/Icon'
+import { CountUp } from '../components/CountUp'
 
 export default function ErrorReviewPage() {
   const [cards, setCards] = useState<ReviewCard[]>([])
@@ -297,11 +298,21 @@ export default function ErrorReviewPage() {
         {/* 进度 */}
         <div className="card">
           <div className="flex items-center justify-between text-sm mb-2">
-            <span>进度 {session.total - session.remaining.length} / {session.total}</span>
-            <span className="text-emerald-500">✓ {session.correct}</span>
-            <span className="text-rose-500">✗ {session.wrong}</span>
+            <span className="tabular-nums">
+              进度 <CountUp value={session.total - session.remaining.length} /> / {session.total}
+            </span>
+            <span className="text-emerald-500 tabular-nums">
+              <IconCheck size={14} className="inline-block mr-0.5 align-text-bottom" />
+              <CountUp value={session.correct} />
+            </span>
+            <span className="text-rose-500 tabular-nums">
+              <IconClose size={14} className="inline-block mr-0.5 align-text-bottom" />
+              <CountUp value={session.wrong} />
+            </span>
             {session.remaining.length > 0 && session.remaining.length < session.total && (
-              <span className="text-amber-500 text-xs">({session.remaining.length} 待重答)</span>
+              <span className="text-amber-500 text-xs tabular-nums">
+                (<CountUp value={session.remaining.length} /> 待重答)
+              </span>
             )}
           </div>
           {/* W89-B: 池中难度统计 */}
@@ -318,7 +329,7 @@ export default function ErrorReviewPage() {
           })()}
           <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-emerald-400 to-brand-500 transition-all"
+              className="h-full bg-gradient-to-r from-emerald-400 to-brand-500 transition-all duration-500 ease-[var(--ease)] progress-fill"
               style={{ width: `${progress * 100}%` }}
             />
           </div>

@@ -31,11 +31,11 @@ export function DailyWordCard({ word, isLoading, isFavorite, onToggleFavorite }:
         <div className="block">
           {/* 词头行: 固定 h-9 (36px) 对应 text-3xl + line-height 2.25rem */}
           <div className="flex items-baseline gap-2 mb-2 min-h-[2.25rem]">
-            <div className="h-7 bg-stone-200 dark:bg-stone-700 rounded animate-pulse w-1/3" />
-            <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded animate-pulse w-16" />
+            <div className="h-7 rounded skeleton-shimmer w-1/3" />
+            <div className="h-4 rounded skeleton-shimmer w-16" />
           </div>
           {/* 翻译行: 固定 min-h 24px 对应 text-base */}
-          <div className="h-5 bg-stone-200 dark:bg-stone-700 rounded animate-pulse w-2/3 mb-3" />
+          <div className="h-5 rounded skeleton-shimmer w-2/3 mb-3" />
           {/* LCP element: 固定 min-h 40px (2.5rem) 对应 text-sm line-clamp-2 */}
           <p
             className="text-sm text-stone-300 dark:text-stone-600 line-clamp-2 min-h-[2.5rem]"

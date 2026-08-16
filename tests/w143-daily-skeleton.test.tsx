@@ -53,9 +53,9 @@ describe('W143 DailyWordCard Skeleton 占位 (LCP 立即 paint)', () => {
     // 4. 收藏按钮 disabled (Skeleton 状态)
     const favBtn = screen.getByLabelText('收藏') as HTMLButtonElement
     expect(favBtn.disabled).toBe(true)
-    // 5. Skeleton 包含 animate-pulse (脉冲灰色)
-    const pulseEl = container.querySelector('.animate-pulse')
-    expect(pulseEl).toBeTruthy()
+    // 5. Skeleton 包含 skeleton-shimmer 扫光版 (W149 反馈 20 升级, 替代 animate-pulse)
+    const shimmerEl = container.querySelector('.skeleton-shimmer')
+    expect(shimmerEl).toBeTruthy()
   })
 
   it('isLoading=false + word → 渲染真实数据, 替换 Skeleton', () => {
@@ -214,9 +214,10 @@ describe('W143 DailyWordCard.tsx 源码 (Skeleton 实现)', () => {
     expect(card).toMatch(/line-clamp-2/)
   })
 
-  it('DailyWordCard 用 animate-pulse (Tailwind 内置, 0 额外依赖)', () => {
-    // 业务: 0 额外依赖, 跟现有 Skeleton.tsx 风格一致
-    expect(card).toContain('animate-pulse')
+  it('DailyWordCard 用 skeleton-shimmer 扫光版 (W149 反馈 20 升级)', () => {
+    // 业务: 跟 Skeleton.tsx 一致 + 扫光 (1.2s linear, brand-500/0.08 渐变)
+    // 0 额外依赖, 0 emoji
+    expect(card).toContain('skeleton-shimmer')
   })
 
   it('DailyWordCard aria-busy=true (a11y: 加载中状态)', () => {
