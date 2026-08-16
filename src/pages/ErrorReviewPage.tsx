@@ -29,6 +29,8 @@ export default function ErrorReviewPage() {
   const [userAnswer, setUserAnswer] = useState('')
   const [peeked, setPeeked] = useState(false)
   const [lastResult, setLastResult] = useState<{ score: number; grade: string; card: ReviewCard; userAnswer: string; peeked: boolean; isCorrect: boolean; isLast: boolean } | null>(null)
+  // W149 反馈 34: 答对时 1 颗 confetti 飞 (单点)
+  const [flyConfetti, setFlyConfetti] = useState<{ id: number; fx: number; fy: number; color: string } | null>(null)
   const [showHistory, setShowHistory] = useState(false)
   const [hasSavedSession, setHasSavedSession] = useState<{
     correct: number; wrong: number; remaining: number; total: number; ts: number; matchCount: number
@@ -167,8 +169,21 @@ export default function ErrorReviewPage() {
     // W149 反馈 31: 答对/答错 短促音效 (Web Audio API 振荡器, 0 网络)
     if (result.grade === 'perfect' || result.grade === 'good') {
       playCorrectSound()
+      // W149 反馈 34: 答对时 1 颗 confetti 飞 (从顶部随机偏移)
+      setFlyConfetti({
+        id: Date.now(),
+        fx: (Math.random() - 0.5) * 80,
+        fy: -60 - Math.random() * 30,
+        color: ['#22c55e', '#10b981', '#3b82f6'][Math.floor(Math.random() * 3)],
+      })
+      // 700ms 后清掉 (跟 animation duration 同步)
+      setTimeout(() => setFlyConfetti(null), 750)
     } else {
       playWrongSound()
+      // W149 反馈 36: 答错时震动反馈 (mobile 设备 navigator.vibrate, 0 网络)
+      if (typeof navigator !== 'undefined' && navigator.vibrate) {
+        try { navigator.vibrate(50) } catch { /* 桌面/不支持, 静默 fail */ }
+      }
     }
     // W149 反馈 31b: 答完 100% confetti 庆祝音效 (C 大三和弦)
     if (newIsLast) {
@@ -295,17 +310,17 @@ export default function ErrorReviewPage() {
   const isComplete = session.remaining.length === 0 && lastResult !== null
   const progress = sessionProgress(session)
 
-  // W149 反馈 28: 错题完成 100% 时 confetti (8 个小圆点从中心散开)
+  // W149 反馈 28+35: 错题完成 100% 时大 confetti (16 颗, 大距离, 旋转, 1.2s)
   // 0 emoji — 用品牌色 + 琥珀色, 跟设计 token 保持一致
   const confettiColors = ['#22c55e', '#f59e0b', '#3b82f6', '#ec4899', '#8b5cf6', '#10b981', '#f97316', '#06b6d4']
   const confetti = isComplete
-    ? Array.from({ length: 8 }, (_, i) => {
-        const angle = (i / 8) * Math.PI * 2
-        const distance = 40 + Math.random() * 30
+    ? Array.from({ length: 16 }, (_, i) => {
+        const angle = (i / 16) * Math.PI * 2
+        const distance = 60 + Math.random() * 40  // 加大距离 (老 40 → 60+)
         return {
           cx: Math.cos(angle) * distance,
-          cy: Math.sin(angle) * distance - 20,
-          color: confettiColors[i],
+          cy: Math.sin(angle) * distance - 30,   // 上偏 30
+          color: confettiColors[i % confettiColors.length],
         }
       })
     : []
@@ -320,21 +335,35 @@ export default function ErrorReviewPage() {
     <div className="space-y-4 max-w-2xl mx-auto xl:max-w-none xl:mx-0 xl:flex xl:gap-6 xl:items-start">
       <div className="xl:flex-1 xl:min-w-0 space-y-4">
         <div className="flex items-center justify-between relative">
-          {/* W149 反馈 28: 错题完成 100% 时 confetti 庆祝 */}
+          {/* W149 反馈 28+35: 错题完成 100% 时大 confetti 庆祝 (16 颗, 旋转, 1.2s) */}
           {isComplete && (
             <div className="absolute -top-2 left-1/2 -translate-x-1/2 pointer-events-none" aria-hidden="true">
               {confetti.map((p, i) => (
                 <span
                   key={i}
-                  className="confetti-particle"
+                  className="confetti-big"
                   style={{
                     backgroundColor: p.color,
                     '--cx': `${p.cx}px`,
                     '--cy': `${p.cy}px`,
-                    animationDelay: `${i * 0.04}s`,
+                    animationDelay: `${i * 0.03}s`,  // 错落 30ms (16 颗 / 480ms 启动)
                   } as any}
                 />
               ))}
+            </div>
+          )}
+          {/* W149 反馈 34: 答对时 1 颗 confetti 飞 (从顶部随机偏移, 700ms) */}
+          {flyConfetti && (
+            <div className="absolute -top-2 left-1/2 -translate-x-1/2 pointer-events-none" aria-hidden="true">
+              <span
+                key={flyConfetti.id}
+                className="confetti-fly"
+                style={{
+                  backgroundColor: flyConfetti.color,
+                  '--fx': `${flyConfetti.fx}px`,
+                  '--fy': `${flyConfetti.fy}px`,
+                } as any}
+              />
             </div>
           )}
           <h1 className="text-2xl font-bold">🔁 错题复习</h1>

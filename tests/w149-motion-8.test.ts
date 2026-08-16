@@ -68,22 +68,34 @@ describe('W149 反馈 26-29 — 4 大微动效 (Slider / 颜色脉冲 / Confetti
     })
   })
 
-  describe('28. 错题完成 100% confetti (8 个小圆点散开)', () => {
+  describe('28. 错题完成 100% confetti (16 颗大圆点, 旋转, 1.2s)', () => {
     it('@keyframes confettiPop (translate cx/cy 0 → 50% → 100%, scale 0 → 1 → 0.5, opacity 1 → 1 → 0)', () => {
       expect(css).toMatch(/@keyframes\s+confettiPop\s*\{/)
       expect(css).toMatch(/0%\s*\{[^}]*transform:\s*translate\(0,\s*0\)\s*scale\(0\)/)
       expect(css).toMatch(/50%\s*\{[^}]*translate\(var\(--cx,\s*30px\),\s*var\(--cy,\s*-50px\)\)\s*scale\(1\)/)
     })
 
-    it('.confetti-particle 8px 圆形 + 0.8s ease 动画', () => {
+    it('.confetti-particle 8px 圆形 + 0.8s ease 动画 (老 baseline 兼容)', () => {
       expect(css).toMatch(/\.confetti-particle\s*\{[^}]*width:\s*8px\s*;[^}]*height:\s*8px[^}]*border-radius:\s*50%/)
       expect(css).toMatch(/animation:\s*confettiPop\s+0\.8s\s+var\(--ease\)\s+both/)
     })
 
-    it('ErrorReviewPage isComplete 时渲染 8 个 confetti particles', () => {
-      // 直接在全文找 confetti-particle 跟 Array.from(8)
-      expect(errorReview).toContain('confetti-particle')
-      expect(errorReview).toMatch(/Array\.from\(\{\s*length:\s*8\s*\}/)
+    it('@keyframes confettiPopBig (大 confetti 升级, 旋转 0 → 180° → 360°)', () => {
+      expect(css).toMatch(/@keyframes\s+confettiPopBig\s*\{/)
+      expect(css).toMatch(/rotate\(180deg\)/)
+      expect(css).toMatch(/rotate\(360deg\)/)
+    })
+
+    it('.confetti-big 12px 圆形 + 1.2s 动画', () => {
+      expect(css).toMatch(/\.confetti-big\s*\{[^}]*width:\s*12px/)
+      expect(css).toMatch(/animation:\s*confettiPopBig\s+1\.2s\s+var\(--ease\)\s+both/)
+    })
+
+    it('ErrorReviewPage isComplete 时渲染 16 个 confetti-big (W149 反馈 35 升级)', () => {
+      // W149 反馈 35: 8 → 16 颗, 大距离, 旋转
+      expect(errorReview).toMatch(/Array\.from\(\{\s*length:\s*16\s*\}/)
+      // 16 颗用 confetti-big class
+      expect(errorReview).toContain('confetti-big')
     })
 
     it('confetti 8 种品牌色 (绿/琥珀/蓝/粉/紫/翠/橙/青)', () => {
@@ -100,8 +112,8 @@ describe('W149 反馈 26-29 — 4 大微动效 (Slider / 颜色脉冲 / Confetti
       expect(errorReview).toMatch(/--cy[\s\S]{0,40}\$\{p\.cy\}/)
     })
 
-    it('confetti 错落 40ms 延迟 (8 个小圆点依次炸开)', () => {
-      expect(errorReview).toMatch(/animationDelay:\s*`\$\{i\s*\*\s*0\.04\}s`/)
+    it('confetti 错落 30ms 延迟 (W149 反馈 35 升级, 16 颗 / 480ms 启动)', () => {
+      expect(errorReview).toMatch(/animationDelay:\s*`\$\{i\s*\*\s*0\.03\}s`/)
     })
   })
 
