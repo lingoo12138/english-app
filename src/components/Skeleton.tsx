@@ -60,3 +60,15 @@ export function SkeletonPage() {
     </div>
   )
 }
+
+// W149 反馈 20: 扫光版 Skeleton (从左到右 brand-500 半透明 1.2s 循环)
+// 用法: <SkeletonShimmer height={80} />
+export function SkeletonShimmer({ height = 16, className = '' }: { height?: number; className?: string }) {
+  return (
+    <div
+      className={`skeleton-shimmer rounded ${className}`}
+      style={{ height }}
+      aria-label="加载中"
+    />
+  )
+}

@@ -12,6 +12,7 @@ import AppearanceSection from '../components/settings/AppearanceSection'
 import DataManagementSection from '../components/settings/DataManagementSection'
 import MigrationSection from '../components/settings/MigrationSection'
 import AIChatDataSection from '../components/settings/AIChatDataSection'
+import { Switch } from '../components/Switch'
 import ReminderSection from '../components/settings/ReminderSection'
 import { clearOnboarded } from '../components/Onboarding'
 import { useTranslate } from '../lib/useTranslate'
@@ -117,12 +118,10 @@ export default function Settings() {
             想说啥都行 (问题 / 建议 / 表白), 仅本地保存
           </p>
           <label className="flex items-center gap-2 pt-2">
-            <input
-              type="checkbox"
+            <Switch
               checked={telemetryOn}
-              onChange={(e) => setTelemetryOn(e.target.checked)}
-              className="w-4 h-4"
-              data-testid="settings-telemetry-toggle"
+              onChange={setTelemetryOn}
+              testId="settings-telemetry-toggle"
             />
             <span className="text-sm">启用使用数据收集 (local-only, 不上传云)</span>
           </label>

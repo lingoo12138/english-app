@@ -17,7 +17,7 @@ import { analyzeCard, updateCardDifficulty, difficultyStyle, trendArrow, countBy
 import { buildReviewReport, formatReport } from '../lib/errorReviewReport'
 import { toast } from '../components/Toast'
 import { SkeletonPage } from '../components/Skeleton'
-import { IconRefresh, IconSparkles, IconTrophy, IconEdit, IconHeadphones, IconChart } from '../components/Icon'
+import { IconRefresh, IconSparkles, IconTrophy, IconEdit, IconHeadphones, IconChart, IconCheck, IconClose } from '../components/Icon'
 
 export default function ErrorReviewPage() {
   const [cards, setCards] = useState<ReviewCard[]>([])
@@ -555,6 +555,16 @@ export default function ErrorReviewPage() {
         {/* 上次错 (最近一次答题结果) */}
         {lastResult && (
           <div className="card text-sm" data-testid="errorreview-last-result">
+            {/* W149 反馈 21: 答对/答错 icon 弹出 (Icon SVG, 0 emoji) */}
+            {lastResult.isCorrect ? (
+              <div className="mb-2 correct-pop inline-block text-emerald-500" aria-label="答对了">
+                <IconCheck size={28} strokeWidth={3} />
+              </div>
+            ) : lastResult.peeked ? null : (
+              <div className="mb-2 wrong-shake inline-block text-rose-500" aria-label="答错了">
+                <IconClose size={28} strokeWidth={3} />
+              </div>
+            )}
             <div className="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-1.5 uppercase tracking-wider">
               上次错
             </div>

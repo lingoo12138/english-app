@@ -177,6 +177,51 @@
   .switch-track.switch-on .switch-thumb {
     transform: translateX(1.25rem);
   }
+
+  /* W149 反馈 20: Skeleton 扫光 (从左到右 brand-500 半透明 1.2s 循环) */
+  @keyframes skeletonShimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .skeleton-shimmer {
+    position: relative;
+    overflow: hidden;
+    background-color: rgb(231 229 228);  /* stone-200 */
+  }
+  .dark .skeleton-shimmer {
+    background-color: rgb(68 64 60);  /* stone-700 */
+  }
+  .skeleton-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(34, 197, 94, 0.08) 50%,  /* brand-500 8% */
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.2s linear infinite;
+  }
+
+  /* W149 反馈 21: 答对/答错 icon 弹出 (scale 0 → 1.2 → 1, spring) */
+  @keyframes correctPop {
+    0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+    50%  { transform: scale(1.3) rotate(8deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+  }
+  .correct-pop {
+    animation: correctPop 0.6s var(--ease-spring) both;
+  }
+  @keyframes wrongShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+  }
+  .wrong-shake {
+    animation: wrongShake 0.5s ease-in-out;
+  }
   /* 5. 模态框 spring 弹出 (scale 0.92 + fade → 1.0) */
   @keyframes modalPopup {
     from { opacity: 0; transform: scale(0.92) translateY(8px); }
