@@ -284,11 +284,43 @@ export default function ErrorReviewPage() {
   const isComplete = session.remaining.length === 0 && lastResult !== null
   const progress = sessionProgress(session)
 
+  // W149 反馈 28: 错题完成 100% 时 confetti (8 个小圆点从中心散开)
+  // 0 emoji — 用品牌色 + 琥珀色, 跟设计 token 保持一致
+  const confettiColors = ['#22c55e', '#f59e0b', '#3b82f6', '#ec4899', '#8b5cf6', '#10b981', '#f97316', '#06b6d4']
+  const confetti = isComplete
+    ? Array.from({ length: 8 }, (_, i) => {
+        const angle = (i / 8) * Math.PI * 2
+        const distance = 40 + Math.random() * 30
+        return {
+          cx: Math.cos(angle) * distance,
+          cy: Math.sin(angle) * distance - 20,
+          color: confettiColors[i],
+        }
+      })
+    : []
+
   return (
     // W148: 桌面 1280px+ 主副卡 (主卡 + 右侧 288px sticky 副卡: 上次错 / 下次预 / 历史)
     <div className="space-y-4 max-w-2xl mx-auto xl:max-w-none xl:mx-0 xl:flex xl:gap-6 xl:items-start">
       <div className="xl:flex-1 xl:min-w-0 space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between relative">
+          {/* W149 反馈 28: 错题完成 100% 时 confetti 庆祝 */}
+          {isComplete && (
+            <div className="absolute -top-2 left-1/2 -translate-x-1/2 pointer-events-none" aria-hidden="true">
+              {confetti.map((p, i) => (
+                <span
+                  key={i}
+                  className="confetti-particle"
+                  style={{
+                    backgroundColor: p.color,
+                    '--cx': `${p.cx}px`,
+                    '--cy': `${p.cy}px`,
+                    animationDelay: `${i * 0.04}s`,
+                  } as any}
+                />
+              ))}
+            </div>
+          )}
           <h1 className="text-2xl font-bold">🔁 错题复习</h1>
           <button onClick={() => navigate('/errors')} className="text-stone-500 hover:text-stone-700">
             ← 改错本
@@ -566,13 +598,13 @@ export default function ErrorReviewPage() {
         {/* 上次错 (最近一次答题结果) */}
         {lastResult && (
           <div className="card text-sm" data-testid="errorreview-last-result">
-            {/* W149 反馈 21: 答对/答错 icon 弹出 (Icon SVG, 0 emoji) */}
+            {/* W149 反馈 21+27: 答对/答错 icon 弹出 + 颜色脉冲 (Icon SVG, 0 emoji) */}
             {lastResult.isCorrect ? (
-              <div className="mb-2 correct-pop inline-block text-emerald-500" aria-label="答对了">
+              <div className="mb-2 correct-pop correct-pulse inline-block text-emerald-500" aria-label="答对了">
                 <IconCheck size={28} strokeWidth={3} />
               </div>
             ) : lastResult.peeked ? null : (
-              <div className="mb-2 wrong-shake inline-block text-rose-500" aria-label="答错了">
+              <div className="mb-2 wrong-shake wrong-pulse inline-block text-rose-500" aria-label="答错了">
                 <IconClose size={28} strokeWidth={3} />
               </div>
             )}

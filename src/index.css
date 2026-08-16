@@ -222,6 +222,92 @@
   .wrong-shake {
     animation: wrongShake 0.5s ease-in-out;
   }
+  /* W149 反馈 27: 答对 icon 颜色脉冲 (绿光闪 1 次) */
+  @keyframes correctPulse {
+    0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+    40%      { filter: drop-shadow(0 0 8px rgb(16 185 129 / 0.6)); }
+  }
+  .correct-pulse {
+    animation: correctPulse 0.8s ease-out;
+  }
+  @keyframes wrongPulse {
+    0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+    40%      { filter: drop-shadow(0 0 8px rgb(244 63 94 / 0.6)); }
+  }
+  .wrong-pulse {
+    animation: wrongPulse 0.6s ease-out;
+  }
+
+  /* W149 反馈 26: Slider 进度填充 (TTS 语速等 input range) */
+  input[type="range"].slider-progress {
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(
+      to right,
+      var(--brand-500) 0%,
+      var(--brand-500) var(--slider-fill, 50%),
+      rgb(214 211 228) var(--slider-fill, 50%),
+      rgb(214 211 228) 100%
+    );
+    border-radius: 9999px;
+    height: 6px;
+    transition: background 0.1s linear;
+  }
+  .dark input[type="range"].slider-progress {
+    background: linear-gradient(
+      to right,
+      var(--brand-500) 0%,
+      var(--brand-500) var(--slider-fill, 50%),
+      rgb(68 64 60) var(--slider-fill, 50%),
+      rgb(68 64 60) 100%
+    );
+  }
+  input[type="range"].slider-progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: transform var(--t-fast) var(--ease-spring);
+  }
+  input[type="range"].slider-progress::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+  input[type="range"].slider-progress::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: transform var(--t-fast) var(--ease-spring);
+  }
+  input[type="range"].slider-progress::-moz-range-thumb:hover {
+    transform: scale(1.2);
+  }
+
+  /* W149 反馈 28: 错题完成 100% confetti (8 个小圆点从中心散开) */
+  @keyframes confettiPop {
+    0%   { transform: translate(0, 0) scale(0); opacity: 1; }
+    50%  { transform: translate(var(--cx, 30px), var(--cy, -50px)) scale(1); opacity: 1; }
+    100% { transform: translate(var(--cx, 30px), calc(var(--cy, -50px) + 80px)) scale(0.5); opacity: 0; }
+  }
+  .confetti-particle {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: confettiPop 0.8s var(--ease) both;
+  }
+
+  /* W149 反馈 29: 切换字号时根 html font-size 渐变 (跟 .progress-fill 一致) */
+  html {
+    transition: font-size 0.2s var(--ease);
+  }
   /* 5. 模态框 spring 弹出 (scale 0.92 + fade → 1.0) */
   @keyframes modalPopup {
     from { opacity: 0; transform: scale(0.92) translateY(8px); }

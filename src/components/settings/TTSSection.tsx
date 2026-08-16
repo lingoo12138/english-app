@@ -107,7 +107,7 @@ export default function TTSSection() {
             </div>
             <div>
               <label className="text-sm text-stone-500 dark:text-stone-400 mb-1.5 block">
-                语速: {rate.toFixed(1)}x
+                语速: <span className="tabular-nums font-semibold text-stone-700 dark:text-stone-200">{rate.toFixed(1)}x</span>
               </label>
               <input
                 type="range"
@@ -116,7 +116,8 @@ export default function TTSSection() {
                 step="0.1"
                 value={rate}
                 onChange={(e) => setRate(Number(e.target.value))}
-                className="w-full"
+                className="w-full slider-progress"
+                style={{ ['--slider-fill' as string]: `${((rate - 0.5) / 1.5) * 100}%` } as any}
               />
             </div>
           </>
