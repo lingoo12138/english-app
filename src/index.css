@@ -402,6 +402,41 @@
   .warning-pulse {
     animation: warningPulse 1.5s ease-in-out infinite;
   }
+
+  /* W149 反馈 40: NEW HIGH! 闪烁字 (连续 10 题全 perfect/good) */
+  @keyframes newHighBlink {
+    0%, 100% { opacity: 1; transform: scale(1) rotate(-3deg); }
+    50%      { opacity: 0.4; transform: scale(1.15) rotate(3deg); color: #f59e0b; }
+  }
+  .new-high-blink {
+    animation: newHighBlink 0.5s ease-in-out infinite;
+    color: #fbbf24;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+  }
+  /* W149 反馈 41: 答对连续 10 题时徽章变红色 (升级 streak 徽章) */
+  .streak-badge-fire {
+    box-shadow:
+      0 0 0 3px rgb(239 68 68 / 0.5),
+      0 0 12px 4px rgb(239 68 68 / 0.4);
+  }
+  @keyframes streakFirePulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgb(239 68 68 / 0.5), 0 0 12px 4px rgb(239 68 68 / 0.4); }
+    50%      { box-shadow: 0 0 0 5px rgb(239 68 68 / 0.7), 0 0 20px 8px rgb(239 68 68 / 0.6); }
+  }
+  .streak-fire-pulse {
+    animation: streakFirePulse 0.8s ease-in-out infinite;
+  }
+
+  /* W149 反馈 43: 错题答错连续 3 题时切下一题变红 5s */
+  @keyframes nextCardWarn {
+    0%, 100% { box-shadow: 0 0 0 0 rgb(244 63 94 / 0.0); }
+    50%      { box-shadow: 0 0 0 4px rgb(244 63 94 / 0.4); }
+  }
+  .next-card-warn {
+    animation: nextCardWarn 1.2s ease-in-out 5;
+    border: 2px solid rgb(244 63 94);
+  }
   /* 5. 模态框 spring 弹出 (scale 0.92 + fade → 1.0) */
   @keyframes modalPopup {
     from { opacity: 0; transform: scale(0.92) translateY(8px); }

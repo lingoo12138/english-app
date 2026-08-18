@@ -559,7 +559,16 @@ export default function ErrorReviewPage() {
 
           {/* 答题区 */}
           {!lastResult ? (
-            <div className="space-y-2">
+            <div
+              // W149 反馈 43: 答错连续 3 题时下一题变红 5s (CSS animation 5 iterations)
+              className={`space-y-2 ${
+                (() => {
+                  const last3 = session.history.slice(-3)
+                  const last3AllWrong = last3.length === 3 && last3.every(h => h.grade !== 'perfect' && h.grade !== 'good')
+                  return last3AllWrong ? 'next-card-warn' : ''
+                })()
+              }`}
+            >
               <label className="text-sm text-stone-500">你的答案</label>
               <input
                 ref={inputRef}
@@ -738,7 +747,7 @@ export default function ErrorReviewPage() {
             }`}
             data-testid="errorreview-history"
           >
-            <div className="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-1.5 uppercase tracking-wider flex items-center gap-1">
+            <div className="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-1.5 uppercase tracking-wider flex items-center gap-1 flex-wrap">
               答题历史 ({session.history.length})
               {/* W149 反馈 37: 连续答对 5 题 streak 徽章 */}
               {(() => {
@@ -759,6 +768,33 @@ export default function ErrorReviewPage() {
                 }
                 return null
               })()}
+              {/* W149 反馈 41: 连续答对 10 题时徽章变红 + 火焰 pulse */}
+              {(() => {
+                const last10 = session.history.slice(-10)
+                const streak10 = last10.length === 10 && last10.every(h => h.grade === 'perfect' || h.grade === 'good')
+                if (streak10) {
+                  return (
+                    <>
+                      <span
+                        className="streak-badge streak-badge-fire streak-fire-pulse inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-red-500 text-white text-[10px] font-bold"
+                        data-testid="streak-badge-fire"
+                        title="连续 10 题答对"
+                      >
+                        <IconTrophy size={10} strokeWidth={3} />
+                        <span>10连</span>
+                      </span>
+                      {/* W149 反馈 40: NEW HIGH! 闪烁字 */}
+                      <span
+                        className="new-high-blink text-[10px]"
+                        data-testid="new-high"
+                      >
+                        NEW HIGH!
+                      </span>
+                    </>
+                  )
+                }
+                return null
+              })()}
             </div>
 
             {/* W149 反馈 38: 答题历史 sparkline (SVG path 描边动画) */}
@@ -769,32 +805,46 @@ export default function ErrorReviewPage() {
               const xs = points.map((_, i) => (i / Math.max(1, points.length - 1)) * w)
               const ys = points.map(p => h - (p.score / 100) * h)
               const pathD = xs.map((x, i) => `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${ys[i].toFixed(1)}`).join(' ')
+              // W149 反馈 42: 答对率自动算 (从 sparkline 数据)
+              const correctCount = points.filter(p => p.grade === 'perfect' || p.grade === 'good').length
+              const correctRate = Math.round((correctCount / points.length) * 100)
               return (
-                <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="my-2" aria-label="答题得分趋势">
-                  <path
-                    d={pathD}
-                    stroke="var(--brand-500)"
-                    strokeWidth="2"
-                    className="sparkline-path"
-                    style={{ strokeDasharray: 200, strokeDashoffset: 0 }}
-                  />
-                  {points.map((p, i) => {
-                    const correct = p.grade === 'perfect' || p.grade === 'good'
-                    return (
-                      <circle
-                        key={i}
-                        cx={xs[i]}
-                        cy={ys[i]}
-                        r={2.5}
-                        fill={correct ? '#22c55e' : '#f43f5e'}
-                        className="sparkline-dot"
-                        data-testid={`sparkline-dot-${i}`}
-                      >
-                        <title>{`${p.cardId}: ${p.score} (${p.grade})`}</title>
-                      </circle>
-                    )
-                  })}
-                </svg>
+                <div>
+                  <div className="flex items-center justify-between text-[10px] text-stone-500 dark:text-stone-400 mb-1">
+                    <span>最近 {points.length} 题</span>
+                    {/* W149 反馈 42: 答对率 (从 sparkline 算) */}
+                    <span className="tabular-nums font-semibold" data-testid="correct-rate">
+                      答对率 <span className={correctRate >= 80 ? 'text-emerald-500' : correctRate >= 50 ? 'text-amber-500' : 'text-rose-500'}>
+                        {correctRate}%
+                      </span>
+                    </span>
+                  </div>
+                  <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="my-1" aria-label="答题得分趋势">
+                    <path
+                      d={pathD}
+                      stroke="var(--brand-500)"
+                      strokeWidth="2"
+                      className="sparkline-path"
+                      style={{ strokeDasharray: 200, strokeDashoffset: 0 }}
+                    />
+                    {points.map((p, i) => {
+                      const correct = p.grade === 'perfect' || p.grade === 'good'
+                      return (
+                        <circle
+                          key={i}
+                          cx={xs[i]}
+                          cy={ys[i]}
+                          r={2.5}
+                          fill={correct ? '#22c55e' : '#f43f5e'}
+                          className="sparkline-dot"
+                          data-testid={`sparkline-dot-${i}`}
+                        >
+                          <title>{`${p.cardId}: ${p.score} (${p.grade})`}</title>
+                        </circle>
+                      )
+                    })}
+                  </svg>
+                </div>
               )
             })()}
 

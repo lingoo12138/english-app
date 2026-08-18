@@ -78,10 +78,11 @@ describe('W149 反馈 37+38+39 — 3 大微动效 (Streak 徽章 / Sparkline / �
     })
 
     it('每个点 <circle r=2.5, fill 答对 emerald-500 / 答错 rose-500', () => {
-      const circleBlock = errorReview.match(/const correct = p\.grade[\s\S]{0,300}/)
+      const circleBlock = errorReview.match(/const correct = p\.grade[\s\S]{0,400}/)
       expect(circleBlock).toBeTruthy()
       const block = circleBlock?.[0] || ''
-      expect(block).toMatch(/fill=\{correct \? ['"]#22c55e['"] : ['"]#f43f5e['"]\}/)
+      // fill={correct ? '#22c55e' : '#f43f5e'} (双引号或单引号都可)
+      expect(block).toMatch(/fill=\{correct\s*\?\s*['"]#22c55e['"]\s*:\s*['"]#f43f5e['"]\}/)
       expect(block).toMatch(/r=\{2\.5\}/)
     })
 
