@@ -38,8 +38,11 @@ describe('W149 反馈 34+35+36 — 3 大微动效 (单颗 confetti / 大 confett
     })
 
     it('setTimeout 750ms 后清掉 flyConfetti (跟 animation duration 同步)', () => {
-      const correctBlock = errorReview.match(/setFlyConfetti\([\s\S]{0,400}/g)?.[0] || ''
-      expect(correctBlock).toMatch(/setTimeout\(\(\) => setFlyConfetti\(null\),\s*750\)/)
+      const correctBlock = errorReview.match(/setFlyConfetti\([\s\S]{0,500}/)
+      expect(correctBlock).toBeTruthy()
+      const block = correctBlock?.[0] || ''
+      // W150: 改成 window.setTimeout + useRef 存 id
+      expect(block).toMatch(/window\.setTimeout\(\(\) => setFlyConfetti\(null\),\s*750\)/)
     })
 
     it('3 种品牌色 (绿/翠/蓝) 随机 (跟答对 tone 匹配)', () => {

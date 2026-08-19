@@ -31,6 +31,9 @@ export default function ErrorReviewPage() {
   const [lastResult, setLastResult] = useState<{ score: number; grade: string; card: ReviewCard; userAnswer: string; peeked: boolean; isCorrect: boolean; isLast: boolean } | null>(null)
   // W149 反馈 34: 答对时 1 颗 confetti 飞 (单点)
   const [flyConfetti, setFlyConfetti] = useState<{ id: number; fx: number; fy: number; color: string } | null>(null)
+  // W150: setTimeout 内存泄漏修复 (REVIEW_W149 P0-1) — useRef 存 timeout id
+  const flyTimeoutRef = useRef<number | null>(null)
+  const completeTimeoutRef = useRef<number | null>(null)
   const [showHistory, setShowHistory] = useState(false)
   const [hasSavedSession, setHasSavedSession] = useState<{
     correct: number; wrong: number; remaining: number; total: number; ts: number; matchCount: number
@@ -141,6 +144,21 @@ export default function ErrorReviewPage() {
     }
   }, [lastResult, currentCard])
 
+  // W150: P0 内存泄漏修复 (REVIEW_W149) — unmount 时 clear 所有 pending setTimeout
+  // 防止切页后 setTimeout 仍在 unmounted component 上调用 setState (React 18 警告 + 内存泄漏)
+  useEffect(() => {
+    return () => {
+      if (flyTimeoutRef.current) {
+        clearTimeout(flyTimeoutRef.current)
+        flyTimeoutRef.current = null
+      }
+      if (completeTimeoutRef.current) {
+        clearTimeout(completeTimeoutRef.current)
+        completeTimeoutRef.current = null
+      }
+    }
+  }, [])
+
   // 答完最后一题, summary 视图
   useEffect(() => {
     if (session && session.remaining.length === 0 && lastResult && cards.length > 0) {
@@ -176,8 +194,9 @@ export default function ErrorReviewPage() {
         fy: -60 - Math.random() * 30,
         color: ['#22c55e', '#10b981', '#3b82f6'][Math.floor(Math.random() * 3)],
       })
-      // 700ms 后清掉 (跟 animation duration 同步)
-      setTimeout(() => setFlyConfetti(null), 750)
+      // W150: P0 内存泄漏修复 — clear 旧 timeout, 用 useRef 存新 id
+      if (flyTimeoutRef.current) clearTimeout(flyTimeoutRef.current)
+      flyTimeoutRef.current = window.setTimeout(() => setFlyConfetti(null), 750)
     } else {
       playWrongSound()
       // W149 反馈 36: 答错时震动反馈 (mobile 设备 navigator.vibrate, 0 网络)
@@ -187,7 +206,9 @@ export default function ErrorReviewPage() {
     }
     // W149 反馈 31b: 答完 100% confetti 庆祝音效 (C 大三和弦)
     if (newIsLast) {
-      setTimeout(() => playCompleteSound(), 200)
+      // W150: P0 内存泄漏修复 — clear 旧 timeout
+      if (completeTimeoutRef.current) clearTimeout(completeTimeoutRef.current)
+      completeTimeoutRef.current = window.setTimeout(() => playCompleteSound(), 200)
     }
     // v2.0 W91: 永久 IDB 持久化 (修 verifier 找的 localStorage 架构缺陷)
     // 修 v1: 偷看 (peeked=true) 不入 IDB, 0 分会污染 wrongCount 难词判定

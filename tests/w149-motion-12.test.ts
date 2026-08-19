@@ -134,4 +134,31 @@ describe('W149 反馈 40+41+42+43 — 4 大微动效 (NEW HIGH / 火焰徽章 / 
       expect(nonText).not.toMatch(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{27BF}]/u)
     })
   })
+
+  describe('W150 P0 修复: setTimeout 内存泄漏 (REVIEW_W149 P0-1)', () => {
+    it('flyTimeoutRef / completeTimeoutRef useRef 定义', () => {
+      expect(errorReview).toMatch(/const\s+flyTimeoutRef\s*=\s*useRef/)
+      expect(errorReview).toMatch(/const\s+completeTimeoutRef\s*=\s*useRef/)
+    })
+
+    it('setTimeout 之前 clear 旧 timeout (避免累积)', () => {
+      // 答对时 flyTimeoutRef clear
+      expect(errorReview).toMatch(/if\s*\(flyTimeoutRef\.current\)\s*clearTimeout\(flyTimeoutRef\.current\)/)
+      // 100% 完成时 completeTimeoutRef clear
+      expect(errorReview).toMatch(/if\s*\(completeTimeoutRef\.current\)\s*clearTimeout\(completeTimeoutRef\.current\)/)
+    })
+
+    it('useRef.current = window.setTimeout(...) 存新 timeout id', () => {
+      expect(errorReview).toMatch(/flyTimeoutRef\.current\s*=\s*window\.setTimeout/)
+      expect(errorReview).toMatch(/completeTimeoutRef\.current\s*=\s*window\.setTimeout/)
+    })
+
+    it('useEffect cleanup 组件 unmount 时 clear 所有 pending timeout', () => {
+      // 找 cleanup useEffect
+      const cleanupBlock = errorReview.match(/return\s*\(\)\s*=>\s*\{[\s\S]{0,500}clearTimeout\(flyTimeoutRef\.current\)[\s\S]{0,500}clearTimeout\(completeTimeoutRef\.current\)/)
+      expect(cleanupBlock).toBeTruthy()
+      // 在 useEffect [] 内 (空依赖, 只在 unmount 跑)
+      expect(errorReview).toMatch(/useEffect\(\(\)\s*=>\s*\{[\s\S]{0,800}\},\s*\[\]\)/)
+    })
+  })
 })
