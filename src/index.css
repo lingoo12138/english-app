@@ -290,19 +290,6 @@
     transform: scale(1.2);
   }
 
-  /* W149 反馈 28: 错题完成 100% confetti (8 个小圆点从中心散开) */
-  @keyframes confettiPop {
-    0%   { transform: translate(0, 0) scale(0); opacity: 1; }
-    50%  { transform: translate(var(--cx, 30px), var(--cy, -50px)) scale(1); opacity: 1; }
-    100% { transform: translate(var(--cx, 30px), calc(var(--cy, -50px) + 80px)) scale(0.5); opacity: 0; }
-  }
-  .confetti-particle {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    animation: confettiPop 0.8s var(--ease) both;
-  }
   /* W149 反馈 34: 单颗 confetti (答对时 1 颗从答案位置飞) */
   @keyframes confettiFly {
     0%   { transform: translate(0, 0) scale(0); opacity: 0; }
@@ -335,13 +322,17 @@
     transition: font-size 0.2s var(--ease);
   }
 
-  /* W149 反馈 32: 错题 100% 完成 progress 圆环 (SVG circle 描边动画) */
-  @keyframes progressCircle {
-    from { stroke-dashoffset: var(--circumference, 283); }
-    to   { stroke-dashoffset: var(--offset, 0); }
-  }
+  /* W150 修 (verifier-b P2-1): 删 progressCircle 死代码 (W149 反馈 32 用 SVG inline style, 0 使用) */
+  /* W150 修 (verifier-b P1-4): 圆环 0.6s + 进度条 0.6s 统一 (跟 ErrorReviewPage 500ms / Home 700ms 拉齐)
+   * - 错题进度条 (ErrorReviewPage 500ms) → 600ms
+   * - Home XP 进度条 (700ms) → 600ms
+   * - Onboarding (300ms) → 600ms
+   * 视觉效果: 圆环 + 水平 fill 同步填充, 0 视觉撕裂 */
   .progress-circle {
     transition: stroke-dashoffset 0.6s var(--ease);
+  }
+  .progress-fill {
+    transition: width 0.6s var(--ease);
   }
   /* 100% 完成时圆环发光 */
   .progress-circle-complete {
@@ -357,15 +348,7 @@
     animation: sidebarTitleFade 0.24s var(--ease-spring) both;
   }
 
-  /* W149 反馈 31: 答对/答错音效视觉反馈 (audio 不可见, 这里给视觉模拟) */
-  @keyframes audioRipple {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.5); opacity: 0.6; }
-    100% { transform: scale(2); opacity: 0; }
-  }
-  .audio-ripple {
-    animation: audioRipple 0.5s ease-out;
-  }
+  /* W150 修 (verifier-b P2-3): 删 audioRipple + audio-ripple 死代码 (W149 反馈 31 注释就提了"装饰", 实际 0 使用) */
 
   /* W149 反馈 37: 连续答对 5 题 streak 徽章弹出 */
   @keyframes streakBadge {
@@ -678,11 +661,34 @@ details > summary::-webkit-details-marker {
   animation: pageEnter 0.24s var(--ease-spring) both;
   will-change: opacity, transform;
 }
-/* a11y: 用户开了 reduced-motion, 取消动效 (W144 a11y 满分延续) */
+/* a11y: 用户开了 reduced-motion, 取消动效 (W144 a11y 满分延续)
+ * W150 扩展 (verifier-a P0-1): 全部装饰性动效一次性兜底
+ * - infinite 装饰 (光敏/前庭触发风险) 全停
+ * - 一次性脉冲保留 (动画时长 < 0.5s, WCAG 2.3.3 例外)
+ * - 业务信息保留 (颜色/位置/边框 不变) */
 @media (prefers-reduced-motion: reduce) {
-  .page-transition {
-    animation: none;
-  }
+  .page-transition { animation: none; }
+  .modal-popup { animation: none; }
+  .modal-backdrop { animation: none; }
+  .stagger-item { animation: none; }
+  .card-interactive { transition: none; }
+  /* W150: 答对/答错 popup + 抖动 + 颜色脉冲 (P0-3) */
+  .correct-pop, .wrong-shake, .correct-pulse, .wrong-pulse { animation: none; }
+  /* W150: confetti 装饰 (单颗飞 + 大庆祝 + 错 3 红) */
+  .confetti-fly, .confetti-big { animation: none; }
+  .next-card-warn { animation: none; }
+  /* W150: streak 徽章 + NEW HIGH 闪烁 (光敏触发风险) */
+  .streak-badge, .streak-fire-pulse { animation: none; }
+  .new-high-blink { animation: none; }
+  /* W150: warning-pulse (P0-1 verifier-c, 装饰不强制) */
+  .warning-pulse { animation: none; }
+  /* W150: skeleton-shimmer 扫光 (P0-1 verifier-c, 1.2s 无限) */
+  .skeleton-shimmer::after { animation: none; }
+  /* W150: nav-item active 指示器滑动 (P2-2 verifier-a) */
+  .nav-item::before { transition: none; }
+  /* W150: 进度条 + 圆环 fill 平滑保留 (业务信息, 一次动画 0.6s 可接受) */
+  /* 上面装饰类的都关, 这两个不关, 给用户保留视觉反馈 */
+  /* W150: html font-size 字号切换保留 (业务功能, 不是装饰) */
 }
 html, body {
   overscroll-behavior-y: contain;

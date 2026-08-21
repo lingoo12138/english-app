@@ -4,6 +4,11 @@
 // 答错: A3 (220Hz) 250ms 短促下行滑音
 // 答完 100% confetti: C5 → E5 → G5 (C 大调和弦) 800ms
 
+// W150: 静音开关 (verifier-a P1-5) — 全局 mute flag
+let muted = false
+export function setMuted(v: boolean) { muted = v }
+export function isMuted() { return muted }
+
 let audioCtx: AudioContext | null = null
 
 function getCtx(): AudioContext | null {
@@ -24,6 +29,7 @@ function getCtx(): AudioContext | null {
 }
 
 function playTone(freq: number, duration: number, type: OscillatorType = 'sine', volume = 0.08) {
+  if (muted) return
   const ctx = getCtx()
   if (!ctx) return
   const osc = ctx.createOscillator()
@@ -40,6 +46,7 @@ function playTone(freq: number, duration: number, type: OscillatorType = 'sine',
 }
 
 function playSlide(fromFreq: number, toFreq: number, duration: number, type: OscillatorType = 'sine', volume = 0.08) {
+  if (muted) return
   const ctx = getCtx()
   if (!ctx) return
   const osc = ctx.createOscillator()
@@ -73,7 +80,5 @@ export function playCompleteSound() {
   setTimeout(() => playTone(784, 0.4, 'triangle', 0.08), 200)  // G5
 }
 
-// 业务: 答完 summary 通用 (不区分对错)
-export function playTapSound() {
-  playTone(440, 0.05, 'sine', 0.04)
-}
+// W150 修 (verifier-b P2-4): playTapSound 0 调用, 删死代码
+// (原) playTapSound → playCompleteSound (W149 反馈 31b 替换)

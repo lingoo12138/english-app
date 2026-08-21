@@ -196,7 +196,7 @@ export default function Home() {
           </div>
           <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
             <div
-              className="h-full bg-accent-500 transition-all duration-700 ease-[var(--ease)] progress-fill"
+              className="h-full bg-accent-500 transition-all duration-[0.6s] ease-[var(--ease)] progress-fill"
               style={{ width: `${Math.round(xpState.progress * 100)}%` }}
             />
           </div>

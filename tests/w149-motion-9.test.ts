@@ -58,10 +58,9 @@ describe('W149 反馈 31+32+33 — 3 大微动效 (音效 / 圆环 / Sidebar 标
   })
 
   describe('32. 错题 100% 完成 progress 圆环 (SVG circle 描边动画)', () => {
-    it('@keyframes progressCircle (stroke-dashoffset → 0)', () => {
-      expect(css).toMatch(/@keyframes\s+progressCircle\s*\{/)
-      expect(css).toMatch(/from\s*\{[^}]*stroke-dashoffset:\s*var\(--circumference,\s*283\)/)
-      expect(css).toMatch(/to\s*\{?\s*stroke-dashoffset:\s*var\(--offset,\s*0\)/)
+    // W150 修 (verifier-b P2-1): 删 progressCircle 死代码 (SVG 用 inline style transition, 不需要 @keyframes)
+    it('W150: @keyframes progressCircle 已删 (改 SVG inline style transition, P2-1 死代码清理)', () => {
+      expect(css).not.toMatch(/@keyframes\s+progressCircle\s*\{/)
     })
 
     it('.progress-circle transition: stroke-dashoffset 0.6s var(--ease)', () => {

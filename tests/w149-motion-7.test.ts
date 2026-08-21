@@ -11,8 +11,8 @@ describe('W149 反馈 22+24+25 — 3 大微动效集成 (错题进度 / Skeleton
   const appearance = readFileSync('src/components/settings/AppearanceSection.tsx', 'utf-8')
 
   describe('22. 错题答完进度条 fill + CountUp 数字滚动', () => {
-    it('ErrorReviewPage 进度条 transition-all duration-500 ease-[var(--ease)] (fill 平滑 500ms)', () => {
-      expect(errorReview).toMatch(/transition-all\s+duration-500\s+ease-\[var\(--ease\)\]/)
+    it('ErrorReviewPage 进度条 transition-all duration-[0.6s] ease-[var(--ease)] (W150 修: 500ms → 600ms 跟圆环统一)', () => {
+      expect(errorReview).toMatch(/transition-all\s+duration-\[0\.6s\]\s+ease-\[var\(--ease\)\]/)
     })
 
     it('进度条加 .progress-fill class (跟 Home/Onboarding 一致)', () => {

@@ -69,15 +69,14 @@ describe('W149 反馈 26-29 — 4 大微动效 (Slider / 颜色脉冲 / Confetti
   })
 
   describe('28. 错题完成 100% confetti (16 颗大圆点, 旋转, 1.2s)', () => {
-    it('@keyframes confettiPop (translate cx/cy 0 → 50% → 100%, scale 0 → 1 → 0.5, opacity 1 → 1 → 0)', () => {
-      expect(css).toMatch(/@keyframes\s+confettiPop\s*\{/)
-      expect(css).toMatch(/0%\s*\{[^}]*transform:\s*translate\(0,\s*0\)\s*scale\(0\)/)
-      expect(css).toMatch(/50%\s*\{[^}]*translate\(var\(--cx,\s*30px\),\s*var\(--cy,\s*-50px\)\)\s*scale\(1\)/)
+    // W150 修 (verifier-b P2-2): 删老 confettiPop 死代码 (W149 反馈 35 升级 confetti-big 替代)
+    it('W150: @keyframes confettiPop 已删 (被 confettiPopBig 替代, P2-2 死代码清理)', () => {
+      expect(css).not.toMatch(/@keyframes\s+confettiPop\s*\{/)
+      expect(css).toMatch(/@keyframes\s+confettiFly\s*\{/)
     })
 
-    it('.confetti-particle 8px 圆形 + 0.8s ease 动画 (老 baseline 兼容)', () => {
-      expect(css).toMatch(/\.confetti-particle\s*\{[^}]*width:\s*8px\s*;[^}]*height:\s*8px[^}]*border-radius:\s*50%/)
-      expect(css).toMatch(/animation:\s*confettiPop\s+0\.8s\s+var\(--ease\)\s+both/)
+    it('W150: .confetti-particle 已删 (P2-2 死代码清理)', () => {
+      expect(css).not.toMatch(/\.confetti-particle\s*\{/)
     })
 
     it('@keyframes confettiPopBig (大 confetti 升级, 旋转 0 → 180° → 360°)', () => {

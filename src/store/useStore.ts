@@ -17,6 +17,13 @@ interface AppState {
   fontSize: string
   setFontSize: (id: string) => void
 
+  // W150: 音效开关 (verifier-a P1-5 公共/图书馆/耳鸣用户)
+  soundEnabled: boolean
+  setSoundEnabled: (v: boolean) => void
+  // W150: 震动开关 (verifier-a P1-5 配套)
+  vibrationEnabled: boolean
+  setVibrationEnabled: (v: boolean) => void
+
   // TTS 设置
   voiceName: string
   setVoiceName: (name: string) => void
@@ -88,6 +95,11 @@ export const useStore = create<AppState>()(
       setThemeColor: (id) => set({ themeColor: id }),
       fontSize: 'md',
       setFontSize: (id) => set({ fontSize: id }),
+      // W150: 音效 + 震动开关 (默认开, 用户可关)
+      soundEnabled: true,
+      setSoundEnabled: (v) => set({ soundEnabled: v }),
+      vibrationEnabled: true,
+      setVibrationEnabled: (v) => set({ vibrationEnabled: v }),
 
       voiceName: '',
       setVoiceName: (name) => set({ voiceName: name }),

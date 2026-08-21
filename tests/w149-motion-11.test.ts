@@ -106,9 +106,10 @@ describe('W149 反馈 37+38+39 — 3 大微动效 (Streak 徽章 / Sparkline / �
       expect(css).toMatch(/\.warning-pulse\s*\{[^}]*animation:\s*warningPulse\s+1\.5s\s+ease-in-out\s+infinite/)
     })
 
-    it('ErrorReviewPage history 卡片 session.history.length > 10 时加 warning-pulse', () => {
-      // 找 warning-pulse 应用处
-      const warnBlock = errorReview.match(/session\.history\.length\s*>\s*10\s*\?\s*['"]warning-pulse['"]/g)
+    it('ErrorReviewPage history 卡片错题数 > 5 时加 warning-pulse (W150 修语义)', () => {
+      // W150 修 (verifier-c P0-1): 触发条件从 history.length > 10 (无意义) 改为
+      //   wrongCount > 5 (实际错题数, 用户能感受到的指标)
+      const warnBlock = errorReview.match(/session\.history\.filter\(h\s*=>\s*h\.grade\s*!==\s*['"]perfect['"]\s*&&\s*h\.grade\s*!==\s*['"]good['"]\)\.length\s*>\s*5\s*\?\s*['"]warning-pulse['"]/g)
       expect(warnBlock).toBeTruthy()
       expect(warnBlock?.[0]).toContain('warning-pulse')
     })

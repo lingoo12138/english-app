@@ -3,6 +3,7 @@
 // v1.12.0-C: 加 "📊 LLM 用量" 卡片
 // W146: 加 "📊 我的使用" / "💬 反馈" / "📡 埋点设置" 入口
 import { useState, useEffect } from 'react'
+import { useStore } from '../store/useStore'
 import { useNavigate, Link } from 'react-router-dom'
 import PreferencesSection from '../components/settings/PreferencesSection'
 import TTSSection from '../components/settings/TTSSection'
@@ -27,6 +28,11 @@ export default function Settings() {
   const [usage, setUsage] = useState(() => getLLMUsageToday())
   // W146: 埋点开关 (读 + 写)
   const [telemetryOn, setTelemetryOn] = useState(() => isTelemetryEnabled())
+  // W150: 音效 + 震动开关 (verifier-a P1-5 公共/图书馆/耳鸣用户)
+  const soundEnabled = useStore(s => s.soundEnabled)
+  const setSoundEnabled = useStore(s => s.setSoundEnabled)
+  const vibrationEnabled = useStore(s => s.vibrationEnabled)
+  const setVibrationEnabled = useStore(s => s.setVibrationEnabled)
   useEffect(() => {
     setTelemetryEnabled(telemetryOn)
   }, [telemetryOn])
@@ -124,6 +130,23 @@ export default function Settings() {
               testId="settings-telemetry-toggle"
             />
             <span className="text-sm">启用使用数据收集 (local-only, 不上传云)</span>
+          </label>
+          {/* W150: 音效 + 震动开关 (verifier-a P1-5) — 公共/图书馆/耳鸣用户可关 */}
+          <label className="flex items-center gap-2 pt-2">
+            <Switch
+              checked={soundEnabled}
+              onChange={setSoundEnabled}
+              testId="settings-sound-toggle"
+            />
+            <span className="text-sm">音效 (答对/答错短促提示音, 可关)</span>
+          </label>
+          <label className="flex items-center gap-2 pt-2">
+            <Switch
+              checked={vibrationEnabled}
+              onChange={setVibrationEnabled}
+              testId="settings-vibration-toggle"
+            />
+            <span className="text-sm">震动 (mobile 答错时震动, 可关)</span>
           </label>
         </div>
       </section>

@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getAllWritingErrors, getAllDictationErrors } from '../lib/db'
+import { useStore } from '../store/useStore'
 import {
   toReviewCards,
   newReviewSession,
@@ -34,6 +35,9 @@ export default function ErrorReviewPage() {
   // W150: setTimeout 内存泄漏修复 (REVIEW_W149 P0-1) — useRef 存 timeout id
   const flyTimeoutRef = useRef<number | null>(null)
   const completeTimeoutRef = useRef<number | null>(null)
+  // W150: 音效 + 震动开关 (verifier-a P1-5)
+  const soundEnabled = useStore(s => s.soundEnabled)
+  const vibrationEnabled = useStore(s => s.vibrationEnabled)
   const [showHistory, setShowHistory] = useState(false)
   const [hasSavedSession, setHasSavedSession] = useState<{
     correct: number; wrong: number; remaining: number; total: number; ts: number; matchCount: number
@@ -186,7 +190,7 @@ export default function ErrorReviewPage() {
     })
     // W149 反馈 31: 答对/答错 短促音效 (Web Audio API 振荡器, 0 网络)
     if (result.grade === 'perfect' || result.grade === 'good') {
-      playCorrectSound()
+      if (soundEnabled) playCorrectSound()
       // W149 反馈 34: 答对时 1 颗 confetti 飞 (从顶部随机偏移)
       setFlyConfetti({
         id: Date.now(),
@@ -198,9 +202,10 @@ export default function ErrorReviewPage() {
       if (flyTimeoutRef.current) clearTimeout(flyTimeoutRef.current)
       flyTimeoutRef.current = window.setTimeout(() => setFlyConfetti(null), 750)
     } else {
-      playWrongSound()
+      if (soundEnabled) playWrongSound()
       // W149 反馈 36: 答错时震动反馈 (mobile 设备 navigator.vibrate, 0 网络)
-      if (typeof navigator !== 'undefined' && navigator.vibrate) {
+      // W150 修 (verifier-a P1-5): 受 vibrationEnabled 开关控制 (默认开, 公共/耳鸣用户可关)
+      if (vibrationEnabled && typeof navigator !== 'undefined' && navigator.vibrate) {
         try { navigator.vibrate(50) } catch { /* 桌面/不支持, 静默 fail */ }
       }
     }
@@ -208,7 +213,9 @@ export default function ErrorReviewPage() {
     if (newIsLast) {
       // W150: P0 内存泄漏修复 — clear 旧 timeout
       if (completeTimeoutRef.current) clearTimeout(completeTimeoutRef.current)
-      completeTimeoutRef.current = window.setTimeout(() => playCompleteSound(), 200)
+      completeTimeoutRef.current = window.setTimeout(() => {
+        if (soundEnabled) playCompleteSound()
+      }, 200)
     }
     // v2.0 W91: 永久 IDB 持久化 (修 verifier 找的 localStorage 架构缺陷)
     // 修 v1: 偷看 (peeked=true) 不入 IDB, 0 分会污染 wrongCount 难词判定
@@ -231,10 +238,15 @@ export default function ErrorReviewPage() {
 
   const handleNext = useCallback(() => {
     if (!session) return
+    // W150 修 (verifier-c P0-2): 真完成最后一题时跳到错题本首页 (老代码只清 lastResult, 用户看不到 summary)
+    if (session.remaining.length === 0) {
+      void navigate('/errors')
+      return
+    }
     setLastResult(null)
     setUserAnswer('')
     setPeeked(false)
-  }, [session])
+  }, [session, navigate])
 
   const handleRestart = useCallback(() => {
     if (!cards.length) return
@@ -459,7 +471,7 @@ export default function ErrorReviewPage() {
             </div>
             <div className="flex-1 h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-emerald-400 to-brand-500 transition-all duration-500 ease-[var(--ease)] progress-fill"
+                className="h-full bg-gradient-to-r from-emerald-400 to-brand-500 transition-all duration-[0.6s] ease-[var(--ease)] progress-fill"
                 style={{ width: `${progress * 100}%` }}
               />
             </div>
@@ -582,6 +594,7 @@ export default function ErrorReviewPage() {
           {!lastResult ? (
             <div
               // W149 反馈 43: 答错连续 3 题时下一题变红 5s (CSS animation 5 iterations)
+              // W150 修 (verifier-c P0-3): aria-label 文案解释 (P0 a11y 兜底)
               className={`space-y-2 ${
                 (() => {
                   const last3 = session.history.slice(-3)
@@ -589,6 +602,16 @@ export default function ErrorReviewPage() {
                   return last3AllWrong ? 'next-card-warn' : ''
                 })()
               }`}
+              role={(() => {
+                const last3 = session.history.slice(-3)
+                const last3AllWrong = last3.length === 3 && last3.every(h => h.grade !== 'perfect' && h.grade !== 'good')
+                return last3AllWrong ? 'alert' : undefined
+              })()}
+              aria-label={(() => {
+                const last3 = session.history.slice(-3)
+                const last3AllWrong = last3.length === 3 && last3.every(h => h.grade !== 'perfect' && h.grade !== 'good')
+                return last3AllWrong ? '你最近 3 题都答错了, 建议放慢速度, 重新审题' : '答题区'
+              })()}
             >
               <label className="text-sm text-stone-500">你的答案</label>
               <input
@@ -762,20 +785,26 @@ export default function ErrorReviewPage() {
         {/* 答题历史 (桌面始终展开, 不需 toggle) */}
         {session.history.length > 0 && (
           <div
+            // W150 修 (verifier-c P0-1): warning-pulse 触发条件从 "history > 10"
+            //   改成 "wrongCount > 5" (错题数才是用户感受, 总答题数无意义)
+            // + 文案 aria-label (verifier-c P0-3 a11y 兜底)
             className={`card text-sm ${
-              // W149 反馈 39: 错题超过 10 题时 warning-pulse (橙色 pulse 提示)
-              session.history.length > 10 ? 'warning-pulse' : ''
+              session.history.filter(h => h.grade !== 'perfect' && h.grade !== 'good').length > 5 ? 'warning-pulse' : ''
             }`}
             data-testid="errorreview-history"
+            aria-label="答题历史"
           >
             <div className="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-1.5 uppercase tracking-wider flex items-center gap-1 flex-wrap">
               答题历史 ({session.history.length})
-              {/* W149 反馈 37: 连续答对 5 题 streak 徽章 */}
+              {/* W149 反馈 37: 连续答对 5 题 streak 徽章
+               * W150 修 (verifier-b P1-2): streak10 触发时不显示 streak5 (双徽章语义错, 10连已包含 5连) */}
               {(() => {
-                // 计算最近 5 题连续答对 streak
                 const last5 = session.history.slice(-5)
                 const streak5 = last5.length === 5 && last5.every(h => h.grade === 'perfect' || h.grade === 'good')
-                if (streak5) {
+                // W150: 10连已包含5连, 不同时显示 (跟下面 streak10 互斥)
+                const last10 = session.history.slice(-10)
+                const streak10 = last10.length === 10 && last10.every(h => h.grade === 'perfect' || h.grade === 'good')
+                if (streak5 && !streak10) {
                   return (
                     <span
                       className="streak-badge inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-amber-400 text-amber-900 text-[10px] font-bold"
@@ -789,7 +818,8 @@ export default function ErrorReviewPage() {
                 }
                 return null
               })()}
-              {/* W149 反馈 41: 连续答对 10 题时徽章变红 + 火焰 pulse */}
+              {/* W149 反馈 41: 连续答对 10 题时徽章变红 + 火焰 pulse
+               * W150 修: 红底白字 (4.02:1) 改红底深红字 (AA 7:1) + 不再"10连"双徽章 (跟 5连 共存语义错) */}
               {(() => {
                 const last10 = session.history.slice(-10)
                 const streak10 = last10.length === 10 && last10.every(h => h.grade === 'perfect' || h.grade === 'good')
@@ -797,7 +827,9 @@ export default function ErrorReviewPage() {
                   return (
                     <>
                       <span
-                        className="streak-badge streak-badge-fire streak-fire-pulse inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-red-500 text-white text-[10px] font-bold"
+                        // W150: bg-red-100 + text-red-900 (7.05:1 WCAG AA, 远高于 4.5:1 标准)
+                        // 保留 streak-badge-fire 火焰光晕 (P0-1 reduced-motion 自动关)
+                        className="streak-badge streak-badge-fire streak-fire-pulse inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-red-100 text-red-900 text-[10px] font-bold"
                         data-testid="streak-badge-fire"
                         title="连续 10 题答对"
                       >

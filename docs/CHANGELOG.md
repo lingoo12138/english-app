@@ -2,9 +2,9 @@
 
 > 每次功能发布的变更记录 · 中英双语 (主中文, 关键段英文)
 >
-> 最后更新: 2026-08-13 (v2.1.29)
+> 最后更新: 2026-08-21 (v2.1.45)
 >
-> **English Summary**: This changelog documents 138 release tags (v0.1.0 ~ v2.1.29), 22+ weeks, 42+ major reviews (incl. 28+ verifier adversarial audits). 5,423 words / 100% coverage. 1,941 unit tests. 0 P0 + 0 P1 business-critical. See [v2.1.29](#v2129--2026-08-13) for the latest release.
+> **English Summary**: This changelog documents 154 release tags (v0.1.0 ~ v2.1.45), 23+ weeks, 50+ major reviews (incl. 31+ verifier adversarial audits). 5,423 words / 100% coverage. **2,198** unit tests. 0 P0 + 0 P1 business-critical. See [v2.1.45](#v2145--2026-08-21) for the latest release.
 
 ---
 
@@ -4805,3 +4805,122 @@ git push origin main  # 此时会带 lighthouse.yml
 - **沙盒 sub-agent 不再适合 W149+** (战略已转向, 需真用户数据)
 - **W148 主人兜底 5 周连击** (W144/W145/W146/W147/W148) — 沙盒经验复用已成 routine
 - **v3 plan 战略接受** (E 方向三步走完) — W149 真实用户招募是触发下一步的关键
+
+## [v2.1.43] - 2026-08-21
+
+### v2.1.43 W149 反馈 40+41+42+43 — NEW HIGH / 火焰徽章 / 答对率 / 错 3 红
+
+(W149 招募期间 16 反馈微动效第 14 个 commit)
+
+## [v2.1.42] - 2026-08-20
+
+### v2.1.42 W149 反馈 37+38+39 — Streak 徽章 / Sparkline / 警告
+
+## [v2.1.41] - 2026-08-20
+
+### v2.1.41 W149 反馈 34+35+36 — 单颗/大 confetti + 震动
+
+## [v2.1.40] - 2026-08-19
+
+### v2.1.40 W149 反馈 31+32+33 — 音效 + 圆环 + Sidebar 标题
+
+## [v2.1.39] - 2026-08-19
+
+### v2.1.39 W149 反馈 26-29 — Slider / 颜色脉冲 / Confetti / 字号
+
+## [v2.1.38] - 2026-08-19
+
+### v2.1.38 W149 反馈 22+24+25 — 错题进度 / Skeleton / Switch
+
+## [v2.1.37] - 2026-08-18
+
+### v2.1.37 W149 反馈 19-21 — Switch 集成 / Skeleton 扫光 / 答对错 icon
+
+## [v2.1.36] - 2026-08-18
+
+### v2.1.36 W149 反馈 16-18 — Streak milestone / Search focus / Switch
+
+## [v2.1.35] - 2026-08-17
+
+### v2.1.35 W149 反馈 11-14 — count-up / 侧边栏指示器 / AIChat / 404
+
+## [v2.1.34] - 2026-08-17
+
+### v2.1.34 W149 反馈 8-10 — Toast 滑入 / TTSButton 涟漪 / WordDetail stagger
+
+## [v2.1.33] - 2026-08-16
+
+### v2.1.33 W149 反馈 4-7 — 列表 hover / 模态 spring / 进度 fill / 暗色 fade
+
+## [v2.1.32] - 2026-08-16
+
+### v2.1.32 W149 反馈 3 — 微交互动效 (hover / 按钮 / 列表 stagger)
+
+## [v2.1.31] - 2026-08-15
+
+### v2.1.31 W149 反馈 2 — 切页面骨架闪修
+
+## [v2.1.30] - 2026-08-15
+
+### v2.1.30 W149 反馈 1 — 页面切换加过渡动效
+
+## [v2.1.45] - 2026-08-21
+
+### v2.1.45 W150 — Verifier Backlog 8 项全修 (P0/P1/P2)
+
+> W150 = v3 plan 战略收口. W146 反馈 → W147 周报 → W148 桌面 PWA → W149 招募 + 16 反馈微动效 → W150 修 verifier 找的 12 个问题. 反馈信号塔全部 4 大支柱完成.
+
+**8 项修复**:
+
+| # | 严重 | 修法 | Verifier |
+|---|------|------|----------|
+| 1 | P0 | 全局 reduced-motion 兜底 (12 装饰类 0 化) | a (UI/UX) |
+| 2 | P0 | wrong-shake fallback + 10 连徽章对比度 (red-500 4.02:1 → red-100/red-900 7.05:1 WCAG AA) | a + c |
+| 3 | P0 | warning-pulse 触发条件 (history > 10 → wrongCount > 5, 语义修) | c (Product) |
+| 4 | P0 | "完成" 按钮真跳 /errors (lastResult.isLast 死代码) | c (Product) |
+| 5 | P1 | streak5 + streak10 互斥 (双徽章 UX 修) | b (Code) |
+| 6 | P1 | 动画时长统一 600ms (圆环 + 进度条 + Home + ErrorReviewPage) | b (Code) |
+| 7 | P2 | 删 3 个死代码 keyframes (confettiPop / progressCircle / audioRipple) | b (Code) |
+| 8 | P2 | 删 playTapSound 死代码 (W149 反馈 31 早期版本) | b (Code) |
+| 9 | P1 | sound + vibration 开关 (useStore + Settings Switch, 公共/耳鸣用户可关) | a (UI/UX) |
+
+**Bonus a11y**:
+- next-card-warn: `role="alert"` + `aria-label="你最近 3 题都答错了, 建议放慢速度, 重新审题"`
+- errorreview-history: `aria-label="答题历史"`
+
+**数字**:
+- Tests: 2198/2198 pass (2177 老 + 21 W150 新)
+- CSS 减 18 行死代码
+- 0 emoji 增量 (W146 硬约束维持)
+- 0 新依赖 (浏览器原生 CSS @media + Web Audio/Vibration API)
+- TS 0 错误, build 通过
+
+**3 verifier 抗审查 (W149 招募期间)**:
+- verifier-a (UI/UX + a11y): 4 P0 + 6 P1 + 5 P2 (262 行报告)
+- verifier-b (Code Quality): 0 P0 + 4 P1 + 5 P2 (191 行报告)
+- verifier-c (Product): 3 P0 + 5 P1 + 4 P2 (216 行报告)
+
+主人 owner-self-verify 兜底 (沙盒经验第 9 次): 3 verifier 全 Token Plan 上限失败, 主人写 `docs/REVIEW_W149.md` + W150 P0-1 setTimeout 内存泄漏修复 (跟 verifier-b P1-3 交叉验证 ✅)
+
+**关键经验**:
+- 3 verifier 抗审查 + 主人兜底 = 沙盒 v3 战略下最高质量保证
+- P0-1 setTimeout 内存泄漏 — 2 个独立来源 (主人 P0 + verifier-b P1-3) 交叉确认
+- a11y 兜底 (reduced-motion + role/aria) — W144 1.00 满分 + W150 增强
+
+## [v2.1.44] - 2026-08-21
+
+### v2.1.44 W150 P0 修复 — ErrorReviewPage setTimeout 内存泄漏
+
+**修法** (15 行):
+- `flyTimeoutRef` / `completeTimeoutRef` useRef 存 timeout id
+- 每次 setTimeout 之前 clear 旧 timeout (避免累积)
+- useEffect cleanup 在 unmount 时 clear 所有 pending timeout
+- `window.setTimeout` 替代 `setTimeout` (返回 id 给 useRef.current)
+
+**Tests**: 2177/2177 pass (+4 P0 修复测试, w149-motion-12)
+
+## [v2.1.43] - 2026-08-21
+
+### v2.1.43 W149 反馈 40+41+42+43 — NEW HIGH / 火焰徽章 / 答对率 / 错 3 红
+
+(W149 招募期间 16 反馈微动效第 14 个 commit)

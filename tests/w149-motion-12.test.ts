@@ -47,12 +47,15 @@ describe('W149 反馈 40+41+42+43 — 4 大微动效 (NEW HIGH / 火焰徽章 / 
     })
 
     it('ErrorReviewPage streak10 显示 "10连" 红色徽章 (data-testid="streak-badge-fire")', () => {
-      const block = errorReview.match(/streak10[\s\S]{0,500}10连/)
+      // W150: bg-red-500 → bg-red-100 (P1-3 对比度修 7.05:1 WCAG AA)
+      // 从 bg-red-100 反向找整个徽章块 (200 字符内够)
+      const block = errorReview.match(/bg-red-100[^"]*"[\s\S]{0,500}data-testid=["']streak-badge-fire["'][\s\S]{0,500}10连/)
       expect(block).toBeTruthy()
       const b = block?.[0] || ''
       expect(b).toContain('10连')
       expect(b).toContain('data-testid="streak-badge-fire"')
-      expect(b).toContain('bg-red-500')
+      expect(b).toContain('bg-red-100')
+      expect(b).toContain('text-red-900')
       expect(b).toContain('streak-badge-fire')
       expect(b).toContain('streak-fire-pulse')
     })
