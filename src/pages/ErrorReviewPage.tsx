@@ -18,7 +18,7 @@ import { analyzeCard, updateCardDifficulty, difficultyStyle, trendArrow, countBy
 import { buildReviewReport, formatReport } from '../lib/errorReviewReport'
 import { toast } from '../components/Toast'
 import { SkeletonPage } from '../components/Skeleton'
-import { IconRefresh, IconSparkles, IconTrophy, IconEdit, IconHeadphones, IconChart, IconCheck, IconClose } from '../components/Icon'
+import { IconRefresh, IconSparkles, IconTrophy, IconEdit, IconHeadphones, IconChart, IconCheck, IconClose, IconStar } from '../components/Icon'
 import { CountUp } from '../components/CountUp'
 import { playCorrectSound, playWrongSound, playCompleteSound } from '../lib/sound'
 
@@ -310,13 +310,13 @@ export default function ErrorReviewPage() {
     // 等待用户选 继续/重新开始
     return (
       <div className="space-y-4 max-w-2xl mx-auto">
-        <h1 className="text-2xl font-bold">🔁 错题复习</h1>
+        <h1 className="text-2xl font-bold"><IconRefresh size={24} className="inline-block mr-1.5 align-text-bottom" />错题复习</h1>
         <div className="card text-center py-10">
-          <div className="text-5xl mb-3">📋</div>
+          <IconChart size={48} className="mx-auto mb-3 text-stone-400" />
           <p className="text-lg mb-1">发现上次未完成的复习</p>
           <p className="text-sm text-stone-500 mb-1">
             已答 {hasSavedSession.correct + hasSavedSession.wrong} / {hasSavedSession.total} 题
-            (✓ {hasSavedSession.correct} ✗ {hasSavedSession.wrong}, 还剩 {hasSavedSession.remaining} 题)
+            (<IconCheck size={12} className="inline-block align-text-bottom text-emerald-500" /> {hasSavedSession.correct} <IconClose size={12} className="inline-block align-text-bottom text-rose-500" /> {hasSavedSession.wrong}, 还剩 {hasSavedSession.remaining} 题)
           </p>
           <p className="text-xs text-stone-400 mb-4">
             上次复习于 {formatTimeAgo(hasSavedSession.ts)}
@@ -327,7 +327,7 @@ export default function ErrorReviewPage() {
               ▶️ 继续上次
             </button>
             <button onClick={handleStartFresh} className="btn-ghost">
-              🔁 重新开始
+              <IconRefresh size={14} className="inline-block mr-1 align-text-bottom" />重新开始
             </button>
             <button onClick={() => navigate(-1)} className="btn-ghost text-sm">
               ← 返回
@@ -399,7 +399,7 @@ export default function ErrorReviewPage() {
               />
             </div>
           )}
-          <h1 className="text-2xl font-bold">🔁 错题复习</h1>
+          <h1 className="text-2xl font-bold"><IconRefresh size={24} className="inline-block mr-1.5 align-text-bottom" />错题复习</h1>
           <button onClick={() => navigate('/errors')} className="text-stone-500 hover:text-stone-700">
             ← 改错本
           </button>
@@ -430,10 +430,10 @@ export default function ErrorReviewPage() {
             const counts = countByDifficulty(session, session.remaining)
             return (
               <div className="flex items-center gap-2 text-xs text-stone-500 mb-2">
-                <span>🌟 掌握 {counts.mastered}</span>
-                <span>🟢 易 {counts.easy}</span>
-                <span>🟡 中 {counts.medium}</span>
-                <span>🔴 难 {counts.hard}</span>
+                <span><IconStar size={12} className="inline-block align-text-bottom text-amber-500" />掌握 {counts.mastered}</span>
+                <span><span className="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-0.5 align-middle" />易 {counts.easy}</span>
+                <span><span className="inline-block w-2 h-2 rounded-full bg-amber-500 mr-0.5 align-middle" />中 {counts.medium}</span>
+                <span><span className="inline-block w-2 h-2 rounded-full bg-rose-500 mr-0.5 align-middle" />难 {counts.hard}</span>
               </div>
             )
           })()}
@@ -481,7 +481,7 @@ export default function ErrorReviewPage() {
       {/* 完成 summary */}
       {isComplete ? (
         <div className="card text-center py-8">
-          <div className="text-5xl mb-3">🎉</div>
+          <IconTrophy size={48} className="mx-auto mb-3 text-amber-500" />
           <p className="text-xl font-bold mb-2">复习完成!</p>
           {/* W96: 学习报告 */}
           {(() => {
@@ -491,7 +491,7 @@ export default function ErrorReviewPage() {
               <div className="text-left max-w-md mx-auto mb-4 space-y-2">
                 {/* 准确率 + 标签 */}
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-stone-500">📊 准确率</span>
+                  <span className="text-stone-500">准确率</span>
                   <span>
                     <span className="text-2xl font-bold text-brand-500 mr-2">{report.accuracy}%</span>
                     <span className="text-stone-500">{labels.accuracyLabel}</span>
@@ -499,14 +499,14 @@ export default function ErrorReviewPage() {
                 </div>
                 {/* 分数统计 */}
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-stone-500">📈 分数</span>
+                  <span className="text-stone-500">分数</span>
                   <span className="text-stone-600">
                     平均 <b>{report.avgScore}</b> · 最高 <b className="text-emerald-500">{report.bestScore}</b> · 最低 <b className="text-rose-500">{report.worstScore}</b>
                   </span>
                 </div>
                 {/* 难度分布 */}
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-stone-500">🎯 难度</span>
+                  <span className="text-stone-500">难度</span>
                   <span className="text-stone-600">{labels.difficultyLabel}</span>
                 </div>
                 {/* 成绩分布 */}
@@ -516,7 +516,7 @@ export default function ErrorReviewPage() {
                 </div>
                 {/* 偷看率 */}
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-stone-500">👀 偷看</span>
+                  <span className="text-stone-500">偷看</span>
                   <span className="text-stone-600 text-xs">{labels.peekLabel}</span>
                 </div>
                 {/* 鼓励标签 */}
@@ -527,14 +527,15 @@ export default function ErrorReviewPage() {
             )
           })()}
           {session.wrong > 0 && (
-            <p className="text-amber-500 text-sm mb-4">
-              ⚠️ {session.wrong} 题错过, 但已自动重排
+            <p className="text-amber-500 text-sm mb-4 inline-flex items-center gap-1">
+              <IconSparkles size={14} />
+              {session.wrong} 题错过, 但已自动重排
             </p>
           )}
           <div className="flex justify-center gap-2 mt-4 flex-wrap">
-            <button onClick={handleRestart} className="btn-primary">🔁 再来一轮</button>
+            <button onClick={handleRestart} className="btn-primary"><IconRefresh size={14} className="inline-block mr-1 align-text-bottom" />再来一轮</button>
             <button onClick={() => navigate('/errors/history')} className="btn-ghost inline-flex items-center gap-1.5"><IconChart size={14} /> 错题统计</button>
-            <button onClick={() => navigate('/errors')} className="btn-ghost">📋 改错本</button>
+            <button onClick={() => navigate('/errors')} className="btn-ghost inline-flex items-center gap-1.5"><IconChart size={14} /> 改错本</button>
           </div>
         </div>
       ) : currentCard ? (
@@ -553,8 +554,8 @@ export default function ErrorReviewPage() {
               )
             })()}
             {currentCard.hint && (
-              <span className="px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded text-xs">
-                💡 {currentCard.hint}
+              <span className="px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded text-xs inline-flex items-center gap-1">
+                <IconSparkles size={12} />{currentCard.hint}
               </span>
             )}
           </div>
@@ -574,7 +575,7 @@ export default function ErrorReviewPage() {
             return (
               <div className="mb-4 p-2 bg-stone-50 dark:bg-stone-800 rounded text-xs">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-stone-500">📊 最近 {analysis.recentScores.length} 次分数</span>
+                  <span className="text-stone-500">最近 {analysis.recentScores.length} 次分数</span>
                   <span className="text-stone-400">best {analysis.bestScore} · worst {analysis.worstScore}</span>
                 </div>
                 <div className="flex gap-1">
@@ -642,12 +643,12 @@ export default function ErrorReviewPage() {
                       : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300'
                   }`}
                 >
-                  {peeked ? '🙈 隐藏' : '👀 偷看'}
+                  {peeked ? '隐藏' : '偷看'}
                 </button>
               </div>
               {peeked && (
                 <div className="mt-2 p-2 bg-amber-50 dark:bg-amber-900/20 rounded text-sm border border-amber-300">
-                  <div className="text-xs text-amber-600 mb-1">⚠️ 偷看后此题不计分, 但仍需输入答案提交以继续</div>
+                  <div className="text-xs text-amber-600 mb-1 inline-flex items-center gap-1"><IconSparkles size={12} />偷看后此题不计分, 但仍需输入答案提交以继续</div>
                   <span className="text-stone-500">答案: </span>
                   <span className="font-mono text-emerald-700 dark:text-emerald-300">{currentCard.answer}</span>
                 </div>
@@ -680,10 +681,10 @@ export default function ErrorReviewPage() {
                   <span className="font-mono text-emerald-700 dark:text-emerald-300">{lastResult.card.answer}</span>
                 </div>
                 {!lastResult.isCorrect && !lastResult.peeked && (
-                  <div className="mt-2 text-xs text-rose-500">🔁 此题将再次出现</div>
+                  <div className="mt-2 text-xs text-rose-500"><IconRefresh size={12} className="inline-block mr-0.5 align-text-bottom" />此题将再次出现</div>
                 )}
                 {lastResult.isCorrect && (
-                  <div className="mt-2 text-xs text-emerald-500">✓ 此题已答对, 移出复习池</div>
+                  <div className="mt-2 text-xs text-emerald-500 inline-flex items-center gap-0.5"><IconCheck size={12} />此题已答对, 移出复习池</div>
                 )}
               </div>
               <button
@@ -706,7 +707,7 @@ export default function ErrorReviewPage() {
           onToggle={(e) => setShowHistory((e.target as HTMLDetailsElement).open)}
         >
           <summary className="cursor-pointer text-stone-500">
-            📜 答题历史 ({session.history.length}) {showHistory ? '▼' : '▶'}
+            答题历史 ({session.history.length}) {showHistory ? '收起' : '展开'}
           </summary>
           <div className="mt-2 space-y-1">
             {session.history.slice().reverse().map((h, i) => (
@@ -715,7 +716,7 @@ export default function ErrorReviewPage() {
                 <span className={
                   h.grade === 'perfect' || h.grade === 'good' ? 'text-emerald-500' : 'text-rose-500'
                 }>
-                  {h.score} ({h.grade}){h.peeked ? ' 👀' : ''}
+                  {h.score} ({h.grade}){h.peeked ? ' (偷看)' : ''}
                 </span>
               </div>
             ))}
@@ -756,7 +757,7 @@ export default function ErrorReviewPage() {
               正: <span className="font-mono text-emerald-600 dark:text-emerald-400">{lastResult.card.answer}</span>
             </div>
             {!lastResult.isCorrect && !lastResult.peeked && (
-              <div className="text-[10px] text-rose-500 mt-1">🔁 此题将再次出现</div>
+              <div className="text-[10px] text-rose-500 mt-1 inline-flex items-center gap-0.5"><IconRefresh size={10} className="inline-block align-text-bottom" />此题将再次出现</div>
             )}
           </div>
         )}
@@ -772,7 +773,7 @@ export default function ErrorReviewPage() {
                 下次预
               </div>
               <div className="text-[10px] text-stone-500 dark:text-stone-400 mb-1">
-                源: {nextCard.source} {nextCard.hint && `· 💡 ${nextCard.hint}`}
+                源: {nextCard.source} {nextCard.hint && `· ${nextCard.hint}`}
               </div>
               <div className="text-xs font-mono text-rose-700 dark:text-rose-300 line-clamp-3">
                 {nextCard.prompt}
@@ -910,7 +911,7 @@ export default function ErrorReviewPage() {
                   <span className={
                     h.grade === 'perfect' || h.grade === 'good' ? 'text-emerald-500' : 'text-rose-500'
                   }>
-                    {h.score} ({h.grade}){h.peeked ? ' 👀' : ''}
+                    {h.score} ({h.grade}){h.peeked ? ' (偷看)' : ''}
                   </span>
                 </div>
               ))}

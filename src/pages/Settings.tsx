@@ -1,7 +1,7 @@
 // 设置 - v0.22.2 拆为 6 个子组件
-// v1.8.0-A: 加 "🔄 重新看引导" 按钮 (清除 onboarded 标志)
-// v1.12.0-C: 加 "📊 LLM 用量" 卡片
-// W146: 加 "📊 我的使用" / "💬 反馈" / "📡 埋点设置" 入口
+// v1.8.0-A: 加 "重新看引导" 按钮 (清除 onboarded 标志)
+// v1.12.0-C: 加 "LLM 用量" 卡片
+// W146: 加 "我的使用" / 反馈 / 埋点设置 入口
 import { useState, useEffect } from 'react'
 import { useStore } from '../store/useStore'
 import { useNavigate, Link } from 'react-router-dom'
@@ -19,7 +19,7 @@ import { clearOnboarded } from '../components/Onboarding'
 import { useTranslate } from '../lib/useTranslate'
 import { getLLMUsageToday, resetLLMUsageToday, DAILY_LIMITS, type LLMCategory } from '../lib/llmUsage'
 import { isTelemetryEnabled, setTelemetryEnabled } from '../lib/telemetry'
-import { IconChart, IconChat } from '../components/Icon'
+import { IconChart, IconChat, IconRefresh, IconSparkles } from '../components/Icon'
 
 export default function Settings() {
   const navigate = useNavigate()
@@ -50,10 +50,11 @@ export default function Settings() {
     refreshUsage()
   }
 
-  const CATEGORIES: Array<{ key: LLMCategory; label: string; emoji: string }> = [
-    { key: 'write', label: '写作批改/中译英', emoji: '✍️' },
-    { key: 'chat', label: 'AI 对话', emoji: '💬' },
-    { key: 'explain', label: '错题/短语/语法/同义词讲解', emoji: '📚' },
+  // W151 0 emoji 硬约束: emoji 字段删 (Icon 替, UI 渲染 <span>{label}</span>)
+  const CATEGORIES: Array<{ key: LLMCategory; label: string }> = [
+    { key: 'write', label: '写作批改/中译英' },
+    { key: 'chat', label: 'AI 对话' },
+    { key: 'explain', label: '错题/短语/语法/同义词讲解' },
   ]
 
   return (
@@ -62,8 +63,9 @@ export default function Settings() {
         <h1 className="text-2xl font-bold mb-1">{t('settings.page_title')}</h1>
         <p className="text-stone-500 dark:text-stone-400 text-sm">{t('settings.theme')} · {t('settings.color')} · {t('settings.contrast')}</p>
         <p className="text-stone-500 dark:text-stone-400 text-sm">个性化你的学习体验</p>
-        <p className="text-xs text-amber-600 dark:text-amber-400 mt-1.5">
-          ⚠️ 所有 API Key 明文存于浏览器 localStorage, 公共电脑请勿填写
+        <p className="text-xs text-amber-600 dark:text-amber-400 mt-1.5 inline-flex items-center gap-1">
+          <IconSparkles size={12} />
+          所有 API Key 明文存于浏览器 localStorage, 公共电脑请勿填写
         </p>
       </div>
 
@@ -79,13 +81,14 @@ export default function Settings() {
 
       {/* v1.8.0-A: 重新看引导 */}
       <section className="card stagger-item">
-        <h3 className="font-semibold mb-3">🎓 引导</h3>
+        <h3 className="font-semibold mb-3">引导</h3>
         <button
           onClick={handleReplayOnboarding}
           className="btn-ghost text-sm w-full"
           aria-label="清除 onboarding 标志, 跳回首页重新查看引导"
         >
-          🔄 重新看引导
+          <IconRefresh size={14} className="inline-block mr-1 align-text-bottom" />
+          重新看引导
         </button>
         <p className="text-xs text-stone-500 dark:text-stone-400 mt-2">
           清除首次使用标记, 跳回首页重新弹 onboarding 弹层
@@ -154,14 +157,15 @@ export default function Settings() {
       {/* v1.12.0-C: LLM 用量 */}
       <section className="card stagger-item">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="font-semibold">📊 LLM 用量 (今日)</h3>
+          <h3 className="font-semibold">LLM 用量 (今日)</h3>
           <div className="flex gap-2">
             <button
               onClick={refreshUsage}
               className="btn-ghost text-xs"
               aria-label="刷新用量"
             >
-              🔄 刷新
+              <IconRefresh size={12} className="inline-block mr-0.5 align-text-bottom" />
+              刷新
             </button>
             <button
               onClick={handleResetUsage}
@@ -173,7 +177,7 @@ export default function Settings() {
           </div>
         </div>
         <div className="space-y-3">
-          {CATEGORIES.map(({ key, label, emoji }) => {
+          {CATEGORIES.map(({ key, label }) => {
             const used = usage[key] || 0
             const limit = DAILY_LIMITS[key]
             const pct = Math.min(100, Math.round((used / limit) * 100))
@@ -181,9 +185,9 @@ export default function Settings() {
             return (
               <div key={key}>
                 <div className="flex items-center justify-between text-xs mb-1">
-                  <span>{emoji} {label}</span>
+                  <span>{label}</span>
                   <span className={overLimit ? 'text-red-500 font-medium' : 'text-stone-500'}>
-                    {used} / {limit} {overLimit && '⚠️'}
+                    {used} / {limit} {overLimit && '(超限)'}
                   </span>
                 </div>
                 <div className="h-1.5 bg-stone-200 dark:bg-stone-700 rounded overflow-hidden">
@@ -196,8 +200,9 @@ export default function Settings() {
             )
           })}
         </div>
-        <p className="text-xs text-stone-500 dark:text-stone-400 mt-3">
-          💡 限制每日 LLM 调用次数, 跨日自动重置。超限需明天或换 Mock 渠道
+        <p className="text-xs text-stone-500 dark:text-stone-400 mt-3 inline-flex items-start gap-1">
+          <IconSparkles size={12} className="mt-0.5 flex-shrink-0" />
+          限制每日 LLM 调用次数, 跨日自动重置。超限需明天或换 Mock 渠道
         </p>
       </section>
 

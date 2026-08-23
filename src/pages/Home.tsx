@@ -8,7 +8,7 @@ import DailySentenceCard from '../components/home/DailySentenceCard'
 import DailyWordCard from '../components/home/DailyWordCard'
 import ReviewReminderCard from '../components/home/ReviewReminderCard'
 import { ShareModal } from '../components/ShareModal'
-import { IconWaving, IconTrophy, IconBarChart, IconEdit, IconCalendar, IconVideo, IconChat, IconHeadphones, IconStar } from '../components/Icon'
+import { IconWaving, IconTrophy, IconBarChart, IconEdit, IconCalendar, IconVideo, IconChat, IconHeadphones, IconStar, IconBook } from '../components/Icon'
 import { loadAchievementStats, getUnlockedCount, getNextAchievement } from '../lib/achievements'
 import { getTodaySentence } from '../lib/daily'
 import { loadWords, loadWordsByLetter } from '../lib/words'
@@ -108,7 +108,7 @@ export default function Home() {
   const prevLevelRef = useRef<number>(xpState.level)
   useEffect(() => {
     if (xpState.level > prevLevelRef.current) {
-      toast.success(`🎉 升级到 Lv.${xpState.level} ${xpState.levelTitle}!`)
+      toast.success(`升级到 Lv.${xpState.level} ${xpState.levelTitle}!`)
     }
     prevLevelRef.current = xpState.level
   }, [xpState.level, xpState.levelTitle])
@@ -146,7 +146,8 @@ export default function Home() {
             className="text-xs px-3 min-h-6 m-1 rounded-full bg-white/20 backdrop-blur hover:bg-white/30 active:scale-95 transition-all duration-[var(--t-base)] ease-[var(--ease)] flex items-center"
             aria-label="分享学习进度"
           >
-            📤 分享
+            <IconChart size={16} className="inline-block mr-1 align-text-bottom" />
+            分享
           </button>
         </div>
         <div className="flex items-center gap-3 mt-4 pt-4 border-t border-white/15">
@@ -345,7 +346,7 @@ export default function Home() {
                       }`
                     : 'bg-stone-100 dark:bg-stone-800 text-stone-400'
                 }`}
-                title={`${m.label} (${m.days} 天)${m.reached ? ' ✓' : ''}`}
+                title={`${m.label} (${m.days} 天)${m.reached ? ' 已达成' : ''}`}
               >
                 <div className="text-base">{m.emoji}</div>
                 {/* W144 a11y: 字号 9→10px + 文字 stone-600/dark:stone-300 (contrast 4.6:1 light / 7:1 dark, WCAG AA pass) */}
@@ -363,7 +364,7 @@ export default function Home() {
         <h3 className="text-sm font-semibold text-stone-500 dark:text-stone-400 mb-3">快捷入口</h3>
         <div className="grid grid-cols-2 gap-3">
           <Link to="/words" className="card-interactive text-center py-6">
-            <div className="text-3xl mb-2">📚</div>
+            <div className="text-3xl mb-2 text-brand-500"><IconBook size={32} className="mx-auto" /></div>
             <div className="font-medium">浏览词库</div>
             <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">5000+ 高频词</div>
           </Link>
@@ -373,7 +374,7 @@ export default function Home() {
             <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">智能间隔重复</div>
           </Link>
           <Link to="/translate" className="card-interactive text-center py-6">
-            <div className="text-3xl mb-2">🔤</div>
+            <div className="text-3xl mb-2 text-brand-500"><IconChat size={32} className="mx-auto" /></div>
             <div className="font-medium">中英翻译</div>
             <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">即时查询</div>
           </Link>
